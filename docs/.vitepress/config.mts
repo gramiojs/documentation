@@ -37,6 +37,10 @@ export default defineConfig({
 								text: "Overview",
 								link: "/keyboards/overview",
 							},
+							{
+								text: "Keyboard",
+								link: "/keyboards/keyboard",
+							},
 						],
 					},
 				],
