@@ -1,6 +1,7 @@
 # Keyboard
 
-This keyboard is shown under the input field and also known as Reply Keyboard.
+This keyboard is shown under the input field and also known as Reply/Custom Keyboard.
+Represents a [custom keyboard](https://core.telegram.org/bots/features#keyboards) with reply options (see [Introduction to bots](https://core.telegram.org/bots/features#keyboards) for details and examples).
 
 ## Import
 

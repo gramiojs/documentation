@@ -1,6 +1,6 @@
 # Inline Keyboard
 
-Inline Keyboard is attached to the message.
+Inline Keyboard is attached to the message. Represents an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) that appears right next to the message it belongs to.
 
 ## Import
 
