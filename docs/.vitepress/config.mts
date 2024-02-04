@@ -2,7 +2,7 @@ import { defineConfig } from "vitepress";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-	title: "GramIO - an amazing telegram bot framework",
+	title: "GramIO",
 	description: "Build your bots with convenience!",
 	vite: {
 		publicDir: "../public",
@@ -15,24 +15,35 @@ export default defineConfig({
 	},
 	themeConfig: {
 		logo: "logo.svg",
+		search: {
+			provider: "local",
+		},
 		// https://vitepress.dev/reference/default-theme-config
 		nav: [
 			{ text: "Home", link: "/" },
-			{ text: "Examples", link: "/markdown-examples" },
+			// { text: "Examples", link: "/markdown-examples" },
 		],
 
 		sidebar: [
 			{
-				text: "Examples",
+				text: "Guide",
 				items: [
-					{ text: "Markdown Examples", link: "/markdown-examples" },
-					{ text: "Runtime API Examples", link: "/api-examples" },
+					{ text: "Get started", link: "/get-started" },
+					{
+						text: "Keyboards",
+						collapsed: false,
+						items: [
+							{
+								text: "Overview",
+								link: "/keyboards/overview",
+							},
+						],
+					},
 				],
 			},
 		],
-
 		socialLinks: [
-			{ icon: "github", link: "https://github.com/vuejs/vitepress" },
+			{ icon: "github", link: "https://github.com/gramiojs/gramio" },
 		],
 	},
 });

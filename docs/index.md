@@ -9,17 +9,16 @@ hero:
         src: /logo.svg
     actions:
         - theme: brand
-          text: Markdown Examples
-          link: /markdown-examples
-        - theme: alt
-          text: API Examples
-          link: /api-examples
-
+          text: Get started
+          link: /get-started
+        # - theme: alt
+        #   text: API Examples
+        #   link: /api-examples
 features:
-    - title: Feature AS
-      details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-    - title: Feature B
-      details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-    - title: Feature C
-      details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+    - title: Not
+      details:
+    - title: Ready
+      details:
+    - title: Yet
+      details:
 ---
