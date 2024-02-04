@@ -235,7 +235,7 @@ new InlineKeyboard()
         isAdmin,
         InlineKeyboard.text("raw button by InlineKeyboard.text", "payload")
     )
-    .add(
+    .addIf(
         ({ index, rowIndex }) => rowIndex === index,
         ...labels.map((x) => InlineKeyboard.text(x, `${x}payload`))
     );
