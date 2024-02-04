@@ -33,5 +33,6 @@ Targets:
 Example: A user votes in a poll, bot returns confirmation message in reply to the vote and removes the keyboard for that user, while still showing the keyboard with poll options to users who haven't voted yet.
 
 ```ts
-new RemoveKeyboard().selective();
+new RemoveKeyboard().selective(); // to enable
+new RemoveKeyboard().selective(false); // to disable
 ```

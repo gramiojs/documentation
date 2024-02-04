@@ -120,8 +120,8 @@ new Keyboard().text("some text").oneTime(false); // to disable
 Requests clients to always show the keyboard when the regular keyboard is hidden. Defaults to `false`, in which case the custom keyboard can be hidden and opened with a keyboard icon. Defaults to `false`.
 
 ```ts
-new Keyboard().text("some text").oneTime(); // to enable
-new Keyboard().text("some text").oneTime(false); // to disable
+new Keyboard().text("some text").persistent(); // to enable
+new Keyboard().text("some text").persistent(false); // to disable
 ```
 
 ### persistent
@@ -137,8 +137,8 @@ Targets:
 _Example:_ A user requests to change the bot's language, bot replies to the request with a keyboard to select the new language. Other users in the group don't see the keyboard. Defaults to `false`.
 
 ```ts
-new Keyboard().text("some text").persistent(); // to enable
-new Keyboard().text("some text").persistent(false); // to disable
+new Keyboard().text("some text").selective(); // to enable
+new Keyboard().text("some text").selective(false); // to disable
 ```
 
 ### placeholder
