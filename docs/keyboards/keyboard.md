@@ -88,3 +88,61 @@ webApp button. Described [Web App](https://core.telegram.org/bots/webapps) will 
 ```ts
 new Keyboard().webApp("some button text", "https://...");
 ```
+
+## Options ([Documentation](https://core.telegram.org/bots/api/#replykeyboardmarkup))
+
+These parameters are responsible for the settings of the buttons
+
+### resized
+
+Requests clients to resize the keyboard vertically for optimal fit (e.g., make the keyboard smaller if there are just two rows of buttons). If `false`, in which case the custom keyboard is always of the same height as the app's standard keyboard. Defaults to `true`.
+
+```ts
+new Keyboard().text("some text").resized(); // to enable
+new Keyboard().text("some text").resized(false); // to disable
+```
+
+> [!WARNING]
+> The buttons are resized by default! To cancel this, use `.resized(false)`
+
+### oneTime
+
+Requests clients to hide the keyboard as soon as it's been used. The keyboard will still be available, but clients will automatically display the usual letter-keyboard in the chat - the user can press a special button in the input field to see the custom keyboard again. Defaults to `false`.
+
+```ts
+new Keyboard().text("some text").oneTime(); // to enable
+new Keyboard().text("some text").oneTime(false); // to disable
+```
+
+### persistent
+
+Requests clients to always show the keyboard when the regular keyboard is hidden. Defaults to `false`, in which case the custom keyboard can be hidden and opened with a keyboard icon. Defaults to `false`.
+
+```ts
+new Keyboard().text("some text").oneTime(); // to enable
+new Keyboard().text("some text").oneTime(false); // to disable
+```
+
+### persistent
+
+Use this parameter if you want to show the keyboard to specific users only. Targets:
+
+1. users that are \@mentioned in the _text_ of the [Message](https://core.telegram.org/bots/api/#message) object
+
+2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message.
+
+_Example:_ A user requests to change the bot's language, bot replies to the request with a keyboard to select the new language. Other users in the group don't see the keyboard. Defaults to `false`.
+
+```ts
+new Keyboard().text("some text").persistent(); // to enable
+new Keyboard().text("some text").persistent(false); // to disable
+```
+
+### placeholder
+
+The placeholder to be shown in the input field when the keyboard is active. 1-64 characters. Defaults to `not to be`.
+
+```ts
+new Keyboard().text("some text").placeholder("some text"); // to enable
+new Keyboard().text("some text").placeholder(); // to disable
+```
