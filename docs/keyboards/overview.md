@@ -4,9 +4,25 @@
 
 ### Installation (not required for GramIO users)
 
-```bash
-npm i @gramio/keyboards
+::: code-group
+
+```bash [npm]
+npm install @gramio/keyboards
 ```
+
+```bash [yarn]
+yarn add @gramio/keyboards
+```
+
+```bash [pnpm]
+pnpm add @gramio/keyboards
+```
+
+```bash [bun]
+bun install @gramio/keyboards
+```
+
+:::
 
 ## Usage
 
