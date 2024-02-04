@@ -221,6 +221,26 @@ new InlineKeyboard()
     .add(...labels.map((x) => InlineKeyboard.text(x, `${x}payload`)));
 ```
 
+### addIf
+
+Allows you to dynamically substitute buttons depending on something.
+
+```ts
+const labels = ["some", "buttons"];
+const isAdmin = true;
+
+new InlineKeyboard()
+    .addIf(1 === 2, { text: "raw button", callback_data: "payload" })
+    .addIf(
+        isAdmin,
+        InlineKeyboard.text("raw button by InlineKeyboard.text", "payload")
+    )
+    .add(
+        ({ index, rowIndex }) => rowIndex === index,
+        ...labels.map((x) => InlineKeyboard.text(x, `${x}payload`))
+    );
+```
+
 ### matrix
 
 Allows you to create a button matrix.

@@ -232,6 +232,29 @@ new Keyboard()
     .add(...labels.map((x) => Keyboard.text(x)));
 ```
 
+### addIf
+
+Allows you to dynamically substitute buttons depending on something.
+
+```ts
+const labels = ["some", "buttons"];
+const isAdmin = true;
+
+new Keyboard()
+    .addIf(1 === 2, { text: "raw button" })
+    .addIf(isAdmin, Keyboard.text("raw button by Keyboard.text"))
+    .addIf(
+        ({ index, rowIndex }) => rowIndex === index,
+        ...labels.map((x) => Keyboard.text(x))
+    );
+```
+
+handler is
+
+```ts
+(options: { rowIndex: number; index: number }) => boolean;
+```
+
 ### matrix
 
 Allows you to create a button matrix.
