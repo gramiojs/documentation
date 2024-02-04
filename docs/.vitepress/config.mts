@@ -41,6 +41,10 @@ export default defineConfig({
 								text: "Keyboard",
 								link: "/keyboards/keyboard",
 							},
+							{
+								text: "Inline Keyboard",
+								link: "/keyboards/inline-keyboard",
+							},
 						],
 					},
 				],
