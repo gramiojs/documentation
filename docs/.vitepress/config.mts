@@ -14,7 +14,7 @@ export default defineConfig({
 		},
 	},
 	themeConfig: {
-		logo: "logo.svg",
+		logo: "/logo.svg",
 		search: {
 			provider: "local",
 		},
@@ -44,6 +44,10 @@ export default defineConfig({
 							{
 								text: "Inline Keyboard",
 								link: "/keyboards/inline-keyboard",
+							},
+							{
+								text: "Remove Keyboard",
+								link: "/keyboards/remove-keyboard",
 							},
 						],
 					},
