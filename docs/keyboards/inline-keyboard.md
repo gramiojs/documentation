@@ -127,13 +127,11 @@ new InlineKeyboard().switchToChosenChat("Open Inline mod", "InlineQuery");
 Description of the game that will be launched when the user presses the button.
 
 ```ts
-new InlineKeyboard().switchToChosenChat("Open Inline mod");
-// or
-new InlineKeyboard().switchToChosenChat("Open Inline mod", "InlineQuery");
+new InlineKeyboard().game("text", ???);
 ```
 
 > [!DANGER]
-> TelegramCallbackGame is empty and keyboard is not working yet
+> TelegramCallbackGame is empty (placeholder Telegram Bot API Object) and keyboard is not working yet
 
 > [!WARNING]
 > This type of button **must** always be the first button in the first row.
