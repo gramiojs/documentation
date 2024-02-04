@@ -22,7 +22,9 @@ These parameters are responsible for the settings of the removal buttons
 
 ### selective
 
-Use this parameter if you want to remove the keyboard for specific users only. Targets:
+Use this parameter if you want to remove the keyboard for specific users only.
+
+Targets:
 
 1. users that are \@mentioned in the
    _text_ of the [Message](https://core.telegram.org/bots/api/#message) object.

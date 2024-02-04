@@ -126,11 +126,13 @@ new Keyboard().text("some text").oneTime(false); // to disable
 
 ### persistent
 
-Use this parameter if you want to show the keyboard to specific users only. Targets:
+Use this parameter if you want to show the keyboard to specific users only.
 
-1. users that are \@mentioned in the _text_ of the [Message](https://core.telegram.org/bots/api/#message) object
+Targets:
 
-2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message.
+1. users that are \@mentioned in the _text_ of the [Message](https://core.telegram.org/bots/api/#message) object.
+
+2. if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message.
 
 _Example:_ A user requests to change the bot's language, bot replies to the request with a keyboard to select the new language. Other users in the group don't see the keyboard. Defaults to `false`.
 

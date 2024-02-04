@@ -22,7 +22,12 @@ These parameters are responsible for the settings of the force reply keyboard
 
 ### selective
 
-Use this parameter if you want to force reply from specific users only. Targets: 1) users that are \@mentioned in the _text_ of the [Message](https://core.telegram.org/bots/api/#message) object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message.
+Use this parameter if you want to force reply from specific users only.
+
+Targets:
+
+1. users that are \@mentioned in the _text_ of the [Message](https://core.telegram.org/bots/api/#message) object.
+2. if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message.
 
 ```ts
 new ForceReplyKeyboard().selective();
@@ -30,7 +35,12 @@ new ForceReplyKeyboard().selective();
 
 ### selective
 
-Use this parameter if you want to force reply from specific users only. Targets: 1) users that are \@mentioned in the _text_ of the [Message](https://core.telegram.org/bots/api/#message) object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message.
+Use this parameter if you want to force reply from specific users only.
+
+Targets:
+
+1. users that are \@mentioned in the _text_ of the [Message](https://core.telegram.org/bots/api/#message) object.
+2. if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message.
 
 ```ts
 new ForceReplyKeyboard().selective();
