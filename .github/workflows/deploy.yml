@@ -3,6 +3,7 @@ name: Build and Deploy documentation to Netlify
 on:
     push:
     pull_request:
+    workflow_dispatch:
 
 jobs:
     build:
@@ -15,7 +16,7 @@ jobs:
               uses: oven-sh/setup-bun@v1
 
             - name: Install modules
-              run: bun ci
+              run: bun install
 
             - name: Build
               run: bun run build
