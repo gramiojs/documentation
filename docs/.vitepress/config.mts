@@ -49,6 +49,10 @@ export default defineConfig({
 								text: "Remove Keyboard",
 								link: "/keyboards/remove-keyboard",
 							},
+							{
+								text: "Force Reply Keyboard",
+								link: "/keyboards/force-reply-keyboard",
+							},
 						],
 					},
 				],
