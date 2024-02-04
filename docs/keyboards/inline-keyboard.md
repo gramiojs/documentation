@@ -222,3 +222,28 @@ new InlineKeyboard()
     .add(InlineKeyboard.text("raw button by InlineKeyboard.text", "payload"))
     .add(...labels.map((x) => InlineKeyboard.text(x, `${x}payload`)));
 ```
+
+### matrix
+
+Allows you to create a button matrix.
+
+```ts
+import { randomInt } from "node:crypto";
+
+const bomb = [randomInt(0, 9), randomInt(0, 9)] as const;
+
+new InlineKeyboard().matrix(10, 10, ({ rowIndex, index }) =>
+    InlineKeyboard.text(
+        rowIndex === bomb[0] && index === bomb[1] ? "💣" : "ㅤ",
+        "payload"
+    )
+);
+```
+
+The result is keyboard with a bomb on a random button
+
+handler is
+
+```ts
+(options: { index: number; rowIndex: number }) => T;
+```

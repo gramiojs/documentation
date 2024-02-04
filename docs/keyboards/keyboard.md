@@ -231,3 +231,25 @@ new Keyboard()
     .add(Keyboard.text("raw button by Keyboard.text"))
     .add(...labels.map((x) => Keyboard.text(x)));
 ```
+
+### matrix
+
+Allows you to create a button matrix.
+
+```ts
+import { randomInt } from "node:crypto";
+
+const bomb = [randomInt(0, 9), randomInt(0, 9)] as const;
+
+new Keyboard().matrix(10, 10, ({ rowIndex, index }) =>
+    Keyboard.text(rowIndex === bomb[0] && index === bomb[1] ? "💣" : "ㅤ")
+);
+```
+
+The result is keyboard with a bomb on a random button
+
+handler is
+
+```ts
+(options: { index: number; rowIndex: number }) => T;
+```
