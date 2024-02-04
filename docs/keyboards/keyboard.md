@@ -146,3 +146,85 @@ The placeholder to be shown in the input field when the keyboard is active. 1-64
 new Keyboard().text("some text").placeholder("some text"); // to enable
 new Keyboard().text("some text").placeholder(); // to disable
 ```
+
+## Helpers
+
+Methods that help you build a keyboard.
+
+### row
+
+Adds a `line break`. Call this method to make sure that the next added buttons will be on a new row.
+
+```ts
+new Keyboard().text("first row").row().text("second row");
+```
+
+### columns
+
+Allows you to limit the number of columns in the keyboard.
+
+```ts
+new Keyboard()
+    .columns(1)
+    .text("first row")
+    .text("second row")
+    .text("third row");
+```
+
+### wrap
+
+A custom handler that controls row wrapping.
+
+```ts
+new Keyboard()
+    .wrap(({ button }) => button.text === "second row")
+    .text("first row")
+    .text("first row")
+    .text("second row");
+```
+
+handler is
+
+```ts
+(options: { button: T; index: number; row: T[]; rowIndex: number }) => boolean;
+```
+
+### pattern
+
+An array with the number of columns per row. Allows you to set a «template».
+
+```ts
+new Keyboard()
+    .pattern([1, 3, 2])
+    .text("1")
+    .text("2")
+    .text("2")
+    .text("2")
+    .text("3")
+    .text("3");
+```
+
+### filter
+
+A handler that helps filter keyboard buttons.
+
+```ts
+new Keyboard()
+    .filter(({ button }) => button.text !== "hidden")
+    .text("pass")
+    .text("hidden")
+    .text("pass");
+```
+
+### add
+
+Allows you to add multiple buttons in _raw_ format.
+
+```ts
+const labels = ["some", "buttons"];
+
+new Keyboard()
+    .add({ text: "raw button" })
+    .add(Keyboard.text("raw button by Keyboard.text"))
+    .add(...labels.map((x) => Keyboard.text(x)));
+```
