@@ -2,6 +2,8 @@
 
 [`@gramio/keyboards`](https://github.com/gramiojs/keyboards) is built-in GramIO plugin. You can also use it outside of this framework because it is framework-agnostic.
 
+See also [API Reference](https://tsdocs.dev/docs/@gramio/keyboards).
+
 ### Installation (not required for GramIO users)
 
 ::: code-group
