@@ -265,3 +265,19 @@ handler is
 ```ts
 (options: { index: number; rowIndex: number }) => T;
 ```
+
+### combine
+
+Allows you to combine keyboards. Only keyboards are combined. You need to call the `.row()` method to line-break after combine.
+
+```ts
+new InlineKeyboard()
+    .combine(new InlineKeyboard().text("first row", "payload"))
+    .row()
+    .combine(
+        new InlineKeyboard()
+            .text("second row", "payload")
+            .row()
+            .text("third row", "payload")
+    );
+```
