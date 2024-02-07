@@ -10,16 +10,14 @@ import { Bot, MediaInput, MediaUpload, InlineKeyboard } from "gramio";
 const bot = new Bot(process.env.BOT_TOKEN);
 
 bot.updates.on("message", async (ctx) => {
-    if (ctx.text === "test") {
-        ctx.sendMediaGroup([
-            MediaInput.document(
-                MediaUpload.url(
-                    "https://raw.githubusercontent.com/gramiojs/types/main/README.md"
-                )
-            ),
-            MediaInput.document(MediaUpload.path("./package.json")),
-        ]);
-    }
+    ctx.sendMediaGroup([
+        MediaInput.document(
+            MediaUpload.url(
+                "https://raw.githubusercontent.com/gramiojs/types/main/README.md"
+            )
+        ),
+        MediaInput.document(MediaUpload.path("./package.json")),
+    ]);
 });
 
 bot.updates.startPolling();

@@ -67,6 +67,7 @@ export default defineConfig({
 								text: "Overview",
 								link: "/files/overview",
 							},
+							{ text: "Media Upload", link: "/files/media-upload" },
 							{ text: "Media Input", link: "/files/media-input" },
 						],
 					},
