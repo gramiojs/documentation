@@ -59,6 +59,18 @@ export default defineConfig({
 							},
 						],
 					},
+					{
+						text: "Files",
+						collapsed: false,
+						items: [
+							{
+								text: "Overview",
+								link: "/files/overview",
+							},
+							{ text: "Media Input", link: "/files/media-input" },
+						],
+					},
+					{ text: "Types", link: "/types/index.html" },
 				],
 			},
 		],
