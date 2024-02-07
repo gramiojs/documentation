@@ -40,7 +40,10 @@ Method for uploading Media File by Buffer or ArrayBuffer.
 
 ```ts
 const res = await fetch("https://...");
-ctx.sendDocument(await res.arrayBuffer(), "from-buffer.json");
+
+ctx.sendDocument(
+    MediaUpload.buffer(await res.arrayBuffer(), "from-buffer.json")
+);
 ```
 
 By default filename is `file.buffer`.
