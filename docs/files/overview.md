@@ -2,6 +2,9 @@
 
 [`@gramio/files`](https://github.com/gramiojs/files) is built-in GramIO plugin. You can also use it outside of this framework because it is framework-agnostic.
 
+> [!WARNING]
+> Currently, uploading files in [`Bun`](https://bun.sh/) is not working... ([Issue](https://github.com/oven-sh/bun/issues/8750), [Other Issue](https://github.com/oven-sh/bun/issues/2644))
+
 ## Usage
 
 ```ts
