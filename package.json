@@ -6,6 +6,7 @@
     },
     "devDependencies": {
         "@biomejs/biome": "1.5.3",
-        "vitepress": "^1.0.0-rc.40"
+        "@shikijs/vitepress-twoslash": "^1.0.0",
+        "vitepress": "^1.0.0-rc.42"
     }
 }

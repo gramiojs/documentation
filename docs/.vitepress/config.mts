@@ -1,3 +1,4 @@
+import { transformerTwoslash } from "@shikijs/vitepress-twoslash";
 import { defineConfig } from "vitepress";
 
 // https://vitepress.dev/reference/site-config
@@ -6,12 +7,15 @@ export default defineConfig({
 	description: "Build your bots with convenience!",
 	vite: {
 		publicDir: "../public",
-		// TODO: remove when but on windows out!
+		// TODO: remove when bun on windows out!
 		server: {
 			watch: {
 				usePolling: true,
 			},
 		},
+	},
+	markdown: {
+		codeTransformers: [transformerTwoslash()],
 	},
 	themeConfig: {
 		logo: "/logo.svg",
