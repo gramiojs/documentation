@@ -69,6 +69,10 @@ export default defineConfig({
 							},
 							{ text: "Media Upload", link: "/files/media-upload" },
 							{ text: "Media Input", link: "/files/media-input" },
+							{
+								text: "Usage without GramIO",
+								link: "/files/usage-without-gramio",
+							},
 						],
 					},
 					{ text: "Types", link: "/types/index.html" },
