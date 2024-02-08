@@ -14,7 +14,7 @@ import { InlineKeyboard } from "gramio";
 
 ### Without GramIO
 
-```ts
+```ts twoslash
 import { InlineKeyboard } from "@gramio/keyboards";
 ```
 
@@ -26,7 +26,9 @@ Buttons are methods that assemble a inline keyboard for you.
 
 Text button with data to be sent in a [callback query](https://core.telegram.org/bots/api/#callbackquery) to the bot when button is pressed, 1-64 bytes.
 
-```ts
+```ts twoslash
+import { InlineKeyboard } from "@gramio/keyboards";
+// ---cut---
 new InlineKeyboard().text("some text", "payload");
 // or
 new InlineKeyboard().text("some text", {
@@ -38,7 +40,9 @@ new InlineKeyboard().text("some text", {
 
 HTTP or tg:// URL to be opened when the button is pressed. Links `tg://user?id=<user_id>` can be used to mention a user by their identifier without using a username, if this is allowed by their privacy settings.
 
-```ts
+```ts twoslash
+import { InlineKeyboard } from "@gramio/keyboards";
+// ---cut---
 new InlineKeyboard().url("GitHub", "https://github.com/gramiojs/gramio");
 ```
 
@@ -46,7 +50,9 @@ new InlineKeyboard().url("GitHub", "https://github.com/gramiojs/gramio");
 
 Description of the [Web App](https://core.telegram.org/bots/webapps) that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method [answerWebAppQuery](https://core.telegram.org/bots/api/#answerwebappquery). Available only in private chats between a user and the bot.
 
-```ts
+```ts twoslash
+import { InlineKeyboard } from "@gramio/keyboards";
+// ---cut---
 new InlineKeyboard().webApp("some text", "https://...");
 ```
 
@@ -58,7 +64,9 @@ Telegram apps support these buttons as of [version 5.7](https://telegram.org/blo
 
 Sample bot: [@discussbot](https://t.me/discussbot)
 
-```ts
+```ts twoslash
+import { InlineKeyboard } from "@gramio/keyboards";
+// ---cut---
 new InlineKeyboard().login("some text", "https://...");
 // or
 new InlineKeyboard().login("some text", {
@@ -73,7 +81,9 @@ More about options in [documentation](https://core.telegram.org/bots/api/#loginu
 
 Send a [Pay button](https://core.telegram.org/bots/api/#payments).
 
-```ts
+```ts twoslash
+import { InlineKeyboard } from "@gramio/keyboards";
+// ---cut---
 new InlineKeyboard().pay("5 coins");
 ```
 
@@ -86,7 +96,9 @@ Pressing the button will prompt the user to select one of their chats, open that
 
 By default empty, in which case just the bot's username will be inserted.
 
-```ts
+```ts twoslash
+import { InlineKeyboard } from "@gramio/keyboards";
+// ---cut---
 new InlineKeyboard().switchToChat("Select chat");
 // or
 new InlineKeyboard().switchToChat("Select chat", "InlineQuery");
@@ -96,7 +108,9 @@ new InlineKeyboard().switchToChat("Select chat", "InlineQuery");
 
 Pressing the button will prompt the user to select one of their chats of the specified type, open that chat and insert the bot's username and the specified inline query in the input field.
 
-```ts
+```ts twoslash
+import { InlineKeyboard } from "@gramio/keyboards";
+// ---cut---
 new InlineKeyboard().switchToChosenChat("Select chat");
 // or
 new InlineKeyboard().switchToChosenChat("Select chat", "InlineQuery");
@@ -118,7 +132,9 @@ Pressing the button will insert the bot's username and the specified inline quer
 
 This offers a quick way for the user to open your bot in inline mode in the same chat - good for selecting something from multiple options.
 
-```ts
+```ts twoslash
+import { InlineKeyboard } from "@gramio/keyboards";
+// ---cut---
 new InlineKeyboard().switchToChosenChat("Open Inline mod");
 // or
 new InlineKeyboard().switchToChosenChat("Open Inline mod", "InlineQuery");
@@ -128,8 +144,10 @@ new InlineKeyboard().switchToChosenChat("Open Inline mod", "InlineQuery");
 
 Description of the game that will be launched when the user presses the button.
 
-```ts
-new InlineKeyboard().game("text", ???);
+```ts twoslash
+import { InlineKeyboard } from "@gramio/keyboards";
+// ---cut---
+new InlineKeyboard().game("text", {}); // ??? no params...
 ```
 
 > [!DANGER]
@@ -146,7 +164,9 @@ Methods that help you build a keyboard.
 
 Adds a `line break`. Call this method to make sure that the next added buttons will be on a new row.
 
-```ts
+```ts twoslash
+import { InlineKeyboard } from "@gramio/keyboards";
+// ---cut---
 new InlineKeyboard()
     .text("first row", "payload")
     .row()
@@ -157,11 +177,13 @@ new InlineKeyboard()
 
 Allows you to limit the number of columns in the keyboard.
 
-```ts
+```ts twoslash
+import { InlineKeyboard } from "@gramio/keyboards";
+// ---cut---
 new InlineKeyboard()
     .columns(1)
     .text("first row", "payload")
-    .text("second row", "payload");
+    .text("second row", "payload")
     .text("third row", "payload");
 ```
 
@@ -169,11 +191,13 @@ new InlineKeyboard()
 
 A custom handler that controls row wrapping.
 
-```ts
+```ts twoslash
+import { InlineKeyboard } from "@gramio/keyboards";
+// ---cut---
 new InlineKeyboard()
     .wrap(({ button }) => button.callback_data === "2")
     .text("first row", "1")
-    .text("first row", "1");
+    .text("first row", "1")
     .text("second row", "2");
 ```
 
@@ -187,7 +211,9 @@ handler is
 
 An array with the number of columns per row. Allows you to set a «template».
 
-```ts
+```ts twoslash
+import { InlineKeyboard } from "@gramio/keyboards";
+// ---cut---
 new InlineKeyboard()
     .pattern([1, 3, 2])
     .text("1", "payload")
@@ -202,7 +228,9 @@ new InlineKeyboard()
 
 A handler that helps filter keyboard buttons.
 
-```ts
+```ts twoslash
+import { InlineKeyboard } from "@gramio/keyboards";
+// ---cut---
 new InlineKeyboard()
     .filter(({ button }) => button.callback_data !== "hidden")
     .text("button", "pass")
@@ -214,7 +242,9 @@ new InlineKeyboard()
 
 Allows you to add multiple buttons in _raw_ format.
 
-```ts
+```ts twoslash
+import { InlineKeyboard } from "@gramio/keyboards";
+// ---cut---
 const labels = ["some", "buttons"];
 
 new InlineKeyboard()
@@ -227,7 +257,10 @@ new InlineKeyboard()
 
 Allows you to dynamically substitute buttons depending on something.
 
-```ts
+```ts twoslash
+// @noErrors
+import { InlineKeyboard } from "@gramio/keyboards";
+// ---cut---
 const labels = ["some", "buttons"];
 const isAdmin = true;
 
@@ -247,7 +280,10 @@ new InlineKeyboard()
 
 Allows you to create a button matrix.
 
-```ts
+```ts twoslash
+// @noErrors
+import { InlineKeyboard } from "@gramio/keyboards";
+// ---cut---
 import { randomInt } from "node:crypto";
 
 const bomb = [randomInt(0, 9), randomInt(0, 9)] as const;
@@ -272,7 +308,9 @@ handler is
 
 Allows you to combine keyboards. Only keyboards are combined. You need to call the `.row()` method to line-break after combine.
 
-```ts
+```ts twoslash
+import { InlineKeyboard } from "@gramio/keyboards";
+// ---cut---
 new InlineKeyboard()
     .combine(new InlineKeyboard().text("first row", "payload"))
     .row()
