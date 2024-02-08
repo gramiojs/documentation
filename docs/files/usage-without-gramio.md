@@ -2,8 +2,10 @@
 
 ## Write you own type-safe TBA API wrapper with File uploading support!
 
-```ts
+```ts twoslash
+// @noErrors
 import type { ApiMethods, TelegramAPIResponse } from "@gramio/types";
+import { fetch, type RequestInit } from "undici";
 import { isMediaUpload, convertJsonToFormData } from "@gramio/files";
 import { FormDataEncoder } from "form-data-encoder";
 
@@ -13,7 +15,7 @@ const TOKEN = "";
 const api = new Proxy({} as ApiMethods, {
     get:
         <T extends keyof ApiMethods>(_target: ApiMethods, method: T) =>
-        (params: Parameters<ApiMethods[T]>[0]) => {
+        async (params: Parameters<ApiMethods[T]>[0]) => {
             const reqOptions: RequestInit = {
                 method: "POST",
                 duplex: "half",
@@ -39,7 +41,7 @@ const api = new Proxy({} as ApiMethods, {
             );
 
             const data = (await response.json()) as TelegramAPIResponse;
-            if (!data.ok) throw new APIError({ method, params }, data);
+            if (!data.ok) throw new Error(`Some error in ${method}`);
 
             return data.result;
         },

@@ -8,9 +8,12 @@
     "@biomejs/biome": "1.5.3",
     "@gramio/files": "^0.0.2",
     "@gramio/keyboards": "^0.1.6",
+    "@gramio/types": "^7.0.14",
     "@shikijs/vitepress-twoslash": "^1.0.0",
     "@types/node": "^20.11.16",
+    "form-data-encoder": "^4.0.2",
     "grammy": "^1.20.3",
+    "undici": "^6.6.2",
     "vitepress": "^1.0.0-rc.42"
   }
 }
