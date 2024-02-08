@@ -6,7 +6,10 @@ Class-helper with static methods for file uploading.
 
 Method for uploading Media File by local path.
 
-```ts
+```ts twoslash
+// @noErrors
+import { MediaUpload } from "@gramio/files";
+// ---cut---
 ctx.sendDocument(MediaUpload.path("./package.json"));
 // or with filename
 ctx.sendDocument(MediaUpload.path("./package.json", "some-other.json"));
@@ -18,7 +21,10 @@ If filename not specified, the filename set to filename :)
 
 Method for uploading Media File by URL (also with fetch options).
 
-```ts
+```ts twoslash
+// @noErrors
+import { MediaUpload } from "@gramio/files";
+// ---cut---
 ctx.sendPhoto(MediaUpload.url("https://example.com/cat.png"));
 // or with filename
 ctx.sendPhoto(MediaUpload.url("https://example.com/cat.png", "cute-cat.png"));
@@ -38,7 +44,10 @@ If filename not specified, the filename set to last part after `/`.
 
 Method for uploading Media File by Buffer or ArrayBuffer.
 
-```ts
+```ts twoslash
+// @noErrors
+import { MediaUpload } from "@gramio/files";
+// ---cut---
 const res = await fetch("https://...");
 
 ctx.sendDocument(
@@ -52,7 +61,10 @@ By default filename is `file.buffer`.
 
 Method for uploading Media File by Readable stream.
 
-```ts
+```ts twoslash
+// @noErrors
+import { MediaUpload } from "@gramio/files";
+// ---cut---
 ctx.sendDocument(
     MediaUpload.stream(
         fs.createReadStream("./cute-cat.png"),
@@ -67,7 +79,10 @@ By default filename is `file.stream`.
 
 Method for uploading Media File by text content.
 
-```ts
+```ts twoslash
+// @noErrors
+import { MediaUpload } from "@gramio/files";
+// ---cut---
 ctx.sendDocument(MediaUpload.text("GramIO is the best!", "truth.txt"));
 ```
 
