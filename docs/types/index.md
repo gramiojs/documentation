@@ -10,7 +10,7 @@
 
 ## Usage as an [NPM package](https://www.npmjs.com/package/@gramio/types)
 
-```ts
+```ts twoslash
 import type { ApiMethods } from "@gramio/types";
 
 type SendMessageReturn = ReturnType<ApiMethods["sendMessage"]>;
@@ -31,7 +31,7 @@ If the github action failed, there are no changes in the bot api
 
 ### Write you own type-safe TBA API wrapper
 
-```typescript
+```ts twoslash
 import type { ApiMethods, TelegramAPIResponse } from "@gramio/types";
 
 const TBA_BASE_URL = "https://api.telegram.org/bot";
@@ -40,7 +40,7 @@ const TOKEN = "";
 const api = new Proxy({} as ApiMethods, {
     get:
         <T extends keyof ApiMethods>(_target: ApiMethods, method: T) =>
-        (params: Parameters<ApiMethods[T]>[0]) => {
+        async (params: Parameters<ApiMethods[T]>[0]) => {
             const response = await fetch(`${TBA_BASE_URL}${TOKEN}/${method}`, {
                 method: "POST",
                 headers: {
@@ -64,7 +64,31 @@ api.sendMessage({
 
 #### Usage with [`@gramio/keyboards`](https://github.com/gramiojs/keyboards)
 
-```typescript
+```typescript twoslash
+import type { ApiMethods, TelegramAPIResponse } from "@gramio/types";
+
+const TBA_BASE_URL = "https://api.telegram.org/bot";
+const TOKEN = "";
+
+const api = new Proxy({} as ApiMethods, {
+    get:
+        <T extends keyof ApiMethods>(_target: ApiMethods, method: T) =>
+        async (params: Parameters<ApiMethods[T]>[0]) => {
+            const response = await fetch(`${TBA_BASE_URL}${TOKEN}/${method}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(params),
+            });
+
+            const data = (await response.json()) as TelegramAPIResponse;
+            if (!data.ok) throw new Error(`Some error occurred in ${method}`);
+
+            return data.result;
+        },
+});
+// ---cut---
 import { Keyboard } from "@gramio/keyboards";
 
 // the code from the example above
