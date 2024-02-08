@@ -64,6 +64,9 @@ ctx.sendPhoto("https://.../cute-cat.png");
 
 To upload and send file you can use [`Media Upload`](/files/media-upload.html) Class-helper and GramIO will do all the work for you.
 
-```ts
+```ts twoslash
+// @noErrors
+import { MediaUpload } from "@gramio/files";
+// ---cut---
 ctx.sendPhoto(MediaUpload.path("../cute-cat.png"));
 ```

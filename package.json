@@ -1,15 +1,16 @@
 {
-    "scripts": {
-        "dev": "bunx vitepress dev docs",
-        "build": "bunx vitepress build docs",
-        "preview": "bunx vitepress preview docs"
-    },
-    "devDependencies": {
-        "@biomejs/biome": "1.5.3",
-        "@gramio/keyboards": "^0.1.6",
-        "@shikijs/vitepress-twoslash": "^1.0.0",
-        "@types/node": "^20.11.16",
-        "grammy": "^1.20.3",
-        "vitepress": "^1.0.0-rc.42"
-    }
+  "scripts": {
+    "dev": "bunx vitepress dev docs",
+    "build": "bunx vitepress build docs",
+    "preview": "bunx vitepress preview docs"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.5.3",
+    "@gramio/files": "^0.0.2",
+    "@gramio/keyboards": "^0.1.6",
+    "@shikijs/vitepress-twoslash": "^1.0.0",
+    "@types/node": "^20.11.16",
+    "grammy": "^1.20.3",
+    "vitepress": "^1.0.0-rc.42"
+  }
 }

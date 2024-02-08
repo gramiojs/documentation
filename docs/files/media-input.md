@@ -2,7 +2,7 @@
 
 Class-helper with static methods that represents the content of a media message to be sent.
 
-//TODO: add API Reference
+[API Reference](https://tsdocs.dev/docs/@gramio/files)
 
 [Documentation](https://core.telegram.org/bots/api/#inputmedia)
 
@@ -10,7 +10,10 @@ Class-helper with static methods that represents the content of a media message 
 
 Represents a general file to be sent.
 
-```ts
+```ts twoslash
+// @noErrors
+import { MediaInput, MediaUpload } from "@gramio/files";
+// ---cut---
 // ctx from bot.on("message", (ctx) => ...)
 ctx.sendMediaGroup([
     MediaInput.document(
@@ -28,7 +31,10 @@ ctx.sendMediaGroup([
 
 Represents an audio file to be treated as music to be sent.
 
-```ts
+```ts twoslash
+// @noErrors
+import { MediaInput, MediaUpload } from "@gramio/files";
+// ---cut---
 // ctx from bot.on("message", (ctx) => ...)
 ctx.sendMediaGroup([
     MediaInput.audio(MediaUpload.url("https://.../music.mp3")),
@@ -42,7 +48,10 @@ ctx.sendMediaGroup([
 
 Represents a photo to be sent.
 
-```ts
+```ts twoslash
+// @noErrors
+import { MediaInput, MediaUpload } from "@gramio/files";
+// ---cut---
 // ctx from bot.on("message", (ctx) => ...)
 ctx.sendMediaGroup([
     MediaInput.photo(
@@ -61,7 +70,10 @@ ctx.sendMediaGroup([
 
 Represents a video to be sent.
 
-```ts
+```ts twoslash
+// @noErrors
+import { MediaInput, MediaUpload } from "@gramio/files";
+// ---cut---
 // ctx from bot.on("message", (ctx) => ...)
 ctx.sendMediaGroup([
     MediaInput.video(MediaUpload.url("https://.../video.mp4"), {
@@ -78,7 +90,10 @@ ctx.sendMediaGroup([
 
 Represents an animation file (GIF or H.264/MPEG-4 AVC video without sound) to be sent.
 
-```ts
+```ts twoslash
+// @noErrors
+import { MediaInput, MediaUpload } from "@gramio/files";
+// ---cut---
 MediaInput.animation(
     MediaUpload.url(
         "https://media1.tenor.com/m/47qpxBq_Tw0AAAAd/cat-cat-meme.gif"
