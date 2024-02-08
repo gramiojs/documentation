@@ -6,6 +6,6 @@ import Theme from "vitepress/theme";
 export default {
 	extends: Theme,
 	enhanceApp({ app }: EnhanceAppContext) {
-		app.use(TwoslashFloatingVue.rendererFloatingVue);
+		app.use(TwoslashFloatingVue);
 	},
 };

@@ -28,7 +28,7 @@ bun install @gramio/keyboards
 
 ## Usage
 
-```ts
+```ts twoslash
 import { Keyboard } from "@gramio/keyboards";
 
 const keyboard = new Keyboard()
@@ -49,11 +49,11 @@ GramIO is not ready yet...
 
 ### Send via [Grammy](https://grammy.dev/)
 
-```ts
+```ts twoslash
 import { Keyboard } from "@gramio/keyboards";
 import { Bot } from "grammy";
 
-const bot = new Bot(process.env.TOKEN);
+const bot = new Bot(process.env.TOKEN!);
 
 const data = ["Apple", "Realme", "Tesla", "Xiaomi"];
 

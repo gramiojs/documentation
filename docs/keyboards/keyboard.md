@@ -15,7 +15,7 @@ import { Keyboard } from "gramio";
 
 ### Without GramIO
 
-```ts
+```ts twoslash
 import { Keyboard } from "@gramio/keyboards";
 ```
 
@@ -27,7 +27,9 @@ Buttons are methods that assemble a keyboard for you.
 
 Text button. It will be sent as a message when the button is pressed
 
-```ts
+```ts twoslash
+import { Keyboard } from "@gramio/keyboards";
+// ---cut---
 new Keyboard().text("some button text");
 ```
 
@@ -35,7 +37,9 @@ new Keyboard().text("some button text");
 
 Request users button. Pressing the button will open a list of suitable users. Identifiers of selected users will be sent to the bot in a `users_shared` service message. Available in private chats only. `Second parameter` is signed 32-bit identifier of the request that will be received back in the [UsersShared](https://core.telegram.org/bots/api/#usersshared) object. Must be unique within the message
 
-```ts
+```ts twoslash
+import { Keyboard } from "@gramio/keyboards";
+// ---cut---
 new Keyboard().requestUsers("some button text", 228, {
     user_is_premium: true,
 });
@@ -47,7 +51,9 @@ More about options in [documentation](https://core.telegram.org/bots/api/#keyboa
 
 Request users button. Pressing the button will open a list of suitable chats. Tapping on a chat will send its identifier to the bot in a `chat_shared` service message. Available in private chats only.. Available in private chats only. `Second parameter` is signed 32-bit identifier of the request, which will be received back in the [ChatShared](https://core.telegram.org/bots/api/#chatshared) object. Must be unique within the message
 
-```ts
+```ts twoslash
+import { Keyboard } from "@gramio/keyboards";
+// ---cut---
 new Keyboard().requestChat("gramio", 255, {
     chat_is_forum: true,
 });
@@ -62,7 +68,9 @@ More about options in [documentation](https://core.telegram.org/bots/api/#keyboa
 
 Request poll button. Pressing the button will open a list of suitable users. Identifiers of selected users will be sent to the bot in a `users_shared` service message. Available in private chats only.
 
-```ts
+```ts twoslash
+import { Keyboard } from "@gramio/keyboards";
+// ---cut---
 new Keyboard().requestPoll("some button text", "quiz");
 ```
 
@@ -72,7 +80,9 @@ More about options in [documentation](https://core.telegram.org/bots/api/#keyboa
 
 Request user's location button. The user's current location will be sent when the button is pressed. Available in private chats only.
 
-```ts
+```ts twoslash
+import { Keyboard } from "@gramio/keyboards";
+// ---cut---
 new Keyboard().requestLocation("some button text");
 ```
 
@@ -80,7 +90,9 @@ new Keyboard().requestLocation("some button text");
 
 Request contact button. The user's phone number will be sent as a contact when the button is pressed. Available in private chats only.
 
-```ts
+```ts twoslash
+import { Keyboard } from "@gramio/keyboards";
+// ---cut---
 new Keyboard().requestContact("some button text");
 ```
 
@@ -88,7 +100,9 @@ new Keyboard().requestContact("some button text");
 
 webApp button. Described [Web App](https://core.telegram.org/bots/webapps) will be launched when the button is pressed. The Web App will be able to send a `web_app_data` service message. Available in private chats only.
 
-```ts
+```ts twoslash
+import { Keyboard } from "@gramio/keyboards";
+// ---cut---
 new Keyboard().webApp("some button text", "https://...");
 ```
 
@@ -100,7 +114,9 @@ These parameters are responsible for the settings of the buttons
 
 Requests clients to resize the keyboard vertically for optimal fit (e.g., make the keyboard smaller if there are just two rows of buttons). If `false`, in which case the custom keyboard is always of the same height as the app's standard keyboard. Defaults to `true`.
 
-```ts
+```ts twoslash
+import { Keyboard } from "@gramio/keyboards";
+// ---cut---
 new Keyboard().text("some text").resized(); // to enable
 new Keyboard().text("some text").resized(false); // to disable
 ```
@@ -112,7 +128,9 @@ new Keyboard().text("some text").resized(false); // to disable
 
 Requests clients to hide the keyboard as soon as it's been used. The keyboard will still be available, but clients will automatically display the usual letter-keyboard in the chat - the user can press a special button in the input field to see the custom keyboard again. Defaults to `false`.
 
-```ts
+```ts twoslash
+import { Keyboard } from "@gramio/keyboards";
+// ---cut---
 new Keyboard().text("some text").oneTime(); // to enable
 new Keyboard().text("some text").oneTime(false); // to disable
 ```
@@ -121,7 +139,9 @@ new Keyboard().text("some text").oneTime(false); // to disable
 
 Requests clients to always show the keyboard when the regular keyboard is hidden. Defaults to `false`, in which case the custom keyboard can be hidden and opened with a keyboard icon. Defaults to `false`.
 
-```ts
+```ts twoslash
+import { Keyboard } from "@gramio/keyboards";
+// ---cut---
 new Keyboard().text("some text").persistent(); // to enable
 new Keyboard().text("some text").persistent(false); // to disable
 ```
@@ -138,7 +158,9 @@ Targets:
 
 _Example:_ A user requests to change the bot's language, bot replies to the request with a keyboard to select the new language. Other users in the group don't see the keyboard. Defaults to `false`.
 
-```ts
+```ts twoslash
+import { Keyboard } from "@gramio/keyboards";
+// ---cut---
 new Keyboard().text("some text").selective(); // to enable
 new Keyboard().text("some text").selective(false); // to disable
 ```
@@ -147,7 +169,9 @@ new Keyboard().text("some text").selective(false); // to disable
 
 The placeholder to be shown in the input field when the keyboard is active. 1-64 characters. Defaults to `not to be`.
 
-```ts
+```ts twoslash
+import { Keyboard } from "@gramio/keyboards";
+// ---cut---
 new Keyboard().text("some text").placeholder("some text"); // to enable
 new Keyboard().text("some text").placeholder(); // to disable
 ```
@@ -160,7 +184,9 @@ Methods that help you build a keyboard.
 
 Adds a `line break`. Call this method to make sure that the next added buttons will be on a new row.
 
-```ts
+```ts twoslash
+import { Keyboard } from "@gramio/keyboards";
+// ---cut---
 new Keyboard().text("first row").row().text("second row");
 ```
 
@@ -168,7 +194,9 @@ new Keyboard().text("first row").row().text("second row");
 
 Allows you to limit the number of columns in the keyboard.
 
-```ts
+```ts twoslash
+import { Keyboard } from "@gramio/keyboards";
+// ---cut---
 new Keyboard()
     .columns(1)
     .text("first row")
@@ -180,7 +208,9 @@ new Keyboard()
 
 A custom handler that controls row wrapping.
 
-```ts
+```ts twoslash
+import { Keyboard } from "@gramio/keyboards";
+// ---cut---
 new Keyboard()
     .wrap(({ button }) => button.text === "second row")
     .text("first row")
@@ -198,7 +228,9 @@ handler is
 
 An array with the number of columns per row. Allows you to set a «template».
 
-```ts
+```ts twoslash
+import { Keyboard } from "@gramio/keyboards";
+// ---cut---
 new Keyboard()
     .pattern([1, 3, 2])
     .text("1")
@@ -213,7 +245,9 @@ new Keyboard()
 
 A handler that helps filter keyboard buttons.
 
-```ts
+```ts twoslash
+import { Keyboard } from "@gramio/keyboards";
+// ---cut---
 new Keyboard()
     .filter(({ button }) => button.text !== "hidden")
     .text("pass")
@@ -225,7 +259,9 @@ new Keyboard()
 
 Allows you to add multiple buttons in _raw_ format.
 
-```ts
+```ts twoslash
+import { Keyboard } from "@gramio/keyboards";
+// ---cut---
 const labels = ["some", "buttons"];
 
 new Keyboard()
@@ -238,7 +274,10 @@ new Keyboard()
 
 Allows you to dynamically substitute buttons depending on something.
 
-```ts
+```ts twoslash
+// @noErrors
+import { Keyboard } from "@gramio/keyboards";
+// ---cut---
 const labels = ["some", "buttons"];
 const isAdmin = true;
 
@@ -261,7 +300,11 @@ handler is
 
 Allows you to create a button matrix.
 
-```ts
+```ts twoslash
+// @noErrors
+import { Keyboard } from "@gramio/keyboards";
+// TODO: remove no errors
+// ---cut---
 import { randomInt } from "node:crypto";
 
 const bomb = [randomInt(0, 9), randomInt(0, 9)] as const;
@@ -283,7 +326,9 @@ handler is
 
 Allows you to combine keyboards. Only keyboards are combined. You need to call the `.row()` method to line-break after combine.
 
-```ts
+```ts twoslash
+import { Keyboard } from "@gramio/keyboards";
+// ---cut---
 new Keyboard()
     .combine(new Keyboard().text("first"))
     .row()
