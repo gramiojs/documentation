@@ -1,6 +1,6 @@
 # Usage without GramIO
 
-## Write you own type-safe TBA API wrapper with File uploading support!
+## Write you own type-safe Telegram Bot API wrapper with File uploading support!
 
 ```ts twoslash
 // @noErrors
