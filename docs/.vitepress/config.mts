@@ -34,6 +34,10 @@ export default defineConfig({
 				items: [
 					{ text: "Get started", link: "/get-started" },
 					{
+						text: "Contexts",
+						link: "https://tsdocs.dev/docs/@gramio/contexts",
+					},
+					{
 						text: "Keyboards",
 						collapsed: false,
 						items: [
