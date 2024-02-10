@@ -8,7 +8,7 @@ See also [API Reference](https://tsdocs.dev/docs/@gramio/keyboards/classes/Inlin
 
 ### With GramIO
 
-```ts
+```ts twoslash
 import { InlineKeyboard } from "gramio";
 ```
 

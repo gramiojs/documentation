@@ -8,7 +8,7 @@ See also [API Reference](https://tsdocs.dev/docs/@gramio/keyboards/classes/Force
 
 ### With GramIO
 
-```ts
+```ts twoslash
 import { ForceReplyKeyboard } from "gramio";
 ```
 

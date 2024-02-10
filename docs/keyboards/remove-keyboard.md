@@ -8,7 +8,7 @@ See also [API Reference](https://tsdocs.dev/docs/@gramio/keyboards/classes/Remov
 
 ### With GramIO
 
-```ts
+```ts twoslash
 import { RemoveKeyboard } from "gramio";
 ```
 
