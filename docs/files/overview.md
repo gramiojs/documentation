@@ -7,10 +7,10 @@
 
 ## Usage
 
-```ts
+```ts twoslash
 import { Bot, MediaInput, MediaUpload, InlineKeyboard } from "gramio";
 
-const bot = new Bot(process.env.BOT_TOKEN);
+const bot = new Bot(process.env.BOT_TOKEN!);
 
 bot.updates.on("message", async (ctx) => {
     ctx.sendMediaGroup([
@@ -44,7 +44,13 @@ There are three ways to send files (photos, stickers, audio, media, etc.):
 
 To send a file by `file_id` with GramIO, you can put it `as is`.
 
-```ts
+```ts twoslash
+import { MessageContext } from "gramio";
+
+const fileId = "" as string;
+const ctx = {} as InstanceType<MessageContext>;
+
+// ---cut---
 ctx.sendPhoto(fileId);
 ```
 
@@ -56,7 +62,12 @@ ctx.sendPhoto(fileId);
 
 To send a file by `URL` with GramIO, you can put it `as is`.
 
-```ts
+```ts twoslash
+import { MessageContext } from "gramio";
+
+const ctx = {} as InstanceType<MessageContext>;
+
+// ---cut---
 ctx.sendPhoto("https://.../cute-cat.png");
 ```
 
@@ -65,8 +76,10 @@ ctx.sendPhoto("https://.../cute-cat.png");
 To upload and send file you can use [`Media Upload`](/files/media-upload.html) Class-helper and GramIO will do all the work for you.
 
 ```ts twoslash
-// @noErrors
 import { MediaUpload } from "@gramio/files";
+import { MessageContext } from "gramio";
+
+const ctx = {} as InstanceType<MessageContext>;
 // ---cut---
 ctx.sendPhoto(MediaUpload.path("../cute-cat.png"));
 ```
