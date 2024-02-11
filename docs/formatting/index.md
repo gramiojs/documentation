@@ -153,7 +153,7 @@ format`Format text as ${code`code`}`;
 
 ### `Pre`
 
-Format text as `pre`. Cannot be combined with any other format.
+Format text as `pre`. Cannot be combined with any other format. ([Supported languages](https://github.com/TelegramMessenger/libprisma#supported-languages))
 
 ```ts twoslash
 import { format, pre } from "@gramio/format";
