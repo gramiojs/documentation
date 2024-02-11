@@ -4,40 +4,7 @@
 
 See also [API Reference](https://tsdocs.dev/docs/@gramio/format).
 
-## Usage
 
-```ts twoslash
-import { format, bold, link, italic, Bot } from "gramio";
-
-const bot = new Bot("");
-// ---cut---
-format`some text`;
-// or
-format`${bold`Hmm...`} ${link(
-    "GramIO",
-    "https://github.com/gramiojs/gramio"
-)}?`;
-```
-
-```ts twoslash
-import { format, bold, link, italic, spoiler, Bot } from "gramio";
-
-const bot = new Bot("");
-// ---cut---
-bot.api.sendMessage({
-    chat_id: 12321,
-    text: format`${bold`Hi!`} Can ${italic(
-        `you`
-    )} help ${spoiler`me`}? Can you give me a ${link(
-        "star",
-        "https://github.com/gramiojs/gramio"
-    )}?`,
-});
-```
-
-result is
-
-![example](/formatting/example.png)
 
 ## Entities
 
@@ -45,7 +12,9 @@ result is
 
 Format text as **bold**. Cannot be combined with `code` and `pre`.
 
-```ts
+```ts twoslash
+import { format, bold } from "@gramio/format";
+// ---cut---
 format`Format text as ${bold`bold`}`;
 ```
 
@@ -55,7 +24,9 @@ format`Format text as ${bold`bold`}`;
 
 Format text as _italic_. Cannot be combined with `code` and `pre`.
 
-```ts
+```ts twoslash
+import { format, italic } from "@gramio/format";
+// ---cut---
 format`Format text as ${italic`italic`}`;
 ```
 
@@ -65,7 +36,9 @@ format`Format text as ${italic`italic`}`;
 
 Format text as <u>underline</u>. Cannot be combined with `code` and `pre`.
 
-```ts
+```ts twoslash
+import { format, underline } from "@gramio/format";
+// ---cut---
 format`Format text as ${underline`underline`}`;
 ```
 
@@ -75,7 +48,9 @@ format`Format text as ${underline`underline`}`;
 
 Format text as ~~strikethrough~~. Cannot be combined with `code` and `pre`.
 
-```ts
+```ts twoslash
+import { format, strikethrough } from "@gramio/format";
+// ---cut---
 format`Format text as ${strikethrough`strikethrough`}`;
 ```
 
@@ -85,7 +60,9 @@ format`Format text as ${strikethrough`strikethrough`}`;
 
 Format text as spoiler. Cannot be combined with `code` and `pre`.
 
-```ts
+```ts twoslash
+import { format, spoiler } from "@gramio/format";
+// ---cut---
 format`Format text as ${spoiler`spoiler`}`;
 ```
 
@@ -95,7 +72,9 @@ format`Format text as ${spoiler`spoiler`}`;
 
 Format text as blockquote. Cannot be nested.
 
-```ts
+```ts twoslash
+import { format, blockquote } from "@gramio/format";
+// ---cut---
 format`Format text as ${blockquote`blockquote`}`;
 ```
 
@@ -105,7 +84,9 @@ format`Format text as ${blockquote`blockquote`}`;
 
 Format text as `code`. Convenient for copied items. Cannot be combined with any other format.
 
-```ts
+```ts twoslash
+import { format, code } from "@gramio/format";
+// ---cut---
 format`Format text as ${code`code`}`;
 ```
 
@@ -115,7 +96,9 @@ format`Format text as ${code`code`}`;
 
 Format text as `pre`. Cannot be combined with any other format.
 
-```ts
+```ts twoslash
+import { format, pre } from "@gramio/format";
+// ---cut---
 format`Format text as ${pre`pre`}`;
 // or with language
 format`Format text as ${pre(`console.log("pre with language")`, "js")}`;
@@ -127,7 +110,9 @@ format`Format text as ${pre(`console.log("pre with language")`, "js")}`;
 
 Format text as [link](https://github.com/gramiojs/gramio). Cannot be combined with `code` and `pre`.
 
-```ts
+```ts twoslash
+import { format, link } from "@gramio/format";
+// ---cut---
 format`Format text as ${link("link", "https://github.com/gramiojs/gramio")}`;
 ```
 
@@ -137,7 +122,9 @@ format`Format text as ${link("link", "https://github.com/gramiojs/gramio")}`;
 
 Format text as [mention](https://github.com/gramiojs/gramio). Cannot be combined with `code` and `pre`.
 
-```ts
+```ts twoslash
+import { format, mention } from "@gramio/format";
+// ---cut---
 format`format text as ${mention("mention", {
     id: 12312312,
     is_bot: false,
@@ -151,7 +138,9 @@ format`format text as ${mention("mention", {
 
 Insert custom emoji by their id.
 
-```ts
+```ts twoslash
+import { format, customEmoji } from "@gramio/format";
+// ---cut---
 format`text with emoji - ${customEmoji("⚔️", "5222106016283378623")}`;
 ```
 
