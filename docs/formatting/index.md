@@ -49,7 +49,7 @@ Template literal that helps construct message entities for text formatting.
 Use if you want to save all of the indentation.
 
 ```ts twoslash
-import { format, bold, link, italic, spoiler, Bot } from "gramio";
+import { formatSaveIndents, bold, link, italic, spoiler, Bot } from "gramio";
 
 const bot = new Bot("");
 // ---cut---
