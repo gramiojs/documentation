@@ -21,7 +21,7 @@ const api = new Proxy({} as ApiMethods, {
                 duplex: "half",
             };
 
-            if (isMediaUpload(method, params)) {
+            if (params && isMediaUpload(method, params)) {
                 const formData = await convertJsonToFormData(method, params);
 
                 const encoder = new FormDataEncoder(formData);

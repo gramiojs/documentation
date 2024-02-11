@@ -17,9 +17,24 @@ format`${bold`Hmm...`} ${link(
     "GramIO",
     "https://github.com/gramiojs/gramio"
 )}?`;
-// send
+```
+
+```ts twoslash
+import { format, bold, link, italic, spoiler, Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
 bot.api.sendMessage({
-    chat_id: 1233,
-    text: format`Hi! ${bold(italic("You're cool!"))}`,
+    chat_id: 12321,
+    text: format`${bold`Hi!`} Can ${italic(
+        `you`
+    )} help ${spoiler`me`}? Can you give me a ${link(
+        "star",
+        "https://github.com/gramiojs/gramio"
+    )}?`,
 });
 ```
+
+result is
+
+![example](example.png)
