@@ -37,4 +37,4 @@ bot.api.sendMessage({
 
 result is
 
-![example](example.png)
+![example](/formatting/example.png)
