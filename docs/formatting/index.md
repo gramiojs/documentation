@@ -4,7 +4,66 @@
 
 See also [API Reference](https://tsdocs.dev/docs/@gramio/format).
 
+## Format
 
+Template literal that helps construct message entities for text formatting.
+
+Use if you want to strip all of the indentation from the beginning of each line. (like [common-tags#stripindents](https://www.npmjs.com/package/common-tags#stripindents))
+
+```ts twoslash
+import { format, bold, link, italic, Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+format`some text`;
+// or
+format`${bold`Hmm...`} ${link(
+    "GramIO",
+    "https://github.com/gramiojs/gramio"
+)}?`;
+```
+
+Let's send something...
+
+```ts twoslash
+import { format, bold, link, italic, spoiler, Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+bot.api.sendMessage({
+    chat_id: 12321,
+    text: format`${bold`Hi!`}
+
+		Can ${italic("you")} help ${spoiler`me`}?
+	
+			Can you give me a ${link("star", "https://github.com/gramiojs/gramio")}?`,
+});
+```
+
+![format](/formatting/format.png)
+
+## FormatSaveIndents
+
+Template literal that helps construct message entities for text formatting.
+
+Use if you want to save all of the indentation.
+
+```ts twoslash
+import { format, bold, link, italic, spoiler, Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+bot.api.sendMessage({
+    chat_id: 12321,
+    text: formatSaveIndents`${bold`Hi!`}
+
+		Can ${italic("you")} help ${spoiler`me`}?
+	
+			Can you give me a ${link("star", "https://github.com/gramiojs/gramio")}?`,
+});
+```
+
+![format-save-indents](/formatting/format-save-indents.png)
 
 ## Entities
 
