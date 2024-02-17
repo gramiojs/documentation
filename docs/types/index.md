@@ -6,41 +6,48 @@
 
 ### Versioning
 
-7.0.x types - for 7.0 Telegram Bot API
+7.1.x types is for 7.1 Telegram Bot API
 
 ## Usage as an [NPM package](https://www.npmjs.com/package/@gramio/types)
 
 ```ts twoslash
-import type { ApiMethods } from "@gramio/types";
+import type { APIMethods, APIMethodReturn } from "@gramio/types";
 
-type SendMessageReturn = ReturnType<ApiMethods["sendMessage"]>;
-//   ^? type SendMessageReturn = Promise<TelegramMessage>
+type SendMessageReturn = Awaited<ReturnType<APIMethods["sendMessage"]>>;
+//   ^? type SendMessageReturn = TelegramMessage
+
+type GetMeReturn = APIMethodReturn<"getMe">;
+//   ^? type SendMessageReturn = TelegramUser
 ```
 
 ### Auto-update package
 
-This library is updated automatically to the latest version of the Telegram Bot Api in case of changes thanks to CI CD!
+This library is updated automatically to the latest version of the Telegram Bot API in case of changes thanks to CI CD!
 If the github action failed, there are no changes in the bot api
 
 ## Imports
 
 -   `index` - exports everything in the section
--   `methods` - exports `ApiMethods` which describes the api functions
+-   `methods` - exports `APIMethods` which describes the api functions
 -   `objects` - exports objects with the `Telegram` prefix (for example [Update](https://core.telegram.org/bots/api/#update))
 -   `params` - exports params that are used in `methods`
 
 ### Write you own type-safe Telegram Bot API wrapper
 
 ```ts twoslash
-import type { ApiMethods, TelegramAPIResponse } from "@gramio/types";
+import type {
+    APIMethods,
+    APIMethodParams,
+    TelegramAPIResponse,
+} from "@gramio/types";
 
 const TBA_BASE_URL = "https://api.telegram.org/bot";
 const TOKEN = "";
 
-const api = new Proxy({} as ApiMethods, {
+const api = new Proxy({} as APIMethods, {
     get:
-        <T extends keyof ApiMethods>(_target: ApiMethods, method: T) =>
-        async (params: Parameters<ApiMethods[T]>[0]) => {
+        <T extends keyof APIMethods>(_target: APIMethods, method: T) =>
+        async (params: APIMethodParams<T>) => {
             const response = await fetch(`${TBA_BASE_URL}${TOKEN}/${method}`, {
                 method: "POST",
                 headers: {
@@ -65,15 +72,19 @@ api.sendMessage({
 #### Usage with [`@gramio/keyboards`](https://github.com/gramiojs/keyboards)
 
 ```typescript twoslash
-import type { ApiMethods, TelegramAPIResponse } from "@gramio/types";
+import type {
+    APIMethods,
+    APIMethodParams,
+    TelegramAPIResponse,
+} from "@gramio/types";
 
 const TBA_BASE_URL = "https://api.telegram.org/bot";
 const TOKEN = "";
 
-const api = new Proxy({} as ApiMethods, {
+const api = new Proxy({} as APIMethods, {
     get:
-        <T extends keyof ApiMethods>(_target: ApiMethods, method: T) =>
-        async (params: Parameters<ApiMethods[T]>[0]) => {
+        <T extends keyof APIMethods>(_target: APIMethods, method: T) =>
+        async (params: APIMethodParams<T>) => {
             const response = await fetch(`${TBA_BASE_URL}${TOKEN}/${method}`, {
                 method: "POST",
                 headers: {
@@ -110,7 +121,7 @@ Prerequire - [`rust`](https://www.rust-lang.org/)
 git clone https://github.com/gramiojs/types.git
 ```
 
-2. Clone [repo](https://github.com/ark0f/tg-bot-api) with Telegram Bot Api schema generator
+2. Clone [repo](https://github.com/ark0f/tg-bot-api) with Telegram Bot API schema generator
 
 ```bash
 git clone https://github.com/ark0f/tg-bot-api.git

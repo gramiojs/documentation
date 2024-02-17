@@ -4,7 +4,11 @@
 
 ```ts twoslash
 // @noErrors
-import type { ApiMethods, TelegramAPIResponse } from "@gramio/types";
+import type {
+    APIMethods,
+    APIMethodParams,
+    TelegramAPIResponse,
+} from "@gramio/types";
 import { fetch, type RequestInit } from "undici";
 import { isMediaUpload, convertJsonToFormData } from "@gramio/files";
 import { FormDataEncoder } from "form-data-encoder";
@@ -12,10 +16,10 @@ import { FormDataEncoder } from "form-data-encoder";
 const TBA_BASE_URL = "https://api.telegram.org/bot";
 const TOKEN = "";
 
-const api = new Proxy({} as ApiMethods, {
+const api = new Proxy({} as APIMethods, {
     get:
-        <T extends keyof ApiMethods>(_target: ApiMethods, method: T) =>
-        async (params: Parameters<ApiMethods[T]>[0]) => {
+        <T extends keyof APIMethods>(_target: APIMethods, method: T) =>
+        async (params: APIMethodParams<T>) => {
             const reqOptions: RequestInit = {
                 method: "POST",
                 duplex: "half",
