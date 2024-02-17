@@ -28,7 +28,15 @@ bun install @gramio/keyboards
 
 ## Usage
 
-```ts twoslash
+::: code-group
+
+```ts twoslash [with GramIO]
+import { Keyboard } from "gramio";
+
+const keyboard = new Keyboard().text("first row").row().text("second row");
+```
+
+```ts twoslash [without GramIO]
 import { Keyboard } from "@gramio/keyboards";
 
 const keyboard = new Keyboard()
@@ -38,8 +46,7 @@ const keyboard = new Keyboard()
     .toJSON();
 ```
 
-> [!IMPORTANT]
-> In gramio, you don't have to use the ".toJSON" method
+:::
 
 ## Usage with Frameworks
 

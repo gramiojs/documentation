@@ -111,6 +111,10 @@ api.sendMessage({
 });
 ```
 
+### With file upload support
+
+See [files/usage-without-gramio](/files/usage-without-gramio)
+
 ## Generate types manually
 
 Prerequire - [`rust`](https://www.rust-lang.org/)
