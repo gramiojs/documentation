@@ -9,12 +9,12 @@
         "@gramio/files": "^0.0.3",
         "@gramio/format": "^0.0.7",
         "@gramio/keyboards": "^0.1.6",
-        "@gramio/types": "^7.0.17",
-        "@shikijs/vitepress-twoslash": "^1.1.1",
-        "@types/node": "^20.11.17",
+        "@gramio/types": "^7.1.1",
+        "@shikijs/vitepress-twoslash": "^1.1.3",
+        "@types/node": "^20.11.19",
         "form-data-encoder": "^4.0.2",
-        "gramio": "^0.0.8",
-        "grammy": "^1.20.4",
+        "gramio": "^0.0.10",
+        "grammy": "^1.21.1",
         "undici": "^6.6.2",
         "vitepress": "^1.0.0-rc.42"
     }
