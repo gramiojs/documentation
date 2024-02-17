@@ -81,6 +81,7 @@ export default defineConfig({
 					},
 					{ text: "Formatting", link: "/formatting/index" },
 					{ text: "Types", link: "/types/index" },
+					{ text: "Error Handling", link: "/error-handling/index" },
 				],
 			},
 		],
