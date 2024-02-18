@@ -16,23 +16,59 @@ bot.updates.on("message", () => {
     });
 });
 
-bot.updates.onError(({ context, kind, error }) => {
+bot.onError(({ context, kind, error }) => {
     if (context.is("message")) return context.send(`${kind}: ${error.message}`);
 });
 ```
 
-## Errors
+## Errors kinds
+
+### Custom
+
+You can catch an error of a certain class inherited from Error.
+
+```ts twoslash
+import { Bot, format, bold } from "gramio";
+// ---cut---
+export class NoRights extends Error {
+    needRole: "admin" | "moderator";
+
+    constructor(role: "admin" | "moderator") {
+        super();
+        this.needRole = role;
+    }
+}
+
+const bot = new Bot(process.env.TOKEN!)
+    .error("NO_RIGHTS", NoRights)
+    .onError(({ context, kind, error }) => {
+        if (context.is("message") && kind === "NO_RIGHTS")
+            return context.send(
+                format`You don't have enough rights! You need to have an «${bold(
+                    error.needRole
+                    //    ^^^^^^^^
+                )}» role.`
+            );
+    });
+
+bot.updates.on("message", (context) => {
+    if (context.text === "bun") throw new NoRights("admin");
+});
+```
+
+> [!IMPORTANT]
+> We recommend following **convention** and naming kind errors in **SCREAMING_SNAKE_CASE**
 
 ### Telegram
 
-This error is the result of a failed request to the Telegram Bot API
+This error is the result of a failed request to the Telegram Bot API.
 
 ```ts twoslash
 import { Bot } from "gramio";
 
 const bot = new Bot("");
 // ---cut---
-bot.updates.onError(({ context, kind, error }) => {
+bot.onError(({ context, kind, error }) => {
     if (kind === "TELEGRAM" && error.method === "sendMessage") {
         error.params; // is sendMessage params
     }
@@ -48,7 +84,7 @@ import { Bot } from "gramio";
 
 const bot = new Bot("");
 // ---cut---
-bot.updates.onError(({ context, kind, error }) => {
+bot.onError(({ context, kind, error }) => {
     if (kind === "UNKNOWN") {
         console.log(error.message);
     }
