@@ -10,6 +10,8 @@ Template literal that helps construct message entities for text formatting.
 
 Use if you want to strip all of the indentation from the beginning of each line. (like [common-tags#stripindents](https://www.npmjs.com/package/common-tags#stripindents))
 
+**NOTE**: for format with **arrays** use it with [`join`](#join) helper
+
 ```ts twoslash
 import { format, bold, link, italic, Bot } from "gramio";
 
@@ -47,6 +49,8 @@ bot.api.sendMessage({
 Template literal that helps construct message entities for text formatting.
 
 Use if you want to save all of the indentation.
+
+**NOTE**: for format with **arrays** use it with [`join`](#join) helper
 
 ```ts twoslash
 import { formatSaveIndents, bold, link, italic, spoiler, Bot } from "gramio";
@@ -205,3 +209,17 @@ format`text with emoji - ${customEmoji("⚔️", "5222106016283378623")}`;
 
 > [!WARNING]
 > Custom emoji entities can only be used by bots that purchased additional usernames on [Fragment](https://fragment.com/).
+
+## Helpers
+
+### Join
+
+Helper for great work with formattable arrays. ([].join break styling)
+
+Separator by default is `, `
+
+```ts twoslash
+import { format, join, bold } from "@gramio/format";
+// ---cut---
+format`${join(["test", "other"], (x) => format`${bold(x)}`, "\n")}`;
+```
