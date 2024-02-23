@@ -1,3 +1,7 @@
+<script setup>
+import Spoiler from '../.vitepress/components/Spoiler.vue'
+</script>
+
 # Formatting
 
 [`@gramio/format`](https://github.com/gramiojs/format) is built-in GramIO plugin. You can also use it outside of this framework because it is framework-agnostic.
@@ -119,9 +123,9 @@ format`Format text as ${strikethrough`strikethrough`}`;
 
 ![strikethrough example](/formatting/strikethrough.png)
 
-### Spoiler
+### <Spoiler>Spoiler</Spoiler>
 
-Format text as spoiler. Cannot be combined with `code` and `pre`.
+Format text as <Spoiler>spoiler</Spoiler>. Cannot be combined with `code` and `pre`.
 
 ```ts twoslash
 import { format, spoiler } from "@gramio/format";
