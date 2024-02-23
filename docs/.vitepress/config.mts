@@ -25,66 +25,85 @@ export default defineConfig({
 		// https://vitepress.dev/reference/default-theme-config
 		nav: [
 			{ text: "Home", link: "/" },
+			{ text: "Get started", link: "/get-started" },
+			{ text: "Plugins", link: "/plugins/index" },
 			// { text: "Examples", link: "/markdown-examples" },
 		],
 
-		sidebar: [
-			{
-				text: "Guide",
-				items: [
-					{ text: "Get started", link: "/get-started" },
-					{
-						text: "Contexts",
-						link: "https://tsdocs.dev/docs/@gramio/contexts",
-					},
-					{
-						text: "Keyboards",
-						collapsed: false,
-						items: [
-							{
-								text: "Overview",
-								link: "/keyboards/overview",
-							},
-							{
-								text: "Keyboard",
-								link: "/keyboards/keyboard",
-							},
-							{
-								text: "Inline Keyboard",
-								link: "/keyboards/inline-keyboard",
-							},
-							{
-								text: "Remove Keyboard",
-								link: "/keyboards/remove-keyboard",
-							},
-							{
-								text: "Force Reply Keyboard",
-								link: "/keyboards/force-reply-keyboard",
-							},
-						],
-					},
-					{
-						text: "Files",
-						collapsed: false,
-						items: [
-							{
-								text: "Overview",
-								link: "/files/overview",
-							},
-							{ text: "Media Upload", link: "/files/media-upload" },
-							{ text: "Media Input", link: "/files/media-input" },
-							{
-								text: "Usage without GramIO",
-								link: "/files/usage-without-gramio",
-							},
-						],
-					},
-					{ text: "Formatting", link: "/formatting/index" },
-					{ text: "Types", link: "/types/index" },
-					{ text: "Error Handling", link: "/error-handling/index" },
-				],
-			},
-		],
+		sidebar: {
+			"/plugins/": [
+				{
+					text: "Plugins",
+					items: [
+						{
+							text: "Overview",
+							link: "/plugins/index",
+						},
+						{
+							text: "How to write a plugin",
+							link: "/plugins/how-to-write",
+						},
+					],
+				},
+			],
+			"/": [
+				{
+					text: "Guide",
+					items: [
+						{ text: "Get started", link: "/get-started" },
+						{
+							text: "Contexts",
+							link: "https://tsdocs.dev/docs/@gramio/contexts",
+						},
+						{
+							text: "Keyboards",
+							collapsed: false,
+							items: [
+								{
+									text: "Overview",
+									link: "/keyboards/overview",
+								},
+								{
+									text: "Keyboard",
+									link: "/keyboards/keyboard",
+								},
+								{
+									text: "Inline Keyboard",
+									link: "/keyboards/inline-keyboard",
+								},
+								{
+									text: "Remove Keyboard",
+									link: "/keyboards/remove-keyboard",
+								},
+								{
+									text: "Force Reply Keyboard",
+									link: "/keyboards/force-reply-keyboard",
+								},
+							],
+						},
+						{
+							text: "Files",
+							collapsed: false,
+							items: [
+								{
+									text: "Overview",
+									link: "/files/overview",
+								},
+								{ text: "Media Upload", link: "/files/media-upload" },
+								{ text: "Media Input", link: "/files/media-input" },
+								{
+									text: "Usage without GramIO",
+									link: "/files/usage-without-gramio",
+								},
+							],
+						},
+						{ text: "Formatting", link: "/formatting/index" },
+						{ text: "Types", link: "/types/index" },
+						{ text: "Error Handling", link: "/error-handling/index" },
+					],
+				},
+			],
+		},
 		socialLinks: [
 			{ icon: "github", link: "https://github.com/gramiojs/gramio" },
 			{
