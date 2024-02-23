@@ -11,10 +11,10 @@ Class-helper with static methods that represents the content of a media message 
 Represents a general file to be sent.
 
 ```ts twoslash
-import { MessageContext } from "gramio";
+import { Bot, MessageContext } from "gramio";
 import { MediaInput, MediaUpload } from "@gramio/files";
 
-const ctx = {} as InstanceType<MessageContext>;
+const ctx = {} as InstanceType<MessageContext<Bot>>;
 // ---cut---
 // ctx from bot.on("message", (ctx) => ...)
 ctx.sendMediaGroup([
@@ -34,10 +34,10 @@ ctx.sendMediaGroup([
 Represents an audio file to be treated as music to be sent.
 
 ```ts twoslash
-import { MessageContext } from "gramio";
+import { Bot, MessageContext } from "gramio";
 import { MediaInput, MediaUpload } from "@gramio/files";
 
-const ctx = {} as InstanceType<MessageContext>;
+const ctx = {} as InstanceType<MessageContext<Bot>>;
 // ---cut---
 
 // ctx from bot.on("message", (ctx) => ...)
@@ -54,10 +54,10 @@ ctx.sendMediaGroup([
 Represents a photo to be sent.
 
 ```ts twoslash
-import { MessageContext } from "gramio";
+import { Bot, MessageContext } from "gramio";
 import { MediaInput, MediaUpload } from "@gramio/files";
 
-const ctx = {} as InstanceType<MessageContext>;
+const ctx = {} as InstanceType<MessageContext<Bot>>;
 // ---cut---
 // ctx from bot.on("message", (ctx) => ...)
 ctx.sendMediaGroup([
@@ -79,10 +79,10 @@ Represents a video to be sent.
 
 ```ts twoslash
 // @noErrors
-import { MessageContext } from "gramio";
+import { Bot, MessageContext } from "gramio";
 import { MediaInput, MediaUpload } from "@gramio/files";
 
-const ctx = {} as InstanceType<MessageContext>;
+const ctx = {} as InstanceType<MessageContext<Bot>>;
 // ---cut---
 // ctx from bot.on("message", (ctx) => ...)
 ctx.sendMediaGroup([

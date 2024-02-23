@@ -45,10 +45,10 @@ There are three ways to send files (photos, stickers, audio, media, etc.):
 To send a file by `file_id` with GramIO, you can put it `as is`.
 
 ```ts twoslash
-import { MessageContext } from "gramio";
+import { Bot, MessageContext } from "gramio";
 
 const fileId = "" as string;
-const ctx = {} as InstanceType<MessageContext>;
+const ctx = {} as InstanceType<MessageContext<Bot>>;
 
 // ---cut---
 ctx.sendPhoto(fileId);
@@ -63,9 +63,9 @@ ctx.sendPhoto(fileId);
 To send a file by `URL` with GramIO, you can put it `as is`.
 
 ```ts twoslash
-import { MessageContext } from "gramio";
+import { Bot, MessageContext } from "gramio";
 
-const ctx = {} as InstanceType<MessageContext>;
+const ctx = {} as InstanceType<MessageContext<Bot>>;
 
 // ---cut---
 ctx.sendPhoto("https://.../cute-cat.png");
@@ -77,9 +77,9 @@ To upload and send file you can use [`Media Upload`](/files/media-upload.html) C
 
 ```ts twoslash
 import { MediaUpload } from "@gramio/files";
-import { MessageContext } from "gramio";
+import { Bot, MessageContext } from "gramio";
 
-const ctx = {} as InstanceType<MessageContext>;
+const ctx = {} as InstanceType<MessageContext<Bot>>;
 // ---cut---
 ctx.sendPhoto(MediaUpload.path("../cute-cat.png"));
 ```
