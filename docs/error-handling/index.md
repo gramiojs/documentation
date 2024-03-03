@@ -41,8 +41,8 @@ export class NoRights extends Error {
 
 const bot = new Bot(process.env.TOKEN!)
     .error("NO_RIGHTS", NoRights)
-    .onError(({ context, kind, error }) => {
-        if (context.is("message") && kind === "NO_RIGHTS")
+    .onError("message", ({ context, kind, error }) => {
+        if (kind === "NO_RIGHTS")
             return context.send(
                 format`You don't have enough rights! You need to have an «${bold(
                     error.needRole
@@ -52,7 +52,7 @@ const bot = new Bot(process.env.TOKEN!)
     });
 
 bot.updates.on("message", (context) => {
-    if (context.text === "bun") throw new NoRights("admin");
+    if (context.text === "ban") throw new NoRights("admin");
 });
 ```
 

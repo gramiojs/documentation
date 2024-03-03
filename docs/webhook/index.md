@@ -16,7 +16,7 @@ import Fastify from "fastify";
 const bot = new Bot(process.env.TOKEN!);
 const fastify = Fastify();
 
-fastify.post("/tg-webhook", webhookHandler(bot, "fastify"));
+fastify.post("/telegram-webhook", webhookHandler(bot, "fastify"));
 
 fastify.listen({ port: 3445, host: "::" });
 
