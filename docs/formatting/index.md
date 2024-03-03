@@ -201,7 +201,7 @@ format`format text as ${mention("mention", {
 
 ![mention example](/formatting/mention.png)
 
-### Custom Emoji (✨)
+### 🄲 🅄 🅂 🅃 🄾 🄼 ㅤ🄴 🄼 🄾 🄹 🄸
 
 Insert custom emoji by their id.
 
