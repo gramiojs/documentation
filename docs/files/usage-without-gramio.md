@@ -9,9 +9,8 @@ import type {
     APIMethodParams,
     TelegramAPIResponse,
 } from "@gramio/types";
-import { fetch, type RequestInit } from "undici";
+import { request } from "undici";
 import { isMediaUpload, convertJsonToFormData } from "@gramio/files";
-import { FormDataEncoder } from "form-data-encoder";
 
 const TBA_BASE_URL = "https://api.telegram.org/bot";
 const TOKEN = "";
@@ -20,18 +19,14 @@ const api = new Proxy({} as APIMethods, {
     get:
         <T extends keyof APIMethods>(_target: APIMethods, method: T) =>
         async (params: APIMethodParams<T>) => {
-            const reqOptions: RequestInit = {
+            const reqOptions: Parameters<typeof request>[1] = {
                 method: "POST",
-                duplex: "half",
             };
 
             if (params && isMediaUpload(method, params)) {
                 const formData = await convertJsonToFormData(method, params);
 
-                const encoder = new FormDataEncoder(formData);
-
-                reqOptions.body = encoder.encode();
-                reqOptions.headers = encoder.headers;
+                reqOptions.body = formData;
             } else {
                 reqOptions.headers = {
                     "Content-Type": "application/json",
@@ -39,12 +34,12 @@ const api = new Proxy({} as APIMethods, {
                 reqOptions.body = JSON.stringify(params);
             }
 
-            const response = await fetch(
+            const response = await request(
                 `${TBA_BASE_URL}${TOKEN}/${method}`,
                 reqOptions
             );
 
-            const data = (await response.json()) as TelegramAPIResponse;
+            const data = (await response.body.json()) as TelegramAPIResponse;
             if (!data.ok) throw new Error(`Some error in ${method}`);
 
             return data.result;

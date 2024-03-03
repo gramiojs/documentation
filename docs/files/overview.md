@@ -3,7 +3,7 @@
 [`@gramio/files`](https://github.com/gramiojs/files) is built-in GramIO plugin. You can also use it outside of this framework because it is framework-agnostic.
 
 > [!WARNING]
-> Currently, uploading files in [`Bun`](https://bun.sh/) is not working... ([Issue](https://github.com/oven-sh/bun/issues/8750), [Other Issue](https://github.com/oven-sh/bun/issues/2644))
+> Currently, uploading files in [`Bun`](https://bun.sh/) working, but filenames is wrong... ([Issue](https://github.com/oven-sh/bun/issues/8750), [Other Issue](https://github.com/oven-sh/bun/issues/2644))
 
 ## Usage
 
@@ -82,4 +82,32 @@ import { Bot, MessageContext } from "gramio";
 const ctx = {} as InstanceType<MessageContext<Bot>>;
 // ---cut---
 ctx.sendPhoto(MediaUpload.path("../cute-cat.png"));
+```
+
+#### Use [`File`](https://developer.mozilla.org/en-US/docs/Web/API/File)
+
+In fact, GramIO can accept Web API's [`File`](https://developer.mozilla.org/en-US/docs/Web/API/File).
+
+So you can upload files even like this:
+
+```ts
+import { Elysia } from "elysia";
+
+new Elysia().post(
+    "/",
+    ({ body: { file } }) => {
+        bot.api.sendPhoto({
+            chat_id: 1,
+            photo: file,
+        });
+    },
+    {
+        body: t.Object({
+            file: t.File({
+                type: "image",
+                maxSize: "2m",
+            }),
+        }),
+    }
+);
 ```
