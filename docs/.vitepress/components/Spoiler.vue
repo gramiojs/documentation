@@ -61,6 +61,7 @@ export default {
 
 <style>
 .spoiler {
+  display: inline-block;
   width: fit-content;
   height: fit-content;
   position: relative;

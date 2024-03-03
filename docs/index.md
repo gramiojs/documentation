@@ -4,7 +4,7 @@ layout: home
 
 hero:
     name: "GramIO"
-    text: "Build your bots with convenience!"
+    text: "Create your bots with convenience!"
     image:
         src: /logo.svg
     actions:
@@ -21,4 +21,13 @@ features:
       details:
     - title: Yet
       details:
+    - icon: ✨
+      title: Extensible
+      details: Our plugin and hook system is awesome
+    - icon: ⚙️
+      title: Code-generated
+      details: Many parts are code-generated
+    - icon: 🛡️
+      title: Type-safe
+      details: Written in TypeScript with love ❤️
 ---
