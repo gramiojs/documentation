@@ -47,7 +47,7 @@ export type BotType = typeof bot;
 
 ## Create command
 
-```ts twoslash
+```ts
 // commands/command.ts
 import type { BotType } from "..";
 
