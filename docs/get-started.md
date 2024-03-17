@@ -1,8 +1,16 @@
 # Get started
 
-Create new bot with GramIO in minutes.
+Create new bot with GramIO in minutes. You should already have [Node.js](https://nodejs.org/) or [Bun](https://bun.sh/) installed.
+
+## Obtain your bot token
+
+First, create a bot and get a `token`. You can do this using the [@BotFather](https://t.me/BotFather) bot.
+
+Send the command `/newbot` and follow the instructions until you receive a token like `110201543:AAHdqTcvCH1vGWJxfSeofSAs0K5PALDsaw`.
 
 ## Scaffolding the project
+
+This command will help you create a project with GramIO the easiest way.
 
 ::: code-group
 
@@ -98,10 +106,8 @@ npx tsx ./src/index.ts
 bun ./src/index.ts
 ```
 
-```bash [tsc+node]
-tsc && node ./dist/index.js
-```
-
 :::
 
 Done! 🎉
+
+Now you can interact with your Telegram bot.
