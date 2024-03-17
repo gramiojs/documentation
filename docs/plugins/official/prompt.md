@@ -27,13 +27,16 @@ bun install @gramio/prompt
 ## Usage
 
 ```ts twoslash
-import { Bot } from "gramio";
+import { Bot, format, bold } from "gramio";
 import { prompt } from "@gramio/prompt";
 
 const bot = new Bot(process.env.token!)
     .extend(prompt())
     .command("start", async (context) => {
-        const answer = await context.prompt("message", "What's your name?");
+        const answer = await context.prompt(
+            "message",
+            format`What's your ${bold`name`}?`
+        );
 
         return context.send(`✨ Your name is ${answer.text}`);
     })

@@ -59,12 +59,12 @@ npx tsc --init
 
 ```bash [yarn]
 yarn add typescript -D
-npx tsc --init
+yarn dlx tsc --init
 ```
 
 ```bash [pnpm]
 pnpm add typescript -D
-npx tsc --init
+pnpm exec tsc --init
 ```
 
 ```bash [bun]

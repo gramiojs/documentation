@@ -9,7 +9,7 @@
         "@gramio/files": "^0.0.3",
         "@gramio/format": "^0.0.8",
         "@gramio/keyboards": "^0.2.1",
-        "@gramio/prompt": "^0.0.2",
+        "@gramio/prompt": "^0.0.3",
         "@gramio/session": "^0.0.1",
         "@gramio/autoload": "^0.0.2",
         "@gramio/types": "^7.1.7",
