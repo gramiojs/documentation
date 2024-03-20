@@ -60,20 +60,20 @@ GramIO is not ready yet...
 import { Keyboard } from "@gramio/keyboards";
 import { Bot } from "grammy";
 
-const bot = new Bot(process.env.TOKEN!);
-
 const data = ["Apple", "Realme", "Tesla", "Xiaomi"];
 
-bot.on("message", (ctx) => {
-    return ctx.reply("test", {
-        reply_markup: new Keyboard()
-            .columns(1)
-            .text("simple keyboard")
-            .add(...data.map((x) => Keyboard.text(x)))
-            .filter(({ button }) => button.text !== "Tesla")
-            .toJSON(),
-    });
-});
+const bot = new Bot(process.env.TOKEN!)
+    .on("message", (ctx) => {
+        return ctx.reply("test", {
+            reply_markup: new Keyboard()
+                .columns(1)
+                .text("simple keyboard")
+                .add(...data.map((x) => Keyboard.text(x)))
+                .filter(({ button }) => button.text !== "Tesla")
+                .toJSON(),
+        });
+    })
+    .onStart(console.log);
 
 bot.start();
 ```

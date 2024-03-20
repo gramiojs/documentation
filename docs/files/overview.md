@@ -10,20 +10,20 @@
 ```ts twoslash
 import { Bot, MediaInput, MediaUpload, InlineKeyboard } from "gramio";
 
-const bot = new Bot(process.env.BOT_TOKEN!);
+const bot = new Bot(process.env.BOT_TOKEN!)
+    .on("message", async (ctx) => {
+        ctx.sendMediaGroup([
+            MediaInput.document(
+                MediaUpload.url(
+                    "https://raw.githubusercontent.com/gramiojs/types/main/README.md"
+                )
+            ),
+            MediaInput.document(MediaUpload.path("./package.json")),
+        ]);
+    })
+    .onStart(console.log);
 
-bot.updates.on("message", async (ctx) => {
-    ctx.sendMediaGroup([
-        MediaInput.document(
-            MediaUpload.url(
-                "https://raw.githubusercontent.com/gramiojs/types/main/README.md"
-            )
-        ),
-        MediaInput.document(MediaUpload.path("./package.json")),
-    ]);
-});
-
-bot.updates.startPolling();
+bot.start();
 ```
 
 ## Sending files

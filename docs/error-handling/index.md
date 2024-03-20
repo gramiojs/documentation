@@ -9,7 +9,7 @@ import { Bot } from "gramio";
 const bot = new Bot("");
 // ---cut---
 
-bot.updates.on("message", () => {
+bot.on("message", () => {
     bot.api.sendMessage({
         chat_id: "@not_found",
         text: "Chat not exists....",
@@ -51,7 +51,7 @@ const bot = new Bot(process.env.TOKEN!)
             );
     });
 
-bot.updates.on("message", (context) => {
+bot.on("message", (context) => {
     if (context.text === "ban") throw new NoRights("admin");
 });
 ```
