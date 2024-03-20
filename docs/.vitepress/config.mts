@@ -73,6 +73,10 @@ export default defineConfig({
 							link: "https://tsdocs.dev/docs/@gramio/contexts",
 						},
 						{
+							text: "Hooks",
+							link: "/hooks/overview",
+						},
+						{
 							text: "Keyboards",
 							collapsed: false,
 							items: [
