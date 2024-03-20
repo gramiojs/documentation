@@ -80,7 +80,9 @@ import { Bot } from "grammy";
 
 const data = ["Apple", "Realme", "Tesla", "Xiaomi"];
 
-const bot = new Bot(process.env.TOKEN!).on("message", (ctx) => {
+const bot = new Bot(process.env.TOKEN!);
+
+bot.on("message", (ctx) => {
     return ctx.reply("test", {
         reply_markup: new Keyboard()
             .columns(1)
