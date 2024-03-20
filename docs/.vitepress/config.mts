@@ -74,7 +74,24 @@ export default defineConfig({
 						},
 						{
 							text: "Hooks",
-							link: "/hooks/overview",
+							items: [
+								{
+									text: "Overview",
+									link: "/hooks/overview",
+								},
+								{
+									text: "onStart",
+									link: "/hooks/on-start",
+								},
+								{
+									text: "onError (error-handling)",
+									link: "/hooks/on-error",
+								},
+								{
+									text: "preRequest",
+									link: "/hooks/pre-request",
+								},
+							],
 						},
 						{
 							text: "Keyboards",
