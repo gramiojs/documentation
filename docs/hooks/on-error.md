@@ -1,7 +1,7 @@
-# Error Handling
+# onError (Error Handling)
 
 It happens that errors occur in middleware and we need to handle them.
-That's what the `onError` method was created for.
+That's what the `onError` hook was created for.
 
 ```ts twoslash
 import { Bot } from "gramio";
@@ -18,6 +18,18 @@ bot.on("message", () => {
 
 bot.onError(({ context, kind, error }) => {
     if (context.is("message")) return context.send(`${kind}: ${error.message}`);
+});
+```
+
+### Add hook only to specified contexts
+
+```ts
+bot.onError("message", ({ context, kind, error }) => {
+    return context.send(`${kind}: ${error.message}`);
+});
+// or array
+bot.onError(["message", "message_reaction"], ({ context, kind, error }) => {
+    return context.send(`${kind}: ${error.message}`);
 });
 ```
 

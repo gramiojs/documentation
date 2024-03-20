@@ -7,8 +7,8 @@ This hook called `before sending a request` to Telegram Bot API (allows us to im
 -   method - API method name
 -   params - API method params
 
-> ![IMPORTANT]
-> Return { method, params } from hook handler is required!
+> [!IMPORTANT]
+> Return context from hook handler is required!
 
 ## Example
 
@@ -26,7 +26,7 @@ const bot = new Bot(process.env.TOKEN!).preRequest((context) => {
 bot.start();
 ```
 
-### add hook only to specified updates
+### Add hook only to specified API methods
 
 ```ts
 bot.preRequest("sendMessage", (context) => {
