@@ -53,7 +53,7 @@ const keyboard = new Keyboard()
 ### Send via GramIO
 
 ```ts twoslash
-import { Bot, Keyboard } from "grammy";
+import { Bot, Keyboard } from "gramio";
 
 const data = ["Apple", "Realme", "Tesla", "Xiaomi"];
 
