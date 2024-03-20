@@ -15,12 +15,12 @@ This hook called `before sending a request` to Telegram Bot API (allows us to im
 ```ts twoslash
 import { Bot } from "gramio";
 
-const bot = new Bot(process.env.TOKEN!).preRequest(({ method, params }) => {
-    if (method === "sendMessage") {
-        params.text = "mutate params";
+const bot = new Bot(process.env.TOKEN!).preRequest((context) => {
+    if (context.method === "sendMessage") {
+        context.params.text = "mutate params";
     }
 
-    return { method, params };
+    return context;
 });
 
 bot.start();
@@ -29,19 +29,17 @@ bot.start();
 ### add hook only to specified updates
 
 ```ts
-bot.preRequest("sendMessage", ({ method, params }) => {
-    params.text = "mutate params";
+bot.preRequest("sendMessage", (context) => {
+    context.params.text = "mutate params";
 
-    return { method, params };
+    return context;
 });
 // or array
-bot.preRequest(["sendMessage", "sendPhoto"], ({ method, params }) => {
-    if (method === "sendMessage") {
-        params.text = "mutate params";
-    } else {
-        params.caption = "method is sendPhoto";
-    }
+bot.preRequest(["sendMessage", "sendPhoto"], (context) => {
+    if (context.method === "sendMessage") {
+        context.params.text = "mutate params";
+    } else params.caption = "method is sendPhoto";
 
-    return { method, params };
+    return context;
 });
 ```
