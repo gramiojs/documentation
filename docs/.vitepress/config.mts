@@ -68,6 +68,7 @@ export default defineConfig({
 					text: "Guide",
 					items: [
 						{ text: "Get started", link: "/get-started" },
+						{ text: "Bot API", link: "/bot-api" },
 						{
 							text: "Contexts",
 							link: "https://tsdocs.dev/docs/@gramio/contexts",

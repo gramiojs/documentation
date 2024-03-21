@@ -38,7 +38,7 @@ bot.preRequest("sendMessage", (context) => {
 bot.preRequest(["sendMessage", "sendPhoto"], (context) => {
     if (context.method === "sendMessage") {
         context.params.text = "mutate params";
-    } else params.caption = "method is sendPhoto";
+    } else context.params.caption = "method is sendPhoto";
 
     return context;
 });

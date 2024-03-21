@@ -17,7 +17,7 @@ type SendMessageReturn = Awaited<ReturnType<APIMethods["sendMessage"]>>;
 //   ^? type SendMessageReturn = TelegramMessage
 
 type GetMeReturn = APIMethodReturn<"getMe">;
-//   ^? type SendMessageReturn = TelegramUser
+//   ^? type GetMeReturn = TelegramUser
 ```
 
 ### Auto-update package
