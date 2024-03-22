@@ -1,4 +1,17 @@
+---
+head:
+    - - meta
+      - property: "title"
+        content: Telegram Bot API - How to call API methods
+
+    - - meta
+      - name: "description"
+        content: Bot API is a high-level HTTP interface to the Telegram API that makes it easy to develop bots. Under the hood, Bot API uses TDLib (which in turn uses MTProto API).
+---
+
 # Bot API
+
+> [Telegram Bot API documentation](https://core.telegram.org/bots/api)
 
 [Bot API](https://core.telegram.org/bots/api) is a high-level HTTP interface to the Telegram API that makes it easy to develop bots.
 Under the hood, [Bot API](https://core.telegram.org/bots/api) uses TDLib (which in turn uses MTProto API).
@@ -6,8 +19,6 @@ Under the hood, [Bot API](https://core.telegram.org/bots/api) uses TDLib (which 
 While the [Bot API](https://core.telegram.org/bots/api) can only be used to work with bot accounts, the MTProto API can be used to work with both bot and user accounts.
 If you need to work with MTProto, we recommend you the <a href="https://mtcute.dev/" target="_blank" rel="noopener noreferrer">
 <img src="https://mtcute.dev/mtcute-logo.svg" alt="MtCute Logo" width="32" height="32" style="vertical-align:middle;    display: inline-block;">mtcute</a> library.
-
-[Telegram Bot API documentation](https://core.telegram.org/bots/api)
 
 ## Calling the Bot API
 

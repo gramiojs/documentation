@@ -1,3 +1,14 @@
+---
+head:
+    - - meta
+      - property: "title"
+        content: Get started in GramIO - Powerful Telegram Bot API framework for TypeScript/JavaScript
+
+    - - meta
+      - name: "description"
+        content: GramIO is a TypeScript/JavaScript framework for building Telegram bots. To start, bootstrap a new project with "npx create gramio bot-dir" and start the development with "npm run dev". This is all it needs to do a quick start or get started with GramIO.
+---
+
 # Get started
 
 Create new bot with GramIO in minutes. You should already have [Node.js](https://nodejs.org/) or [Bun](https://bun.sh/) installed.

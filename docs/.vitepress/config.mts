@@ -71,6 +71,7 @@ export default defineConfig({
 						{ text: "Bot API", link: "/bot-api" },
 						{
 							text: "Contexts",
+							collapsed: false,
 							link: "https://tsdocs.dev/docs/@gramio/contexts",
 						},
 						{
