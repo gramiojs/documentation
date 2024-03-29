@@ -5,19 +5,19 @@
         "preview": "bunx vitepress preview docs"
     },
     "devDependencies": {
-        "@biomejs/biome": "1.6.1",
+        "@biomejs/biome": "1.6.3",
         "@gramio/files": "^0.0.3",
         "@gramio/format": "^0.0.8",
-        "@gramio/keyboards": "^0.2.1",
+        "@gramio/keyboards": "^0.2.2",
         "@gramio/prompt": "^0.0.3",
         "@gramio/session": "^0.0.1",
         "@gramio/autoload": "^0.0.2",
         "@gramio/types": "^7.1.7",
-        "@shikijs/vitepress-twoslash": "^1.2.0",
-        "@types/node": "^20.11.28",
-        "gramio": "^0.0.22",
-        "grammy": "^1.21.1",
-        "undici": "^6.9.0",
-        "vitepress": "^1.0.0-rc.44"
+        "@shikijs/vitepress-twoslash": "^1.2.1",
+        "@types/node": "^20.11.30",
+        "gramio": "^0.0.24",
+        "grammy": "^1.21.2",
+        "undici": "^6.10.2",
+        "vitepress": "^1.0.1"
     }
 }
