@@ -6,6 +6,7 @@
 -   [Fastify](https://fastify.dev/)
 -   [Hono](https://hono.dev/)
 -   [Express](https://expressjs.com/)
+-   [And any other framework](#write-you-own-updates-handler)
 
 ## Example
 
@@ -29,4 +30,116 @@ bot.start({
         url: "https://example.com:3445/telegram-webhook",
     },
 });
+```
+
+## Local development with webhook
+
+For local development with webhook, we recommend using <a href="https://github.com/unjs/untun" target="_blank" rel="noopener noreferrer">
+<img src="https://unjs.io/assets/logos/untun.svg" alt="untun Logo" width="24" height="24" style="vertical-align:middle; display: inline-block; margin-right: 5px;">unjs/untun</a>.
+
+**Untun** is a tool for tunnel your **local** HTTP(s) server to the world!
+
+> [!IMPORTANT]
+> Examples of starting with a specific framework are omitted. See [this example](#example).
+
+### via API
+
+This method allows us to set a link to our tunnel directly in the script.
+
+Install package:
+
+::: code-group
+
+```bash [npm]
+npm install untun
+```
+
+```bash [yarn]
+yarn add untun
+```
+
+```bash [pnpm]
+pnpm install untun
+```
+
+```bash [bun]
+bun install untun
+```
+
+:::
+
+Start tunnel and set webhook:
+
+```ts
+import { startTunnel } from "untun";
+
+const tunnel = await startTunnel({ port: 3000 });
+
+bot.start({
+    webhook: {
+        url: await tunnel.getURL(),
+    },
+});
+```
+
+### via CLI
+
+We are listening to port `3000` locally. Therefore, we open the tunnel like this:
+
+::: code-group
+
+```bash [npm]
+npx untun@latest tunnel http://localhost:3000
+```
+
+```bash [yarn]
+yarn dlx untun@latest tunnel http://localhost:3000
+```
+
+```bash [pnpm]
+pnpm dlx untun@latest tunnel http://localhost:3000
+```
+
+```bash [bun]
+bunx untun@latest tunnel http://localhost:3000
+```
+
+:::
+
+```bash
+◐ Starting cloudflared tunnel to http://localhost:3000
+ℹ Waiting for tunnel URL...
+✔ Tunnel ready at https://unjs-is-awesome.trycloudflare.com
+```
+
+Now we use this link when installing the webhook:
+
+```ts
+bot.start({
+    webhook: {
+        url: "https://unjs-is-awesome.trycloudflare.com",
+    },
+});
+```
+
+## Write you own updates handler
+
+```ts
+// a non-existing framework for the example
+import { App } from "some-http-framework";
+import { Bot } from "gramio";
+
+const bot = new Bot(process.env.TOKEN!).on("message", (context) =>
+    context.send("Hello!")
+);
+
+// init is required. It is used for lazy-load plugins, and also receives information about the bot.
+await bot.init();
+
+const app = new App().post("/telegram", (req) => {
+    // req.body must be json equivalent to TelegramUpdate
+    await bot.handleUpdate(req.body);
+});
+
+app.listen(80);
 ```
