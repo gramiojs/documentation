@@ -20,8 +20,6 @@ const plugin = new Plugin("gramio-example")
     });
 
 const bot = new Bot(process.env.TOKEN!)
-    // TODO: fix https://github.com/gramiojs/documentation/actions/runs/8310435294/job/22742949400
-    // @ts-ignore
     .extend(plugin)
     .onError(({ context, kind, error }) => {
         if (context.is("message") && kind === "PLUGIN") {

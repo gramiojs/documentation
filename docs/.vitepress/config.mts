@@ -86,6 +86,10 @@ export default defineConfig({
 									link: "/hooks/on-start",
 								},
 								{
+									text: "onStop",
+									link: "/hooks/on-stop",
+								},
+								{
 									text: "onError (error-handling)",
 									link: "/hooks/on-error",
 								},

@@ -44,7 +44,7 @@ For local development with webhook, we recommend using <a href="https://github.c
 
 ### via API
 
-This method allows us to set a link to our tunnel directly in the script.
+This method allows you to set a link to our tunnel directly in the script.
 
 Install package:
 
@@ -136,7 +136,7 @@ const bot = new Bot(process.env.TOKEN!).on("message", (context) =>
 // init is required. It is used for lazy-load plugins, and also receives information about the bot.
 await bot.init();
 
-const app = new App().post("/telegram", (req) => {
+const app = new App().post("/telegram", async (req) => {
     // req.body must be json equivalent to TelegramUpdate
     await bot.handleUpdate(req.body);
 });
