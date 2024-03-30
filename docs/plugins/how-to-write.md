@@ -4,7 +4,7 @@ It happens that you are missing something... And plugins can help you with this!
 
 # Example
 
-```ts
+```ts twoslash
 import { Plugin, Bot } from "gramio";
 
 export class PluginError extends Error {
