@@ -1,6 +1,6 @@
 # Auto retry plugin
 
-A plugin that catches errors with the retry_after field (rate limit errors), waits for the specified time and repeats the API request.
+A plugin that catches errors with the `retry_after` field (**rate limit** errors), **waits** for the specified time and **repeats** the API request.
 
 ### Installation
 
