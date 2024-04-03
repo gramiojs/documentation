@@ -58,6 +58,10 @@ export default defineConfig({
 									text: "Prompt",
 									link: "/plugins/official/prompt",
 								},
+								{
+									text: "Auto-retry",
+									link: "/plugins/official/auto-retry",
+								},
 							],
 						},
 					],
@@ -96,6 +100,14 @@ export default defineConfig({
 								{
 									text: "preRequest",
 									link: "/hooks/pre-request",
+								},
+								{
+									text: "onResponse",
+									link: "/hooks/on-response",
+								},
+								{
+									text: "onResponseError",
+									link: "/hooks/on-response-error",
 								},
 							],
 						},
@@ -150,6 +162,7 @@ export default defineConfig({
 						{ text: "Formatting", link: "/formatting/index" },
 						{ text: "Types", link: "/types/index" },
 						{ text: "Webhook", link: "/webhook/index" },
+						{ text: "Rate-limits and broadcast", link: "/rate-limits" },
 					],
 				},
 			],
