@@ -55,6 +55,7 @@ bun create gramio ./bot
 -   -   [Session](https://gramio.netlify.app/plugins/official/session.html)
 -   -   [Autoload](https://gramio.netlify.app/plugins/official/autoload.html)
 -   -   [Prompt](https://gramio.netlify.app/plugins/official/prompt.html)
+-   -   [Auto-retry](https://gramio.netlify.app/plugins/official/auto-retry.html)
 -   Others
 -   -   [Husky](https://typicode.github.io/husky/) (Git hooks)
 
