@@ -79,7 +79,7 @@ export default defineConfig({
 						},
 						{
 							text: "Hooks",
-							collapsed: false,
+							collapsed: true,
 							items: [
 								{
 									text: "Overview",
@@ -113,7 +113,7 @@ export default defineConfig({
 						},
 						{
 							text: "Keyboards",
-							collapsed: false,
+							collapsed: true,
 							items: [
 								{
 									text: "Overview",
@@ -139,7 +139,7 @@ export default defineConfig({
 						},
 						{
 							text: "Files",
-							collapsed: false,
+							collapsed: true,
 							items: [
 								{
 									text: "Overview",
@@ -163,6 +163,7 @@ export default defineConfig({
 						{ text: "Types", link: "/types/index" },
 						{ text: "Webhook", link: "/webhook/index" },
 						{ text: "Rate-limits and broadcast", link: "/rate-limits" },
+						{ text: "Storages", link: "/storages/index" },
 					],
 				},
 			],
