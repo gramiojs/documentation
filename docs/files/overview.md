@@ -8,6 +8,7 @@
 ## Usage
 
 ```ts twoslash
+// @errors: 2345
 import { Bot, MediaInput, MediaUpload, InlineKeyboard } from "gramio";
 
 const bot = new Bot(process.env.BOT_TOKEN!)
@@ -76,6 +77,7 @@ ctx.sendPhoto("https://.../cute-cat.png");
 To upload and send file you can use [`Media Upload`](/files/media-upload.html) Class-helper and GramIO will do all the work for you.
 
 ```ts twoslash
+// @errors: 2345
 import { MediaUpload } from "@gramio/files";
 import { Bot, MessageContext } from "gramio";
 

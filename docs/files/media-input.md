@@ -11,6 +11,7 @@ Class-helper with static methods that represents the content of a media message 
 Represents a general file to be sent.
 
 ```ts twoslash
+// @errors: 2345
 import { Bot, MessageContext } from "gramio";
 import { MediaInput, MediaUpload } from "@gramio/files";
 
@@ -34,6 +35,7 @@ ctx.sendMediaGroup([
 Represents an audio file to be treated as music to be sent.
 
 ```ts twoslash
+// @errors: 2345
 import { Bot, MessageContext } from "gramio";
 import { MediaInput, MediaUpload } from "@gramio/files";
 
@@ -54,6 +56,7 @@ ctx.sendMediaGroup([
 Represents a photo to be sent.
 
 ```ts twoslash
+// @errors: 2345
 import { Bot, MessageContext } from "gramio";
 import { MediaInput, MediaUpload } from "@gramio/files";
 

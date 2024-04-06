@@ -7,6 +7,7 @@ Class-helper with static methods for file uploading.
 Method for uploading Media File by local path.
 
 ```ts twoslash
+// @errors: 2345
 import { Bot, MessageContext } from "gramio";
 import { MediaUpload } from "@gramio/files";
 
@@ -24,6 +25,7 @@ If filename not specified, the filename set to filename :)
 Method for uploading Media File by URL (also with fetch options).
 
 ```ts twoslash
+// @errors: 2345
 import { Bot, MessageContext } from "gramio";
 import { MediaUpload } from "@gramio/files";
 
@@ -49,6 +51,7 @@ If filename not specified, the filename set to last part after `/`.
 Method for uploading Media File by Buffer or ArrayBuffer.
 
 ```ts twoslash
+// @errors: 2345
 import { Bot, MessageContext } from "gramio";
 import { MediaUpload } from "@gramio/files";
 
@@ -68,6 +71,7 @@ By default filename is `file.buffer`.
 Method for uploading Media File by Readable stream.
 
 ```ts twoslash
+// @errors: 2345
 import { Bot, MessageContext } from "gramio";
 import { MediaUpload } from "@gramio/files";
 import fs from "node:fs";
@@ -89,6 +93,7 @@ By default filename is `file.stream`.
 Method for uploading Media File by text content.
 
 ```ts twoslash
+// @errors: 2345
 import { Bot, MessageContext } from "gramio";
 import { MediaUpload } from "@gramio/files";
 
