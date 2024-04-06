@@ -13,6 +13,9 @@ import { Bot, TelegramError } from "gramio";
 import { autoRetry } from "@gramio/auto-retry";
 
 const bot = new Bot(process.env.TOKEN!).extend(autoRetry());
+const chatIds = [
+    /** some chat ids */
+];
 
 for (const chatId of chatIds) {
     const result = await bot.api.sendMessage({ suppress: true, chatId, text });

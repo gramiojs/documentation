@@ -78,6 +78,32 @@ export default defineConfig({
 							link: "https://tsdocs.dev/docs/@gramio/contexts",
 						},
 						{
+							text: "Triggers",
+							collapsed: true,
+							items: [
+								{
+									text: "Hears",
+									link: "/triggers/hears",
+								},
+								{
+									text: "Command",
+									link: "/triggers/command",
+								},
+								{
+									text: "Callback Query",
+									link: "/triggers/callback-query",
+								},
+								{
+									text: "Inline Query",
+									link: "/triggers/inline-query",
+								},
+								{
+									text: "Reaction",
+									link: "/triggers/reaction",
+								},
+							],
+						},
+						{
 							text: "Hooks",
 							collapsed: true,
 							items: [
