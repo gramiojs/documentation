@@ -6,22 +6,22 @@ https://core.telegram.org/bots/faq#broadcasting-to-users
 
 Without queue:
 
-```ts
+```ts twoslash
 // experimental API available since Node.js@16.14.0
 import { scheduler } from "node:timers/promises";
+import { Bot, TelegramError } from "gramio";
 import { autoRetry } from "@gramio/auto-retry";
 
 const bot = new Bot(process.env.TOKEN!).extend(autoRetry());
 
 for (const chatId of chatIds) {
-    // need suppress API
-    try {
-        await bot.api.sendMessage({ chatId, text });
-        await scheduler.wait(1000);
-    } catch (error) {
-        if (error instanceof TelegramError && error.payload?.retry_after)
-            await scheduler.wait(error.payload.retry_after * 1000);
-    }
+    const result = await bot.api.sendMessage({ suppress: true, chatId, text });
+
+    await scheduler.wait(
+        result instanceof TelegramError && result.payload?.retry_after
+            ? result.payload.retry_after * 1000
+            : 1000
+    );
 }
 ```
 

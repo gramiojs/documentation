@@ -48,6 +48,29 @@ bot.on("message", (context) =>
 );
 ```
 
+### Suppressing errors
+
+It can be convenient to handle an error on the spot without using **try/catch** blocks. That's why the `suppress` argument was created, which you can use in **any** API method.
+
+```ts twoslash
+import { Bot, TelegramError } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+const response = await bot.api.sendMessage({
+    // ^?
+    //
+    //
+    suppress: true,
+    chat_id: "@not_found",
+    text: "Suppressed method",
+});
+
+if (response instanceof TelegramError)
+    console.error("sendMessage returns an error...");
+else console.log("Message has been sent successfully");
+```
+
 ### Types
 
 GramIO re-exports [@gramio/types](https://www.npmjs.com/package/@gramio/types) (Code-generated and Auto-published Telegram Bot API types).
@@ -76,4 +99,21 @@ function myCustomSend(params: APIMethodParams<"sendMessage">) {
     params;
     // ^?
 }
+```
+
+#### Types for suppressed method
+
+```ts twoslash
+import type {
+    SuppressedAPIMethodParams,
+    SuppressedAPIMethodReturn,
+} from "gramio";
+
+type SendMessageParams = SuppressedAPIMethodParams<"sendMessage">;
+//   ^? type SendMessageParams = SendMessageParams
+//
+
+type GetMeReturn = SuppressedAPIMethodReturn<"getMe">;
+//   ^? type GetMeReturn = TelegramUser
+//
 ```
