@@ -51,6 +51,10 @@ export default defineConfig({
 									link: "/plugins/official/session",
 								},
 								{
+									text: "Media cache",
+									link: "/plugins/official/media-cache",
+								},
+								{
 									text: "Autoload",
 									link: "/plugins/official/autoload",
 								},
