@@ -183,6 +183,7 @@ export default defineConfig({
 									text: "Media Input",
 									link: "/files/media-input",
 								},
+								{ text: "Download", link: "/files/download" },
 								{
 									text: "Usage without GramIO",
 									link: "/files/usage-without-gramio",
