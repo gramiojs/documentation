@@ -55,6 +55,10 @@ export default defineConfig({
 									link: "/plugins/official/media-cache",
 								},
 								{
+									text: "I18n",
+									link: "/plugins/official/i18n",
+								},
+								{
 									text: "Autoload",
 									link: "/plugins/official/autoload",
 								},
