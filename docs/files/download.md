@@ -4,7 +4,7 @@ The standard file download path looks like this:
 
 -   Call `getFile` with `file_id`
 -   Extract `file_path` from response
--   Construct a link of the following type https://api.telegram.org/file/bot<token>/<file_path>
+-   Construct a link of the following type `https://api.telegram.org/file/bot<token>/<file_path>`
 -   Send request and download the requested media
 -   ? Maybe save file in FS ?
 
@@ -25,7 +25,7 @@ bot.on("message", async (context) => {
 ```
 
 > [!IMPORTANT]
-> // prettier-ignore
+
 > **One message** contain only **one attachment**. Therefore, to download an attachment, you can simply use the `context.download` method
 
 ## Via bot instance method
