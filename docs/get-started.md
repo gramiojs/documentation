@@ -53,7 +53,9 @@ bun create gramio ./bot
 -   -   [Drizzle](https://orm.drizzle.team/)
 -   Plugins
 -   -   [Session](https://gramio.netlify.app/plugins/official/session.html)
+-   -   [Media-cache](https://gramio.netlify.app/plugins/official/media-cache.html)
 -   -   [Autoload](https://gramio.netlify.app/plugins/official/autoload.html)
+-   -   [I18n](https://gramio.netlify.app/plugins/official/i18n.html) ([Fluent](https://projectfluent.org/))
 -   -   [Prompt](https://gramio.netlify.app/plugins/official/prompt.html)
 -   -   [Auto-retry](https://gramio.netlify.app/plugins/official/auto-retry.html)
 -   Others
