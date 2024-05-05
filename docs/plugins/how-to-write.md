@@ -32,3 +32,36 @@ const bot = new Bot(process.env.TOKEN!)
         //                  ^^^^
     });
 ```
+
+## Scaffolding the plugin
+
+This command will help you create a plugin with GramIO the easiest way.
+
+::: code-group
+
+```bash [npm]
+npm create gramio-plugin ./plugin
+```
+
+```bash [yarn]
+yarn create gramio-plugin ./plugin
+```
+
+```bash [pnpm]
+pnpm create gramio-plugin ./plugin
+```
+
+```bash [bun]
+bun create gramio-plugin ./plugin
+```
+
+:::
+
+#### Supported environment
+
+-   Linters
+-   -   [Biome](https://biomejs.dev/)
+-   -   [ESLint](https://eslint.org/) with some plugins
+-   [Storage](https://gramio.netlify.app/storages/)
+-   Others
+-   -   [Husky](https://typicode.github.io/husky/) (Git hooks)

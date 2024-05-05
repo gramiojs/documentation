@@ -48,7 +48,7 @@ export function myOwnStorage(options: MyOwnStorageOptions = {}): Storage {
 ```
 
 > [!IMPORTANT]
-> If you want to publish your adapter, we recommend that you follow the **convention** and name it starting with `gramio-storage`
+> If you want to publish your adapter, we recommend that you follow the **convention** and name it starting with `gramio-storage` and add `gramio` + `gramio-storage` keywords in your **package.json**
 
 ## How to use storage adapters in my own plugin
 
@@ -71,3 +71,6 @@ export function myOwnPlugin(options: MyOwnPluginOptions = {}) {
     return new Plugin("gramio-example");
 }
 ```
+
+> [!IMPORTANT]
+> You can scaffold this example by [create-gramio-plugin](/plugins/how-to-write.html#scaffolding-the-plugin)
