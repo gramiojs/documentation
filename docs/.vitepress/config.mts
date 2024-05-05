@@ -44,6 +44,10 @@ export default defineConfig({
 							link: "/plugins/how-to-write",
 						},
 						{
+							text: "Lazy-load plugin",
+							link: "/plugins/lazy-load",
+						},
+						{
 							text: "Official",
 							items: [
 								{
