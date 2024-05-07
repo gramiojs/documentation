@@ -1,5 +1,7 @@
 # Hears
 
+`hears`
+
 ```ts
 new Bot().hears(/regular expression with (.*)/i, async (context) => {
     if (context.args) await context.send(`Params ${context.args[1]}`);

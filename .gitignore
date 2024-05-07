@@ -11,3 +11,4 @@ cache
 .basement
 config.local.js
 basement_dist
+tg-bot-api

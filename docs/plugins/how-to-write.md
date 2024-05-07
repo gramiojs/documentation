@@ -24,7 +24,7 @@ const bot = new Bot(process.env.TOKEN!)
     .onError(({ context, kind, error }) => {
         if (context.is("message") && kind === "PLUGIN") {
             console.log(error.wow);
-            //                ^^^
+            //                 ^?
         }
     })
     .use((context) => {
