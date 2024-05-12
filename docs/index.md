@@ -17,9 +17,7 @@ hero:
 features:
     - title: Not
       details:
-    - title: Ready
-      details:
-    - title: Yet
+    - title: Ready Yet
       details:
     - icon: ✨
       title: Extensible
@@ -30,4 +28,9 @@ features:
     - icon: 🛡️
       title: Type-safe
       details: Written in TypeScript with love ❤️
+    - icon: 🌐
+      title: Multi-runtime
+      details: Works on Node.js, Bun and Deno*
 ---
+
+**Deno\*** [windows-specific issue with undici](https://github.com/denoland/deno/issues/19532)

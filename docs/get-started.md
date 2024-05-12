@@ -11,7 +11,7 @@ head:
 
 # Get started
 
-Create new bot with GramIO in minutes. You should already have [Node.js](https://nodejs.org/) or [Bun](https://bun.sh/) installed.
+Create new bot with GramIO in minutes. You should already have [Node.js](https://nodejs.org/) / [Bun](https://bun.sh/) or [Deno](https://deno.com/) installed.
 
 ## Obtain your bot token
 
@@ -39,6 +39,10 @@ pnpm create gramio ./bot
 
 ```bash [bun]
 bun create gramio ./bot
+```
+
+```bash [deno]
+TODO://
 ```
 
 :::
@@ -119,7 +123,9 @@ bunx tsc --init
 
 create `src` folder with `index.ts` file and write something like:
 
-```ts twoslash
+::: code-group
+
+```ts twoslash [Bun or Node.js]
 import { Bot } from "gramio";
 
 const bot = new Bot("") // put you token here
@@ -128,6 +134,18 @@ const bot = new Bot("") // put you token here
 
 bot.start();
 ```
+
+```ts [Deno]
+import { Bot } from "jsr:@gramio/core";
+
+const bot = new Bot("") // put you token here
+    .command("start", (context) => context.send("Hi!"))
+    .onStart(console.log);
+
+bot.start();
+```
+
+:::
 
 and run the bot with:
 
@@ -139,6 +157,10 @@ npx tsx ./src/index.ts
 
 ```bash [bun]
 bun ./src/index.ts
+```
+
+```bash [deno]
+deno run --allow-net ./src/index.ts
 ```
 
 :::
