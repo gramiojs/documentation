@@ -2,6 +2,15 @@
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
 
+head:
+    - - meta
+      - property: "title"
+        content: GramIO - Powerful Telegram Bot API framework for TypeScript/JavaScript
+
+    - - meta
+      - name: "description"
+        content: GramIO is a TypeScript/JavaScript framework for building Telegram bots. To start, bootstrap a new project with "npx create gramio bot-dir" and run the bot with "npm run dev". This is all it needs to do a get started with GramIO.
+
 hero:
     name: "GramIO"
     text: "Create your bots with convenience!"
