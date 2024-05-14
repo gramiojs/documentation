@@ -8,8 +8,8 @@ export const localeRu = {
 		themeConfig: {
 			// https://vitepress.dev/reference/default-theme-config
 			nav: [
-				{ text: "Главная", link: "/" },
-				{ text: "Начало", link: "/get-started" },
+				{ text: "Главная", link: "/ru" },
+				{ text: "Начало", link: "/ru/get-started" },
 				// { text: "Plugins", link: "/plugins/index" },
 				// { text: "Examples", link: "/markdown-examples" },
 			],

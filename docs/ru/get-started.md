@@ -9,7 +9,7 @@ head:
         content: GramIO это TypeScript/JavaScript фреймворк для создания Телеграм ботов. Чтобы начать, вы можете ввести в консоль "npx create gramio bot-dir" и запустить своего бота с помощью "npm run dev". Это всё что вам нужно чтобы начать работать с GramIO.
 ---
 
-# Начало
+# Давайте начнём!
 
 Создайте своего бота с GramIO за пару минут. У вас уже должен быть установлен [Node.js](https://nodejs.org/), [Bun](https://bun.sh/) или [Deno](https://deno.com/).
 
