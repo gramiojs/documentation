@@ -66,7 +66,7 @@ export const localeRu = {
 					{
 						text: "Гайд",
 						items: [
-							{ text: "Начало", link: "/ru/get-started" },
+							{ text: "Давайте начнём", link: "/ru/get-started" },
 							// 			{ text: "Bot API", link: "/bot-api" },
 							// 			{
 							// 				text: "Contexts",

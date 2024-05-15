@@ -1,5 +1,9 @@
 # Media cache plugin
 
+[![npm](https://img.shields.io/npm/v/@gramio/media-cache?logo=npm&style=flat&labelColor=000&color=3b82f6)](https://www.npmjs.org/package/@gramio/media-cache)
+[![JSR](https://jsr.io/badges/@gramio/media-cache)](https://jsr.io/@gramio/media-cache)
+[![JSR Score](https://jsr.io/badges/@gramio/media-cache/score)](https://jsr.io/@gramio/media-cache)
+
 `Media cache` plugin for [GramIO](https://gramio.netlify.app/).
 
 This plugin caches the sent `file_id`'s and prevents files from being uploaded again.
