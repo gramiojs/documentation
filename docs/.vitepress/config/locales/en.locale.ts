@@ -43,6 +43,10 @@ export const localeEn = {
 										link: "/plugins/official/media-cache",
 									},
 									{
+										text: "Session",
+										link: "/plugins/official/media-group",
+									},
+									{
 										text: "I18n",
 										link: "/plugins/official/i18n",
 									},
