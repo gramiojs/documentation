@@ -4,7 +4,7 @@
 [![JSR](https://jsr.io/badges/@gramio/media-cache)](https://jsr.io/@gramio/media-cache)
 [![JSR Score](https://jsr.io/badges/@gramio/media-cache/score)](https://jsr.io/@gramio/media-cache)
 
-`Media cache` plugin for [GramIO](https://gramio.netlify.app/).
+`Media cache` plugin for [GramIO](https://gramio.dev/).
 
 This plugin caches the sent `file_id`'s and prevents files from being uploaded again.
 

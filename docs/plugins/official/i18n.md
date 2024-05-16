@@ -4,7 +4,7 @@
 [![JSR](https://jsr.io/badges/@gramio/i18n)](https://jsr.io/@gramio/i18n)
 [![JSR Score](https://jsr.io/badges/@gramio/i18n/score)](https://jsr.io/@gramio/i18n)
 
-`i18n` plugin for [GramIO](https://gramio.netlify.app/).
+`i18n` plugin for [GramIO](https://gramio.dev/).
 
 This plugin provide internationalization for your bots with [Fluent](https://projectfluent.org/) syntax.
 

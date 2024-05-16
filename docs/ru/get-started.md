@@ -56,12 +56,12 @@ TODO://
 -   -   [Prisma](https://www.prisma.io/)
 -   -   [Drizzle](https://orm.drizzle.team/)
 -   Плагины
--   -   [Session](https://gramio.netlify.app/plugins/official/session.html)
--   -   [Media-cache](https://gramio.netlify.app/plugins/official/media-cache.html)
--   -   [Autoload](https://gramio.netlify.app/plugins/official/autoload.html)
--   -   [I18n](https://gramio.netlify.app/plugins/official/i18n.html) ([Fluent](https://projectfluent.org/))
--   -   [Prompt](https://gramio.netlify.app/plugins/official/prompt.html)
--   -   [Auto-retry](https://gramio.netlify.app/plugins/official/auto-retry.html)
+-   -   [Session](https://gramio.dev/plugins/official/session.html)
+-   -   [Media-cache](https://gramio.dev/plugins/official/media-cache.html)
+-   -   [Autoload](https://gramio.dev/plugins/official/autoload.html)
+-   -   [I18n](https://gramio.dev/plugins/official/i18n.html) ([Fluent](https://projectfluent.org/))
+-   -   [Prompt](https://gramio.dev/plugins/official/prompt.html)
+-   -   [Auto-retry](https://gramio.dev/plugins/official/auto-retry.html)
 -   Others
 -   -   [Husky](https://typicode.github.io/husky/) (Git hooks)
 

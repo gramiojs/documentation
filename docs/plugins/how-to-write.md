@@ -62,6 +62,6 @@ bun create gramio-plugin ./plugin
 -   Linters
 -   -   [Biome](https://biomejs.dev/)
 -   -   [ESLint](https://eslint.org/) with some plugins
--   [Storage](https://gramio.netlify.app/storages/)
+-   [Storage](https://gramio.dev/storages/)
 -   Others
 -   -   [Husky](https://typicode.github.io/husky/) (Git hooks)
