@@ -1,4 +1,5 @@
 import { transformerTwoslash } from "@shikijs/vitepress-twoslash";
+import Unocss from "unocss/vite";
 import { defineConfig } from "vitepress";
 import { localeEn, localeRu } from "./config/locales";
 
@@ -8,6 +9,7 @@ export default defineConfig({
 	description: "Build your bots with convenience!",
 	vite: {
 		publicDir: "../public",
+		plugins: [Unocss()],
 		// TODO: remove when bun on windows out!
 		// server: {
 		// 	watch: {
