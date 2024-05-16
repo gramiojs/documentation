@@ -43,7 +43,7 @@ export const localeEn = {
 										link: "/plugins/official/media-cache",
 									},
 									{
-										text: "Session",
+										text: "Media group",
 										link: "/plugins/official/media-group",
 									},
 									{
@@ -59,7 +59,7 @@ export const localeEn = {
 										link: "/plugins/official/prompt",
 									},
 									{
-										text: "Auto-retry",
+										text: "Auto  retry",
 										link: "/plugins/official/auto-retry",
 									},
 								],

@@ -1,0 +1,3 @@
+div > p:has(> a > img) {
+    @apply flex flex-row gap-4; /*justify-center*/
+}
