@@ -1,3 +1,15 @@
+:root {
+    --vp-c-left-color: #27bc75;
+    --vp-c-right-color: #0057ff;
+
+    --vp-home-hero-image-background-image: linear-gradient(
+        130deg,
+        var(--vp-c-left-color) 50%,
+        var(--vp-c-right-color) 50%
+    ) !important;
+    --vp-home-hero-image-filter: blur(180px) !important;
+}
+
 div > p:has(> a > img) {
     @apply flex flex-row gap-4; /*justify-center*/
 }
