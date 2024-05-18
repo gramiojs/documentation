@@ -1,8 +1,12 @@
 # Media group plugin
 
+<div class="badges">
+
 [![npm](https://img.shields.io/npm/v/@gramio/media-group?logo=npm&style=flat&labelColor=000&color=3b82f6)](https://www.npmjs.org/package/@gramio/media-group)
 [![JSR](https://jsr.io/badges/@gramio/media-group)](https://jsr.io/@gramio/media-group)
 [![JSR Score](https://jsr.io/badges/@gramio/media-group/score)](https://jsr.io/@gramio/media-group)
+
+</div>
 
 This plugin collects `mediaGroup` from messages (**1** attachment = **1** message) using a **delay** if `mediaGroupId` is in the **MessageContext**, pass only **first** message further down the middleware chain with the `mediaGroup` key, which contains an **array** of messages of this **mediaGroup** (it also contains the **first** message).
 

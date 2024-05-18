@@ -10,6 +10,6 @@
     --vp-home-hero-image-filter: blur(180px) !important;
 }
 
-div > p:has(> a > img) {
+.badges > p:has(> a > img) {
     @apply flex flex-row gap-4; /*justify-center*/
 }

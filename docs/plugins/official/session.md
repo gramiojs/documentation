@@ -1,8 +1,12 @@
 # Session Plugin
 
+<div class="badges">
+
 [![npm](https://img.shields.io/npm/v/@gramio/session?logo=npm&style=flat&labelColor=000&color=3b82f6)](https://www.npmjs.org/package/@gramio/session)
 [![JSR](https://jsr.io/badges/@gramio/session)](https://jsr.io/@gramio/session)
 [![JSR Score](https://jsr.io/badges/@gramio/session/score)](https://jsr.io/@gramio/session)
+
+</div>
 
 Session plugin for GramIO.
 

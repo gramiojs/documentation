@@ -1,8 +1,12 @@
 # Media cache plugin
 
+<div class="badges">
+
 [![npm](https://img.shields.io/npm/v/@gramio/media-cache?logo=npm&style=flat&labelColor=000&color=3b82f6)](https://www.npmjs.org/package/@gramio/media-cache)
 [![JSR](https://jsr.io/badges/@gramio/media-cache)](https://jsr.io/@gramio/media-cache)
 [![JSR Score](https://jsr.io/badges/@gramio/media-cache/score)](https://jsr.io/@gramio/media-cache)
+
+</div>
 
 `Media cache` plugin for [GramIO](https://gramio.dev/).
 
