@@ -1,27 +1,27 @@
 {
-  "scripts": {
-    "dev": "bunx vitepress dev docs",
-    "build": "bunx vitepress build docs",
-    "preview": "bunx vitepress preview docs"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "1.7.3",
-    "@fluent/bundle": "^0.18.0",
-    "@gramio/auto-retry": "^0.0.2",
-    "@gramio/autoload": "^0.0.4",
-    "@gramio/files": "^0.0.8",
-    "@gramio/format": "^0.1.0",
-    "@gramio/i18n": "^0.0.3",
-    "@gramio/keyboards": "^0.3.1",
-    "@gramio/prompt": "^0.0.4",
-    "@gramio/session": "^0.1.4",
-    "@gramio/types": "^7.3.4",
-    "@shikijs/vitepress-twoslash": "^1.5.2",
-    "@types/node": "^20.12.12",
-    "gramio": "^0.0.31",
-    "grammy": "^1.23.0",
-    "undici": "^6.16.1",
-    "unocss": "^0.60.2",
-    "vitepress": "^1.1.4"
-  }
+    "scripts": {
+        "dev": "bunx vitepress dev docs",
+        "build": "bunx vitepress build docs",
+        "preview": "bunx vitepress preview docs"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "1.7.3",
+        "@fluent/bundle": "^0.18.0",
+        "@gramio/auto-retry": "^0.0.2",
+        "@gramio/autoload": "^0.0.4",
+        "@gramio/files": "^0.0.8",
+        "@gramio/format": "^0.1.0",
+        "@gramio/i18n": "^0.0.3",
+        "@gramio/keyboards": "^0.3.1",
+        "@gramio/prompt": "^0.0.4",
+        "@gramio/session": "^0.1.4",
+        "@gramio/types": "^7.3.4",
+        "@shikijs/vitepress-twoslash": "^1.5.2",
+        "@types/node": "^20.12.12",
+        "gramio": "^0.0.35",
+        "grammy": "^1.23.0",
+        "undici": "^6.17.0",
+        "unocss": "^0.60.2",
+        "vitepress": "^1.2.0"
+    }
 }
