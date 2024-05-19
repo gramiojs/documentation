@@ -8,7 +8,7 @@
 
 </div>
 
-Prompt plugin.
+A plugin that provides [Prompt](#prompt) and wait methods
 
 ### Installation
 
@@ -34,11 +34,11 @@ bun install @gramio/prompt
 
 ## Usage
 
-```ts twoslash
+```ts
 import { Bot, format, bold } from "gramio";
 import { prompt } from "@gramio/prompt";
 
-const bot = new Bot(process.env.token!)
+const bot = new Bot(process.env.TOKEN as string)
     .extend(prompt())
     .command("start", async (context) => {
         const answer = await context.prompt(
@@ -71,7 +71,7 @@ answer is `MessageContext` or `CallbackQueryContext`
 
 ```ts
 const answer = await context.prompt("message", "What's your name?");
-// or with SendMessageParams
+
 const answer = await context.prompt("callback_query", "True or false?", {
     reply_markup: new InlineKeyboard()
         .text("true", "true")
@@ -95,5 +95,36 @@ const answer = await context.prompt(
         validate: (context) => /[а-яА-Я]/.test(context.text),
         //... and some SendMessageParams
     }
+);
+```
+
+## Wait
+
+### Wait for the next event from the user
+
+```ts
+const answer = await context.wait();
+```
+
+answer is `MessageContext` or `CallbackQueryContext`
+
+### Wait for the next event from the user ignoring events not listed
+
+```ts
+const answer = await context.wait("message");
+```
+
+answer is `CallbackQueryContext`
+
+### Wait for the next event from the user ignoring non validated answers
+
+You can define a handler in params to validate the user's answer.
+If handler return `false`, the **message** will be ignored
+
+```ts
+const answer = await context.wait((context) => /[а-яА-Я]/.test(context.text));
+// or combine with event
+const answer = await context.wait("message", (context) =>
+    /[а-яА-Я]/.test(context.text)
 );
 ```
