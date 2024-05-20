@@ -7,6 +7,7 @@ import { localeEn, localeRu } from "./config/locales";
 export default defineConfig({
 	title: "GramIO",
 	description: "Build your bots with convenience!",
+	titleTemplate: "GramIO - :title",
 	vite: {
 		publicDir: "../public",
 		plugins: [Unocss()],
