@@ -17,6 +17,28 @@ export default defineConfig({
 		// 	},
 		// },
 	},
+	head: [
+		["link", { rel: "icon", href: "/favicon.ico" }],
+		[
+			"meta",
+			{
+				property: "og:title",
+				content:
+					"GramIO | Telegram Bot API framework for Node.js, Bun and Deno",
+			},
+		],
+		[
+			"meta",
+			{
+				property: "og:image",
+				content: "https://gramio.dev/logo.png",
+			},
+		],
+		["meta", { property: "og:site_name", content: "GramIO" }],
+	],
+	sitemap: {
+		hostname: "https://gramio.dev",
+	},
 	locales: {
 		...localeEn,
 		...localeRu,
@@ -25,7 +47,7 @@ export default defineConfig({
 		codeTransformers: [transformerTwoslash()],
 	},
 	themeConfig: {
-		logo: "/logo.svg",
+		logo: { src: "/logo.svg", width: 24, height: 24 },
 		search: {
 			provider: "local",
 		},

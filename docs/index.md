@@ -9,7 +9,7 @@ head:
 
     - - meta
       - name: "description"
-        content: GramIO is a TypeScript/JavaScript framework for building Telegram bots. To start, bootstrap a new project with "npx create gramio bot-dir" and run the bot with "npm run dev". This is all it needs to do a get started with GramIO.
+        content: GramIO is a TypeScript/JavaScript framework for building Telegram bots. To start, bootstrap a new project with «npx create gramio bot-dir» and run the bot with «npm run dev». This is all it needs to do a get started with GramIO.
 
 hero:
     name: "GramIO"
@@ -39,7 +39,17 @@ features:
       details: Written in TypeScript with love ❤️
     - icon: 🌐
       title: Multi-runtime
-      details: Works on Node.js, Bun and Deno*
+      details: Works on <a href="https://nodejs.org/">Node.js</a>, <a href="https://bun.sh/">Bun</a> and <a href="https://deno.com/">Deno</a>*
 ---
 
 **Deno\*** [windows-specific issue with undici](https://github.com/denoland/deno/issues/19532)
+
+<style>
+.VPFeatures a {
+    font-weight: 500;
+    color: var(--vp-c-brand-1);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color .25s,opacity .25s
+}
+</style>
