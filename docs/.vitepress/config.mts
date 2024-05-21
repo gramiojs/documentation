@@ -20,6 +20,9 @@ export default defineConfig({
 	},
 	head: [
 		["link", { rel: "icon", href: "/favicon.ico" }],
+		["meta", { property: "og:type", content: "website" }],
+		["meta", { property: "og:locale", content: "en" }],
+		["meta", { property: "og:url", content: "https://gramio.dev/" }],
 		[
 			"meta",
 			{
