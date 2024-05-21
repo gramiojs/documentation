@@ -1,4 +1,4 @@
-:root {
+.dark {
     --vp-c-left-color: #27bc75;
     --vp-c-right-color: #0057ff;
 
@@ -12,4 +12,21 @@
 
 .badges > p:has(> a > img) {
     @apply flex flex-row gap-4; /*justify-center*/
+}
+
+.text-telegram {
+    color: #24a2df;
+}
+
+.text-mtcute {
+    color: #ef9bdb !important;
+    text-decoration: none !important;
+}
+
+.VPFeatures a {
+    font-weight: 500;
+    color: var(--vp-c-brand-1);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.25s, opacity 0.25s;
 }

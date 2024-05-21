@@ -1,4 +1,5 @@
 import { transformerTwoslash } from "@shikijs/vitepress-twoslash";
+import presetIcons from "@unocss/preset-icons";
 import Unocss from "unocss/vite";
 import { defineConfig } from "vitepress";
 import { localeEn, localeRu } from "./config/locales";
@@ -10,7 +11,7 @@ export default defineConfig({
 	titleTemplate: "GramIO - :title",
 	vite: {
 		publicDir: "../public",
-		plugins: [Unocss()],
+		plugins: [Unocss({ presets: [presetIcons()] })],
 		// TODO: remove when bun on windows out!
 		// server: {
 		// 	watch: {
@@ -19,7 +20,8 @@ export default defineConfig({
 		// },
 	},
 	head: [
-		["link", { rel: "icon", href: "/favicon.ico" }],
+		["link", { rel: "icon", href: "/favicon.ico", type: "image/x-icon" }],
+		["link", { rel: "icon", href: "/logo.png", type: "image/svg+xml" }],
 		["meta", { property: "og:type", content: "website" }],
 		["meta", { property: "og:locale", content: "en" }],
 		["meta", { property: "og:url", content: "https://gramio.dev/" }],
@@ -51,7 +53,12 @@ export default defineConfig({
 		codeTransformers: [transformerTwoslash()],
 	},
 	themeConfig: {
-		logo: { src: "/logo.svg", width: 24, height: 24 },
+		logo: {
+			dark: "/logo.svg",
+			light: "./logo-light.svg",
+			width: 24,
+			height: 24,
+		},
 		search: {
 			provider: "local",
 		},

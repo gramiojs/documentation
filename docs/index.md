@@ -17,9 +17,13 @@ head:
 
 hero:
     name: "GramIO"
-    text: "Create your bots with convenience!"
+    text: |
+        Create your 
+        <span class="i-logos:telegram inline-block text-3xl md:text-5xl"></span> <span class="text-telegram">Telegram</span> bots with convenience!
+
     image:
-        src: /logo.svg
+        dark: /logo.svg
+        light: /logo-light.svg
     actions:
         - theme: brand
           text: Get started
@@ -47,13 +51,3 @@ features:
 ---
 
 **Deno\*** [windows-specific issue with undici](https://github.com/denoland/deno/issues/19532)
-
-<style>
-.VPFeatures a {
-    font-weight: 500;
-    color: var(--vp-c-brand-1);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-    transition: color .25s,opacity .25s
-}
-</style>
