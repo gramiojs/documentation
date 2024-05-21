@@ -7,6 +7,10 @@ head:
     - - meta
       - name: "description"
         content: Bot API is a high-level HTTP interface to the Telegram API that makes it easy to develop bots. Under the hood, Bot API uses TDLib (which in turn uses MTProto API).
+
+    - - meta
+      - name: "keywords"
+        content: Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, api, tdlib, mtproto, user bot, request, suppress, types
 ---
 
 # Bot API
