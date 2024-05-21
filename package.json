@@ -10,18 +10,20 @@
         "@gramio/auto-retry": "^0.0.2",
         "@gramio/autoload": "^0.0.4",
         "@gramio/files": "^0.0.8",
-        "@gramio/format": "^0.1.0",
+        "@gramio/format": "^0.1.2",
         "@gramio/i18n": "^0.0.3",
-        "@gramio/keyboards": "^0.3.1",
-        "@gramio/prompt": "^0.0.4",
+        "@gramio/keyboards": "^0.3.2",
+        "@gramio/prompt": "^0.0.5",
         "@gramio/session": "^0.1.4",
         "@gramio/types": "^7.3.4",
-        "@shikijs/vitepress-twoslash": "^1.5.2",
+        "@iconify-json/logos": "^1.1.42",
+        "@shikijs/vitepress-twoslash": "^1.6.0",
         "@types/node": "^20.12.12",
-        "gramio": "^0.0.35",
+        "@unocss/preset-icons": "^0.60.3",
+        "gramio": "^0.0.37",
         "grammy": "^1.23.0",
-        "undici": "^6.17.0",
-        "unocss": "^0.60.2",
-        "vitepress": "^1.2.0"
+        "undici": "^6.18.0",
+        "unocss": "^0.60.3",
+        "vitepress": "^1.2.2"
     }
 }
