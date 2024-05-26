@@ -30,19 +30,19 @@ This command will help you create a project with GramIO the easiest way.
 ::: code-group
 
 ```bash [npm]
-npm create gramio ./bot
+npm create gramio@latest ./bot
 ```
 
 ```bash [yarn]
-yarn create gramio ./bot
+yarn create gramio@latest ./bot
 ```
 
 ```bash [pnpm]
-pnpm create gramio ./bot
+pnpm create gramio@latest ./bot
 ```
 
 ```bash [bun]
-bun create gramio ./bot
+bun create gramio@latest ./bot
 ```
 
 ```bash [deno]

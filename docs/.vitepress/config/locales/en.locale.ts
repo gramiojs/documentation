@@ -191,6 +191,7 @@ export const localeEn = {
 							{ text: "Webhook", link: "/webhook/index" },
 							{ text: "Rate-limits and broadcast", link: "/rate-limits" },
 							{ text: "Storages", link: "/storages/index" },
+							{ text: "Telegram Mini Apps", link: "/tma/" },
 						],
 					},
 				],

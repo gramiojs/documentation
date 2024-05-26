@@ -9,6 +9,7 @@ export default defineConfig({
 	title: "GramIO",
 	description: "Build your bots with convenience!",
 	titleTemplate: "GramIO - :title",
+	cleanUrls: true,
 	vite: {
 		publicDir: "../public",
 		plugins: [Unocss({ presets: [presetIcons()] })],
@@ -21,7 +22,7 @@ export default defineConfig({
 	},
 	head: [
 		["link", { rel: "icon", href: "/favicon.ico", type: "image/x-icon" }],
-		["link", { rel: "icon", href: "/logo.png", type: "image/svg+xml" }],
+		["link", { rel: "icon", href: "/logo.svg", type: "image/svg+xml" }],
 		["meta", { property: "og:type", content: "website" }],
 		["meta", { property: "og:locale", content: "en" }],
 		["meta", { property: "og:url", content: "https://gramio.dev/" }],

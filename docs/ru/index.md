@@ -15,7 +15,7 @@ hero:
     name: "GramIO"
     text: |
         Создавай своих
-        <span class="i-logos:telegram inline-block text-3xl md:text-5xl"></span> <span class="text-telegram">Телеграм</span> ботов с удобством!
+       <span class="text-telegram"><span class="i-logos:telegram inline-block text-3xl md:text-5xl"></span> Телеграм</span> ботов с удобством!
     image:
         dark: /logo.svg
         light: /logo-light.svg
