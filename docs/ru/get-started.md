@@ -1,9 +1,7 @@
 ---
-head:
-    - - meta
-      - property: "title"
-        content: GramIO - Telegram Bot API фреймворк для TypeScript/JavaScript
+title: Начать с GramIO - Telegram Bot API фреймворком для TypeScript/JavaScript
 
+head:
     - - meta
       - name: "description"
         content: GramIO это TypeScript/JavaScript фреймворк для создания Телеграм ботов. Чтобы начать, вы можете ввести в консоль "npx create gramio bot-dir" и запустить своего бота с помощью "npm run dev". Это всё что вам нужно чтобы начать работать с GramIO.

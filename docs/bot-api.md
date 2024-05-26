@@ -1,12 +1,10 @@
 ---
+title: Telegram Bot API - How to call API methods in GramIO
+
 head:
     - - meta
-      - property: "title"
-        content: Telegram Bot API - How to call API methods
-
-    - - meta
       - name: "description"
-        content: Bot API is a high-level HTTP interface to the Telegram API that makes it easy to develop bots. Under the hood, Bot API uses TDLib (which in turn uses MTProto API).
+        content: Bot API is a high-level HTTP interface to the Telegram API that makes it easy to develop bots.
 
     - - meta
       - name: "keywords"

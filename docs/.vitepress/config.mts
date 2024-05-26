@@ -8,7 +8,6 @@ import { localeEn, localeRu } from "./config/locales";
 export default defineConfig({
 	title: "GramIO",
 	description: "Build your bots with convenience!",
-	titleTemplate: "GramIO - :title",
 	cleanUrls: true,
 	vite: {
 		publicDir: "../public",
@@ -23,6 +22,8 @@ export default defineConfig({
 	head: [
 		["link", { rel: "icon", href: "/favicon.ico", type: "image/x-icon" }],
 		["link", { rel: "icon", href: "/logo.svg", type: "image/svg+xml" }],
+		["link", { rel: "apple-touch-icon", href: "/logo.png" }],
+		["meta", { name: "theme-color", content: "#000000" }],
 		["meta", { property: "og:type", content: "website" }],
 		["meta", { property: "og:locale", content: "en" }],
 		["meta", { property: "og:url", content: "https://gramio.dev/" }],

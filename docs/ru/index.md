@@ -2,20 +2,20 @@
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
 
+title: GramIO - Telegram Bot API фреймворк для TypeScript/JavaScript
+
 head:
     - - meta
-      - property: "title"
-        content: GramIO - Telegram Bot API фреймворк для TypeScript/JavaScript
-
-    - - meta
       - name: "description"
-        content: GramIO это TypeScript/JavaScript фреймворк для создания Телеграм ботов. Чтобы начать, вы можете ввести в консоль "npx create gramio bot-dir" и запустить своего бота с помощью "npm run dev". Это всё что вам нужно чтобы начать работать с GramIO.
-
+        content: GramIO это TypeScript/JavaScript фреймворк для создания Телеграм ботов. Чтобы начать, вы можете ввести в консоль «npx create gramio bot-dir» и запустить своего бота с помощью «npm run dev». Это всё что вам нужно чтобы начать работать с GramIO.
+    - - meta
+      - name: "keywords"
+        content: Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, How to build a bot, create
 hero:
     name: "GramIO"
     text: |
         Создавай своих
-       <span class="text-telegram"><span class="i-logos:telegram inline-block text-3xl md:text-5xl"></span> Телеграм</span> ботов с удобством!
+        <span class="text-telegram"><span class="i-logos:telegram inline-block text-3xl md:text-5xl"></span> Телеграм</span> ботов с удобством!
     image:
         dark: /logo.svg
         light: /logo-light.svg

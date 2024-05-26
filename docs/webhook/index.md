@@ -1,4 +1,21 @@
-# Webhook
+---
+title: How to use webhook with Telegram Bot API
+
+head:
+    - - meta
+      - name: "description"
+        content: "Telegram Bot API support two ways of getting updates: long-polling and webhook."
+
+    - - meta
+      - name: "keywords"
+        content: Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, api, webhook, express, hono, fastify, elysia, long-polling
+---
+
+# How to use webhook
+
+Telegram Bot API support two ways of getting updates: [long-polling](https://en.wikipedia.org/wiki/Push_technology#Long_polling) and [webhook](https://en.wikipedia.org/wiki/Webhook?useskin=vector). GramIO works well with both.
+
+Here is an example of using webhooks
 
 ## Supported frameworks
 

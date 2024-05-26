@@ -1,12 +1,9 @@
 ---
+title: How to solve rate limit errors from Telegram Bot API with GramIO
 head:
     - - meta
-      - property: "title"
-        content: How to solve rate limit errors from Telegram Bot API with GramIO
-
-    - - meta
       - name: "description"
-        content: Read more about how to solve rate limit (too many requests) errors from Telegram Bot API with GramIO. How to use auto-retry plugin or build a broadcast queue and more.
+        content: How to solve rate limit (too many requests) errors from Telegram Bot API with GramIO using auto-retry plugin or a broadcast queue.
 
     - - meta
       - name: "keywords"
