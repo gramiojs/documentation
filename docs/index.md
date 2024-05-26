@@ -19,7 +19,7 @@ hero:
     name: "GramIO"
     text: |
         Create your 
-        <span class="i-logos:telegram inline-block text-3xl md:text-5xl"></span> <span class="text-telegram">Telegram</span> bots with convenience!
+        <span class="text-telegram"><span class="i-logos:telegram inline-block text-3xl md:text-5xl"></span> Telegram</span> bots with convenience!
 
     image:
         dark: /logo.svg

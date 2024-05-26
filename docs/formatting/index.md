@@ -1,5 +1,6 @@
 <script setup>
 import Spoiler from '../.vitepress/components/Spoiler.vue'
+
 </script>
 
 # Formatting
