@@ -8,7 +8,7 @@ head:
 
     - - meta
       - name: "keywords"
-        content: Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, api, webhook, express, hono, fastify, elysia, long-polling
+        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, api, webhook, express, hono, fastify, elysia, long-polling, http, std/http, Bun.serve, Deno.serve"
 ---
 
 # How to use webhook
@@ -23,6 +23,10 @@ Here is an example of using webhooks
 -   [Fastify](https://fastify.dev/)
 -   [Hono](https://hono.dev/)
 -   [Express](https://expressjs.com/)
+-   [Koa](https://koajs.com/)
+-   [node:http](https://nodejs.org/api/http.html)
+-   [Bun.serve](https://bun.sh/docs/api/http)
+-   [std/http (Deno.serve)](https://docs.deno.com/runtime/manual/runtime/http_server_apis#http-server-apis)
 -   [And any other framework](#write-you-own-updates-handler)
 
 ## Example
