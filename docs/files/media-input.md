@@ -1,3 +1,16 @@
+---
+title: sendMediaGroup in Telegram Bot API
+
+head:
+    - - meta
+      - name: "description"
+        content: "This class help you to work with file types in sendMediaGroup and other methods"
+
+    - - meta
+      - name: "keywords"
+        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, file upload, file_id, attach"
+---
+
 # Media Input
 
 Class-helper with static methods that represents the content of a media message to be sent.

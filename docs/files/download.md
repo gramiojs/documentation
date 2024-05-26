@@ -1,3 +1,16 @@
+---
+title: Upload files in Telegram Bot API
+
+head:
+    - - meta
+      - name: "description"
+        content: "This class help you to upload files by path, url, stream, buffer or text"
+
+    - - meta
+      - name: "keywords"
+        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, file upload, file_id, attach"
+---
+
 # Download
 
 The standard file download path looks like this:
@@ -27,6 +40,7 @@ bot.on("message", async (context) => {
 > [!IMPORTANT]
 
 > **One message** contain only **one attachment**. Therefore, to download an attachment, you can simply use the `context.download` method
+> But you can solve this using the [media-group](/plugins/official/media-group) plugin.
 
 ## Via bot instance method
 

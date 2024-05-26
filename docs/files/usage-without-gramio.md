@@ -1,3 +1,16 @@
+---
+title: Write you own type-safe Telegram Bot API wrapper with File uploading support!
+
+head:
+    - - meta
+      - name: "description"
+        content: "Simple guide how to create wrapper with file support"
+
+    - - meta
+      - name: "keywords"
+        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, file upload"
+---
+
 # Usage without GramIO
 
 ## Write you own type-safe Telegram Bot API wrapper with File uploading support!

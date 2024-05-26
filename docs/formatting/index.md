@@ -1,11 +1,24 @@
+---
+title: How to format messages in Telegram Bot API
+
+head:
+    - - meta
+      - name: "description"
+        content: "Format your messages without the pain of parse_mode in a convenient way!"
+
+    - - meta
+      - name: "keywords"
+        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, format, entities, bold, italic, link, mention, code, pre, blockquote, spoiler, underline, strikethrough, dedent"
+---
+
 <script setup>
 import Spoiler from '../.vitepress/components/Spoiler.vue'
 
 </script>
 
-# Formatting
+# Format messages
 
-[`@gramio/format`](https://github.com/gramiojs/format) is built-in GramIO plugin. You can also use it outside of this framework because it is framework-agnostic.
+[`@gramio/format`](https://github.com/gramiojs/format) is built-in GramIO package. You can also use it outside of this framework because it is framework-agnostic.
 
 See also [API Reference](https://tsdocs.dev/docs/@gramio/format).
 
@@ -13,7 +26,7 @@ See also [API Reference](https://tsdocs.dev/docs/@gramio/format).
 
 Template literal that helps construct message entities for text formatting.
 
-Use if you want to strip all of the indentation from the beginning of each line. (like [common-tags#stripindents](https://www.npmjs.com/package/common-tags#stripindents))
+Use if you want to strip all of the indentation from the beginning of each line. (like [common-tags#stripindents](https://www.npmjs.com/package/common-tags#stripindents) or [dedent](https://www.npmjs.com/package/dedent))
 
 **NOTE**: for format with **arrays** use it with [`join`](#join) helper
 

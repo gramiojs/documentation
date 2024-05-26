@@ -1,6 +1,19 @@
+---
+title: Keyboard builder for Telegram Bot API
+
+head:
+    - - meta
+      - name: "description"
+        content: "Build keyboards for your Telegram Bot in a convenient way."
+
+    - - meta
+      - name: "keywords"
+        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, keyboard, builder, inline keyboard, chunk, pattern, matrix, url, webapp"
+---
+
 # Overview
 
-[`@gramio/keyboards`](https://github.com/gramiojs/keyboards) is built-in GramIO plugin. You can also use it outside of this framework because it is framework-agnostic.
+[`@gramio/keyboards`](https://github.com/gramiojs/keyboards) is built-in GramIO package. You can also use it outside of this framework because it is framework-agnostic.
 
 See also [API Reference](https://tsdocs.dev/docs/@gramio/keyboards).
 

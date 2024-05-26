@@ -1,3 +1,16 @@
+---
+title: Inline keyboard builder for Telegram Bot API
+
+head:
+    - - meta
+      - name: "description"
+        content: "Inline Keyboard is attached to the message."
+
+    - - meta
+      - name: "keywords"
+        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, keyboard, builder, inline keyboard, chunk, pattern, matrix, url, webapp"
+---
+
 # Inline Keyboard
 
 Inline Keyboard is attached to the message. Represents an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) that appears right next to the message it belongs to.

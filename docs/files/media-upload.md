@@ -1,3 +1,16 @@
+---
+title: Upload files in Telegram Bot API
+
+head:
+    - - meta
+      - name: "description"
+        content: "This class help you to upload files by path, url, stream, buffer or text"
+
+    - - meta
+      - name: "keywords"
+        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, file upload, file_id, attach"
+---
+
 # Media Upload
 
 Class-helper with static methods for file uploading.
