@@ -1,3 +1,4 @@
 User-agent: *
-Allow: /
+Disallow: /ru/
+Allow: /ru/get-started$
 Sitemap: https://gramio.dev/sitemap.xml
