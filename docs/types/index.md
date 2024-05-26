@@ -1,4 +1,17 @@
-# Types
+---
+title: Telegram Bot API TypeScript definitions
+
+head:
+    - - meta
+      - name: "description"
+        content: "Code-generated and Auto-published Telegram Bot API types."
+
+    - - meta
+      - name: "keywords"
+        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, api, types, documentation, changelog"
+---
+
+# Telegram Bot API types
 
 > Code-generated and Auto-published Telegram Bot API types
 
@@ -6,7 +19,7 @@
 
 ### Versioning
 
-7.1.x types is for 7.1 Telegram Bot API
+7.3.x types is for 7.3 Telegram Bot API
 
 ## Usage as an [NPM package](https://www.npmjs.com/package/@gramio/types)
 

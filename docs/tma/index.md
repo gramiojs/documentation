@@ -1,3 +1,16 @@
+---
+title: Telegram Mini Apps (Web app)
+
+head:
+    - - meta
+      - name: "description"
+        content: "Simple guide how to develop Telegram Web app"
+
+    - - meta
+      - name: "keywords"
+        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, api, twa, web app, mini app"
+---
+
 # Telegram Mini Apps (Web app)
 
 Guide is WIP.

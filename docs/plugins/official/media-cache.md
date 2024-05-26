@@ -1,3 +1,16 @@
+---
+title: Media cache Plugin for GramIO
+
+head:
+    - - meta
+      - name: "description"
+        content: "Cache your media in GramIO"
+
+    - - meta
+      - name: "keywords"
+        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, plugin, cache, media, redis, storage, adapters, file_id"
+---
+
 # Media cache plugin
 
 <div class="badges">

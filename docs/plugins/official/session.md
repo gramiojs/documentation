@@ -1,3 +1,16 @@
+---
+title: Session Plugin for GramIO
+
+head:
+    - - meta
+      - name: "description"
+        content: "How to use sessions (maybe, with Redis) in GramIO"
+
+    - - meta
+      - name: "keywords"
+        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, plugin, session, redis, storage, adapters"
+---
+
 # Session Plugin
 
 <div class="badges">

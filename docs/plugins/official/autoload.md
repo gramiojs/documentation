@@ -1,3 +1,16 @@
+---
+title: Autoload Plugin for GramIO
+
+head:
+    - - meta
+      - name: "description"
+        content: "Autoload commands in runtime with autoload plugin"
+
+    - - meta
+      - name: "keywords"
+        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, plugin, autoload, glob, fs"
+---
+
 # Autoload Plugin
 
 <div class="badges">

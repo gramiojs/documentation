@@ -1,3 +1,16 @@
+---
+title: Storage for plugins in GramIO
+
+head:
+    - - meta
+      - name: "description"
+        content: "These are some kind of data stores. Their main use is in plugins (for example, sessions)."
+
+    - - meta
+      - name: "keywords"
+        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, api, redis, in-memory"
+---
+
 # Storages
 
 These are some kind of data stores. Their main use is in plugins (for example, [sessions](/plugins/official/session)).

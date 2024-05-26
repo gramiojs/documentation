@@ -1,3 +1,16 @@
+---
+title: Media group Plugin for GramIO
+
+head:
+    - - meta
+      - name: "description"
+        content: "The easiest way to handle Media Group (album) in Telegram Bot API"
+
+    - - meta
+      - name: "keywords"
+        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, plugin, media group, media_group_id, albums"
+---
+
 # Media group plugin
 
 <div class="badges">

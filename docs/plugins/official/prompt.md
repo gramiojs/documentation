@@ -1,3 +1,16 @@
+---
+title: Prompt Plugin for GramIO
+
+head:
+    - - meta
+      - name: "description"
+        content: "Easy to ask user for something in your Telegram Bot"
+
+    - - meta
+      - name: "keywords"
+        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, plugin, prompt, wait, ask"
+---
+
 # Prompt Plugin
 
 <div class="badges">
@@ -8,7 +21,7 @@
 
 </div>
 
-A plugin that provides [Prompt](#prompt) and wait methods
+A plugin that provides [Prompt](#prompt) and [Wait](#wait) methods
 
 ### Installation
 

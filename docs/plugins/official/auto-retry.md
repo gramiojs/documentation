@@ -1,3 +1,16 @@
+---
+title: Auto retry Plugin for GramIO
+
+head:
+    - - meta
+      - name: "description"
+        content: "A plugin that catches errors with the retry_after field (rate limit errors), waits for the specified time and repeats the API request."
+
+    - - meta
+      - name: "keywords"
+        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, plugin, auto retry, 429, rate-limit, error-code, retry later, retry_after, too many requests"
+---
+
 # Auto retry plugin
 
 <div class="badges">
