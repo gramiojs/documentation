@@ -111,6 +111,20 @@ const answer = await context.prompt(
 );
 ```
 
+### Transform
+
+```ts
+const name = await context.prompt(
+    "message",
+    format`What's your ${bold`name`}?`,
+    {
+        transform: (context) => context.text || context.caption || "",
+    }
+);
+```
+
+name is `string`
+
 ## Wait
 
 ### Wait for the next event from the user
@@ -141,3 +155,18 @@ const answer = await context.wait("message", (context) =>
     /[а-яА-Я]/.test(context.text)
 );
 ```
+
+### Wait for the next event from the user ignoring non validated answers with transformer
+
+You can define a handler in params to **transform** the user's answer.
+
+```ts
+const answer = await context.wait((context) => /[а-яА-Я]/.test(context.text));
+// or combine with event
+const answer = await context.wait("message", {
+    validate: (context) => /[а-яА-Я]/.test(context.text),
+    transform: (context) => c.text || "",
+});
+```
+
+answer is `string`

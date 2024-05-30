@@ -1,1 +1,3 @@
 https://gramio.netlify.app/* https://gramio.dev/:splat 301!
+
+https://gramio.dev/*.html https://gramio.dev/:splat 301!
