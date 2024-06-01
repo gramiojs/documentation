@@ -8,7 +8,7 @@ head:
 
     - - meta
       - name: "keywords"
-        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, format, entities, bold, italic, link, mention, code, pre, blockquote, spoiler, underline, strikethrough, dedent"
+        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, format, entities, bold, italic, link, mention, code, pre, blockquote, expandable blockquote, spoiler, underline, strikethrough, dedent"
 ---
 
 <script setup>
@@ -160,6 +160,21 @@ format`Format text as ${blockquote`blockquote`}`;
 ```
 
 ![blockquote example](/formatting/blockquote.png)
+
+> ### Expandable blockquote
+
+Format text as expandable blockquote. Cannot be nested.
+
+```ts twoslash
+import { format, expandableBlockquote } from "@gramio/format";
+function loremIpsum(options: { count: number }): string {
+    return "";
+}
+// ---cut---
+format`Format text as ${expandableBlockquote(loremIpsum({ count: 20 }))}`;
+```
+
+![expandable blockquote example](/formatting/expandable_blockquote.png)
 
 ### `Code`
 
