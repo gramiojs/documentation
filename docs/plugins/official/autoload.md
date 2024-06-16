@@ -21,7 +21,7 @@ head:
 
 </div>
 
-Plugin for autoload from files.
+Autoload commands plugin for GramIO with [`Bun.build`](#bun-build-usage) support.
 
 ### Installation
 
@@ -86,3 +86,43 @@ export default (bot: BotType) =>
 | onFinish? | (paths: { absolute: string; relative: string }[]) => unknown; |                            | the hook that is called after loading all files                     |
 
 and other [glob package options](https://www.npmjs.com/package/glob#options)
+
+### [Bun build](https://bun.sh/docs/bundler) usage
+
+You can use this plugin with [`Bun.build`](https://bun.sh/docs/bundler), thanks to [esbuild-plugin-autoload](https://github.com/kravetsone/esbuild-plugin-autoload)!
+
+```ts
+// @filename: build.ts
+import { autoload } from "esbuild-plugin-autoload"; // default import also supported
+
+await Bun.build({
+    entrypoints: ["src/index.ts"],
+    target: "bun",
+    outdir: "out",
+    plugins: [autoload("./src/commands")],
+}).then(console.log);
+```
+
+Then, build it with `bun build.ts` and run with `bun out/index.ts`.
+
+### [Bun compile](https://bun.sh/docs/bundler/executables) usage
+
+You can bundle and then compile it into a [single executable binary file](https://bun.sh/docs/bundler/executables)
+
+```ts
+import { autoload } from "esbuild-plugin-autoload"; // default import also supported
+
+await Bun.build({
+    entrypoints: ["src/index.ts"],
+    target: "bun",
+    outdir: "out",
+    plugins: [autoload("./src/commands")],
+}).then(console.log);
+
+await Bun.$`bun build --compile out/index.js`;
+```
+
+> [!WARNING]
+> You cannot use it in `bun build --compile` mode without extra step ([Feature issue](https://github.com/oven-sh/bun/issues/11895))
+
+[Read more](https://github.com/kravetsone/esbuild-plugin-autoload)
