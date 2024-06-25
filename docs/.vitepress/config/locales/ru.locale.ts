@@ -11,9 +11,33 @@ export const localeRu = {
 				{ text: "Главная", link: "/ru" },
 				{ text: "Начало", link: "/ru/get-started" },
 				// { text: "Plugins", link: "/plugins/index" },
-				// { text: "Examples", link: "/markdown-examples" },
+				{ text: "Гайды", link: "/ru/guides" },
 			],
 			sidebar: {
+				"/ru/guides/": [
+					{
+						text: "Гайды",
+						items: [
+							{
+								text: "Для новичков",
+								items: [
+									{
+										text: "1. Введение",
+										link: "/ru/guides/for-beginners/1.md",
+									},
+									{
+										text: "2. Знакомство",
+										link: "/ru/guides/for-beginners/2.md",
+									},
+									{
+										text: "3. SOON",
+										link: "/ru/guides/for-beginners/3.md",
+									},
+								],
+							},
+						],
+					},
+				],
 				// "/plugins/": [
 				// 	{
 				// 		text: "Plugins",
@@ -62,9 +86,9 @@ export const localeRu = {
 				// 		],
 				// 	},
 				// ],
-				"/": [
+				"/ru/": [
 					{
-						text: "Гайд",
+						text: "База",
 						items: [
 							{ text: "Давайте начнём", link: "/ru/get-started" },
 							// 			{ text: "Bot API", link: "/bot-api" },
