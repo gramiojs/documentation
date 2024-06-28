@@ -119,3 +119,18 @@ type GetMeReturn = SuppressedAPIMethodReturn<"getMe">;
 //   ^? type GetMeReturn = TelegramUser
 //
 ```
+
+### Debugging
+
+In order to debug which requests GramIO sends, you can set the environment variable to `DEBUG=gramio:api:*`
+
+```bash
+npx cross-env DEBUG=gramio:api:* node index.js
+```
+
+And you will see something like in the console:
+
+```bash
+gramio:api:getUpdates options: {"method":"POST","headers":{"Content-Type":"application/json"},"body":"{\"offset\":0,\"suppress\":true}"} +0ms
+gramio:api:getUpdates response: {"ok":true,"result":[]} +49ms
+```
