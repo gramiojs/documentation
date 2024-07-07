@@ -8,15 +8,12 @@ head:
 
     - - meta
       - name: "keywords"
-        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, file upload, file_id, attach"
+        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, file upload, file_id, attach, Bun.file, fs, file system"
 ---
 
 # Overview
 
 [`@gramio/files`](https://github.com/gramiojs/files) is built-in GramIO package. You can also use it outside of this framework because it is framework-agnostic.
-
-> [!WARNING]
-> Currently, uploading files in [`Bun`](https://bun.sh/) working, but filenames is wrong... ([Issue](https://github.com/oven-sh/bun/issues/8750), [Other Issue](https://github.com/oven-sh/bun/issues/2644))
 
 ## Usage
 
@@ -101,12 +98,13 @@ ctx.sendPhoto(MediaUpload.path("../cute-cat.png"));
 
 #### Use [`File`](https://developer.mozilla.org/en-US/docs/Web/API/File)
 
-In fact, GramIO can accept Web API's [`File`](https://developer.mozilla.org/en-US/docs/Web/API/File).
+In fact, GramIO can accept Web API's [`File`](https://developer.mozilla.org/en-US/docs/Web/API/File) and [`Blob`](https://developer.mozilla.org/en-US/docs/Web/API/Blob).
 
 So you can upload files even like this:
 
 ```ts
 import { Elysia } from "elysia";
+import { bot } from "./bot";
 
 new Elysia().post(
     "/",
@@ -121,8 +119,17 @@ new Elysia().post(
             file: t.File({
                 type: "image",
                 maxSize: "2m",
-            }),
+            }), // Elysia validates and accepts only the File type
         }),
     }
 );
+```
+
+Or, for example, with [Bun native File reader](https://bun.sh/docs/api/file-io#reading-files-bun-file)
+
+```ts
+bot.api.sendDocument({
+    chat_id: 1,
+    document: Bun.file("README.md"),
+});
 ```
