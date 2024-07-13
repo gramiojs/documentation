@@ -49,6 +49,9 @@ bun install @gramio/autoload
 
 > [full example](https://github.com/gramiojs/autoload/tree/main/example)
 
+> [!IMPORTANT]
+> Please read about [Lazy-load plugins](https://gramio.dev/plugins/official/autoload.html)
+
 ## Register the plugin
 
 <!-- prettier-ignore -->
@@ -58,7 +61,7 @@ import { Bot } from "gramio";
 import { autoload } from "@gramio/autoload";
 
 const bot = new Bot(process.env.TOKEN!)
-    .extend(autoload())
+    .extend(await autoload())
     .onStart(console.log);
 
 bot.start();
@@ -78,14 +81,15 @@ export default (bot: BotType) =>
 
 ## Options
 
-| Key       | Type                                                          | Default                    | Description                                                         |
-| --------- | ------------------------------------------------------------- | -------------------------- | ------------------------------------------------------------------- |
-| pattern?  | string                                                        | "\*\*\/\*.{ts,js,cjs,mjs}" | [Glob patterns](<https://en.wikipedia.org/wiki/Glob_(programming)>) |
-| path?     | string                                                        | "./commands"               | the path to the folder                                              |
-| onLoad?   | (params: { absolute: string; relative: string }) => unknown   |                            | the hook that is called when loading a file                         |
-| onFinish? | (paths: { absolute: string; relative: string }[]) => unknown; |                            | the hook that is called after loading all files                     |
-
-and other [glob package options](https://www.npmjs.com/package/glob#options)
+| Key        | Type                                                                                               | Default                    | Description                                                               |
+| ---------- | -------------------------------------------------------------------------------------------------- | -------------------------- | ------------------------------------------------------------------------- |
+| pattern?   | string \| string[]                                                                                 | "\*\*\/\*.{ts,js,cjs,mjs}" | [Glob patterns](<https://en.wikipedia.org/wiki/Glob_(programming)>)       |
+| path?      | string                                                                                             | "./commands"               | Path to the folder                                                        |
+| import?    | string \| (file: any) => string                                                                    | "default"                  | Import a specific `import` from a file                                    |
+| onLoad?    | (params: { absolute: string; relative: string }) => unknown                                        |                            | Hook that is called when loading a file                                   |
+| onFinish?  | (paths: { absolute: string; relative: string }[]) => unknown;                                      |                            | Hook that is called after loading all files                               |
+| fdir?      | [Options](https://github.com/thecodrr/fdir/blob/HEAD/documentation.md#method-chaining-alternative) |                            | Options to configure [fdir](https://github.com/thecodrr/fdir)             |
+| picomatch? | [PicomatchOptions](https://github.com/micromatch/picomatch?tab=readme-ov-file#picomatch-options)   |                            | Options to configure [picomatch](https://www.npmjs.com/package/picomatch) |
 
 ### [Bun build](https://bun.sh/docs/bundler) usage
 
