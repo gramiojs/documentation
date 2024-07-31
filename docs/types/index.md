@@ -15,11 +15,11 @@ head:
 
 > Code-generated and Auto-published Telegram Bot API types
 
-[API Types References](https://tsdocs.dev/docs/@gramio/types)
+[API Types References](https://jsr.io/@gramio/types/doc)
 
 ### Versioning
 
-7.3.x types is for 7.3 Telegram Bot API
+7.7.x types is for 7.7 Telegram Bot API
 
 ## Usage as an [NPM package](https://www.npmjs.com/package/@gramio/types)
 

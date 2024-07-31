@@ -15,7 +15,7 @@ head:
 
 Class-helper with static methods that represents the content of a media message to be sent.
 
-[API Reference](https://tsdocs.dev/docs/@gramio/files)
+[API Reference](https://jsr.io/@gramio/files/doc)
 
 [Documentation](https://core.telegram.org/bots/api/#inputmedia)
 

@@ -20,7 +20,7 @@ import Spoiler from '../.vitepress/components/Spoiler.vue'
 
 [`@gramio/format`](https://github.com/gramiojs/format) is built-in GramIO package. You can also use it outside of this framework because it is framework-agnostic.
 
-See also [API Reference](https://tsdocs.dev/docs/@gramio/format).
+See also [API Reference](https://jsr.io/@gramio/format/doc).
 
 ## Format
 

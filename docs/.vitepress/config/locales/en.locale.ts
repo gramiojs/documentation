@@ -75,7 +75,7 @@ export const localeEn = {
 							{ text: "Bot API", link: "/bot-api" },
 							{
 								text: "Contexts",
-								link: "https://tsdocs.dev/docs/@gramio/contexts",
+								link: "https://jsr.io/@gramio/contexts/doc",
 							},
 							{
 								text: "Triggers",

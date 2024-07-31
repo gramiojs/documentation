@@ -15,7 +15,7 @@ head:
 
 [`@gramio/keyboards`](https://github.com/gramiojs/keyboards) is built-in GramIO package. You can also use it outside of this framework because it is framework-agnostic.
 
-See also [API Reference](https://tsdocs.dev/docs/@gramio/keyboards).
+See also [API Reference](https://jsr.io/@gramio/keyboards/doc).
 
 ### Installation (not required for GramIO users)
 

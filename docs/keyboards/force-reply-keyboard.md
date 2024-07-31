@@ -15,7 +15,7 @@ head:
 
 Upon receiving a message with this object, Telegram clients will display a reply interface to the user (act as if the user has selected the bot's message and tapped 'Reply'). This can be extremely useful if you want to create user-friendly step-by-step interfaces without having to sacrifice [privacy mode](https://core.telegram.org/bots/features#privacy-mode).
 
-See also [API Reference](https://tsdocs.dev/docs/@gramio/keyboards/classes/ForceReplyKeyboard.html).
+See also [API Reference](https://jsr.io/@gramio/keyboards/doc/~/ForceReplyKeyboard).
 
 ## Import
 
