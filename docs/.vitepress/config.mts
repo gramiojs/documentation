@@ -20,9 +20,12 @@ export default defineConfig({
 		// },
 	},
 	transformHead: ({ head, pageData: { relativePath, isNotFound } }) => {
-		console.log(relativePath);
+		const canonicalUrl = `https://gramio.dev/${relativePath}`
+			.replace(/index\.md$/, "")
+			.replace(/\.md$/, "");
+
 		if (!isNotFound)
-			head.push(["link", { rel: "canonical", href: relativePath }]);
+			head.push(["link", { rel: "canonical", href: canonicalUrl }]);
 
 		return head;
 	},
