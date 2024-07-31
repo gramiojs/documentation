@@ -19,6 +19,13 @@ export default defineConfig({
 		// 	},
 		// },
 	},
+	transformHead: ({ head, pageData: { relativePath, isNotFound } }) => {
+		console.log(relativePath);
+		if (!isNotFound)
+			head.push(["link", { rel: "canonical", href: relativePath }]);
+
+		return head;
+	},
 	head: [
 		["link", { rel: "icon", href: "/favicon.ico", type: "image/x-icon" }],
 		["link", { rel: "icon", href: "/logo.svg", type: "image/svg+xml" }],
