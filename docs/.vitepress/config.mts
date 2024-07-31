@@ -19,16 +19,24 @@ export default defineConfig({
 		// 	},
 		// },
 	},
-	transformHead: ({ head, pageData: { relativePath, isNotFound } }) => {
+	transformHead: ({ pageData: { relativePath } }) => {
 		const canonicalUrl = `https://gramio.dev/${relativePath}`
 			.replace(/index\.md$/, "")
 			.replace(/\.md$/, "");
 
-		if (!isNotFound)
-			head.push(["link", { rel: "canonical", href: canonicalUrl }]);
-
-		return head;
+		return [["link", { rel: "canonical", href: canonicalUrl }]];
 	},
+	// transformPageData(pageData) {
+	// 	const canonicalUrl = `https://example.com/${pageData.relativePath}`
+	// 		.replace(/index\.md$/, "")
+	// 		.replace(/\.md$/, "");
+
+	// 	pageData.frontmatter.head ??= [];
+	// 	pageData.frontmatter.head.push([
+	// 		"link",
+	// 		{ rel: "canonical", href: canonicalUrl },
+	// 	]);
+	// },
 	head: [
 		["link", { rel: "icon", href: "/favicon.ico", type: "image/x-icon" }],
 		["link", { rel: "icon", href: "/logo.svg", type: "image/svg+xml" }],
