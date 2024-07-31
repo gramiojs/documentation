@@ -30,10 +30,11 @@ hero:
         #   text: API Examples
         #   link: /api-examples
 features:
-    - title: Not
-      details:
-    - title: Ready Yet
-      details:
+    - title: Alpha
+      details: The project is currently in development (but it can already be used)
+    - icon: 🔥
+      title: Fast start project
+      details: With <strong>npm create gramio</strong> you can quickly start a project in various configurations without wasting time on boring setup
     - icon: ✨
       title: Extensible
       details: Our plugin and hook system is awesome
@@ -49,3 +50,33 @@ features:
 ---
 
 **Deno\*** [windows-specific issue with undici](https://github.com/denoland/deno/issues/19532)
+
+## Get started
+
+This command will help you create a project with GramIO (and ORM, linters and plugins) the easiest way.
+
+::: code-group
+
+```bash [npm]
+npm create gramio@latest ./bot
+```
+
+```bash [yarn]
+yarn create gramio@latest ./bot
+```
+
+```bash [pnpm]
+pnpm create gramio@latest ./bot
+```
+
+```bash [bun]
+bun create gramio@latest ./bot
+```
+
+```bash [deno]
+TODO://
+```
+
+:::
+
+For more information, see the «[Get started](/get-started)» section.
