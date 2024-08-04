@@ -1,4 +1,3 @@
-// uno.config.ts
 import {
 	defineConfig,
 	presetAttributify,
@@ -9,6 +8,7 @@ import {
 	transformerDirectives,
 	transformerVariantGroup,
 } from "unocss";
+
 export default defineConfig({
 	shortcuts: [
 		// ...

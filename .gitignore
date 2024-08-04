@@ -12,3 +12,5 @@ cache
 config.local.js
 basement_dist
 tg-bot-api
+.env
+test.ts
