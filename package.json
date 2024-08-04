@@ -1,7 +1,7 @@
 {
 	"scripts": {
 		"dev": "bunx vitepress dev docs",
-		"build": "bunx --bun vitepress build docs",
+		"build": "bunx vitepress build docs",
 		"preview": "bunx --bun vitepress preview docs"
 	},
 	"devDependencies": {
