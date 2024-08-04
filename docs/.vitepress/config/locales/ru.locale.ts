@@ -30,8 +30,12 @@ export const localeRu = {
 										link: "/ru/guides/for-beginners/2.md",
 									},
 									{
-										text: "3. SOON",
+										text: "3. TypeScript и виды клавиатур",
 										link: "/ru/guides/for-beginners/3.md",
+									},
+									{
+										text: "4. SOON",
+										link: "/ru/guides/for-beginners/4.md",
 									},
 								],
 							},

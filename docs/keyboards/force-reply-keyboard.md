@@ -31,7 +31,7 @@ import { ForceReplyKeyboard } from "gramio";
 import { ForceReplyKeyboard } from "@gramio/keyboards";
 ```
 
-## Options ([Documentation](https://core.telegram.org/bots/api/#replykeyboardremove))
+## Options ([Documentation](https://core.telegram.org/bots/api/#forcereply))
 
 These parameters are responsible for the settings of the force reply keyboard
 
