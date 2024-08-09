@@ -46,10 +46,8 @@ features:
       details: Written in TypeScript with love ❤️
     - icon: 🌐
       title: Multi-runtime
-      details: Works on <a href="https://nodejs.org/">Node.js</a>, <a href="https://bun.sh/">Bun</a> and <a href="https://deno.com/">Deno</a>*
+      details: Works on <a href="https://nodejs.org/">Node.js</a>, <a href="https://bun.sh/">Bun</a> and <a href="https://deno.com/">Deno</a>
 ---
-
-**Deno\*** [windows-specific issue with undici](https://github.com/denoland/deno/issues/19532)
 
 ## Get started
 

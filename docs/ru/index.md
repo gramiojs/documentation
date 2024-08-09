@@ -44,10 +44,8 @@ features:
       details: Написана на TypeScript с любовью ❤️
     - icon: 🌐
       title: Работает в разных рантаймах
-      details: <a href="https://nodejs.org/">Node.js</a>, <a href="https://bun.sh/">Bun</a> или <a href="https://deno.com/">Deno</a>* – на ваш выбор
+      details: <a href="https://nodejs.org/">Node.js</a>, <a href="https://bun.sh/">Bun</a> или <a href="https://deno.com/">Deno</a> – на ваш выбор
 ---
-
-**Deno\*** [имеет проблему с библиотекой undici на Windows](https://github.com/denoland/deno/issues/19532)
 
 ## Начало
 
