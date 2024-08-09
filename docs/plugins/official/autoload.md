@@ -81,16 +81,17 @@ export default (bot: BotType) =>
 
 ## Options
 
-| Key        | Type                                                                                               | Default                    | Description                                                               |
-| ---------- | -------------------------------------------------------------------------------------------------- | -------------------------- | ------------------------------------------------------------------------- |
-| pattern?   | string \| string[]                                                                                 | "\*\*\/\*.{ts,js,cjs,mjs}" | [Glob patterns](<https://en.wikipedia.org/wiki/Glob_(programming)>)       |
-| path?      | string                                                                                             | "./commands"               | Path to the folder                                                        |
-| import?    | string \| (file: any) => string                                                                    | "default"                  | Import a specific `import` from a file                                    |
-| failGlob?  | boolean                                                                                            | true                       | Throws an error if no matches are found                                   |
-| onLoad?    | (params: { absolute: string; relative: string }) => unknown                                        |                            | Hook that is called when loading a file                                   |
-| onFinish?  | (paths: { absolute: string; relative: string }[]) => unknown;                                      |                            | Hook that is called after loading all files                               |
-| fdir?      | [Options](https://github.com/thecodrr/fdir/blob/HEAD/documentation.md#method-chaining-alternative) |                            | Options to configure [fdir](https://github.com/thecodrr/fdir)             |
-| picomatch? | [PicomatchOptions](https://github.com/micromatch/picomatch?tab=readme-ov-file#picomatch-options)   |                            | Options to configure [picomatch](https://www.npmjs.com/package/picomatch) |
+| Key               | Type                                                                                               | Default                    | Description                                                               |
+| ----------------- | -------------------------------------------------------------------------------------------------- | -------------------------- | ------------------------------------------------------------------------- |
+| pattern?          | string \| string[]                                                                                 | "\*\*\/\*.{ts,js,cjs,mjs}" | [Glob patterns](<https://en.wikipedia.org/wiki/Glob_(programming)>)       |
+| path?             | string                                                                                             | "./commands"               | Path to the folder                                                        |
+| import?           | string \| (file: any) => string                                                                    | "default"                  | Import a specific `export` from a file                                    |
+| failGlob?         | boolean                                                                                            | true                       | Throws an error if no matches are found                                   |
+| skipImportErrors? | boolean                                                                                            | false                      | Skip imports where needed `export` not defined                            |
+| onLoad?           | (params: { absolute: string; relative: string }) => unknown                                        |                            | Hook that is called when loading a file                                   |
+| onFinish?         | (paths: { absolute: string; relative: string }[]) => unknown;                                      |                            | Hook that is called after loading all files                               |
+| fdir?             | [Options](https://github.com/thecodrr/fdir/blob/HEAD/documentation.md#method-chaining-alternative) |                            | Options to configure [fdir](https://github.com/thecodrr/fdir)             |
+| picomatch?        | [PicomatchOptions](https://github.com/micromatch/picomatch?tab=readme-ov-file#picomatch-options)   |                            | Options to configure [picomatch](https://www.npmjs.com/package/picomatch) |
 
 ### [Bun build](https://bun.sh/docs/bundler) usage
 
