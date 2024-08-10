@@ -1,4 +1,4 @@
-import type { LocaleConfig } from "vitepress";
+import type { DefaultTheme, LocaleConfig } from "vitepress";
 
 export const localeRu = {
 	ru: {
@@ -218,6 +218,53 @@ export const localeRu = {
 					},
 				],
 			},
+			// Переводы для дефолтных интерфейсов vitepress'а
+			outline: {
+				label: "На этой странице",
+			},
+			lastUpdated: {
+				text: "Последнее обновление",
+			},
+			docFooter: {
+				prev: "Предыдущая страница",
+				next: "Следующая страница",
+			},
+			darkModeSwitchLabel: "Тема",
+			lightModeSwitchTitle: "Перейти на светлую сторону",
+			darkModeSwitchTitle: "Перейти на тёмную сторону",
+			sidebarMenuLabel: "Меню",
+			returnToTopLabel: "Вернуться к небу",
+			langMenuLabel: "Сменить язык",
+			editLink: {
+				pattern:
+					"https://github.com/gramiojs/documentation/edit/main/docs/:path",
+				text: "Изменить эту страницу",
+			},
+			notFound: {
+				title: "Страница не найдена",
+				linkText: "Вернуться домой...",
+			},
+			search: {
+				provider: "local",
+				options: {
+					translations: {
+						button: {
+							buttonText: "Поиск",
+						},
+						modal: {
+							displayDetails: "Показывать подробнее",
+							resetButtonTitle: "Прекрати!",
+							backButtonTitle: "Назад",
+							noResultsText: "К сожалению, мы ничего не нашли для вас :(",
+							footer: {
+								selectText: "Выбрать",
+								navigateText: "Навигация",
+								closeText: "Закрыть",
+							},
+						},
+					},
+				},
+			},
 		},
 	},
-} satisfies LocaleConfig;
+} satisfies LocaleConfig<DefaultTheme.Config>;

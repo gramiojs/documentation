@@ -72,6 +72,7 @@ export default defineConfig({
 	markdown: {
 		codeTransformers: [transformerTwoslash()],
 	},
+	lastUpdated: true,
 	themeConfig: {
 		logo: {
 			dark: "/logo.svg",
@@ -81,6 +82,9 @@ export default defineConfig({
 		},
 		search: {
 			provider: "local",
+		},
+		editLink: {
+			pattern: "https://github.com/gramiojs/documentation/edit/main/docs/:path",
 		},
 		socialLinks: [
 			{ icon: "github", link: "https://github.com/gramiojs/gramio" },
