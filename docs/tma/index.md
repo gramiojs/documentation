@@ -17,9 +17,9 @@ Guide is WIP.
 
 For start, we recommend [`Telegram apps (tma.js)`](https://docs.telegram-mini-apps.com/).
 
-[Telegram documentation](https://core.telegram.org/bots/webapps)
+[Telegram documentation](https://core.telegram.org/bots/webapps) | [Figma UI Kit](https://www.figma.com/file/AwAi6qE11mQllHa1sOROYp/Telegram-Mini-Apps-Library?type=design&node-id=26%3A1081&mode=design&t=Sck9CgzgyKz3iIFt-1) | [Telegram Developers Community](https://t.me/devs)
 
-### Scaffold monorepo
+## Scaffold monorepo
 
 With [create-gramio](https://github.com/gramiojs/create-gramio) you can easily start developing Telegram mini app in monorepo. You can start a project with [tma.js](https://docs.telegram-mini-apps.com/), [Elysiajs](https://elysiajs.com/) and GramIO in a minute!
 
@@ -44,6 +44,17 @@ bun create gramio@latest ./bot
 :::
 
 and choose the type of project you need!
+
+For example, this is what a monorepo created using [create-gramio](https://github.com/gramiojs/create-gramio) looks like
+
+```tree
+├── apps
+│   ├── bot
+│   ├── mini-app
+│   └── server
+└── packages
+    └── db
+```
 
 ### Scaffold via [`Telegram apps (tma.js)`](https://docs.telegram-mini-apps.com/)
 
@@ -77,7 +88,7 @@ This command will help you scaffold a project with a template that matches you f
 -   -   [React](https://github.com/Telegram-Mini-Apps/reactjs-js-template)
 -   -   [Solid](https://github.com/Telegram-Mini-Apps/solidjs-js-template)
 
-### HTTPS on localhost
+## HTTPS on localhost
 
 BotFather only accepts **http://** links and getting into the **test environment** can be problematic, so let's figure out how to work with **https://** and **localhost**.
 
