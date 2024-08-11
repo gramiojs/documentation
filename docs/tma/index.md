@@ -151,7 +151,7 @@ export default defineConfig({
             port: 443,
         },
         https: {
-            key: fs.readFileSync("./mini-app.local.pem"),
+            key: fs.readFileSync("./mini-app.local-key.pem"),
             cert: fs.readFileSync("./mini-app.local.pem"),
         },
     },
