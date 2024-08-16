@@ -98,6 +98,10 @@ export const localeEn = {
 										link: "/triggers/inline-query",
 									},
 									{
+										text: "Chosen Inline Result",
+										link: "/triggers/chosen-inline-result",
+									},
+									{
 										text: "Reaction",
 										link: "/triggers/reaction",
 									},
