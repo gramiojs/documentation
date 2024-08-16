@@ -159,7 +159,7 @@ await bot.init();
 
 const app = new App().post("/telegram", async (req) => {
     // req.body must be json equivalent to TelegramUpdate
-    await bot.handleUpdate(req.body);
+    await bot.updates.handleUpdate(req.body);
 });
 
 app.listen(80);
