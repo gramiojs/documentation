@@ -23,6 +23,7 @@ To use the `callbackQuery` method, you need to define a trigger and a handler. T
 
 ```ts twoslash
 import { CallbackData, Bot } from "gramio";
+const bot = new Bot("");
 // ---cut---
 const someData = new CallbackData("example").number("id");
 
@@ -63,6 +64,7 @@ bot.callbackQuery(/my_(.*)/, (context) => {
 
 ```ts twoslash
 import { CallbackData, Bot } from "gramio";
+const bot = new Bot("");
 // ---cut---
 const someData = new CallbackData("example").number("id");
 
