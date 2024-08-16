@@ -33,7 +33,7 @@ Currently, **sendMediaGroup** is not cached.
 import { Bot } from "gramio";
 import { mediaCache } from "@gramio/media-cache";
 
-const bot = new Bot(process.env.token!)
+const bot = new Bot(process.env.BOT_TOKEN as string)
     .extend(mediaCache())
     .command("start", async (context) => {
         return context.sendDocument(

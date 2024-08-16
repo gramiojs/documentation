@@ -20,7 +20,7 @@ This hook called when the bot stops.
 // @noErrors
 import { Bot } from "gramio";
 
-const bot = new Bot(process.env.TOKEN!).onStop(
+const bot = new Bot(process.env.BOT_TOKEN as string).onStop(
     ({ plugins, info, updatesFrom }) => {
         console.log(`plugin list - ${plugins.join(", ")}`);
         console.log(`bot username is @${info.username}`);

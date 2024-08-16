@@ -19,7 +19,7 @@ const plugin = new Plugin("gramio-example")
         };
     });
 
-const bot = new Bot(process.env.TOKEN!)
+const bot = new Bot(process.env.BOT_TOKEN as string)
     .extend(plugin)
     .onError(({ context, kind, error }) => {
         if (context.is("message") && kind === "PLUGIN") {

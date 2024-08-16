@@ -53,7 +53,7 @@ bun install @gramio/session
 import { Bot } from "gramio";
 import { session } from "@gramio/session";
 
-const bot = new Bot(process.env.token!)
+const bot = new Bot(process.env.BOT_TOKEN as string)
     .extend(
         session({
             key: "sessionKey",
@@ -80,7 +80,7 @@ import { Bot } from "gramio";
 import { session } from "@gramio/session";
 import { redisStorage } from "@gramio/storage-redis";
 
-const bot = new Bot(process.env.token!)
+const bot = new Bot(process.env.BOT_TOKEN as string)
     .extend(
         session({
             key: "sessionKey",

@@ -21,7 +21,7 @@ This hook called when the bot is `started`.
 ```ts twoslash
 import { Bot } from "gramio";
 
-const bot = new Bot(process.env.TOKEN!).onStart(
+const bot = new Bot(process.env.BOT_TOKEN as string).onStart(
     ({ plugins, info, updatesFrom }) => {
         console.log(`plugin list - ${plugins.join(", ")}`);
         console.log(`bot username is @${info.username}`);

@@ -51,7 +51,7 @@ bun install @gramio/prompt
 import { Bot, format, bold } from "gramio";
 import { prompt } from "@gramio/prompt";
 
-const bot = new Bot(process.env.TOKEN as string)
+const bot = new Bot(process.env.BOT_TOKEN as string)
     .extend(prompt())
     .command("start", async (context) => {
         const answer = await context.prompt(

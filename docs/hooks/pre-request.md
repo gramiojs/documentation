@@ -15,7 +15,7 @@ This hook called `before sending a request` to Telegram Bot API (allows us to im
 ```ts twoslash
 import { Bot } from "gramio";
 
-const bot = new Bot(process.env.TOKEN!).preRequest((context) => {
+const bot = new Bot(process.env.BOT_TOKEN as string).preRequest((context) => {
     if (context.method === "sendMessage") {
         context.params.text = "mutate params";
     }

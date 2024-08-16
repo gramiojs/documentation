@@ -26,7 +26,7 @@ import { CallbackData, Bot } from "gramio";
 // ---cut---
 const someData = new CallbackData("example").number("id");
 
-new Bot(process.env.BOT_TOKEN as string).callbackQuery(someData, (context) => {
+bot.callbackQuery(someData, (context) => {
     return context.send(`You clicked button with ID: ${context.queryData.id}`);
     //                                                          ^?
 });
@@ -44,26 +44,20 @@ The `callbackQuery` method supports several types of triggers:
 
 -   **String Trigger**: The handler is triggered if the callback data exactly matches the specified string.
 
-    ```ts
-    new Bot(process.env.BOT_TOKEN as string).callbackQuery(
-        "my_callback",
-        (context) => {
-            return context.editText("Button clicked!");
-        }
-    );
-    ```
+```ts
+bot.callbackQuery("my_callback", (context) => {
+    return context.editText("Button clicked!");
+});
+```
 
 -   **RegExp Trigger**: The handler is triggered if the callback data matches the regular expression.
 
-    ```ts
-    new Bot(process.env.BOT_TOKEN as string).callbackQuery(
-        /my_(.*)/,
-        (context) => {
-            const match = context.queryData;
-            context.send(`Matched data: ${match[1]}`);
-        }
-    );
-    ```
+```ts
+bot.callbackQuery(/my_(.*)/, (context) => {
+    const match = context.queryData;
+    context.send(`Matched data: ${match[1]}`);
+});
+```
 
 -   **CallbackData Instance**: The handler is triggered if the callback data matches the `CallbackData` schema.
 
@@ -72,7 +66,7 @@ import { CallbackData, Bot } from "gramio";
 // ---cut---
 const someData = new CallbackData("example").number("id");
 
-new Bot(process.env.BOT_TOKEN as string).callbackQuery(someData, (context) => {
+bot.callbackQuery(someData, (context) => {
     context.send(`Data ID: ${context.queryData.id}`);
     //                                  ^?
 });
@@ -92,20 +86,16 @@ Consider a scenario where you want to send a message with an inline keyboard, an
 ```ts
 const buttonData = new CallbackData("action").number("action_id");
 
-new Bot(process.env.BOT_TOKEN as string)
-    .command("start", (context) =>
-        context.send("Choose an action:", {
-            reply_markup: new InlineKeyboard().text(
-                "Do Action 1",
-                buttonData.pack({ action_id: 1 })
-            ),
-        })
-    )
-    .callbackQuery(buttonData, (context) => {
-        context.send(
-            `You selected action with ID: ${context.queryData.action_id}`
-        );
-    });
+bot.command("start", (context) =>
+    context.send("Choose an action:", {
+        reply_markup: new InlineKeyboard().text(
+            "Do Action 1",
+            buttonData.pack({ action_id: 1 })
+        ),
+    })
+).callbackQuery(buttonData, (context) => {
+    context.send(`You selected action with ID: ${context.queryData.action_id}`);
+});
 ```
 
 In this example:

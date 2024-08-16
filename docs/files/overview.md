@@ -21,7 +21,7 @@ head:
 // @errors: 2345
 import { Bot, MediaInput, MediaUpload, InlineKeyboard } from "gramio";
 
-const bot = new Bot(process.env.BOT_TOKEN!)
+const bot = new Bot(process.env.BOT_BOT_TOKEN as string)
     .on("message", async (ctx) => {
         ctx.sendMediaGroup([
             MediaInput.document(

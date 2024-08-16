@@ -51,7 +51,7 @@ bun install @gramio/auto-retry
 import { Bot } from "gramio";
 import { autoRetry } from "@gramio/auto-retry";
 
-const bot = new Bot(process.env.TOKEN!)
+const bot = new Bot(process.env.BOT_TOKEN as string)
     .extend(autoRetry())
     .command("start", async (context) => {
         for (let index = 0; index < 100; index++) {

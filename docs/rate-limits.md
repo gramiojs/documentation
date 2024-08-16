@@ -30,7 +30,7 @@ import { scheduler } from "node:timers/promises";
 import { Bot, TelegramError } from "gramio";
 import { autoRetry } from "@gramio/auto-retry";
 
-const bot = new Bot(process.env.TOKEN as string).extend(autoRetry());
+const bot = new Bot(process.env.BOT_TOKEN as string).extend(autoRetry());
 const chatIds: number[] = [
     /** some chat ids */
 ];

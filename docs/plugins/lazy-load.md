@@ -5,7 +5,7 @@ Plugins can be **lazy-loaded** if they are in an **asynchronous** function. Such
 ## Example
 
 ```ts
-const bot = new Bot(process.env.TOKEN as string)
+const bot = new Bot(process.env.BOT_TOKEN as string)
     .extend(autoload()) // autoload is async
     .command("start", () => {
         // this command registered BEFORE than autoload
@@ -17,7 +17,7 @@ bot.start(); // autoload is loaded here
 You can fix that with **await**.
 
 ```ts
-const bot = new Bot(process.env.TOKEN as string)
+const bot = new Bot(process.env.BOT_TOKEN as string)
     .extend(await autoload()) // autoload is async but we await it
     .command("start", () => {
         // this command registered AFTER than autoload

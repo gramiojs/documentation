@@ -24,7 +24,7 @@ The `inlineQuery` method in GramIO allows your bot to respond to inline queries 
 You can make your bot listen for specific inline queries that match a regular expression and respond with results. Here’s an example:
 
 ```ts
-new Bot(process.env.BOT_TOKEN as string).inlineQuery(
+bot.inlineQuery(
     /find (.*)/i,
     async (context) => {
         if (context.args) {
@@ -74,7 +74,7 @@ In this example:
 Here’s a more detailed example that demonstrates using both the inline query trigger and handling result selection:
 
 ```ts
-new Bot(process.env.BOT_TOKEN as string).inlineQuery(
+bot.inlineQuery(
     /find (.*)/i,
     async (context) => {
         if (context.args) {

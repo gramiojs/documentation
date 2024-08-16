@@ -27,7 +27,7 @@ This plugin collects `mediaGroup` from messages (**1** attachment = **1** messag
 import { Bot } from "gramio";
 import { mediaGroup } from "@gramio/media-group";
 
-const bot = new Bot(process.env.TOKEN as string)
+const bot = new Bot(process.env.BOT_TOKEN as string)
     .extend(mediaGroup())
     .on("message", async (context) => {
         if (!context.mediaGroup) return;
@@ -68,7 +68,7 @@ bun install @gramio/media-group
 You can change the duration of the delay in milliseconds by simply passing it like this:
 
 ```typescript
-const bot = new Bot(process.env.TOKEN!)
+const bot = new Bot(process.env.BOT_TOKEN as string)
     .extend(mediaGroup(1000)) // wait 1 second for message with mediaGroupId (refreshed after new message with it)
     .on("message", async (context) => {
         if (!context.mediaGroup) return;

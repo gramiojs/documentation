@@ -66,7 +66,7 @@ const keyboard = new Keyboard()
 ```ts
 import { Bot, Keyboard } from "gramio"; // import from GramIO package!!
 
-const bot = new Bot(process.env.TOKEN as string);
+const bot = new Bot(process.env.BOT_TOKEN as string);
 
 const data = ["Apple", "Realme", "Tesla", "Xiaomi"];
 
@@ -87,7 +87,7 @@ bot.on("message", (ctx) => {
 import { Keyboard } from "@gramio/keyboards";
 import { Bot } from "grammy";
 
-const bot = new Bot(process.env.TOKEN as string);
+const bot = new Bot(process.env.BOT_TOKEN as string);
 
 const data = ["Apple", "Realme", "Tesla", "Xiaomi"];
 
@@ -114,7 +114,7 @@ bot.start();
 import { Keyboard } from "@gramio/keyboards";
 import { Telegraf } from "telegraf";
 
-const bot = new Telegraf(process.env.TOKEN as string);
+const bot = new Telegraf(process.env.BOT_TOKEN as string);
 
 const data = ["Apple", "Realme", "Tesla", "Xiaomi"];
 

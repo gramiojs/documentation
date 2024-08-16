@@ -35,20 +35,17 @@ We recommend you set it to `100%` (each click on the [inline query](/triggers/in
 The `chosenInlineResult` method registers a handler that is triggered whenever a user selects a result from the inline query response. You can define a trigger that determines when the handler should be invoked, similar to how you define triggers in the `inlineQuery` method.
 
 ```ts
-new Bot(process.env.BOT_TOKEN as string).chosenInlineResult(
-    /search (.*)/i,
-    async (context) => {
-        const selectedResult = context.result_id;
-        const queryParams = context.args;
+bot.chosenInlineResult(/search (.*)/i, async (context) => {
+    const selectedResult = context.result_id;
+    const queryParams = context.args;
 
-        // You can edit messages only with InlineKeyboard
-        if (queryParams && context.inline_message_id) {
-            await context.editText(
-                `You selected a result with ID: ${selectedResult} for query: ${queryParams[1]}`
-            );
-        }
+    // You can edit messages only with InlineKeyboard
+    if (queryParams && context.inline_message_id) {
+        await context.editText(
+            `You selected a result with ID: ${selectedResult} for query: ${queryParams[1]}`
+        );
     }
-);
+});
 ```
 
 In this example:

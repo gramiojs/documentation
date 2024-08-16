@@ -35,7 +35,7 @@ Commands must always start with the `/` symbol and contain **up to 32 characters
 You can use the `command` method to make your bot respond to specific commands. Here’s a basic example:
 
 ```ts
-new Bot(process.env.BOT_TOKEN as string).command("start", (context) => {
+bot.command("start", (context) => {
     return context.send(`Hi!`);
 });
 ```
@@ -50,7 +50,7 @@ In this example, the bot listens for the `/start` command. When the command is r
 Here’s an example that demonstrates how to use arguments with commands:
 
 ```ts
-new Bot(process.env.BOT_TOKEN as string).command("start", async (context) => {
+bot.command("start", async (context) => {
     return context.send(
         `You entered the command /start with arguments: ${context.args}`
     );

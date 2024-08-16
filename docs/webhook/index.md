@@ -35,7 +35,7 @@ Here is an example of using webhooks
 import { Bot } from "gramio";
 import Fastify from "fastify";
 
-const bot = new Bot(process.env.TOKEN!);
+const bot = new Bot(process.env.BOT_TOKEN as string);
 const fastify = Fastify();
 
 fastify.post("/telegram-webhook", webhookHandler(bot, "fastify"));
@@ -150,7 +150,7 @@ bot.start({
 import { App } from "some-http-framework";
 import { Bot } from "gramio";
 
-const bot = new Bot(process.env.TOKEN!).on("message", (context) =>
+const bot = new Bot(process.env.BOT_TOKEN as string).on("message", (context) =>
     context.send("Hello!")
 );
 

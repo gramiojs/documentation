@@ -24,14 +24,11 @@ The `hears` method in GramIO allows you to set up responses to specific messages
 You can make your bot listen for messages that match a specific pattern using regular expressions. This is useful when you want your bot to respond to messages that follow a certain structure.
 
 ```ts
-new Bot(process.env.BOT_TOKEN as string).hears(
-    /hello (.*)/i,
-    async (context) => {
-        if (context.args) {
-            await context.send(`Hello, ${context.args[1]}!`);
-        }
+bot.hears(/hello (.*)/i, async (context) => {
+    if (context.args) {
+        await context.send(`Hello, ${context.args[1]}!`);
     }
-);
+});
 ```
 
 In this example, the bot listens for messages that start with "hello" followed by any text. When such a message is received, the bot extracts the text after "hello" and sends a personalized greeting.
@@ -41,7 +38,7 @@ In this example, the bot listens for messages that start with "hello" followed b
 If you want your bot to respond to a specific word or phrase, you can use a string trigger.
 
 ```ts
-new Bot(process.env.BOT_TOKEN as string).hears("start", async (context) => {
+bot.hears("start", async (context) => {
     await context.send("Welcome! Type 'help' to see available commands.");
 });
 ```
@@ -53,7 +50,7 @@ In this case, the bot listens for the exact word "start" and replies with a welc
 For more advanced scenarios, you can use a function to define the trigger. This function checks the message context and decides whether to trigger the response.
 
 ```ts
-new Bot(process.env.BOT_TOKEN as string).hears(
+bot.hears(
     (context) => context.user.role === "admin",
     async (context) => {
         await context.send("Hello, Admin! How can I assist you?");

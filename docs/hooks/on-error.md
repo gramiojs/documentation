@@ -51,7 +51,7 @@ export class NoRights extends Error {
     }
 }
 
-const bot = new Bot(process.env.TOKEN!)
+const bot = new Bot(process.env.BOT_TOKEN as string)
     .error("NO_RIGHTS", NoRights)
     .onError("message", ({ context, kind, error }) => {
         if (kind === "NO_RIGHTS")
