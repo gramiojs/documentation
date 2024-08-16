@@ -1,3 +1,4 @@
+import shikiColorizedBrackets from '@michael-makes/shiki-colorized-brackets';
 import { transformerTwoslash } from "@shikijs/vitepress-twoslash";
 import presetIcons from "@unocss/preset-icons";
 import Unocss from "unocss/vite";
@@ -70,7 +71,7 @@ export default defineConfig({
 		...localeRu,
 	},
 	markdown: {
-		codeTransformers: [transformerTwoslash()],
+		codeTransformers: [transformerTwoslash(), shikiColorizedBrackets()],
 	},
 	lastUpdated: true,
 	themeConfig: {
