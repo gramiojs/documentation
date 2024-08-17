@@ -32,7 +32,7 @@ Here is an example of using webhooks
 ## Example
 
 ```ts
-import { Bot } from "gramio";
+import { Bot, webhookHandler } from "gramio";
 import Fastify from "fastify";
 
 const bot = new Bot(process.env.BOT_TOKEN as string);
