@@ -139,6 +139,7 @@ sudo echo "127.0.0.1 mini-app.local" >> /etc/hosts
 4. Configure it in `vite.config.ts`
 
 ```ts
+
 import fs from "node:fs";
 import { defineConfig } from "vite";
 

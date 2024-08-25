@@ -87,7 +87,10 @@ Method for uploading Media File by Readable stream.
 // @errors: 2345
 import { Bot, MessageContext } from "gramio";
 import { MediaUpload } from "@gramio/files";
-import fs from "node:fs";
+
+// import fs from "node:fs";
+// https://github.com/gramiojs/documentation/actions/runs/10424909870/job/28874689592 wtf
+const fs = {} as any;
 
 const ctx = {} as InstanceType<MessageContext<Bot>>;
 // ---cut---

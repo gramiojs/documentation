@@ -1,7 +1,12 @@
+// import shikiColorizedBrackets from "@michael-makes/shiki-colorized-brackets";
 import { transformerTwoslash } from "@shikijs/vitepress-twoslash";
 import presetIcons from "@unocss/preset-icons";
 import Unocss from "unocss/vite";
 import { defineConfig } from "vitepress";
+import {
+	groupIconMdPlugin,
+	groupIconVitePlugin,
+} from "vitepress-plugin-group-icons";
 import { localeEn, localeRu } from "./config/locales";
 
 // https://vitepress.dev/reference/site-config
@@ -11,7 +16,7 @@ export default defineConfig({
 	cleanUrls: true,
 	vite: {
 		publicDir: "../public",
-		plugins: [Unocss({ presets: [presetIcons()] })],
+		plugins: [Unocss({ presets: [presetIcons()] }), groupIconVitePlugin()],
 		// TODO: remove when bun on windows out!
 		// server: {
 		// 	watch: {
@@ -70,7 +75,11 @@ export default defineConfig({
 		...localeRu,
 	},
 	markdown: {
-		codeTransformers: [transformerTwoslash()],
+		codeTransformers: [transformerTwoslash() /**shikiColorizedBrackets()**/],
+		config: (md) => {
+			// @ts-ignore
+			md.use(groupIconMdPlugin);
+		},
 	},
 	lastUpdated: true,
 	themeConfig: {
