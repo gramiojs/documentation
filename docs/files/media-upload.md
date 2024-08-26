@@ -21,10 +21,10 @@ Method for uploading Media File by local path.
 
 ```ts twoslash
 // @errors: 2345
-import { Bot, MessageContext } from "gramio";
+import { BotLike, MessageContext } from "gramio";
 import { MediaUpload } from "@gramio/files";
 
-const ctx = {} as InstanceType<MessageContext<Bot>>;
+const ctx = {} as InstanceType<MessageContext<BotLike>>;
 // ---cut---
 ctx.sendDocument(MediaUpload.path("./package.json"));
 // or with filename
@@ -39,10 +39,10 @@ Method for uploading Media File by URL (also with fetch options).
 
 ```ts twoslash
 // @errors: 2345
-import { Bot, MessageContext } from "gramio";
+import { BotLike, MessageContext } from "gramio";
 import { MediaUpload } from "@gramio/files";
 
-const ctx = {} as InstanceType<MessageContext<Bot>>;
+const ctx = {} as InstanceType<MessageContext<BotLike>>;
 // ---cut---
 ctx.sendPhoto(MediaUpload.url("https://example.com/cat.png"));
 // or with filename
@@ -65,10 +65,10 @@ Method for uploading Media File by Buffer or ArrayBuffer.
 
 ```ts twoslash
 // @errors: 2345
-import { Bot, MessageContext } from "gramio";
+import { BotLike, MessageContext } from "gramio";
 import { MediaUpload } from "@gramio/files";
 
-const ctx = {} as InstanceType<MessageContext<Bot>>;
+const ctx = {} as InstanceType<MessageContext<BotLike>>;
 // ---cut---
 const res = await fetch("https://...");
 
@@ -85,14 +85,14 @@ Method for uploading Media File by Readable stream.
 
 ```ts twoslash
 // @errors: 2345
-import { Bot, MessageContext } from "gramio";
+import { BotLike, MessageContext } from "gramio";
 import { MediaUpload } from "@gramio/files";
 
 // import fs from "node:fs";
 // https://github.com/gramiojs/documentation/actions/runs/10424909870/job/28874689592 wtf
 const fs = {} as any;
 
-const ctx = {} as InstanceType<MessageContext<Bot>>;
+const ctx = {} as InstanceType<MessageContext<BotLike>>;
 // ---cut---
 ctx.sendDocument(
     MediaUpload.stream(
@@ -110,10 +110,10 @@ Method for uploading Media File by text content.
 
 ```ts twoslash
 // @errors: 2345
-import { Bot, MessageContext } from "gramio";
+import { BotLike, MessageContext } from "gramio";
 import { MediaUpload } from "@gramio/files";
 
-const ctx = {} as InstanceType<MessageContext<Bot>>;
+const ctx = {} as InstanceType<MessageContext<BotLike>>;
 // ---cut---
 ctx.sendDocument(MediaUpload.text("GramIO is the best!", "truth.txt"));
 ```
