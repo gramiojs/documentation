@@ -110,6 +110,7 @@ export const localeEn = {
 							{
 								text: "Hooks",
 								collapsed: true,
+								link: "/hooks/overview",
 								items: [
 									{
 										text: "Overview",
@@ -144,6 +145,7 @@ export const localeEn = {
 							{
 								text: "Keyboards",
 								collapsed: true,
+								link: "/keyboards/overview",
 								items: [
 									{
 										text: "Overview",
@@ -170,6 +172,7 @@ export const localeEn = {
 							{
 								text: "Files",
 								collapsed: true,
+								link: "/files/overview",
 								items: [
 									{
 										text: "Overview",
@@ -197,6 +200,7 @@ export const localeEn = {
 							{ text: "Storages", link: "/storages/index" },
 							{
 								text: "Telegram Mini Apps",
+								collapsed: true,
 								link: "/tma/",
 								items: [
 									{
@@ -208,6 +212,10 @@ export const localeEn = {
 										link: "/tma/init-data",
 									},
 								],
+							},
+							{
+								text: "Bot class",
+								link: "/bot-class",
 							},
 						],
 					},

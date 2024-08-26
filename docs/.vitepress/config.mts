@@ -16,7 +16,14 @@ export default defineConfig({
 	cleanUrls: true,
 	vite: {
 		publicDir: "../public",
-		plugins: [Unocss({ presets: [presetIcons()] }), groupIconVitePlugin()],
+		plugins: [
+			Unocss({ presets: [presetIcons()] }),
+			groupIconVitePlugin({
+				customIcon: {
+					deno: "logos:deno",
+				},
+			}),
+		],
 		// TODO: remove when bun on windows out!
 		// server: {
 		// 	watch: {
