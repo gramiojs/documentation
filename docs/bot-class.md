@@ -197,7 +197,7 @@ const bot = new Bot(process.env.BOT_TOKEN, {
 
 ### Bun
 
-```ts twoslash
+ <!-- twoslash
 import { Bot } from "gramio";
 
 const process = {} as {
@@ -213,7 +213,9 @@ declare global {
         proxy: string;
     }
 }
-// ---cut---
+// ---cut--- -->
+
+```ts
 const bot = new Bot(process.env.BOT_TOKEN, {
     api: {
         fetchOptions: {
@@ -227,7 +229,7 @@ const bot = new Bot(process.env.BOT_TOKEN, {
 
 ### Deno
 
-```ts twoslash
+ <!-- twoslash
 import { Bot } from "gramio";
 
 const process = {} as {
@@ -248,7 +250,9 @@ export {};
 /** Sorry zero typings */
 const Deno = {} as any;
 
-// ---cut---
+// ---cut--- -->
+
+```ts
 const client = Deno.createHttpClient({
     proxy: { url: "http://host:port/" },
 });
