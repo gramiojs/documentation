@@ -14,3 +14,4 @@ basement_dist
 tg-bot-api
 .env
 test.ts
+gramio-*.json

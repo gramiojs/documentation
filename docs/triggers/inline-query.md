@@ -17,6 +17,11 @@ The `inlineQuery` method in GramIO allows your bot to respond to inline queries 
 
 ![feature preview](https://core.telegram.org/file/464001466/10e4a/r4FKyQ7gw5g.134366/f2606a53d683374703)
 
+[Telegram documentation](https://core.telegram.org/bots/inline)
+
+> [!WARNING]
+> You should enable this options via [@BotFather](https://telegram.me/botfather). Send the `/setinline` command, select the bot and provide the placeholder text that the user will see in the input field after typing your bot’s name.
+
 ## Basic Usage
 
 ### Responding to an Inline Query with a Regular Expression
@@ -24,24 +29,19 @@ The `inlineQuery` method in GramIO allows your bot to respond to inline queries 
 You can make your bot listen for specific inline queries that match a regular expression and respond with results. Here’s an example:
 
 ```ts
-bot.inlineQuery(
-    /find (.*)/i,
-    async (context) => {
-        if (context.args) {
-            await context.answer([
-                InlineQueryResult.article(
-                    "id-1",
-                    `Result for ${context.args.at(1)}`,
-                    InputMessageContent.text(
-                        `This is a message result for ${context.args.at(
-                            1
-                        )} query`
-                    )
-                ),
-            ]);
-        }
+bot.inlineQuery(/find (.*)/i, async (context) => {
+    if (context.args) {
+        await context.answer([
+            InlineQueryResult.article(
+                "id-1",
+                `Result for ${context.args.at(1)}`,
+                InputMessageContent.text(
+                    `This is a message result for ${context.args.at(1)} query`
+                )
+            ),
+        ]);
     }
-);
+});
 ```
 
 In this example:

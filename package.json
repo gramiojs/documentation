@@ -17,7 +17,7 @@
 		"@iconify-json/logos": "^1.1.43",
 		"@iconify-json/skill-icons": "^1.1.9",
 		"@shikijs/vitepress-twoslash": "1.12.1",
-		"@types/node": "22.1.0",
+		"@types/node": "^22.5.0",
 		"@unocss/preset-icons": "^0.61.9",
 		"elysia": "^1.1.5",
 		"gramio": "^0.0.48",
