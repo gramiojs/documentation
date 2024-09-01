@@ -8,7 +8,7 @@ There are [two ways](https://jsr.io/@gramio/core/doc/~/Bot#constructors) to pass
 
 1. Pass the token as the first argument and (optionally) options
 
-```ts twoslash
+ <!-- twoslash
 import { Bot } from "gramio";
 
 const process = {} as {
@@ -18,7 +18,9 @@ const process = {} as {
     };
 };
 
-// ---cut---
+// ---cut--- -->
+
+```ts
 const bot = new Bot(process.env.BOT_TOKEN, {
     api: {
         fetchOptions: {
@@ -32,7 +34,7 @@ const bot = new Bot(process.env.BOT_TOKEN, {
 
 2. Pass the options with the required `token` field
 
-```ts twoslash
+ <!-- twoslash
 import { Bot } from "gramio";
 const process = {} as {
     env: {
@@ -41,7 +43,9 @@ const process = {} as {
     };
 };
 
-// ---cut---
+// ---cut--- -->
+
+```ts
 const bot = new Bot({
     token: process.env.BOT_TOKEN,
     api: {
@@ -58,7 +62,7 @@ const bot = new Bot({
 
 Some plugins are used by default, but you can disable them.
 
-```ts twoslash
+ <!-- twoslash
 import { Bot } from "gramio";
 const process = {} as {
     env: {
@@ -67,7 +71,9 @@ const process = {} as {
     };
 };
 
-// ---cut---
+// ---cut--- -->
+
+```ts
 const bot = new Bot(process.env.BOT_TOKEN, {
     plugins: {
         // disable formatting. All format`` will be text without formatting
@@ -82,7 +88,7 @@ const bot = new Bot(process.env.BOT_TOKEN, {
 
 Configure [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Window/fetch) [parameters](https://developer.mozilla.org/en-US/docs/Web/API/RequestInit)
 
-```ts twoslash
+ <!-- twoslash
 import { Bot } from "gramio";
 const process = {} as {
     env: {
@@ -91,7 +97,9 @@ const process = {} as {
     };
 };
 
-// ---cut---
+// ---cut--- -->
+
+```ts
 const bot = new Bot(process.env.BOT_TOKEN, {
     api: {
         fetchOptions: {
@@ -107,7 +115,7 @@ const bot = new Bot(process.env.BOT_TOKEN, {
 
 URL which will be used to send requests to. `"https://api.telegram.org/bot"` by default.
 
-```ts twoslash
+ <!-- twoslash
 import { Bot } from "gramio";
 const process = {} as {
     env: {
@@ -116,7 +124,9 @@ const process = {} as {
     };
 };
 
-// ---cut---
+// ---cut--- -->
+
+```ts
 const bot = new Bot(process.env.BOT_TOKEN, {
     api: {
         // random domain
@@ -132,7 +142,7 @@ The test environment is completely separate from the main environment, so you wi
 
 [Documentation](https://core.telegram.org/bots/webapps#using-bots-in-the-test-environment)
 
-```ts twoslash
+ <!-- twoslash
 import { Bot } from "gramio";
 const process = {} as {
     env: {
@@ -141,7 +151,9 @@ const process = {} as {
     };
 };
 
-// ---cut---
+// ---cut--- -->
+
+```ts
 const bot = new Bot(process.env.BOT_TOKEN, {
     api: {
         useTest: true,
@@ -153,7 +165,7 @@ const bot = new Bot(process.env.BOT_TOKEN, {
 
 Time in milliseconds before calling `getUpdates` again. `1000` by default.
 
-```ts twoslash
+ <!-- twoslash
 import { Bot } from "gramio";
 const process = {} as {
     env: {
@@ -162,7 +174,9 @@ const process = {} as {
     };
 };
 
-// ---cut---
+// ---cut--- -->
+
+```ts
 const bot = new Bot(process.env.BOT_TOKEN, {
     api: {
         retryGetUpdatesWait: 300,
