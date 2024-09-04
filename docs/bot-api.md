@@ -134,3 +134,33 @@ And you will see something like in the console:
 gramio:api:getUpdates options: {"method":"POST","headers":{"Content-Type":"application/json"},"body":"{\"offset\":0,\"suppress\":true}"} +0ms
 gramio:api:getUpdates response: {"ok":true,"result":[]} +49ms
 ```
+
+also if you use [Bun](https://bun.sh) you can use `BUN_CONFIG_VERBOSE_FETCH` environment variable to log network requests. [Read more](https://bun.sh/docs/runtime/debugger#debugging-network-requests).
+
+```sh
+BUN_CONFIG_VERBOSE_FETCH=curl bun src/index.ts
+```
+
+And logs will looks like:
+
+```curl
+[fetch] > HTTP/1.1 POST https://example.com/
+[fetch] > content-type: application/json
+[fetch] > Connection: keep-alive
+[fetch] > User-Agent: Bun/1.1.14
+[fetch] > Accept: */*
+[fetch] > Host: example.com
+[fetch] > Accept-Encoding: gzip, deflate, br
+[fetch] > Content-Length: 13
+
+[fetch] < 200 OK
+[fetch] < Accept-Ranges: bytes
+[fetch] < Cache-Control: max-age=604800
+[fetch] < Content-Type: text/html; charset=UTF-8
+[fetch] < Date: Tue, 18 Jun 2024 05:12:07 GMT
+[fetch] < Etag: "3147526947"
+[fetch] < Expires: Tue, 25 Jun 2024 05:12:07 GMT
+[fetch] < Last-Modified: Thu, 17 Oct 2019 07:18:26 GMT
+[fetch] < Server: EOS (vny/044F)
+[fetch] < Content-Length: 1256
+```
