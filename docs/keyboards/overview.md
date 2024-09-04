@@ -79,6 +79,8 @@ bot.on("message", (ctx) => {
             .filter(({ button }) => button.text !== "Tesla"),
     });
 });
+
+bot.start();
 ```
 
 ### Send via [Grammy](https://grammy.dev/)
@@ -132,7 +134,35 @@ bot.on("message", (ctx) => {
 bot.launch();
 ```
 
+### Send via [node-telegram-bot-api](https://www.npmjs.com/package/node-telegram-bot-api)
+
+> [!WARNING]
+> The `node-telegram-bot-api` does not support the latest version of Bot API and the types are badly written, so the types may not match
+
+```ts
+import { Keyboard } from "@gramio/keyboards";
+import TelegramBot from "node-telegram-bot-api";
+
+const bot = new TelegramBot(process.env.TOKEN as string, { polling: true });
+
+const data = ["Apple", "Realme", "Tesla", "Xiaomi"];
+
+bot.on("message", (msg) => {
+    return bot.sendMessage(msg.chat.id, "test", {
+        reply_markup: new Keyboard()
+            .columns(1)
+            .text("simple keyboard")
+            .add(...data.map((x) => Keyboard.text(x)))
+            .filter(({ button }) => button.text !== "Tesla")
+            .build(),
+    });
+});
+```
+
 ### Send via [puregram](https://puregram.cool/)
+
+> [!WARNING]
+> The `puregram` does not support the latest version of Bot API
 
 ```ts
 import { Telegram } from "puregram";
@@ -158,30 +188,7 @@ bot.on("message", (ctx) => {
 bot.updates.startPolling();
 ```
 
-### Send via [node-telegram-bot-api](https://www.npmjs.com/package/node-telegram-bot-api)
-
-> [!WARNING]
-> The `node-telegram-bot-api` does not support the latest version of Bot API and the types are badly written, so the types may not match
-
-```ts
-import { Keyboard } from "@gramio/keyboards";
-import TelegramBot from "node-telegram-bot-api";
-
-const bot = new TelegramBot(process.env.TOKEN as string, { polling: true });
-
-const data = ["Apple", "Realme", "Tesla", "Xiaomi"];
-
-bot.on("message", (msg) => {
-    return bot.sendMessage(msg.chat.id, "test", {
-        reply_markup: new Keyboard()
-            .columns(1)
-            .text("simple keyboard")
-            .add(...data.map((x) => Keyboard.text(x)))
-            .filter(({ button }) => button.text !== "Tesla")
-            .build(),
-    });
-});
-```
+````
 
 #### Result
 
@@ -214,6 +221,6 @@ bot.on("message", (msg) => {
     "selective": false,
     "resize_keyboard": true
 }
-```
+````
 
 ![image](https://github.com/gramiojs/keyboards/assets/57632712/e65e2b0a-40f0-43ae-9887-04360e6dbeab)
