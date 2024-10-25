@@ -17,10 +17,10 @@
     "@iconify-json/logos": "^1.2.3",
     "@iconify-json/skill-icons": "^1.2.0",
     "@shikijs/vitepress-twoslash": "^1.22.1",
-    "@types/node": "^22.7.9",
+    "@types/node": "^22.8.1",
     "@unocss/preset-icons": "^0.63.6",
     "elysia": "^1.1.23",
-    "gramio": "^0.0.51",
+    "gramio": "^0.1.1",
     "grammy": "^1.30.0",
     "undici": "^6.20.1",
     "unocss": "^0.63.6",
@@ -34,5 +34,8 @@
   },
   "trustedDependencies": [
     "@biomejs/biome"
-  ]
+  ],
+  "dependencies": {
+    "@gramio/scenes": "^0.0.4"
+  }
 }

@@ -35,8 +35,16 @@ export const localeEn = {
 								text: "Official",
 								items: [
 									{
+										text: "Scenes",
+										link: "/plugins/official/scenes",
+									},
+									{
 										text: "Session",
 										link: "/plugins/official/session",
+									},
+									{
+										text: "Auto retry",
+										link: "/plugins/official/auto-retry",
 									},
 									{
 										text: "Media cache",
@@ -57,10 +65,6 @@ export const localeEn = {
 									{
 										text: "Prompt",
 										link: "/plugins/official/prompt",
-									},
-									{
-										text: "Auto  retry",
-										link: "/plugins/official/auto-retry",
 									},
 								],
 							},
