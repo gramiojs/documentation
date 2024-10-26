@@ -79,7 +79,7 @@ export const localeEn = {
 							{ text: "Bot API", link: "/bot-api" },
 							{
 								text: "Contexts",
-								link: "https://jsr.io/@gramio/contexts/doc",
+								link: "/contexts",
 							},
 							{
 								text: "Triggers",
