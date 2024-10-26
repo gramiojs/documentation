@@ -15,7 +15,7 @@ head:
 
 Inline Keyboard is attached to the message. Represents an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) that appears right next to the message it belongs to.
 
-See also [API Reference](https://jsr.io/@gramio/keyboards/doc/~/InlineKeyboard).
+See also [API Reference](https://jsr.io/@gramio/keyboards/doc/~/InlineKeyboard) and [how to answer to clicks](/triggers/callback-query).
 
 ## Import
 
