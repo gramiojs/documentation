@@ -58,6 +58,31 @@ const bot = new Bot({
 });
 ```
 
+### Bot info
+
+When the bot begins to listen for updates, `GramIO` retrieves information about the bot to verify if the **bot token is valid**
+and to utilize some bot metadata. For example, this metadata will be used to strip bot mentions in commands.
+If you set it up, `GramIO` will not send a `getMe` request on startup.
+
+```ts
+const bot = new Bot(process.env.BOT_TOKEN, {
+    info: process.env.NODE_ENV === "production" ?
+		 {
+					id: 1,
+					is_bot: true,
+					first_name:
+						"Bot example",
+					username: "example_bot",
+                    // ..
+				}
+			 : undefined
+    },
+});
+```
+
+> [!IMPORTANT]
+> You should set this up when **horizontally scaling** your bot (because `rate limits` on `getMe` method and **faster start up time**) or working in **serverless** environments.
+
 ### Default plugins
 
 Some plugins are used by default, but you can disable them.
