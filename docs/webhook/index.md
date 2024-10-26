@@ -53,6 +53,23 @@ bot.start({
 });
 ```
 
+## Use webhook only in production
+
+Instead of use a tunnels, you can just use polling in development environment!
+
+```ts
+const bot = new Bot(process.env.BOT_TOKEN);
+
+await bot.start({
+    webhook:
+        process.env.NODE_ENV === "production"
+            ? {
+                  url: `${process.env.API_URL}/${process.env.BOT_TOKEN}`,
+              }
+            : undefined,
+});
+```
+
 ## Local development with webhook
 
 For local development with webhook, we recommend using <a href="https://github.com/unjs/untun" target="_blank" rel="noopener noreferrer">
