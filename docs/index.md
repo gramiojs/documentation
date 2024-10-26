@@ -78,3 +78,49 @@ TODO://
 :::
 
 For more information, see the «[Get started](/get-started)» section.
+
+### GramIO in action
+
+Example which uses some interesting features.
+
+```ts twoslash
+// @filename: utils.ts
+export function findOrRegisterUser() {
+    return {} as { id: number; name: string; balance: number };
+}
+
+// @filename: index.ts
+// ---cut---
+// @errors: 2339
+import { Bot, format, bold, code } from "gramio";
+import { findOrRegisterUser } from "./utils";
+
+const bot = new Bot(process.env.BOT_TOKEN as string)
+    .derive("message", async () => {
+        const user = await findOrRegisterUser();
+
+        return {
+            user,
+        };
+    })
+    .on("message", (context) => {
+        context.user;
+        //        ^?
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+
+        return context.send(format`
+        Hi, ${bold(context.user.name)}! 
+        You balance: ${code(context.user.balance)}`);
+    })
+    .on("callback_query", (context) => {
+        //
+        //
+        context.user;
+    });
+```
