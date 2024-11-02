@@ -69,6 +69,19 @@ import { InlineKeyboard } from "@gramio/keyboards";
 new InlineKeyboard().webApp("some text", "https://...");
 ```
 
+### copy
+
+Type of button that copies the specified text to the clipboard.
+
+```ts twoslash
+import { InlineKeyboard } from "@gramio/keyboards";
+// ---cut---
+new InlineKeyboard().copy(
+    "Copy me",
+    "Welcome to Gboard clipboard, any text you copy will be saved here. Tap on a clip to paste it in the text box. Use the edit icon to pin, add or delete clips. Touch and hold a clip to pin it. Unpinned clips will be deleted after 1 hour."
+);
+```
+
 ### login
 
 This inline keyboard button used to automatically authorize a user. Serves as a great replacement for the [Telegram Login Widget](https://core.telegram.org/widgets/login) when the user is coming from Telegram. All the user needs to do is tap/click a button and confirm that they want to log in:
