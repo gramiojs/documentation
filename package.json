@@ -1,41 +1,39 @@
 {
-  "private": true,
-  "type": "module",
-  "devDependencies": {
-    "@biomejs/biome": "1.9.4",
-    "@fluent/bundle": "^0.18.0",
-    "@gramio/auto-retry": "^0.0.3",
-    "@gramio/autoload": "^1.1.0",
-    "@gramio/files": "^0.1.0",
-    "@gramio/format": "^0.1.4",
-    "@gramio/i18n": "^1.0.4",
-    "@gramio/init-data": "^0.0.1",
-    "@gramio/keyboards": "^1.0.0",
-    "@gramio/prompt": "^1.1.4",
-    "@gramio/session": "^0.1.5",
-    "@gramio/types": "^7.11.0",
-    "@iconify-json/logos": "^1.2.3",
-    "@iconify-json/skill-icons": "^1.2.0",
-    "@shikijs/vitepress-twoslash": "^1.22.2",
-    "@types/node": "^22.8.6",
-    "@unocss/preset-icons": "^0.63.6",
-    "elysia": "^1.1.24",
-    "gramio": "^0.1.2",
-    "grammy": "^1.31.0",
-    "undici": "^6.20.1",
-    "unocss": "^0.63.6",
-    "vitepress": "^1.4.3",
-    "vitepress-plugin-group-icons": "^1.3.0"
-  },
-  "scripts": {
-    "dev": "bunx vitepress dev docs",
-    "build": "bunx vitepress build docs",
-    "preview": "bunx --bun vitepress preview docs"
-  },
-  "trustedDependencies": [
-    "@biomejs/biome"
-  ],
-  "dependencies": {
-    "@gramio/scenes": "^0.0.4"
-  }
+	"private": true,
+	"type": "module",
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"@fluent/bundle": "^0.18.0",
+		"@gramio/auto-retry": "^0.0.3",
+		"@gramio/autoload": "^1.1.0",
+		"@gramio/files": "^0.1.0",
+		"@gramio/format": "^0.1.4",
+		"@gramio/i18n": "^1.0.4",
+		"@gramio/init-data": "^0.0.1",
+		"@gramio/keyboards": "^1.0.0",
+		"@gramio/prompt": "^1.1.4",
+		"@gramio/session": "^0.1.5",
+		"@gramio/types": "^7.11.0",
+		"@iconify-json/logos": "^1.2.3",
+		"@iconify-json/skill-icons": "^1.2.0",
+		"@shikijs/vitepress-twoslash": "^1.22.2",
+		"@types/node": "^22.8.6",
+		"@unocss/preset-icons": "^0.63.6",
+		"elysia": "^1.1.24",
+		"gramio": "^0.1.2",
+		"grammy": "^1.31.0",
+		"undici": "^6.20.1",
+		"unocss": "^0.63.6",
+		"vitepress": "1.4.2",
+		"vitepress-plugin-group-icons": "^1.3.0"
+	},
+	"scripts": {
+		"dev": "bunx vitepress dev docs",
+		"build": "bunx vitepress build docs",
+		"preview": "bunx --bun vitepress preview docs"
+	},
+	"trustedDependencies": ["@biomejs/biome"],
+	"dependencies": {
+		"@gramio/scenes": "^0.0.4"
+	}
 }
