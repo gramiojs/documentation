@@ -52,8 +52,69 @@ for (const chatId of chatIds) {
 
 With queue:
 
+Persistent even when server restarts and ready to horizontal-scaling broadcasting sample.
+
+Pre-requirements:
+
+-   [Redis](https://redis.io/)
+-   ioredis, bullmq, [jobify](https://github.com/kravetsone/jobify)
+
+// TODO: more text about it
+
 ```ts
-// TODO
+import { Worker } from "bullmq";
+import { Bot, TelegramError } from "gramio";
+import { Redis } from "ioredis";
+import { initJobify } from "jobify";
+
+const bot = new Bot(process.env.BOT_TOKEN as string);
+
+const redis = new Redis({
+    maxRetriesPerRequest: null,
+});
+
+const defineJob = initJobify(redis);
+
+const text = "Hello, world!";
+
+const sendMailing = defineJob("send-mailing")
+    .input<{ chatId: number }>()
+    .options({
+        limiter: {
+            max: 20,
+            duration: 1000,
+        },
+    })
+    .action(async ({ data: { chatId } }) => {
+        const response = await bot.api.sendMessage({
+            chat_id: chatId,
+            suppress: true,
+            text,
+        });
+
+        if (response instanceof TelegramError) {
+            if (response.payload?.retry_after) {
+                await sendMailing.worker.rateLimit(
+                    response.payload.retry_after * 1000
+                );
+
+                // use this only if you did not use auto-retry
+                // because it re-run this job again
+                throw Worker.RateLimitError();
+            } else throw response;
+        }
+    });
+
+const chats: number[] = []; // pick chats from database
+
+await sendMailing.addBulk(
+    chats.map((x) => ({
+        name: "mailing",
+        data: {
+            chatId: x,
+        },
+    }))
+);
 ```
 
 ### Read also
