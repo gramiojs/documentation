@@ -72,7 +72,7 @@ bun create gramio@latest ./bot
 ```
 
 ```bash [deno]
-TODO://
+TODO:// Deno is supported but not in scaffolding
 ```
 
 :::

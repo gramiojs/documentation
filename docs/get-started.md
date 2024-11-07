@@ -44,7 +44,7 @@ bun create gramio@latest ./bot
 ```
 
 ```bash [deno]
-TODO://
+TODO:// Deno is supported but not in scaffolding
 ```
 
 :::
@@ -58,16 +58,21 @@ TODO://
 -   -   [Prisma](https://www.prisma.io/)
 -   -   [Drizzle](https://orm.drizzle.team/)
 -   Plugins
--   -   [Session](https://gramio.dev/plugins/official/session)
--   -   [Autoload](https://gramio.dev/plugins/official/autoload)
--   -   [Prompt](https://gramio.dev/plugins/official/prompt)
--   -   [Auto-retry](https://gramio.dev/plugins/official/auto-retry)
--   -   [Media-cache](https://gramio.dev/plugins/official/media-cache)
--   -   [I18n](https://gramio.dev/plugins/official/i18n)
--   -   [Media-group](https://gramio.dev/plugins/official/media-group)
+-   -   [Scenes](https://gramio.dev/plugins/official/scenes.html)
+-   -   [Session](https://gramio.dev/plugins/official/session.html)
+-   -   [Autoload](https://gramio.dev/plugins/official/autoload.html)
+-   -   [Prompt](https://gramio.dev/plugins/official/prompt.html)
+-   -   [Auto-retry](https://gramio.dev/plugins/official/auto-retry.html)
+-   -   [Media-cache](https://gramio.dev/plugins/official/media-cache.html)
+-   -   [I18n](https://gramio.dev/plugins/official/i18n.html)
+-   -   [Media-group](https://gramio.dev/plugins/official/media-group.html)
 -   Others
 -   -   [Husky](https://typicode.github.io/husky/) (Git hooks)
+-   -   [Jobify](https://github.com/kravetsone/jobify) ([Bullmq](https://docs.bullmq.io/) wrapper)
 -   -   [Fluent2ts](https://github.com/kravetsone/fluent2ts)
+-   -   [GramIO storages](https://gramio.dev/storages/)
+-   [Telegram apps](https://github.com/Telegram-Mini-Apps/telegram-apps/tree/master/packages/create-mini-app)
+-   [Elysia](https://elysiajs.com/) (by [create-elysiajs](https://github.com/kravetsone/create-elysiajs))
 
 > The environment can work `together`
 >
