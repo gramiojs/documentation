@@ -51,12 +51,12 @@ TODO:// Deno is supported but not in scaffolding
 
 #### Supported environment
 
--   Linters
--   -   [Biome](https://biomejs.dev/)
--   -   [ESLint](https://eslint.org/) with some plugins
 -   ORM/Query builders
 -   -   [Prisma](https://www.prisma.io/)
 -   -   [Drizzle](https://orm.drizzle.team/)
+-   Linters
+-   -   [Biome](https://biomejs.dev/)
+-   -   [ESLint](https://eslint.org/) with some plugins
 -   Plugins
 -   -   [Scenes](https://gramio.dev/plugins/official/scenes.html)
 -   -   [Session](https://gramio.dev/plugins/official/session.html)
@@ -67,8 +67,9 @@ TODO:// Deno is supported but not in scaffolding
 -   -   [I18n](https://gramio.dev/plugins/official/i18n.html)
 -   -   [Media-group](https://gramio.dev/plugins/official/media-group.html)
 -   Others
--   -   [Husky](https://typicode.github.io/husky/) (Git hooks)
+-   -   [Dockerfile](https://www.docker.com/) + [docker-compose.yml](https://docs.docker.com/compose/)
 -   -   [Jobify](https://github.com/kravetsone/jobify) ([Bullmq](https://docs.bullmq.io/) wrapper)
+-   -   [Husky](https://typicode.github.io/husky/) (Git hooks)
 -   -   [Fluent2ts](https://github.com/kravetsone/fluent2ts)
 -   -   [GramIO storages](https://gramio.dev/storages/)
 -   [Telegram apps](https://github.com/Telegram-Mini-Apps/telegram-apps/tree/master/packages/create-mini-app)
