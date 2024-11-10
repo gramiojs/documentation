@@ -28,7 +28,7 @@ const testScene = new Scene("test")
     });
 
 const bot = new Bot(process.env.TOKEN as string)
-    .use(scenes([testScene]))
+    .extend(scenes([testScene]))
     .command("start", async (context) => {
         return context.scene.enter(testScene, {
             test: true,
@@ -64,7 +64,7 @@ const testScene = new Scene("test")
 import { redisStorage } from "@gramio/storage-redis";
 
 const bot = new Bot(process.env.TOKEN as string)
-    .use(
+    .extend(
         scenes([testScene], {
             storage: redisStorage(),
         })
