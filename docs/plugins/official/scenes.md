@@ -47,7 +47,10 @@ const testScene = new Scene("test")
             return context.send("1");
 
         // u can fine type issues with this when returns non update session data but just ignore it for now
-        return context.scene.update({ messageId: context.id, some: "hii!" });
+        return context.scene.update({
+            messageId: context.id,
+            some: "hii!" as const,
+        });
     })
     .step("message", async (context) => {
         if (context.scene.step.firstTime || context.text !== "2")
