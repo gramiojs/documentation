@@ -12,17 +12,17 @@ WIP. The API can be changed, but we already use it in production environment.
 
 # Usage
 
-```ts
+```ts twoslash
 import { Bot } from "gramio";
 import { scenes, Scene } from "@gramio/scenes";
 
 const testScene = new Scene("test")
     .params<{ test: boolean }>()
-    .step("message", (context) => {
+    .step("message", async (context) => {
         if (context.scene.step.firstTime || context.text !== "1")
             return context.send("1");
 
-        if (context.scene.params.test === true) context.send("DEBUG!");
+        if (context.scene.params.test === true) await context.send("DEBUG!");
 
         return context.scene.step.next();
     });
@@ -42,14 +42,14 @@ const bot = new Bot(process.env.TOKEN as string)
 import { Scene } from "@gramio/scenes";
 
 const testScene = new Scene("test")
-    .step("message", (context) => {
+    .step("message", async (context) => {
         if (context.scene.step.firstTime || context.text !== "1")
             return context.send("1");
 
         // u can fine type issues with this when returns non update session data but just ignore it for now
-        return context.scene.update({ messageId: context.id });
+        return context.scene.update({ messageId: context.id, some: "hii!" });
     })
-    .step("message", (context) => {
+    .step("message", async (context) => {
         if (context.scene.step.firstTime || context.text !== "2")
             return context.send("2");
 

@@ -34,7 +34,7 @@
 	},
 	"trustedDependencies": ["@biomejs/biome"],
 	"dependencies": {
-		"@gramio/scenes": "^0.0.4",
+		"@gramio/scenes": "^0.0.5",
 		"ioredis": "^5.4.1",
 		"jobify": "^0.1.0"
 	}
