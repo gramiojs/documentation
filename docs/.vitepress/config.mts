@@ -85,7 +85,9 @@ export default defineConfig({
 	markdown: {
 		codeTransformers: [
 			transformerTwoslash({
-				typesCache: createFileSystemTypesCache(),
+				typesCache: createFileSystemTypesCache({
+					dir: "docs/.vitepress/cache/twoslash",
+				}),
 			}) /**shikiColorizedBrackets()**/,
 		],
 		config: (md) => {
