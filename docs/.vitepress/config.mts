@@ -1,5 +1,6 @@
 // import shikiColorizedBrackets from "@michael-makes/shiki-colorized-brackets";
 import { transformerTwoslash } from "@shikijs/vitepress-twoslash";
+import { createFileSystemTypesCache } from "@shikijs/vitepress-twoslash/cache-fs";
 import presetIcons from "@unocss/preset-icons";
 import Unocss from "unocss/vite";
 import { defineConfig } from "vitepress";
@@ -82,7 +83,11 @@ export default defineConfig({
 		...localeRu,
 	},
 	markdown: {
-		codeTransformers: [transformerTwoslash() /**shikiColorizedBrackets()**/],
+		codeTransformers: [
+			transformerTwoslash({
+				typesCache: createFileSystemTypesCache(),
+			}) /**shikiColorizedBrackets()**/,
+		],
 		config: (md) => {
 			// @ts-ignore
 			md.use(groupIconMdPlugin);
