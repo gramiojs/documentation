@@ -8,7 +8,7 @@ head:
 
     - - meta
       - name: "keywords"
-        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, plugin, prompt, wait, ask"
+        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, plugin, prompt, wait, ask, conversation, dialog"
 ---
 
 # Prompt Plugin
