@@ -2,11 +2,11 @@
 
 Please see our official plugins:
 
--   [Scenes](/plugins/scenes)
--   [Session](/plugins/session)
--   [Auto retry](/plugins/auto-retry)
--   [Media cache](/plugins/media-cache)
--   [Media group](/plugins/media-group)
--   [I18n](/plugins/i18n)
--   [Autoload](/plugins/autoload)
--   [Prompt](/plugins/prompt)
+-   [Scenes](/plugins/official/scenes)
+-   [Session](/plugins/official/session)
+-   [Auto retry](/plugins/official/auto-retry)
+-   [Media cache](/plugins/official/media-cache)
+-   [Media group](/plugins/official/media-group)
+-   [I18n](/plugins/official/i18n)
+-   [Autoload](/plugins/official/autoload)
+-   [Prompt](/plugins/official/prompt)
