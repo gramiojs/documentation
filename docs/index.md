@@ -30,14 +30,14 @@ hero:
         #   text: API Examples
         #   link: /api-examples
 features:
-    - title: Alpha
-      details: The project is currently in development (but it can already be used)
+    # - title: Alpha
+    #   details: The project is currently in development (but it can already be used)
     - icon: 🔥
       title: Fast start project
       details: With <strong>npm create gramio</strong> you can quickly start a project in various configurations without wasting time on boring setup
     - icon: ✨
       title: Extensible
-      details: Our plugin and hook system is awesome
+      details: Our <a href="/plugins">plugin</a> and <a href="/hooks/overview">hook</a> system is awesome
     - icon: ⚙️
       title: Code-generated
       details: Many parts are code-generated
@@ -47,6 +47,9 @@ features:
     - icon: 🌐
       title: Multi-runtime
       details: Works on <a href="https://nodejs.org/">Node.js</a>, <a href="https://bun.sh/">Bun</a> and <a href="https://deno.com/">Deno</a>
+    - icon: 🪄
+      title: And something else
+      # details: Works on <a href="https://nodejs.org/">Node.js</a>, <a href="https://bun.sh/">Bun</a> and <a href="https://deno.com/">Deno</a>
 ---
 
 ## Get started
