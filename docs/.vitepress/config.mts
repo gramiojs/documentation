@@ -25,12 +25,6 @@ export default defineConfig({
 				},
 			}),
 		],
-		// TODO: remove when bun on windows out!
-		// server: {
-		// 	watch: {
-		// 		usePolling: true,
-		// 	},
-		// },
 	},
 	transformHead: ({ pageData: { relativePath } }) => {
 		const canonicalUrl = `https://gramio.dev/${relativePath}`

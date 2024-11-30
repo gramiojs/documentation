@@ -39,6 +39,18 @@ export const localeEn = {
 										link: "/plugins/official/scenes",
 									},
 									{
+										text: "I18n",
+										link: "/plugins/official/i18n",
+									},
+									{
+										text: "Autoload",
+										link: "/plugins/official/autoload",
+									},
+									{
+										text: "Auto answer callback query",
+										link: "/plugins/official/auto-answer-callback-query",
+									},
+									{
 										text: "Session",
 										link: "/plugins/official/session",
 									},
@@ -53,14 +65,6 @@ export const localeEn = {
 									{
 										text: "Media group",
 										link: "/plugins/official/media-group",
-									},
-									{
-										text: "I18n",
-										link: "/plugins/official/i18n",
-									},
-									{
-										text: "Autoload",
-										link: "/plugins/official/autoload",
 									},
 									{
 										text: "Prompt",
