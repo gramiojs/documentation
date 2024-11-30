@@ -1,3 +1,16 @@
+---
+title: Auto answer callback query plugin for GramIO
+
+head:
+    - - meta
+      - name: "description"
+        content: "This plugin auto answer on callback_query events with answerCallbackQuery method if you haven't done it yet."
+
+    - - meta
+      - name: "keywords"
+        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, plugin, callback_query, answerCallbackQuery, auto answer, how to answer on callback query, telegram button loading"
+---
+
 # Auto answer callback query plugin
 
 <div class="badges">
