@@ -8,7 +8,7 @@
 		"@gramio/autoload": "^1.1.0",
 		"@gramio/files": "^0.1.0",
 		"@gramio/format": "^0.1.4",
-		"@gramio/i18n": "^1.0.4",
+		"@gramio/i18n": "^1.1.0",
 		"@gramio/init-data": "^0.0.1",
 		"@gramio/keyboards": "^1.0.0",
 		"@gramio/prompt": "^1.1.4",
