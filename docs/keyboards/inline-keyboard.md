@@ -176,9 +176,6 @@ import { InlineKeyboard } from "@gramio/keyboards";
 new InlineKeyboard().game("text", {}); // ??? no params...
 ```
 
-> [!DANGER]
-> TelegramCallbackGame is empty (placeholder Telegram Bot API Object) and keyboard is not working yet
-
 > [!WARNING]
 > This type of button **must** always be the first button in the first row.
 
