@@ -82,8 +82,16 @@ export const localeEn = {
 							{ text: "Get started", link: "/get-started" },
 							{ text: "Bot API", link: "/bot-api" },
 							{
-								text: "Contexts",
-								link: "/contexts",
+								text: "Updates",
+								collapsed: true,
+								link: "/updates",
+								items: [
+									{
+										text: "Overview",
+										link: "/updates",
+									},
+									{ text: "Webhook", link: "/webhook/index" },
+								],
 							},
 							{
 								text: "Triggers",
@@ -203,7 +211,7 @@ export const localeEn = {
 							},
 							{ text: "Formatting", link: "/formatting/index" },
 							{ text: "Types", link: "/types/index" },
-							{ text: "Webhook", link: "/webhook/index" },
+
 							{ text: "Rate-limits and broadcast", link: "/rate-limits" },
 							{ text: "Storages", link: "/storages/index" },
 							{
