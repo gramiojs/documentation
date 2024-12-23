@@ -2,6 +2,28 @@
 
 WIP
 
+### Installation
+
+::: code-group
+
+```bash [npm]
+npm install @gramio/init-data
+```
+
+```bash [yarn]
+yarn add @gramio/init-data
+```
+
+```bash [pnpm]
+pnpm add @gramio/init-data
+```
+
+```bash [bun]
+bun install @gramio/init-data
+```
+
+:::
+
 ## Elysia integration example
 
 ```ts twoslash
