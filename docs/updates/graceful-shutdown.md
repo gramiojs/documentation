@@ -40,7 +40,7 @@ for (const signal of signals) {
 
 For first, we should stop receiving updates - gracefully stop our backend API framework (for example, Elysia).
 
-For second, we should stop receiving updates - gracefully stop our bot with `bot.stop` method.
+For second, we should process all pending updates - gracefully stop our bot with `bot.stop` method.
 
 and last, we should call `posthog.shutdown()` which send captured analytics to our PostHog instance.
 
