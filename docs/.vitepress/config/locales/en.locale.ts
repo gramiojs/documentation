@@ -91,6 +91,10 @@ export const localeEn = {
 										link: "/updates",
 									},
 									{ text: "Webhook", link: "/webhook/index" },
+									{
+										text: "Graceful Shutdown",
+										link: "/updates/graceful-shutdown",
+									},
 								],
 							},
 							{
