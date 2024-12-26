@@ -19,7 +19,7 @@ These are some kind of data stores. Their main use is in plugins (for example, [
 
 GramIO has many ready-made adapters, but you can also write your own!
 
--   In Memory (`@gramio/storage`)
+-   [In Memory](#in-memory) (`@gramio/storage`)
 
 -   [Redis](#redis) (`@gramio/storage-redis`)
 
