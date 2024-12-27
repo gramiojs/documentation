@@ -22,7 +22,7 @@
 		"@types/node": "^22.9.1",
 		"@unocss/preset-icons": "^0.64.1",
 		"elysia": "^1.1.25",
-		"gramio": "^0.1.2",
+		"gramio": "^0.2.1",
 		"grammy": "^1.32.0",
 		"undici": "^6.21.0",
 		"unocss": "^0.64.1",
@@ -36,7 +36,7 @@
 	},
 	"trustedDependencies": ["@biomejs/biome"],
 	"dependencies": {
-		"@gramio/scenes": "^0.0.5",
+		"@gramio/scenes": "^0.2.1",
 		"ioredis": "^5.4.2",
 		"jobify": "^0.1.1"
 	}

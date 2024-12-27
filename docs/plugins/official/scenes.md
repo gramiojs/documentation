@@ -8,7 +8,7 @@
 
 </div>
 
-WIP. The API can be changed, but we already use it in production environment.
+The API can be changed a little, but we already use it in production environment.
 
 # Usage
 
@@ -60,7 +60,7 @@ const testScene = new Scene("test")
     });
 ```
 
-### Storage usage
+## Storage usage
 
 ```ts
 import { redisStorage } from "@gramio/storage-redis";
@@ -77,3 +77,62 @@ const bot = new Bot(process.env.TOKEN as string)
         });
     });
 ```
+
+[Read more about storages](/storages)
+
+## Scenes derives
+
+Sometimes you wants to control scenes before plugin execute scene steps but after scene fetching from storage.
+
+By default `scenes()` function derives what needed to next middlewares if user not in scene.
+With `scenesDerives()` you can get it earlier and manage scene data.
+
+<!-- TODO: without current scene -->
+
+```ts twoslash
+import { Scene } from "@gramio/scenes";
+
+const testScene = new Scene("test").state<{
+    simple: string;
+    example: number[];
+}>();
+// ---cut---
+import { scenes, scenesDerives, type AnyScene } from "@gramio/scenes";
+import { Bot } from "gramio";
+import { redisStorage } from "@gramio/storage-redis";
+
+const storage = redisStorage();
+const scenesList: AnyScene[] = [testScene];
+
+const bot = new Bot(process.env.TOKEN as string)
+    .extend(
+        scenesDerives(scenesList, {
+            withCurrentScene: true,
+            storage,
+        })
+    )
+    .on("message", (context, next) => {
+        if (context.text === "/start" && context.scene.current) {
+            if (context.scene.current.is(testScene)) {
+                console.log(context.scene.current.state);
+                //                                    ^?
+                return context.scene.current.step.previous();
+            } else return context.scene.current.reenter();
+        }
+
+        return next();
+    })
+    .extend(
+        scenes(scenesList, {
+            storage,
+        })
+    )
+    .command("start", async (context) => {
+        return context.scene.enter(testScene, {
+            test: true,
+        });
+    });
+```
+
+> [!IMPORTANT]
+> The same **storage** and **list of scenes** should be shared across `scenes()` and `scenesDerives()` options.
