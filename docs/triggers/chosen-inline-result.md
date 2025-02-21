@@ -36,7 +36,7 @@ The `chosenInlineResult` method registers a handler that is triggered whenever a
 
 ```ts
 bot.chosenInlineResult(/search (.*)/i, async (context) => {
-    const selectedResult = context.result_id;
+    const selectedResult = context.resultId;
     const queryParams = context.args;
 
     // You can edit messages only with InlineKeyboard
