@@ -40,7 +40,7 @@ bot.chosenInlineResult(/search (.*)/i, async (context) => {
     const queryParams = context.args;
 
     // You can edit messages only with InlineKeyboard
-    if (queryParams && context.inline_message_id) {
+    if (queryParams && context.inlineMessageId) {
         await context.editText(
             `You selected a result with ID: ${selectedResult} for query: ${queryParams[1]}`
         );
