@@ -3,6 +3,7 @@ import { transformerTwoslash } from "@shikijs/vitepress-twoslash";
 import { createFileSystemTypesCache } from "@shikijs/vitepress-twoslash/cache-fs";
 import presetIcons from "@unocss/preset-icons";
 import Unocss from "unocss/vite";
+import llms from "vite-plugin-llms";
 import { defineConfig } from "vitepress";
 import {
 	groupIconMdPlugin,
@@ -32,6 +33,9 @@ export default defineConfig({
 			.replace(/\.md$/, "");
 
 		return [["link", { rel: "canonical", href: canonicalUrl }]];
+	},
+	buildEnd(config) {
+		console.log(config);
 	},
 	// transformPageData(pageData) {
 	// 	const canonicalUrl = `https://example.com/${pageData.relativePath}`
@@ -78,6 +82,7 @@ export default defineConfig({
 	},
 	markdown: {
 		codeTransformers: [
+			// @ts-ignore
 			transformerTwoslash({
 				typesCache: createFileSystemTypesCache({
 					dir: "docs/.vitepress/cache/twoslash",

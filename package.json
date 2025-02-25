@@ -1,6 +1,4 @@
 {
-	"private": true,
-	"type": "module",
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
 		"@fluent/bundle": "^0.18.0",
@@ -27,17 +25,17 @@
 		"undici": "^7.3.0",
 		"unocss": "^66.0.0",
 		"vitepress": "^1.6.3",
-		"vitepress-plugin-group-icons": "^1.3.6"
+		"vitepress-plugin-group-icons": "^1.3.6",
+		"@gramio/scenes": "^0.2.4",
+		"ioredis": "^5.5.0",
+		"jobify": "^0.1.6"
 	},
+	"private": true,
 	"scripts": {
 		"dev": "bunx vitepress dev docs",
 		"build": "bunx vitepress build docs",
 		"preview": "bunx --bun vitepress preview docs"
 	},
 	"trustedDependencies": ["@biomejs/biome"],
-	"dependencies": {
-		"@gramio/scenes": "^0.2.4",
-		"ioredis": "^5.5.0",
-		"jobify": "^0.1.6"
-	}
+	"type": "module"
 }
