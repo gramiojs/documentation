@@ -37,7 +37,7 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
     .extend(mediaCache())
     .command("start", async (context) => {
         return context.sendDocument(
-            MediaUpload.url(
+            await MediaUpload.url(
                 "https://raw.githubusercontent.com/gramiojs/types/main/README.md"
             )
         );

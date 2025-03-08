@@ -26,9 +26,9 @@ import { MediaUpload } from "@gramio/files";
 
 const ctx = {} as InstanceType<MessageContext<BotLike>>;
 // ---cut---
-ctx.sendDocument(MediaUpload.path("./package.json"));
+ctx.sendDocument(await MediaUpload.path("./package.json"));
 // or with filename
-ctx.sendDocument(MediaUpload.path("./package.json", "some-other.json"));
+ctx.sendDocument(await MediaUpload.path("./package.json", "some-other.json"));
 ```
 
 If filename not specified, the filename set to filename :)
@@ -44,12 +44,14 @@ import { MediaUpload } from "@gramio/files";
 
 const ctx = {} as InstanceType<MessageContext<BotLike>>;
 // ---cut---
-ctx.sendPhoto(MediaUpload.url("https://example.com/cat.png"));
+ctx.sendPhoto(await MediaUpload.url("https://example.com/cat.png"));
 // or with filename
-ctx.sendPhoto(MediaUpload.url("https://example.com/cat.png", "cute-cat.png"));
+ctx.sendPhoto(
+    await MediaUpload.url("https://example.com/cat.png", "cute-cat.png")
+);
 // or with filename and fetch options (for example headers)
 ctx.sendPhoto(
-    MediaUpload.url("https://example.com/cat.png", "cute-cat.png", {
+    await MediaUpload.url("https://example.com/cat.png", "cute-cat.png", {
         headers: {
             Authorization: "Bearer gramio",
         },
@@ -95,7 +97,7 @@ const fs = {} as any;
 const ctx = {} as InstanceType<MessageContext<BotLike>>;
 // ---cut---
 ctx.sendDocument(
-    MediaUpload.stream(
+    await MediaUpload.stream(
         fs.createReadStream("./cute-cat.png"),
         "the-same-cute-cat.png"
     )

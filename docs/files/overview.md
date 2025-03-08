@@ -25,11 +25,11 @@ const bot = new Bot(process.env.BOT_BOT_TOKEN as string)
     .on("message", async (ctx) => {
         ctx.sendMediaGroup([
             MediaInput.document(
-                MediaUpload.url(
+                await MediaUpload.url(
                     "https://raw.githubusercontent.com/gramiojs/types/main/README.md"
                 )
             ),
-            MediaInput.document(MediaUpload.path("./package.json")),
+            MediaInput.document(await MediaUpload.path("./package.json")),
         ]);
     })
     .onStart(console.log);
@@ -93,7 +93,7 @@ import { BotLike, MessageContext } from "gramio";
 
 const ctx = {} as InstanceType<MessageContext<BotLike>>;
 // ---cut---
-ctx.sendPhoto(MediaUpload.path("../cute-cat.png"));
+ctx.sendPhoto(await MediaUpload.path("../cute-cat.png"));
 ```
 
 #### Use [`File`](https://developer.mozilla.org/en-US/docs/Web/API/File)

@@ -33,11 +33,11 @@ const ctx = {} as InstanceType<MessageContext<BotLike>>;
 // ctx from bot.on("message", (ctx) => ...)
 ctx.sendMediaGroup([
     MediaInput.document(
-        MediaUpload.url(
+        await MediaUpload.url(
             "https://raw.githubusercontent.com/gramiojs/types/main/README.md"
         )
     ),
-    MediaInput.document(MediaUpload.path("./package.json")),
+    MediaInput.document(await MediaUpload.path("./package.json")),
 ]);
 ```
 
@@ -57,8 +57,8 @@ const ctx = {} as InstanceType<MessageContext<BotLike>>;
 
 // ctx from bot.on("message", (ctx) => ...)
 ctx.sendMediaGroup([
-    MediaInput.audio(MediaUpload.url("https://.../music.mp3")),
-    MediaInput.audio(MediaUpload.path("./music.mp3")),
+    MediaInput.audio(await MediaUpload.url("https://.../music.mp3")),
+    MediaInput.audio(await MediaUpload.path("./music.mp3")),
 ]);
 ```
 
@@ -78,12 +78,12 @@ const ctx = {} as InstanceType<MessageContext<BotLike>>;
 // ctx from bot.on("message", (ctx) => ...)
 ctx.sendMediaGroup([
     MediaInput.photo(
-        MediaUpload.url(
+        await MediaUpload.url(
             "https://w7.pngwing.com/pngs/140/552/png-transparent-kitten-if-cats-could-talk-the-meaning-of-meow-pet-sitting-dog-pet-dog-mammal-animals-cat-like-mammal.png"
         ),
         { has_spoiler: true, caption: "MaybeCat<TelegramInputFile>" }
     ),
-    MediaInput.photo(MediaUpload.path("./no-cat.png")),
+    MediaInput.photo(await MediaUpload.path("./no-cat.png")),
 ]);
 ```
 
@@ -102,11 +102,11 @@ const ctx = {} as InstanceType<MessageContext<BotLike>>;
 // ---cut---
 // ctx from bot.on("message", (ctx) => ...)
 ctx.sendMediaGroup([
-    MediaInput.video(MediaUpload.url("https://.../video.mp4"), {
+    MediaInput.video(await MediaUpload.url("https://.../video.mp4"), {
         has_spoiler: true,
         thumbnail: MediaUpload.buffer(/**file buffer */),
     }),
-    MediaInput.photo(MediaUpload.path("./cat-walk.mp4")),
+    MediaInput.photo(await MediaUpload.path("./cat-walk.mp4")),
 ]);
 ```
 
@@ -121,7 +121,7 @@ Represents an animation file (GIF or H.264/MPEG-4 AVC video without sound) to be
 import { MediaInput, MediaUpload } from "@gramio/files";
 // ---cut---
 MediaInput.animation(
-    MediaUpload.url(
+    await MediaUpload.url(
         "https://media1.tenor.com/m/47qpxBq_Tw0AAAAd/cat-cat-meme.gif"
     )
 );
