@@ -38,7 +38,7 @@ bot.on("message", async (context) => {
 ```
 
 > [!IMPORTANT]
-
+>
 > **One message** contain only **one attachment**. Therefore, to download an attachment, you can simply use the `context.download` method
 > But you can solve this using the [media-group](/plugins/official/media-group) plugin.
 
