@@ -84,13 +84,13 @@ export const localeEn = {
 							{
 								text: "Updates",
 								collapsed: true,
-								link: "/updates",
+								link: "/updates/overview",
 								items: [
 									{
 										text: "Overview",
-										link: "/updates",
+										link: "/updates/overview",
 									},
-									{ text: "Webhook", link: "/webhook/index" },
+									{ text: "Webhook", link: "/updates/webhook" },
 									{
 										text: "Graceful Shutdown",
 										link: "/updates/graceful-shutdown",
