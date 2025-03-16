@@ -1,3 +1,9 @@
 https://gramio.netlify.app/* https://gramio.dev/:splat 301!
 
 /*.html /:splat 301!
+
+/updates         /updates/overview   302!
+/updates/        /updates/overview   302!
+/webhook         /updates/webhook    302!
+/webhook/        /updates/webhook    302!
+/webhook/index   /updates/webhook    302!
