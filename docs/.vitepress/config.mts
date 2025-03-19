@@ -3,12 +3,12 @@ import { transformerTwoslash } from "@shikijs/vitepress-twoslash";
 import { createFileSystemTypesCache } from "@shikijs/vitepress-twoslash/cache-fs";
 import presetIcons from "@unocss/preset-icons";
 import Unocss from "unocss/vite";
-import llms from "vite-plugin-llms";
 import { defineConfig } from "vitepress";
 import {
 	groupIconMdPlugin,
 	groupIconVitePlugin,
 } from "vitepress-plugin-group-icons";
+import llms from "vitepress-plugin-llms";
 import { localeEn, localeRu } from "./config/locales";
 
 // https://vitepress.dev/reference/site-config
@@ -25,6 +25,7 @@ export default defineConfig({
 					deno: "logos:deno",
 				},
 			}),
+			llms(),
 		],
 	},
 	transformHead: ({ pageData: { relativePath } }) => {

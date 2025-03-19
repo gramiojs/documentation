@@ -140,7 +140,7 @@ import { inMemoryStorage, type InMemoryStorageMap } from "@gramio/storage";
 
 const map: InMemoryStorageMap = new Map();
 
-const storage = inMemoryStorage();
+const storage = inMemoryStorage(map);
 ```
 
 ## Redis
