@@ -88,6 +88,9 @@ This command will help you scaffold a project with a template that matches you f
 -   -   [React](https://github.com/Telegram-Mini-Apps/reactjs-js-template)
 -   -   [Solid](https://github.com/Telegram-Mini-Apps/solidjs-js-template)
 
+> [!WARNING]
+> At the moment, `create-gramio`'s monorepo support may not be ideal (not the most convenient out of the box). because it's difficult to support these two creation options at the same time.
+
 ## HTTPS on localhost
 
 BotFather only accepts **http://** links and getting into the **test environment** can be problematic, so let's figure out how to work with **https://** and **localhost**.
@@ -139,7 +142,6 @@ sudo echo "127.0.0.1 mini-app.local" >> /etc/hosts
 4. Configure it in `vite.config.ts`
 
 ```ts
-
 import fs from "node:fs";
 import { defineConfig } from "vite";
 
