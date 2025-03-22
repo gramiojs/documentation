@@ -11,7 +11,7 @@ head:
 
     - - meta
       - name: "keywords"
-        content: Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, How to build a bot, create
+        content: telegram bot, framework, how to create a bot, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, bot development, easy bot creation, modern bot framework, cross-platform bots, inline keyboards, webhook support, bot plugins, command handlers, conversation flow, middleware, context-based API
 
 hero:
     name: "GramIO"

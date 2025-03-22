@@ -4,11 +4,11 @@ title: Autoload Plugin for GramIO
 head:
     - - meta
       - name: "description"
-        content: "Autoload commands in runtime with autoload plugin"
+        content: "Dynamically load commands and handlers at runtime from multiple files with the GramIO autoload plugin."
 
     - - meta
       - name: "keywords"
-        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, plugin, autoload, glob, fs"
+        content: "Telegram bot, GramIO, autoload plugin, dynamic loading, command loading, file structure, modular bot, glob patterns, hot reload, command organization, command handlers, bot architecture, modular design, file system integration, TypeScript, Deno, Bun, Node.js, command management"
 ---
 
 # Autoload Plugin

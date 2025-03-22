@@ -8,7 +8,7 @@ head:
 
     - - meta
       - name: "keywords"
-        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, plugin, auto retry, 429, rate-limit, error-code, retry later, retry_after, too many requests"
+        content: "Telegram bot, GramIO, auto retry plugin, rate limiting, error handling, 429 errors, retry_after, too many requests, API throttling, automatic retries, bot reliability, error recovery, request management, flood control, API stabilization, TypeScript, Deno, Bun, Node.js"
 ---
 
 # Auto retry plugin

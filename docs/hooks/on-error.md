@@ -1,7 +1,20 @@
+---
+title: onError hook in GramIO - Error handling for Telegram bots
+
+head:
+    - - meta
+      - name: "description"
+        content: "The onError hook in GramIO allows you to catch and handle errors that occur in Telegram bot middleware. Learn how to effectively manage exceptions."
+
+    - - meta
+      - name: "keywords"
+        content: "telegram bot, framework, how to create a bot, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, error handling, onError hook, exception handling, try catch, bot debugging, error logging, reliability improvement, error reporting, error separation, error types, error recovery, PLUGIN error kind, API error kind, OTHER error kind, error resilience"
+---
+
 # onError (Error Handling)
 
-It happens that errors occur in middleware and we need to handle them.
-That's what the `onError` hook was created for.
+Errors can occur in middleware, and we need to handle them.
+That's exactly what the `onError` hook is designed for.
 
 ```ts twoslash
 import { Bot } from "gramio";
@@ -33,7 +46,7 @@ bot.onError(["message", "message_reaction"], ({ context, kind, error }) => {
 });
 ```
 
-## Errors kinds
+## Error kinds
 
 ### Custom
 
@@ -56,7 +69,7 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
     .onError("message", ({ context, kind, error }) => {
         if (kind === "NO_RIGHTS")
             return context.send(
-                format`You don't have enough rights! You need to have an «${bold(
+                format`You don't have enough rights! You need to have a «${bold(
                     error.needRole
                     //    ^^^^^^^^
                 )}» role.`
@@ -69,7 +82,7 @@ bot.on("message", (context) => {
 ```
 
 > [!IMPORTANT]
-> We recommend following **convention** and naming kind errors in **SCREAMING_SNAKE_CASE**
+> We recommend following the **convention** of naming error kinds in **SCREAMING_SNAKE_CASE**
 
 ### Telegram
 
@@ -89,7 +102,7 @@ bot.onError(({ context, kind, error }) => {
 
 ### Unknown
 
-This error is any unknown error, whether it's your class or just an Error.
+This error is any unknown error, whether it's your custom class or just a standard Error.
 
 ```ts twoslash
 import { Bot } from "gramio";

@@ -1,14 +1,14 @@
 ---
-title: sendMediaGroup in Telegram Bot API
+title: Media input - Working with sendMediaGroup
 
 head:
     - - meta
       - name: "description"
-        content: "This class help you to work with file types in sendMediaGroup and other methods"
+        content: "Learn how to use media inputs with Telegram Bot API in GramIO. This guide explains how to work with different file types in sendMediaGroup and other methods that accept media inputs."
 
     - - meta
       - name: "keywords"
-        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, file upload, file_id, attach"
+        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, media input, sendMediaGroup, InputMedia, album sharing, multiple files, media attachments, photo groups, video groups, document groups, mixed media"
 ---
 
 # Media Input

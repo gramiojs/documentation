@@ -1,53 +1,173 @@
 ---
-title: Get started in GramIO - Powerful Telegram Bot API framework for TypeScript/JavaScript
+title: Get Started with GramIO - Create Telegram bots using TypeScript/JavaScript
 
 head:
     - - meta
       - name: "description"
-        content: To start, bootstrap a new project with «npx create gramio bot-dir» and start the development with «npm run dev». This is all it needs to do a quick start or get started with GramIO.
+        content: Get started with GramIO by bootstrapping a new project with «npx create gramio bot-dir» and start development with «npm run dev». Create a Telegram bot in minutes with this powerful Telegram Bot API framework (TypeScript/JavaScript).
 
     - - meta
       - name: "keywords"
-        content: Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, How to build a bot, create, scaffold, best framework, start
+        content: telegram bot, framework, how to create a bot, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, quick start, setup guide, beginner guide, bot token, BotFather, npm init, bootstrapping project, bot development tutorial, create telegram bot fast, bot setup, starter template, bot project structure, command handling, first telegram bot
+
 ---
 
-# Get started
+# Get Started
 
-Create new bot with GramIO in minutes. You should already have [Node.js](https://nodejs.org/), [Bun](https://bun.sh/) or [Deno](https://deno.com/) installed.
+Create a new bot with GramIO in minutes. You should already have [Node.js](https://nodejs.org/), [Bun](https://bun.sh/) or [Deno](https://deno.com/) installed.
 
 ## Obtain your bot token
 
 First, create a bot and get a `token`. You can do this using the [@BotFather](https://t.me/BotFather) bot.
 
-Send the command `/newbot` and follow the instructions until you receive a token like `110201543:AAHdqTcvCH1vGWJxfSeofSAs0K5PALDsaw`.
+Send him the `/newbot` command and follow the instructions until you receive a token like `110201543:AAHdqTcvCH1vGWJxfSeofSAs0K5PALDsaw`.
 
-## Scaffolding the project
+## Create your bot
 
-This command will help you create a project with GramIO the easiest way.
+There are two ways to create a bot:
+
+### Automatically
+
+The easiest way is to use `create-gramio`.
 
 ::: code-group
 
 ```bash [npm]
-npm create gramio@latest ./bot
+npm create gramio bot-example
 ```
 
 ```bash [yarn]
-yarn create gramio@latest ./bot
+yarn create gramio bot-example
 ```
 
 ```bash [pnpm]
-pnpm create gramio@latest ./bot
+pnpm create gramio bot-example
 ```
 
 ```bash [bun]
-bun create gramio@latest ./bot
-```
-
-```bash [deno]
-TODO:// Deno is supported but not in scaffolding
+bunx create-gramio bot-example
 ```
 
 :::
+
+And then:
+
+::: code-group
+
+```bash [npm]
+cd bot-example
+npm install
+npm run dev
+```
+
+```bash [yarn]
+cd bot-example
+yarn
+yarn dev
+```
+
+```bash [pnpm]
+cd bot-example
+pnpm install
+pnpm dev
+```
+
+```bash [bun]
+cd bot-example
+bun install
+bun run dev
+```
+
+:::
+
+### Manually
+
+In a case when you want to do everything manually:
+
+::: code-group
+
+```bash [npm]
+mkdir bot-example
+cd bot-example
+npm init -y
+npm install gramio
+```
+
+```bash [yarn]
+mkdir bot-example
+cd bot-example
+yarn init -y
+yarn add gramio
+```
+
+```bash [pnpm]
+mkdir bot-example
+cd bot-example
+pnpm init
+pnpm add gramio
+```
+
+```bash [bun]
+mkdir bot-example
+cd bot-example
+bun init
+bun add gramio
+```
+
+```bash [deno]
+mkdir bot-example
+cd bot-example
+```
+
+:::
+
+create `src` folder with `index.ts` file and write something like:
+
+::: code-group
+
+```ts twoslash [Bun or Node.js]
+import { Bot } from "gramio";
+
+const bot = new Bot("") // put your token here
+    .command("start", (context) => context.send("Hi!"))
+    .onStart(console.log);
+
+bot.start();
+```
+
+```ts [Deno]
+import { Bot } from "jsr:@gramio/core";
+
+const bot = new Bot("") // put your token here
+    .command("start", (context) => context.send("Hi!"))
+    .onStart(console.log);
+
+bot.start();
+```
+
+:::
+
+and run the bot with:
+
+::: code-group
+
+```bash [tsx]
+npx tsx ./src/index.ts
+```
+
+```bash [bun]
+bun ./src/index.ts
+```
+
+```bash [deno]
+deno run --allow-net ./src/index.ts
+```
+
+:::
+
+Done! 🎉
+
+Now you can interact with your Telegram bot.
 
 #### Supported environment
 
@@ -129,50 +249,4 @@ bunx tsc --init
 
 :::
 
-create `src` folder with `index.ts` file and write something like:
-
-::: code-group
-
-```ts twoslash [Bun or Node.js]
-import { Bot } from "gramio";
-
-const bot = new Bot("") // put you token here
-    .command("start", (context) => context.send("Hi!"))
-    .onStart(console.log);
-
-bot.start();
-```
-
-```ts [Deno]
-import { Bot } from "jsr:@gramio/core";
-
-const bot = new Bot("") // put you token here
-    .command("start", (context) => context.send("Hi!"))
-    .onStart(console.log);
-
-bot.start();
-```
-
-:::
-
-and run the bot with:
-
-::: code-group
-
-```bash [tsx]
-npx tsx ./src/index.ts
-```
-
-```bash [bun]
-bun ./src/index.ts
-```
-
-```bash [deno]
-deno run --allow-net ./src/index.ts
-```
-
-:::
-
-Done! 🎉
-
-Now you can interact with your Telegram bot.
+create `src` folder with `index.ts`

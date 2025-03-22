@@ -1,14 +1,14 @@
 ---
-title: Inline keyboard builder for Telegram Bot API
+title: Inline keyboard builder - Interactive buttons in messages
 
 head:
     - - meta
       - name: "description"
-        content: "Inline Keyboard is attached to the message."
+        content: "Learn how to create interactive inline keyboards that attach directly to messages in Telegram bots using GramIO. Explore various button types, layouts, and handling user interactions."
 
     - - meta
       - name: "keywords"
-        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, keyboard, builder, inline keyboard, chunk, pattern, matrix, url, webapp"
+        content: "telegram bot, framework, how to create a bot, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, inline keyboard, message buttons, callback buttons, URL buttons, webApp buttons, login buttons, pay buttons, switch inline buttons, callback query, button layout, inline markup, button patterns, InlineKeyboardMarkup, handling button clicks, interactive messages"
 ---
 
 # Inline Keyboard

@@ -4,14 +4,14 @@ title: Session Plugin for GramIO
 head:
     - - meta
       - name: "description"
-        content: "How to use sessions (maybe, with Redis) in GramIO"
+        content: "Implement persistent data storage for your Telegram bot users with the GramIO session plugin, with optional Redis integration."
 
     - - meta
       - name: "keywords"
-        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, plugin, session, redis, storage, adapters"
+        content: "Telegram bot, GramIO, session plugin, user data storage, persistent state, Redis integration, session management, user preferences, context storage, stateful bots, user settings, memory adapters, data persistence, session middleware, storage adapters, TypeScript, Deno, Bun, Node.js"
 ---
 
-# Session Plugin
+# Session Plugi
 
 <div class="badges">
 

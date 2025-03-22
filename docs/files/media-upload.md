@@ -1,14 +1,14 @@
 ---
-title: Upload files in Telegram Bot API
+title: Upload files - Using MediaUpload for file handling
 
 head:
     - - meta
       - name: "description"
-        content: "This class help you to upload files by path, url, stream, buffer or text"
+        content: "Learn how to upload files to Telegram Bot API using GramIO's MediaUpload class. Upload files by path, URL, stream, buffer, or text content with proper handling."
 
     - - meta
       - name: "keywords"
-        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, file upload, file_id, attach"
+        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, file upload, file_id, attach, MediaUpload, upload by path, upload by URL, stream upload, buffer upload, text upload, file handling, media sharing"
 ---
 
 # Media Upload
