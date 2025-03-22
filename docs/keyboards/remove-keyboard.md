@@ -1,14 +1,14 @@
 ---
-title: Remove keyboard builder for Telegram Bot API
+title: Remove keyboard - Hiding custom keyboards
 
 head:
     - - meta
       - name: "description"
-        content: "Upon receiving a message with this object, Telegram clients will remove the current custom keyboard and display the default letter-keyboard."
+        content: "Learn how to remove custom keyboards in Telegram bots using GramIO's RemoveKeyboard feature. Return to the default keyboard when it's no longer needed."
 
     - - meta
       - name: "keywords"
-        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, keyboard, builder, remove keyboard"
+        content: "telegram bot, framework, how to create a bot, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, remove keyboard, hide keyboard, keyboard removal, clearing buttons, default keyboard, ReplyKeyboardRemove, selective keyboard removal, keyboard management, UI cleanup, user interface reset"
 ---
 
 # Remove Keyboard

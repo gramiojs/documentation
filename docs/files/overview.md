@@ -1,14 +1,14 @@
 ---
-title: Send file in Telegram Bot API
+title: Send files - Complete guide to file sharing
 
 head:
     - - meta
       - name: "description"
-        content: "How to send files in Telegram Bot API?"
+        content: "Learn how to send files in Telegram Bot API using GramIO. This guide covers all methods: sending by file_id, URL, or uploading new files with proper handling."
 
     - - meta
       - name: "keywords"
-        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, file upload, file_id, attach, Bun.file, fs, file system"
+        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, file upload, file_id, attach, Bun.file, fs, file system, sending photos, sending documents, media sharing, file limitations, MIME types, multipart/form-data"
 ---
 
 # Overview

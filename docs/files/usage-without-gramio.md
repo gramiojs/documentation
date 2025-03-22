@@ -1,19 +1,19 @@
 ---
-title: Write you own type-safe Telegram Bot API wrapper with File uploading support!
+title: Using file handling without GramIO - Create your own type-safe wrapper
 
 head:
     - - meta
       - name: "description"
-        content: "Simple guide how to create wrapper with file support"
+        content: "Learn how to create your own type-safe Telegram Bot API wrapper with file uploading support. This guide shows how to use GramIO's file utilities independently."
 
     - - meta
       - name: "keywords"
-        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, file upload"
+        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, file upload, custom wrapper, standalone implementation, type-safe wrapper, FormData handling, API proxy, file utilities, independent usage"
 ---
 
 # Usage without GramIO
 
-## Write you own type-safe Telegram Bot API wrapper with File uploading support!
+## Write your own type-safe Telegram Bot API wrapper with file uploading support!
 
 ```ts twoslash
 // @noErrors

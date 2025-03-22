@@ -4,11 +4,11 @@ title: Prompt Plugin for GramIO
 head:
     - - meta
       - name: "description"
-        content: "Easy to ask user for something in your Telegram Bot"
+        content: "Create interactive conversations by asking users for input in your Telegram bot with the prompt plugin."
 
     - - meta
       - name: "keywords"
-        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, plugin, prompt, wait, ask, conversation, dialog"
+        content: "Telegram bot, GramIO, prompt plugin, user input, interactive bots, conversation flow, dialog management, form filling, user data collection, sequential questions, validation, interactive commands, user response handling, chat-based forms, TypeScript, Deno, Bun, Node.js, bot conversation"
 ---
 
 # Prompt Plugin

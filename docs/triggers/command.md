@@ -1,14 +1,14 @@
 ---
-title: Command - Handle specific bot commands
+title: Command handling in Telegram bots - Processing /commands with GramIO
 
 head:
     - - meta
       - name: "description"
-        content: "Commands are specific words or phrases that usually begin with a `/` and are used to trigger actions or responses from the bot."
+        content: "Learn how to handle Telegram bot commands like /start and /help with GramIO. Create command handlers, use middleware, and implement prefix customization."
 
     - - meta
       - name: "keywords"
-        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, api, command, /start"
+        content: "telegram bot, framework, how to create a bot, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, command handler, /start command, /help command, bot commands, command prefix, BotFather commands, setMyCommands, command arguments, command parameters, command middleware, command filtering, bot command menu"
 ---
 
 # Command

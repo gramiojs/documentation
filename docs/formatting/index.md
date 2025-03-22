@@ -1,14 +1,14 @@
 ---
-title: How to format messages in Telegram Bot API
+title: Formatting messages in Telegram bots - Text styling and entities
 
 head:
     - - meta
       - name: "description"
-        content: "Format your messages without the pain of parse_mode in a convenient way!"
+        content: "Learn how to format messages in Telegram bots with GramIO. Create rich text with bold, italic, links, code blocks, spoilers and more without the complexity of parse_mode."
 
     - - meta
       - name: "keywords"
-        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, format, entities, bold, italic, link, mention, code, pre, blockquote, expandable blockquote, spoiler, underline, strikethrough, dedent"
+        content: "telegram bot, framework, how to create a bot, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, message formatting, text styling, bold text, italic text, underline, strikethrough, links, code blocks, pre blocks, blockquotes, mentioning users, spoilers, text entities, message entities, MessageEntity, parse_mode, HTML formatting, MarkdownV2, rich text messages"
 ---
 
 <script setup>

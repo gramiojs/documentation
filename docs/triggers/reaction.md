@@ -1,14 +1,14 @@
 ---
-title: reaction - handle changes in reactions on a message
+title: Handling message reactions in Telegram bots - Emoji response processing with GramIO
 
 head:
     - - meta
       - name: "description"
-        content: "This method allows your bot to respond when a user reacts to a message with an emoji. By specifying the trigger (which emoji to listen for) and the corresponding handler, you can customize how your bot responds to these interactions."
+        content: "Learn how to detect and respond to message reactions (emoji reactions) in your Telegram bot using GramIO's reaction handler. Create interactive experiences based on user emoji interactions."
 
     - - meta
       - name: "keywords"
-        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, api, reaction, thumb up"
+        content: "telegram bot, framework, how to create a bot, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, message reactions, emoji reactions, reaction handler, interactive bot, reaction middleware, emoji interaction, thumbs up reaction, custom reactions, reaction events, MessageReactionUpdated, reaction types, message interaction"
 ---
 
 # reaction

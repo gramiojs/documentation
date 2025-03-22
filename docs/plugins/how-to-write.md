@@ -1,4 +1,17 @@
-# How to write a plugin
+---
+title: Creating Custom Plugins for GramIO - Extend Your Telegram Bot
+
+head:
+    - - meta
+      - name: "description"
+        content: "Learn how to write your own custom plugins for GramIO. Extend your Telegram bot's functionality with reusable modules, custom error types, and middleware components."
+
+    - - meta
+      - name: "keywords"
+        content: "telegram bot, framework, how to create a bot, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, custom plugins, plugin development, extend bot functionality, middleware, custom error types, reusable code, bot modules, plugin architecture, derived properties, plugin API, create bot extensions"
+---
+
+# How to Write a Plugin
 
 It happens that you are missing something... And plugins can help you with this!
 

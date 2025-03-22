@@ -1,16 +1,14 @@
 ---
-title: chosenInlineResult - Handle updates when a user selects one of the results returned by an inline query
+title: chosenInlineResult - Handle updates when a user selects a result from an Inline Query
 
 head:
     - - meta
       - name: "description"
-        content: "This method is particularly useful when you need to perform additional actions after the user has chosen a specific result from the inline query suggestions.
-
-You should enable collecting feedback in @BotFather."
+        content: "This method is useful when you need to perform additional actions after a user has chosen a specific result from your inline query suggestions. You should enable collecting feedback in @BotFather."
 
     - - meta
       - name: "keywords"
-        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, api, chosen inline result, inline result, @pic"
+        content: "telegram bot, framework, how to create a bot, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, chosen inline result, inline queries, result selection handling, InlineQuery, inline mode, inline feedback, feedback collection, inline tracking, inline query statistics, inline results, inline_query_id, result_id, user selection, inline bot, inline choice handling"
 ---
 
 # chosenInlineResult
@@ -23,12 +21,12 @@ You should enable [collecting feedback](https://core.telegram.org/bots/inline#co
 
 > Please note that this can create load issues for popular bots – you may receive more results than actual requests due to caching (see the cache_time parameter in [answerInlineQuery](https://core.telegram.org/bots/api#answerinlinequery)). For these cases, we recommend adjusting the probability setting to receive 1/10, 1/100 or 1/1000 of the results.
 
-We recommend you set it to `100%` (each click on the [inline query](/triggers/inline-query) result will produce this event).
+We recommend setting this to `100%` so that each click on an [inline query](/triggers/inline-query) result will produce this event.
 
 ## Basic Usage
 
 > [!WARNING]
-> You must specify the same matcher (String, Regex, Function) as [InlineQuery](/triggers/inline-query) to get the results of clicking on this one or use `onResult` option at [InlineQuery](/triggers/inline-query) trigger.
+> You must specify the same matcher (String, Regex, Function) as in [InlineQuery](/triggers/inline-query) to get the results of clicking on this one, or use the `onResult` option in the [InlineQuery](/triggers/inline-query) trigger.
 
 ### Handling Chosen Inline Results
 
@@ -50,14 +48,14 @@ bot.chosenInlineResult(/search (.*)/i, async (context) => {
 
 In this example:
 
--   The bot listens for any result selection that matches the regular expression `search (.*)`.
--   If a result is selected that matches the trigger, the bot extracts the result ID and query parameters.
--   The bot then edits the message to indicate which result was selected.
+- The bot listens for any result selection that matches the regular expression `search (.*)`.
+- If a result is selected that matches the trigger, the bot extracts the result ID and query parameters.
+- The bot then edits the message to indicate which result was selected.
 
 ### Trigger Types
 
 The `chosenInlineResult` method supports the same types of triggers as the `inlineQuery` method:
 
--   **String Trigger**: The handler is triggered if the `query` exactly matches the specified string.
--   **RegExp Trigger**: The handler is triggered if the `query` matches the regular expression.
--   **Function Trigger**: The handler is triggered based on a custom function that returns `true` or `false`.
+- **String Trigger**: The handler is triggered if the `query` exactly matches the specified string.
+- **RegExp Trigger**: The handler is triggered if the `query` matches the regular expression.
+- **Function Trigger**: The handler is triggered based on a custom function that returns `true` or `false`.
