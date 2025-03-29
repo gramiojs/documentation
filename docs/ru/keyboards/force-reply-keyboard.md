@@ -15,7 +15,7 @@ head:
 
 При получении сообщения с этим объектом, клиенты Telegram отобразят интерфейс ответа пользователю (действуют так, как если бы пользователь выбрал сообщение бота и нажал 'Ответить'). Это может быть чрезвычайно полезно, если вы хотите создать удобные пошаговые интерфейсы без необходимости отказываться от [режима приватности](https://core.telegram.org/bots/features#privacy-mode).
 
-См. также [API Reference](https://jsr.io/@gramio/keyboards/doc/~/ForceReplyKeyboard).
+Смотрите также [API Reference](https://jsr.io/@gramio/keyboards/doc/~/ForceReplyKeyboard).
 
 ## Импорт
 
@@ -60,4 +60,4 @@ import { ForceReplyKeyboard } from "@gramio/keyboards";
 // ---cut---
 new ForceReplyKeyboard().placeholder("какой-то текст"); // для включения
 new ForceReplyKeyboard().placeholder(); // для отключения
-``` 
+```

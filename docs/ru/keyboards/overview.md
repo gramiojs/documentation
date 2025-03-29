@@ -13,9 +13,9 @@ head:
 
 # Обзор
 
-[`@gramio/keyboards`](https://github.com/gramiojs/keyboards) - это встроенный пакет GramIO. Вы также можете использовать его вне этого фреймворка, так как он не зависит от конкретного фреймворка.
+[`@gramio/keyboards`](https://github.com/gramiojs/keyboards) - это встроенный пакет GramIO. Вы также можете использовать его вне этого фреймворка, так как он не зависит от него.
 
-См. также [API Reference](https://jsr.io/@gramio/keyboards/doc).
+Смотрите также [API Reference](https://jsr.io/@gramio/keyboards/doc).
 
 ### Установка (не требуется для пользователей GramIO)
 
@@ -46,7 +46,10 @@ bun install @gramio/keyboards
 ```ts twoslash [с GramIO]
 import { Keyboard } from "gramio";
 
-const keyboard = new Keyboard().text("первая строка").row().text("вторая строка");
+const keyboard = new Keyboard()
+    .text("первая строка")
+    .row()
+    .text("вторая строка");
 ```
 
 ```ts twoslash [без GramIO]
@@ -109,8 +112,7 @@ bot.start();
 
 ### Отправка через [Telegraf](https://github.com/telegraf/telegraf)
 
-> [!WARNING]
-> `Telegraf` не поддерживает последнюю версию Bot API
+> [!WARNING] > `Telegraf` не поддерживает последнюю версию Bot API
 
 ```ts
 import { Keyboard } from "@gramio/keyboards";
@@ -136,8 +138,7 @@ bot.launch();
 
 ### Отправка через [node-telegram-bot-api](https://www.npmjs.com/package/node-telegram-bot-api)
 
-> [!WARNING]
-> `node-telegram-bot-api` не поддерживает последнюю версию Bot API, и типы написаны плохо, поэтому типы могут не совпадать
+> [!WARNING] > `node-telegram-bot-api` не поддерживает последнюю версию Bot API, и типы написаны плохо, поэтому типы могут не совпадать
 
 ```ts
 import { Keyboard } from "@gramio/keyboards";
@@ -161,8 +162,7 @@ bot.on("message", (msg) => {
 
 ### Отправка через [puregram](https://puregram.cool/)
 
-> [!WARNING]
-> `puregram` не поддерживает последнюю версию Bot API
+> [!WARNING] > `puregram` не поддерживает последнюю версию Bot API
 
 ```ts
 import { Telegram } from "puregram";
@@ -221,4 +221,4 @@ bot.updates.startPolling();
 }
 ```
 
-![image](https://github.com/gramiojs/keyboards/assets/57632712/e65e2b0a-40f0-43ae-9887-04360e6dbeab) 
+![image](https://github.com/gramiojs/keyboards/assets/57632712/e65e2b0a-40f0-43ae-9887-04360e6dbeab)

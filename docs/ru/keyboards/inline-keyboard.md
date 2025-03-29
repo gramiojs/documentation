@@ -15,7 +15,7 @@ head:
 
 Inline Keyboard прикрепляется к сообщению. Представляет собой [встроенную клавиатуру](https://core.telegram.org/bots/features#inline-keyboards), которая появляется рядом с сообщением, к которому она принадлежит.
 
-См. также [API Reference](https://jsr.io/@gramio/keyboards/doc/~/InlineKeyboard) и [как отвечать на нажатия](/ru/triggers/callback-query).
+Смотрите также [API Reference](https://jsr.io/@gramio/keyboards/doc/~/InlineKeyboard) и [как отвечать на нажатия](/ru/triggers/callback-query).
 
 ## Импорт
 
@@ -272,7 +272,9 @@ const labels = ["какие-то", "кнопки"];
 
 new InlineKeyboard()
     .add({ text: "сырая кнопка", callback_data: "payload" })
-    .add(InlineKeyboard.text("сырая кнопка через InlineKeyboard.text", "payload"))
+    .add(
+        InlineKeyboard.text("сырая кнопка через InlineKeyboard.text", "payload")
+    )
     .add(...labels.map((x) => InlineKeyboard.text(x, `${x}payload`)));
 ```
 
@@ -349,4 +351,4 @@ new InlineKeyboard()
             .row()
             .text("третья строка", "payload")
     );
-``` 
+```

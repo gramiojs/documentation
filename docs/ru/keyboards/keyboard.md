@@ -14,7 +14,7 @@ head:
 # Keyboard
 
 Эта клавиатура отображается под полем ввода и также известна как Reply/Custom Keyboard.
-Представляет собой [кастомную клавиатуру](https://core.telegram.org/bots/features#keyboards) с вариантами ответа (см. [Введение в ботов](https://core.telegram.org/bots/features#keyboards) для деталей и примеров).
+Представляет собой [кастомную клавиатуру](https://core.telegram.org/bots/features#keyboards) с вариантами ответа (смотрите [Введение в ботов](https://core.telegram.org/bots/features#keyboards) для деталей и примеров).
 
 См. также [API Reference](https://jsr.io/@gramio/keyboards/doc/~/Keyboard)
 

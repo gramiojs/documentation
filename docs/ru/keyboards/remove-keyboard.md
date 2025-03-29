@@ -15,7 +15,7 @@ head:
 
 При получении сообщения с этим объектом, клиенты Telegram удалят текущую кастомную клавиатуру и отобразят стандартную буквенную клавиатуру. По умолчанию кастомные клавиатуры отображаются до тех пор, пока бот не отправит новую клавиатуру. Исключение составляют одноразовые клавиатуры, которые скрываются сразу после нажатия пользователем на кнопку (см. [ReplyKeyboardMarkup](https://core.telegram.org/bots/api/#replykeyboardmarkup)).
 
-См. также [API Reference](https://jsr.io/@gramio/keyboards/doc/~/RemoveKeyboard).
+Смотрите также [API Reference](https://jsr.io/@gramio/keyboards/doc/~/RemoveKeyboard).
 
 ## Импорт
 
@@ -51,4 +51,4 @@ import { RemoveKeyboard } from "@gramio/keyboards";
 // ---cut---
 new RemoveKeyboard().selective(); // для включения
 new RemoveKeyboard().selective(false); // для отключения
-``` 
+```

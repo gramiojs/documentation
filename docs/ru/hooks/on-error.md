@@ -13,7 +13,7 @@ head:
 
 # onError (Обработка ошибок)
 
-Случается, что в middleware возникают ошибки, и нам нужно их обрабатывать.
+Бывает, что в middleware возникают ошибки, и нам нужно их обрабатывать.
 Для этого был создан хук `onError`.
 
 ```ts twoslash
@@ -114,4 +114,4 @@ bot.onError(({ context, kind, error }) => {
         console.log(error.message);
     }
 });
-``` 
+```
