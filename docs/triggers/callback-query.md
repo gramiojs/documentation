@@ -1,5 +1,5 @@
 ---
-title: callbackQuery - Handle updates that occur when users interact with inline keyboard
+title: callbackQuery - Handle updates when users interact with Inline keyboard
 
 head:
     - - meta
@@ -8,7 +8,7 @@ head:
 
     - - meta
       - name: "keywords"
-        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, api, callback_query, shorthand, command, callback data"
+        content: "telegram bot, framework, how to create a bot, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, callback query, button clicks, inline keyboard, callback data, button click response, answerCallbackQuery, regex callback, json callback, parse callback, callback validation, callback queries, callback handler, button interaction, user action handling"
 ---
 
 # `callbackQuery` Method
@@ -35,15 +35,15 @@ bot.callbackQuery(someData, (context) => {
 
 In this example:
 
--   `someData` is a `CallbackData` instance defining the schema for the callback data.
--   The `callbackQuery` method registers a handler that is triggered when the callback data matches `someData`.
--   Inside the handler, `context.queryData` provides type-safe access to the callback data.
+- `someData` is a `CallbackData` instance defining the schema for the callback data.
+- The `callbackQuery` method registers a handler that is triggered when the callback data matches `someData`.
+- Inside the handler, `context.queryData` provides type-safe access to the callback data.
 
 ### Trigger Types
 
 The `callbackQuery` method supports several types of triggers:
 
--   **String Trigger**: The handler is triggered if the callback data exactly matches the specified string.
+- **String Trigger**: The handler is triggered if the callback data exactly matches the specified string.
 
 ```ts
 bot.callbackQuery("my_callback", (context) => {
@@ -51,7 +51,7 @@ bot.callbackQuery("my_callback", (context) => {
 });
 ```
 
--   **RegExp Trigger**: The handler is triggered if the callback data matches the regular expression.
+- **RegExp Trigger**: The handler is triggered if the callback data matches the regular expression.
 
 ```ts
 bot.callbackQuery(/my_(.*)/, (context) => {
@@ -60,7 +60,7 @@ bot.callbackQuery(/my_(.*)/, (context) => {
 });
 ```
 
--   **CallbackData Instance**: The handler is triggered if the callback data matches the `CallbackData` schema.
+- **CallbackData Instance**: The handler is triggered if the callback data matches the `CallbackData` schema.
 
 ```ts twoslash
 import { CallbackData, Bot } from "gramio";
@@ -78,12 +78,12 @@ bot.callbackQuery(someData, (context) => {
 
 When a callback query is received, the `context` object includes the following relevant properties:
 
--   `context.data`: The raw callback data payload.
--   `context.queryData`: The deserialized data, if a `CallbackData` instance was used for the trigger.
+- `context.data`: The raw callback data payload.
+- `context.queryData`: The deserialized data, if a `CallbackData` instance was used for the trigger.
 
 ### Example Scenario
 
-Consider a scenario where you want to send a message with an inline keyboard, and handle the button clicks:
+Consider a scenario where you want to send a message with an inline keyboard and handle button clicks:
 
 ```ts
 const buttonData = new CallbackData("action").number("action_id");

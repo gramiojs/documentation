@@ -1,14 +1,14 @@
 ---
-title: Upload files in Telegram Bot API
+title: Download files in Telegram Bot API
 
 head:
     - - meta
       - name: "description"
-        content: "This class help you to upload files by path, url, stream, buffer or text"
+        content: "Learn how to download files from Telegram servers using GramIO. This guide covers different methods to save media and documents sent via the Telegram Bot API."
 
     - - meta
       - name: "keywords"
-        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, file upload, file_id, attach"
+        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, file download, getFile, file_path, save attachments, download media, fetch documents, bot file management"
 ---
 
 # Download

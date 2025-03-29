@@ -1,14 +1,14 @@
 ---
-title: Reply Keyboard builder for Telegram Bot API
+title: Reply keyboard builder - Custom buttons under message input
 
 head:
     - - meta
       - name: "description"
-        content: "This keyboard is shown under the input field and also known as Reply/Custom Keyboard."
+        content: "Learn how to create and customize reply keyboards (custom keyboards) that appear under the message input field in Telegram bots with GramIO. Discover patterns, layouts, and configuration options."
 
     - - meta
       - name: "keywords"
-        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, keyboard, builder, remove keyboard, chunk, pattern, matrix, url, webapp"
+        content: "telegram bot, framework, how to create a bot, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, reply keyboard, custom keyboard, keyboard buttons, persistent keyboard, one-time keyboard, resize keyboard, input placeholder, keyboard layout, button rows, keyboard removal, keyboard patterns, selective keyboards, keyboard markup, ReplyKeyboardMarkup"
 ---
 
 # Keyboard

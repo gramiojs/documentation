@@ -4,11 +4,12 @@ title: Telegram Bot API - How to call API methods in GramIO
 head:
     - - meta
       - name: "description"
-        content: Bot API is a high-level HTTP interface to the Telegram API that makes it easy to develop bots.
+        content: Learn how to use the Telegram Bot API with GramIO. This guide covers how to make API calls, handle responses, and work with the comprehensive set of Telegram Bot API methods for building feature-rich bots.
 
     - - meta
       - name: "keywords"
-        content: Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, api, tdlib, mtproto, user bot, request, suppress, types
+        content: telegram bot, framework, how to create a bot, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, api methods, sendMessage, HTTP interface, API calls, request handling, MTProto, TDLib, API parameters, bot development, API response, getUpdates, sendPhoto, webhook, API error handling
+
 ---
 
 # Bot API

@@ -1,6 +1,19 @@
+---
+title: onResponseError hook in GramIO - API request error handling
+
+head:
+    - - meta
+      - name: "description"
+        content: "The onResponseError hook in GramIO is called after receiving an error response from the Telegram Bot API. Learn how to handle failed requests to the Telegram API."
+
+    - - meta
+      - name: "keywords"
+        content: "telegram bot, framework, how to create a bot, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, onResponseError, API error handling, TelegramError, API error tracking, request monitoring, request error logging, HTTP error handling, request failures, retry_after, handling 429, API error interception, request error analysis"
+---
+
 # onResponseError
 
-This hook called `after receiving a error response` from Telegram Bot API.
+This hook is called `after receiving an error response` from the Telegram Bot API.
 
 ## Parameters
 

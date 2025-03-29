@@ -1,3 +1,16 @@
+---
+title: Scenes Plugin for GramIO
+
+head:
+    - - meta
+      - name: "description"
+        content: "Create multi-step conversations and user flows with the scenes plugin for Telegram bots in GramIO."
+
+    - - meta
+      - name: "keywords"
+        content: "Telegram bot, GramIO, scenes plugin, multi-step flows, conversation management, dialog scenes, step-by-step interactions, user journey, stateful conversations, wizard dialog, complex forms, user onboarding, chat navigation, scene transitions, context persistence, TypeScript, Deno, Bun, Node.js"
+---
+
 # @gramio/scenes
 
 <div class="badges">

@@ -1,14 +1,14 @@
 ---
-title: Keyboard builder for Telegram Bot API
+title: Keyboard builder - Creating interactive buttons
 
 head:
     - - meta
       - name: "description"
-        content: "Build keyboards for your Telegram Bot in a convenient way."
+        content: "Learn how to build interactive keyboards for your Telegram Bot with GramIO. Master regular keyboards, inline keyboards, custom layouts, and advanced keyboard patterns."
 
     - - meta
       - name: "keywords"
-        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, keyboard, builder, inline keyboard, chunk, pattern, matrix, url, webapp"
+        content: "telegram bot, framework, how to create a bot, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, keyboard builder, inline keyboard, reply keyboard, button creation, custom layouts, button patterns, URL buttons, callback buttons, webApp buttons, pay buttons, login buttons, switch inline buttons, keyboard customization, button matrix, button chunking"
 ---
 
 # Overview
@@ -188,8 +188,6 @@ bot.on("message", (ctx) => {
 bot.updates.startPolling();
 ```
 
-````
-
 #### Result
 
 ```json
@@ -221,6 +219,6 @@ bot.updates.startPolling();
     "selective": false,
     "resize_keyboard": true
 }
-````
+```
 
 ![image](https://github.com/gramiojs/keyboards/assets/57632712/e65e2b0a-40f0-43ae-9887-04360e6dbeab)
