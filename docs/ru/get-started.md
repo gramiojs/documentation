@@ -1,81 +1,87 @@
 ---
-title: Начать с GramIO - Telegram Bot API фреймворком для TypeScript/JavaScript
+title: Начало работы с GramIO - Мощный Telegram Bot API фреймворк для создания ботов Telegram на TypeScript/JavaScript
 
 head:
     - - meta
       - name: "description"
-        content: GramIO это TypeScript/JavaScript фреймворк для создания Телеграм ботов. Чтобы начать, вы можете ввести в консоль "npx create gramio bot-dir" и запустить своего бота с помощью "npm run dev". Это всё что вам нужно чтобы начать работать с GramIO.
+        content: GramIO - фреймворк на TypeScript/JavaScript для создания ботов Telegram, работающий на Node.js, Bun и Deno. Создайте бота с помощью «npm create gramio mybot» и запустите бота с помощью «npm run dev».
 
     - - meta
       - name: "keywords"
-        content: Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, How to build a bot, create
+        content: телеграм бот, фреймворк, как создать бота, Telegram, Telegram Bot API, GramIO, Grammy, Telegraf, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, как создать бота, создание бота, создание бота в Telegram, создание бота в Telegram на TypeScript, создание бота в Telegram на JavaScript, создание бота в Telegram на Node.JS, создание бота в Telegram на Nodejs, создание бота в Telegram на Deno, создание бота в Telegram на Bun
 ---
 
-# Давайте начнём!
+# Начало работы
 
-Создайте своего бота с GramIO за пару минут. У вас уже должен быть установлен [Node.js](https://nodejs.org/), [Bun](https://bun.sh/) или [Deno](https://deno.com/).
+Создайте нового бота с GramIO за считанные минуты. У вас уже должен быть установлен [Node.js](https://nodejs.org/), [Bun](https://bun.sh/) или [Deno](https://deno.com/).
 
-## Получение токена бота
+## Получите токен бота
 
-Для начала, создайте своего бота и получите `токен`. Вы можете сделать это воспользовавшись ботом [@BotFather](https://t.me/BotFather).
+Сначала создайте бота и получите `токен`. Вы можете сделать это с помощью бота [@BotFather](https://t.me/BotFather).
 
-Отправьте ему команду `/newbot` и следуйте инструкциям пока вы не получите токен вида `110201543:AAHdqTcvCH1vGWJxfSeofSAs0K5PALDsaw`.
+Отправьте команду `/newbot` и следуйте инструкциям, пока не получите токен вида `110201543:AAHdqTcvCH1vGWJxfSeofSAs0K5PALDsaw`.
 
-## Развертывание проекта
+## Создание проекта вместе с `create-gramio`
 
-Эта команда поможет вам создать ваш проект с GramIO наилегчайшим путём.
+Эта команда поможет вам создать проект с GramIO самым простым способом.
 
 ::: code-group
 
 ```bash [npm]
-npm create gramio ./bot
+npm create gramio@latest ./bot
 ```
 
 ```bash [yarn]
-yarn create gramio ./bot
+yarn create gramio@latest ./bot
 ```
 
 ```bash [pnpm]
-pnpm create gramio ./bot
+pnpm create gramio@latest ./bot
 ```
 
 ```bash [bun]
-bun create gramio ./bot
+bun create gramio@latest ./bot
 ```
 
 ```bash [deno]
-TODO://
+TODO:// Deno поддерживается, но не в генераторе проектов
 ```
 
 :::
 
-#### Поддерживаемое окружение
+#### Поддерживаемые инструменты
 
--   Линтеры
--   -   [Biome](https://biomejs.dev/)
--   -   [ESLint](https://eslint.org/) with some plugins
 -   ORM/Query builders
 -   -   [Prisma](https://www.prisma.io/)
 -   -   [Drizzle](https://orm.drizzle.team/)
+-   Линтеры
+-   -   [Biome](https://biomejs.dev/)
+-   -   [ESLint](https://eslint.org/) с [@antfu/eslint-config](https://github.com/antfu/eslint-config)
 -   Плагины
--   -   [Session](https://gramio.dev/plugins/official/session.html)
--   -   [Autoload](https://gramio.dev/plugins/official/autoload.html)
--   -   [Prompt](https://gramio.dev/plugins/official/prompt.html)
--   -   [Auto-retry](https://gramio.dev/plugins/official/auto-retry.html)
--   -   [Media-cache](https://gramio.dev/plugins/official/media-cache.html)
--   -   [I18n](https://gramio.dev/plugins/official/i18n.html)
--   -   [Media-group](https://gramio.dev/plugins/official/media-group.html)
+-   -   [Scenes](https://gramio.dev/ru/plugins/official/scenes.html)
+-   -   [Session](https://gramio.dev/ru/plugins/official/session.html)
+-   -   [Autoload](https://gramio.dev/ru/plugins/official/autoload.html)
+-   -   [Prompt](https://gramio.dev/ru/plugins/official/prompt.html)
+-   -   [Auto-retry](https://gramio.dev/ru/plugins/official/auto-retry.html)
+-   -   [Media-cache](https://gramio.dev/ru/plugins/official/media-cache.html)
+-   -   [I18n](https://gramio.dev/ru/plugins/official/i18n.html)
+-   -   [Media-group](https://gramio.dev/ru/plugins/official/media-group.html)
 -   Другое
--   -   [Husky](https://typicode.github.io/husky/) (Git hooks)
+-   -   [Dockerfile](https://www.docker.com/) + [docker-compose.yml](https://docs.docker.com/compose/)
+-   -   [Jobify](https://github.com/kravetsone/jobify) (обертка для [Bullmq](https://docs.bullmq.io/))
+-   -   [Husky](https://typicode.github.io/husky/) (Git-хуки)
 -   -   [Fluent2ts](https://github.com/kravetsone/fluent2ts)
+-   -   [GramIO storages](https://gramio.dev/ru/storages/)
+-   [Telegram apps](https://github.com/Telegram-Mini-Apps/telegram-apps/tree/master/packages/create-mini-app)
+-   [Elysia](https://elysiajs.com/) (через [create-elysiajs](https://github.com/kravetsone/create-elysiajs))
 
-> Окружение может работать `вместе`
+> Инструменты могут работать `вместе`
 >
 > Когда вы выбираете [ESLint](https://eslint.org/) и [Drizzle](https://orm.drizzle.team/), вы получаете [eslint-plugin-drizzle](https://orm.drizzle.team/docs/eslint-plugin)
 
 ## Ручная установка
 
-Чтобы вручную создать нового бота с GramIO, вам нужно установить пакет:
+Чтобы вручную создать нового бота с GramIO, установите пакет:
 
 ::: code-group
 
@@ -97,7 +103,7 @@ bun install gramio
 
 :::
 
-Установить и настроить TypeScript:
+Настройте TypeScript:
 
 ::: code-group
 
@@ -123,15 +129,15 @@ bunx tsc --init
 
 :::
 
-Создать папку `src` в котором создать файл `index.ts` и написать в нём что-то типа:
+Создайте папку `src` с файлом `index.ts` и напишите что-то вроде:
 
 ::: code-group
 
-```ts twoslash [Bun or Node.js]
+```ts twoslash [Bun или Node.js]
 import { Bot } from "gramio";
 
-const bot = new Bot("") // put you token here
-    .command("start", (context) => context.send("Hi!"))
+const bot = new Bot("") // укажите ваш токен здесь
+    .command("start", (context) => context.send("Привет!"))
     .onStart(console.log);
 
 bot.start();
@@ -140,8 +146,8 @@ bot.start();
 ```ts [Deno]
 import { Bot } from "jsr:@gramio/core";
 
-const bot = new Bot("") // put you token here
-    .command("start", (context) => context.send("Hi!"))
+const bot = new Bot("") // укажите ваш токен здесь
+    .command("start", (context) => context.send("Привет!"))
     .onStart(console.log);
 
 bot.start();
@@ -149,7 +155,7 @@ bot.start();
 
 :::
 
-затем, запустить вашего бота с помощью команды:
+И запустите бота с помощью:
 
 ::: code-group
 
@@ -167,6 +173,6 @@ deno run --allow-net ./src/index.ts
 
 :::
 
-Всё! 🎉
+Готово! 🎉
 
-Теперь вы можете взаимодействовать с вашим Телеграм ботом!
+Теперь вы можете взаимодействовать со своим ботом Telegram.
