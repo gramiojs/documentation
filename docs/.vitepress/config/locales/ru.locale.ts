@@ -10,7 +10,7 @@ export const localeRu = {
 			nav: [
 				{ text: "Главная", link: "/ru" },
 				{ text: "Начало", link: "/ru/get-started" },
-				// { text: "Plugins", link: "/plugins/index" },
+				{ text: "Плагины", link: "/ru/plugins/index" },
 				{ text: "Гайды", link: "/ru/guides" },
 			],
 			sidebar: {
@@ -42,54 +42,66 @@ export const localeRu = {
 						],
 					},
 				],
-				// "/plugins/": [
-				// 	{
-				// 		text: "Plugins",
-				// 		items: [
-				// 			{
-				// 				text: "Overview",
-				// 				link: "/plugins/index",
-				// 			},
-				// 			{
-				// 				text: "How to write a plugin",
-				// 				link: "/plugins/how-to-write",
-				// 			},
-				// 			{
-				// 				text: "Lazy-load plugin",
-				// 				link: "/plugins/lazy-load",
-				// 			},
-				// 			{
-				// 				text: "Official",
-				// 				items: [
-				// 					{
-				// 						text: "Session",
-				// 						link: "/plugins/official/session",
-				// 					},
-				// 					{
-				// 						text: "Media cache",
-				// 						link: "/plugins/official/media-cache",
-				// 					},
-				// 					{
-				// 						text: "I18n",
-				// 						link: "/plugins/official/i18n",
-				// 					},
-				// 					{
-				// 						text: "Autoload",
-				// 						link: "/plugins/official/autoload",
-				// 					},
-				// 					{
-				// 						text: "Prompt",
-				// 						link: "/plugins/official/prompt",
-				// 					},
-				// 					{
-				// 						text: "Auto-retry",
-				// 						link: "/plugins/official/auto-retry",
-				// 					},
-				// 				],
-				// 			},
-				// 		],
-				// 	},
-				// ],
+				"/ru/plugins/": [
+					{
+						text: "Плагины",
+						items: [
+							{
+								text: "Обзор",
+								link: "/ru/plugins/index",
+							},
+							{
+								text: "Создание плагинов",
+								link: "/ru/plugins/how-to-write",
+							},
+							{
+								text: "Ленивая загрузка",
+								link: "/ru/plugins/lazy-load",
+							},
+							{
+								text: "Официальные",
+								items: [
+									{
+										text: "Сцены",
+										link: "/ru/plugins/official/scenes",
+									},
+									{
+										text: "Локализация (i18n)",
+										link: "/ru/plugins/official/i18n",
+									},
+									{
+										text: "Автозагрузка",
+										link: "/ru/plugins/official/autoload",
+									},
+									{
+										text: "Автоответ на callback",
+										link: "/ru/plugins/official/auto-answer-callback-query",
+									},
+									{
+										text: "Сессии",
+										link: "/ru/plugins/official/session",
+									},
+									{
+										text: "Auto-retry",
+										link: "/ru/plugins/official/auto-retry",
+									},
+									{
+										text: "Кеш медиа",
+										link: "/ru/plugins/official/media-cache",
+									},
+									{
+										text: "Медиа группы",
+										link: "/ru/plugins/official/media-group",
+									},
+									{
+										text: "Prompt",
+										link: "/ru/plugins/official/prompt",
+									},
+								],
+							},
+						],
+					},
+				],
 				"/ru/": [
 					{
 						text: "Руководство",
