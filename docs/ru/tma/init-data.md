@@ -37,30 +37,44 @@ bun add @gramio/init-data
 
 :::
 
-## Основное использование
+### validateAndParseInitData
 
 ```ts
-import { validateInitData } from '@gramio/init-data';
+import { validateAndParseInitData } from "@gramio/init-data";
+
+const initData = validateAndParseInitData(initDataString, "BOT_TOKEN");
+
+if (!initData) {
+    throw new Error("Invalid init data");
+}
+
+console.log(initData.user);
+```
+
+## Проверка init-data
+
+```ts
+import { validateInitData } from "@gramio/init-data";
 
 // Получаем init-data из запроса
 const initDataString = req.query.initData;
 
 // Валидируем с использованием токена бота
-const isValid = validateInitData(initDataString, 'BOT_TOKEN');
+const isValid = validateInitData(initDataString, "BOT_TOKEN");
 
 if (isValid) {
-  // Данные действительно пришли из Telegram
-  console.log('Данные прошли проверку');
+    // Данные действительно пришли из Telegram
+    console.log("Данные прошли проверку");
 } else {
-  // Данные не прошли проверку или были подделаны
-  console.log('Внимание: Данные не прошли проверку!');
+    // Данные не прошли проверку или были подделаны
+    console.log("Внимание: Данные не прошли проверку!");
 }
 ```
 
 ## Получение данных пользователя
 
 ```ts
-import { parseInitData } from '@gramio/init-data';
+import { parseInitData } from "@gramio/init-data";
 
 // Разбор строки init-data
 const initData = parseInitData(initDataString);
@@ -105,4 +119,4 @@ const app = new Elysia()
         user;
         // ^?
     });
-``` 
+```

@@ -75,7 +75,7 @@ else console.log("Сообщение успешно отправлено");
 
 ### Типы
 
-GramIO реэкспортирует [@gramio/types](https://www.npmjs.com/package/@gramio/types) (кодогенерируемые и автоматически публикуемые типы Telegram Bot API).
+GramIO реэкспортирует [@gramio/types](https://www.npmjs.com/package/@gramio/types) (кодо-генерируемые и автоматически публикуемые типы Telegram Bot API).
 
 [Подробнее](/ru/types/index.html)
 
@@ -163,4 +163,4 @@ BUN_CONFIG_VERBOSE_FETCH=curl bun src/index.ts
 [fetch] < Last-Modified: Thu, 17 Oct 2019 07:18:26 GMT
 [fetch] < Server: EOS (vny/044F)
 [fetch] < Content-Length: 1256
-``` 
+```

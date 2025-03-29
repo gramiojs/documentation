@@ -17,7 +17,7 @@ head:
 
 Метод `chosenInlineResult` в GramIO позволяет вашему боту обрабатывать обновления, когда пользователь выбирает один из результатов, возвращенных [инлайн-запросом](/ru/triggers/inline-query). Этот метод особенно полезен, когда вам нужно выполнить дополнительные действия после того, как пользователь выбрал определенный результат из предложений инлайн-запроса.
 
-Вам следует включить [сбор обратной связи](https://core.telegram.org/bots/inline#collecting-feedback) в [@BotFather](https://telegram.me/botfather).
+Вам следует включить [Feedback](https://core.telegram.org/bots/inline#collecting-feedback) в [@BotFather](https://telegram.me/botfather).
 
 > Чтобы узнать, какие из предоставленных результатов ваши пользователи отправляют своим собеседникам, отправьте [@Botfather](https://telegram.me/botfather) команду `/setinlinefeedback`. После включения этой функции вы будете получать обновления о результатах, выбранных вашими пользователями.
 
@@ -28,7 +28,7 @@ head:
 ## Основное использование
 
 > [!WARNING]
-> Вы должны указать тот же сопоставитель (String, Regex, Function), что и в [InlineQuery](/ru/triggers/inline-query), чтобы получить результаты нажатия на него, или использовать опцию `onResult` в триггере [InlineQuery](/ru/triggers/inline-query).
+> Вы должны указать тот же тип триггера (String, Regex, Function), что и в [InlineQuery](/ru/triggers/inline-query), чтобы получить результаты нажатия на него, или использовать опцию `onResult` в триггере [InlineQuery](/ru/triggers/inline-query).
 
 ### Обработка выбранных инлайн-результатов
 
