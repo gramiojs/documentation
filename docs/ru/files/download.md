@@ -15,11 +15,11 @@ head:
 
 Стандартный путь скачивания файлов выглядит так:
 
-- Вызвать `getFile` с параметром `file_id`
-- Извлечь `file_path` из ответа
-- Составить ссылку следующего вида `https://api.telegram.org/file/bot<token>/<file_path>`
-- Отправить запрос и скачать запрашиваемый медиафайл
-- ? Возможно, сохранить файл в файловой системе ?
+-   Вызвать `getFile` с параметром `file_id`
+-   Извлечь `file_path` из ответа
+-   Составить ссылку следующего вида `https://api.telegram.org/file/bot<token>/<file_path>`
+-   Отправить запрос и скачать запрашиваемый медиафайл
+-   ? Возможно, сохранить файл в файловой системе ?
 
 но в нашем случае это выглядит более удобно и проще.
 
@@ -40,7 +40,7 @@ bot.on("message", async (context) => {
 > [!IMPORTANT]
 >
 > **Одно сообщение** содержит только **одно вложение**. Поэтому для скачивания вложения можно просто использовать метод `context.download`
-> Но вы можете решить эту проблему, используя плагин [media-group](/ru/plugins/official/media-group).
+> Но вы можете работать с медиагруппами, используя плагин [media-group](/ru/plugins/official/media-group) и итерацию по массиву `context.mediaGroup`.
 
 ## Через метод экземпляра бота
 
@@ -53,4 +53,4 @@ if (!chat.photo?.big_file_id) return;
 await bot.downloadFile(chat.photo.big_file_id, "not_found_chat_photo.png");
 // получить ArrayBuffer
 const buffer = await bot.downloadFile(chat.photo.big_file_id);
-``` 
+```

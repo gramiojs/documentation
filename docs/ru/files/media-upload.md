@@ -83,7 +83,7 @@ ctx.sendDocument(
 
 ## stream
 
-Метод для загрузки медиа-файла из потока Readable.
+Метод для загрузки медиа-файла из потока `Readable`.
 
 ```ts twoslash
 // @errors: 2345

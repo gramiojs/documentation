@@ -12,15 +12,15 @@ head:
 ---
 
 <script setup>
-import Spoiler from '../.vitepress/components/Spoiler.vue'
+import Spoiler from '../../.vitepress/components/Spoiler.vue'
 
 </script>
 
 # Форматирование сообщений
 
-[`@gramio/format`](https://github.com/gramiojs/format) - это встроенный пакет GramIO. Вы также можете использовать его вне этого фреймворка, так как он не зависит от конкретного фреймворка.
+[`@gramio/format`](https://github.com/gramiojs/format) - это встроенный пакет GramIO. Вы также можете использовать его вне этого фреймворка, так как он не зависит от него.
 
-См. также [API Reference](https://jsr.io/@gramio/format/doc).
+Смотрите также [API Reference](https://jsr.io/@gramio/format/doc).
 
 ## Format
 
@@ -28,7 +28,8 @@ import Spoiler from '../.vitepress/components/Spoiler.vue'
 
 Используйте его, если хотите удалить все отступы в начале каждой строки. (как [common-tags#stripindents](https://www.npmjs.com/package/common-tags#stripindents) или [dedent](https://www.npmjs.com/package/dedent))
 
-**ПРИМЕЧАНИЕ**: для форматирования с **массивами** используйте его с помощником [`join`](#join)
+> [!IMPORTANT]
+> Для форматирования с **массивами** используйте его с помощником [`join`](#join)
 
 ```ts twoslash
 import { format, bold, link, italic, Bot } from "gramio";
@@ -52,11 +53,11 @@ const bot = new Bot("");
 // ---cut---
 bot.api.sendMessage({
     chat_id: 12321,
-    text: format`${bold`Привет!`}
+    text: format`${bold`Hi!`}
 
-		Можешь ${italic("ты")} помочь ${spoiler`мне`}?
+		Can ${italic("you")} help ${spoiler`me`}?
 	
-			Можешь дать мне ${link("звезду", "https://github.com/gramiojs/gramio")}?`,
+			Can you give me ${link("a star", "https://github.com/gramiojs/gramio")}?`,
 });
 ```
 
@@ -77,11 +78,11 @@ const bot = new Bot("");
 // ---cut---
 bot.api.sendMessage({
     chat_id: 12321,
-    text: formatSaveIndents`${bold`Привет!`}
+    text: formatSaveIndents`${bold`Hi!`}
 
-		Можешь ${italic("ты")} помочь ${spoiler`мне`}?
+		Can ${italic("you")} help ${spoiler`me`}?
 	
-			Можешь дать мне ${link("звезду", "https://github.com/gramiojs/gramio")}?`,
+			Can you give me ${link("a star", "https://github.com/gramiojs/gramio")}?`,
 });
 ```
 
@@ -96,7 +97,7 @@ bot.api.sendMessage({
 ```ts twoslash
 import { format, bold } from "@gramio/format";
 // ---cut---
-format`Форматирует текст как ${bold`жирный`}`;
+format`Format text as ${bold`bold`}`;
 ```
 
 ![bold example](/formatting/bold.png)
@@ -108,7 +109,7 @@ format`Форматирует текст как ${bold`жирный`}`;
 ```ts twoslash
 import { format, italic } from "@gramio/format";
 // ---cut---
-format`Форматирует текст как ${italic`курсив`}`;
+format`Format text as ${italic`italic`}`;
 ```
 
 ![italic example](/formatting/italic.png)
@@ -120,7 +121,7 @@ format`Форматирует текст как ${italic`курсив`}`;
 ```ts twoslash
 import { format, underline } from "@gramio/format";
 // ---cut---
-format`Форматирует текст как ${underline`подчеркнутый`}`;
+format`Format text as ${underline`underlined`}`;
 ```
 
 ![underline example](/formatting/underline.png)
@@ -132,7 +133,7 @@ format`Форматирует текст как ${underline`подчеркнут
 ```ts twoslash
 import { format, strikethrough } from "@gramio/format";
 // ---cut---
-format`Форматирует текст как ${strikethrough`зачеркнутый`}`;
+format`Format text as ${strikethrough`strikethrough`}`;
 ```
 
 ![strikethrough example](/formatting/strikethrough.png)
@@ -144,7 +145,7 @@ format`Форматирует текст как ${strikethrough`зачеркну
 ```ts twoslash
 import { format, spoiler } from "@gramio/format";
 // ---cut---
-format`Форматирует текст как ${spoiler`спойлер`}`;
+format`Format text as ${spoiler`spoiler`}`;
 ```
 
 ![spoiler example](/formatting/spoiler.png)
@@ -156,7 +157,7 @@ format`Форматирует текст как ${spoiler`спойлер`}`;
 ```ts twoslash
 import { format, blockquote } from "@gramio/format";
 // ---cut---
-format`Форматирует текст как ${blockquote`цитату`}`;
+format`Format text as ${blockquote`quote`}`;
 ```
 
 ![blockquote example](/formatting/blockquote.png)
@@ -171,7 +172,7 @@ function loremIpsum(options: { count: number }): string {
     return "";
 }
 // ---cut---
-format`Форматирует текст как ${expandableBlockquote(loremIpsum({ count: 20 }))}`;
+format`Format text as ${expandableBlockquote(loremIpsum({ count: 20 }))}`;
 ```
 
 ![expandable blockquote example](/formatting/expandable_blockquote.png)
@@ -183,7 +184,7 @@ format`Форматирует текст как ${expandableBlockquote(loremIpsu
 ```ts twoslash
 import { format, code } from "@gramio/format";
 // ---cut---
-format`Форматирует текст как ${code`код`}`;
+format`Format text as ${code`code`}`;
 ```
 
 ![code example](/formatting/code.png)
@@ -195,9 +196,9 @@ format`Форматирует текст как ${code`код`}`;
 ```ts twoslash
 import { format, pre } from "@gramio/format";
 // ---cut---
-format`Форматирует текст как ${pre`pre`}`;
+format`Format text as ${pre`pre`}`;
 // или с указанием языка
-format`Форматирует текст как ${pre(`console.log("pre с указанием языка")`, "js")}`;
+format`Format text as ${pre(`console.log("pre with language")`, "js")}`;
 ```
 
 ![pre example](/formatting/pre.png)
@@ -209,7 +210,7 @@ format`Форматирует текст как ${pre(`console.log("pre с ук�
 ```ts twoslash
 import { format, link } from "@gramio/format";
 // ---cut---
-format`Форматирует текст как ${link("ссылку", "https://github.com/gramiojs/gramio")}`;
+format`Format text as ${link("link", "https://github.com/gramiojs/gramio")}`;
 ```
 
 ![link example](/formatting/link.png)
@@ -221,7 +222,7 @@ format`Форматирует текст как ${link("ссылку", "https://
 ```ts twoslash
 import { format, mention } from "@gramio/format";
 // ---cut---
-format`форматирует текст как ${mention("упоминание", {
+format`Format text as ${mention("mention", {
     id: 12312312,
     is_bot: false,
     first_name: "GramIO",
@@ -237,7 +238,7 @@ format`форматирует текст как ${mention("упоминание"
 ```ts twoslash
 import { format, customEmoji } from "@gramio/format";
 // ---cut---
-format`текст с эмодзи - ${customEmoji("⚔️", "5222106016283378623")}`;
+format`text with emoji - ${customEmoji("⚔️", "5222106016283378623")}`;
 ```
 
 > [!WARNING]
@@ -247,4 +248,12 @@ format`текст с эмодзи - ${customEmoji("⚔️", "5222106016283378623
 
 ### Join
 
-Помощник для отличной работы с форматируемыми массивами. ([].join разрушает стилизацию) 
+Помощник для отличной работы с форматируемыми массивами. ([].join разрушает стилизацию)
+
+Разделитель по умолчанию - `, `
+
+```ts twoslash
+import { format, join, bold } from "@gramio/format";
+// ---cut---
+format`${join(["test", "other"], (x) => format`${bold(x)}`, "\n")}`;
+```

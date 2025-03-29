@@ -114,7 +114,7 @@ ctx.sendMediaGroup([
 
 ## animation
 
-Представляет анимационный файл (GIF или видео H.264/MPEG-4 AVC без звука) для отправки.
+Представляет анимационный файл (`GIF` или видео `H.264/MPEG-4 AVC` без звука) для отправки.
 
 ```ts twoslash
 // @noErrors
@@ -127,4 +127,4 @@ MediaInput.animation(
 );
 ```
 
-[Документация](https://core.telegram.org/bots/api/#inputmediaanimation) 
+[Документация](https://core.telegram.org/bots/api/#inputmediaanimation)
