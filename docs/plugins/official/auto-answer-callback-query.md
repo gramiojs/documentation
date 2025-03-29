@@ -1,14 +1,14 @@
 ---
-title: Auto answer callback query plugin for GramIO
+title: Auto answer callback query Plugin for GramIO
 
 head:
     - - meta
       - name: "description"
-        content: "This plugin auto answer on callback_query events with answerCallbackQuery method if you haven't done it yet."
+        content: "Automatically respond to Telegram inline button presses by answering callback queries when your handler doesn't, removing the loading indicator."
 
     - - meta
       - name: "keywords"
-        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, plugin, callback_query, answerCallbackQuery, auto answer, how to answer on callback query, telegram button loading"
+        content: "Telegram bot, GramIO, callback query, auto answer plugin, inline buttons, answerCallbackQuery, remove loading indicator, button click handling, automatic response, inline keyboard, user interaction, button press feedback, callback handling, TypeScript, Deno, Bun, Node.js, Telegram UI, bot responsiveness"
 ---
 
 # Auto answer callback query plugin

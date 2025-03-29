@@ -1,14 +1,14 @@
 ---
-title: inlineQuery - respond to inline queries sent by users
+title: Inline Query handling in Telegram bots - Search-as-you-type with GramIO
 
 head:
     - - meta
       - name: "description"
-        content: "An inline query is a special type of message where users can search for content from your bot by typing in the message input field without directly interacting with the bot."
+        content: "Learn how to implement inline queries in your Telegram bot with GramIO. Create search-as-you-type functionality that works directly in any chat using @YourBot queries."
 
     - - meta
       - name: "keywords"
-        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, api, inline_query, @pic"
+        content: "telegram bot, framework, how to create a bot, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, inline query, inline mode, @bot search, inline results, answerInlineQuery, InlineQueryResult, inline articles, inline media, inline buttons, search functionality, query matching, inline thumbnails, inline caching, InlineQuery, search-as-you-type"
 ---
 
 # inlineQuery
@@ -20,13 +20,13 @@ The `inlineQuery` method in GramIO allows your bot to respond to inline queries 
 [Telegram documentation](https://core.telegram.org/bots/inline)
 
 > [!WARNING]
-> You should enable this options via [@BotFather](https://telegram.me/botfather). Send the `/setinline` command, select the bot and provide the placeholder text that the user will see in the input field after typing your bot’s name.
+> You should enable this options via [@BotFather](https://telegram.me/botfather). Send the `/setinline` command, select the bot and provide the placeholder text that the user will see in the input field after typing your bot's name.
 
 ## Basic Usage
 
 ### Responding to an Inline Query with a Regular Expression
 
-You can make your bot listen for specific inline queries that match a regular expression and respond with results. Here’s an example:
+You can make your bot listen for specific inline queries that match a regular expression and respond with results. Here's an example:
 
 ```ts
 bot.inlineQuery(/find (.*)/i, async (context) => {
@@ -71,7 +71,7 @@ In this example:
 
 ### Example: Custom Inline Query Handler
 
-Here’s a more detailed example that demonstrates using both the inline query trigger and handling result selection:
+Here's a more detailed example that demonstrates using both the inline query trigger and handling result selection:
 
 ```ts
 bot.inlineQuery(

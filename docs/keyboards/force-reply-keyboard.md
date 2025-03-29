@@ -1,14 +1,14 @@
 ---
-title: Force reply keyboard builder for Telegram Bot API
+title: Force Reply keyboard - Prompt users to reply
 
 head:
     - - meta
       - name: "description"
-        content: "Upon receiving a message with this object, Telegram clients will display a reply interface to the user (act as if the user has selected the bot's message and tapped 'Reply')."
+        content: "Learn how to use Force Reply Keyboard in GramIO to make Telegram clients automatically display a reply interface, creating natural conversation flows while respecting privacy mode."
 
     - - meta
       - name: "keywords"
-        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, keyboard, builder, force reply keyboard, chunk, pattern, matrix, url, webapp"
+        content: "telegram bot, framework, how to create a bot, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, force reply keyboard, reply interface, input placeholder, conversation flow, step-by-step interface, privacy mode compatible, user input, forced response, ForceReply, reply prompts, form-like interface, response collection"
 ---
 
 # Force Reply Keyboard

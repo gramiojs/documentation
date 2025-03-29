@@ -1,14 +1,14 @@
 ---
-title: Hears - Handle specific bot commands
+title: Message matching with hears() - Responding to text patterns in GramIO
 
 head:
     - - meta
       - name: "description"
-        content: "Commands are specific words or phrases that usually begin with a `/` and are used to trigger actions or responses from the bot."
+        content: "Learn how to use the hears() method in GramIO to match and respond to specific text patterns in Telegram messages using strings, regular expressions, or custom functions."
 
     - - meta
       - name: "keywords"
-        content: "Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, api, command, /start"
+        content: "telegram bot, framework, how to create a bot, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, hears method, text matching, message patterns, regex matching, string matching, text triggers, pattern recognition, message handling, natural language processing, text filtering, message middleware, conversation handling"
 ---
 
 <!-- ChatGPT helps -->

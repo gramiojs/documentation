@@ -1,50 +1,76 @@
 ---
-title: Get started in GramIO - Powerful Telegram Bot API framework for TypeScript/JavaScript
+title: Get Started with GramIO - Create Telegram bots using TypeScript/JavaScript
 
 head:
     - - meta
       - name: "description"
-        content: To start, bootstrap a new project with «npx create gramio bot-dir» and start the development with «npm run dev». This is all it needs to do a quick start or get started with GramIO.
+        content: Get started with GramIO by bootstrapping a new project with «npx create gramio bot-dir» and start development with «npm run dev». Create a Telegram bot in minutes with this powerful Telegram Bot API framework (TypeScript/JavaScript).
 
     - - meta
       - name: "keywords"
-        content: Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, Nodejs, How to build a bot, create, scaffold, best framework, start
+        content: telegram bot, framework, how to create a bot, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, quick start, setup guide, beginner guide, bot token, BotFather, npm init, bootstrapping project, bot development tutorial, create telegram bot fast, bot setup, starter template, bot project structure, command handling, first telegram bot
 ---
 
-# Get started
+# Get Started
 
-Create new bot with GramIO in minutes. You should already have [Node.js](https://nodejs.org/), [Bun](https://bun.sh/) or [Deno](https://deno.com/) installed.
+Create a new bot with GramIO in minutes. You should already have [Node.js](https://nodejs.org/), [Bun](https://bun.sh/) or [Deno](https://deno.com/) installed.
 
 ## Obtain your bot token
 
 First, create a bot and get a `token`. You can do this using the [@BotFather](https://t.me/BotFather) bot.
 
-Send the command `/newbot` and follow the instructions until you receive a token like `110201543:AAHdqTcvCH1vGWJxfSeofSAs0K5PALDsaw`.
+Send him the `/newbot` command and follow the instructions until you receive a token like `110201543:AAHdqTcvCH1vGWJxfSeofSAs0K5PALDsaw`.
 
-## Scaffolding the project
+## Create your bot project
 
-This command will help you create a project with GramIO the easiest way.
+There are two ways to create a bot project:
+
+### Automatically
+
+The easiest way is to use `create-gramio`.
 
 ::: code-group
 
 ```bash [npm]
-npm create gramio@latest ./bot
+npm create gramio bot-example
 ```
 
 ```bash [yarn]
-yarn create gramio@latest ./bot
+yarn create gramio bot-example
 ```
 
 ```bash [pnpm]
-pnpm create gramio@latest ./bot
+pnpm create gramio bot-example
 ```
 
 ```bash [bun]
-bun create gramio@latest ./bot
+bunx create-gramio bot-example
 ```
 
-```bash [deno]
-TODO:// Deno is supported but not in scaffolding
+:::
+
+And then:
+
+::: code-group
+
+```bash [npm]
+cd bot-example
+npm run dev
+```
+
+```bash [yarn]
+cd bot-example
+yarn dev
+```
+
+```bash [pnpm]
+cd bot-example
+pnpm dev
+```
+
+```bash [bun]
+cd bot-example
+bun dev
 ```
 
 :::
@@ -79,7 +105,7 @@ TODO:// Deno is supported but not in scaffolding
 >
 > When you select [ESLint](https://eslint.org/) and [Drizzle](https://orm.drizzle.team/), you get [eslint-plugin-drizzle](https://orm.drizzle.team/docs/eslint-plugin)
 
-## Manual installation
+## Manually
 
 To manually create a new bot with GramIO, install the package:
 

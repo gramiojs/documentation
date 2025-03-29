@@ -1,3 +1,17 @@
+---
+title: Bot class in GramIO - Core class for building Telegram bots
+
+head:
+    - - meta
+      - name: "description"
+        content: Learn about the Bot class in GramIO - the core class for creating and managing Telegram bots. Discover its methods, properties, and how to configure your bot for optimal performance.
+
+    - - meta
+      - name: "keywords"
+        content: telegram bot, framework, how to create a bot, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, Bot class, bot instance, bot configuration, bot initialization, bot token, bot methods, update handling, bot middleware, event listeners, on method, command method, webhook setup, bot polling, bot lifecycle
+
+---
+
 # Main bot class
 
 [`Bot`](https://jsr.io/@gramio/core/doc/~/Bot) - the main class of the framework. You use it to interact with the [Telegram Bot API](/bot-api).
