@@ -16,6 +16,7 @@ export default defineConfig({
 	title: "GramIO",
 	description: "Build your bots with convenience!",
 	cleanUrls: true,
+	srcExclude: ["guides/**/*.md"],
 	vite: {
 		publicDir: "../public",
 		plugins: [
