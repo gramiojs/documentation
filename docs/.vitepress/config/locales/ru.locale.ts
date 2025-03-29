@@ -92,128 +92,132 @@ export const localeRu = {
 				// ],
 				"/ru/": [
 					{
-						text: "База",
+						text: "Руководство",
 						items: [
-							{ text: "Давайте начнём", link: "/ru/get-started" },
-							// 			{ text: "Bot API", link: "/bot-api" },
-							// 			{
-							// 				text: "Contexts",
-							// 				link: "https://jsr.io/@gramio/contexts/doc",
-							// 			},
-							// 			{
-							// 				text: "Triggers",
-							// 				collapsed: true,
-							// 				items: [
-							// 					{
-							// 						text: "Hears",
-							// 						link: "/triggers/hears",
-							// 					},
-							// 					{
-							// 						text: "Command",
-							// 						link: "/triggers/command",
-							// 					},
-							// 					{
-							// 						text: "Callback Query",
-							// 						link: "/triggers/callback-query",
-							// 					},
-							// 					{
-							// 						text: "Inline Query",
-							// 						link: "/triggers/inline-query",
-							// 					},
-							// 					{
-							// 						text: "Reaction",
-							// 						link: "/triggers/reaction",
-							// 					},
-							// 				],
-							// 			},
-							// 			{
-							// 				text: "Hooks",
-							// 				collapsed: true,
-							// 				items: [
-							// 					{
-							// 						text: "Overview",
-							// 						link: "/hooks/overview",
-							// 					},
-							// 					{
-							// 						text: "onStart",
-							// 						link: "/hooks/on-start",
-							// 					},
-							// 					{
-							// 						text: "onStop",
-							// 						link: "/hooks/on-stop",
-							// 					},
-							// 					{
-							// 						text: "onError (error-handling)",
-							// 						link: "/hooks/on-error",
-							// 					},
-							// 					{
-							// 						text: "preRequest",
-							// 						link: "/hooks/pre-request",
-							// 					},
-							// 					{
-							// 						text: "onResponse",
-							// 						link: "/hooks/on-response",
-							// 					},
-							// 					{
-							// 						text: "onResponseError",
-							// 						link: "/hooks/on-response-error",
-							// 					},
-							// 				],
-							// 			},
-							// 			{
-							// 				text: "Keyboards",
-							// 				collapsed: true,
-							// 				items: [
-							// 					{
-							// 						text: "Overview",
-							// 						link: "/keyboards/overview",
-							// 					},
-							// 					{
-							// 						text: "Keyboard",
-							// 						link: "/keyboards/keyboard",
-							// 					},
-							// 					{
-							// 						text: "Inline Keyboard",
-							// 						link: "/keyboards/inline-keyboard",
-							// 					},
-							// 					{
-							// 						text: "Remove Keyboard",
-							// 						link: "/keyboards/remove-keyboard",
-							// 					},
-							// 					{
-							// 						text: "Force Reply Keyboard",
-							// 						link: "/keyboards/force-reply-keyboard",
-							// 					},
-							// 				],
-							// 			},
-							// 			{
-							// 				text: "Files",
-							// 				collapsed: true,
-							// 				items: [
-							// 					{
-							// 						text: "Overview",
-							// 						link: "/files/overview",
-							// 					},
-							// 					{
-							// 						text: "Media Upload",
-							// 						link: "/files/media-upload",
-							// 					},
-							// 					{
-							// 						text: "Media Input",
-							// 						link: "/files/media-input",
-							// 					},
-							// 					{ text: "Download", link: "/files/download" },
-							// 					{
-							// 						text: "Usage without GramIO",
-							// 						link: "/files/usage-without-gramio",
-							// 					},
-							// 				],
-							// 			},
-							// 			{ text: "Formatting", link: "/formatting/index" },
-							// 			{ text: "Types", link: "/types/index" },
-							// 			{ text: "Webhook", link: "/webhook/index" },
-							// 			{ text: "Rate-limits and broadcast", link: "/rate-limits" },
-							// 			{ text: "Storages", link: "/storages/index" },
+							{ text: "Начало работы", link: "/ru/get-started" },
+							{ text: "Bot API", link: "/ru/bot-api" },
+							{
+								text: "Обновления",
+								collapsed: true,
+								link: "/ru/updates/overview",
+								items: [
+									{ text: "Обзор", link: "/ru/updates/overview" },
+									{ text: "Webhook", link: "/ru/updates/webhook" },
+									{
+										text: "Graceful shutdown",
+										link: "/ru/updates/graceful-shutdown",
+									},
+								],
+							},
+							{
+								text: "Триггеры",
+								collapsed: true,
+								items: [
+									{ text: "Hears", link: "/ru/triggers/hears" },
+									{ text: "Command", link: "/ru/triggers/command" },
+									{
+										text: "Callback Query",
+										link: "/ru/triggers/callback-query",
+									},
+									{
+										text: "Inline Query",
+										link: "/ru/triggers/inline-query",
+									},
+									{
+										text: "Chosen Inline Result",
+										link: "/ru/triggers/chosen-inline-result",
+									},
+									{
+										text: "Reaction",
+										link: "/ru/triggers/reaction",
+									},
+								],
+							},
+							{
+								text: "Хуки",
+								collapsed: true,
+								link: "/ru/hooks/overview",
+								items: [
+									{ text: "Обзор", link: "/ru/hooks/overview" },
+									{ text: "onStart", link: "/ru/hooks/on-start" },
+									{ text: "onStop", link: "/ru/hooks/on-stop" },
+									{
+										text: "onError (обработка ошибок)",
+										link: "/ru/hooks/on-error",
+									},
+									{ text: "preRequest", link: "/ru/hooks/pre-request" },
+									{ text: "onResponse", link: "/ru/hooks/on-response" },
+									{
+										text: "onResponseError",
+										link: "/ru/hooks/on-response-error",
+									},
+								],
+							},
+							{
+								text: "Клавиатуры",
+								collapsed: true,
+								link: "/ru/keyboards/overview",
+								items: [
+									{ text: "Обзор", link: "/ru/keyboards/overview" },
+									{ text: "Keyboard", link: "/ru/keyboards/keyboard" },
+									{
+										text: "Inline Keyboard",
+										link: "/ru/keyboards/inline-keyboard",
+									},
+									{
+										text: "Remove Keyboard",
+										link: "/ru/keyboards/remove-keyboard",
+									},
+									{
+										text: "Force Reply Keyboard",
+										link: "/ru/keyboards/force-reply-keyboard",
+									},
+								],
+							},
+							{
+								text: "Файлы",
+								collapsed: true,
+								link: "/ru/files/overview",
+								items: [
+									{ text: "Обзор", link: "/ru/files/overview" },
+									{
+										text: "Upload media",
+										link: "/ru/files/media-upload",
+									},
+									{
+										text: "MediaInput",
+										link: "/ru/files/media-input",
+									},
+									{ text: "Скачивание", link: "/ru/files/download" },
+									{
+										text: "Использование без GramIO",
+										link: "/ru/files/usage-without-gramio",
+									},
+								],
+							},
+							{ text: "Форматирование", link: "/ru/formatting/index" },
+							{ text: "Типы", link: "/ru/types/index" },
+							{
+								text: "Лимиты и рассылка",
+								link: "/ru/rate-limits",
+							},
+							{ text: "Хранилища", link: "/ru/storages/index" },
+							{
+								text: "Telegram Web Apps",
+								collapsed: true,
+								link: "/ru/tma/",
+								items: [
+									{ text: "Обзор", link: "/ru/tma/" },
+									{
+										text: "Init data",
+										link: "/ru/tma/init-data",
+									},
+								],
+							},
+							{
+								text: "Класс Bot",
+								link: "/ru/bot-class",
+							},
 						],
 					},
 				],
