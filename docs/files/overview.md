@@ -42,6 +42,10 @@ bot.start();
 There are three ways to send files (photos, stickers, audio, media, etc.):
 
 1. If the file is already stored somewhere on the Telegram servers, you don't need to reupload it: each file object has a file_id field, simply pass this file_id as a parameter instead of uploading. There are no limits for files sent this way.
+
+> [!TIP]
+> You may find it useful to use the [media-cache](/ru/plugins/official/media-cache) plugin to cache `file_id` on the framework side.
+
 2. Provide Telegram with an HTTP URL for the file to be sent. Telegram will download and send the file. 5 MB max size for photos and 20 MB max for other types of content.
 3. Post the file using multipart/form-data in the usual way that files are uploaded via the browser. 10 MB max size for photos, 50 MB for other files.
 
