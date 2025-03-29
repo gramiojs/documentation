@@ -17,8 +17,8 @@ This hook is called before sending a request to the Telegram Bot API (allowing y
 
 ## Parameters
 
-- method - API method name
-- params - API method parameters
+-   method - API method name
+-   params - API method parameters
 
 > [!IMPORTANT]
 > You must return the context from the hook handler!
@@ -52,7 +52,7 @@ bot.preRequest(["sendMessage", "sendPhoto"], (context) => {
     if (context.method === "sendMessage") {
         context.params.text = "modified text";
     } else {
-        context.params.caption = "this is a photo";
+        context.params.caption = "this is a photo caption in sendPhoto method";
     }
 
     return context;
