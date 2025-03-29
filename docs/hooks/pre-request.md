@@ -52,7 +52,7 @@ bot.preRequest(["sendMessage", "sendPhoto"], (context) => {
     if (context.method === "sendMessage") {
         context.params.text = "modified text";
     } else {
-        context.params.caption = "this is a photo caption in sendPhoto method";
+        context.params.caption = "this is a photo caption from sendPhoto method";
     }
 
     return context;
