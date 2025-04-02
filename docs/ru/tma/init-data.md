@@ -91,22 +91,48 @@ console.log(initData.hash); // Хэш для проверки
 
 ## Пример интеграции с Elysia
 
+Этот пример демонстрирует, как интегрировать `@gramio/init-data` с Elysia с помощью удобного плагина с типо-безопасностью.
+
+`examples` в `x-init-data` заголовке являются валидными сгенерированными `init-data`, которые позволяют легче тестировать ваш API в OpenAPI клиентах.
+
 ```ts twoslash
 import { validateAndParseInitData } from "@gramio/init-data";
 import { Elysia } from "elysia";
 
-const authElysia = new Elysia()
-    .derive(({ headers, error }) => {
-        const initData = headers["x-init-data"];
-        if (!initData) return error("Unauthorized");
-
+export const authElysia = new Elysia({
+    name: "auth",
+})
+    .guard({
+        headers: t.Object({
+            "x-init-data": t.String({
+                examples: [
+                    signInitData(
+                        {
+                            user: {
+                                id: 1,
+                                first_name: "durov",
+                                username: "durov",
+                            },
+                        },
+                        secretKey
+                    ),
+                ],
+            }),
+        }),
+        response: {
+            401: t.Literal("UNAUTHORIZED"),
+        },
+    })
+    .resolve(({ headers, error }) => {
         const result = validateAndParseInitData(
-            initData,
-            process.env.TOKEN as string
+            headers["x-init-data"],
+            config.BOT_TOKEN
         );
-        if (!result || !result.user) return error("Unauthorized");
+        if (!result || !result.user)
+            return error("Unauthorized", "UNAUTHORIZED");
 
         return {
+            tgId: result.user.id,
             user: result.user,
         };
     })
