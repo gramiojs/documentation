@@ -96,8 +96,14 @@ console.log(initData.hash); // Хэш для проверки
 `examples` в `x-init-data` заголовке являются валидными сгенерированными `init-data`, которые позволяют легче тестировать ваш API в OpenAPI клиентах.
 
 ```ts twoslash
-import { validateAndParseInitData } from "@gramio/init-data";
-import { Elysia } from "elysia";
+import {
+    validateAndParseInitData,
+    signInitData,
+    getBotTokenSecretKey,
+} from "@gramio/init-data";
+import { Elysia, t } from "elysia";
+
+const secretKey = getBotTokenSecretKey(process.env.BOT_TOKEN as string);
 
 export const authElysia = new Elysia({
     name: "auth",
@@ -126,7 +132,7 @@ export const authElysia = new Elysia({
     .resolve(({ headers, error }) => {
         const result = validateAndParseInitData(
             headers["x-init-data"],
-            config.BOT_TOKEN
+            secretKey
         );
         if (!result || !result.user)
             return error("Unauthorized", "UNAUTHORIZED");
