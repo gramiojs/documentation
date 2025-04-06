@@ -90,6 +90,7 @@ const response = await withRetries(() =>
         text: "текст сообщения",
     })
 );
+response;
 // ^?
 ```
 

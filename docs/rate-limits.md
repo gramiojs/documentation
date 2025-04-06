@@ -20,39 +20,89 @@ Generally speaking, if you avoid **broadcast-like** behavior in your bot, there 
 
 For a start, we can solve rate-limit errors when broadcasting without using **queues**.
 
-Let's use the [auto-retry](/plugins/official/auto-retry) plugin which catches errors with the `retry_after` field (**rate limit** errors), **waits** for the specified time and **repeats** the API request.
+Let's use the [built-in `withRetries` function](/bot-api#Handling-Rate-Limit) which catches errors with the `retry_after` field (**rate limit** errors), **waits** for the specified time and **repeats** the API request.
 
-Next, we need to make a loop and adjust the **delay** so that we are least likely to fall for a `rate-limit` error, and if we catch it, we will wait for the specified time (and the [auto-retry](/plugins/official/auto-retry) plugin will repeat it)
+Next, we need to make a loop and adjust the **delay** so that we are least likely to fall for a `rate-limit` error, and if we catch it, we will wait for the specified time (and the [built-in `withRetries` function](/bot-api#Handling-Rate-Limit) will repeat it)
 
 ```ts twoslash
 // experimental API available since Node.js@16.14.0
 import { scheduler } from "node:timers/promises";
 import { Bot, TelegramError } from "gramio";
-import { autoRetry } from "@gramio/auto-retry";
+import { withRetries } from "gramio/utils";
 
-const bot = new Bot(process.env.BOT_TOKEN as string).extend(autoRetry());
+const bot = new Bot(process.env.BOT_TOKEN as string);
 const chatIds: number[] = [
     /** some chat ids */
 ];
 
 for (const chatId of chatIds) {
-    const result = await bot.api.sendMessage({
-        suppress: true,
-        chat_id: chatId,
-        text: "Hi!",
-    });
-
-    await scheduler.wait(
-        result instanceof TelegramError && result.payload?.retry_after
-            ? result.payload.retry_after * 1000
-            : 1000
+    const result = await withRetries(() =>
+        bot.api.sendMessage({
+            suppress: true,
+            chat_id: chatId,
+            text: "Hi!",
+        })
     );
+
+    await scheduler.wait(100); // Base delay between successful requests to avoid rate limits
 }
 ```
 
-With queue:
+## Queue Implementation (@gramio/broadcast)
 
 Persistent even when server restarts and ready to horizontal-scaling broadcasting sample.
+
+GramIO has a convenient library for broadcasting in its ecosystem - [@gramio/broadcast](https://github.com/gramiojs/broadcast)
+
+Pre-requirements:
+
+-   [Redis](https://redis.io/)
+
+```ts
+import { Bot, InlineKeyboard } from "gramio";
+import Redis from "ioredis";
+import { Broadcast } from "@gramio/broadcast";
+
+const redis = new Redis({
+    maxRetriesPerRequest: null,
+});
+
+const bot = new Bot(process.env.BOT_TOKEN as string);
+
+const broadcast = new Broadcast(redis).type("test", (chatId: number) =>
+    bot.api.sendMessage({
+        chat_id: chatId,
+        text: "test",
+    })
+);
+
+console.log("prepared to start");
+
+const chatIds = [617580375];
+
+await broadcast.start(
+    "test",
+    chatIds.map((x) => [x])
+);
+
+// graceful shutdown
+async function gracefulShutdown() {
+    console.log(`Process ${process.pid} go to sleep`);
+
+    await broadcast.job.queue.close();
+
+    console.log("closed");
+    process.exit(0);
+}
+
+process.on("SIGTERM", gracefulShutdown);
+
+process.on("SIGINT", gracefulShutdown);
+```
+
+This library provides a convenient interface for broadcasting without losing type safety. You create types of broadcasts and pass data to functions, then call `broadcast.start` with an array of arguments.
+
+## Own Implementation
 
 Pre-requirements:
 

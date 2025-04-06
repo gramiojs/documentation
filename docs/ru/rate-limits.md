@@ -32,7 +32,7 @@ head:
 // экспериментальное API, доступное с Node.js@16.14.0
 import { scheduler } from "node:timers/promises";
 import { Bot, TelegramError } from "gramio";
-import { autoRetry } from "@gramio/auto-retry";
+import { withRetries } from "gramio/utils";
 
 const bot = new Bot(process.env.BOT_TOKEN as string);
 const chatIds: number[] = [

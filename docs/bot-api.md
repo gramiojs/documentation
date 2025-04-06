@@ -9,7 +9,6 @@ head:
     - - meta
       - name: "keywords"
         content: telegram bot, framework, how to create a bot, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, api methods, sendMessage, HTTP interface, API calls, request handling, MTProto, TDLib, API parameters, bot development, API response, getUpdates, sendPhoto, webhook, API error handling
-
 ---
 
 # Bot API
@@ -73,6 +72,29 @@ if (response instanceof TelegramError)
     console.error("sendMessage returns an error...");
 else console.log("Message has been sent successfully");
 ```
+
+## Handling Rate Limits
+
+Built-in utility for 429 errors:
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+import { withRetries } from "gramio/utils";
+
+const response = await withRetries(() =>
+    bot.api.sendMessage({
+        chat_id: "@gramio_forum",
+        text: "message text",
+    })
+);
+response;
+// ^?
+```
+
+`withRetries` handles both thrown and returned errors with automatic retry logic.
 
 ### Types
 
