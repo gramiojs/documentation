@@ -20,9 +20,13 @@ head:
 
 Для начала мы можем решить проблемы с ограничением частоты запросов при рассылке без использования **очередей**.
 
-Давайте воспользуемся плагином [auto-retry](/ru/plugins/official/auto-retry), который ловит ошибки с полем `retry_after` (ошибки **ограничения частоты запросов**), **ждет** указанное время и **повторяет** запрос к API.
+Давайте воспользуемся [встроенной функцией `withRetries`](/ru/bot-api#Обработка-Rate-Limit) которая ловит ошибки с полем `retry_after` (ошибки **ограничения частоты запросов**), **ждет** указанное время и **повторяет** запрос к API.
 
-Затем нам нужно создать цикл и настроить **задержку** так, чтобы мы с наименьшей вероятностью попали на ошибку `rate-limit`, а если мы её поймаем, мы будем ждать указанное время (и плагин [auto-retry](/ru/plugins/official/auto-retry) повторит запрос)
+<!-- Давайте воспользуемся плагином [auto-retry](/ru/plugins/official/auto-retry), который ловит ошибки с полем `retry_after` (ошибки **ограничения частоты запросов**), **ждет** указанное время и **повторяет** запрос к API. -->
+
+<!-- Затем нам нужно создать цикл и настроить **задержку** так, чтобы мы с наименьшей вероятностью попали на ошибку `rate-limit`, а если мы её поймаем, мы будем ждать указанное время (и плагин [auto-retry](/ru/plugins/official/auto-retry) повторит запрос) -->
+
+Затем нам нужно создать цикл и настроить **задержку** так, чтобы мы с наименьшей вероятностью попали на ошибку `rate-limit`, а если мы её поймаем, мы будем ждать указанное время (и плагин [withRetries](/ru/bot-api#Обработка-Rate-Limit) повторит запрос)
 
 ```ts twoslash
 // экспериментальное API, доступное с Node.js@16.14.0
@@ -30,29 +34,80 @@ import { scheduler } from "node:timers/promises";
 import { Bot, TelegramError } from "gramio";
 import { autoRetry } from "@gramio/auto-retry";
 
-const bot = new Bot(process.env.BOT_TOKEN as string).extend(autoRetry());
+const bot = new Bot(process.env.BOT_TOKEN as string);
 const chatIds: number[] = [
     /** идентификаторы чатов */
 ];
 
 for (const chatId of chatIds) {
-    const result = await bot.api.sendMessage({
-        suppress: true,
-        chat_id: chatId,
-        text: "Привет!",
-    });
-
-    await scheduler.wait(
-        result instanceof TelegramError && result.payload?.retry_after
-            ? result.payload.retry_after * 1000
-            : 1000
+    const result = await withRetries(() =>
+        bot.api.sendMessage({
+            chat_id: chatId,
+            text: "Привет!",
+        })
     );
+
+    await scheduler.wait(100); // Базовая задержка между успешными запросами чтобы не попасть на ошибку `rate-limit`
 }
 ```
 
-С очередью:
+## Реализация с очередью (@gramio/broadcast)
 
 Пример рассылки, которая сохраняется даже при перезапуске сервера и готова к горизонтальному масштабированию.
+
+GramIO имеет в своей экосистеме удобную библиотеку для работы с рассылками - [@gramio/broadcast](https://github.com/gramiojs/broadcast)
+
+Предварительные требования:
+
+-   [Redis](https://redis.io/)
+
+```ts
+import { Bot, InlineKeyboard } from "gramio";
+import Redis from "ioredis";
+import { Broadcast } from "@gramio/broadcast";
+
+const redis = new Redis({
+    maxRetriesPerRequest: null,
+});
+
+const bot = new Bot(process.env.BOT_TOKEN as string);
+
+const broadcast = new Broadcast(redis).type("test", (chatId: number) =>
+    bot.api.sendMessage({
+        chat_id: chatId,
+        text: "test",
+    })
+);
+
+console.log("prepared to start");
+
+const chatIds = [617580375];
+
+await broadcast.start(
+    "test",
+    chatIds.map((x) => [x])
+);
+
+// graceful shutdown
+async function gracefulShutdown() {
+    console.log(`Process ${process.pid} go to sleep`);
+
+    await broadcast.job.queue.close();
+
+    console.log("closed");
+    process.exit(0);
+}
+
+process.on("SIGTERM", gracefulShutdown);
+
+process.on("SIGINT", gracefulShutdown);
+```
+
+Эта библиотека предоставляет удобный интерфейс для работы с рассылками не теряя типизации. Вы создаёте типы рассылок и принимаете в функции данные, а затем вызываете `broadcast.start` с массивом аргументов.
+
+## Своя реализация
+
+Или вы можете написать свою логику:
 
 Предварительные требования:
 
@@ -120,4 +175,4 @@ await sendMailing.addBulk(
 ### Дополнительное чтение
 
 -   [Так что ваш бот ограничен по частоте запросов...](https://telegra.ph/So-your-bot-is-rate-limited-01-26)
--   [Рассылка пользователям](https://core.telegram.org/bots/faq#broadcasting-to-users) 
+-   [Рассылка пользователям](https://core.telegram.org/bots/faq#broadcasting-to-users)

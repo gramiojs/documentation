@@ -73,6 +73,32 @@ if (response instanceof TelegramError)
 else console.log("Сообщение успешно отправлено");
 ```
 
+### Обработка Rate-Limit
+
+По умолчанию, GramIO не обрабатывает 429 (rate limit) ошибки, но предоставляет утилиту для их обработки.
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+import { withRetries } from "gramio/utils";
+
+const response = await withRetries(() =>
+    bot.api.sendMessage({
+        chat_id: "@gramio_forum",
+        text: "текст сообщения",
+    })
+);
+// ^?
+```
+
+`withRetries` будет ждать необходимое время указанное в `retryDelay` у ошибки `TelegramError` и только после успешного выполнения запроса, вернет результат.
+
+Этот метод ловит **выброшенную** или **возвращенную** ошибку `TelegramError` так что вы можете использовать и с `context.*` или своими обёртками.
+
+Подробнее о [rate limits](/ru/rate-limits)
+
 ### Типы
 
 GramIO реэкспортирует [@gramio/types](https://www.npmjs.com/package/@gramio/types) (кодо-генерируемые и автоматически публикуемые типы Telegram Bot API).
