@@ -84,14 +84,14 @@ bot.inlineQuery(
                         "result-1",
                         `Результат для ${context.args[1]}`,
                         InputMessageContent.text(
-                            `Вы искали: ${context.args[1]}`,
-                            {
-                                reply_markup: new InlineKeyboard().text(
-                                    "Получить подробности",
-                                    "details-callback"
-                                ),
-                            }
-                        )
+                            `Вы искали: ${context.args[1]}`
+                        ),
+                        {
+                            reply_markup: new InlineKeyboard().text(
+                                "Получить подробности",
+                                "details-callback"
+                            ),
+                        }
                     ),
                 ],
                 {
