@@ -84,14 +84,14 @@ bot.inlineQuery(
                         "result-1",
                         `Result for ${context.args[1]}`,
                         InputMessageContent.text(
-                            `You searched for: ${context.args[1]}`,
-                            {
-                                reply_markup: new InlineKeyboard().text(
-                                    "Get Details",
-                                    "details-callback"
-                                ),
-                            }
-                        )
+                            `You searched for: ${context.args[1]}`
+                        ),
+                        {
+                            reply_markup: new InlineKeyboard().text(
+                                "Get Details",
+                                "details-callback"
+                            ),
+                        }
                     ),
                 ],
                 {
