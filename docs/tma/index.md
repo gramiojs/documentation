@@ -4,7 +4,7 @@ title: Telegram Mini Apps (Web app)
 head:
     - - meta
       - name: "description"
-        content: "Simple guide how to develop Telegram Web app"
+        content: "Simple guide on how to develop Telegram Mini Apps"
 
     - - meta
       - name: "keywords"
@@ -13,15 +13,30 @@ head:
 
 # Telegram Mini Apps (Web app)
 
-Guide is WIP.
+> 🚧 This guide is WIP 🚧
 
-For start, we recommend [`Telegram apps (tma.js)`](https://docs.telegram-mini-apps.com/).
+This guide will help you get started with Telegram Mini Apps development.
 
-[Telegram documentation](https://core.telegram.org/bots/webapps) | [Figma UI Kit](https://www.figma.com/file/AwAi6qE11mQllHa1sOROYp/Telegram-Mini-Apps-Library?type=design&node-id=26%3A1081&mode=design&t=Sck9CgzgyKz3iIFt-1) | [Telegram Developers Community](https://t.me/devs)
+For a comprehensive guide, we recommend [Telegram apps (tma.js)](https://docs.telegram-mini-apps.com/).
 
-## Scaffold monorepo
+Additional resources:
+- [Telegram documentation](https://core.telegram.org/bots/webapps)
+- [Figma UI Kit](https://www.figma.com/file/AwAi6qE11mQllHa1sOROYp/Telegram-Mini-Apps-Library?type=design&node-id=26%3A1081&mode=design&t=Sck9CgzgyKz3iIFt-1)
+- [Telegram Developers Community](https://t.me/devs)
 
-With [create-gramio](https://github.com/gramiojs/create-gramio) you can easily start developing Telegram mini app in monorepo. You can start a project with [tma.js](https://docs.telegram-mini-apps.com/), [Elysiajs](https://elysiajs.com/) and GramIO in a minute!
+## Scaffold project with create-gramio
+
+[create-gramio](https://github.com/gramiojs/create-gramio) is a powerful tool for scaffolding your Telegram Mini App projects. It supports multiple project configurations and integrates seamlessly with GramIO.
+
+You can quickly set up:
+- A standalone Telegram bot
+- A monorepo with Mini App + Bot
+- A full-stack monorepo with Mini App + Bot + Elysia backend
+  > Note: This option is only available with [bun](https://bun.sh/) (alternative to Node.js runtime) due to Elysia framework requirements
+
+### Installation
+
+Choose your preferred package manager:
 
 ::: code-group
 
@@ -43,59 +58,82 @@ bun create gramio@latest ./bot
 
 :::
 
-and choose the type of project you need!
+### Project Setup Options
 
-For example, this is what a monorepo created using [create-gramio](https://github.com/gramiojs/create-gramio) looks like
+When running the installation command, you'll be guided through a series of prompts:
+
+1. **Project Type Selection**:
+   - Bot (standalone bot)
+   - Mini App + Bot + Elysia (backend framework) monorepo
+   - Mini App + Bot monorepo
+
+2. **For Monorepo Projects**:
+   - You'll be prompted to select a Mini App template from the `@telegram-apps/create-mini-app` options
+   - If choosing the Elysia option, you'll set up an Elysia backend as well
+
+3. **Bot Framework Configuration**:
+   - Choose your preferred database (none, Prisma, Drizzle)
+   - Select development tools (ESLint, Biome)
+   - Configure additional features (i18n, Redis, PostHog analytics, etc.)
+
+### Monorepo Structure
+
+When you create a monorepo project, your directory structure will look like:
 
 ```tree
 ├── apps
-│   ├── bot
-│   ├── mini-app
-│   └── server
+│   ├── bot         # Your GramIO bot application
+│   ├── mini-app    # Telegram Mini App frontend
+│   └── server      # Backend server (if using Elysia option)
 └── packages
-    └── db
+    └── db          # Shared database package (if selected)
 ```
 
-### Scaffold via [`Telegram apps (tma.js)`](https://docs.telegram-mini-apps.com/)
+
+### Using [Telegram apps (tma.js)](https://docs.telegram-mini-apps.com/)
+ Directly
+
+Alternatively, you can scaffold just the Mini App part using `@telegram-apps/create-mini-app`:
 
 ::: code-group
 
 ```bash [npm]
-npm create @telegram-apps/mini-app@latest ./bot
+npm create @telegram-apps/mini-app@latest ./miniapp
 ```
 
 ```bash [yarn]
-yarn create @telegram-apps/mini-app@latest ./bot
+yarn create @telegram-apps/mini-app@latest ./miniapp
 ```
 
 ```bash [pnpm]
-pnpm create @telegram-apps/mini-app@latest ./bot
+pnpm create @telegram-apps/mini-app@latest ./miniapp
 ```
 
 ```bash [bun]
-bun create @telegram-apps/mini-app@latest ./bot
+bun create @telegram-apps/mini-app@latest ./miniapp
 ```
 
 :::
 
-This command will help you scaffold a project with a template that matches you from the list:
+This command will help you scaffold a project with a template from these options:
 
 -   TypeScript
--   -   [React](https://github.com/Telegram-Mini-Apps/reactjs-template)
--   -   [Solid](https://github.com/Telegram-Mini-Apps/solidjs-template)
--   -   [Next](https://github.com/Telegram-Mini-Apps/nextjs-template)
+    -   [React](https://github.com/Telegram-Mini-Apps/reactjs-template)
+    -   [Solid](https://github.com/Telegram-Mini-Apps/solidjs-template)
+    -   [Next](https://github.com/Telegram-Mini-Apps/nextjs-template)
 -   JavaScript
--   -   [React](https://github.com/Telegram-Mini-Apps/reactjs-js-template)
--   -   [Solid](https://github.com/Telegram-Mini-Apps/solidjs-js-template)
+    -   [React](https://github.com/Telegram-Mini-Apps/reactjs-js-template)
+    -   [Solid](https://github.com/Telegram-Mini-Apps/solidjs-js-template)
 
 > [!WARNING]
-> At the moment, `create-gramio`'s monorepo support may not be ideal (not the most convenient out of the box). because it's difficult to support these two creation options at the same time.
+> At the moment, `create-gramio`'s monorepo support may not be ideal (not the most convenient out of the box). 
+because it's difficult to support these two creation options at the same time.
 
 ## HTTPS on localhost
 
-BotFather only accepts **http://** links and getting into the **test environment** can be problematic, so let's figure out how to work with **https://** and **localhost**.
+BotFather only accepts **http://** links for production, but getting your app into the **test environment** requires HTTPS. Here's how to set up HTTPS on localhost:
 
-1. First you need to install [mkcert](https://github.com/FiloSottile/mkcert):
+1. First, install [mkcert](https://github.com/FiloSottile/mkcert):
 
 ::: code-group
 
@@ -118,7 +156,7 @@ brew install mkcert
 
 :::
 
-2. Then you need to create a local certificate for the custom hostname and instal it:
+2. Create a local certificate for your custom hostname and install it:
 
 ```bash
 mkcert mini-app.local
@@ -139,7 +177,7 @@ sudo echo "127.0.0.1 mini-app.local" >> /etc/hosts
 
 :::
 
-4. Configure it in `vite.config.ts`
+4. Configure it in `vite.config.ts`:
 
 ```ts
 import fs from "node:fs";
