@@ -120,6 +120,179 @@ const bot = new Bot(process.env.TOKEN as string)
 
 [Подробнее о хранилищах](/ru/storages/)
 
+## Контекст сцены
+
+<!-- Контекст сцены содержит в себе все данные . -->
+
+### update
+
+`update` - это функция, которая обновляет данные в сцене и при этом сохраняет их типы.
+
+```ts twoslash
+import { Scene } from "@gramio/scenes";
+
+const testScene = new Scene("test")
+    .step("message", async (context) => {
+        if (context.scene.step.firstTime)
+            return context.send("Первое сообщение");
+
+        if (!context.text) return context.delete();
+
+        return context.scene.update({
+            message: context.text,
+        });
+    })
+    .step("message", async (context) => {
+        return context.send(context.scene.state.message);
+        //                                 ^?
+    });
+```
+
+### state
+
+`state` - это объект, который содержит все данные, которые были собраны в этой сцене.
+
+(смотрите пример выше)
+
+### params
+
+`params` - это объект, который содержит все данные, которые были переданы в сцену при её входе.
+
+```ts twoslash
+import { Bot } from "gramio";
+import { scenes, Scene } from "@gramio/scenes";
+
+const testScene = new Scene("test")
+    // тут мы указываем тип параметров сцены
+    .params<{ test: boolean }>()
+    .step("message", async (context) => {
+        return context.send(context.scene.params.test);
+        //                                 ^?
+    });
+
+const bot = new Bot(process.env.TOKEN as string)
+    .extend(scenes([testScene]))
+    .command("start", async (context) => {
+        return context.scene.enter(testScene, {
+            test: true,
+        });
+    });
+```
+
+### reenter
+
+`reenter` - это функция, которая позволяет перезайти в сцену в первый шаг потеряв [state](#state).
+
+```ts
+const testScene = new Scene("test")
+    .on("message", async (context, next) => {
+        if (context.text === "/start") return context.scene.reenter();
+
+        return next();
+    })
+    .step("message", async (context) => {
+        if (context.scene.step.firstTime) return context.send("Привет!");
+
+        return context.send("Пока!");
+    });
+```
+
+### Контекст шага
+
+Тут находится вся информация о текущем шаге сцены.
+
+Он хранится в `context.scene.step`.
+
+#### firstTime
+
+`firstTime` - это флаг, который указывает, является ли текущее выполнение шага первым.
+
+```ts
+const testScene = new Scene("test").step("message", async (context) => {
+    if (context.scene.step.firstTime) return context.send("Первое сообщение");
+
+    if (context.text !== "следующее")
+        return context.send(
+            "Последующие сообщения до того как напишут «следующее»"
+        );
+
+    return Promise.all([
+        context.send("Последнее сообщение"),
+        context.scene.exit(),
+    ]);
+});
+```
+
+#### next
+
+`next` - это функция, которая передаёт управление следующему шагу сцены.
+
+```ts
+const testScene = new Scene("test").step("message", async (context) => {
+    if (context.scene.step.firstTime) return context.send("Первое сообщение");
+
+    return context.scene.next();
+});
+```
+
+#### previous
+
+`previous` - это функция, которая передаёт управление предыдущему шагу сцены.
+
+```ts
+const testScene = new Scene("test").step("message", async (context) => {
+    if (context.scene.step.firstTime) return context.send("Первое сообщение");
+
+    return context.scene.previous();
+});
+```
+
+#### go
+
+`go` - это функция, которая передаёт управление конкретному шагу сцены.
+
+```ts
+const testScene = new Scene("test").step("message", async (context) => {
+    if (context.scene.step.firstTime) return context.send("Первое сообщение");
+
+    return context.scene.go(5);
+});
+```
+
+#### id
+
+`id` - это идентификатор шага сцены.
+
+```ts
+const testScene = new Scene("test").step("message", async (context) => {
+    if (context.scene.step.firstTime)
+        return context.send(`Шаг ${context.scene.step.id}`);
+
+    return context.scene.exit();
+});
+```
+
+#### previousId
+
+`previousId` - это идентификатор предыдущего шага сцены.
+
+Сохраняется id последнего шага при вызове [#go](#go), [#previous](#previous), [#next](#next).
+
+```ts
+const testScene = new Scene("test")
+    .step("message", async (context) => {
+        if (context.scene.step.firstTime)
+            return context.send(
+                `из шага ${context.scene.step.previousId} в шаг ${context.scene.step.id}`
+            );
+
+        return context.scene.exit();
+    })
+    .step("message", async (context) => {
+        return context.scene.step.go(1);
+    });
+```
+
 ## scenesDerives
 
 Иногда нужно управлять сценами до выполнения шагов сцены плагином, но после получения сцены из хранилища.

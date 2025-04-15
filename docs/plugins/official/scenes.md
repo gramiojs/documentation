@@ -48,7 +48,7 @@ export const greetingScene = new Scene("greeting")
         const age = Number(context.text);
 
         if (!age || Number.isNaN(age) || age < 0)
-            return context.send("Please write you age correctly");
+            return context.send("Please write your age correctly");
 
         return context.scene.update({
             age,
@@ -60,7 +60,7 @@ export const greetingScene = new Scene("greeting")
                 context.scene.state.name
             } and you are ${context.scene.state.age} years old. ${
                 context.scene.params.test ? "Also you have test param!" : ""
-                //                   ^?
+                //                    ^?
             }`
         );
 
@@ -120,11 +120,174 @@ const bot = new Bot(process.env.TOKEN as string)
 
 [Read more about storages](/storages/)
 
+## Scene context
+
+<!-- The scene context contains all the data that was passed to the scene on entry. -->
+
+### update
+
+`update` is a function that updates the data in the scene and preserves their types.
+
+```ts twoslash
+import { Scene } from "@gramio/scenes";
+
+const testScene = new Scene("test")
+    .step("message", async (context) => {
+        if (context.scene.step.firstTime) return context.send("First message");
+
+        if (!context.text) return context.delete();
+
+        return context.scene.update({
+            message: context.text,
+        });
+    })
+    .step("message", async (context) => {
+        return context.send(context.scene.state.message);
+    });
+```
+
+### state
+
+`state` is an object that contains all the data that has been "collected" in this scene.
+
+(see the example above)
+
+### params
+
+`params` is an object that contains all the data that was passed to the scene on entry.
+
+```ts twoslash
+import { Bot } from "gramio";
+import { scenes, Scene } from "@gramio/scenes";
+
+const testScene = new Scene("test")
+    // here we specify the type of scene parameters
+    .params<{ test: boolean }>()
+    .step("message", async (context) => {
+        return context.send(context.scene.params.test);
+    });
+
+const bot = new Bot(process.env.TOKEN as string)
+    .extend(scenes([testScene]))
+    .command("start", async (context) => {
+        return context.scene.enter(testScene, {
+            test: true,
+        });
+    });
+```
+
+### reenter
+
+`reenter` is a function that allows you to re-enter the scene at the first step, losing [state](#state).
+
+```ts
+const testScene = new Scene("test")
+    .on("message", async (context, next) => {
+        if (context.text === "/start") return context.scene.reenter();
+
+        return next();
+    })
+    .step("message", async (context) => {
+        if (context.scene.step.firstTime) return context.send("Hi!");
+
+        return context.send("Bye!");
+    });
+```
+
+### Step context
+
+All information about the current scene step is stored in `context.scene.step`.
+
+#### firstTime
+
+`firstTime` is a flag that indicates whether the current step execution is the first.
+
+```ts
+const testScene = new Scene("test").step("message", async (context) => {
+    if (context.scene.step.firstTime) return context.send("First message");
+
+    if (context.text !== "next")
+        return context.send("Subsequent messages until 'next' is written");
+
+    return Promise.all([context.send("Last message"), context.scene.exit()]);
+});
+```
+
+#### next
+
+`next` is a function that passes control to the next scene step.
+
+```ts
+const testScene = new Scene("test").step("message", async (context) => {
+    if (context.scene.step.firstTime) return context.send("First message");
+
+    return context.scene.next();
+});
+```
+
+#### previous
+
+`previous` is a function that passes control to the previous scene step.
+
+```ts
+const testScene = new Scene("test").step("message", async (context) => {
+    if (context.scene.step.firstTime) return context.send("First message");
+
+    return context.scene.previous();
+});
+```
+
+#### go
+
+`go` is a function that passes control to a specific scene step.
+
+```ts
+const testScene = new Scene("test").step("message", async (context) => {
+    if (context.scene.step.firstTime) return context.send("First message");
+
+    return context.scene.go(5);
+});
+```
+
+#### id
+
+`id` is the identifier of the scene step.
+
+```ts
+const testScene = new Scene("test").step("message", async (context) => {
+    if (context.scene.step.firstTime)
+        return context.send(`Step ${context.scene.step.id}`);
+
+    return context.scene.exit();
+});
+```
+
+#### previousId
+
+`previousId` is the identifier of the previous scene step.
+
+The id of the last step is saved when calling [#go](#go), [#previous](#previous), [#next](#next).
+
+```ts
+const testScene = new Scene("test")
+    .step("message", async (context) => {
+        if (context.scene.step.firstTime)
+            return context.send(
+                `from step ${context.scene.step.previousId} to step ${context.scene.step.id}`
+            );
+
+        return context.scene.exit();
+    })
+    .step("message", async (context) => {
+        return context.scene.step.go(1);
+    });
+```
+
 ## Scenes derives
 
-Sometimes you wants to control scenes before plugin execute scene steps but after scene fetching from storage.
+Sometimes you want to control scenes before the plugin executes scene steps but after the scene is fetched from storage.
 
-By default `scenes()` function derives what needed to next middlewares if user not in scene.
+By default, the `scenes()` function derives what is needed for the next middlewares if the user is not in a scene.
 With `scenesDerives()` you can get it earlier and manage scene data.
 
 <!-- TODO: without current scene -->
@@ -155,7 +318,7 @@ const bot = new Bot(process.env.TOKEN as string)
         if (context.text === "/start" && context.scene.current) {
             if (context.scene.current.is(testScene)) {
                 console.log(context.scene.current.state);
-                //                                    ^?
+                //                                   ^?
                 return context.scene.current.step.previous();
             } else return context.scene.current.reenter();
         }
