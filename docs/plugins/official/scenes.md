@@ -29,21 +29,48 @@ The API can be changed a little, but we already use it in production environment
 import { Bot } from "gramio";
 import { scenes, Scene } from "@gramio/scenes";
 
-const testScene = new Scene("test")
+export const greetingScene = new Scene("greeting")
     .params<{ test: boolean }>()
+    .step("message", (context) => {
+        if (context.scene.step.firstTime)
+            return context.send("Hi! What's your name?");
+
+        if (!context.text) return context.send("Please write your name");
+
+        return context.scene.update({
+            name: context.text,
+        });
+    })
+    .step("message", (context) => {
+        if (context.scene.step.firstTime)
+            return context.send("How old are you?");
+
+        const age = Number(context.text);
+
+        if (!age || Number.isNaN(age) || age < 0)
+            return context.send("Please write you age correctly");
+
+        return context.scene.update({
+            age,
+        });
+    })
     .step("message", async (context) => {
-        if (context.scene.step.firstTime || context.text !== "1")
-            return context.send("1");
+        await context.send(
+            `Nice to meet you! I now know that your name is ${
+                context.scene.state.name
+            } and you are ${context.scene.state.age} years old. ${
+                context.scene.params.test ? "Also you have test param!" : ""
+                //                   ^?
+            }`
+        );
 
-        if (context.scene.params.test === true) await context.send("DEBUG!");
-
-        return context.scene.step.next();
+        return context.scene.exit();
     });
 
 const bot = new Bot(process.env.TOKEN as string)
-    .extend(scenes([testScene]))
+    .extend(scenes([greetingScene]))
     .command("start", async (context) => {
-        return context.scene.enter(testScene, {
+        return context.scene.enter(greetingScene, {
             test: true,
         });
     });

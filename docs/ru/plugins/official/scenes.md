@@ -29,21 +29,49 @@ API может немного измениться, но мы уже актив�
 import { Bot } from "gramio";
 import { scenes, Scene } from "@gramio/scenes";
 
-const testScene = new Scene("test")
+export const greetingScene = new Scene("greeting")
     .params<{ test: boolean }>()
+    .step("message", (context) => {
+        if (context.scene.step.firstTime)
+            return context.send("Привет! Как тебя зовут?");
+
+        if (!context.text) return context.send("Пожалуйста, напиши своё имя");
+
+        return context.scene.update({
+            name: context.text,
+        });
+    })
+    .step("message", (context) => {
+        if (context.scene.step.firstTime)
+            return context.send("Сколько тебе лет?");
+
+        const age = Number(context.text);
+
+        if (!age || Number.isNaN(age) || age < 0)
+            return context.send("Пожалуйста, укажи возраст корректно");
+
+        return context.scene.update({
+            age,
+        });
+    })
     .step("message", async (context) => {
-        if (context.scene.step.firstTime || context.text !== "1")
-            return context.send("1");
+        await context.send(
+            `Рад познакомиться! Теперь я знаю, что тебя зовут ${
+                context.scene.state.name
+            } и тебе ${context.scene.state.age} лет. ${
+                context.scene.params.test
+                    ? "Также у тебя есть параметр test!"
+                    : ""
+            }`
+        );
 
-        if (context.scene.params.test === true) await context.send("ОТЛАДКА!");
-
-        return context.scene.step.next();
+        return context.scene.exit();
     });
 
 const bot = new Bot(process.env.TOKEN as string)
-    .extend(scenes([testScene]))
+    .extend(scenes([greetingScene]))
     .command("start", async (context) => {
-        return context.scene.enter(testScene, {
+        return context.scene.enter(greetingScene, {
             test: true,
         });
     });
@@ -69,7 +97,6 @@ const testScene = new Scene("test")
             return context.send("2");
 
         console.log(context.scene.state.messageId);
-        //                           ^?
     });
 ```
 
@@ -128,7 +155,6 @@ const bot = new Bot(process.env.TOKEN as string)
         if (context.text === "/start" && context.scene.current) {
             if (context.scene.current.is(testScene)) {
                 console.log(context.scene.current.state);
-                //                                    ^?
                 return context.scene.current.step.previous();
             } else return context.scene.current.reenter();
         }
@@ -149,3 +175,5 @@ const bot = new Bot(process.env.TOKEN as string)
 
 > [!IMPORTANT]
 > Одно и то же **хранилище** и **список сцен** нужно использовать и в `scenes()`, и в опциях `scenesDerives()`.
+
+<!-- TODO: Translate any new or changed sections from docs/plugins/official/scenes.md if missed above. -->
