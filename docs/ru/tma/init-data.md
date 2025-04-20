@@ -13,7 +13,16 @@ head:
 
 # Валидация WebAppInitData
 
-Библиотека `@gramio/init-data` позволяет проверять подлинность данных, передаваемых из Telegram Mini Apps на ваш сервер, обеспечивая безопасное взаимодействие между веб-приложением и ботом.
+`@gramio/init-data` — это библиотека на TypeScript для безопасной проверки, разбора и генерации строк инициализации (init data) Telegram Web App. Она предоставляет набор утилит для работы с init data Telegram Mini App, обеспечивая целостность и подлинность пользовательских данных, передаваемых из Telegram-клиента на ваш сервер. Библиотека не зависит от фреймворка.
+
+Основные возможности:
+
+-   Проверка подлинности init data Telegram Web App с помощью токена бота
+-   Разбор и получение структурированных данных пользователя и чата из строки init data
+-   Генерация валидных строк init data для тестирования и документации
+-   Строгие типы TypeScript для всех структур и методов
+
+[Документация и справочник](https://jsr.io/@gramio/init-data@latest/doc)
 
 ## Установка
 
@@ -32,70 +41,114 @@ pnpm add @gramio/init-data
 ```
 
 ```bash [bun]
-bun add @gramio/init-data
+bun install @gramio/init-data
 ```
 
 :::
 
-### validateAndParseInitData
+# getBotTokenSecretKey
+
+Получает секретный ключ из токена вашего Telegram-бота. Этот ключ необходим для проверки хэша строки init data, отправленной из Telegram Web App. Всегда используйте этот метод для генерации ключа перед валидацией или подписью init data, если хотите максимальную производительность. Если не передавать ключ в методы проверки, он будет вычисляться **при каждом вызове**.
 
 ```ts
-import { validateAndParseInitData } from "@gramio/init-data";
+import { getBotTokenSecretKey } from "@gramio/init-data";
 
-const initData = validateAndParseInitData(initDataString, "BOT_TOKEN");
-
-if (!initData) {
-    throw new Error("Invalid init data");
-}
-
-console.log(initData.user);
+const botToken = process.env.BOT_TOKEN as string;
+const secretKey = getBotTokenSecretKey(botToken);
+// используйте secretKey далее
 ```
 
-## Проверка init-data
+# validateAndParseInitData
+
+Проверяет подлинность строки init data Telegram Web App с помощью секретного ключа или токена бота. Если данные валидны, возвращает объект [WebAppInitData](https://core.telegram.org/bots/webapps#webappinitdata). Если данные некорректны — возвращает `false`.
 
 ```ts
-import { validateInitData } from "@gramio/init-data";
+import {
+    validateAndParseInitData,
+    getBotTokenSecretKey,
+} from "@gramio/init-data";
 
-// Получаем init-data из запроса
-const initDataString = req.query.initData;
+const botToken = process.env.BOT_TOKEN as string;
+const secretKey = getBotTokenSecretKey(botToken);
 
-// Валидируем с использованием токена бота
-const isValid = validateInitData(initDataString, "BOT_TOKEN");
+const initData = req.headers["x-init-data"] as string;
+const result = validateAndParseInitData(initData, secretKey);
 
-if (isValid) {
-    // Данные действительно пришли из Telegram
-    console.log("Данные прошли проверку");
-} else {
-    // Данные не прошли проверку или были подделаны
-    console.log("Внимание: Данные не прошли проверку!");
+if (!result) {
+    // Данные невалидны или подделаны
 }
+
+// Доступ к данным пользователя и чата
+const userId = result.user?.id;
+const chatId = result.chat?.id;
 ```
 
-## Получение данных пользователя
+# validateInitData
+
+Проверяет подлинность строки init data Telegram Web App с помощью секретного ключа или токена бота. Возвращает `true`, если данные валидны, иначе — `false`. Этот метод только проверяет данные и **не разбирает** их. Используйте, если нужно только проверить подлинность без извлечения информации о пользователе или чате.
+
+```ts
+import { validateInitData, getBotTokenSecretKey } from "@gramio/init-data";
+
+const botToken = process.env.BOT_TOKEN as string;
+const secretKey = getBotTokenSecretKey(botToken);
+
+const initData = req.headers["x-init-data"] as string;
+const isValid = validateInitData(initData, secretKey);
+
+if (!isValid) {
+    // Данные невалидны или подделаны
+}
+// Если true — строке init data можно доверять
+```
+
+# parseInitData
+
+Разбирает строку init data Telegram Web App и возвращает объект [WebAppInitData](https://core.telegram.org/bots/webapps#webappinitdata). Этот метод **не выполняет проверку** подлинности или целостности — используйте его только после проверки через `validateInitData` или `validateAndParseInitData`.
 
 ```ts
 import { parseInitData } from "@gramio/init-data";
 
-// Разбор строки init-data
-const initData = parseInitData(initDataString);
+const initData = req.headers["x-init-data"] as string;
+const parsed = parseInitData(initData);
 
-// Теперь можно получить доступ к данным
-console.log(initData.user); // Информация о пользователе
-console.log(initData.auth_date); // Дата аутентификации
-console.log(initData.hash); // Хэш для проверки
+// Доступ к данным пользователя и чата
+const userId = parsed.user?.id;
+const chatId = parsed.chat?.id;
 ```
 
-## Безопасность
+# signInitData
 
-Всегда проверяйте данные init-data перед использованием, чтобы гарантировать, что запрос действительно поступил из Telegram и данные не были подделаны.
+Генерирует валидную строку init data из объекта данных и секретного ключа или токена бота. Полезно для тестирования, документации или генерации примеров для клиентов API.
 
-## Пример интеграции с Elysia
+```ts
+import {
+    signInitData,
+    getBotTokenSecretKey,
+    type WebAppUser,
+} from "@gramio/init-data";
 
-Этот пример демонстрирует, как интегрировать `@gramio/init-data` с Elysia с помощью удобного плагина с типо-безопасностью.
+const botToken = process.env.BOT_TOKEN as string;
+const secretKey = getBotTokenSecretKey(botToken);
 
-`examples` в `x-init-data` заголовке являются валидными сгенерированными `init-data`, которые позволяют легче тестировать ваш API в OpenAPI клиентах.
+const data = {
+    user: {
+        id: 1,
+        first_name: "durov",
+        username: "durov",
+    },
+} satisfies WebAppUser;
 
-```ts twoslash
+const signedInitData = signInitData(data, secretKey);
+// Используйте signedInitData как валидную строку init data для тестов
+```
+
+# Пример: интеграция с Elysia
+
+Вы можете использовать `@gramio/init-data` с любым backend-фреймворком. Ниже — бонус: пример интеграции с Elysia для типобезопасной аутентификации.
+
+```ts
+twoslash;
 import {
     validateAndParseInitData,
     signInitData,

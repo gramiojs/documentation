@@ -13,6 +13,7 @@ alwaysApply: true
 - Exclude double translation (do not translate docs/ru/ back into docs/ru/).
 - You can check updates via `Recent changes`
 - Correct grammatical punctuation and other errors in both: original and other language modified files.
+- Please dont delete `// ^?` it used internally 
 
 Examples:
 - docs/plugins/official/scenes.md <=> docs/ru/plugins/official/scenes.md
