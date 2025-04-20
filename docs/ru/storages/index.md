@@ -203,8 +203,21 @@ const storage = redisStorage(redis);
 
 ##### Советы
 
-Для проверки того, какие данные хранятся в Redis, мы рекомендуем использовать графические клиенты, такие как [AnotherRedisDesktopManager](https://github.com/qishibo/AnotherRedisDesktopManager).
+-   Вы можете установить переменную окружения `DEBUG` в `ioredis:*` для вывода отладочной информации:
+
+```bash
+DEBUG=ioredis:* npm run start
+```
+
+и это будет выглядеть так:
+
+```bash
+  ioredis:redis write command[::1:6379]: 0 -> get([ '@gramio/scenes:617580375' ]) +187ms
+  ioredis:redis write command[::1:6379]: 0 -> set([ '@gramio/scenes:617580375', '{"name":"scene-name","state":{},"stepId":0,"previousStepId":0,"firstTime":false}' ]) +1ms
+```
+
+-   Для проверки того, какие данные хранятся в Redis, мы рекомендуем использовать графические клиенты, такие как [AnotherRedisDesktopManager](https://github.com/qishibo/AnotherRedisDesktopManager).
 
 <!-- TODO: More GramIO backend screens -->
 
-<img src="https://cdn.jsdelivr.net/gh/qishibo/img/ardm/202411081318490.png" alt="AnotherRedisDesktopManager" /> 
+<img src="https://cdn.jsdelivr.net/gh/qishibo/img/ardm/202411081318490.png" alt="AnotherRedisDesktopManager" />

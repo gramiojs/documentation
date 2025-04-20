@@ -203,7 +203,20 @@ const storage = redisStorage(redis);
 
 ##### Tips
 
-For inspecting which data is stored in Redis, we recommend you to use GUI clients like [AnotherRedisDesktopManager](https://github.com/qishibo/AnotherRedisDesktopManager).
+-   You can set the `DEBUG` env to `ioredis:*` to print debug info:
+
+```bash
+DEBUG=ioredis:* npm run start
+```
+
+and it will looks like this:
+
+```bash
+  ioredis:redis write command[::1:6379]: 0 -> get([ '@gramio/scenes:617580375' ]) +187ms
+  ioredis:redis write command[::1:6379]: 0 -> set([ '@gramio/scenes:617580375', '{"name":"scene-name","state":{},"stepId":0,"previousStepId":0,"firstTime":false}' ]) +1ms
+```
+
+-   For inspecting which data is stored in Redis, we recommend you to use GUI clients like [AnotherRedisDesktopManager](https://github.com/qishibo/AnotherRedisDesktopManager).
 
 <!-- TODO: More GramIO backend screens -->
 
