@@ -19,7 +19,9 @@ start(options?): Promise<BotInfo>
     -   `allowedUpdates` — a list of update types the bot will receive.
     -   `deleteWebhook` — how to handle an existing webhook when starting long-polling.
 
-> [!IMPORTANT] > **Parameter details:**
+> [!IMPORTANT]
+>
+> **Parameter details:**
 >
 > -   If you set `webhook: true`, GramIO will not attempt to set the webhook itself — it assumes you have already configured it. In this case, the bot will simply start receiving updates via the existing webhook.
 >
