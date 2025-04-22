@@ -2,7 +2,7 @@
 
 ## Start
 
-The `start` method launches the process of receiving updates from Telegram for your bot. Depending on the parameters provided, the bot can use long-polling or webhook to receive events. This method initializes the bot, loads [lazy plugins](/plugins/lazy-load), and calls the [`onStart`](/plugins/hooks#onstart) hook.
+The `start` method launches the process of receiving updates from Telegram for your bot. Depending on the parameters provided, the bot can use long-polling or webhook to receive events. This method initializes the bot, loads [lazy plugins](/plugins/lazy-load), and calls the [`onStart`](/hooks/on-start) hook.
 
 **Signature:**
 
@@ -45,12 +45,12 @@ await bot.start({
 
 -   If webhook is not specified, long-polling is started.
 -   If webhook is specified, the webhook is set up and the bot starts receiving updates via HTTP.
--   Calls the [`onStart`](/plugins/hooks#onstart) hook.
+-   Calls the [`onStart`](/hooks/on-start) hook.
 -   You can drop old updates on start.
 
 ## Stop
 
-The `stop` method stops receiving updates and gracefully shuts down all internal bot processes. The [`onStop`](/plugins/hooks#onstop) hook is called, and the update queue is cleared.
+The `stop` method stops receiving updates and gracefully shuts down all internal bot processes. The [`onStop`](/hooks/on-stop) hook is called, and the update queue is cleared.
 
 **Signature:**
 
@@ -72,7 +72,7 @@ await bot.stop();
 
 -   Stops long-polling or webhook (if it was running).
 -   Waits for all current updates to finish processing.
--   Calls the [`onStop`](/plugins/hooks#onstop) hook.
+-   Calls the [`onStop`](/hooks/on-stop) hook.
 
 # Context
 
