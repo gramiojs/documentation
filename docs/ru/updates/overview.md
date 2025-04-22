@@ -11,7 +11,85 @@ head:
         content: "телеграм бот, фреймворк, как создать бота, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, обработка обновлений, context объект, middleware, события бота, Update типы, обработчики событий, next функция, цепочка middleware, message события, callback_query события, фильтрация обновлений, маршрутизация событий, edited_message, channel_post, inline_query, polling, webhook, типы обновлений, регистрация обработчиков"
 ---
 
-# Контекст
+# Обработка обновлений
+
+## Start
+
+Метод `start` запускает процесс получения обновлений от Telegram для вашего бота. В зависимости от переданных параметров, бот может использовать long-polling или webhook для получения событий. Этот метод инициализирует бота, подгружает [lazy плагины](/docs/ru/plugins/lazy-load) и вызывает хук [`onStart`](/docs/ru/plugins/hooks#onstart).
+
+**Сигнатура:**
+
+```ts
+start(options?): Promise<BotInfo>
+```
+
+**Параметры:**
+
+-   `options` — объект с настройками запуска:
+    -   `webhook` — параметры для запуска через webhook (`true`, строка-URL или объект с параметрами).
+    -   `longPolling` — параметры для long-polling (например, таймауты).
+    -   `dropPendingUpdates` — сбрасывать ли неотправленные обновления при запуске.
+    -   `allowedUpdates` — список типов обновлений, которые бот будет получать.
+    -   `deleteWebhook` — как поступать с существующим webhook при запуске long-polling.
+
+> [!IMPORTANT]
+>
+> **Особенности параметров:**
+>
+> -   Если указать `webhook: true`, GramIO не будет пытаться установить webhook самостоятельно — предполагается, что вы уже настроили его. В этом случае бот просто начнёт принимать обновления через уже существующий webhook.
+>
+> -   Параметр `deleteWebhook` управляет тем, что делать с существующим webhook при запуске long-polling:
+>     -   Если `deleteWebhook: true`, бот всегда удаляет webhook перед запуском long-polling.
+>     -   Если `deleteWebhook: "on-conflict-with-polling"`, webhook будет удалён только если он мешает запуску long-polling (когда Telegram отвечает на запрос `getUpdates` с ошибкой конфликта).
+>     -   Если не указано, используется поведение по умолчанию (`on-conflict-with-polling`).
+
+```ts
+import { Bot } from "gramio";
+
+const bot = new Bot(process.env.BOT_TOKEN)
+    .command("start", (ctx) => ctx.send("Привет!"))
+    .onStart(console.log);
+
+await bot.start({
+    longPolling: { timeout: 10 },
+    dropPendingUpdates: true,
+});
+```
+
+**Описание работы:**
+
+-   Если не указан webhook, запускается long-polling.
+-   Если указан webhook, настраивается webhook и бот начинает принимать обновления через HTTP.
+-   Вызывает хук [`onStart`](/docs/ru/plugins/hooks#onstart).
+-   Можно сбросить старые обновления при запуске.
+
+## Stop
+
+Метод `stop` завершает приём обновлений и корректно останавливает все внутренние процессы бота. Вызываются хуки завершения (`onStop`), очищается очередь обновлений.
+
+**Сигнатура:**
+
+```ts
+stop(timeout?): Promise<void>
+```
+
+**Параметры:**
+
+-   `timeout` — время ожидания завершения обработки очереди обновлений (по умолчанию 3000 мс).
+
+**Пример использования:**
+
+```ts
+await bot.stop();
+```
+
+**Описание работы:**
+
+-   Останавливает long-polling или webhook (если был запущен).
+-   Дожидается завершения обработки всех текущих обновлений.
+-   Вызывает хук [`onStop`](/docs/ru/plugins/hooks#onstop).
+
+## Контекст
 
 ## Прослушивание всех событий
 
@@ -143,4 +221,4 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
         context.k;
         //       ^|
     });
-``` 
+```

@@ -189,6 +189,6 @@ const app = new Elysia()
     .use(authElysia)
     .get("/user", ({ user }) => {
         user;
-        //  ^?
+        // ^?
     });
 ```
