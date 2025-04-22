@@ -120,6 +120,51 @@ const bot = new Bot(process.env.TOKEN as string)
 
 [Подробнее о хранилищах](/ru/storages/)
 
+### on
+
+Этот метод позволяет зарегистрировать обработчик событий для сцены.
+
+```ts
+const guessRandomNumberScene = new Scene("guess-random-number")
+    .params<{ randomNumber: number }>()
+    .on("message", (context, next) => {
+        return await Promise.all([context.delete(), next()]);
+    })
+    .step(["message", "callback_query"], async (context) => {
+        if (context.scene.step.firstTime)
+            return context.send("Попробуй угадать число от 1 до 10");
+
+        const number = Number(context.text);
+
+        if (
+            Number.isNaN(number) ||
+            number !== context.scene.params.randomNumber
+        )
+            return; // Обработчик выше удалит отправленное пользователем сообщение
+
+        return Promise.all([
+            context.send(
+                format(
+                    `Поздравляю! Ты угадал число ${bold(
+                        context.scene.params.randomNumber
+                    )}!`
+                )
+            ),
+            context.scene.exit(),
+        ]);
+    });
+```
+
+Стоит помнить, что обработчик регистрируется только для всех идущих после него обработчиков (шагов или тех же `.on`).
+
+```ts
+new Scene("test")
+    .on(...) // Вызывается для всех шагов
+    .step(...)
+    .on(...) // Начинает вызываться только после достижения 2 шага
+    .step(...)
+```
+
 ## Контекст сцены
 
 <!-- Контекст сцены содержит в себе все данные . -->
@@ -132,6 +177,7 @@ const bot = new Bot(process.env.TOKEN as string)
 import { Scene } from "@gramio/scenes";
 
 const testScene = new Scene("test")
+
     .step("message", async (context) => {
         if (context.scene.step.firstTime)
             return context.send("Первое сообщение");

@@ -100,6 +100,51 @@ const testScene = new Scene("test")
     });
 ```
 
+## on
+
+This method allows you to register event handlers for a scene.
+
+```ts
+const guessRandomNumberScene = new Scene("guess-random-number")
+    .params<{ randomNumber: number }>()
+    .on("message", async (context, next) => {
+        return await Promise.all([context.delete(), next()]);
+    })
+    .step(["message", "callback_query"], async (context) => {
+        if (context.scene.step.firstTime)
+            return context.send("Try to guess a number from 1 to 10");
+
+        const number = Number(context.text);
+
+        if (
+            Number.isNaN(number) ||
+            number !== context.scene.params.randomNumber
+        )
+            return; // The handler above will delete the user's message
+
+        return Promise.all([
+            context.send(
+                format(
+                    `Congratulations! You guessed the number ${bold(
+                        context.scene.params.randomNumber
+                    )}!`
+                )
+            ),
+            context.scene.exit(),
+        ]);
+    });
+```
+
+Keep in mind that a handler is registered only for all subsequent steps (or .on handlers) after it is declared.
+
+```ts
+new Scene("test")
+    .on(...) // Called for all steps
+    .step(...)
+    .on(...) // Called only after the 2nd step is reached
+    .step(...)
+```
+
 ## Storage usage
 
 ```ts
