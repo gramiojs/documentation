@@ -108,11 +108,17 @@ This method allows you to register event handlers for a scene.
 const guessRandomNumberScene = new Scene("guess-random-number")
     .params<{ randomNumber: number }>()
     .on("message", async (context, next) => {
+        // This check is needed so the handler does not trigger on firstTime because context will be the same as previous step
+        if (context.scene.step.firstTime) return next();
+
         return await Promise.all([context.delete(), next()]);
     })
     .step(["message", "callback_query"], async (context) => {
         if (context.scene.step.firstTime)
             return context.send("Try to guess a number from 1 to 10");
+
+        if (!context.is("message"))
+            return context.answer("Please write a message with a number");
 
         const number = Number(context.text);
 

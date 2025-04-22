@@ -127,12 +127,18 @@ const bot = new Bot(process.env.TOKEN as string)
 ```ts
 const guessRandomNumberScene = new Scene("guess-random-number")
     .params<{ randomNumber: number }>()
-    .on("message", (context, next) => {
+    .on("message", async (context, next) => {
+        // Это условие нужно, чтобы обработчик не срабатывал при firstTime так как context будет одинаковым с предыдущим шагом
+        if (context.scene.step.firstTime) return next();
+
         return await Promise.all([context.delete(), next()]);
     })
     .step(["message", "callback_query"], async (context) => {
         if (context.scene.step.firstTime)
             return context.send("Попробуй угадать число от 1 до 10");
+
+        if (!context.is("message"))
+            return context.answer("Пожалуйста, отправьте число сообщением");
 
         const number = Number(context.text);
 
@@ -155,13 +161,13 @@ const guessRandomNumberScene = new Scene("guess-random-number")
     });
 ```
 
-Стоит помнить, что обработчик регистрируется только для всех идущих после него обработчиков (шагов или тех же `.on`).
+Обратите внимание: обработчик применяется только ко всем шагам, объявленным после него (или к следующим .on), а не к предыдущим.
 
 ```ts
 new Scene("test")
     .on(...) // Вызывается для всех шагов
     .step(...)
-    .on(...) // Начинает вызываться только после достижения 2 шага
+    .on(...) // Вызывается только после достижения второго шага
     .step(...)
 ```
 
