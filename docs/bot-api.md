@@ -187,3 +187,17 @@ And logs will looks like:
 [fetch] < Server: EOS (vny/044F)
 [fetch] < Content-Length: 1256
 ```
+
+### Bun startup optimization: --fetch-preconnect
+
+If you are running your bot with Bun, you can use the CLI flag `--fetch-preconnect=<url>` to speed up the first network request to Telegram servers. This flag tells Bun to start establishing the connection (DNS, TCP, TLS) to the specified host before your code runs, so the first API call is faster.
+
+Example:
+
+```bash
+bun --fetch-preconnect=https://api.telegram.org:443/ ./src/bot.ts
+```
+
+This is especially useful for bots where the first thing you do is call the Telegram API. With this flag, Bun will "warm up" the connection at startup, so your bot will be ready to send requests with less delay. The overall startup time may increase slightly, but the time to first successful API call will decrease. In most cases this is not an issue, but the benefit is less noticeable if the first request is sent immediately after the process starts.
+
+See more in the [Bun documentation](https://bun.sh/docs/api/fetch#preconnect-to-a-host).

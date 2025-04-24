@@ -9,7 +9,6 @@ head:
     - - meta
       - name: "keywords"
         content: telegram bot, framework, how to create a bot, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, Bot class, bot instance, bot configuration, bot initialization, bot token, bot methods, update handling, bot middleware, event listeners, on method, command method, webhook setup, bot polling, bot lifecycle
-
 ---
 
 # Main bot class

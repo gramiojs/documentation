@@ -403,9 +403,11 @@ const bot = new Bot(process.env.TOKEN as string)
 
 <!-- TODO: Translate any new or changed sections from docs/plugins/official/scenes.md if missed above. -->
 
-По умолчанию при регистрации плагина `scenes()` используется `inMemoryStorage`. Так что когда вам необходимо использовать `scenesDerives()` для управления сценами, вы должны сами объявить `inMemoryStorage` и явно указать его в опциях `scenesDerives()` и `scenes()`.
+По умолчанию при регистрации плагина `scenes()` используется `inMemoryStorage`. Поэтому если вам нужно использовать `scenesDerives()` для управления сценами, необходимо явно объявить `inMemoryStorage` и явно указать его в опциях как для `scenesDerives()`, так и для `scenes()`.
 
 ```ts
+import { inMemoryStorage } from "@gramio/storage";
+
 const storage = inMemoryStorage(); // Хранит в памяти процесса и будет стёрто при перезапуске
 
 const bot = new Bot(process.env.TOKEN as string)
