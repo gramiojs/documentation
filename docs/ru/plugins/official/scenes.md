@@ -123,6 +123,38 @@ const bot = new Bot(process.env.TOKEN as string)
 
 [Подробнее о хранилищах](/ru/storages/)
 
+### step
+
+Это функция — шаг сцены. Он выполняется только когда текущий id шага сцены совпадает с порядком зарегистрированного шага.
+
+```ts
+const testScene = new Scene("test")
+    // Для одного события
+    .step("message", async (context) => {
+        if (context.scene.step.firstTime)
+            return context.send("Первое сообщение");
+        return context.scene.exit();
+    })
+    // Для конкретных событий
+    .step(["message", "callback_query"], async (context) => {
+        if (context.scene.step.firstTime)
+            return context.send(
+                "Второе сообщение после сообщения пользователя"
+            );
+        if (context.is("callback_query"))
+            return context.answer("Вы нажали на кнопку");
+        return context.scene.exit();
+    })
+    // Для всех событий
+    .step((context) => {
+        console.log(context);
+        return context.scene.exit();
+    });
+```
+
+> [!NOTE]
+> Если пользователь создаёт событие, которое не зарегистрировано в шаге, оно будет проигнорировано этим шагом (но зарегистрированные для него обработчики событий будут вызваны).
+
 ### on
 
 Этот метод позволяет зарегистрировать обработчик событий для сцены.

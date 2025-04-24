@@ -406,3 +406,35 @@ const bot = new Bot(process.env.TOKEN as string)
 
 > [!IMPORTANT]
 > Be careful. The first step of the scene should also include the event from which you entered the scene. (For example, if you enter via InlineButton click — `callback_query`)
+
+### step
+
+This function defines a scene step. It is executed only when the current scene step id matches the registered step order.
+
+```ts
+const testScene = new Scene("test")
+    // For a single event
+    .step("message", async (context) => {
+        if (context.scene.step.firstTime) return context.send("First message");
+
+        return context.scene.exit();
+    })
+    // For specific events
+    .step(["message", "callback_query"], async (context) => {
+        if (context.scene.step.firstTime)
+            return context.send("Second message after the user's message");
+
+        if (context.is("callback_query"))
+            return context.answer("You pressed the button");
+
+        return context.scene.exit();
+    })
+    // For all events
+    .step((context) => {
+        console.log(context);
+        return context.scene.exit();
+    });
+```
+
+> [!NOTE]
+> If the user triggers an event that is not registered in the step, it will be ignored by the step (but any event handlers registered for it will still be called).
