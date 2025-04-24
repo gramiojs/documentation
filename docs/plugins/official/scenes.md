@@ -403,3 +403,6 @@ const bot = new Bot(process.env.TOKEN as string)
     // ...
     .extend(scenesDerives([testScene], { storage }));
 ```
+
+> [!IMPORTANT]
+> Be careful. The first step of the scene should also include the event from which you entered the scene. (For example, if you enter via InlineButton click — `callback_query`)

@@ -77,6 +77,9 @@ const bot = new Bot(process.env.TOKEN as string)
     });
 ```
 
+> [!WARNING]
+> Будьте внимательны. Первый шаг сцены должен так же включать в себя событие из которого вы вошли в сцену. (например если по нажатию InlineButton - `callback_query`)
+
 ### Общее состояние между шагами
 
 ```ts twoslash
