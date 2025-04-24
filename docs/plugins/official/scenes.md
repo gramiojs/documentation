@@ -390,3 +390,16 @@ const bot = new Bot(process.env.TOKEN as string)
 
 > [!IMPORTANT]
 > The same **storage** and **list of scenes** should be shared across `scenes()` and `scenesDerives()` options.
+
+By default, when registering the `scenes()` plugin, `inMemoryStorage` is used. So if you need to use `scenesDerives()` to manage scenes, you must declare `inMemoryStorage` yourself and explicitly specify it in both `scenesDerives()` and `scenes()` options.
+
+```ts
+import { inMemoryStorage } from "@gramio/storage";
+
+const storage = inMemoryStorage(); // Stores in process memory and will be erased on restart
+
+const bot = new Bot(process.env.TOKEN as string)
+    .extend(scenes([testScene], { storage }))
+    // ...
+    .extend(scenesDerives([testScene], { storage }));
+```
