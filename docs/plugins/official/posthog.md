@@ -15,19 +15,19 @@ A plugin that conveniently wraps the [PostHog](https://posthog.com/) client. Aut
 ::: code-group
 
 ```bash [npm]
-npm install @gramio/media-group
+npm install @gramio/posthog
 ```
 
 ```bash [yarn]
-yarn add @gramio/media-group
+yarn add @gramio/posthog
 ```
 
 ```bash [pnpm]
-pnpm add @gramio/media-group
+pnpm add @gramio/posthog
 ```
 
 ```bash [bun]
-bun install @gramio/media-group
+bun install @gramio/posthog
 ```
 
 :::
