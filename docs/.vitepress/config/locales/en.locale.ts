@@ -67,6 +67,10 @@ export const localeEn = {
 										link: "/plugins/official/media-group",
 									},
 									{
+										text: "PostHog",
+										link: "/plugins/official/posthog",
+									},
+									{
 										text: "Prompt",
 										link: "/plugins/official/prompt",
 									},

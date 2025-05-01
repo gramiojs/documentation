@@ -94,6 +94,10 @@ export const localeRu = {
 										link: "/ru/plugins/official/media-group",
 									},
 									{
+										text: "PostHog",
+										link: "/ru/plugins/official/posthog",
+									},
+									{
 										text: "Prompt",
 										link: "/ru/plugins/official/prompt",
 									},

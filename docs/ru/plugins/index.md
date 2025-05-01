@@ -23,4 +23,5 @@ head:
 -   [Авто-повтор](/ru/plugins/official/auto-retry)
 -   [Кеш медиа](/ru/plugins/official/media-cache)
 -   [Медиа группы](/ru/plugins/official/media-group)
--   [Prompt](/ru/plugins/official/prompt) 
+-   [PostHog](/ru/plugins/official/posthog)
+-   [Prompt](/ru/plugins/official/prompt)
