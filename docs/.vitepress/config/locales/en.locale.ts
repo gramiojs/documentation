@@ -81,7 +81,7 @@ export const localeEn = {
 				],
 				"/": [
 					{
-						text: "Guide",
+						text: "Documentation",
 						items: [
 							{ text: "Get started", link: "/get-started" },
 							{ text: "Bot API", link: "/bot-api" },
@@ -240,6 +240,15 @@ export const localeEn = {
 							{
 								text: "Bot class",
 								link: "/bot-class",
+							},
+						],
+					},
+					{
+						text: "Guides",
+						items: [
+							{
+								text: "Telegram Stars",
+								link: "/guides/telegram-stars",
 							},
 						],
 					},

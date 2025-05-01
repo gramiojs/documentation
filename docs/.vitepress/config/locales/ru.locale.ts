@@ -236,6 +236,15 @@ export const localeRu = {
 							},
 						],
 					},
+					{
+						text: "Гайды",
+						items: [
+							{
+								text: "Telegram Stars",
+								link: "/ru/guides/telegram-stars",
+							},
+						],
+					},
 				],
 			},
 			// Переводы для дефолтных интерфейсов vitepress'а
