@@ -11,37 +11,12 @@ export const localeRu = {
 				{ text: "Главная", link: "/ru" },
 				{ text: "Начало", link: "/ru/get-started" },
 				{ text: "Плагины", link: "/ru/plugins/index" },
-				{ text: "Гайды", link: "/ru/guides" },
+				// { text: "Гайды", link: "/ru/guides" },
 			],
 			sidebar: {
-				"/ru/guides/": [
-					{
-						text: "Гайды",
-						items: [
-							{
-								text: "Для новичков",
-								items: [
-									{
-										text: "1. Введение",
-										link: "/ru/guides/for-beginners/1.md",
-									},
-									{
-										text: "2. Знакомство",
-										link: "/ru/guides/for-beginners/2.md",
-									},
-									{
-										text: "3. TypeScript и виды клавиатур",
-										link: "/ru/guides/for-beginners/3.md",
-									},
-									{
-										text: "4. SOON",
-										link: "/ru/guides/for-beginners/4.md",
-									},
-								],
-							},
-						],
-					},
-				],
+				// "/ru/guides/": [
+
+				// ],
 				"/ru/plugins/": [
 					{
 						text: "Плагины",
@@ -239,6 +214,28 @@ export const localeRu = {
 					{
 						text: "Гайды",
 						items: [
+							{
+								text: "Для новичков",
+								collapsed: true,
+								items: [
+									{
+										text: "1. Введение",
+										link: "/ru/guides/for-beginners/1.md",
+									},
+									{
+										text: "2. Знакомство",
+										link: "/ru/guides/for-beginners/2.md",
+									},
+									{
+										text: "3. TypeScript и виды клавиатур",
+										link: "/ru/guides/for-beginners/3.md",
+									},
+									{
+										text: "4. SOON",
+										link: "/ru/guides/for-beginners/4.md",
+									},
+								],
+							},
 							{
 								text: "Telegram Stars",
 								link: "/ru/guides/telegram-stars",

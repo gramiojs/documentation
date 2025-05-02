@@ -247,6 +247,28 @@ export const localeEn = {
 						text: "Guides",
 						items: [
 							{
+								text: "For beginners",
+								collapsed: true,
+								items: [
+									{
+										text: "1. Introduction",
+										link: "/guides/for-beginners/1.md",
+									},
+									{
+										text: "2. Getting started",
+										link: "/guides/for-beginners/2.md",
+									},
+									{
+										text: "3. TypeScript and keyboard types",
+										link: "/guides/for-beginners/3.md",
+									},
+									{
+										text: "4. SOON",
+										link: "/guides/for-beginners/4.md",
+									},
+								],
+							},
+							{
 								text: "Telegram Stars",
 								link: "/guides/telegram-stars",
 							},
