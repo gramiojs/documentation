@@ -10,6 +10,10 @@
 
 Плагин, который удобно оборачивает клиент [PostHog](https://posthog.com/). Автоматически ловит ошибки (и включает в них `senderId` и `chatId`). Предоставляет методы к которым уже привязан distinctId (в виде `from.id`)
 
+Вы можете использовать [PostHog Cloud free tier](https://posthog.com/pricing) или [self-hosted](https://posthog.com/docs/advanced/self-hosting).
+
+![PostHog](/ru/posthog.png)
+
 ### Установка
 
 ::: code-group

@@ -10,6 +10,10 @@
 
 A plugin that conveniently wraps the [PostHog](https://posthog.com/) client. Automatically catches errors (including `senderId` and `chatId` in them). Provides methods with pre-bound distinctId (as `from.id`).
 
+You can use [PostHog Cloud free tier](https://posthog.com/pricing) or [self-hosted](https://posthog.com/docs/advanced/self-hosting).
+
+![PostHog](/posthog.png)
+
 ### Installation
 
 ::: code-group
