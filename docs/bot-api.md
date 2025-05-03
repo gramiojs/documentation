@@ -143,6 +143,42 @@ type GetMeReturn = SuppressedAPIMethodReturn<"getMe">;
 //
 ```
 
+### Calling API Methods Not Present in Types
+
+First, check if they exist in [@gramio/types](https://github.com/gramiojs/types).
+
+If they exist there but aren't visible in GramIO, you can override the dependency version in your `package.json`:
+
+```json
+{
+    "overrides": {
+        "@gramio/types": "10.0.0"
+    }
+}
+```
+
+If they don't exist (e.g., when using a custom Telegram Bot API server), you can use [declaration merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html):
+
+```ts
+declare module "@gramio/types" {
+    export interface APIMethods {
+        myCustomMethod: (params: {
+            chat_id: string;
+            text: string;
+        }) => Promise<"some return type">;
+    }
+}
+```
+
+Now you can use `myCustomMethod` as a regular API method:
+
+```ts
+bot.api.myCustomMethod({
+    chat_id: "123",
+    text: "Hello",
+});
+```
+
 ### Debugging
 
 In order to debug which requests GramIO sends, you can set the environment variable to `DEBUG=gramio:api:*`
@@ -190,7 +226,7 @@ And logs will looks like:
 
 ### Bun startup optimization: --fetch-preconnect
 
-If you are running your bot with Bun, you can use the CLI flag `--fetch-preconnect=<url>` to speed up the first network request to Telegram servers. This flag tells Bun to start establishing the connection (DNS, TCP, TLS) to the specified host before your code runs, so the first API call is faster.
+If you are running your bot with [Bun](https://bun.sh), you can use the CLI flag `--fetch-preconnect=<url>` to speed up the first network request to Telegram servers. This flag tells Bun to start establishing the connection (DNS, TCP, TLS) to the specified host before your code runs, so the first API call is faster.
 
 Example:
 

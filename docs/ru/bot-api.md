@@ -147,6 +147,42 @@ type GetMeReturn = SuppressedAPIMethodReturn<"getMe">;
 //
 ```
 
+### Вызов методов API, которые не указаны в типах
+
+Во первых, проверьте, есть ли они в [@gramio/types](https://github.com/gramiojs/types).
+
+Если есть, а в GramIO они не отображаются, то вы можете переопределить зависимость на более новую версию в вашем `package.json`.
+
+```json
+{
+    "overrides": {
+        "@gramio/types": "10.0.0"
+    }
+}
+```
+
+Если же их там нет и вы например используете кастомный Telegram Bot API сервер, то вы можете воспользоваться [declaration merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html).
+
+```ts
+declare module "@gramio/types" {
+    export interface APIMethods {
+        myCustomMethod: (params: {
+            chat_id: string;
+            text: string;
+        }) => Promise<"some return type">;
+    }
+}
+```
+
+И теперь вы можете использовать `myCustomMethod` как обычный метод API.
+
+```ts
+bot.api.myCustomMethod({
+    chat_id: "123",
+    text: "Hello",
+});
+```
+
 ### Отладка
 
 Для отладки запросов, которые отправляет GramIO, вы можете установить переменную окружения `DEBUG=gramio:api:*`

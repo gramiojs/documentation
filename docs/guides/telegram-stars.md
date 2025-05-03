@@ -111,7 +111,7 @@ context.anser(
 
 ### Testing Payments
 
-Enable test mode in GramIO configuration:
+Enable test environment:
 
 ```typescript
 const bot = new Bot(process.env.BOT_TOKEN, {
@@ -123,7 +123,7 @@ const bot = new Bot(process.env.BOT_TOKEN, {
 
 ### Handling Disputes
 
-Implement refund logic using GramIO's API:
+Implement refund logic using Telegram's API:
 
 ```typescript
 bot.command("refund", async (context) => {
