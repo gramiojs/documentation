@@ -170,3 +170,22 @@ const answer = await context.wait("message", {
 ```
 
 answer is `string`
+
+## waitWithAction
+
+This function is similar to `wait`, but allows you to perform an action while waiting for an event and get both results.
+
+```ts
+const [answer, sentMessage] = await context.waitWithAction(
+    "message",
+    () => context.send("Please enter your name"),
+    {
+        validate: (ctx) => !!ctx.text,
+        transform: (ctx) => ctx.text.toUpperCase(),
+        onValidateError: "Please enter a valid name!",
+    }
+);
+
+// answer has type `string`
+// sentMessage has type `MessageContext`
+```

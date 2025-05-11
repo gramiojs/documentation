@@ -114,13 +114,9 @@ const answer = await context.prompt(
 ### Трансформация
 
 ```ts
-const name = await context.prompt(
-    "message",
-    format`Как вас ${bold`зовут`}?`,
-    {
-        transform: (context) => context.text || context.caption || "",
-    }
-);
+const name = await context.prompt("message", format`Как вас ${bold`зовут`}?`, {
+    transform: (context) => context.text || context.caption || "",
+});
 ```
 
 name имеет тип `string`
@@ -169,4 +165,23 @@ const answer = await context.wait("message", {
 });
 ```
 
-ответ имеет тип `string` 
+ответ имеет тип `string`
+
+## waitWithAction
+
+Эта функция похожа на `wait`, но позволяет выполнить какое-либо действие вместе с ожиданием события и получить результат.
+
+```ts
+const [answer, sentMessage] = await context.waitWithAction(
+    "message",
+    () => context.send("Пожалуйста, введите ваше имя"),
+    {
+        validate: (ctx) => !!ctx.text,
+        transform: (ctx) => ctx.text.toUpperCase(),
+        onValidateError: "Пожалуйста, введите ваше имя правильно!",
+    }
+);
+
+// answer имеет тип `string`
+// sentMessage имеет тип `MessageContext`
+```

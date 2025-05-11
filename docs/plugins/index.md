@@ -23,4 +23,5 @@ Please see our official plugins:
 -   [Auto retry](/plugins/official/auto-retry)
 -   [Media cache](/plugins/official/media-cache)
 -   [Media group](/plugins/official/media-group)
+-   [PostHog](/plugins/official/posthog)
 -   [Prompt](/plugins/official/prompt)
