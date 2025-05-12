@@ -4,11 +4,11 @@ title: Prompt Plugin for GramIO
 head:
     - - meta
       - name: "description"
-        content: "Create interactive conversations by asking users for input in your Telegram bot with the prompt plugin."
+        content: "Easy way to prompt users for input in your Telegram bot"
 
     - - meta
       - name: "keywords"
-        content: "Telegram bot, GramIO, prompt plugin, user input, interactive bots, conversation flow, dialog management, form filling, user data collection, sequential questions, validation, interactive commands, user response handling, chat-based forms, TypeScript, Deno, Bun, Node.js, bot conversation"
+        content: "telegram bot, framework, how to create bot, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, prompt plugin, user input handling, dialog interface, multi-step scenarios, response validation, answer transformation, wait method, message waiting, callback query handling, user surveys, bot conversation"
 ---
 
 # Prompt Plugin
@@ -22,6 +22,9 @@ head:
 </div>
 
 A plugin that provides [Prompt](#prompt) and [Wait](#wait) methods
+
+> [!NOTE]
+> We recommend considering `scenes` instead. Please see the [comparison of `prompt` and `scenes`](/plugins/official/scenes#vs-prompt)
 
 ### Installation
 

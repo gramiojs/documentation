@@ -23,6 +23,9 @@ head:
 
 Плагин, который предоставляет методы [Prompt](#prompt) и [Wait](#wait)
 
+> [!NOTE]
+> Рекомендуется выбирать `scenes`, поэтому ознакомьтесь с [сравнением `prompt` и `scenes`](/ru/plugins/official/scenes#vs-prompt)
+
 ### Установка
 
 ::: code-group

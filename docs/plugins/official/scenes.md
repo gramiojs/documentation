@@ -438,3 +438,13 @@ const testScene = new Scene("test")
 
 > [!NOTE]
 > If the user triggers an event that is not registered in the step, it will be ignored by the step (but any event handlers registered for it will still be called).
+
+## VS Prompt
+
+> Spoiler: We recommend using `scenes`
+
+`prompt` and `scenes` are two plugins for the same purpose: asking and receiving answers from users.
+
+`prompt` is a simpler version implemented using `Promise` and `in-memory` storage. It's easier for simple Question-Answer scenarios but has limitations like data being stored in process memory and lost on restart.
+
+`scenes` solves this with its step-based approach and supports any storage like `Redis`, making it reliable for production use.
