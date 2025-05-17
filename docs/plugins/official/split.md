@@ -1,3 +1,16 @@
+---
+title: "Split Plugin for GramIO - Auto-Split Long Messages for Telegram Bots"
+
+head:
+    - - meta
+      - name: "description"
+        content: "Automatically split long messages exceeding Telegram limits with GramIO Split plugin. Preserve formatting entities, handle captions, and maintain message integrity across multiple parts."
+
+    - - meta
+      - name: "keywords"
+        content: "Telegram bot message splitting, split long messages GramIO, Telegram API limits workaround, message entity preservation, auto-split entities, handle large text messages, Telegram caption splitting, message chunking plugin, splitMessage function, text segmentation for bots, message size limit solution, Telegram bot tools, GramIO plugins"
+---
+
 # Split Plugin
 
 <div class="badges">
