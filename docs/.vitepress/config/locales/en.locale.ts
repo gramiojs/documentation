@@ -71,6 +71,10 @@ export const localeEn = {
 										link: "/plugins/official/posthog",
 									},
 									{
+										text: "Split",
+										link: "/plugins/official/split",
+									},
+									{
 										text: "Prompt",
 										link: "/plugins/official/prompt",
 									},

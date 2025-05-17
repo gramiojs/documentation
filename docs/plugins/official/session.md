@@ -11,7 +11,7 @@ head:
         content: "Telegram bot, GramIO, session plugin, user data storage, persistent state, Redis integration, session management, user preferences, context storage, stateful bots, user settings, memory adapters, data persistence, session middleware, storage adapters, TypeScript, Deno, Bun, Node.js"
 ---
 
-# Session Plugi
+# Session Plugin
 
 <div class="badges">
 
@@ -22,8 +22,6 @@ head:
 </div>
 
 Session plugin for GramIO.
-
-**Currently not optimized and WIP.**
 
 ### Installation
 

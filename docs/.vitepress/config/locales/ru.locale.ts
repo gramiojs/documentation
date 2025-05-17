@@ -73,6 +73,10 @@ export const localeRu = {
 										link: "/ru/plugins/official/posthog",
 									},
 									{
+										text: "Split",
+										link: "/ru/plugins/official/split",
+									},
+									{
 										text: "Prompt",
 										link: "/ru/plugins/official/prompt",
 									},

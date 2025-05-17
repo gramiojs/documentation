@@ -24,4 +24,5 @@ Please see our official plugins:
 -   [Media cache](/plugins/official/media-cache)
 -   [Media group](/plugins/official/media-group)
 -   [PostHog](/plugins/official/posthog)
+-   [Split](/plugins/official/split)
 -   [Prompt](/plugins/official/prompt)

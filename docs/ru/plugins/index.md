@@ -24,4 +24,5 @@ head:
 -   [Кеш медиа](/ru/plugins/official/media-cache)
 -   [Медиа группы](/ru/plugins/official/media-group)
 -   [PostHog](/ru/plugins/official/posthog)
+-   [Split](/ru/plugins/official/split)
 -   [Prompt](/ru/plugins/official/prompt)
