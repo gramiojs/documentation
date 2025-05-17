@@ -188,3 +188,76 @@ const [answer, sentMessage] = await context.waitWithAction(
 // answer имеет тип `string`
 // sentMessage имеет тип `MessageContext`
 ```
+
+## Timeout
+
+Позволяет указать, время на ответ. После истечения времени, будет вызвана ошибка `Timeout` (основываясь на `timeoutStrategy`). `timeout` (**время в миллисекундах**) можно передать в любом методе в дополнительных параметрах.
+
+```ts
+new Bot()
+    .extend(
+        prompt({
+            timeoutStrategy: "on-timer", // или "on-answer" (по умолчанию)
+        })
+    )
+    .onError("message", ({ error, kind, context }) => {
+        if (kind === "prompt-cancel") {
+            // На данный момент, содержит только Timeout ошибку, но это обязательно изменится
+            return context.send("Время на ответ истекло :(");
+        }
+
+        console.error(error);
+
+        return context.send("Произошла ошибка");
+    })
+    .command("start", async (context) => {
+        const [answer, sentMessage] = await context.waitWithAction(
+            "message",
+            () => context.send("Пожалуйста, введите ваше имя"),
+            {
+                timeout: 10_000, // 10 seconds
+            }
+        );
+
+        return Promise.all([
+            sentMessage.delete(),
+            context.send(`Спасибо, ${answer.text}!`),
+        ]);
+    });
+```
+
+## Настройки
+
+```ts
+import { prompt, type PromptsType } from "@gramio/prompt";
+
+const mySharedMap: PromptsType = new Map();
+
+new Bot().extend(
+    prompt({
+        timeoutStrategy: "on-timer",
+        defaults: {
+            timeout: 30_000, // 30 seconds
+            validate: (ctx) => ctx.hasText(),
+            transform: (ctx) => ctx.text.toUpperCase(),
+            onValidateError: "Validation failed. Please try again.",
+        },
+        map: mySharedMap,
+    })
+);
+```
+
+### timeoutStrategy
+
+Позволяет выбрать, как будет вызвана ошибка `Timeout`.
+
+-   `"on-answer"` (**по умолчанию**) - `Timeout` ошибка будет вызвана, если пользователь отправит сообщение ПОСЛЕ того, как истечёт время.
+-   `"on-timer"` - `Timeout` ошибка будет вызвана, если истечёт время благодаря `setTimeout`.
+
+### defaults
+
+Позволяет указать значения по умолчанию для методов.
+
+### map
+
+Позволяет передать свой Map для хранения состояний. Благодаря этому можно будет модифицировать его в любом месте.

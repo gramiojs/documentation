@@ -176,7 +176,7 @@ answer is `string`
 
 ## waitWithAction
 
-This function is similar to `wait`, but allows you to perform an action while waiting for an event and get both results.
+This function is similar to `wait` but allows executing an action while waiting for an event and get both results.
 
 ```ts
 const [answer, sentMessage] = await context.waitWithAction(
@@ -192,3 +192,76 @@ const [answer, sentMessage] = await context.waitWithAction(
 // answer has type `string`
 // sentMessage has type `MessageContext`
 ```
+
+## Timeout
+
+Allows setting a response timeout. After timeout expiration, a `PromptCancelError` (timeout) error will be thrown (based on `timeoutStrategy`). The `timeout` (**in milliseconds**) can be passed in any method's options.
+
+```ts
+new Bot()
+    .extend(
+        prompt({
+            timeoutStrategy: "on-timer", // or "on-answer" (default)
+        })
+    )
+    .onError("message", ({ error, kind, context }) => {
+        if (kind === "prompt-cancel") {
+            // Currently only contains timeout type of error, but this will change
+            return context.send("Response time expired :(");
+        }
+
+        console.error(error);
+
+        return context.send("An error occurred");
+    })
+    .command("start", async (context) => {
+        const [answer, sentMessage] = await context.waitWithAction(
+            "message",
+            () => context.send("Please enter your name"),
+            {
+                timeout: 10_000, // 10 seconds
+            }
+        );
+
+        return Promise.all([
+            sentMessage.delete(),
+            context.send(`Thank you, ${answer.text}!`),
+        ]);
+    });
+```
+
+## Configuration
+
+```ts
+import { prompt, type PromptsType } from "@gramio/prompt";
+
+const mySharedMap: PromptsType = new Map();
+
+new Bot().extend(
+    prompt({
+        timeoutStrategy: "on-timer",
+        defaults: {
+            timeout: 30_000, // 30 seconds
+            validate: (ctx) => ctx.hasText(),
+            transform: (ctx) => ctx.text.toUpperCase(),
+            onValidateError: "Validation failed. Please try again.",
+        },
+        map: mySharedMap,
+    })
+);
+```
+
+### timeoutStrategy
+
+Controls how `Timeout` error is triggered:
+
+-   `"on-answer"` (**default**) - `Timeout` error occurs if user sends message AFTER timeout expiration
+-   `"on-timer"` - `Timeout` error occurs immediately when timer expires via `setTimeout`
+
+### defaults
+
+Allows setting default values for methods.
+
+### map
+
+Enables providing a custom Map for state storage. This allows modifying it from anywhere.
