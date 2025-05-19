@@ -28,6 +28,7 @@ API может немного измениться, но мы уже актив�
 ```ts twoslash
 import { Bot } from "gramio";
 import { scenes, Scene } from "@gramio/scenes";
+import { z } from "zod";
 
 export const greetingScene = new Scene("greeting")
     .params<{ test: boolean }>()
