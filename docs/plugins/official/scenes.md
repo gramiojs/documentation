@@ -28,6 +28,7 @@ The API can be changed a little, but we already use it in production environment
 ```ts twoslash
 import { Bot } from "gramio";
 import { scenes, Scene } from "@gramio/scenes";
+import { z } from "zod";
 
 export const greetingScene = new Scene("greeting")
     .params<{ test: boolean }>()
@@ -41,26 +42,23 @@ export const greetingScene = new Scene("greeting")
             name: context.text,
         });
     })
-    .step("message", (context) => {
-        if (context.scene.step.firstTime)
-            return context.send("How old are you?");
-
-        const age = Number(context.text);
-
-        if (!age || Number.isNaN(age) || age < 0)
-            return context.send("Please write your age correctly");
-
-        return context.scene.update({
-            age,
-        });
-    })
+    .ask(
+        "age",
+        z
+            .number({
+                required_error: "Please write your age correctly",
+            })
+            .min(18, "You must be at least 18 years old")
+            .max(100, "You must be less than 100 years old"),
+        "How old are you?"
+    )
     .step("message", async (context) => {
         await context.send(
             `Nice to meet you! I now know that your name is ${
                 context.scene.state.name
             } and you are ${context.scene.state.age} years old. ${
+                //                           ^?
                 context.scene.params.test ? "Also you have test param!" : ""
-                //                    ^?
             }`
         );
 
@@ -97,6 +95,78 @@ const testScene = new Scene("test")
 
         console.log(context.scene.state.messageId);
         //                           ^?
+    });
+```
+
+### step
+
+This function defines a scene step. It is executed only when the current scene step id matches the registered step order.
+
+```ts
+const testScene = new Scene("test")
+    // Handle single event type
+    .step("message", async (context) => {
+        if (context.scene.step.firstTime) return context.send("First message");
+        return context.scene.exit();
+    })
+    // Handle multiple event types
+    .step(["message", "callback_query"], async (context) => {
+        if (context.scene.step.firstTime)
+            return context.send("Follow-up message after user action");
+
+        if (context.is("callback_query"))
+            return context.answer("Inline button processed");
+
+        return context.scene.exit();
+    })
+    // Universal handler
+    .step((context) => {
+        console.log(context);
+        return context.scene.exit();
+    });
+```
+
+### ask
+
+> [!WARNING]
+> This API may change in future versions.
+
+`ask` is a syntactic sugar over `step` that helps avoid boilerplate for simple validation steps.
+
+Under the hood it uses [Standard Schema](https://standardschema.dev/), so you can use any validator that implements this standard (like [Zod](https://zod.dev/)).
+
+First argument accepts the **key** where the value will be stored (types will be automatically inferred for next steps).
+Second argument accepts **validation schema** that implements [Standard Schema](https://standardschema.dev/).
+Third argument accepts the text that will be sent to user on **first step invocation** (`firstTime`).
+
+```ts
+import { z } from "zod";
+
+const testScene = new Scene("test")
+    .ask(
+        "email",
+        z
+            .string({
+                required_error: "Please provide your email address",
+            })
+            .email("Invalid email format"),
+        "Please enter your email"
+    )
+    .ask(
+        "age",
+        z
+            .number({
+                required_error: "Please enter valid age",
+            })
+            .min(18, "Minimum age is 18 years")
+            .max(100, "Maximum age is 100 years"),
+        "What is your age?"
+    )
+    .step("message", async (context) => {
+        await context.send(
+            `Registered email: ${context.scene.state.email}\nAge: ${context.scene.state.age}`
+        );
+        return context.scene.exit();
     });
 ```
 
@@ -406,38 +476,6 @@ const bot = new Bot(process.env.TOKEN as string)
 
 > [!IMPORTANT]
 > Be careful. The first step of the scene should also include the event from which you entered the scene. (For example, if you enter via InlineButton click — `callback_query`)
-
-### step
-
-This function defines a scene step. It is executed only when the current scene step id matches the registered step order.
-
-```ts
-const testScene = new Scene("test")
-    // For a single event
-    .step("message", async (context) => {
-        if (context.scene.step.firstTime) return context.send("First message");
-
-        return context.scene.exit();
-    })
-    // For specific events
-    .step(["message", "callback_query"], async (context) => {
-        if (context.scene.step.firstTime)
-            return context.send("Second message after the user's message");
-
-        if (context.is("callback_query"))
-            return context.answer("You pressed the button");
-
-        return context.scene.exit();
-    })
-    // For all events
-    .step((context) => {
-        console.log(context);
-        return context.scene.exit();
-    });
-```
-
-> [!NOTE]
-> If the user triggers an event that is not registered in the step, it will be ignored by the step (but any event handlers registered for it will still be called).
 
 ## VS Prompt
 

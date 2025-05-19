@@ -41,24 +41,22 @@ export const greetingScene = new Scene("greeting")
             name: context.text,
         });
     })
-    .step("message", (context) => {
-        if (context.scene.step.firstTime)
-            return context.send("Сколько тебе лет?");
-
-        const age = Number(context.text);
-
-        if (!age || Number.isNaN(age) || age < 0)
-            return context.send("Пожалуйста, укажи возраст корректно");
-
-        return context.scene.update({
-            age,
-        });
-    })
+    .ask(
+        "age",
+        z
+            .number({
+                required_error: "Please write your age correctly",
+            })
+            .min(18, "You must be at least 18 years old")
+            .max(100, "You must be less than 100 years old"),
+        "How old are you?"
+    )
     .step("message", async (context) => {
         await context.send(
             `Рад познакомиться! Теперь я знаю, что тебя зовут ${
                 context.scene.state.name
             } и тебе ${context.scene.state.age} лет. ${
+                //                     ^?
                 context.scene.params.test
                     ? "Также у тебя есть параметр test!"
                     : ""
@@ -154,6 +152,51 @@ const testScene = new Scene("test")
 
 > [!NOTE]
 > Если пользователь создаёт событие, которое не зарегистрировано в шаге, оно будет проигнорировано этим шагом (но зарегистрированные для него обработчики событий будут вызваны).
+
+### ask
+
+> [!WARNING]
+> В этом API что-нибудь может измениться.
+
+`ask` - сахар над `step`, который поможет избежать бойлерплейта для простых типовых шагов с проверками.
+
+Под капотом используется [Standard Schema](https://standardschema.dev/), так что вы можете использовать любой валидатор, который реализует этот стандарт. (например [zod](https://zod.dev/))
+
+Первым аргументом принимает ключ, по которому будет сохранено значение. (Типы при этом для следующих шагов выводятся автоматически)
+Вторым аргументом принимает схему валидации, которая будет использоваться для валидации значения. ([Standard Schema валидатор](https://standardschema.dev/))
+А третьим аргументом принимает текст, который будет отправлен пользователю при первом вызове шага (`firstTime`).
+
+```ts
+import { z } from "zod";
+
+const testScene = new Scene("test")
+    .ask(
+        "email",
+        z
+            .string({
+                required_error: "Please write your email...",
+            })
+            .email("Please write your email correctly"),
+        "What is your email?"
+    )
+    .ask(
+        "age",
+        z
+            .number({
+                required_error: "Please write your age correctly",
+            })
+            .min(18, "You must be at least 18 years old")
+            .max(100, "You must be less than 100 years old"),
+        "How old are you?"
+    )
+    .step("message", async (context) => {
+        await context.send(
+            `Your email: ${context.scene.state.email}\nYour age: ${context.scene.state.age}`
+        );
+
+        return context.scene.exit();
+    });
+```
 
 ### on
 
