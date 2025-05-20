@@ -44,7 +44,7 @@ export const greetingScene = new Scene("greeting")
     })
     .ask(
         "age",
-        z
+        z.coerce
             .number({
                 required_error: "Please write your age correctly",
             })
@@ -182,7 +182,7 @@ const testScene = new Scene("test")
     )
     .ask(
         "age",
-        z
+        z.coerce
             .number({
                 required_error: "Please write your age correctly",
             })
@@ -198,6 +198,9 @@ const testScene = new Scene("test")
         return context.scene.exit();
     });
 ```
+
+> [!WARNING]
+> Мы работаем с текстом, так что необходимо использовать [`z.coerce`](https://zod.dev/api?id=coercion) или похожие методы у валидаторов, которые преобразуют текст в число для корректного типа.
 
 ### on
 

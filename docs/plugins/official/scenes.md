@@ -44,7 +44,7 @@ export const greetingScene = new Scene("greeting")
     })
     .ask(
         "age",
-        z
+        z.coerce
             .number({
                 required_error: "Please write your age correctly",
             })
@@ -154,7 +154,7 @@ const testScene = new Scene("test")
     )
     .ask(
         "age",
-        z
+        z.coerce
             .number({
                 required_error: "Please enter valid age",
             })
@@ -169,6 +169,9 @@ const testScene = new Scene("test")
         return context.scene.exit();
     });
 ```
+
+> [!WARNING]
+> Since we're working with text input, you should use [`z.coerce`](https://zod.dev/api?id=coercion) or similar validator methods that convert text to numbers for proper type handling.
 
 ## on
 
