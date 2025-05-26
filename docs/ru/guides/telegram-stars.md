@@ -89,7 +89,7 @@ const link = await context.bot.api.createInvoiceLink({
 ### Инвойсы в inline-режиме
 
 ```ts
-context.anser(
+context.answer(
     [
         InlineQueryResult.article(
             "id-1",
