@@ -161,9 +161,9 @@ new InlineKeyboard().switchToChosenChat("Выберите чат", {
 ```ts twoslash
 import { InlineKeyboard } from "@gramio/keyboards";
 // ---cut---
-new InlineKeyboard().switchToChosenChat("Открыть инлайн режим");
+new InlineKeyboard().switchToCurrentChat("Открыть инлайн режим");
 // или
-new InlineKeyboard().switchToChosenChat("Открыть инлайн режим", "InlineQuery");
+new InlineKeyboard().switchToCurrentChat("Открыть инлайн режим", "InlineQuery");
 ```
 
 ### game

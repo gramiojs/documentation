@@ -161,9 +161,9 @@ This offers a quick way for the user to open your bot in inline mode in the same
 ```ts twoslash
 import { InlineKeyboard } from "@gramio/keyboards";
 // ---cut---
-new InlineKeyboard().switchToChosenChat("Open Inline mod");
+new InlineKeyboard().switchToCurrentChat("Open Inline mod");
 // or
-new InlineKeyboard().switchToChosenChat("Open Inline mod", "InlineQuery");
+new InlineKeyboard().switchToCurrentChat("Open Inline mod", "InlineQuery");
 ```
 
 ### game
