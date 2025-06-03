@@ -194,7 +194,7 @@ bun ./src/index.ts
 ```
 
 ```bash [deno]
-deno run --allow-net ./src/index.ts
+deno run --allow-net --allow-env ./src/index.ts
 ```
 
 :::
