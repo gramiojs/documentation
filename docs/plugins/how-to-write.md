@@ -17,7 +17,7 @@ It happens that you are missing something... And plugins can help you with this!
 
 # Example
 
-```ts twoslash
+```ts twoslash [index.ts]
 import { Plugin, Bot } from "gramio";
 
 export class PluginError extends Error {
@@ -70,11 +70,17 @@ bun create gramio-plugin ./plugin
 
 :::
 
-#### Supported environment
+## Supported Environment
 
--   Linters
--   -   [Biome](https://biomejs.dev/)
--   -   [ESLint](https://eslint.org/) with some plugins
--   [Storage](https://gramio.dev/storages/)
--   Others
--   -   [Husky](https://typicode.github.io/husky/) (Git hooks)
+#### Linters
+
+- [Biome](https://biomejs.dev/)
+- [ESLint](https://eslint.org/) (with some plugins)
+
+#### Storage
+
+- [Storage](https://gramio.dev/storages/)
+
+#### Others
+
+- [Husky](https://typicode.github.io/husky/) (Git hooks)
