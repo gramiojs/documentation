@@ -21,7 +21,7 @@ head:
 
 </div>
 
-API может немного измениться, но мы уже активно используем его на боевых проектах.
+API может меняться, но пользователи уже активно его используют в своих проектах.
 
 # Использование
 
@@ -167,7 +167,9 @@ const testScene = new Scene("test")
 Вторым аргументом принимает схему валидации, которая будет использоваться для валидации значения. ([Standard Schema валидатор](https://standardschema.dev/))
 А третьим аргументом принимает текст, который будет отправлен пользователю при первом вызове шага (`firstTime`).
 
-```ts
+::: code-group
+
+```ts [zod]
 import { z } from "zod";
 
 const testScene = new Scene("test")
@@ -175,29 +177,62 @@ const testScene = new Scene("test")
         "email",
         z
             .string({
-                required_error: "Please write your email...",
+                required_error: "Похоже, вы ввели некорректный адрес электроной почты",
             })
-            .email("Please write your email correctly"),
-        "What is your email?"
+            .email("Неправильный формат почты"),
+        "Введите свою электронную почту"
     )
     .ask(
         "age",
         z.coerce
             .number({
-                required_error: "Please write your age correctly",
+                required_error: "Похоже, вы ввели некорректный возраст",
             })
-            .min(18, "You must be at least 18 years old")
-            .max(100, "You must be less than 100 years old"),
-        "How old are you?"
+            .min(18, "Минимальный возраст — 18 лет")
+            .max(100, "Максимальный возраст - 100 лет"),
+        "Сколько тебе лет?"
     )
     .step("message", async (context) => {
         await context.send(
-            `Your email: ${context.scene.state.email}\nYour age: ${context.scene.state.age}`
+            `Электронная почта: ${context.scene.state.email}\nВозраст: ${context.scene.state.age}`
         );
-
         return context.scene.exit();
     });
 ```
+
+```ts [sury]
+import * as s from "sury";
+
+const testScene = new Scene("test")
+    .ask(
+        "email",
+        s.email(s.string, "Похоже, вы ввели некорректный адрес электроной почты"),
+        "Введите свою электронную почту"
+    )
+    .ask(
+        "age",
+        s.string.with(
+            s.to, 
+            s.max(
+                s.min(
+                    s.number,
+                    18, 
+                    "Минимальный возраст — 18 лет"
+                ),
+            100, 
+            "Максимальный возраст - 100 лет"
+        )),
+        "Сколько тебе лет?"
+    )
+    .step("message", async (context) => {
+        await context.send(
+            `Электронная почта: ${context.scene.state.email}\nВозраст: ${context.scene.state.age}`
+        );
+        return context.scene.exit();
+    });
+```
+
+:::
 
 > [!WARNING]
 > Мы работаем с текстом, так что необходимо использовать [`z.coerce`](https://zod.dev/api?id=coercion) или похожие методы у валидаторов, которые преобразуют текст в число для корректного типа.
