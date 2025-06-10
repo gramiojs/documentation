@@ -139,7 +139,9 @@ First argument accepts the **key** where the value will be stored (types will be
 Second argument accepts **validation schema** that implements [Standard Schema](https://standardschema.dev/).
 Third argument accepts the text that will be sent to user on **first step invocation** (`firstTime`).
 
-```ts
+::: code-group
+
+```ts [zod]
 import { z } from "zod";
 
 const testScene = new Scene("test")
@@ -169,6 +171,40 @@ const testScene = new Scene("test")
         return context.scene.exit();
     });
 ```
+
+```ts [sury]
+import * as s from "sury";
+
+const testScene = new Scene("test")
+    .ask(
+        "email",
+        s.email(s.string, "Please provide your email address"),
+        "Please enter your email"
+    )
+    .ask(
+        "age",
+        s.string.with(
+            s.to, 
+            s.max(
+                s.min(
+                    s.number,
+                    18, 
+                    "Minimum age is 18 years"
+                ),
+            100, 
+            "Maximum age is 100 years"
+        )),
+        "What is your age?"
+    )
+    .step("message", async (context) => {
+        await context.send(
+            `Registered email: ${context.scene.state.email}\nAge: ${context.scene.state.age}`
+        );
+        return context.scene.exit();
+    });
+```
+
+:::
 
 > [!WARNING]
 > Since we're working with text input, you should use [`z.coerce`](https://zod.dev/api?id=coercion) or similar validator methods that convert text to numbers for proper type handling.
