@@ -47,7 +47,7 @@ and choose the type of project you need!
 
 For example, this is what a monorepo created using [create-gramio](https://github.com/gramiojs/create-gramio) looks like
 
-```tree
+```bash [tree]
 ├── apps
 │   ├── bot
 │   ├── mini-app

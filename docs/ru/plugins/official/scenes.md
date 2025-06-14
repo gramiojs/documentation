@@ -400,7 +400,7 @@ const testScene = new Scene("test").step("message", async (context) => {
 const testScene = new Scene("test").step("message", async (context) => {
     if (context.scene.step.firstTime) return context.send("Первое сообщение");
 
-    return context.scene.next();
+    return context.scene.step.next();
 });
 ```
 
