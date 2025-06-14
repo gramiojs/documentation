@@ -80,7 +80,7 @@ bun create gramio@latest ./bot
 
 Когда вы создаете проект с монорепозиторием, структура вашего каталога будет выглядеть так:
 
-```tree
+```bash [tree]
 ├── apps
 │   ├── bot         # Ваше приложение бота GramIO
 │   ├── mini-app    # Фронтенд Telegram Mini App
