@@ -206,7 +206,7 @@ BUN_CONFIG_VERBOSE_FETCH=curl bun src/index.ts
 
 И логи будут выглядеть так:
 
-```curl
+```bash [curl]
 [fetch] > HTTP/1.1 POST https://example.com/
 [fetch] > content-type: application/json
 [fetch] > Connection: keep-alive
