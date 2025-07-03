@@ -50,7 +50,7 @@ bun install @gramio/autoload
 > [full example](https://github.com/gramiojs/autoload/tree/main/example)
 
 > [!IMPORTANT]
-> Please read about [Lazy-load plugins](https://gramio.dev/plugins/official/autoload.html)
+> Please read about [Lazy-load plugins](https://gramio.dev/plugins/lazy-load)
 
 ## Register the plugin
 
