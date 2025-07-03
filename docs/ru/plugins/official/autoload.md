@@ -50,7 +50,7 @@ bun install @gramio/autoload
 > [полный пример](https://github.com/gramiojs/autoload/tree/main/example)
 
 > [!IMPORTANT]
-> Пожалуйста, прочитайте о [Ленивой загрузке плагинов](https://gramio.dev/ru/plugins/official/autoload.html)
+> Пожалуйста, прочитайте о [Ленивой загрузке плагинов](https://gramio.dev/ru/plugins/lazy-load)
 
 ## Регистрация плагина
 
