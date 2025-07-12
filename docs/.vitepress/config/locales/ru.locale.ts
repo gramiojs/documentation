@@ -196,13 +196,13 @@ export const localeRu = {
 								text: "Лимиты и рассылка",
 								link: "/ru/rate-limits",
 							},
-							{ text: "Хранилища", link: "/ru/storages/index" },
+							{ text: "Хранилища", link: "/ru/storages" },
 							{
 								text: "Telegram Web Apps",
 								collapsed: true,
-								link: "/ru/tma/",
+								link: "/ru/tma/overview",
 								items: [
-									{ text: "Обзор", link: "/ru/tma/" },
+									{ text: "Обзор", link: "/ru/tma/overview" },
 									{
 										text: "Init data",
 										link: "/ru/tma/init-data",
