@@ -11,7 +11,7 @@ export const localeEn = {
 			nav: [
 				{ text: "Home", link: "/" },
 				{ text: "Get started", link: "/get-started" },
-				{ text: "Plugins", link: "/plugins/index" },
+				{ text: "Plugins", link: "/plugins/overview" },
 				// { text: "Examples", link: "/markdown-examples" },
 			],
 			sidebar: {
@@ -21,7 +21,7 @@ export const localeEn = {
 						items: [
 							{
 								text: "Overview",
-								link: "/plugins/index",
+								link: "/plugins/overview",
 							},
 							{
 								text: "How to write a plugin",
