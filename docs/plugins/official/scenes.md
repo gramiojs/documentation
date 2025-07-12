@@ -278,7 +278,7 @@ const bot = new Bot(process.env.TOKEN as string)
     });
 ```
 
-[Read more about storages](/storages/)
+[Read more about storages](/storages)
 
 ## Scene context
 

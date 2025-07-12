@@ -120,7 +120,7 @@ const bot = new Bot(process.env.TOKEN as string)
     });
 ```
 
-[Подробнее о хранилищах](/ru/storages/)
+[Подробнее о хранилищах](/ru/storages)
 
 ### step
 

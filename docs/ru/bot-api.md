@@ -104,7 +104,7 @@ response;
 
 GramIO реэкспортирует [@gramio/types](https://www.npmjs.com/package/@gramio/types) (кодо-генерируемые и автоматически публикуемые типы Telegram Bot API).
 
-[Подробнее](/ru/types/index.html)
+[Подробнее](/ru/types.html)
 
 ```ts twoslash
 import type { APIMethodParams, APIMethodReturn } from "gramio";
