@@ -7,3 +7,14 @@ https://gramio.netlify.app/* https://gramio.dev/:splat 301!
 /webhook         /updates/webhook    302!
 /webhook/        /updates/webhook    302!
 /webhook/index   /updates/webhook    302!
+
+/plugins/index         /plugins/overview         302!
+/storages/index        /storages                 302!
+/formatting/index      /formatting               302!
+/types/index           /types                    302!
+/tma/                  /tma/overview             302!
+/ru/plugins/index      /ru/plugins/overview      302!
+/ru/storages/index     /ru/storages              302!
+/ru/formatting/index   /ru/formatting            302!
+/ru/types/index        /ru/types                 302!
+/ru/tma/               /ru/tma/overview          302!
