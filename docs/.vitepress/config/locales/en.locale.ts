@@ -225,15 +225,15 @@ export const localeEn = {
 							{ text: "Types", link: "/types/index" },
 
 							{ text: "Rate-limits and broadcast", link: "/rate-limits" },
-							{ text: "Storages", link: "/storages/index" },
+							{ text: "Storages", link: "/storages" },
 							{
 								text: "Telegram Mini Apps",
 								collapsed: true,
-								link: "/tma/",
+								link: "/tma/overview",
 								items: [
 									{
 										text: "Overview",
-										link: "/tma/",
+										link: "/tma/overview",
 									},
 									{
 										text: "Init data",
