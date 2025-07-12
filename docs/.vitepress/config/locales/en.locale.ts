@@ -221,7 +221,7 @@ export const localeEn = {
 									},
 								],
 							},
-							{ text: "Formatting", link: "/formatting/index" },
+							{ text: "Formatting", link: "/formatting" },
 							{ text: "Types", link: "/types/index" },
 
 							{ text: "Rate-limits and broadcast", link: "/rate-limits" },
