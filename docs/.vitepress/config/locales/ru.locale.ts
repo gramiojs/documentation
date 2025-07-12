@@ -190,7 +190,7 @@ export const localeRu = {
 									},
 								],
 							},
-							{ text: "Форматирование", link: "/ru/formatting/index" },
+							{ text: "Форматирование", link: "/ru/formatting" },
 							{ text: "Типы", link: "/ru/types/index" },
 							{
 								text: "Лимиты и рассылка",
