@@ -10,7 +10,7 @@ export const localeRu = {
 			nav: [
 				{ text: "Главная", link: "/ru" },
 				{ text: "Начало", link: "/ru/get-started" },
-				{ text: "Плагины", link: "/ru/plugins/index" },
+				{ text: "Плагины", link: "/ru/plugins/overview" },
 				// { text: "Гайды", link: "/ru/guides" },
 			],
 			sidebar: {
@@ -23,7 +23,7 @@ export const localeRu = {
 						items: [
 							{
 								text: "Обзор",
-								link: "/ru/plugins/index",
+								link: "/ru/plugins/overview",
 							},
 							{
 								text: "Создание плагинов",
