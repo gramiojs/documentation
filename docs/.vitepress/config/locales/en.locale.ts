@@ -222,7 +222,7 @@ export const localeEn = {
 								],
 							},
 							{ text: "Formatting", link: "/formatting" },
-							{ text: "Types", link: "/types/index" },
+							{ text: "Types", link: "/types" },
 
 							{ text: "Rate-limits and broadcast", link: "/rate-limits" },
 							{ text: "Storages", link: "/storages" },
