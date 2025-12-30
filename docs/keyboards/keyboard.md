@@ -159,7 +159,7 @@ new Keyboard().text("some text").persistent(); // to enable
 new Keyboard().text("some text").persistent(false); // to disable
 ```
 
-### persistent
+### selective
 
 Use this parameter if you want to show the keyboard to specific users only.
 
