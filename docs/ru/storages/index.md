@@ -19,9 +19,9 @@ head:
 
 GramIO имеет множество готовых адаптеров, но вы также можете написать свой собственный!
 
--   [В памяти (In Memory)](#в-памяти) (`@gramio/storage`)
+- [В памяти (In Memory)](#в-памяти) (`@gramio/storage`)
 
--   [Redis](#redis) (`@gramio/storage-redis`)
+- [Redis](#redis) (`@gramio/storage-redis`)
 
 ## Как написать свой собственный адаптер хранилища
 
@@ -87,6 +87,76 @@ export function myOwnPlugin(options: MyOwnPluginOptions = {}) {
 
 > [!IMPORTANT]
 > Вы можете создать шаблон этого примера с помощью [create-gramio-plugin](/ru/plugins/how-to-write.html#scaffolding-the-plugin)
+
+## Типобезопасное хранилище с дженериками
+
+Все адаптеры хранилищ поддерживают параметр обобщенного типа `Storage<Data>`, который обеспечивает типобезопасность для ключей и значений. Это позволяет TypeScript автоматически определять правильный тип значения на основе ключа, к которому вы обращаетесь.
+
+### Базовое использование
+
+```ts twoslash
+import { inMemoryStorage } from "@gramio/storage";
+
+interface UserData {
+    username: string;
+    email: string;
+    age: number;
+}
+
+const storage = inMemoryStorage<UserData>();
+
+await storage.set("username", "john_doe");
+await storage.set("email", "john@example.com");
+
+const username = await storage.get("username");
+// ^?
+```
+
+### Шаблонные литеральные типы
+
+`Storage<Data>` отлично работает с шаблонными литеральными типами TypeScript, позволяя определять динамические паттерны ключей:
+
+```ts twoslash
+import { inMemoryStorage } from "@gramio/storage";
+
+type Data = Record<`user:${number}`, { name: string; age: number }> &
+    Record<`session:${string}`, { token: string; expires: number }>;
+
+const storage = inMemoryStorage<Data>();
+
+await storage.set("user:1", { name: "Alice", age: 30 });
+await storage.set("session:abc123", { token: "xyz", expires: 1234567890 });
+
+const user = await storage.get("user:1");
+// ^?
+
+const session = await storage.get("session:abc123");
+// ^?
+```
+
+### Сложные объединения типов
+
+Вы можете комбинировать несколько типов записей для различных паттернов ключей:
+
+```ts twoslash
+import { inMemoryStorage } from "@gramio/storage";
+
+type StorageSchema =
+    | Record<`counter:${string}`, number>
+    | Record<`flag:${string}`, boolean>
+    | Record<`data:${string}`, { value: string; timestamp: number }>;
+
+const storage = inMemoryStorage<StorageSchema>();
+
+await storage.set("counter:views", 42);
+await storage.set("flag:enabled", true);
+await storage.set("data:config", { value: "test", timestamp: Date.now() });
+
+const views = await storage.get("counter:views");
+// ^?
+```
+
+Эта типобезопасность работает во всех адаптерах хранилищ (в памяти, Redis, Cloudflare KV и т.д.) и помогает предотвратить ошибки во время выполнения, выявляя несоответствия типов на этапе компиляции.
 
 ## Список
 
@@ -203,7 +273,7 @@ const storage = redisStorage(redis);
 
 ##### Советы
 
--   Вы можете установить переменную окружения `DEBUG` в `ioredis:*` для вывода отладочной информации:
+- Вы можете установить переменную окружения `DEBUG` в `ioredis:*` для вывода отладочной информации:
 
 ```bash
 DEBUG=ioredis:* npm run start
@@ -216,7 +286,7 @@ DEBUG=ioredis:* npm run start
   ioredis:redis write command[::1:6379]: 0 -> set([ '@gramio/scenes:617580375', '{"name":"scene-name","state":{},"stepId":0,"previousStepId":0,"firstTime":false}' ]) +1ms
 ```
 
--   Для проверки того, какие данные хранятся в Redis, мы рекомендуем использовать графические клиенты, такие как [AnotherRedisDesktopManager](https://github.com/qishibo/AnotherRedisDesktopManager).
+- Для проверки того, какие данные хранятся в Redis, мы рекомендуем использовать графические клиенты, такие как [AnotherRedisDesktopManager](https://github.com/qishibo/AnotherRedisDesktopManager).
 
 <!-- TODO: More GramIO backend screens -->
 

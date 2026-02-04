@@ -19,11 +19,11 @@ These are some kind of data stores. Their main use is in plugins (for example, [
 
 GramIO has many ready-made adapters, but you can also write your own!
 
--   [In Memory](#in-memory) (`@gramio/storage`)
+- [In Memory](#in-memory) (`@gramio/storage`)
 
--   [Redis](#redis) (`@gramio/storage-redis`)
+- [Redis](#redis) (`@gramio/storage-redis`)
 
--   [Cloudflare KV](#cloudflare-kv) (`@gramio/storage-cloudflare`)
+- [Cloudflare KV](#cloudflare-kv) (`@gramio/storage-cloudflare`)
 
 ## How to write my own storage adapters
 
@@ -89,6 +89,76 @@ export function myOwnPlugin(options: MyOwnPluginOptions = {}) {
 
 > [!IMPORTANT]
 > You can scaffold this example by [create-gramio-plugin](/plugins/how-to-write.html#scaffolding-the-plugin)
+
+## Type-safe storage with generics
+
+All storage adapters support a generic type parameter `Storage<Data>` that provides type safety for keys and values. This enables TypeScript to infer the correct value type based on the key you're accessing.
+
+### Basic usage
+
+```ts twoslash
+import { inMemoryStorage } from "@gramio/storage";
+
+interface UserData {
+    username: string;
+    email: string;
+    age: number;
+}
+
+const storage = inMemoryStorage<UserData>();
+
+await storage.set("username", "john_doe");
+await storage.set("email", "john@example.com");
+
+const username = await storage.get("username");
+// ^?
+```
+
+### Template literal types
+
+`Storage<Data>` works seamlessly with TypeScript's template literal types, allowing you to define dynamic key patterns:
+
+```ts twoslash
+import { inMemoryStorage } from "@gramio/storage";
+
+type Data = Record<`user:${number}`, { name: string; age: number }> &
+    Record<`session:${string}`, { token: string; expires: number }>;
+
+const storage = inMemoryStorage<Data>();
+
+await storage.set("user:1", { name: "Alice", age: 30 });
+await storage.set("session:abc123", { token: "xyz", expires: 1234567890 });
+
+const user = await storage.get("user:1");
+// ^?
+
+const session = await storage.get("session:abc123");
+// ^?
+```
+
+### Complex type unions
+
+You can combine multiple record types for different key patterns:
+
+```ts twoslash
+import { inMemoryStorage } from "@gramio/storage";
+
+type StorageSchema =
+    | Record<`counter:${string}`, number>
+    | Record<`flag:${string}`, boolean>
+    | Record<`data:${string}`, { value: string; timestamp: number }>;
+
+const storage = inMemoryStorage<StorageSchema>();
+
+await storage.set("counter:views", 42);
+await storage.set("flag:enabled", true);
+await storage.set("data:config", { value: "test", timestamp: Date.now() });
+
+const views = await storage.get("counter:views");
+// ^?
+```
+
+This type safety works across all storage adapters (in-memory, Redis, Cloudflare KV, etc.) and helps prevent runtime errors by catching type mismatches at compile time.
 
 ## List
 
@@ -205,7 +275,7 @@ const storage = redisStorage(redis);
 
 ##### Tips
 
--   You can set the `DEBUG` env to `ioredis:*` to print debug info:
+- You can set the `DEBUG` env to `ioredis:*` to print debug info:
 
 ```bash
 DEBUG=ioredis:* npm run start
@@ -218,7 +288,7 @@ and it will looks like this:
   ioredis:redis write command[::1:6379]: 0 -> set([ '@gramio/scenes:617580375', '{"name":"scene-name","state":{},"stepId":0,"previousStepId":0,"firstTime":false}' ]) +1ms
 ```
 
--   For inspecting which data is stored in Redis, we recommend you to use GUI clients like [AnotherRedisDesktopManager](https://github.com/qishibo/AnotherRedisDesktopManager).
+- For inspecting which data is stored in Redis, we recommend you to use GUI clients like [AnotherRedisDesktopManager](https://github.com/qishibo/AnotherRedisDesktopManager).
 
 <!-- TODO: More GramIO backend screens -->
 
