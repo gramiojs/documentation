@@ -12,7 +12,7 @@ head:
 ---
 
 <script setup>
-import Spoiler from '../.vitepress/components/Spoiler.vue'
+import Spoiler from './.vitepress/components/Spoiler.vue'
 
 </script>
 

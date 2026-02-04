@@ -70,11 +70,17 @@ bun create gramio-plugin ./plugin
 
 :::
 
-#### Поддерживаемое окружение
+## Поддерживаемые инструменты
 
--   Линтеры
--   -   [Biome](https://biomejs.dev/)
--   -   [ESLint](https://eslint.org/) с некоторыми плагинами
--   [Хранилище](https://gramio.dev/storages/)
--   Другое
--   -   [Husky](https://typicode.github.io/husky/) (Git hooks) 
+#### Линтеры
+
+- [Biome](https://biomejs.dev/)
+- [ESLint](https://eslint.org/) (с некоторыми плагинами)
+
+#### Хранилища
+
+- [Storage](https://gramio.dev/storages/)
+
+#### Остальное
+
+- [Husky](https://typicode.github.io/husky/) (Гит хуки)

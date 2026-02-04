@@ -69,7 +69,7 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
 bot.start();
 ```
 
-Этот плагин можно использовать с любым хранилищем ([Подробнее](/ru/storages/index))
+Этот плагин можно использовать с любым хранилищем ([Подробнее](/ru/storages))
 
 ### Пример с Redis
 

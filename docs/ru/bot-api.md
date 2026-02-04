@@ -104,7 +104,7 @@ response;
 
 GramIO реэкспортирует [@gramio/types](https://www.npmjs.com/package/@gramio/types) (кодо-генерируемые и автоматически публикуемые типы Telegram Bot API).
 
-[Подробнее](/ru/types/index.html)
+[Подробнее](/ru/types.html)
 
 ```ts twoslash
 import type { APIMethodParams, APIMethodReturn } from "gramio";
@@ -206,7 +206,7 @@ BUN_CONFIG_VERBOSE_FETCH=curl bun src/index.ts
 
 И логи будут выглядеть так:
 
-```curl
+```bash [curl]
 [fetch] > HTTP/1.1 POST https://example.com/
 [fetch] > content-type: application/json
 [fetch] > Connection: keep-alive

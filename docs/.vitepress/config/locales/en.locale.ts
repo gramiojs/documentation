@@ -11,7 +11,7 @@ export const localeEn = {
 			nav: [
 				{ text: "Home", link: "/" },
 				{ text: "Get started", link: "/get-started" },
-				{ text: "Plugins", link: "/plugins/index" },
+				{ text: "Plugins", link: "/plugins/overview" },
 				// { text: "Examples", link: "/markdown-examples" },
 			],
 			sidebar: {
@@ -21,7 +21,7 @@ export const localeEn = {
 						items: [
 							{
 								text: "Overview",
-								link: "/plugins/index",
+								link: "/plugins/overview",
 							},
 							{
 								text: "How to write a plugin",
@@ -221,19 +221,19 @@ export const localeEn = {
 									},
 								],
 							},
-							{ text: "Formatting", link: "/formatting/index" },
-							{ text: "Types", link: "/types/index" },
+							{ text: "Formatting", link: "/formatting" },
+							{ text: "Types", link: "/types" },
 
 							{ text: "Rate-limits and broadcast", link: "/rate-limits" },
-							{ text: "Storages", link: "/storages/index" },
+							{ text: "Storages", link: "/storages" },
 							{
 								text: "Telegram Mini Apps",
 								collapsed: true,
-								link: "/tma/",
+								link: "/tma/overview",
 								items: [
 									{
 										text: "Overview",
-										link: "/tma/",
+										link: "/tma/overview",
 									},
 									{
 										text: "Init data",

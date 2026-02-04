@@ -67,7 +67,7 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
 bot.start();
 ```
 
-You can use this plugin with any storage ([Read more](/storages/index))
+You can use this plugin with any storage ([Read more](/storages))
 
 ### Redis example
 

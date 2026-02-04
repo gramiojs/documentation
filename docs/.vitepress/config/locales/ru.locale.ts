@@ -10,7 +10,7 @@ export const localeRu = {
 			nav: [
 				{ text: "Главная", link: "/ru" },
 				{ text: "Начало", link: "/ru/get-started" },
-				{ text: "Плагины", link: "/ru/plugins/index" },
+				{ text: "Плагины", link: "/ru/plugins/overview" },
 				// { text: "Гайды", link: "/ru/guides" },
 			],
 			sidebar: {
@@ -23,7 +23,7 @@ export const localeRu = {
 						items: [
 							{
 								text: "Обзор",
-								link: "/ru/plugins/index",
+								link: "/ru/plugins/overview",
 							},
 							{
 								text: "Создание плагинов",
@@ -190,19 +190,19 @@ export const localeRu = {
 									},
 								],
 							},
-							{ text: "Форматирование", link: "/ru/formatting/index" },
-							{ text: "Типы", link: "/ru/types/index" },
+							{ text: "Форматирование", link: "/ru/formatting" },
+							{ text: "Типы", link: "/ru/types" },
 							{
 								text: "Лимиты и рассылка",
 								link: "/ru/rate-limits",
 							},
-							{ text: "Хранилища", link: "/ru/storages/index" },
+							{ text: "Хранилища", link: "/ru/storages" },
 							{
 								text: "Telegram Web Apps",
 								collapsed: true,
-								link: "/ru/tma/",
+								link: "/ru/tma/overview",
 								items: [
-									{ text: "Обзор", link: "/ru/tma/" },
+									{ text: "Обзор", link: "/ru/tma/overview" },
 									{
 										text: "Init data",
 										link: "/ru/tma/init-data",
