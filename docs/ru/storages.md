@@ -141,10 +141,9 @@ const session = await storage.get("session:abc123"); // { token: string; expires
 ```ts twoslash
 import { inMemoryStorage } from "@gramio/storage";
 
-type StorageSchema =
-    | Record<`counter:${string}`, number>
-    | Record<`flag:${string}`, boolean>
-    | Record<`data:${string}`, { value: string; timestamp: number }>;
+type StorageSchema = Record<`counter:${string}`, number> &
+    Record<`flag:${string}`, boolean> &
+    Record<`data:${string}`, { value: string; timestamp: number }>;
 
 const storage = inMemoryStorage<StorageSchema>();
 
