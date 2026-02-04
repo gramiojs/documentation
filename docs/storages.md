@@ -110,8 +110,8 @@ const storage = inMemoryStorage<UserData>();
 await storage.set("username", "john_doe");
 await storage.set("email", "john@example.com");
 
-const username = await storage.get("username");
-// ^?
+const username = await storage.get("username"); // string | undefined
+//      ^?
 ```
 
 ### Template literal types
@@ -130,10 +130,10 @@ await storage.set("user:1", { name: "Alice", age: 30 });
 await storage.set("session:abc123", { token: "xyz", expires: 1234567890 });
 
 const user = await storage.get("user:1");
-// ^?
+//     ^?
 
 const session = await storage.get("session:abc123");
-// ^?
+//     ^?
 ```
 
 ### Complex type unions
@@ -154,8 +154,8 @@ await storage.set("counter:views", 42);
 await storage.set("flag:enabled", true);
 await storage.set("data:config", { value: "test", timestamp: Date.now() });
 
-const views = await storage.get("counter:views");
-// ^?
+const views = await storage.get("counter:views"); // number | undefined
+//     ^?
 ```
 
 This type safety works across all storage adapters (in-memory, Redis, Cloudflare KV, etc.) and helps prevent runtime errors by catching type mismatches at compile time.

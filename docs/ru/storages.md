@@ -108,8 +108,8 @@ const storage = inMemoryStorage<UserData>();
 await storage.set("username", "john_doe");
 await storage.set("email", "john@example.com");
 
-const username = await storage.get("username");
-// ^?
+const username = await storage.get("username"); // string | undefined
+//      ^?
 ```
 
 ### Шаблонные литеральные типы
@@ -127,11 +127,11 @@ const storage = inMemoryStorage<Data>();
 await storage.set("user:1", { name: "Alice", age: 30 });
 await storage.set("session:abc123", { token: "xyz", expires: 1234567890 });
 
-const user = await storage.get("user:1");
-// ^?
+const user = await storage.get("user:1"); // { name: string; age: number } | undefined
+//      ^?
 
-const session = await storage.get("session:abc123");
-// ^?
+const session = await storage.get("session:abc123"); // { token: string; expires: number } | undefined
+//      ^?
 ```
 
 ### Сложные объединения типов
@@ -152,8 +152,8 @@ await storage.set("counter:views", 42);
 await storage.set("flag:enabled", true);
 await storage.set("data:config", { value: "test", timestamp: Date.now() });
 
-const views = await storage.get("counter:views");
-// ^?
+const views = await storage.get("counter:views"); // number | undefined
+//      ^?
 ```
 
 Эта типобезопасность работает во всех адаптерах хранилищ (в памяти, Redis, Cloudflare KV и т.д.) и помогает предотвратить ошибки во время выполнения, выявляя несоответствия типов на этапе компиляции.

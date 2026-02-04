@@ -9,6 +9,7 @@
 - You can check updates via `Recent changes`
 - Correct grammatical punctuation and other errors in both: original and other language modified files.
 - Please dont delete `// ^?` it used internally
+- After making changes, run the project build defined in package.json to ensure it succeeds.
 
 Examples:
 
