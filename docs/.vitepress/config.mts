@@ -8,7 +8,7 @@ import {
 	groupIconMdPlugin,
 	groupIconVitePlugin,
 } from "vitepress-plugin-group-icons";
-import llms from "vitepress-plugin-llms";
+import llms, { copyOrDownloadAsMarkdownButtons } from "vitepress-plugin-llms";
 import { localeEn, localeRu } from "./config/locales";
 
 // https://vitepress.dev/reference/site-config
@@ -98,6 +98,7 @@ export default defineConfig({
 		config: (md) => {
 			// @ts-ignore
 			md.use(groupIconMdPlugin);
+			md.use(copyOrDownloadAsMarkdownButtons);
 		},
 	},
 	lastUpdated: true,
