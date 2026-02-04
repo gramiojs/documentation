@@ -33,6 +33,9 @@
 		"zod": "^3.25.4"
 	},
 	"private": true,
+	"overrides": {
+		"ioredis": "^5.9.2"
+	},
 	"scripts": {
 		"dev": "bunx vitepress dev docs",
 		"build": "bunx vitepress build docs",
