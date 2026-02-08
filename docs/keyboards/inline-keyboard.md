@@ -78,7 +78,7 @@ import { InlineKeyboard } from "@gramio/keyboards";
 // ---cut---
 new InlineKeyboard().copy(
     "Copy me",
-    "Welcome to Gboard clipboard, any text you copy will be saved here. Tap on a clip to paste it in the text box. Use the edit icon to pin, add or delete clips. Touch and hold a clip to pin it. Unpinned clips will be deleted after 1 hour."
+    "Welcome to Gboard clipboard, any text you copy will be saved here. Tap on a clip to paste it in the text box. Use the edit icon to pin, add or delete clips. Touch and hold a clip to pin it. Unpinned clips will be deleted after 1 hour.",
 );
 ```
 
@@ -178,6 +178,45 @@ new InlineKeyboard().game("text", {}); // ??? no params...
 
 > [!WARNING]
 > This type of button **must** always be the first button in the first row.
+
+## Button Styling
+
+Since `@gramio/keyboards` **1.3.0**, every button method accepts an optional `options` parameter that allows you to customize the visual appearance of the button.
+
+```ts
+interface ButtonOptions {
+    style?: "danger" | "primary" | "success";
+    icon_custom_emoji_id?: string;
+}
+```
+
+> [!WARNING]
+> These properties are **not yet documented** in the official Bot API but are already supported by Telegram clients.
+
+- **style** — visual color style of the button. Can be `"danger"` (red), `"primary"` (blue), or `"success"` (green).
+- **icon_custom_emoji_id** — custom emoji identifier to be shown alongside the button text.
+
+The `options` parameter is always the **last** argument of any button method:
+
+```ts twoslash
+import { InlineKeyboard } from "@gramio/keyboards";
+// ---cut---
+new InlineKeyboard()
+    .text("Delete", "delete_action", { style: "danger" })
+    .text("Confirm", "confirm_action", {
+        style: "success",
+        icon_custom_emoji_id: "5368324170671202286",
+    });
+```
+
+It also works with static methods:
+
+```ts twoslash
+import { InlineKeyboard } from "@gramio/keyboards";
+// ---cut---
+InlineKeyboard.text("Cancel", "cancel", { style: "danger" });
+InlineKeyboard.url("Open", "https://gramio.dev", { style: "primary" });
+```
 
 ## Helpers
 
@@ -291,11 +330,11 @@ new InlineKeyboard()
     .addIf(1 === 2, { text: "raw button", callback_data: "payload" })
     .addIf(
         isAdmin,
-        InlineKeyboard.text("raw button by InlineKeyboard.text", "payload")
+        InlineKeyboard.text("raw button by InlineKeyboard.text", "payload"),
     )
     .addIf(
         ({ index, rowIndex }) => rowIndex === index,
-        ...labels.map((x) => InlineKeyboard.text(x, `${x}payload`))
+        ...labels.map((x) => InlineKeyboard.text(x, `${x}payload`)),
     );
 ```
 
@@ -314,8 +353,8 @@ const bomb = [randomInt(0, 9), randomInt(0, 9)] as const;
 new InlineKeyboard().matrix(10, 10, ({ rowIndex, index }) =>
     InlineKeyboard.text(
         rowIndex === bomb[0] && index === bomb[1] ? "💣" : "ㅤ",
-        "payload"
-    )
+        "payload",
+    ),
 );
 ```
 
@@ -341,6 +380,6 @@ new InlineKeyboard()
         new InlineKeyboard()
             .text("second row", "payload")
             .row()
-            .text("third row", "payload")
+            .text("third row", "payload"),
     );
 ```

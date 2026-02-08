@@ -119,6 +119,45 @@ import { Keyboard } from "@gramio/keyboards";
 new Keyboard().webApp("some button text", "https://...");
 ```
 
+## Button Styling
+
+Since `@gramio/keyboards` **1.3.0**, every button method accepts an optional `options` parameter that allows you to customize the visual appearance of the button.
+
+```ts
+interface ButtonOptions {
+    style?: "danger" | "primary" | "success";
+    icon_custom_emoji_id?: string;
+}
+```
+
+> [!WARNING]
+> These properties are **not yet documented** in the official Bot API but are already supported by Telegram clients.
+
+- **style** — visual color style of the button. Can be `"danger"` (red), `"primary"` (blue), or `"success"` (green).
+- **icon_custom_emoji_id** — custom emoji identifier to be shown alongside the button text.
+
+The `options` parameter is always the **last** argument of any button method:
+
+```ts twoslash
+import { Keyboard } from "@gramio/keyboards";
+// ---cut---
+new Keyboard()
+    .text("Delete", { style: "danger" })
+    .text("Confirm", {
+        style: "success",
+        icon_custom_emoji_id: "5368324170671202286",
+    });
+```
+
+It also works with static methods:
+
+```ts twoslash
+import { Keyboard } from "@gramio/keyboards";
+// ---cut---
+Keyboard.text("Cancel", { style: "danger" });
+Keyboard.requestContact("Share contact", { style: "primary" });
+```
+
 ## Options ([Documentation](https://core.telegram.org/bots/api/#replykeyboardmarkup))
 
 These parameters are responsible for the settings of the buttons
@@ -299,7 +338,7 @@ new Keyboard()
     .addIf(isAdmin, Keyboard.text("raw button by Keyboard.text"))
     .addIf(
         ({ index, rowIndex }) => rowIndex === index,
-        ...labels.map((x) => Keyboard.text(x))
+        ...labels.map((x) => Keyboard.text(x)),
     );
 ```
 
@@ -323,7 +362,7 @@ import { randomInt } from "node:crypto";
 const bomb = [randomInt(0, 9), randomInt(0, 9)] as const;
 
 new Keyboard().matrix(10, 10, ({ rowIndex, index }) =>
-    Keyboard.text(rowIndex === bomb[0] && index === bomb[1] ? "💣" : "ㅤ")
+    Keyboard.text(rowIndex === bomb[0] && index === bomb[1] ? "💣" : "ㅤ"),
 );
 ```
 

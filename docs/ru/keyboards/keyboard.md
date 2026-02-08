@@ -119,6 +119,45 @@ import { Keyboard } from "@gramio/keyboards";
 new Keyboard().webApp("текст кнопки", "https://...");
 ```
 
+## Стилизация кнопок
+
+Начиная с `@gramio/keyboards` **1.3.0**, каждый метод кнопки принимает необязательный параметр `options`, который позволяет настроить внешний вид кнопки.
+
+```ts
+interface ButtonOptions {
+    style?: "danger" | "primary" | "success";
+    icon_custom_emoji_id?: string;
+}
+```
+
+> [!WARNING]
+> Эти свойства **ещё не задокументированы** в официальном Bot API, но уже поддерживаются клиентами Telegram.
+
+- **style** — визуальный цветовой стиль кнопки. Может быть `"danger"` (красный), `"primary"` (синий) или `"success"` (зелёный).
+- **icon_custom_emoji_id** — идентификатор кастомного эмодзи, который будет отображаться рядом с текстом кнопки.
+
+Параметр `options` всегда является **последним** аргументом любого метода кнопки:
+
+```ts twoslash
+import { Keyboard } from "@gramio/keyboards";
+// ---cut---
+new Keyboard()
+    .text("Удалить", { style: "danger" })
+    .text("Подтвердить", {
+        style: "success",
+        icon_custom_emoji_id: "5368324170671202286",
+    });
+```
+
+Также работает со статическими методами:
+
+```ts twoslash
+import { Keyboard } from "@gramio/keyboards";
+// ---cut---
+Keyboard.text("Отмена", { style: "danger" });
+Keyboard.requestContact("Поделиться контактом", { style: "primary" });
+```
+
 ## Параметры ([Документация](https://core.telegram.org/bots/api/#replykeyboardmarkup))
 
 Эти параметры отвечают за настройки кнопок.
@@ -299,7 +338,7 @@ new Keyboard()
     .addIf(isAdmin, Keyboard.text("сырая кнопка через Keyboard.text"))
     .addIf(
         ({ index, rowIndex }) => rowIndex === index,
-        ...labels.map((x) => Keyboard.text(x))
+        ...labels.map((x) => Keyboard.text(x)),
     );
 ```
 
@@ -323,7 +362,7 @@ import { randomInt } from "node:crypto";
 const bomb = [randomInt(0, 9), randomInt(0, 9)] as const;
 
 new Keyboard().matrix(10, 10, ({ rowIndex, index }) =>
-    Keyboard.text(rowIndex === bomb[0] && index === bomb[1] ? "💣" : "ㅤ")
+    Keyboard.text(rowIndex === bomb[0] && index === bomb[1] ? "💣" : "ㅤ"),
 );
 ```
 
@@ -346,4 +385,4 @@ new Keyboard()
     .combine(new Keyboard().text("первая"))
     .row()
     .combine(new Keyboard().text("вторая").row().text("третья"));
-``` 
+```
