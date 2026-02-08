@@ -141,12 +141,10 @@ The `options` parameter is always the **last** argument of any button method:
 ```ts twoslash
 import { Keyboard } from "@gramio/keyboards";
 // ---cut---
-new Keyboard()
-    .text("Delete", { style: "danger" })
-    .text("Confirm", {
-        style: "success",
-        icon_custom_emoji_id: "5368324170671202286",
-    });
+new Keyboard().text("Delete", { style: "danger" }).text("Confirm", {
+    style: "success",
+    icon_custom_emoji_id: "5368324170671202286",
+});
 ```
 
 It also works with static methods:
@@ -157,6 +155,8 @@ import { Keyboard } from "@gramio/keyboards";
 Keyboard.text("Cancel", { style: "danger" });
 Keyboard.requestContact("Share contact", { style: "primary" });
 ```
+
+![button styling preview](/keyboards/styling.png)
 
 ## Options ([Documentation](https://core.telegram.org/bots/api/#replykeyboardmarkup))
 

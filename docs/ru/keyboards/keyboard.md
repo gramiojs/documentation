@@ -141,12 +141,10 @@ interface ButtonOptions {
 ```ts twoslash
 import { Keyboard } from "@gramio/keyboards";
 // ---cut---
-new Keyboard()
-    .text("Удалить", { style: "danger" })
-    .text("Подтвердить", {
-        style: "success",
-        icon_custom_emoji_id: "5368324170671202286",
-    });
+new Keyboard().text("Удалить", { style: "danger" }).text("Подтвердить", {
+    style: "success",
+    icon_custom_emoji_id: "5368324170671202286",
+});
 ```
 
 Также работает со статическими методами:
@@ -157,6 +155,8 @@ import { Keyboard } from "@gramio/keyboards";
 Keyboard.text("Отмена", { style: "danger" });
 Keyboard.requestContact("Поделиться контактом", { style: "primary" });
 ```
+
+![пример стилизованных кнопок](/ru/keyboards/styling.png)
 
 ## Параметры ([Документация](https://core.telegram.org/bots/api/#replykeyboardmarkup))
 

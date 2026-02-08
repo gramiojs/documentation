@@ -218,6 +218,8 @@ InlineKeyboard.text("Отмена", "cancel", { style: "danger" });
 InlineKeyboard.url("Открыть", "https://gramio.dev", { style: "primary" });
 ```
 
+![пример стилизованных кнопок](/ru/keyboards/styling.png)
+
 ## Помощники
 
 Методы, которые помогают вам создать клавиатуру.

@@ -218,6 +218,8 @@ InlineKeyboard.text("Cancel", "cancel", { style: "danger" });
 InlineKeyboard.url("Open", "https://gramio.dev", { style: "primary" });
 ```
 
+![button styling preview](/keyboards/styling.png)
+
 ## Helpers
 
 Methods that help you build a keyboard.
