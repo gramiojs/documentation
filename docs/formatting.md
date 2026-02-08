@@ -243,7 +243,7 @@ format`text with emoji - ${customEmoji("⚔️", "5222106016283378623")}`;
 > [!WARNING]
 > Telegram now allows custom emoji for all bots **if** the bot owner has Telegram Premium **and** one of the following is true:
 >
-> - the message is in the bot's private chat (DM), or
+> - the message is in the bot's private chat (DM) or a regular chat **(not channels)**, or
 > - it's an inline query result where you edit the sent message afterwards (custom emoji aren't allowed in the initial inline result; edit the message to apply them).
 >   Previously this was only available to bots that paid for additional usernames (Fragment). Now the username purchase is no longer required under the conditions above.
 
