@@ -10,6 +10,7 @@
 - Correct grammatical punctuation and other errors in both: original and other language modified files.
 - Please dont delete `// ^?` it used internally
 - After making changes, run the project build defined in package.json to ensure it succeeds.
+- When adding images, place English assets under `public/` and the Russian counterparts under `public/ru/` with identical relative paths and filenames (e.g., `public/keyboards/example.png` <=> `public/ru/keyboards/example.png`). Reference them in docs as `/keyboards/example.png` and `/ru/keyboards/example.png` respectively.
 
 Examples:
 
