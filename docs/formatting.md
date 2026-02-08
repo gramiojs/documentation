@@ -39,7 +39,7 @@ format`some text`;
 // or
 format`${bold`Hmm...`} ${link(
     "GramIO",
-    "https://github.com/gramiojs/gramio"
+    "https://github.com/gramiojs/gramio",
 )}?`;
 ```
 
@@ -241,7 +241,10 @@ format`text with emoji - ${customEmoji("⚔️", "5222106016283378623")}`;
 ```
 
 > [!WARNING]
-> Custom emoji entities can only be used by bots that purchased additional usernames on [Fragment](https://fragment.com/).
+> Telegram now allows custom emoji for all bots **if** the bot owner has Telegram Premium **and** one of the following is true:
+>
+> - the message is in the bot's private chat (DM), or
+> - it's an inline query result where you edit the sent message afterwards (custom emoji aren't allowed in the initial inline result; edit the message to apply them).
 
 ## Helpers
 
