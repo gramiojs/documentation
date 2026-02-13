@@ -62,7 +62,7 @@ More about options in [documentation](https://core.telegram.org/bots/api/#keyboa
 
 ### requestChats
 
-Request users button. Pressing the button will open a list of suitable chats. Tapping on a chat will send its identifier to the bot in a `chat_shared` service message. Available in private chats only.. Available in private chats only. `Second parameter` is signed 32-bit identifier of the request, which will be received back in the [ChatShared](https://core.telegram.org/bots/api/#chatshared) object. Must be unique within the message
+Request users button. Pressing the button will open a list of suitable chats. Tapping on a chat will send its identifier to the bot in a `chat_shared` service message. Available in private chats only. `Second parameter` is signed 32-bit identifier of the request, which will be received back in the [ChatShared](https://core.telegram.org/bots/api/#chatshared) object. Must be unique within the message
 
 ```ts twoslash
 import { Keyboard } from "@gramio/keyboards";
