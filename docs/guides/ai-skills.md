@@ -1,14 +1,14 @@
 ---
-title: Building with AI — GramIO Skills for Claude Code, Cursor, and Copilot
+title: Building with AI — GramIO Skills for Claude Code and other AI assistants
 
 head:
     - - meta
       - name: "description"
-        content: "Build Telegram bots faster with AI. GramIO provides skills for Claude Code, Cursor rules, and GitHub Copilot instructions — giving AI deep framework knowledge."
+        content: "Build Telegram bots faster with AI. GramIO provides skills for Claude Code and other AI assistants, plus llms.txt — giving AI deep framework knowledge."
 
     - - meta
       - name: "keywords"
-        content: "gramio, telegram bot, ai skills, claude code, cursor rules, github copilot, llms.txt, ai-assisted development, bot framework, typescript, developer experience, ai tools, skills"
+        content: "gramio, telegram bot, ai skills, claude code, llms.txt, ai-assisted development, bot framework, typescript, developer experience, ai tools, skills"
 ---
 
 # Building with AI
@@ -132,40 +132,11 @@ The `gramio` skill gives your AI assistant knowledge of:
 | Types | `@gramio/types` standalone package, type helpers, Proxy wrapper, declaration merging |
 | Updates & Lifecycle | `start()`/`stop()` options, graceful shutdown (SIGINT/SIGTERM), webhook shutdown order |
 
-## Keeping Skills in Sync with Documentation
-
-The `skills/gramio/` directory mirrors the English documentation (`docs/`). When documentation pages change, the corresponding skill files should be updated:
-
-- **New doc page added** — if it covers a new topic, add a matching reference in `skills/gramio/references/` or expand an existing one.
-- **Doc page updated** — check if the skill reference covers the changed content. Update code snippets, API signatures, and behavior descriptions.
-- **New plugin documented** — add coverage to `skills/gramio/plugins/` (either a dedicated file or expand `other.md`).
-- **New example pattern** — add a runnable example in `skills/gramio/examples/`.
-- **After any skill change** — update `skills/gramio/SKILL.md` tables (references, examples, coverage counts) and bump `skills/gramio/metadata.json` version.
-
-English documentation is the source of truth. Skills distill docs into concise, code-heavy references for AI consumption — they don't replace the full docs.
-
-## Other AI Configs
-
-### llms.txt
+## llms.txt
 
 GramIO generates LLM-friendly documentation at build time:
 
 - **[/llms.txt](/llms.txt)** — Table of contents with links to all pages
 - **[/llms-full.txt](/llms-full.txt)** — Complete documentation in a single text file
 
-Any AI tool can fetch these URLs for full GramIO context.
-
-### Cursor Rules
-
-This repository includes [Cursor](https://cursor.com/) rules in `.cursor/rules/`:
-
-- **`gramio-docs.mdc`** — Core documentation conventions
-- **`gramio-code-examples.mdc`** — GramIO code example patterns
-
-### GitHub Copilot
-
-Project-level instructions in `.github/copilot-instructions.md` for Copilot users.
-
-### AGENTS.md
-
-The [`AGENTS.md`](https://github.com/gramiojs/documentation/blob/main/AGENTS.md) file provides rules for any AI agent — conventions, code patterns, and project structure.
+Any AI tool can fetch these URLs for full GramIO context. Additionally, any documentation page URL with `.md` appended returns raw markdown — for example, `https://gramio.dev/bot-api.md` returns the markdown source of the Bot API page.
