@@ -33,6 +33,16 @@ After making changes, always run `bun run build` to verify the site compiles suc
 - `docs/index.md` ↔ `docs/ru/index.md`
 - `docs/guides/usage.md` ↔ `docs/ru/guides/usage.md`
 
+## Skill ↔ Documentation Sync Rules
+
+The `skills/gramio/` directory distills English documentation into concise, code-heavy references for AI consumption. Keep them in sync:
+
+- When a documentation page in `docs/` is added or substantially updated, check if the corresponding skill file in `skills/gramio/references/` or `skills/gramio/plugins/` needs updating.
+- When a new doc page covers a topic not yet in the skill, create a new reference file (YAML frontmatter with `name` and `description`, H1 heading, code-heavy sections, HTML source comment at bottom).
+- When a new runnable pattern emerges, add an example in `skills/gramio/examples/` (complete TypeScript, full imports, no partial snippets).
+- After any skill content change, update `skills/gramio/SKILL.md` tables and bump `skills/gramio/metadata.json` version.
+- English documentation (`docs/`) is the source of truth — skills condense it, they don't replace it.
+
 ## Code Example Conventions
 
 ### Twoslash Annotations

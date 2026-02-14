@@ -36,7 +36,7 @@ This installs skills for all detected AI agents (Claude Code, Cursor, Cline, etc
 ### Install Options
 
 ```bash
-# Install all skills without prompts
+# Install all skills to all agents without prompts
 npx skills add gramiojs/documentation --all
 
 # Install only for Claude Code
@@ -45,8 +45,14 @@ npx skills add gramiojs/documentation --agent claude-code
 # Install globally (available in all projects)
 npx skills add gramiojs/documentation --global
 
-# Install a specific skill
+# Install a specific skill (@ shorthand)
+npx skills add gramiojs/documentation@gramio
+
+# Or with --skill flag
 npx skills add gramiojs/documentation --skill gramio
+
+# Skip confirmation prompts (useful for CI/CD)
+npx skills add gramiojs/documentation --yes
 
 # List available skills without installing
 npx skills add gramiojs/documentation --list
@@ -68,8 +74,8 @@ cp -r /tmp/gramio-docs/skills/* .claude/skills/
 
 The core skill. Activates automatically when you ask about GramIO. Contains:
 
-- **10 runnable examples** — basic bot, keyboards, callbacks, formatting, files, errors, webhooks, sessions, scenes, Telegram Stars
-- **12 reference docs** — bot configuration, API, context, triggers, hooks, keyboards, formatting, files, CallbackData, storage, webhooks, rate limits
+- **12 runnable examples** — basic bot, keyboards, callbacks, formatting, files, errors, webhooks, sessions, scenes, Telegram Stars, TMA, Docker
+- **18 reference docs** — bot configuration, API, context, triggers, hooks, updates & lifecycle, keyboards, formatting, files, CallbackData, storage, Telegram Stars, types, webhooks, rate limits, Docker, TMA, plugin development
 - **6 plugin guides** — session, scenes, i18n, autoload, prompt, and others
 
 You don't invoke this skill — your AI assistant reads it automatically when relevant.
@@ -119,7 +125,24 @@ The `gramio` skill gives your AI assistant knowledge of:
 | Webhooks | Elysia, Fastify, Hono, Express, Koa, Bun.serve, Deno.serve, tunneling |
 | Rate limits | `withRetries()`, broadcasting, `@gramio/broadcast`, BullMQ queues |
 | All 11 plugins | Session, Scenes, I18n, Autoload, Prompt, Auto Retry, Media Cache, Media Group, Split, Auto Answer CB, PostHog |
-| Telegram Stars | Invoices, pre-checkout, payments, refunds, pay buttons, payment links |
+| Plugin development | `Plugin` class, `derive`/`decorate`/`error`/`group`, scaffolding, lazy loading, middleware order |
+| Telegram Stars | Invoices, pre-checkout, payments, subscriptions, inline invoices, refunds, test mode |
+| TMA | Monorepo scaffold, mkcert HTTPS, `@gramio/init-data`, Elysia auth guard |
+| Docker | Dockerfile (Node.js/Bun), multi-stage builds, Docker Compose, graceful shutdown |
+| Types | `@gramio/types` standalone package, type helpers, Proxy wrapper, declaration merging |
+| Updates & Lifecycle | `start()`/`stop()` options, graceful shutdown (SIGINT/SIGTERM), webhook shutdown order |
+
+## Keeping Skills in Sync with Documentation
+
+The `skills/gramio/` directory mirrors the English documentation (`docs/`). When documentation pages change, the corresponding skill files should be updated:
+
+- **New doc page added** — if it covers a new topic, add a matching reference in `skills/gramio/references/` or expand an existing one.
+- **Doc page updated** — check if the skill reference covers the changed content. Update code snippets, API signatures, and behavior descriptions.
+- **New plugin documented** — add coverage to `skills/gramio/plugins/` (either a dedicated file or expand `other.md`).
+- **New example pattern** — add a runnable example in `skills/gramio/examples/`.
+- **After any skill change** — update `skills/gramio/SKILL.md` tables (references, examples, coverage counts) and bump `skills/gramio/metadata.json` version.
+
+English documentation is the source of truth. Skills distill docs into concise, code-heavy references for AI consumption — they don't replace the full docs.
 
 ## Other AI Configs
 

@@ -36,7 +36,7 @@ bunx skills add gramiojs/documentation
 ### Параметры установки
 
 ```bash
-# Установить все навыки без запросов
+# Установить все навыки для всех агентов без запросов
 npx skills add gramiojs/documentation --all
 
 # Установить только для Claude Code
@@ -45,8 +45,14 @@ npx skills add gramiojs/documentation --agent claude-code
 # Установить глобально (доступно во всех проектах)
 npx skills add gramiojs/documentation --global
 
-# Установить конкретный навык
+# Установить конкретный навык (сокращение через @)
+npx skills add gramiojs/documentation@gramio
+
+# Или с флагом --skill
 npx skills add gramiojs/documentation --skill gramio
+
+# Пропустить подтверждения (полезно для CI/CD)
+npx skills add gramiojs/documentation --yes
 
 # Показать список доступных навыков без установки
 npx skills add gramiojs/documentation --list
@@ -68,8 +74,8 @@ cp -r /tmp/gramio-docs/skills/* .claude/skills/
 
 Основной навык. Активируется автоматически при вопросах о GramIO. Содержит:
 
-- **10 запускаемых примеров** — базовый бот, клавиатуры, callback, форматирование, файлы, ошибки, вебхуки, сессии, сцены, Telegram Stars
-- **12 справочных документов** — конфигурация бота, API, контекст, триггеры, хуки, клавиатуры, форматирование, файлы, CallbackData, хранилища, вебхуки, лимиты
+- **12 запускаемых примеров** — базовый бот, клавиатуры, callback, форматирование, файлы, ошибки, вебхуки, сессии, сцены, Telegram Stars, TMA, Docker
+- **18 справочных документов** — конфигурация бота, API, контекст, триггеры, хуки, жизненный цикл, клавиатуры, форматирование, файлы, CallbackData, хранилища, Telegram Stars, типы, вебхуки, лимиты, Docker, TMA, разработка плагинов
 - **6 руководств по плагинам** — session, scenes, i18n, autoload, prompt и другие
 
 Этот навык не нужно вызывать — ваш AI-ассистент читает его автоматически.
@@ -119,7 +125,24 @@ cp -r /tmp/gramio-docs/skills/* .claude/skills/
 | Вебхуки | Elysia, Fastify, Hono, Express, Koa, Bun.serve, Deno.serve, туннелирование |
 | Лимиты | `withRetries()`, рассылка, `@gramio/broadcast`, очереди BullMQ |
 | Все 11 плагинов | Session, Scenes, I18n, Autoload, Prompt, Auto Retry, Media Cache, Media Group, Split, Auto Answer CB, PostHog |
-| Telegram Stars | Инвойсы, пре-чекаут, платежи, возвраты, кнопки оплаты, ссылки на оплату |
+| Разработка плагинов | Класс `Plugin`, `derive`/`decorate`/`error`/`group`, скаффолдинг, ленивая загрузка, порядок middleware |
+| Telegram Stars | Инвойсы, пре-чекаут, платежи, подписки, inline-инвойсы, возвраты, тестовый режим |
+| TMA | Скаффолд монорепо, mkcert HTTPS, `@gramio/init-data`, Elysia auth guard |
+| Docker | Dockerfile (Node.js/Bun), multi-stage сборки, Docker Compose, graceful shutdown |
+| Типы | Пакет `@gramio/types`, хелперы типов, Proxy-обёртка, слияние деклараций |
+| Жизненный цикл | Опции `start()`/`stop()`, graceful shutdown (SIGINT/SIGTERM), порядок остановки вебхука |
+
+## Синхронизация навыков с документацией
+
+Директория `skills/gramio/` отражает английскую документацию (`docs/`). При изменении страниц документации соответствующие файлы навыков также должны обновляться:
+
+- **Добавлена новая страница** — если она охватывает новую тему, добавьте соответствующий справочник в `skills/gramio/references/` или расширьте существующий.
+- **Обновлена страница** — проверьте, покрывает ли навык изменённый контент. Обновите примеры кода, сигнатуры API и описания поведения.
+- **Документирован новый плагин** — добавьте покрытие в `skills/gramio/plugins/` (отдельный файл или расширьте `other.md`).
+- **Новый паттерн примера** — добавьте запускаемый пример в `skills/gramio/examples/`.
+- **После любого изменения навыка** — обновите таблицы в `skills/gramio/SKILL.md` (справочники, примеры, количество покрытия) и увеличьте версию в `skills/gramio/metadata.json`.
+
+Английская документация является источником истины. Навыки сжимают документацию в краткие, насыщенные кодом справочники для AI — они не заменяют полную документацию.
 
 ## Другие AI-конфигурации
 
