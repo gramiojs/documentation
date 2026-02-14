@@ -244,6 +244,10 @@ export const localeRu = {
 								text: "Telegram Stars",
 								link: "/ru/guides/telegram-stars",
 							},
+							{
+								text: "AI навыки",
+								link: "/ru/guides/ai-skills",
+							},
 						],
 					},
 				],

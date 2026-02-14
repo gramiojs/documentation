@@ -276,6 +276,10 @@ export const localeEn = {
 								text: "Telegram Stars",
 								link: "/guides/telegram-stars",
 							},
+							{
+								text: "AI Skills",
+								link: "/guides/ai-skills",
+							},
 						],
 					},
 				],
