@@ -22,11 +22,11 @@ The quickest way to add GramIO skills to your project:
 ::: code-group
 
 ```bash [npx]
-npx skills add gramiojs/documentation
+npx skills add gramiojs/documentation/skills
 ```
 
 ```bash [bunx]
-bunx skills add gramiojs/documentation
+bunx skills add gramiojs/documentation/skills
 ```
 
 :::
@@ -37,25 +37,25 @@ This installs skills for all detected AI agents (Claude Code, Cursor, Cline, etc
 
 ```bash
 # Install all skills to all agents without prompts
-npx skills add gramiojs/documentation --all
+npx skills add gramiojs/documentation/skills --all
 
 # Install only for Claude Code
-npx skills add gramiojs/documentation --agent claude-code
+npx skills add gramiojs/documentation/skills --agent claude-code
 
 # Install globally (available in all projects)
-npx skills add gramiojs/documentation --global
+npx skills add gramiojs/documentation/skills --global
 
 # Install a specific skill (@ shorthand)
-npx skills add gramiojs/documentation@gramio
+npx skills add gramiojs/documentation/skills@gramio
 
 # Or with --skill flag
-npx skills add gramiojs/documentation --skill gramio
+npx skills add gramiojs/documentation/skills --skill gramio
 
 # Skip confirmation prompts (useful for CI/CD)
-npx skills add gramiojs/documentation --yes
+npx skills add gramiojs/documentation/skills --yes
 
 # List available skills without installing
-npx skills add gramiojs/documentation --list
+npx skills add gramiojs/documentation/skills --list
 ```
 
 ### Manual Install

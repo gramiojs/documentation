@@ -22,11 +22,11 @@ GramIO предоставляет AI навыки, которые дают ва�
 ::: code-group
 
 ```bash [npx]
-npx skills add gramiojs/documentation
+npx skills add gramiojs/documentation/skills
 ```
 
 ```bash [bunx]
-bunx skills add gramiojs/documentation
+bunx skills add gramiojs/documentation/skills
 ```
 
 :::
@@ -37,25 +37,25 @@ bunx skills add gramiojs/documentation
 
 ```bash
 # Установить все навыки для всех агентов без запросов
-npx skills add gramiojs/documentation --all
+npx skills add gramiojs/documentation/skills --all
 
 # Установить только для Claude Code
-npx skills add gramiojs/documentation --agent claude-code
+npx skills add gramiojs/documentation/skills --agent claude-code
 
 # Установить глобально (доступно во всех проектах)
-npx skills add gramiojs/documentation --global
+npx skills add gramiojs/documentation/skills --global
 
 # Установить конкретный навык (сокращение через @)
-npx skills add gramiojs/documentation@gramio
+npx skills add gramiojs/documentation/skills@gramio
 
 # Или с флагом --skill
-npx skills add gramiojs/documentation --skill gramio
+npx skills add gramiojs/documentation/skills --skill gramio
 
 # Пропустить подтверждения (полезно для CI/CD)
-npx skills add gramiojs/documentation --yes
+npx skills add gramiojs/documentation/skills --yes
 
 # Показать список доступных навыков без установки
-npx skills add gramiojs/documentation --list
+npx skills add gramiojs/documentation/skills --list
 ```
 
 ### Ручная установка

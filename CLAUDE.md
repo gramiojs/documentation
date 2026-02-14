@@ -30,8 +30,8 @@ public/                        # Static assets (images for EN docs)
   ru/                          # Static assets (images for RU docs)
 skills/                        # User-land AI skills (installed via `npx skills add`)
   gramio/                      # Core framework knowledge (auto-activated)
-    examples/                  # 10 runnable TypeScript examples
-    references/                # 12 deep-dive API reference docs
+    examples/                  # 12 runnable TypeScript examples
+    references/                # 18 deep-dive API reference docs
     plugins/                   # 6 plugin guides
   gramio-new-bot/              # /gramio-new-bot — scaffold a new bot project
   gramio-add-handler/          # /gramio-add-handler — add command/callback handlers
@@ -56,7 +56,7 @@ CLAUDE.md                      # This file — project context for Claude
 
 This project ships AI-friendly tooling:
 
-- **User-land skills** in `skills/` — Installed by users via `npx skills add gramiojs/documentation` (or `bunx`). Gives their AI assistant deep GramIO knowledge with examples, references, and plugin guides.
+- **User-land skills** in `skills/` — Installed by users via `npx skills add gramiojs/documentation/skills` (or `bunx`). Gives their AI assistant deep GramIO knowledge with examples, references, and plugin guides.
 - **Internal doc skills** in `.claude/skills/` — Reusable prompts for documentation tasks (`/add-doc-page`, `/translate-page`, `/add-plugin-doc`, `/sync-translations`). Marked with `metadata.internal: true` so they don't appear in public `skills add` discovery.
 - **`vitepress-plugin-llms`** — Generates `llms.txt` and `llms-full.txt` at build time for LLM consumption.
 - **Cursor rules** in `.cursor/rules/` — Editor-level conventions for Cursor AI.
