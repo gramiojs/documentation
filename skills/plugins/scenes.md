@@ -61,6 +61,7 @@ bot.extend(sessionPlugin({ key: "session", initial: () => ({}) }))
 
 | Property/Method | Description |
 |----------------|-------------|
+| `scene.onEnter(handler)` | Register handler that runs once on scene entry |
 | `context.scene.state` | Accumulated data from `.update()` calls |
 | `context.scene.params` | Entry params from `.enter()` |
 | `context.scene.update(data)` | Merge data into state |
@@ -92,6 +93,18 @@ const scene = new Scene("feedback")
         return context.send(`You are ${context.scene.state.age}`);
     });
 ```
+
+## Scene .onEnter() — Run Logic on Scene Entry
+
+```typescript
+const scene = new Scene("welcome")
+    .onEnter((context) => {
+        return context.send("You've entered the scene!");
+    })
+    .step("message", handler);
+```
+
+The handler is async-compatible and awaited before proceeding to the first step.
 
 ## Scene .on() — Register Handler for All Steps
 

@@ -14,3 +14,5 @@ head:
 Track the latest changes across the GramIO ecosystem. Each entry covers updates from all `gramiojs` repositories, including new features, bug fixes, breaking changes with migration guides, and version bumps.
 
 <!-- New entries are added below this line, newest first -->
+
+- [2026-02-08 — Type-Safe Storage Keys, Scenes `onEnter`, SQLite Adapter](/changelogs/2026-02-08)

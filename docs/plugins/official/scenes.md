@@ -209,6 +209,24 @@ const testScene = new Scene("test")
 > [!WARNING]
 > Since we're working with text input, you should use [`z.coerce`](https://zod.dev/api?id=coercion) or similar validator methods that convert text to numbers for proper type handling.
 
+## onEnter
+
+Register a handler that runs once when a user enters the scene. Perfect for sending a welcome message or initializing data.
+
+```ts
+const registrationScene = new Scene("registration")
+    .onEnter((context) => {
+        return context.send("Welcome! Let's get you registered.");
+    })
+    .step("message", (context) => {
+        if (context.scene.step.firstTime) return context.send("What's your name?");
+
+        return context.scene.update({ name: context.text });
+    });
+```
+
+The handler is async-compatible and will be awaited before proceeding to the first step.
+
 ## on
 
 This method allows you to register event handlers for a scene.

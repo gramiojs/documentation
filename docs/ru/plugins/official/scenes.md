@@ -237,6 +237,24 @@ const testScene = new Scene("test")
 > [!WARNING]
 > Мы работаем с текстом, так что необходимо использовать [`z.coerce`](https://zod.dev/api?id=coercion) или похожие методы у валидаторов, которые преобразуют текст в число для корректного типа.
 
+### onEnter
+
+Зарегистрируйте обработчик, который выполняется один раз при входе пользователя в сцену. Идеально подходит для отправки приветственного сообщения или инициализации данных.
+
+```ts
+const registrationScene = new Scene("registration")
+    .onEnter((context) => {
+        return context.send("Добро пожаловать! Давайте зарегистрируемся.");
+    })
+    .step("message", (context) => {
+        if (context.scene.step.firstTime) return context.send("Как вас зовут?");
+
+        return context.scene.update({ name: context.text });
+    });
+```
+
+Обработчик поддерживает асинхронность и будет ожидаться (await) перед переходом к первому шагу.
+
 ### on
 
 Этот метод позволяет зарегистрировать обработчик событий для сцены.

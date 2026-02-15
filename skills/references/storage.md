@@ -21,6 +21,12 @@ const storage = inMemoryStorage(new Map());
 
 ### Redis (`@gramio/storage-redis`)
 
+Install both packages (`ioredis` is a peer dependency):
+
+```bash
+npm install @gramio/storage-redis ioredis
+```
+
 ```typescript
 import { redisStorage } from "@gramio/storage-redis";
 import { Redis } from "ioredis";
@@ -34,6 +40,24 @@ const storage = redisStorage(redis);
 ```
 
 Debug: `DEBUG=ioredis:* npm run start`
+
+### SQLite (`@gramio/storage-sqlite`) — Bun only
+
+```typescript
+import { sqliteStorage } from "@gramio/storage-sqlite";
+
+// Pass filename
+const storage = sqliteStorage({ filename: "bot-data.db" });
+
+// Or existing Bun Database
+import { Database } from "bun:sqlite";
+const storage = sqliteStorage({ db: new Database("bot-data.db") });
+
+// With TTL (seconds)
+const storage = sqliteStorage({ filename: "data.db", $ttl: 3600 });
+```
+
+Options: `filename`, `db`, `$ttl`, `tableName` (default `"gramio_storage"`).
 
 ### Cloudflare KV (`@gramio/storage-cloudflare`)
 

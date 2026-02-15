@@ -23,6 +23,8 @@ GramIO has many ready-made adapters, but you can also write your own!
 
 - [Redis](#redis) (`@gramio/storage-redis`)
 
+- [SQLite](#sqlite) (`@gramio/storage-sqlite`) — Bun only
+
 - [Cloudflare KV](#cloudflare-kv) (`@gramio/storage-cloudflare`)
 
 ## How to write my own storage adapters
@@ -230,19 +232,19 @@ const storage = inMemoryStorage(map);
 ::: code-group
 
 ```bash [npm]
-npm install @gramio/storage-redis
+npm install @gramio/storage-redis ioredis
 ```
 
 ```bash [yarn]
-yarn add @gramio/storage-redis
+yarn add @gramio/storage-redis ioredis
 ```
 
 ```bash [pnpm]
-pnpm add @gramio/storage-redis
+pnpm add @gramio/storage-redis ioredis
 ```
 
 ```bash [bun]
-bun install @gramio/storage-redis
+bun install @gramio/storage-redis ioredis
 ```
 
 :::
@@ -292,6 +294,62 @@ and it will looks like this:
 <!-- TODO: More GramIO backend screens -->
 
 <img src="https://cdn.jsdelivr.net/gh/qishibo/img/ardm/202411081318490.png" alt="AnotherRedisDesktopManager" />
+
+## SQLite
+
+<div class="badges">
+
+[![npm](https://img.shields.io/npm/v/@gramio/storage-sqlite?logo=npm&style=flat&labelColor=000&color=3b82f6)](https://www.npmjs.org/package/@gramio/storage-sqlite)
+[![npm downloads](https://img.shields.io/npm/dw/@gramio/storage-sqlite?logo=npm&style=flat&labelColor=000&color=3b82f6)](https://www.npmjs.org/package/@gramio/storage-sqlite)
+
+</div>
+
+> [!WARNING]
+> Currently supports **Bun only** (`bun:sqlite`). Node.js support is planned.
+
+##### Installation
+
+```bash [bun]
+bun install @gramio/storage-sqlite
+```
+
+##### Usage
+
+1. Pass a filename to create a new database
+
+```ts
+import { sqliteStorage } from "@gramio/storage-sqlite";
+
+const storage = sqliteStorage({ filename: "bot-data.db" });
+```
+
+2. Pass an existing Bun SQLite Database instance
+
+```ts
+import { sqliteStorage } from "@gramio/storage-sqlite";
+import { Database } from "bun:sqlite";
+
+const db = new Database("bot-data.db");
+const storage = sqliteStorage({ db });
+```
+
+3. With TTL (automatic key expiry)
+
+```ts
+import { sqliteStorage } from "@gramio/storage-sqlite";
+
+const storage = sqliteStorage({
+    filename: "bot-data.db",
+    $ttl: 3600, // keys expire after 1 hour
+});
+```
+
+##### Options
+
+- `filename` — Path to the SQLite file
+- `db` — Alternatively, pass a pre-existing `Database` instance
+- `$ttl` — Optional TTL in seconds for automatic expiry
+- `tableName` — Custom table name (defaults to `"gramio_storage"`)
 
 ## [Cloudflare KV](https://developers.cloudflare.com/kv/)
 
