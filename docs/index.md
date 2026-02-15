@@ -52,6 +52,14 @@ features:
       # details: Works on <a href="https://nodejs.org/">Node.js</a>, <a href="https://bun.sh/">Bun</a> and <a href="https://deno.com/">Deno</a>
 ---
 
+## Latest Updates
+
+**[Bot API 9.4, Views System, OpenTelemetry & `streamMessage`](/changelogs/2026-02-15)** — February 8–15, 2026
+
+GramIO catches up to Bot API 9.4, ships a new views/template system, launches OpenTelemetry and Sentry plugins, adds an `onApiCall` hook, and introduces `streamMessage`.
+
+[All changelogs →](/changelogs/)
+
 ## Get started
 
 This command will help you create a project with GramIO (and ORM, linters and plugins) the easiest way.

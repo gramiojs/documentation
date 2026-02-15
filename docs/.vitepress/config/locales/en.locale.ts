@@ -12,9 +12,27 @@ export const localeEn = {
 				{ text: "Home", link: "/" },
 				{ text: "Get started", link: "/get-started" },
 				{ text: "Plugins", link: "/plugins/overview" },
+				{ text: "Changelogs", link: "/changelogs/" },
 				// { text: "Examples", link: "/markdown-examples" },
 			],
 			sidebar: {
+				"/changelogs/": [
+					{
+						text: "Changelogs",
+						link: "/changelogs/",
+						items: [
+							// new entries added here by the skill, newest first
+							{
+								text: "2026-02-15",
+								link: "/changelogs/2026-02-15",
+							},
+							{
+								text: "2026-02-08",
+								link: "/changelogs/2026-02-08",
+							},
+						],
+					},
+				],
 				"/plugins/": [
 					{
 						text: "Plugins",
@@ -257,22 +275,6 @@ export const localeEn = {
 							{
 								text: "Bot class",
 								link: "/bot-class",
-							},
-						],
-					},
-					{
-						text: "Changelogs",
-						collapsed: true,
-						link: "/changelogs/",
-						items: [
-							// new entries added here by the skill, newest first
-							{
-								text: "2026-02-15",
-								link: "/changelogs/2026-02-15",
-							},
-							{
-								text: "2026-02-08",
-								link: "/changelogs/2026-02-08",
 							},
 						],
 					},

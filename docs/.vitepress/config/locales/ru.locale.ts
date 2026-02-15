@@ -11,9 +11,27 @@ export const localeRu = {
 				{ text: "Главная", link: "/ru" },
 				{ text: "Начало", link: "/ru/get-started" },
 				{ text: "Плагины", link: "/ru/plugins/overview" },
+				{ text: "Журнал изменений", link: "/ru/changelogs/" },
 				// { text: "Гайды", link: "/ru/guides" },
 			],
 			sidebar: {
+				"/ru/changelogs/": [
+					{
+						text: "Журнал изменений",
+						link: "/ru/changelogs/",
+						items: [
+							// новые записи добавляются здесь скиллом, сначала новейшие
+							{
+								text: "2026-02-15",
+								link: "/ru/changelogs/2026-02-15",
+							},
+							{
+								text: "2026-02-08",
+								link: "/ru/changelogs/2026-02-08",
+							},
+						],
+					},
+				],
 				// "/ru/guides/": [
 
 				// ],
@@ -225,22 +243,6 @@ export const localeRu = {
 							{
 								text: "Класс Bot",
 								link: "/ru/bot-class",
-							},
-						],
-					},
-					{
-						text: "Журнал изменений",
-						collapsed: true,
-						link: "/ru/changelogs/",
-						items: [
-							// новые записи добавляются здесь скиллом, сначала новейшие
-							{
-								text: "2026-02-15",
-								link: "/ru/changelogs/2026-02-15",
-							},
-							{
-								text: "2026-02-08",
-								link: "/ru/changelogs/2026-02-08",
 							},
 						],
 					},

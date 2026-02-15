@@ -211,7 +211,19 @@ Add the new entry link to both:
 - `docs/changelogs/index.md` — newest first
 - `docs/ru/changelogs/index.md` — newest first
 
-### 10. Update State
+### 10. Update Homepage "Latest Updates" Section
+
+Update the "Latest Updates" / "Последние обновления" section on both homepages with the newly created changelog entry:
+
+**`docs/index.md`** — Replace the existing "Latest Updates" content (between `## Latest Updates` and the next `##`) with:
+- A bold link to the new changelog page with its title
+- The date range
+- A one-line summary of the highlights
+- The "All changelogs →" link
+
+**`docs/ru/index.md`** — Same in Russian under `## Последние обновления`.
+
+### 11. Update State
 
 Write `.changelog-state.json` at the project root:
 
@@ -219,7 +231,7 @@ Write `.changelog-state.json` at the project root:
 { "lastRunDate": "YYYY-MM-DD", "lastPage": "changelogs/YYYY-MM-DD" }
 ```
 
-### 11. Clean Up
+### 12. Clean Up
 
 Remove temporary files:
 
@@ -227,7 +239,7 @@ Remove temporary files:
 rm -rf /tmp/gramio-patches/ /tmp/gramio-ghlog.md
 ```
 
-### 12. Report
+### 13. Report
 
 Summarize:
 
