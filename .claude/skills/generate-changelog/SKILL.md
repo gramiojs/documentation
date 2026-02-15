@@ -148,14 +148,37 @@ If patches reveal new API methods, changed behavior, new options, new plugin fea
 - Add new code examples, update signatures, fix outdated information
 - Preserve twoslash annotations (`// ^?`) — never delete them
 
-#### Public Skills (`skills/`)
+#### Public Skills (`skills/`) — MANDATORY SYNC
 
-Update the skill reference files, examples, and plugin guides under `skills/`:
+**CRITICAL**: Skills MUST stay in sync with documentation. Every doc change should be mirrored in skills. This is NOT optional.
 
-- `skills/references/` — Update relevant API reference docs
+**New plugin → new skill file:**
+If you created a new plugin doc page (`docs/plugins/official/<name>.md`), you MUST also create `skills/plugins/<name>.md` with:
+- YAML frontmatter (`name`, `description`)
+- Package name, setup code, key API methods, usage examples
+- Follow existing skill style (see `skills/plugins/session.md` or `skills/plugins/prompt.md`)
+
+**New doc page → new reference skill:**
+If you created a new standalone doc page (e.g., testing, storages), you MUST also create `skills/references/<name>.md` with:
+- YAML frontmatter (`name`, `description`)
+- Concise API reference with code examples
+- Follow existing style (see `skills/references/webhook.md`)
+
+**New feature → new or updated example:**
+If a notable new feature was added, create or update `skills/examples/<name>.ts` with a runnable example.
+
+**Always update:**
+- `skills/references/` — Update relevant API reference docs when behavior changes
 - `skills/examples/` — Add or update code examples showing new features
 - `skills/plugins/` — Update plugin guides if plugin behavior changed
-- `skills/metadata.json` — Bump the version date
+- `skills/metadata.json` — Bump the version number and date
+
+**Checklist before moving on from this step:**
+- [ ] Every new plugin doc page has a corresponding `skills/plugins/<name>.md`
+- [ ] Every new standalone doc page has a corresponding `skills/references/<name>.md`
+- [ ] Notable new features have examples in `skills/examples/`
+- [ ] Changed plugin behavior is reflected in existing `skills/plugins/` files
+- [ ] `skills/metadata.json` version and date are bumped
 
 For each update, keep a record of what file was changed and why for the final report.
 

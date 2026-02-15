@@ -68,12 +68,15 @@ bot.start();
 | I18n | `@gramio/i18n` | Internationalization (TS-native or Fluent) |
 | Autoload | `@gramio/autoload` | File-based handler loading |
 | Prompt | `@gramio/prompt` | Interactive single-question prompts |
+| Views | `@gramio/views` | Reusable message templates (programmatic + JSON) |
 | Auto Retry | `@gramio/auto-retry` | Retry on 429 rate limits |
 | Media Cache | `@gramio/media-cache` | Cache file_ids |
 | Media Group | `@gramio/media-group` | Handle album messages |
 | Split | `@gramio/split` | Split long messages |
 | Auto Answer CB | `@gramio/auto-answer-callback-query` | Auto-answer callbacks |
 | PostHog | `@gramio/posthog` | Analytics + feature flags |
+| OpenTelemetry | `@gramio/opentelemetry` | Distributed tracing and spans |
+| Sentry | `@gramio/sentry` | Error tracking + performance monitoring |
 
 ## References
 
@@ -108,6 +111,7 @@ bot.start();
 | Rate Limits | withRetries, broadcasting, queues | [rate-limits](references/rate-limits.md) |
 | Docker | Dockerfile, multi-stage build, Docker Compose | [docker](references/docker.md) |
 | TMA | Mini Apps, mkcert HTTPS, @gramio/init-data auth | [tma](references/tma.md) |
+| Testing | Event-driven bot testing, user actors, API mocking | [testing](references/testing.md) |
 
 ### Plugins
 
@@ -118,6 +122,9 @@ bot.start();
 | I18n | TS-native and Fluent internationalization | [i18n](plugins/i18n.md) |
 | Autoload | File-based handler discovery | [autoload](plugins/autoload.md) |
 | Prompt | Send + wait for response | [prompt](plugins/prompt.md) |
+| Views | Reusable message templates, JSON adapter, i18n | [views](plugins/views.md) |
+| OpenTelemetry | Distributed tracing, spans, instrumentation | [opentelemetry](plugins/opentelemetry.md) |
+| Sentry | Error tracking, performance monitoring | [sentry](plugins/sentry.md) |
 | Others | auto-retry, media-cache, media-group, split, posthog | [other](plugins/other.md) |
 | Plugin Development | Writing custom plugins, derive/decorate/error, lazy loading | [plugin-development](references/plugin-development.md) |
 
@@ -137,3 +144,4 @@ bot.start();
 | Telegram Stars | Payments, invoices, refunds | [telegram-stars.ts](examples/telegram-stars.ts) |
 | TMA | Elysia server, init-data auth, webhook | [tma.ts](examples/tma.ts) |
 | Docker | Graceful shutdown, webhook/polling toggle | [docker.ts](examples/docker.ts) |
+| Testing | User simulation, API mocking, error testing | [testing.ts](examples/testing.ts) |
