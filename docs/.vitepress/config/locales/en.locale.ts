@@ -238,6 +238,7 @@ export const localeEn = {
 
 							{ text: "Rate-limits and broadcast", link: "/rate-limits" },
 							{ text: "Storages", link: "/storages" },
+						{ text: "Testing", link: "/testing" },
 							{
 								text: "Telegram Mini Apps",
 								collapsed: true,

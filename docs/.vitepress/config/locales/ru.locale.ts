@@ -209,6 +209,7 @@ export const localeRu = {
 								link: "/ru/rate-limits",
 							},
 							{ text: "Хранилища", link: "/ru/storages" },
+						{ text: "Тестирование", link: "/ru/testing" },
 							{
 								text: "Telegram Web Apps",
 								collapsed: true,
