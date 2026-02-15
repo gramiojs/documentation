@@ -49,13 +49,13 @@ Read the patch files from `/tmp/gramio-patches/`. Focus on extracting:
 
 Create `docs/changelogs/YYYY-MM-DD.md` (using today's date) with:
 
-- **Frontmatter**: `title` should highlight the biggest change of the period — make it punchy and exciting. `description` (meta) and `keywords` (meta) as usual.
+- **Frontmatter**: `title` should highlight the biggest change of the period — make it punchy and exciting. Do NOT include month/year names in titles (multiple changelogs may fall in the same month). `description` (meta) and `keywords` (meta) as usual.
 - **H1**: Lead with the most impactful change as a bold headline, followed by the date range. Think release blog post, not dry log.
 - **Sections by repo/package**, each containing:
+  - **Commit links** under each `## package` heading — list the key commit SHAs as inline links. Use `gh api` to fetch commits for the period: `gh api "search/commits?q=org:gramiojs+committer-date:<since>..<until>&sort=committer-date&order=desc&per_page=100"`. Format: `[`short-sha`](https://github.com/gramiojs/<repo>/commit/<full-sha>)` separated by spaces
   - Attention-grabbing subheadings that announce what happened — not generic "New Features" but specific headlines like "Keyboards now support copy-to-clipboard buttons" or "Session plugin gets Redis adapter"
   - Version numbers (extracted from `package.json` changes in patches)
   - What changed, written in clear, enthusiastic prose — sell the feature, explain why it matters
-  - Inline links to GitHub commits/PRs where relevant
   - Migration instructions for breaking changes with before/after code examples
   - Code examples for notable new features
 - Write like a developer blog post — exciting, informative, and opinionated. Highlight what's most useful to bot developers. This is NOT a raw commit log.
@@ -64,14 +64,14 @@ Example structure:
 
 ```markdown
 ---
-title: "Inline Keyboards Get Superpowers, Sessions Go Persistent — February 2026"
+title: "Inline Keyboards Get Superpowers, Sessions Go Persistent, New Redis Adapter"
 head:
   - - meta
     - name: "description"
-      content: "GramIO February 2026: inline keyboard copy buttons, persistent Redis sessions, 40% faster media uploads, and breaking changes in @gramio/keyboards v2"
+      content: "GramIO changelog: inline keyboard copy buttons, persistent Redis sessions, 40% faster media uploads, and breaking changes in @gramio/keyboards v2"
   - - meta
     - name: "keywords"
-      content: "gramio, changelog, updates, february 2026, inline keyboard, redis sessions"
+      content: "gramio, changelog, updates, inline keyboard, redis sessions"
 ---
 
 # Inline Keyboards Get Superpowers & Sessions Go Persistent
@@ -82,21 +82,15 @@ The highlight of this cycle: inline keyboards learned new tricks and sessions fi
 
 ## gramio v1.2.3 — Faster Media Uploads
 
+[`abc1234`](https://github.com/gramiojs/gramio/commit/abc1234) [`def5678`](https://github.com/gramiojs/gramio/commit/def5678)
+
 ### Media uploads are now 40% faster
 
 We reworked the upload pipeline to stream files directly instead of buffering...
 
-```ts
-// Before: buffered the entire file
-// Now: streams automatically, no code changes needed
-await context.sendPhoto(MediaUpload.path("./photo.jpg"));
-```
-
-### New `onStop` hook for graceful cleanup
-
-You can now run teardown logic when the bot shuts down...
-
 ## @gramio/keyboards v2.0.0 — Copy-to-Clipboard & Breaking Changes
+
+[`aaa1111`](https://github.com/gramiojs/keyboards/commit/aaa1111)
 
 ### Inline keyboards now support copy-to-clipboard buttons
 
@@ -116,6 +110,8 @@ Keyboard.button("Click me")
 
 ## @gramio/session v0.5.0 — Redis Adapter
 
+[`bbb2222`](https://github.com/gramiojs/session/commit/bbb2222)
+
 ### Sessions can now persist to Redis
 
 No more losing session data on restart...
@@ -126,15 +122,24 @@ No more losing session data on restart...
 Create `docs/ru/changelogs/YYYY-MM-DD.md`:
 
 - Translate all prose to Russian
-- Preserve code blocks, links, and frontmatter structure exactly
-- Use natural Russian technical writing style
+- Preserve code blocks, links (including commit links!), and frontmatter structure exactly
+- Use **natural Russian technical writing style** — write like a Russian developer, not a translator. Use dev slang where appropriate ("прокидывает", "лезть в", "из коробки", "Было/Стало")
 - Follow the same conventions as other RU docs (read a sibling RU page for reference)
 
 ### 7. Update Existing Docs and Skills
 
 This is the most critical step. Based on the patches analyzed, update existing documentation and skills to reflect the changes:
 
-#### Documentation Pages (`docs/`)
+#### New Plugin Documentation Pages
+
+**CRITICAL**: If patches reveal entirely new packages/plugins (e.g., a new `@gramio/xxx` plugin), you MUST create full documentation pages for them:
+
+- Create `docs/plugins/official/<plugin-name>.md` (EN) following the existing plugin doc style (see `docs/plugins/official/posthog.md` for reference)
+- Create `docs/ru/plugins/official/<plugin-name>.md` (RU) in natural Russian
+- Each page needs: heading, badges div (npm + JSR), description, installation code-group, usage examples, API/methods section
+- Register the new pages in both sidebar configs (`en.locale.ts` and `ru.locale.ts`) under the "Official" plugins section
+
+#### Existing Documentation Pages (`docs/`)
 
 If patches reveal new API methods, changed behavior, new options, new plugin features, etc.:
 
@@ -145,11 +150,11 @@ If patches reveal new API methods, changed behavior, new options, new plugin fea
 
 #### Public Skills (`skills/`)
 
-Update the skill reference files, examples, and plugin guides under `skills/gramio/`:
+Update the skill reference files, examples, and plugin guides under `skills/`:
 
-- `skills/gramio/references/` — Update relevant API reference docs
-- `skills/gramio/examples/` — Add or update code examples showing new features
-- `skills/gramio/plugins/` — Update plugin guides if plugin behavior changed
+- `skills/references/` — Update relevant API reference docs
+- `skills/examples/` — Add or update code examples showing new features
+- `skills/plugins/` — Update plugin guides if plugin behavior changed
 - `skills/metadata.json` — Bump the version date
 
 For each update, keep a record of what file was changed and why for the final report.

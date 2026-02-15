@@ -78,6 +78,18 @@ export const localeEn = {
 										text: "Prompt",
 										link: "/plugins/official/prompt",
 									},
+									{
+										text: "Views",
+										link: "/plugins/official/views",
+									},
+									{
+										text: "OpenTelemetry",
+										link: "/plugins/official/opentelemetry",
+									},
+									{
+										text: "Sentry",
+										link: "/plugins/official/sentry",
+									},
 								],
 							},
 						],

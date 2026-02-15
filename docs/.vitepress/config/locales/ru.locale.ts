@@ -80,6 +80,18 @@ export const localeRu = {
 										text: "Prompt",
 										link: "/ru/plugins/official/prompt",
 									},
+									{
+										text: "Views",
+										link: "/ru/plugins/official/views",
+									},
+									{
+										text: "OpenTelemetry",
+										link: "/ru/plugins/official/opentelemetry",
+									},
+									{
+										text: "Sentry",
+										link: "/ru/plugins/official/sentry",
+									},
 								],
 							},
 						],
