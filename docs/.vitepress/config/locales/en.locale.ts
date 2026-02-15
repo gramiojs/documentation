@@ -248,6 +248,14 @@ export const localeEn = {
 						],
 					},
 					{
+						text: "Changelogs",
+						collapsed: true,
+						link: "/changelogs/",
+						items: [
+							// new entries added here by the skill, newest first
+						],
+					},
+					{
 						text: "Guides",
 						items: [
 							{

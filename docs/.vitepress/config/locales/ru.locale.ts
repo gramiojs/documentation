@@ -216,6 +216,14 @@ export const localeRu = {
 						],
 					},
 					{
+						text: "Журнал изменений",
+						collapsed: true,
+						link: "/ru/changelogs/",
+						items: [
+							// новые записи добавляются здесь скиллом, сначала новейшие
+						],
+					},
+					{
 						text: "Гайды",
 						items: [
 							{
