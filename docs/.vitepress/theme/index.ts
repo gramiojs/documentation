@@ -6,11 +6,13 @@ import "./style.css";
 import type { EnhanceAppContext } from "vitepress";
 import Theme from "vitepress/theme";
 import Layout from "./Layout.vue";
+import PollingVsWebhook from "../components/PollingVsWebhook.vue";
 
 export default {
 	extends: Theme,
 	Layout,
 	enhanceApp({ app }: EnhanceAppContext) {
 		app.use(TwoslashFloatingVue);
+		app.component("PollingVsWebhook", PollingVsWebhook);
 	},
 };

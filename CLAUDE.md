@@ -51,6 +51,7 @@ CLAUDE.md                      # This file — project context for Claude
 - **Package manager tabs**: Installation examples use `::: code-group` with npm/yarn/pnpm/bun tabs.
 - **Images**: EN images go in `public/`, RU images in `public/ru/` with identical relative paths.
 - **Sidebar registration**: New pages must be added to both `en.locale.ts` and `ru.locale.ts`.
+- **Vue components**: Custom Vue components live in `docs/.vitepress/components/` and must be globally registered in `docs/.vitepress/theme/index.ts` via `app.component()` inside `enhanceApp`. They are **not** auto-registered. See [VitePress docs](https://vitepress.dev/guide/using-vue#using-components).
 
 ## AI Infrastructure
 
