@@ -22,4 +22,5 @@ head:
 - [onError](/ru/hooks/on-error) - вызывается при возникновении ошибки в контекстах
 - [preRequest](/ru/hooks/pre-request) - вызывается перед отправкой запроса в Telegram Bot API (позволяет нам влиять на отправляемые параметры)
 - [onResponse](/ru/hooks/on-response) - вызывается при получении ответа на API-запрос (только в случае успеха)
-- [onResponseError](/ru/hooks/on-response-error) - вызывается при получении ответа на API-запрос (только в случае ошибки) 
+- [onResponseError](/ru/hooks/on-response-error) - вызывается при получении ответа на API-запрос (только в случае ошибки)
+- onApiCall - оборачивает весь жизненный цикл API-вызова для инструментирования и трейсинга

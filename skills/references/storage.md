@@ -1,6 +1,6 @@
 ---
 name: storage
-description: Storage system — in-memory, Redis, and Cloudflare KV adapters, type-safe generics, and custom adapter authoring.
+description: Storage system — in-memory, Redis, SQLite, and Cloudflare KV adapters, type-safe generics, and custom adapter authoring.
 ---
 
 # Storage
@@ -41,7 +41,9 @@ const storage = redisStorage(redis);
 
 Debug: `DEBUG=ioredis:* npm run start`
 
-### SQLite (`@gramio/storage-sqlite`) — Bun only
+### SQLite (`@gramio/storage-sqlite`)
+
+Supports both **Bun** (`bun:sqlite`) and **Node.js** (`node:sqlite`). Auto-selects the correct implementation based on runtime.
 
 ```typescript
 import { sqliteStorage } from "@gramio/storage-sqlite";
@@ -49,8 +51,8 @@ import { sqliteStorage } from "@gramio/storage-sqlite";
 // Pass filename
 const storage = sqliteStorage({ filename: "bot-data.db" });
 
-// Or existing Bun Database
-import { Database } from "bun:sqlite";
+// Or existing Database instance (Bun or Node.js)
+import { Database } from "bun:sqlite"; // or node:sqlite
 const storage = sqliteStorage({ db: new Database("bot-data.db") });
 
 // With TTL (seconds)

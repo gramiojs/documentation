@@ -1,12 +1,12 @@
 ---
 name: hooks
-description: Complete hook system — onStart, onStop, onError, preRequest, onResponse, onResponseError — with scoping, custom error types, and lifecycle order.
+description: Complete hook system — onStart, onStop, onError, preRequest, onResponse, onResponseError, onApiCall — with scoping, custom error types, and lifecycle order.
 ---
 
 # Hooks
 
 Lifecycle order: onStart → (updates processing with onError) → onStop.
-API call order: preRequest → (API call) → onResponse / onResponseError.
+API call order: preRequest → onApiCall → (API call) → onResponse / onResponseError.
 
 ## onStart
 
@@ -129,6 +129,24 @@ bot.onResponseError((context) => {
 
 // Scoped
 bot.onResponseError("sendMessage", handler);
+```
+
+## onApiCall
+
+Wraps the entire API call lifecycle for instrumentation, tracing, and metrics. Used by `@gramio/opentelemetry` and `@gramio/sentry` plugins.
+
+```typescript
+bot.onApiCall("sendMessage", async (context, next) => {
+    const start = Date.now();
+    const result = await next();
+    console.log(`sendMessage took ${Date.now() - start}ms`);
+    return result;
+});
+
+// Global — all methods
+bot.onApiCall(async (context, next) => {
+    return next();
+});
 ```
 
 <!--

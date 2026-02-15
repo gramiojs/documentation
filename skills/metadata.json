@@ -1,5 +1,5 @@
 {
-	"version": "1.2.0",
+	"version": "1.3.0",
 	"organization": "GramIO",
 	"date": "15 Feb 2026",
 	"abstract": "Build type-safe Telegram bots with GramIO — a TypeScript framework for Node.js, Bun, and Deno with plugin system, keyboard builders, formatting, file handling, hooks, and full Bot API coverage.",

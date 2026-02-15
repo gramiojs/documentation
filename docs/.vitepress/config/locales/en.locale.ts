@@ -254,6 +254,10 @@ export const localeEn = {
 						items: [
 							// new entries added here by the skill, newest first
 							{
+								text: "2026-02-15",
+								link: "/changelogs/2026-02-15",
+							},
+							{
 								text: "2026-02-08",
 								link: "/changelogs/2026-02-08",
 							},

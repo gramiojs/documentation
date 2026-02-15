@@ -23,7 +23,7 @@ GramIO has many ready-made adapters, but you can also write your own!
 
 - [Redis](#redis) (`@gramio/storage-redis`)
 
-- [SQLite](#sqlite) (`@gramio/storage-sqlite`) — Bun only
+- [SQLite](#sqlite) (`@gramio/storage-sqlite`)
 
 - [Cloudflare KV](#cloudflare-kv) (`@gramio/storage-cloudflare`)
 
@@ -304,8 +304,8 @@ and it will looks like this:
 
 </div>
 
-> [!WARNING]
-> Currently supports **Bun only** (`bun:sqlite`). Node.js support is planned.
+> [!TIP]
+> Supports both **Bun** (`bun:sqlite`) and **Node.js** (`node:sqlite`). The correct implementation is auto-selected based on your runtime.
 
 ##### Installation
 

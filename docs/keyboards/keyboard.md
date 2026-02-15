@@ -130,8 +130,8 @@ interface ButtonOptions {
 }
 ```
 
-> [!WARNING]
-> These properties are **not yet documented** in the official Bot API but are already supported by Telegram clients.
+> [!TIP]
+> These properties are officially supported since Bot API 9.4.
 
 - **style** — visual color style of the button. Can be `"danger"` (red), `"primary"` (blue), or `"success"` (green).
 - **icon_custom_emoji_id** — custom emoji identifier to be shown alongside the button text.

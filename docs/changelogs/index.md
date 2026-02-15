@@ -15,4 +15,5 @@ Track the latest changes across the GramIO ecosystem. Each entry covers updates 
 
 <!-- New entries are added below this line, newest first -->
 
+- [2026-02-15 — Bot API 9.4, Views, OpenTelemetry, `onApiCall`, `streamMessage`](/changelogs/2026-02-15)
 - [2026-02-08 — Type-Safe Storage Keys, Scenes `onEnter`, SQLite Adapter](/changelogs/2026-02-08)
