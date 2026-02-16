@@ -260,3 +260,83 @@ import { format, join, bold } from "@gramio/format";
 // ---cut---
 format`${join(["test", "other"], (x) => format`${bold(x)}`, "\n")}`;
 ```
+
+## Markdown
+
+You can convert standard Markdown text into Telegram entities using the `markdownToFormattable` function from `@gramio/format/markdown` sub-module.
+
+This is especially useful for:
+
+- **LLM output** — language models (ChatGPT, Claude, etc.) naturally produce standard Markdown. You can pass their output directly to `markdownToFormattable` and send it to Telegram with proper formatting.
+- **Data from databases or external sources** — when you store or receive Markdown text and need to render it in Telegram.
+
+Unlike Telegram's built-in `parse_mode` (`HTML` or `MarkdownV2`), this approach **won't break your message if the markup is invalid**. Telegram's `parse_mode` will reject the entire message on a syntax error (e.g. an unclosed tag or unescaped character). With `markdownToFormattable`, the text is parsed locally into entities — if the markdown is malformed, it gracefully degrades to plain text instead of failing.
+
+> [!WARNING]
+> This function may change in the future.
+
+### Installation
+
+The markdown feature requires [`marked`](https://www.npmjs.com/package/marked) as a peer dependency:
+
+::: code-group
+
+```bash [npm]
+npm install marked
+```
+
+```bash [yarn]
+yarn add marked
+```
+
+```bash [pnpm]
+pnpm add marked
+```
+
+```bash [bun]
+bun install marked
+```
+
+:::
+
+### Usage
+
+```ts
+import { markdownToFormattable } from "@gramio/format/markdown";
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+
+bot.command("start", (context) => {
+    context.send(
+        markdownToFormattable(`**Hello** *world*!
+
+> This is a blockquote
+
+- **Bold** list item
+- *Italic* list item
+- [Link](https://gramio.dev)
+
+\`\`\`js
+console.log("code block with syntax highlighting")
+\`\`\`
+`)
+    );
+});
+```
+
+### Supported syntax
+
+| Markdown | Telegram entity |
+|---|---|
+| `**bold**` | bold |
+| `*italic*` | italic |
+| `~~strikethrough~~` | strikethrough |
+| `` `inline code` `` | code |
+| ` ```lang ... ``` ` | pre (with language) |
+| `[text](url)` | text_link |
+| `![alt](url)` | text_link (images become links) |
+| `> blockquote` | blockquote |
+| `# Heading` | bold (all levels) |
+| `- item` / `1. item` | plain text with prefix |
+```

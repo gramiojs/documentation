@@ -261,3 +261,83 @@ import { format, join, bold } from "@gramio/format";
 // ---cut---
 format`${join(["test", "other"], (x) => format`${bold(x)}`, "\n")}`;
 ```
+
+## Markdown
+
+Вы можете конвертировать стандартный Markdown-текст в Telegram-сущности с помощью функции `markdownToFormattable` из субмодуля `@gramio/format/markdown`.
+
+Это особенно полезно для:
+
+- **Вывода LLM** — языковые модели (ChatGPT, Claude и др.) естественным образом генерируют стандартный Markdown. Вы можете передать их вывод напрямую в `markdownToFormattable` и отправить в Telegram с правильным форматированием.
+- **Данных из баз данных или внешних источников** — когда вы храните или получаете Markdown-текст и хотите отобразить его в Telegram.
+
+В отличие от встроенного `parse_mode` Telegram (`HTML` или `MarkdownV2`), этот подход **не сломает ваше сообщение при невалидной разметке**. `parse_mode` Telegram отклонит всё сообщение при синтаксической ошибке (например, незакрытый тег или неэкранированный символ). С `markdownToFormattable` текст парсится локально в сущности — если markdown некорректен, он graceful degradation до простого текста, а не ломает отправку.
+
+> [!WARNING]
+> Эта функция может измениться в будущем.
+
+### Установка
+
+Для работы с Markdown необходим [`marked`](https://www.npmjs.com/package/marked) как peer-зависимость:
+
+::: code-group
+
+```bash [npm]
+npm install marked
+```
+
+```bash [yarn]
+yarn add marked
+```
+
+```bash [pnpm]
+pnpm add marked
+```
+
+```bash [bun]
+bun install marked
+```
+
+:::
+
+### Использование
+
+```ts
+import { markdownToFormattable } from "@gramio/format/markdown";
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+
+bot.command("start", (context) => {
+    context.send(
+        markdownToFormattable(`**Hello** *world*!
+
+> This is a blockquote
+
+- **Bold** list item
+- *Italic* list item
+- [Link](https://gramio.dev)
+
+\`\`\`js
+console.log("code block with syntax highlighting")
+\`\`\`
+`)
+    );
+});
+```
+
+### Поддерживаемый синтаксис
+
+| Markdown | Telegram-сущность |
+|---|---|
+| `**bold**` | bold |
+| `*italic*` | italic |
+| `~~strikethrough~~` | strikethrough |
+| `` `inline code` `` | code |
+| ` ```lang ... ``` ` | pre (с языком) |
+| `[text](url)` | text_link |
+| `![alt](url)` | text_link (изображения становятся ссылками) |
+| `> blockquote` | blockquote |
+| `# Heading` | bold (все уровни) |
+| `- item` / `1. item` | простой текст с префиксом |
+```

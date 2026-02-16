@@ -108,6 +108,10 @@ export const localeEn = {
 										text: "Sentry",
 										link: "/plugins/official/sentry",
 									},
+									{
+										text: "Pagination",
+										link: "/plugins/official/pagination",
+									},
 								],
 							},
 						],
@@ -275,6 +279,20 @@ export const localeEn = {
 							{
 								text: "Bot class",
 								link: "/bot-class",
+							},
+							{
+								text: "Ecosystem",
+								collapsed: true,
+								items: [
+									{
+										text: "Wrappergram",
+										link: "/ecosystem/wrappergram",
+									},
+									{
+										text: "Crypto Pay API",
+										link: "/ecosystem/crypto-pay-api",
+									},
+								],
 							},
 						],
 					},

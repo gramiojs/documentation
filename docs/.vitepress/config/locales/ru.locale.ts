@@ -110,6 +110,10 @@ export const localeRu = {
 										text: "Sentry",
 										link: "/ru/plugins/official/sentry",
 									},
+									{
+										text: "Пагинация",
+										link: "/ru/plugins/official/pagination",
+									},
 								],
 							},
 						],
@@ -243,6 +247,20 @@ export const localeRu = {
 							{
 								text: "Класс Bot",
 								link: "/ru/bot-class",
+							},
+							{
+								text: "Экосистема",
+								collapsed: true,
+								items: [
+									{
+										text: "Wrappergram",
+										link: "/ru/ecosystem/wrappergram",
+									},
+									{
+										text: "Crypto Pay API",
+										link: "/ru/ecosystem/crypto-pay-api",
+									},
+								],
 							},
 						],
 					},
