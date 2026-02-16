@@ -37,7 +37,7 @@ features:
       details: С помощью <strong>npm create gramio</strong> вы можете быстро начать проект в различных конфигурациях, не тратя время на скучную настройку
     - icon: ✨
       title: Расширяемость
-      details: Наша система <a href="/ru/plugins">плагинов</a> и <a href="/ru/hooks/overview">хуков</a> просто потрясающая
+      details: Наша система <a href="/ru/plugins/overview">плагинов</a> и <a href="/ru/hooks/overview">хуков</a> просто потрясающая
     - icon: ⚙️
       title: Кодо-генерация
       details: Многие части генерируются автоматически

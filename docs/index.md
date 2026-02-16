@@ -37,7 +37,7 @@ features:
       details: With <strong>npm create gramio</strong> you can quickly start a project in various configurations without wasting time on boring setup
     - icon: ✨
       title: Extensible
-      details: Our <a href="/plugins">plugin</a> and <a href="/hooks/overview">hook</a> system is awesome
+      details: Our <a href="/plugins/overview">plugin</a> and <a href="/hooks/overview">hook</a> system is awesome
     - icon: ⚙️
       title: Code-generated
       details: Many parts are code-generated
