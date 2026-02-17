@@ -11,6 +11,7 @@ export const localeEn = {
 			nav: [
 				{ text: "Home", link: "/" },
 				{ text: "Get started", link: "/get-started" },
+				{ text: "Cheat Sheet", link: "/cheat-sheet" },
 				{ text: "Plugins", link: "/plugins/overview" },
 				{ text: "Changelogs", link: "/changelogs/" },
 				// { text: "Examples", link: "/markdown-examples" },
@@ -118,6 +119,7 @@ export const localeEn = {
 						text: "Documentation",
 						items: [
 							{ text: "Get started", link: "/get-started" },
+							{ text: "Cheat Sheet", link: "/cheat-sheet" },
 							{ text: "Bot API", link: "/bot-api" },
 							{
 								text: "Updates",
