@@ -7,6 +7,8 @@ import type { EnhanceAppContext } from "vitepress";
 import Theme from "vitepress/theme";
 import Layout from "./Layout.vue";
 import CopyOrDownloadAsMarkdownButtons from "vitepress-plugin-llms/vitepress-components/CopyOrDownloadAsMarkdownButtons.vue";
+import PollingVsWebhook from "../components/PollingVsWebhook.vue";
+import BroadcastVisualizer from "../components/BroadcastVisualizer.vue";
 
 export default {
 	extends: Theme,
@@ -14,5 +16,7 @@ export default {
 	enhanceApp({ app }: EnhanceAppContext) {
 		app.use(TwoslashFloatingVue);
 		app.component("CopyOrDownloadAsMarkdownButtons", CopyOrDownloadAsMarkdownButtons);
+		app.component("PollingVsWebhook", PollingVsWebhook);
+		app.component("BroadcastVisualizer", BroadcastVisualizer);
 	},
 };

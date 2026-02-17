@@ -37,7 +37,7 @@ features:
       details: С помощью <strong>npm create gramio</strong> вы можете быстро начать проект в различных конфигурациях, не тратя время на скучную настройку
     - icon: ✨
       title: Расширяемость
-      details: Наша система <a href="/ru/plugins">плагинов</a> и <a href="/ru/hooks/overview">хуков</a> просто потрясающая
+      details: Наша система <a href="/ru/plugins/overview">плагинов</a> и <a href="/ru/hooks/overview">хуков</a> просто потрясающая
     - icon: ⚙️
       title: Кодо-генерация
       details: Многие части генерируются автоматически
@@ -51,6 +51,14 @@ features:
       title: И многое другое
       # details: Works on <a href="https://nodejs.org/">Node.js</a>, <a href="https://bun.sh/">Bun</a> and <a href="https://deno.com/">Deno</a>
 ---
+
+## Последние обновления
+
+**[Bot API 9.4, система Views, OpenTelemetry и `streamMessage`](/ru/changelogs/2026-02-15)** — 8–15 февраля 2026
+
+GramIO догоняет Bot API 9.4, представляет новую систему шаблонов Views, запускает плагины OpenTelemetry и Sentry, добавляет хук `onApiCall` и вводит `streamMessage`.
+
+[Все обновления →](/ru/changelogs/)
 
 ## Начало работы
 

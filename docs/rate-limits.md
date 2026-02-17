@@ -7,22 +7,68 @@ head:
 
     - - meta
       - name: "keywords"
-        content: Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, 429, rate-limit, error-code, retry later, retry_after, too many requests, limits, messages, how to solve, redis, bull, queue, 30 messages per second
+        content: Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, 429, rate-limit, error-code, retry later, retry_after, too many requests, limits, messages, how to solve, redis, bull, queue, 30 messages per second, broadcast, mailing, flood control
 ---
 
 # Rate limits
 
-This is a guide that shows how to solve rate limit errors (`Error code 429, Error: Too many requests: retry later`) from Telegram Bot API.
+Telegram Bot API enforces strict rate limits to protect its infrastructure and other bots from abuse. If your bot sends too many requests in a short period, the API will respond with **HTTP 429 — Too Many Requests** and a `retry_after` field indicating how many seconds the bot must wait before making any API calls.
 
-Generally speaking, if you avoid **broadcast-like** behavior in your bot, there is no need to worry about rate limits. But it's better to use the [auto-retry](/plugins/official/auto-retry) plugin just in case. if you reach these limits without broadcasting, then most likely something is wrong on your side.
+## Key limits to know
 
-# How to Broadcast
+Telegram **does not officially publish** exact rate limit numbers. The values below are approximate and come from community experience — they are safe to follow, but the real limits are **dynamic** and depend on factors like your bot's age, history, and the type of requests.
 
-For a start, we can solve rate-limit errors when broadcasting without using **queues**.
+| Limit | Approximate value |
+|---|---|
+| Messages to the **same chat** | ~1 per second |
+| Messages to **different chats** | ~30 per second |
+| Bulk notifications / broadcasts | ~30 per second total |
+| Group/channel operations | Lower, depends on members |
 
-Let's use the [built-in `withRetries` function](/bot-api#Handling-Rate-Limit) which catches errors with the `retry_after` field (**rate limit** errors), **waits** for the specified time and **repeats** the API request.
+> [!NOTE]
+> In practice the limits are more nuanced than a simple "30 per second" — they can change dynamically and may differ between bots. If your bot needs higher throughput, you can **contact [@BotSupport](https://t.me/BotSupport)** and request a limit increase for your bot.
 
-Next, we need to make a loop and adjust the **delay** so that we are least likely to fall for a `rate-limit` error, and if we catch it, we will wait for the specified time (and the [built-in `withRetries` function](/bot-api#Handling-Rate-Limit) will repeat it)
+> [!TIP]
+> If you're not doing broadcasts — just responding to user messages — you almost certainly won't hit these limits. But it's still good practice to add the [auto-retry](/plugins/official/auto-retry) plugin as a safety net.
+
+## What happens when you exceed the limit
+
+When you go over the rate limit, Telegram returns:
+
+```json
+{
+  "ok": false,
+  "error_code": 429,
+  "description": "Too Many Requests: retry after 35",
+  "parameters": {
+    "retry_after": 35
+  }
+}
+```
+
+Your bot is **completely blocked** for the duration of `retry_after` (up to 35+ seconds). No API calls will succeed during this time — not just for the users you were broadcasting to, but for **all** users interacting with your bot.
+
+## The problem: broadcasting without delays
+
+A common mistake is iterating over a list of users and sending messages as fast as possible:
+
+```ts
+// DON'T do this!
+for (const chatId of chatIds) {
+    await bot.api.sendMessage({ chat_id: chatId, text: "Hi!" });
+    // No delay → instant 429 after ~30 messages
+}
+```
+
+This fires requests at maximum speed. After roughly 30 messages, Telegram blocks your bot entirely.
+
+<BroadcastVisualizer />
+
+## How to broadcast correctly
+
+### Simple approach: loop with delay
+
+Use the [built-in `withRetries` function](/bot-api#Handling-Rate-Limit) which catches `retry_after` errors, waits the specified time, and retries the request automatically. Combine it with a base delay between each request to stay under the limit:
 
 ```ts twoslash
 // experimental API available since Node.js@16.14.0
@@ -48,15 +94,17 @@ for (const chatId of chatIds) {
 }
 ```
 
-## Queue Implementation (@gramio/broadcast)
+This is a good starting point for small broadcasts (up to a few thousand users). But it has downsides:
 
-Persistent even when server restarts and ready to horizontal-scaling broadcasting sample.
+- **Not persistent** — if the server restarts, you lose your position in the list
+- **Not scalable** — a single loop can't be parallelized across multiple servers
+- **No progress tracking** — you don't know which users have already received the message
 
-GramIO has a convenient library for broadcasting in its ecosystem - [@gramio/broadcast](https://github.com/gramiojs/broadcast)
+### Production-ready: @gramio/broadcast
 
-Pre-requirements:
+For real-world broadcasting, use [@gramio/broadcast](https://github.com/gramiojs/broadcast) — a queue-based solution built into the GramIO ecosystem. It's **persistent** (survives restarts), **horizontally scalable**, and handles rate limiting automatically.
 
--   [Redis](https://redis.io/)
+**Requirements:** [Redis](https://redis.io/)
 
 ```ts
 import { Bot, InlineKeyboard } from "gramio";
@@ -100,16 +148,13 @@ process.on("SIGTERM", gracefulShutdown);
 process.on("SIGINT", gracefulShutdown);
 ```
 
-This library provides a convenient interface for broadcasting without losing type safety. You create types of broadcasts and pass data to functions, then call `broadcast.start` with an array of arguments.
+You define broadcast **types** with full type safety — each type specifies what data the broadcast function receives. Then call `broadcast.start` with an array of arguments and the library handles queuing, rate limiting, retries, and persistence.
 
-## Own Implementation
+### Custom implementation with BullMQ
 
-Pre-requirements:
+If you need full control over the queue behavior, you can build your own solution using [BullMQ](https://docs.bullmq.io/) with [jobify](https://github.com/kravetsone/jobify):
 
--   [Redis](https://redis.io/)
--   ioredis, bullmq, [jobify](https://github.com/kravetsone/jobify)
-
-// TODO: more text about it
+**Requirements:** [Redis](https://redis.io/), ioredis, bullmq, [jobify](https://github.com/kravetsone/jobify)
 
 ```ts
 import { Worker } from "bullmq";
@@ -166,6 +211,8 @@ await sendMailing.addBulk(
     }))
 );
 ```
+
+The `limiter` option ensures BullMQ processes at most 20 jobs per second. If a 429 error occurs, the worker pauses for the time specified in `retry_after` and then resumes.
 
 ### Read also
 

@@ -11,9 +11,27 @@ export const localeRu = {
 				{ text: "Главная", link: "/ru" },
 				{ text: "Начало", link: "/ru/get-started" },
 				{ text: "Плагины", link: "/ru/plugins/overview" },
+				{ text: "Журнал изменений", link: "/ru/changelogs/" },
 				// { text: "Гайды", link: "/ru/guides" },
 			],
 			sidebar: {
+				"/ru/changelogs/": [
+					{
+						text: "Журнал изменений",
+						link: "/ru/changelogs/",
+						items: [
+							// новые записи добавляются здесь скиллом, сначала новейшие
+							{
+								text: "2026-02-15",
+								link: "/ru/changelogs/2026-02-15",
+							},
+							{
+								text: "2026-02-08",
+								link: "/ru/changelogs/2026-02-08",
+							},
+						],
+					},
+				],
 				// "/ru/guides/": [
 
 				// ],
@@ -79,6 +97,18 @@ export const localeRu = {
 									{
 										text: "Prompt",
 										link: "/ru/plugins/official/prompt",
+									},
+									{
+										text: "Views",
+										link: "/ru/plugins/official/views",
+									},
+									{
+										text: "OpenTelemetry",
+										link: "/ru/plugins/official/opentelemetry",
+									},
+									{
+										text: "Sentry",
+										link: "/ru/plugins/official/sentry",
 									},
 								],
 							},
@@ -197,6 +227,7 @@ export const localeRu = {
 								link: "/ru/rate-limits",
 							},
 							{ text: "Хранилища", link: "/ru/storages" },
+						{ text: "Тестирование", link: "/ru/testing" },
 							{
 								text: "Telegram Web Apps",
 								collapsed: true,
@@ -243,6 +274,10 @@ export const localeRu = {
 							{
 								text: "Telegram Stars",
 								link: "/ru/guides/telegram-stars",
+							},
+							{
+								text: "AI навыки",
+								link: "/ru/guides/ai-skills",
 							},
 						],
 					},

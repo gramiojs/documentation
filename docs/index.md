@@ -37,7 +37,7 @@ features:
       details: With <strong>npm create gramio</strong> you can quickly start a project in various configurations without wasting time on boring setup
     - icon: ✨
       title: Extensible
-      details: Our <a href="/plugins">plugin</a> and <a href="/hooks/overview">hook</a> system is awesome
+      details: Our <a href="/plugins/overview">plugin</a> and <a href="/hooks/overview">hook</a> system is awesome
     - icon: ⚙️
       title: Code-generated
       details: Many parts are code-generated
@@ -51,6 +51,14 @@ features:
       title: And something else
       # details: Works on <a href="https://nodejs.org/">Node.js</a>, <a href="https://bun.sh/">Bun</a> and <a href="https://deno.com/">Deno</a>
 ---
+
+## Latest Updates
+
+**[Bot API 9.4, Views System, OpenTelemetry & `streamMessage`](/changelogs/2026-02-15)** — February 8–15, 2026
+
+GramIO catches up to Bot API 9.4, ships a new views/template system, launches OpenTelemetry and Sentry plugins, adds an `onApiCall` hook, and introduces `streamMessage`.
+
+[All changelogs →](/changelogs/)
 
 ## Get started
 

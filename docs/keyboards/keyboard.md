@@ -62,7 +62,7 @@ More about options in [documentation](https://core.telegram.org/bots/api/#keyboa
 
 ### requestChats
 
-Request users button. Pressing the button will open a list of suitable chats. Tapping on a chat will send its identifier to the bot in a `chat_shared` service message. Available in private chats only.. Available in private chats only. `Second parameter` is signed 32-bit identifier of the request, which will be received back in the [ChatShared](https://core.telegram.org/bots/api/#chatshared) object. Must be unique within the message
+Request users button. Pressing the button will open a list of suitable chats. Tapping on a chat will send its identifier to the bot in a `chat_shared` service message. Available in private chats only. `Second parameter` is signed 32-bit identifier of the request, which will be received back in the [ChatShared](https://core.telegram.org/bots/api/#chatshared) object. Must be unique within the message
 
 ```ts twoslash
 import { Keyboard } from "@gramio/keyboards";
@@ -130,8 +130,8 @@ interface ButtonOptions {
 }
 ```
 
-> [!WARNING]
-> These properties are **not yet documented** in the official Bot API but are already supported by Telegram clients.
+> [!TIP]
+> These properties are officially supported since Bot API 9.4.
 
 - **style** — visual color style of the button. Can be `"danger"` (red), `"primary"` (blue), or `"success"` (green).
 - **icon_custom_emoji_id** — custom emoji identifier to be shown alongside the button text.
@@ -198,7 +198,7 @@ new Keyboard().text("some text").persistent(); // to enable
 new Keyboard().text("some text").persistent(false); // to disable
 ```
 
-### persistent
+### selective
 
 Use this parameter if you want to show the keyboard to specific users only.
 

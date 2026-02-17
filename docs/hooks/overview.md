@@ -23,3 +23,4 @@ Below are the hooks available in GramIO:
 -   [preRequest](/hooks/pre-request) - called before sending a request to Telegram Bot API (allows us to impact the sent parameters)
 -   [onResponse](/hooks/on-response) - called on API request response (only if success)
 -   [onResponseError](/hooks/on-response-error) - called on API request response (only if errored)
+-   onApiCall - wraps the entire API call lifecycle for instrumentation and tracing

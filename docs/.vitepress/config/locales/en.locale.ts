@@ -12,9 +12,27 @@ export const localeEn = {
 				{ text: "Home", link: "/" },
 				{ text: "Get started", link: "/get-started" },
 				{ text: "Plugins", link: "/plugins/overview" },
+				{ text: "Changelogs", link: "/changelogs/" },
 				// { text: "Examples", link: "/markdown-examples" },
 			],
 			sidebar: {
+				"/changelogs/": [
+					{
+						text: "Changelogs",
+						link: "/changelogs/",
+						items: [
+							// new entries added here by the skill, newest first
+							{
+								text: "2026-02-15",
+								link: "/changelogs/2026-02-15",
+							},
+							{
+								text: "2026-02-08",
+								link: "/changelogs/2026-02-08",
+							},
+						],
+					},
+				],
 				"/plugins/": [
 					{
 						text: "Plugins",
@@ -77,6 +95,18 @@ export const localeEn = {
 									{
 										text: "Prompt",
 										link: "/plugins/official/prompt",
+									},
+									{
+										text: "Views",
+										link: "/plugins/official/views",
+									},
+									{
+										text: "OpenTelemetry",
+										link: "/plugins/official/opentelemetry",
+									},
+									{
+										text: "Sentry",
+										link: "/plugins/official/sentry",
 									},
 								],
 							},
@@ -226,6 +256,7 @@ export const localeEn = {
 
 							{ text: "Rate-limits and broadcast", link: "/rate-limits" },
 							{ text: "Storages", link: "/storages" },
+						{ text: "Testing", link: "/testing" },
 							{
 								text: "Telegram Mini Apps",
 								collapsed: true,
@@ -275,6 +306,10 @@ export const localeEn = {
 							{
 								text: "Telegram Stars",
 								link: "/guides/telegram-stars",
+							},
+							{
+								text: "AI Skills",
+								link: "/guides/ai-skills",
 							},
 						],
 					},

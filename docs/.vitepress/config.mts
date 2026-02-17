@@ -30,7 +30,12 @@ export default defineConfig({
 					deno: "logos:deno",
 				},
 			}),
-			llms(),
+			llms({
+				domain: "https://gramio.dev",
+				description:
+					"GramIO — TypeScript Telegram Bot API framework for Node.js, Bun, and Deno. Type-safe, plugin-based, with keyboards, formatting, file handling, hooks, and more.",
+				ignoreFiles: ["ru/**"],
+			}),
 		],
 	},
 	transformHead: ({ pageData: { relativePath } }) => {
