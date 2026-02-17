@@ -54,9 +54,11 @@ features:
 
 ## Последние обновления
 
-**[Bot API 9.4, система Views, OpenTelemetry и `streamMessage`](/ru/changelogs/2026-02-15)** — 8–15 февраля 2026
+**[GramIO v0.5.0 — Рефакторинг Composer, наблюдаемость и суперсилы тестирования](/ru/changelogs/2026-02-17)** — 16–18 февраля 2026
 
-GramIO догоняет Bot API 9.4, представляет новую систему шаблонов Views, запускает плагины OpenTelemetry и Sentry, добавляет хук `onApiCall` и вводит `streamMessage`.
+GramIO v0.5.0 избавляется от `middleware-io` и переходит на `@gramio/composer` v0.2.0 с `decorate()`, `when()`, `inspect()`, `trace()` и кастомными методами фреймворка. `@gramio/test` достигает v0.1.0 с реакциями, inline-запросами и fluent-скоупами. `@gramio/session` v0.2.0 добавляет ленивую загрузку сессий — до 90% меньше обращений к хранилищу.
+
+[Все changelogs →](/ru/changelogs/)
 
 [Все обновления →](/ru/changelogs/)
 

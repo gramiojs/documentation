@@ -4,11 +4,11 @@ title: Testing Telegram Bots — Event-driven test framework for GramIO
 head:
     - - meta
       - name: "description"
-        content: "Learn how to test your Telegram bot built with GramIO. Event-driven test framework with user actors, chat simulation, API mocking, and inline button clicks — all without real HTTP requests."
+        content: "Learn how to test your Telegram bot built with GramIO. Event-driven test framework with user actors, chat simulation, reactions, inline queries, API mocking, and fluent scope API — all without real HTTP requests."
 
     - - meta
       - name: "keywords"
-        content: "telegram bot, framework, how to create a bot, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, testing, unit tests, integration tests, bot testing, mock API, test environment, user simulation, chat simulation, callback query testing, inline button testing, API mocking, TelegramTestEnvironment"
+        content: "telegram bot, framework, how to create a bot, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, testing, unit tests, integration tests, bot testing, mock API, test environment, user simulation, chat simulation, callback query testing, inline button testing, API mocking, TelegramTestEnvironment, reactions, inline queries, ReactObject"
 ---
 
 # Testing
@@ -129,6 +129,104 @@ const msg = await user.sendMessage("Pick an option");
 await user.click("option:1", msg);
 ```
 
+### `user.react(emojiOrObject, message?, options?)` — react to a message
+
+Emits a `message_reaction` update. Works with `bot.reaction()` handlers:
+
+```ts
+const msg = await user.sendMessage("Nice bot!");
+
+// Single emoji
+await user.react("👍", msg);
+
+// Multiple emojis
+await user.react(["👍", "❤"], msg);
+
+// Declare previous reactions (old_reaction)
+await user.react("❤", msg, { oldReactions: ["👍"] });
+```
+
+Use the `ReactObject` builder for fine-grained control:
+
+```ts
+import { ReactObject } from "@gramio/test";
+
+await user.react(
+    new ReactObject()
+        .on(msg)          // attach to message (infers chat)
+        .add("👍", "🔥") // new_reaction
+        .remove("😢")    // old_reaction
+);
+
+// Attribute the reaction to a different user:
+await alice.react(new ReactObject().from(bob).on(msg).add("👍"));
+```
+
+**Automatic reaction state tracking**: `MessageObject` tracks per-user reactions in memory. When `user.react()` is called, `old_reaction` is computed automatically from the in-memory state — you only need `oldReactions` when you want to override:
+
+```ts
+await user.react("👍", msg);  // old_reaction = [] (auto)
+await user.react("❤", msg);  // old_reaction = ["👍"] — auto-computed!
+```
+
+### `user.sendInlineQuery(query, chatOrOptions?, options?)` — trigger inline mode
+
+Emits an `inline_query` update. Works with `bot.inlineQuery()` handlers:
+
+```ts
+// No chat context
+const q = await user.sendInlineQuery("search cats");
+
+// With chat — chat_type derived automatically
+const group = env.createChat({ type: "group" });
+const q2 = await user.sendInlineQuery("search cats", group);
+
+// With pagination offset
+const q3 = await user.sendInlineQuery("search dogs", { offset: "10" });
+
+// With chat + offset
+const q4 = await user.sendInlineQuery("search dogs", group, { offset: "10" });
+```
+
+### `user.chooseInlineResult(resultId, query, options?)` — simulate result selection
+
+Emits a `chosen_inline_result` update:
+
+```ts
+await user.chooseInlineResult("result-1", "search cats");
+await user.chooseInlineResult("result-1", "search cats", { inline_message_id: "abc" });
+```
+
+### `user.in(chat)` — scope to a chat
+
+Returns a `UserInChatScope` with the chat pre-bound. Makes chained operations more readable:
+
+```ts
+const group = env.createChat({ type: "group" });
+
+await user.in(group).sendMessage("Hello group!");
+await user.in(group).sendInlineQuery("cats");
+await user.in(group).join();
+await user.in(group).leave();
+
+// Chain further to a message:
+const msg = await user.sendMessage(group, "Pick one");
+await user.in(group).on(msg).react("👍");
+await user.in(group).on(msg).click("choice:A");
+```
+
+### `user.on(msg)` — scope to a message
+
+Returns a `UserOnMessageScope` for message-level actions:
+
+```ts
+const msg = await user.sendMessage("Hello");
+
+await user.on(msg).react("👍");
+await user.on(msg).react("❤", { oldReactions: ["👍"] });
+await user.on(msg).click("action:1");
+```
+
 ## `ChatObject`
 
 Wraps `TelegramChat` with in-memory state tracking:
@@ -155,6 +253,49 @@ const cbQuery = new CallbackQueryObject()
     .from(user)
     .data("action:1")
     .message(msg);
+```
+
+## `ReactObject`
+
+Chainable builder for `message_reaction` updates:
+
+| Method | Description |
+|--------|-------------|
+| `.from(user)` | Set the user who reacted (auto-filled by `user.react()`) |
+| `.on(message)` | Attach to a message and infer the chat |
+| `.inChat(chat)` | Override the chat explicitly |
+| `.add(...emojis)` | Emojis being added (`new_reaction`) |
+| `.remove(...emojis)` | Emojis being removed (`old_reaction`) |
+
+```ts
+const reaction = new ReactObject()
+    .on(msg)
+    .add("👍", "🔥")
+    .remove("😢");
+
+await user.react(reaction);
+```
+
+## `InlineQueryObject`
+
+Wraps `TelegramInlineQuery` with builder methods:
+
+```ts
+const inlineQuery = new InlineQueryObject()
+    .from(user)
+    .query("search cats")
+    .offset("0");
+```
+
+## `ChosenInlineResultObject`
+
+Wraps `TelegramChosenInlineResult` with builder methods:
+
+```ts
+const result = new ChosenInlineResultObject()
+    .from(user)
+    .resultId("result-1")
+    .query("search cats");
 ```
 
 ## Inspecting Bot API Calls

@@ -161,6 +161,17 @@ const views = await storage.get("counter:views"); // number | undefined
 
 This type safety works across all storage adapters (in-memory, Redis, Cloudflare KV, etc.) and helps prevent runtime errors by catching type mismatches at compile time.
 
+## Adapter versions
+
+| Adapter | Latest version |
+|---------|---------------|
+| `@gramio/storage` (In Memory) | **2.0.1** |
+| `@gramio/storage-redis` | **1.0.5** |
+| `@gramio/storage-cloudflare` | **0.0.2** |
+| `@gramio/storage-sqlite` | **0.0.2** |
+
+The `Storage` interface in v2.0.x uses a generic `Data` type with typed keys across all methods (`get`, `set`, `has`, `delete`). All adapters serialize keys via `String()` for backward compatibility. This is the foundation for the type-safe storage generics described above.
+
 ## List
 
 ## In Memory

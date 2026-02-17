@@ -24,6 +24,10 @@ export const localeEn = {
 						items: [
 							// new entries added here by the skill, newest first
 							{
+								text: "2026-02-17",
+								link: "/changelogs/2026-02-17",
+							},
+							{
 								text: "2026-02-15",
 								link: "/changelogs/2026-02-15",
 							},
@@ -259,6 +263,16 @@ export const localeEn = {
 							{ text: "Rate-limits and broadcast", link: "/rate-limits" },
 							{ text: "Storages", link: "/storages" },
 						{ text: "Testing", link: "/testing" },
+						{
+							text: "Extend",
+							collapsed: true,
+							items: [
+								{
+									text: "@gramio/composer",
+									link: "/extend/composer",
+								},
+							],
+						},
 							{
 								text: "Telegram Mini Apps",
 								collapsed: true,

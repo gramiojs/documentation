@@ -129,6 +129,65 @@ const msg = await user.sendMessage("Pick an option");
 await user.click("option:1", msg);
 ```
 
+### `user.react(emojiOrObject, message?, options?)` — реагировать на сообщение
+
+Генерирует апдейт `message_reaction`. Работает с обработчиками `bot.reaction()`:
+
+```ts
+const msg = await user.sendMessage("Хороший бот!");
+
+// Один эмодзи
+await user.react("👍", msg);
+
+// Несколько эмодзи
+await user.react(["👍", "❤"], msg);
+
+// Объявить предыдущие реакции (old_reaction)
+await user.react("❤", msg, { oldReactions: ["👍"] });
+```
+
+Используйте `ReactObject` для тонкого контроля:
+
+```ts
+import { ReactObject } from "@gramio/test";
+
+await user.react(
+    new ReactObject()
+        .on(msg)          // привязка к сообщению (чат выводится автоматически)
+        .add("👍", "🔥") // new_reaction
+        .remove("😢")    // old_reaction
+);
+```
+
+**Автоматическое отслеживание реакций**: `MessageObject` ведёт реакции в памяти. `old_reaction` вычисляется автоматически при вызове `user.react()`.
+
+### `user.sendInlineQuery(query, chatOrOptions?, options?)` — запустить inline-режим
+
+```ts
+const q = await user.sendInlineQuery("поиск кошек");
+const group = env.createChat({ type: "group" });
+const q2 = await user.sendInlineQuery("поиск кошек", group); // chat_type: "group"
+```
+
+### `user.chooseInlineResult(resultId, query, options?)` — выбрать inline-результат
+
+```ts
+await user.chooseInlineResult("result-1", "поиск кошек");
+```
+
+### `user.in(chat)` / `user.on(msg)` — fluent-скоупы
+
+```ts
+// Скоуп к чату
+await user.in(group).sendMessage("Привет!");
+await user.in(group).join();
+await user.in(group).on(msg).react("🔥");
+
+// Скоуп к сообщению
+await user.on(msg).react("👍");
+await user.on(msg).click("action:1");
+```
+
 ## `ChatObject`
 
 Обёртка над `TelegramChat` с отслеживанием состояния в памяти:

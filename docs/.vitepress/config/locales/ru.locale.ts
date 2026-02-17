@@ -22,6 +22,10 @@ export const localeRu = {
 						items: [
 							// новые записи добавляются здесь скиллом, сначала новейшие
 							{
+								text: "2026-02-17",
+								link: "/ru/changelogs/2026-02-17",
+							},
+							{
 								text: "2026-02-15",
 								link: "/ru/changelogs/2026-02-15",
 							},

@@ -139,6 +139,10 @@ First argument accepts the **key** where the value will be stored (types will be
 Second argument accepts **validation schema** that implements [Standard Schema](https://standardschema.dev/).
 Third argument accepts the text that will be sent to user on **first step invocation** (`firstTime`).
 
+An optional fourth argument accepts an options object with:
+
+- **`onInvalidInput`** — custom handler called when validation fails, instead of auto-sending the schema's error message.
+
 ::: code-group
 
 ```ts [zod]
@@ -205,6 +209,22 @@ const testScene = new Scene("test")
 ```
 
 :::
+
+**Custom error handling with `onInvalidInput`:**
+
+```ts
+const testScene = new Scene("test")
+    .ask(
+        "age",
+        z.coerce.number().min(18, "You must be at least 18 years old"),
+        "How old are you?",
+        {
+            onInvalidInput: async (context, error) => {
+                await context.send(`❌ ${error.message}\nPlease try again.`);
+            }
+        }
+    );
+```
 
 > [!WARNING]
 > Since we're working with text input, you should use [`z.coerce`](https://zod.dev/api?id=coercion) or similar validator methods that convert text to numbers for proper type handling.
