@@ -296,6 +296,150 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
     .command("start", (ctx) => ctx.send("Привет!"));
 ```
 
+## Архитектура production-бота
+
+По мере роста бота за пределы одного файла, слоистые **именованные** Composer'ы позволяют каждому модулю объявлять собственные зависимости и оставаться самодостаточным — а дедупликация GramIO гарантирует, что общий middleware выполняется ровно один раз на обновление.
+
+```
+bot
+  .extend(withUser)    ← scoped: derive записывает ctx.user в реальный ctx
+  .extend(adminRouter) ← withUser внутри → dedup: пропускается
+  .extend(chatRouter)  ← withUser/withChat внутри → dedup: пропускается
+
+  adminRouter: .extend(withUser) + .guard + команды   (только типы)
+  chatRouter:  .extend(withUser) + .extend(withChat) + обработчики
+```
+
+### 1. Общая база: `withUser`
+
+Назовите общий Composer и пометьте его `.as("scoped")`. Оба шага важны:
+
+```ts
+// middleware/user.ts
+import { Composer } from "@gramio/composer";
+
+export const db = {
+    getUser: (id: number) =>
+        Promise.resolve({ id, name: "Alice", role: "admin" as "admin" | "user" }),
+    getChat: (id: number) =>
+        Promise.resolve({ id, title: "Мой чат", language: "ru" }),
+};
+
+export const withUser = new Composer({ name: "withUser" })
+    .decorate({ db })
+    .derive(async (ctx) => ({
+        user: await db.getUser(ctx.from?.id ?? 0),
+    }))
+    .as("scoped");
+```
+
+**`{ name: "withUser" }`** — GramIO отслеживает расширенные имена в `Set`. Когда `bot.extend(adminRouter)` выполняется и `adminRouter` уже расширил `withUser`, ключ `"withUser:null"` переносится в extended-множество `bot`. Последующий `bot.extend(withUser)` (или из другого роутера) становится no-op. Дедупликация транзитивна.
+
+**`.as("scoped")`** — по умолчанию `extend()` оборачивает middleware расширяемого Composer'а в isolation group через `Object.create(ctx)`. Derive выполняется, но результаты остаются внутри группы и не попадают в родительский `ctx`. `.as("scoped")` отключает это: middleware добавляется как plain-функция на родительский `ctx`, и `ctx.user` записывается в реальный `ctx`, доступный везде через prototype chain JavaScript.
+
+### 2. Admin-роутер
+
+```ts
+// routers/admin.ts
+import { Composer } from "@gramio/composer";
+import { withUser } from "../middleware/user";
+
+export const adminRouter = new Composer({ name: "adminRouter" })
+    .extend(withUser)                              // типы ✅  ctx.db ✅
+    .guard((ctx) => ctx.user.role === "admin")     // не-администраторы остановлены здесь
+    .command("ban", (ctx) =>
+        ctx.send(`Забанен! (от ${ctx.user.name})`))
+    .command("stats", async (ctx) => {
+        const target = await ctx.db.getUser(42);
+        ctx.send(`Статистика для: ${target.name}`);
+    })
+    .command("kick", (ctx) => ctx.send("Кикнут!"));
+```
+
+TypeScript выводит `ctx.user` и `ctx.db` потому что `adminRouter` расширяет `withUser`. В рантайме — когда `bot` расширяет `withUser` первым — дедупликация пропускает `withUser` внутри `adminRouter`. Derive не выполняется дважды.
+
+### 3. Chat-роутер
+
+```ts
+// routers/chat.ts
+import { Composer } from "@gramio/composer";
+import { db, withUser } from "../middleware/user";
+
+const withChat = new Composer({ name: "withChat" })
+    .derive("message", async (ctx) => ({
+        chatRecord: await db.getChat(ctx.chat.id),
+    }))
+    .as("scoped");
+
+export const chatRouter = new Composer({ name: "chatRouter" })
+    .extend(withUser)   // типы ✅  ctx.db ✅
+    .extend(withChat)   // ctx.chatRecord ✅  (Partial вне message-обработчиков)
+    .on("message", (ctx) => {
+        ctx.send(`${ctx.user.name} в ${ctx.chatRecord.title}`);
+    })
+    .command("topic", (ctx) =>
+        ctx.send(`Язык: ${ctx.chatRecord?.language ?? "unknown"}`))
+    .command("rules", (ctx) =>
+        ctx.send(`Чат: ${ctx.chatRecord?.title ?? "unknown"}`));
+```
+
+Примечание: `ctx.chat` (без суффикса) — встроенное свойство Telegram-события в GramIO, поэтому используем `chatRecord`.
+
+### 4. Сборка в `bot.ts`
+
+```ts
+// bot.ts
+import { Bot } from "gramio";
+import { withUser }    from "./middleware/user";
+import { adminRouter } from "./routers/admin";
+import { chatRouter }  from "./routers/chat";
+
+const bot = new Bot(process.env.BOT_TOKEN as string)
+    .extend(withUser)    // ← ПЕРВЫМ: scoped derive записывает ctx.user в реальный ctx
+    .extend(adminRouter) // dedup: withUser внутри adminRouter → пропускается
+    .extend(chatRouter)  // dedup: withUser + withChat внутри chatRouter → пропускается
+    .command("start", (ctx) => ctx.send("Привет!"))
+    .start();
+```
+
+`withUser` должен идти **перед** роутерами. После этого `ctx.user` находится в реальном `ctx` — каждая isolation group, созданная последующими `extend()`, читает его прозрачно через prototype chain.
+
+### Ловушка дедупликации
+
+::: warning Dedup ≠ общие данные
+Именованный Composer включает дедупликацию на этапе **регистрации**. Но если расширять `withUser` только внутри sub-composerов (не на верхнем уровне), dedup убирает его из второго роутера — при этом первая isolation group по-прежнему владеет результатом:
+
+```
+isolated_adminRouter: [decorate, derive, adminHandlers] ← ctx.user записан здесь
+isolated_chatRouter:  [chatHandlers]                    ← ctx.user НЕ виден ❌
+```
+
+TypeScript-типы корректны; рантайм — нет. Это единственное место в GramIO, где они расходятся.
+
+**Решение**: расширяйте `withUser` с `.as("scoped")` на верхнем уровне **до** роутеров, как показано в `bot.ts` выше.
+:::
+
+### Когда ловушка не проявляется
+
+Если роутеры **взаимоисключающие** — каждое обновление обрабатывается ровно одним из них — проблемы нет. Guard администратора останавливает не-adminов; chat-роутер обрабатывает только то, что не совпало раньше. Каждое обновление проходит ровно через одну isolation group.
+
+Ловушка срабатывает только когда оба роутера вызывают `next()` для одного обновления — на практике это редкость.
+
+### Что видит каждый слой
+
+| Слой | `ctx.user` | `ctx.db` | `ctx.chatRecord` | Guard |
+|------|-----------|---------|-----------------|-------|
+| `bot` (верхний) | ✅ | ✅ | — | — |
+| `adminRouter` | ✅ | ✅ | — | user.role === "admin" |
+| `chatRouter` (message) | ✅ | ✅ | ✅ | — |
+| `chatRouter` (другие) | ✅ | ✅ | Partial | — |
+
+Один DB-запрос на обновление, `ctx.user` доступен везде.
+
+::: tip `guard()` — это уровень Composer
+`guard()` доступен на `Composer` из `@gramio/composer`, а не напрямую на `Bot`. Именно поэтому `adminRouter` — это `Composer`: он получает полный composition API, а затем передаётся в `bot.extend()`.
+:::
+
 ## Итог
 
 | Метод | Когда использовать |
