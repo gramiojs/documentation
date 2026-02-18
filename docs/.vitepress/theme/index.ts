@@ -9,6 +9,7 @@ import Layout from "./Layout.vue";
 import CopyOrDownloadAsMarkdownButtons from "vitepress-plugin-llms/vitepress-components/CopyOrDownloadAsMarkdownButtons.vue";
 import PollingVsWebhook from "../components/PollingVsWebhook.vue";
 import BroadcastVisualizer from "../components/BroadcastVisualizer.vue";
+import UpdatePipelineVisualizer from "../components/UpdatePipelineVisualizer.vue";
 
 export default {
 	extends: Theme,
@@ -18,5 +19,6 @@ export default {
 		app.component("CopyOrDownloadAsMarkdownButtons", CopyOrDownloadAsMarkdownButtons);
 		app.component("PollingVsWebhook", PollingVsWebhook);
 		app.component("BroadcastVisualizer", BroadcastVisualizer);
+		app.component("UpdatePipelineVisualizer", UpdatePipelineVisualizer);
 	},
 };

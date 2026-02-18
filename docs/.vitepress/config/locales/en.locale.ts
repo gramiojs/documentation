@@ -268,6 +268,10 @@ export const localeEn = {
 							collapsed: true,
 							items: [
 								{
+									text: "Middleware & Context",
+									link: "/extend/middleware",
+								},
+								{
 									text: "@gramio/composer",
 									link: "/extend/composer",
 								},

@@ -232,6 +232,20 @@ export const localeRu = {
 							},
 							{ text: "Хранилища", link: "/ru/storages" },
 						{ text: "Тестирование", link: "/ru/testing" },
+						{
+							text: "Расширение",
+							collapsed: true,
+							items: [
+								{
+									text: "Middleware и Context",
+									link: "/ru/extend/middleware",
+								},
+								{
+									text: "@gramio/composer",
+									link: "/ru/extend/composer",
+								},
+							],
+						},
 							{
 								text: "Telegram Web Apps",
 								collapsed: true,
