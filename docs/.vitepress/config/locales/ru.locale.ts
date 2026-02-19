@@ -118,6 +118,10 @@ export const localeRu = {
 										text: "Пагинация",
 										link: "/ru/plugins/official/pagination",
 									},
+									{
+										text: "JSX",
+										link: "/ru/plugins/official/jsx",
+									},
 								],
 							},
 						],

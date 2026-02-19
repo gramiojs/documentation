@@ -117,6 +117,10 @@ export const localeEn = {
 										text: "Pagination",
 										link: "/plugins/official/pagination",
 									},
+									{
+										text: "JSX",
+										link: "/plugins/official/jsx",
+									},
 								],
 							},
 						],
