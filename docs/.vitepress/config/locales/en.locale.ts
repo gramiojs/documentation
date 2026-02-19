@@ -11,6 +11,7 @@ export const localeEn = {
 			nav: [
 				{ text: "Home", link: "/" },
 				{ text: "Get started", link: "/get-started" },
+				{ text: "Cheat Sheet", link: "/cheat-sheet" },
 				{ text: "Plugins", link: "/plugins/overview" },
 				{ text: "Changelogs", link: "/changelogs/" },
 				// { text: "Examples", link: "/markdown-examples" },
@@ -22,6 +23,10 @@ export const localeEn = {
 						link: "/changelogs/",
 						items: [
 							// new entries added here by the skill, newest first
+							{
+								text: "2026-02-17",
+								link: "/changelogs/2026-02-17",
+							},
 							{
 								text: "2026-02-15",
 								link: "/changelogs/2026-02-15",
@@ -122,6 +127,7 @@ export const localeEn = {
 						text: "Documentation",
 						items: [
 							{ text: "Get started", link: "/get-started" },
+							{ text: "Cheat Sheet", link: "/cheat-sheet" },
 							{ text: "Bot API", link: "/bot-api" },
 							{
 								text: "Updates",
@@ -261,6 +267,20 @@ export const localeEn = {
 							{ text: "Rate-limits and broadcast", link: "/rate-limits" },
 							{ text: "Storages", link: "/storages" },
 						{ text: "Testing", link: "/testing" },
+						{
+							text: "Extend",
+							collapsed: true,
+							items: [
+								{
+									text: "Middleware & Context",
+									link: "/extend/middleware",
+								},
+								{
+									text: "@gramio/composer",
+									link: "/extend/composer",
+								},
+							],
+						},
 							{
 								text: "Telegram Mini Apps",
 								collapsed: true,

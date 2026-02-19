@@ -54,9 +54,9 @@ features:
 
 ## Latest Updates
 
-**[Bot API 9.4, Views System, OpenTelemetry & `streamMessage`](/changelogs/2026-02-15)** — February 8–15, 2026
+**[GramIO v0.5.0 — Composer Rearchitecture, Observability & Testing Superpowers](/changelogs/2026-02-17)** — February 16–18, 2026
 
-GramIO catches up to Bot API 9.4, ships a new views/template system, launches OpenTelemetry and Sentry plugins, adds an `onApiCall` hook, and introduces `streamMessage`.
+GramIO v0.5.0 drops `middleware-io` and builds on `@gramio/composer` v0.2.0 with `decorate()`, `when()`, `inspect()`, `trace()`, and custom framework methods. `@gramio/test` reaches v0.1.0 with reactions, inline queries, and a fluent scope API. `@gramio/session` v0.2.0 adds lazy session loading — reducing storage reads by up to 90%.
 
 [All changelogs →](/changelogs/)
 

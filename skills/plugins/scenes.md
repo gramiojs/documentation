@@ -94,6 +94,22 @@ const scene = new Scene("feedback")
     });
 ```
 
+### onInvalidInput option (custom error handling)
+
+```typescript
+const scene = new Scene("registration")
+    .ask(
+        "age",
+        z.coerce.number().min(18, "Must be 18+"),
+        "How old are you?",
+        {
+            onInvalidInput: async (context, error) => {
+                await context.send(`❌ ${error.message}\nPlease try again.`);
+            }
+        }
+    );
+```
+
 ## Scene .onEnter() — Run Logic on Scene Entry
 
 ```typescript

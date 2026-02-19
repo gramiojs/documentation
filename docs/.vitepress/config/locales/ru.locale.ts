@@ -22,6 +22,10 @@ export const localeRu = {
 						items: [
 							// новые записи добавляются здесь скиллом, сначала новейшие
 							{
+								text: "2026-02-17",
+								link: "/ru/changelogs/2026-02-17",
+							},
+							{
 								text: "2026-02-15",
 								link: "/ru/changelogs/2026-02-15",
 							},
@@ -232,6 +236,20 @@ export const localeRu = {
 							},
 							{ text: "Хранилища", link: "/ru/storages" },
 						{ text: "Тестирование", link: "/ru/testing" },
+						{
+							text: "Расширение",
+							collapsed: true,
+							items: [
+								{
+									text: "Middleware и Context",
+									link: "/ru/extend/middleware",
+								},
+								{
+									text: "@gramio/composer",
+									link: "/ru/extend/composer",
+								},
+							],
+						},
 							{
 								text: "Telegram Web Apps",
 								collapsed: true,

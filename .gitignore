@@ -16,3 +16,4 @@ tg-bot-api
 test.ts
 service_account.json
 .changelog-state.json
+**/*.local.json

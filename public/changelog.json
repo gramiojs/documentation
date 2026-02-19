@@ -1,0 +1,69 @@
+{
+    "version": 1,
+    "entries": [
+        {
+            "id": "2026-02-17-gramio-v0-5-0-composer-rearchitecture",
+            "date": "2026-02-17",
+            "dateRange": {
+                "from": "2026-02-16",
+                "to": "2026-02-18"
+            },
+            "page": {
+                "en": "https://gramio.dev/changelogs/2026-02-17",
+                "ru": "https://gramio.dev/ru/changelogs/2026-02-17"
+            },
+            "en": {
+                "title": "GramIO v0.5.0 — Composer Rearchitecture, Observability & Testing Superpowers",
+                "summary": [
+                    "gramio v0.5.0 drops middleware-io and builds entirely on @gramio/composer",
+                    "@gramio/composer v0.2.0: decorate(), when(), inspect(), trace() added",
+                    "Shorthand methods (hears, command, reaction, etc.) moved to Composer — plugins can use them too",
+                    "Middleware now named for meaningful stack traces — no more anonymous wrappers",
+                    "trace() enables zero-overhead OpenTelemetry / Datadog integration",
+                    "when() provides build-time conditional middleware registration",
+                    "@gramio/test reaches v0.1.0 with reactions, inline queries, and chosen inline results",
+                    "New fluent scope API: user.in(chat).on(msg).react() chains read like user stories",
+                    "Automatic reaction state tracking — old_reaction auto-computed from memory",
+                    "@gramio/scenes adds onInvalidInput option to ask() for custom validation error messages",
+                    "Storage interface v2.0.1 uses generic typed keys across all adapters",
+                    "MaybeArray now accepts readonly arrays"
+                ]
+            },
+            "ru": {
+                "title": "GramIO v0.5.0 — Рефакторинг Composer, наблюдаемость и суперсилы тестирования",
+                "summary": [
+                    "gramio v0.5.0 избавляется от middleware-io и строится на @gramio/composer",
+                    "@gramio/composer v0.2.0: добавлены decorate(), when(), inspect(), trace()",
+                    "Методы-хелперы (hears, command, reaction и др.) переехали в Composer — теперь доступны и в плагинах",
+                    "Middleware именуются для читаемых стектрейсов — никаких анонимных обёрток",
+                    "trace() — нулевой оверхед для интеграции OpenTelemetry / Datadog",
+                    "when() — условная регистрация middleware на этапе запуска",
+                    "@gramio/test достигает v0.1.0 с реакциями, inline-запросами и chosen_inline_result",
+                    "Fluent-скоупы: user.in(chat).on(msg).react() — цепочки как пользовательские сценарии",
+                    "Автоматическое отслеживание реакций — old_reaction вычисляется из памяти",
+                    "@gramio/scenes добавляет onInvalidInput в ask() для кастомных ошибок валидации",
+                    "Интерфейс Storage v2.0.1 использует типизированные ключи во всех адаптерах",
+                    "MaybeArray теперь принимает readonly-массивы"
+                ]
+            },
+            "packages": [
+                "gramio",
+                "@gramio/composer",
+                "@gramio/test",
+                "@gramio/scenes",
+                "@gramio/storage",
+                "@gramio/storage-redis",
+                "@gramio/storage-cloudflare",
+                "@gramio/storage-sqlite"
+            ],
+            "tags": [
+                "v0.5.0",
+                "composer",
+                "observability",
+                "testing",
+                "reactions",
+                "breaking"
+            ]
+        }
+    ]
+}

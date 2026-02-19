@@ -3,7 +3,7 @@ name: generate-changelog
 description: Generate changelog pages from gramiojs org patches using ghlog CLI. Tracks last-run date for incremental updates. Also updates docs and skills to reflect changes.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep
 metadata:
-  internal: true
+    internal: true
 ---
 
 # Generate Changelog
@@ -17,11 +17,28 @@ You are generating a changelog page for the GramIO documentation site by analyzi
 Read `.changelog-state.json` from the project root. If it does not exist, this is the first run — ask the user for a `--since` date to start from.
 
 The state file has the shape:
+
 ```json
 { "lastRunDate": "2026-02-15", "lastPage": "changelogs/2026-02-15" }
 ```
 
-### 2. Fetch Patches
+### 2. Ask Contextual Questions During Analysis
+
+After analyzing patches (step 5), you will face **placement decisions** — don't guess silently. Use the **`AskUserQuestion` tool** to present structured choices before writing any files.
+
+- Use `multiSelect: false` for mutually exclusive placement decisions (new page vs existing page)
+- Use `multiSelect: true` when asking which items to document out of a list
+- Always mark your recommended option first and append `(Recommended)` to its label
+- Group related questions into a single `AskUserQuestion` call (up to 4 questions at once) rather than asking one by one
+- Proceed to write files only after all questions are answered
+
+Example questions to ask:
+
+- New plugin found → "Where should I document `@gramio/storage-redis`?" with options: "New standalone page `docs/plugins/official/storage-redis.md` (Recommended)", "Section in existing session page", "Skip — not ready yet"
+- Many new API methods → "The keyboard API gained 5 new methods. How should I document them?" with options: "Expand existing `docs/keyboards/overview.md` (Recommended)", "Create new `docs/keyboards/advanced.md`"
+- Internal-only breaking change → "This change breaks `@gramio/session` internals but keeps public API intact. Document it?" with options: "Yes, as a migration note (Recommended)", "No, skip it"
+
+### 3. Fetch Patches
 
 Run `ghlog` to get commit data and patches from all `gramiojs` repos:
 
@@ -31,11 +48,13 @@ bunx ghlog --org gramiojs --since <last-date> --until <today> --patch --patch-di
 
 Replace `<last-date>` with the value from state (or the user-provided start date) and `<today>` with today's date (`YYYY-MM-DD`).
 
-### 3. Read the Markdown Summary
+> **Note:** `--since` and `--until` are inclusive whole-day boundaries — `ghlog` handles this correctly by default. Always use `YYYY-MM-DD` format (no time component) to ensure full days are covered and no commits are missed at day boundaries.
+
+### 4. Read the Markdown Summary
 
 Read `/tmp/gramio-ghlog.md` to get a structured commit overview per repository.
 
-### 4. Read and Analyze Patches
+### 5. Read and Analyze Patches
 
 Read the patch files from `/tmp/gramio-patches/`. Focus on extracting:
 
@@ -45,33 +64,36 @@ Read the patch files from `/tmp/gramio-patches/`. Focus on extracting:
 - **Dependency bumps and version changes** — read `package.json` diffs to extract version numbers
 - **Documentation-relevant changes** — anything that should be reflected in docs or skills
 
-### 5. Compose the Changelog Page
+### 6. Compose the Changelog Page
 
 Create `docs/changelogs/YYYY-MM-DD.md` (using today's date) with:
 
 - **Frontmatter**: `title` should highlight the biggest change of the period — make it punchy and exciting. Do NOT include month/year names in titles (multiple changelogs may fall in the same month). `description` (meta) and `keywords` (meta) as usual.
 - **H1**: Lead with the most impactful change as a bold headline, followed by the date range. Think release blog post, not dry log.
 - **Sections by repo/package**, each containing:
-  - **Commit links** under each `## package` heading — list the key commit SHAs as inline links. Use `gh api` to fetch commits for the period: `gh api "search/commits?q=org:gramiojs+committer-date:<since>..<until>&sort=committer-date&order=desc&per_page=100"`. Format: `[`short-sha`](https://github.com/gramiojs/<repo>/commit/<full-sha>)` separated by spaces
-  - Attention-grabbing subheadings that announce what happened — not generic "New Features" but specific headlines like "Keyboards now support copy-to-clipboard buttons" or "Session plugin gets Redis adapter"
-  - Version numbers (extracted from `package.json` changes in patches)
-  - What changed, written in clear, enthusiastic prose — sell the feature, explain why it matters
-  - Migration instructions for breaking changes with before/after code examples
-  - Code examples for notable new features
+    - **Feature subheadings ARE commit/compare links** — instead of listing commit SHAs separately below the heading, make the heading itself a clickable link. Format: `### [Keyboards now support copy-to-clipboard buttons](url)`. Choose the right link type:
+        - **Single commit** → link to the commit: `https://github.com/gramiojs/<repo>/commit/<full-sha>`
+        - **Version bump / release** → prefer a compare link spanning the release: `https://github.com/gramiojs/<repo>/compare/v1.2.2...v1.2.3`
+        - **Multiple unrelated commits** → link the heading to the most important commit; mention others inline in the prose as `([abc1234](url), [def5678](url))`
+    - Attention-grabbing subheadings that announce what happened — not generic "New Features" but specific headlines like "Keyboards now support copy-to-clipboard buttons" or "Session plugin gets Redis adapter"
+    - Version numbers (extracted from `package.json` changes in patches)
+    - What changed, written in clear, enthusiastic prose — sell the feature, explain why it matters
+    - Migration instructions for breaking changes with before/after code examples
+    - Code examples for notable new features
 - Write like a developer blog post — exciting, informative, and opinionated. Highlight what's most useful to bot developers. This is NOT a raw commit log.
 
 Example structure:
 
-```markdown
+````markdown
 ---
 title: "Inline Keyboards Get Superpowers, Sessions Go Persistent, New Redis Adapter"
 head:
-  - - meta
-    - name: "description"
-      content: "GramIO changelog: inline keyboard copy buttons, persistent Redis sessions, 40% faster media uploads, and breaking changes in @gramio/keyboards v2"
-  - - meta
-    - name: "keywords"
-      content: "gramio, changelog, updates, inline keyboard, redis sessions"
+    - - meta
+      - name: "description"
+        content: "GramIO changelog: inline keyboard copy buttons, persistent Redis sessions, 40% faster media uploads, and breaking changes in @gramio/keyboards v2"
+    - - meta
+      - name: "keywords"
+        content: "gramio, changelog, updates, inline keyboard, redis sessions"
 ---
 
 # Inline Keyboards Get Superpowers & Sessions Go Persistent
@@ -80,53 +102,49 @@ head:
 
 The highlight of this cycle: inline keyboards learned new tricks and sessions finally support Redis out of the box. Here's everything that shipped.
 
-## gramio v1.2.3 — Faster Media Uploads
+## [gramio v1.2.3 — Faster Media Uploads](https://github.com/gramiojs/gramio/compare/v1.2.2...v1.2.3)
 
-[`abc1234`](https://github.com/gramiojs/gramio/commit/abc1234) [`def5678`](https://github.com/gramiojs/gramio/commit/def5678)
+### [Media uploads are now 40% faster](https://github.com/gramiojs/gramio/commit/abc1234full)
 
-### Media uploads are now 40% faster
+We reworked the upload pipeline to stream files directly instead of buffering ([def5678](https://github.com/gramiojs/gramio/commit/def5678full))...
 
-We reworked the upload pipeline to stream files directly instead of buffering...
+## [@gramio/keyboards v2.0.0 — Copy-to-Clipboard & Breaking Changes](https://github.com/gramiojs/keyboards/compare/v1.9.0...v2.0.0)
 
-## @gramio/keyboards v2.0.0 — Copy-to-Clipboard & Breaking Changes
-
-[`aaa1111`](https://github.com/gramiojs/keyboards/commit/aaa1111)
-
-### Inline keyboards now support copy-to-clipboard buttons
+### [Inline keyboards now support copy-to-clipboard buttons](https://github.com/gramiojs/keyboards/commit/aaa1111full)
 
 The long-awaited Telegram feature is here...
 
-### BREAKING: `Keyboard.text()` renamed to `Keyboard.button()`
+### [BREAKING: `Keyboard.text()` renamed to `Keyboard.button()`](https://github.com/gramiojs/keyboards/commit/aaa2222full)
 
 Migration is straightforward:
 
 ```ts
 // Before
-Keyboard.text("Click me")
+Keyboard.text("Click me");
 
 // After
-Keyboard.button("Click me")
+Keyboard.button("Click me");
 ```
+````
 
 ## @gramio/session v0.5.0 — Redis Adapter
 
-[`bbb2222`](https://github.com/gramiojs/session/commit/bbb2222)
-
-### Sessions can now persist to Redis
+### [Sessions can now persist to Redis](https://github.com/gramiojs/session/commit/bbb2222full)
 
 No more losing session data on restart...
-```
 
-### 6. Create Russian Translation
+````
+
+### 7. Create Russian Translation
 
 Create `docs/ru/changelogs/YYYY-MM-DD.md`:
 
 - Translate all prose to Russian
-- Preserve code blocks, links (including commit links!), and frontmatter structure exactly
+- Preserve code blocks, links (including commit links in headings!), and frontmatter structure exactly
 - Use **natural Russian technical writing style** — write like a Russian developer, not a translator. Use dev slang where appropriate ("прокидывает", "лезть в", "из коробки", "Было/Стало")
 - Follow the same conventions as other RU docs (read a sibling RU page for reference)
 
-### 7. Update Existing Docs and Skills
+### 8. Update Existing Docs and Skills
 
 This is the most critical step. Based on the patches analyzed, update existing documentation and skills to reflect the changes:
 
@@ -182,7 +200,7 @@ If a notable new feature was added, create or update `skills/examples/<name>.ts`
 
 For each update, keep a record of what file was changed and why for the final report.
 
-### 8. Register in Sidebars
+### 9. Register in Sidebars
 
 Add the new changelog page to both sidebar configs:
 
@@ -193,7 +211,7 @@ Add the new changelog page to both sidebar configs:
   text: "YYYY-MM-DD",
   link: "/changelogs/YYYY-MM-DD",
 }
-```
+````
 
 **`docs/.vitepress/config/locales/ru.locale.ts`** — Same, with `/ru/` prefix:
 
@@ -204,18 +222,19 @@ Add the new changelog page to both sidebar configs:
 }
 ```
 
-### 9. Update Changelog Index
+### 10. Update Changelog Index
 
 Add the new entry link to both:
 
 - `docs/changelogs/index.md` — newest first
 - `docs/ru/changelogs/index.md` — newest first
 
-### 10. Update Homepage "Latest Updates" Section
+### 11. Update Homepage "Latest Updates" Section
 
 Update the "Latest Updates" / "Последние обновления" section on both homepages with the newly created changelog entry:
 
 **`docs/index.md`** — Replace the existing "Latest Updates" content (between `## Latest Updates` and the next `##`) with:
+
 - A bold link to the new changelog page with its title
 - The date range
 - A one-line summary of the highlights
@@ -223,7 +242,66 @@ Update the "Latest Updates" / "Последние обновления" section 
 
 **`docs/ru/index.md`** — Same in Russian under `## Последние обновления`.
 
-### 11. Update State
+### 12. Update `public/changelog.json`
+
+Read `public/changelog.json`. If it doesn't exist, create it with an empty `entries` array. Prepend a new entry for this changelog to the top of `entries` (newest first).
+
+**Entry structure:**
+
+```json
+{
+    "id": "2026-02-17-inline-keyboards-superpowers",
+    "date": "2026-02-17",
+    "dateRange": {
+        "from": "2026-02-01",
+        "to": "2026-02-17"
+    },
+    "page": {
+        "en": "https://gramio.dev/changelogs/2026-02-17",
+        "ru": "https://gramio.dev/ru/changelogs/2026-02-17"
+    },
+    "en": {
+        "title": "Inline Keyboards Get Superpowers, Sessions Go Persistent",
+        "summary": [
+            "Inline keyboards now support copy-to-clipboard buttons",
+            "Sessions got a Redis adapter — no more lost data on restart",
+            "Media uploads are 40% faster"
+        ]
+    },
+    "ru": {
+        "title": "Инлайн-клавиатуры обзавелись суперсилами, сессии стали постоянными",
+        "summary": [
+            "Инлайн-клавиатуры теперь поддерживают кнопки копирования в буфер",
+            "Сессии получили Redis-адаптер — данные больше не теряются при перезапуске",
+            "Загрузка медиа стала на 40% быстрее"
+        ]
+    },
+    "packages": ["gramio", "@gramio/keyboards", "@gramio/session"],
+    "tags": ["keyboards", "sessions", "performance"]
+}
+```
+
+**Field rules:**
+
+- `id` — `YYYY-MM-DD-<kebab-slug>` where slug is 3–5 words from the EN title (lowercase, hyphens). Must be unique.
+- `dateRange.from` — the `--since` date used for this run (= `lastRunDate` from state + 1 day, or the user-provided start date)
+- `dateRange.to` — today's date (= `--until`)
+- `summary` — array of short bullet strings, plain text only (no markdown, no links). Each item = one key change, 1 line, punchy. 12 bullets max. EN and RU versions independently written (not translated mechanically) — write like a native speaker of each language.
+- `packages` — list of affected package names extracted from patches (e.g. `"gramio"`, `"@gramio/keyboards"`)
+- `tags` — 3–6 lowercase keywords useful for bot filtering (e.g. `"breaking"`, `"keyboards"`, `"sessions"`, `"performance"`, `"new-plugin"`)
+
+**Top-level file structure:**
+
+```json
+{
+    "version": 1,
+    "entries": [
+        /* newest first */
+    ]
+}
+```
+
+### 13. Update State
 
 Write `.changelog-state.json` at the project root:
 
@@ -231,7 +309,7 @@ Write `.changelog-state.json` at the project root:
 { "lastRunDate": "YYYY-MM-DD", "lastPage": "changelogs/YYYY-MM-DD" }
 ```
 
-### 12. Clean Up
+### 14. Clean Up
 
 Remove temporary files:
 
@@ -239,7 +317,7 @@ Remove temporary files:
 rm -rf /tmp/gramio-patches/ /tmp/gramio-ghlog.md
 ```
 
-### 13. Report
+### 15. Report
 
 Summarize:
 

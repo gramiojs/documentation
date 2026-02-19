@@ -86,6 +86,47 @@ const msg = await user.sendMessage("Pick an option");
 await user.click("option:1", msg);
 ```
 
+### react (v0.1.0+)
+
+Emits `message_reaction` update. Works with `bot.reaction()` handlers:
+
+```typescript
+await user.react("👍", msg);
+await user.react(["👍", "❤"], msg);
+await user.react("❤", msg, { oldReactions: ["👍"] });
+
+// ReactObject builder:
+import { ReactObject } from "@gramio/test";
+await user.react(new ReactObject().on(msg).add("👍", "🔥").remove("😢"));
+```
+
+MessageObject auto-tracks reactions in memory — `old_reaction` computed automatically.
+
+### sendInlineQuery / chooseInlineResult (v0.1.0+)
+
+```typescript
+const q = await user.sendInlineQuery("search cats");
+const q2 = await user.sendInlineQuery("search cats", group); // chat_type from chat
+await user.chooseInlineResult("result-1", "search cats");
+```
+
+### Fluent scope API (v0.1.0+)
+
+```typescript
+// user.in(chat) — bind to a chat
+await user.in(group).sendMessage("Hi");
+await user.in(group).sendInlineQuery("cats");
+await user.in(group).join();
+await user.in(group).leave();
+
+// user.on(msg) — bind to a message
+await user.on(msg).react("👍");
+await user.on(msg).click("action:1");
+
+// Chain
+await user.in(group).on(msg).react("🔥");
+```
+
 ## ChatObject
 
 - `chat.members` — `Set<UserObject>` of current members
