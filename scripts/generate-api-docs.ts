@@ -305,6 +305,70 @@ ${block}
 `;
 }
 
+// ── Skills index ─────────────────────────────────────────────────────────────
+
+const SKILLS_INDEX = join(ROOT, "skills", "references", "telegram-api-index.md");
+
+/**
+ * Extracts the first sentence from a markdown description.
+ * Strips inline markdown links, keeps plain text.
+ */
+function firstSentence(desc?: string): string {
+	if (!desc) return "";
+	// Remove markdown links: [text](url) → text
+	const plain = desc.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
+	// Take up to first period+space or end of string, max 120 chars
+	const match = plain.match(/^(.+?\.)\s/);
+	const sentence = match ? match[1] : plain.split("\n")[0];
+	return sentence.slice(0, 120).trim();
+}
+
+function buildSkillsIndex(
+	methods: { name: string; description?: string }[],
+	objects: { name: string; description?: string }[],
+	version: { major: number; minor: number },
+): string {
+	const methodLines = methods
+		.map((m) => {
+			const desc = firstSentence(m.description);
+			return `| [${m.name}](/telegram/methods/${m.name}) | ${desc} |`;
+		})
+		.join("\n");
+
+	return `# Telegram Bot API Methods Index
+
+> Auto-generated from Bot API v${version.major}.${version.minor}. Full docs at **https://gramio.dev/telegram/**
+
+When a user asks about a specific Telegram Bot API method, reference the GramIO doc page.
+Each method page has: full parameter reference with types, GramIO TypeScript examples, common errors, and tips.
+
+To look up a **type/object** (e.g. \`Message\`, \`User\`, \`InlineKeyboardMarkup\`):
+→ https://gramio.dev/telegram/types/{TypeName}
+→ Full types index: https://gramio.dev/telegram/ (scroll to Types section)
+→ Key type: [Update](/telegram/types/Update) — the root object for all incoming updates
+
+## Methods (${methods.length})
+
+| Method | Description |
+|--------|-------------|
+${methodLines}
+`;
+}
+
+function writeSkillsIndex(
+	methods: { name: string; description?: string }[],
+	objects: { name: string; description?: string }[],
+	version: { major: number; minor: number },
+): void {
+	const content = buildSkillsIndex(methods, objects, version);
+	if (!DRY_RUN) {
+		writeFileSync(SKILLS_INDEX, content, "utf-8");
+	}
+	console.log(
+		`✅ ${DRY_RUN ? "[dry-run] Would write" : "Written"} skills index → skills/references/telegram-api-index.md`,
+	);
+}
+
 // ── Sidebar update ────────────────────────────────────────────────────────────
 
 const SIDEBAR_START_MARKER = "// BEGIN:TELEGRAM-SIDEBAR";
@@ -456,6 +520,9 @@ console.log("");
 const methodNames = schema.methods.map((m) => m.name).sort((a, b) => a.localeCompare(b));
 const typeNames = schema.objects.map((o) => o.name).sort((a, b) => a.localeCompare(b));
 updateSidebar(methodNames, typeNames);
+
+// ── Skills index ──────────────────────────────────────────────────────────────
+writeSkillsIndex(schema.methods, schema.objects, schema.version);
 
 // ── Summary ───────────────────────────────────────────────────────────────────
 console.log(
