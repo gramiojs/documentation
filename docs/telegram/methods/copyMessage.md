@@ -3,10 +3,10 @@ title: copyMessage — Telegram Bot API | GramIO
 head:
   - - meta
     - name: description
-      content: copyMessage Telegram Bot API method with GramIO TypeScript examples. Complete parameter reference and usage guide.
+      content: Copy any Telegram message to another chat using GramIO without a forwarding link. Override caption, add reply markup, and control notifications. TypeScript examples included.
   - - meta
     - name: keywords
-      content: copyMessage, telegram bot api, gramio copyMessage, copyMessage typescript, copyMessage example
+      content: copyMessage, telegram bot api, copy message telegram bot, gramio copyMessage, telegram copy message, forward without attribution, from_chat_id, message_id, caption override, copyMessage typescript, copyMessage example, telegram bot copy forward, how to copy message telegram bot
 ---
 
 # copyMessage
@@ -62,16 +62,110 @@ On success, the [MessageId](/telegram/types/MessageId) object is returned.
 
 ## GramIO Usage
 
-<!-- TODO: Add TypeScript examples using GramIO -->
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Copy a message from one chat to another (no forwarding attribution)
+const result = await bot.api.copyMessage({
+  chat_id: -1001234567890,
+  from_chat_id: "@sourcechannel",
+  message_id: 42,
+});
+
+console.log("Copied message ID:", result.message_id);
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Copy a message from context (e.g., relay a user message to an admin group)
+bot.on("message", async (ctx) => {
+  await bot.api.copyMessage({
+    chat_id: -1009876543210, // admin group
+    from_chat_id: ctx.chatId,
+    message_id: ctx.id,
+  });
+});
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+import { format, bold, italic } from "@gramio/format";
+// ---cut---
+// Copy a media message and replace its caption using GramIO format helpers
+await bot.api.copyMessage({
+  chat_id: -1001234567890,
+  from_chat_id: "@sourcechannel",
+  message_id: 100,
+  caption: format`${bold("New Title")} — ${italic("Updated caption")}`,
+});
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+import { InlineKeyboard } from "@gramio/keyboards";
+// ---cut---
+// Copy a message and attach an inline keyboard
+await bot.api.copyMessage({
+  chat_id: -1001234567890,
+  from_chat_id: "@sourcechannel",
+  message_id: 55,
+  reply_markup: new InlineKeyboard().text("Open original", "open_55"),
+});
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Silent copy (no notification sound) with content protection
+await bot.api.copyMessage({
+  chat_id: -1001234567890,
+  from_chat_id: -1009876543210,
+  message_id: 77,
+  disable_notification: true,
+  protect_content: true,
+});
+```
 
 ## Errors
 
-<!-- TODO: Add common errors table -->
+| Code | Error | Cause |
+|------|-------|-------|
+| 400 | `Bad Request: chat not found` | `chat_id` or `from_chat_id` is invalid or the bot has no access |
+| 400 | `Bad Request: message not found` | `message_id` does not exist in `from_chat_id` |
+| 400 | `Bad Request: can't copy this type of message` | Attempted to copy a service message, invoice, paid media, giveaway, or giveaway winners message |
+| 400 | `Bad Request: message is protected` | The source message has `protect_content` enabled and cannot be copied |
+| 400 | `Bad Request: wrong quiz correct_option_id` | Quiz poll copied without correct `correct_option_id` being known to the bot |
+| 400 | `Bad Request: caption too long` | `caption` exceeds 1024 characters |
+| 403 | `Forbidden: bot is not a member of the channel chat` | Bot is not in the target channel |
+| 429 | `Too Many Requests: retry after N` | Rate limit hit — check `retry_after`, use [auto-retry plugin](/plugins/official/auto-retry) |
+
+::: tip
+Use GramIO's [auto-retry plugin](/plugins/official/auto-retry) to handle `429` errors automatically when broadcasting messages to many users.
+:::
 
 ## Tips & Gotchas
 
-<!-- TODO: Add tips and gotchas -->
+- **No forwarding attribution.** Unlike [`forwardMessage`](/telegram/methods/forwardMessage), the copied message shows no "Forwarded from" header. Use this when you want to relay content without revealing the source.
+- **Caption override is optional.** If you omit `caption`, the original caption is preserved. Pass an empty string `""` to remove the caption entirely.
+- **`parse_mode` and `caption_entities` are mutually exclusive.** GramIO's `format` helper always produces `caption_entities`, so never pass `parse_mode` alongside it.
+- **Service messages cannot be copied.** This includes join/leave notifications, pinned message notices, invoice messages, and others. Copy only regular text/media messages.
+- **Quiz polls need `correct_option_id`.** A bot can only copy a quiz poll if it knows the correct option. If the bot never saw the answer, it cannot copy a quiz.
+- **`protect_content` on source blocks copying.** If the original message has content protection, `copyMessage` will fail with a 400 error.
+- **For bulk copying, use [`copyMessages`](/telegram/methods/copyMessages).** It supports 1–100 message IDs in a single call and preserves media album grouping.
 
 ## See Also
 
-<!-- TODO: Add related methods and links -->
+- [`copyMessages`](/telegram/methods/copyMessages) — copy multiple messages in one call, preserving album groups
+- [`forwardMessage`](/telegram/methods/forwardMessage) — forward a message with source attribution
+- [`forwardMessages`](/telegram/methods/forwardMessages) — forward multiple messages at once
+- [`MessageId`](/telegram/types/MessageId) — the returned type
+- [Formatting guide](/formatting) — using `format`, `bold`, `italic` for captions
+- [Keyboards guide](/keyboards/overview) — adding `reply_markup` to copied messages
+- [Auto-retry plugin](/plugins/official/auto-retry) — handle rate limits automatically
