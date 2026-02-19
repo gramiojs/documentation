@@ -1,4 +1,8 @@
 <script setup lang="ts">
+const PRIMITIVES = new Set([
+  "String", "Integer", "Float", "Boolean", "True", "False", "Int",
+]);
+
 const props = defineProps<{
   name: string;
   type: string;
@@ -8,18 +12,34 @@ const props = defineProps<{
   max?: number | string;
 }>();
 
-// Split union types like "Integer | String" into separate badges
-const typeList = props.type.split(" | ").map((t) => t.trim());
+interface TypeSegment {
+  label: string;
+  url: string | null;
+  cssClass: string;
+}
 
-function typeClass(t: string): string {
-  if (t === "String") return "type-string";
-  if (t === "Integer" || t === "Float") return "type-number";
-  if (t === "Boolean") return "type-boolean";
-  if (t.endsWith("[]") || t.startsWith("Array")) return "type-array";
-  // Capitalized = Telegram type reference object
-  if (t.length > 0 && t[0] === t[0].toUpperCase() && t[0] !== t[0].toLowerCase()) return "type-object";
+function cssClass(raw: string): string {
+  const base = raw.replace(/\[\]$/, "").trim();
+  if (base === "String") return "type-string";
+  if (base === "Integer" || base === "Float" || base === "Int") return "type-number";
+  if (base === "Boolean" || base === "True" || base === "False") return "type-boolean";
+  if (raw.endsWith("[]") || raw.startsWith("Array")) return "type-array";
+  if (base.length > 0 && /^[A-Z]/.test(base)) return "type-object";
   return "type-other";
 }
+
+function parseSegment(raw: string): TypeSegment {
+  const trimmed = raw.trim();
+  const base = trimmed.replace(/\[\]$/, "").trim();
+  const isRef = /^[A-Z]/.test(base) && !PRIMITIVES.has(base);
+  return {
+    label: trimmed,
+    url: isRef ? `/telegram/types/${base}` : null,
+    cssClass: cssClass(trimmed),
+  };
+}
+
+const segments = props.type.split(" | ").map(parseSegment);
 </script>
 
 <template>
@@ -27,12 +47,25 @@ function typeClass(t: string): string {
     <div class="api-param-header">
       <code class="api-param-name">{{ name }}</code>
       <span class="api-param-types">
-        <span
-          v-for="t in typeList"
-          :key="t"
-          class="api-param-type"
-          :class="typeClass(t)"
-        >{{ t }}</span>
+        <a
+          v-for="seg in segments.filter(s => s.url)"
+          :key="seg.label + '_hidden'"
+          style="display:none"
+          :href="seg.url!"
+        />
+        <template v-for="seg in segments" :key="seg.label">
+          <a
+            v-if="seg.url"
+            :href="seg.url"
+            class="api-param-type"
+            :class="seg.cssClass"
+          >{{ seg.label }}</a>
+          <span
+            v-else
+            class="api-param-type"
+            :class="seg.cssClass"
+          >{{ seg.label }}</span>
+        </template>
       </span>
       <span class="api-param-badge" :class="required ? 'badge-required' : 'badge-optional'">
         {{ required ? "Required" : "Optional" }}

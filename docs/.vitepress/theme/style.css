@@ -95,6 +95,17 @@
 .api-param-type.type-object   { background: #581c8722; color: #a855f7; border: 1px solid #a855f740; }
 .api-param-type.type-other    { background: var(--vp-c-default-soft); color: var(--vp-c-text-2); border: 1px solid var(--vp-c-divider); }
 
+/* Clickable type badges (links to Telegram type pages) */
+a.api-param-type {
+    text-decoration: none !important;
+    cursor: pointer;
+}
+a.api-param-type:hover {
+    filter: brightness(1.15);
+    text-decoration: underline !important;
+    text-underline-offset: 2px;
+}
+
 .dark .api-param-type.type-string   { background: #1e40af33; color: #60a5fa; border-color: #3b82f650; }
 .dark .api-param-type.type-number   { background: #14532d33; color: #4ade80; border-color: #22c55e50; }
 .dark .api-param-type.type-boolean  { background: #78350f33; color: #fbbf24; border-color: #f59e0b50; }
