@@ -31,7 +31,135 @@
     transition: color 0.25s, opacity 0.25s;
 }
 
-/* Telegram API Reference — method/type page badges */
+/* ── Telegram API Reference — ApiParam component ───────────────────────── */
+
+.api-param {
+    border: 1px solid var(--vp-c-divider);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+}
+
+.api-param:hover {
+    border-color: var(--vp-c-brand-2);
+}
+
+.api-param.is-required {
+    border-left: 3px solid var(--vp-c-brand-1);
+}
+
+.api-param.is-optional {
+    border-left: 3px solid var(--vp-c-divider);
+}
+
+.api-param-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 10px 14px 8px;
+    background: var(--vp-c-default-soft);
+}
+
+.api-param-name {
+    font-size: 14px;
+    font-weight: 700;
+    font-family: var(--vp-font-family-mono);
+    color: var(--vp-c-text-1);
+    background: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+}
+
+.api-param-types {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.api-param-type {
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-family: var(--vp-font-family-mono);
+    font-weight: 500;
+    line-height: 1.6;
+}
+
+.api-param-type.type-string   { background: #1e40af22; color: #3b82f6; border: 1px solid #3b82f640; }
+.api-param-type.type-number   { background: #14532d22; color: #22c55e; border: 1px solid #22c55e40; }
+.api-param-type.type-boolean  { background: #78350f22; color: #f59e0b; border: 1px solid #f59e0b40; }
+.api-param-type.type-array    { background: #7c2d1222; color: #f97316; border: 1px solid #f9731640; }
+.api-param-type.type-object   { background: #581c8722; color: #a855f7; border: 1px solid #a855f740; }
+.api-param-type.type-other    { background: var(--vp-c-default-soft); color: var(--vp-c-text-2); border: 1px solid var(--vp-c-divider); }
+
+.dark .api-param-type.type-string   { background: #1e40af33; color: #60a5fa; border-color: #3b82f650; }
+.dark .api-param-type.type-number   { background: #14532d33; color: #4ade80; border-color: #22c55e50; }
+.dark .api-param-type.type-boolean  { background: #78350f33; color: #fbbf24; border-color: #f59e0b50; }
+.dark .api-param-type.type-array    { background: #7c2d1233; color: #fb923c; border-color: #f9731650; }
+.dark .api-param-type.type-object   { background: #581c8733; color: #c084fc; border-color: #a855f750; }
+
+.api-param-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 1px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    line-height: 1.6;
+    margin-left: 2px;
+}
+
+.api-param-badge.badge-required {
+    background: var(--vp-c-brand-soft);
+    color: var(--vp-c-brand-1);
+    border: 1px solid var(--vp-c-brand-2);
+}
+
+.api-param-badge.badge-optional {
+    background: var(--vp-c-default-soft);
+    color: var(--vp-c-text-3);
+    border: 1px solid var(--vp-c-divider);
+}
+
+.api-param-default {
+    font-size: 12px;
+    color: var(--vp-c-text-2);
+    margin-left: auto;
+}
+
+.api-param-default code {
+    font-size: 12px;
+    padding: 1px 5px;
+}
+
+.api-param-constraints {
+    font-size: 12px;
+    color: var(--vp-c-text-3);
+    display: flex;
+    gap: 8px;
+}
+
+.api-param-desc {
+    padding: 8px 14px 10px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--vp-c-text-2);
+}
+
+.api-param-desc > p {
+    margin: 0;
+}
+
+.api-param-desc code {
+    font-size: 13px;
+}
+
+/* ── Telegram API Reference — method/type page badges ───────────────────── */
 .api-badge-row {
     display: flex;
     align-items: center;
