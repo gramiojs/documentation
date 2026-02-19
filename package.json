@@ -11,6 +11,7 @@
 		"@gramio/keyboards": "^1.3.0",
 		"@gramio/prompt": "^1.2.1",
 		"@gramio/scenes": "^0.3.4",
+		"@gramio/schema-parser": "^0.0.2",
 		"@gramio/session": "^0.2.0",
 		"@gramio/storage": "2.0.1",
 		"@gramio/storage-redis": "^1.0.5",
@@ -39,7 +40,9 @@
 	"scripts": {
 		"dev": "bunx vitepress dev docs",
 		"build": "bunx vitepress build docs",
-		"preview": "bunx --bun vitepress preview docs"
+		"preview": "bunx --bun vitepress preview docs",
+		"gen:api": "bun scripts/generate-api-docs.ts",
+		"gen:api:dry": "bun scripts/generate-api-docs.ts --dry-run"
 	},
 	"trustedDependencies": ["@biomejs/biome"],
 	"type": "module"
