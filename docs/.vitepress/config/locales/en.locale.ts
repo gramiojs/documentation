@@ -13,10 +13,41 @@ export const localeEn = {
 				{ text: "Get started", link: "/get-started" },
 				{ text: "Cheat Sheet", link: "/cheat-sheet" },
 				{ text: "Plugins", link: "/plugins/overview" },
+				{ text: "API Reference", link: "/telegram/" },
 				{ text: "Changelogs", link: "/changelogs/" },
 				// { text: "Examples", link: "/markdown-examples" },
 			],
 			sidebar: {
+				"/telegram/": [
+					{
+						text: "Telegram API Reference",
+						link: "/telegram/",
+						items: [
+							{
+								text: "Methods",
+								collapsed: false,
+								items: [
+									{
+										text: "sendMessage",
+										link: "/telegram/methods/sendMessage",
+									},
+									// generated entries will be added here
+								],
+							},
+							{
+								text: "Types",
+								collapsed: false,
+								items: [
+									{
+										text: "Message",
+										link: "/telegram/types/Message",
+									},
+									// generated entries will be added here
+								],
+							},
+						],
+					},
+				],
 				"/changelogs/": [
 					{
 						text: "Changelogs",

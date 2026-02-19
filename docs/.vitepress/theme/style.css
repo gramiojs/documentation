@@ -30,3 +30,53 @@
     text-underline-offset: 2px;
     transition: color 0.25s, opacity 0.25s;
 }
+
+/* Telegram API Reference — method/type page badges */
+.api-badge-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.api-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.5;
+    text-decoration: none !important;
+    transition: opacity 0.2s;
+}
+
+.api-badge:hover {
+    opacity: 0.8;
+}
+
+.api-badge.returns {
+    background: var(--vp-c-brand-soft);
+    color: var(--vp-c-brand-1);
+    border: 1px solid var(--vp-c-brand-2);
+}
+
+.api-badge.returns a {
+    color: var(--vp-c-brand-1);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.api-badge.official {
+    background: var(--vp-c-default-soft);
+    color: var(--vp-c-text-2);
+    border: 1px solid var(--vp-c-divider);
+}
+
+/* Telegram API — parameter tables: highlight required */
+.vp-doc table td:nth-child(3):has(strong),
+.vp-doc table th:nth-child(3) {
+    white-space: nowrap;
+}

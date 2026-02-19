@@ -16,6 +16,11 @@ export default defineConfig({
 	title: "GramIO",
 	description: "Build your bots with convenience!",
 	cleanUrls: true,
+	ignoreDeadLinks: [
+		// Telegram API reference pages are code-generated; links may not exist yet
+		/^\/telegram\/methods\//,
+		/^\/telegram\/types\//,
+	],
 	srcExclude: [
 		"guides/**/{webhook,docker,index}.md",
 		"ru/guides/**/{webhook,docker,index}.md",
