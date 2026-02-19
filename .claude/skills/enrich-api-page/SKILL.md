@@ -116,7 +116,48 @@ Use this error knowledge base, then add method-specific ones from official docs:
 - `400 message is not modified` — new content identical to current
 - `400 message can't be edited` — message too old, or sent by a different bot
 
-### 5. Write the enriched sections
+### 5. Verify types via JSR API references
+
+**CRITICAL: Never invent types or properties.** Before writing any code example, look up the actual type signatures on JSR.
+
+**Context naming convention — camelCase only:**
+- GramIO contexts use **camelCase** for all properties and methods: `ctx.text`, `ctx.from`, `ctx.chat`, `ctx.replyToMessage`, `ctx.senderChat`, etc.
+- **NEVER use snake_case** on context objects — `ctx.reply_to_message` is WRONG, `ctx.message.reply_to_message` is WRONG
+- Snake_case exists **only** in the raw Telegram payload: `ctx.payload.reply_to_message` — but prefer the typed camelCase accessors
+- When in doubt, check the context class on JSR to find the correct camelCase property name
+
+> **Note:** JSR docs may lag slightly behind the latest release. Use them as the primary reference, but if a property clearly should exist based on the Telegram API and the context class pattern, verify against the actual source code or the latest npm/jsr package version.
+
+Use `WebFetch` to check types at these URLs:
+
+| Package | JSR Doc URL | What to check |
+|---------|-------------|---------------|
+| `@gramio/contexts` | `https://jsr.io/@gramio/contexts/doc` | **All context classes** — the actual `ctx` object types. Start here for any `ctx.*` usage |
+| `@gramio/types` | `https://jsr.io/@gramio/types/doc` | Telegram API types (`TelegramMessage`, `TelegramUser`, `APIMethodParams<"methodName">`, etc.) |
+| `@gramio/core` | `https://jsr.io/@gramio/core/doc` | `Bot` class, `bot.api.*` methods |
+| `@gramio/format` | `https://jsr.io/@gramio/format/doc` | `format`, `bold`, `italic`, `code`, `link` and other formatting helpers |
+| `@gramio/keyboards` | `https://jsr.io/@gramio/keyboards/doc` | `Keyboard`, `InlineKeyboard`, `ForceReply`, `RemoveKeyboard` |
+| `@gramio/files` | `https://jsr.io/@gramio/files/doc` | `MediaUpload` (`.path()`, `.url()`, `.buffer()`, `.text()`) |
+
+**Key context types** (from `@gramio/contexts`):
+
+| Event | Context class | JSR doc URL |
+|-------|--------------|-------------|
+| `message` | `MessageContext` | `https://jsr.io/@gramio/contexts/doc/~/MessageContext` |
+| `callback_query` | `CallbackQueryContext` | `https://jsr.io/@gramio/contexts/doc/~/CallbackQueryContext` |
+| `inline_query` | `InlineQueryContext` | `https://jsr.io/@gramio/contexts/doc/~/InlineQueryContext` |
+| `pre_checkout_query` | `PreCheckoutQueryContext` | `https://jsr.io/@gramio/contexts/doc/~/PreCheckoutQueryContext` |
+| `chat_join_request` | `ChatJoinRequestContext` | `https://jsr.io/@gramio/contexts/doc/~/ChatJoinRequestContext` |
+| `chat_member` | `ChatMemberContext` | `https://jsr.io/@gramio/contexts/doc/~/ChatMemberContext` |
+| All mappings | `ContextsMapping` | `https://jsr.io/@gramio/contexts/doc/~/ContextsMapping` |
+
+**How to verify:**
+1. **Context properties** (`ctx.text`, `ctx.from`, `ctx.chat`, etc.): fetch the specific context class from `@gramio/contexts` — e.g. `https://jsr.io/@gramio/contexts/doc/~/MessageContext` to see what properties/methods actually exist
+2. **API method params**: fetch `https://jsr.io/@gramio/types/doc/~/APIMethodParams` to see the actual parameter type for `bot.api.methodName()`
+3. **Telegram objects** (e.g. `TelegramMessage`, `TelegramUser`): check `@gramio/types` — all Telegram types are prefixed with `Telegram` (e.g. `TelegramMessage`, not `Message`)
+4. **If a property doesn't exist on JSR — don't use it.** Find the correct way to access the data
+
+### 6. Write the enriched sections
 
 #### `## GramIO Usage`
 
@@ -125,6 +166,27 @@ Write 3–6 TypeScript examples:
 - Direct `bot.api.methodName({...})` call second
 - One example per key use case
 - Imports when needed
+
+**Code format — use `ts twoslash`:**
+
+All code blocks MUST use ` ```ts twoslash ` instead of ` ```typescript `. This enables **build-time type checking** — if you use a type that doesn't exist, the VitePress build will fail.
+
+Pattern for examples:
+````markdown
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// The visible example starts after ---cut---
+bot.command("start", (ctx) => ctx.send("Hello!"));
+```
+````
+
+- `// ---cut---` hides the setup code (imports, Bot creation) from the rendered page but keeps it for type checking
+- `// ^?` shows an inline type hover annotation — use sparingly for key types
+- If the example needs extra imports (format, keyboards, etc.), put them before `// ---cut---`
+- If the example is a standalone snippet (not inside a handler), you may omit `// ---cut---`
 
 **Code rules:**
 - `format` tagged template builds **entities**, never add `parse_mode` alongside it
@@ -197,7 +259,7 @@ Include:
 - Relevant GramIO guides that exist: `/formatting`, `/keyboards/overview`, `/files`
 - Plugins that apply
 
-### 6. Report progress
+### 7. Report progress
 
 After each page, briefly list:
 - ✅ Sections added/updated
@@ -217,7 +279,8 @@ After all pages are done, print a summary table:
 ## Quality Bar
 
 - **SEO:** title matches the exact search query people use; keywords include all major variants
-- **Examples:** runnable TypeScript, correct imports, realistic values, idiomatic GramIO
+- **Types:** every property access, method call, and type annotation must exist in the real GramIO/Telegram types — verified via JSR docs. **Zero invented types.**
+- **Examples:** `ts twoslash` code blocks, correct imports, realistic values, idiomatic GramIO. Build MUST pass — if twoslash fails, the type is wrong
 - **Errors:** accurate (mark uncertain ones with `*`); Cause column is a useful annotation, not just error text
 - **Tips:** actionable, non-obvious, each one saves a developer real time
 - **Links:** only link pages that exist
