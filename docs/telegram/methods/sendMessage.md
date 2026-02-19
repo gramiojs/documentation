@@ -21,57 +21,31 @@ Use this method to send text messages. On success, the sent [Message](/telegram/
 
 ## Parameters
 
-<ApiParam name="business_connection_id" type="String">
-Unique identifier of the business connection on behalf of which the message will be sent.
-</ApiParam>
+<ApiParam name="business_connection_id" type="String" description="Unique identifier of the business connection on behalf of which the message will be sent." />
 
-<ApiParam name="chat_id" type="Integer | String" required>
-Unique identifier for the target chat or username of the target channel (e.g. `@channelusername`).
-</ApiParam>
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel (e.g. `@channelusername`)." />
 
-<ApiParam name="message_thread_id" type="Integer">
-Unique identifier for the target message thread (topic) of the forum. For forum supergroups only.
-</ApiParam>
+<ApiParam name="message_thread_id" type="Integer" description="Unique identifier for the target message thread (topic) of the forum. For forum supergroups only." />
 
-<ApiParam name="text" type="String" required :min="1" :max="4096">
-Text of the message to be sent, 1–4096 characters after entities parsing.
-</ApiParam>
+<ApiParam name="text" type="String" required :min="1" :max="4096" description="Text of the message to be sent, 1–4096 characters after entities parsing." />
 
-<ApiParam name="parse_mode" type="String">
-Mode for parsing entities in the message text. One of `HTML`, `Markdown`, or `MarkdownV2`. See [formatting options](/formatting). Mutually exclusive with `entities`.
-</ApiParam>
+<ApiParam name="parse_mode" type="String" description="Mode for parsing entities: `HTML`, `Markdown`, or `MarkdownV2`. See [formatting options](/formatting). Mutually exclusive with `entities`." />
 
-<ApiParam name="entities" type="MessageEntity[]">
-Special entities that appear in message text (bold, italic, links, code, etc.). Mutually exclusive with `parse_mode`. GramIO's `format` helper builds these for you automatically.
-</ApiParam>
+<ApiParam name="entities" type="MessageEntity[]" description="Special entities in message text (bold, italic, links, code...). Mutually exclusive with `parse_mode`. GramIO's `format` helper builds these automatically." />
 
-<ApiParam name="link_preview_options" type="LinkPreviewOptions">
-Link preview generation options for the message — disable it, customize position, or choose which URL to expand.
-</ApiParam>
+<ApiParam name="link_preview_options" type="LinkPreviewOptions" description="Link preview generation options — disable it, customize position, or choose which URL to expand." />
 
-<ApiParam name="disable_notification" type="Boolean">
-Sends the message silently. Users will receive a notification with no sound.
-</ApiParam>
+<ApiParam name="disable_notification" type="Boolean" description="Sends the message silently. Users receive a notification with no sound." />
 
-<ApiParam name="protect_content" type="Boolean">
-Protects the contents of the sent message from forwarding and saving.
-</ApiParam>
+<ApiParam name="protect_content" type="Boolean" description="Protects the contents of the sent message from forwarding and saving." />
 
-<ApiParam name="allow_paid_broadcast" type="Boolean">
-Pass `true` to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee. Requires the `can_post_messages` right in a channel.
-</ApiParam>
+<ApiParam name="allow_paid_broadcast" type="Boolean" description="Pass `true` to allow up to 1000 messages per second, ignoring broadcasting limits for a fee." />
 
-<ApiParam name="message_effect_id" type="String">
-Unique identifier of the message effect to be added to the message. For private chats only.
-</ApiParam>
+<ApiParam name="message_effect_id" type="String" description="Unique identifier of the message effect to be added. For private chats only." />
 
-<ApiParam name="reply_parameters" type="ReplyParameters">
-Description of the message to reply to. Use this instead of the old `reply_to_message_id`.
-</ApiParam>
+<ApiParam name="reply_parameters" type="ReplyParameters" description="Description of the message to reply to. Replaces the old `reply_to_message_id`." />
 
-<ApiParam name="reply_markup" type="InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply">
-Additional interface options. Pass an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard, or to force a reply from the user.
-</ApiParam>
+<ApiParam name="reply_markup" type="InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply" description="Additional interface options: inline keyboard, custom reply keyboard, remove keyboard instructions, or force reply." />
 
 ## Returns
 
@@ -96,7 +70,7 @@ await bot.api.sendMessage({
 
 ### Formatting with `format`
 
-GramIO's `format` tagged template builds **entities** (not `parse_mode`) — type-safe and no escaping needed:
+GramIO's `format` tagged template builds **entities** (not `parse_mode`) — type-safe, no escaping needed:
 
 ```typescript
 import { format, bold, italic, code, link } from "gramio";
@@ -136,8 +110,6 @@ await bot.api.sendMessage({
 
 ## Errors
 
-Common errors returned by Telegram for this method:
-
 | Code | Error | Cause |
 |------|-------|-------|
 | 400 | `Bad Request: chat not found` | Invalid or inaccessible `chat_id` |
@@ -146,7 +118,7 @@ Common errors returned by Telegram for this method:
 | 400 | `Bad Request: can't parse entities` | Malformed `entities` array or bad `parse_mode` markup |
 | 400 | `Bad Request: BUTTON_DATA_INVALID` | Callback data in `reply_markup` is too long or malformed |
 | 403 | `Forbidden: bot was blocked by the user` | User has blocked the bot |
-| 429 | `Too Many Requests: retry after N` | [Rate limit](/rate-limits) hit — check `retry_after` in the response |
+| 429 | `Too Many Requests: retry after N` | Rate limit hit — check `retry_after` in the response |
 
 ::: tip
 Use GramIO's [auto-retry plugin](/plugins/official/auto-retry) to handle `429` errors automatically.
@@ -154,11 +126,11 @@ Use GramIO's [auto-retry plugin](/plugins/official/auto-retry) to handle `429` e
 
 ## Tips & Gotchas
 
-- **Text limit is 4096 characters.** For longer messages, use the [Split plugin](/plugins/official/split) which splits text while preserving formatting entities.
-- **`parse_mode` and `entities` are mutually exclusive.** GramIO's `format` helper produces `entities`, so don't pass `parse_mode` alongside it.
+- **Text limit is 4096 characters.** Use the [Split plugin](/plugins/official/split) to split text while preserving formatting entities.
+- **`parse_mode` and `entities` are mutually exclusive.** GramIO's `format` helper produces `entities`, don't add `parse_mode` alongside it.
 - **`chat_id` accepts `@username` strings** for public groups/channels. Private chats require a numeric ID.
-- **Replying cross-chat:** `reply_parameters` supports replies to messages in other chats — handy for cross-posting scenarios.
-- **Forum topics:** include `message_thread_id` matching the topic's ID when sending to a supergroup forum.
+- **Forum topics:** include `message_thread_id` matching the topic ID when sending to a supergroup forum.
+- **Cross-chat replies:** `reply_parameters` supports replying to messages in other chats.
 
 ## See Also
 

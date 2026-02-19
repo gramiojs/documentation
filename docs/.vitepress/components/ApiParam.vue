@@ -6,6 +6,7 @@ const PRIMITIVES = new Set([
 const props = defineProps<{
   name: string;
   type: string;
+  description: string;
   required?: boolean;
   defaultValue?: string | number;
   min?: number | string;
@@ -18,13 +19,13 @@ interface TypeSegment {
   cssClass: string;
 }
 
-function cssClass(raw: string): string {
+function getClass(raw: string): string {
   const base = raw.replace(/\[\]$/, "").trim();
   if (base === "String") return "type-string";
   if (base === "Integer" || base === "Float" || base === "Int") return "type-number";
   if (base === "Boolean" || base === "True" || base === "False") return "type-boolean";
   if (raw.endsWith("[]") || raw.startsWith("Array")) return "type-array";
-  if (base.length > 0 && /^[A-Z]/.test(base)) return "type-object";
+  if (/^[A-Z]/.test(base)) return "type-object";
   return "type-other";
 }
 
@@ -35,11 +36,19 @@ function parseSegment(raw: string): TypeSegment {
   return {
     label: trimmed,
     url: isRef ? `/telegram/types/${base}` : null,
-    cssClass: cssClass(trimmed),
+    cssClass: getClass(trimmed),
   };
 }
 
 const segments = props.type.split(" | ").map(parseSegment);
+
+// Inline markdown → HTML: `code`, [text](url), **bold**
+function renderMd(text: string): string {
+  return text
+    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+    .replace(/`([^`]+)`/g, "<code>$1</code>")
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+}
 </script>
 
 <template>
@@ -47,12 +56,6 @@ const segments = props.type.split(" | ").map(parseSegment);
     <div class="api-param-header">
       <code class="api-param-name">{{ name }}</code>
       <span class="api-param-types">
-        <a
-          v-for="seg in segments.filter(s => s.url)"
-          :key="seg.label + '_hidden'"
-          style="display:none"
-          :href="seg.url!"
-        />
         <template v-for="seg in segments" :key="seg.label">
           <a
             v-if="seg.url"
@@ -78,8 +81,6 @@ const segments = props.type.split(" | ").map(parseSegment);
         <span v-if="max !== undefined">max {{ max }}</span>
       </span>
     </div>
-    <div class="api-param-desc">
-      <slot />
-    </div>
+    <div class="api-param-desc" v-html="renderMd(description)" />
   </div>
 </template>
