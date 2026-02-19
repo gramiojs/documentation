@@ -11,7 +11,7 @@ head:
         content: "разделение длинных сообщений Telegram, обход лимитов Telegram API, сохранение форматирования сообщений, автоматическое разделение entities, обработка больших текстов, разделение подписей к медиа, плагин для разделения сообщений, функция splitMessage, решение проблемы лимита сообщений, инструменты для Telegram ботов, плагины GramIO"
 ---
 
-# Плагин Split
+# Split
 
 <div class="badges">
 
@@ -22,34 +22,59 @@ head:
 
 </div>
 
-Этот пакет может разделять сообщения, превышающие лимиты Telegram, на несколько частей. Также автоматически разделяет entities, избавляя от необходимости делать это вручную.
+Этот пакет разделяет сообщения, превышающие лимит символов Telegram, на несколько частей. Он также **корректно разделяет entities** (жирный, курсив, ссылки и т.д.) по границам частей, сохраняя форматирование без ручного пересчёта смещений.
 
-# Использование
+## Установка
+
+::: code-group
+
+```bash [npm]
+npm install @gramio/split
+```
+
+```bash [yarn]
+yarn add @gramio/split
+```
+
+```bash [pnpm]
+pnpm add @gramio/split
+```
+
+```bash [bun]
+bun add @gramio/split
+```
+
+:::
+
+## Использование
 
 ```ts
+import { Bot, format, bold } from "gramio";
 import { splitMessage } from "@gramio/split";
 
-const bot = new Bot(process.env.BOT_TOKEN!).command(
-    "start",
-    async (context) => {
+const bot = new Bot(process.env.BOT_TOKEN!)
+    .command("start", async (context) => {
         const messages = await splitMessage(
             format`${bold("a".repeat(4096 * 2))}`,
             (str) => context.send(str)
-            // Внимание: при использовании context.send без обёртки
-            // используйте context.send.bind(context) для сохранения контекста
         );
 
-        console.log(messages); // messages - массив результатов отправки
-    }
-);
+        console.log(messages); // массив результатов отправки
+    });
 
 await bot.start();
 ```
 
-Можно использовать с другими фреймворками:
+> [!WARNING]
+> При передаче `context.send` без обёртки используйте `context.send.bind(context)` — иначе потеряются данные контекста.
+
+### Использование с другими фреймворками
+
+`@gramio/split` можно использовать независимо от GramIO — колбэк `action` получает `FormattableString` со свойствами `.text` и `.entities`:
 
 ```ts
 import { splitMessage } from "@gramio/split";
+import { format, bold } from "@gramio/format";
 
 const messages = await splitMessage(
     format`${bold("a".repeat(4096 * 2))}`,
@@ -59,11 +84,36 @@ const messages = await splitMessage(
 );
 ```
 
-### Настройка
+## API
 
-Максимальная длина текста настраивается. По умолчанию 4096 символов, но для подписей к фото (sendPhoto) - 1024:
+### splitMessage
 
 ```ts
+function splitMessage<ReturnData>(
+    text: FormattableString | string,
+    action: (formattableString: FormattableString) => MaybePromise<ReturnData>,
+    limit?: number
+): Promise<ReturnData[]>
+```
+
+| Параметр | Тип | По умолчанию | Описание |
+|----------|-----|--------------|----------|
+| `text` | `FormattableString \| string` | — | Текст сообщения для разделения. Может быть строкой или `FormattableString` из `@gramio/format` (с entities). |
+| `action` | `(formattableString: FormattableString) => MaybePromise<ReturnData>` | — | Колбэк, вызываемый **последовательно** для каждой части. Возвращаемое значение собирается в массив результатов. |
+| `limit` | `number` | `4096` | Максимальная длина символов в каждой части. |
+
+**Возвращает:** `Promise<ReturnData[]>` — массив результатов каждого вызова `action`, по порядку.
+
+Колбэк `action` вызывается последовательно (не параллельно), что сохраняет правильный порядок сообщений в Telegram.
+
+## Настройка лимита
+
+Лимит по умолчанию — **4096** символов (`sendMessage`). Для подписей к фото/видео используйте **1024**:
+
+```ts
+import { splitMessage } from "@gramio/split";
+import { format, bold } from "@gramio/format";
+
 const messages = await splitMessage(
     format`${bold("a".repeat(4096))}`,
     ({ text, entities }) => {
@@ -76,12 +126,12 @@ const messages = await splitMessage(
 );
 ```
 
-> [!NOTE]
-> Пакет находится в активной разработке.
+## Как работает разделение entities
 
-## Планы:
+При разделении сообщения entities обрабатываются следующим образом:
 
--   [ ] Дополнительные тесты
--   [ ] Плагин с авто-разделением
--   [ ] Режим разделения по entities
--   [ ] Стратегии для разных типов контента (например, фото → текст)
+- Entities, **полностью входящие** в текущую часть, сохраняются как есть.
+- Entities, **пересекающие границу** разделения, разбиваются: первая часть получает entity, обрезанную до границы, а оставшаяся часть — новую entity с пересчитанными `offset` и `length`.
+- Entities, **полностью находящиеся** в оставшемся тексте, получают смещённый `offset`.
+
+Это значит, что форматирование — **жирный**, _курсив_, [ссылки](https://example.com), `код` и другие Telegram entities — всегда корректно сохраняется во всех частях.
