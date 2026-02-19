@@ -130,7 +130,11 @@ Write 3–6 TypeScript examples:
 - `format` tagged template builds **entities**, never add `parse_mode` alongside it
 - `ctx.send()` → shorthand for `sendMessage` to current chat
 - `ctx.reply()` → additionally sets `reply_parameters`
-- For files: `MediaUpload.path("./file.jpg")` or `MediaUpload.url("https://...")`
+- For files: `await MediaUpload.path("./file.jpg")` or `await MediaUpload.url("https://...")` — both are **async**, always use `await`
+- `MediaUpload.buffer(buf, "name.ext")` and `MediaUpload.text("content", "name.txt")` are synchronous (no `await` needed)
+- Always link to [`/files/media-upload`](/files/media-upload) in See Also when the method involves file uploads
+- Always link to [`/formatting`](/formatting) in See Also when the method accepts `text`, `caption`, or `message_text` (formatting is applicable)
+- Always link to [`/keyboards/overview`](/keyboards/overview) in See Also when the method involves `reply_markup`, inline keyboards, or callback queries
 
 #### `## Errors`
 
