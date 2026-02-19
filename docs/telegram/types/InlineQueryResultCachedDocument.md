@@ -1,0 +1,51 @@
+---
+title: InlineQueryResultCachedDocument — Telegram Bot API Types | GramIO
+head:
+  - - meta
+    - name: description
+      content: InlineQueryResultCachedDocument Telegram Bot API type reference. All fields with TypeScript types and GramIO usage examples.
+  - - meta
+    - name: keywords
+      content: InlineQueryResultCachedDocument, telegram bot api types, gramio InlineQueryResultCachedDocument, InlineQueryResultCachedDocument object, InlineQueryResultCachedDocument typescript
+---
+
+# InlineQueryResultCachedDocument
+
+<!-- GENERATED:START -->
+<div class="api-badge-row">
+  <a class="api-badge official" href="https://core.telegram.org/bots/api#inlinequeryresultcacheddocument" target="_blank" rel="noopener">Official docs ↗</a>
+</div>
+
+Represents a link to a file stored on the Telegram servers. By default, this file will be sent by the user with an optional caption. Alternatively, you can use _input\_message\_content_ to send a message with the specified content instead of the file.
+
+## Fields
+
+<ApiParam name="type" type="String" required description="Type of the result, must be _document_" />
+
+<ApiParam name="id" type="String" required description="Unique identifier for this result, 1-64 bytes" />
+
+<ApiParam name="title" type="String" required description="Title for the result" />
+
+<ApiParam name="document_file_id" type="String" required description="A valid file identifier for the file" />
+
+<ApiParam name="description" type="String" description="_Optional_. Short description of the result" />
+
+<ApiParam name="caption" type="String" description="_Optional_. Caption of the document to be sent, 0-1024 characters after entities parsing" />
+
+<ApiParam name="parse_mode" type="String" description="_Optional_. Mode for parsing entities in the document caption. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details." />
+
+<ApiParam name="caption_entities" type="MessageEntity[]" description="_Optional_. List of special entities that appear in the caption, which can be specified instead of _parse\_mode_" />
+
+<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="_Optional_. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message" />
+
+<ApiParam name="input_message_content" type="InputMessageContent" description="_Optional_. Content of the message to be sent instead of the file" />
+
+<!-- GENERATED:END -->
+
+## GramIO Usage
+
+<!-- TODO: Add TypeScript examples using GramIO -->
+
+## See Also
+
+<!-- TODO: Add related types and methods -->

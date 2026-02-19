@@ -42,10 +42,12 @@ function parseSegment(raw: string): TypeSegment {
 
 const segments = props.type.split(" | ").map(parseSegment);
 
-// Inline markdown → HTML: `code`, [text](url), **bold**
+// Inline markdown → HTML: `code`, [text](url), **bold**, _italic_, *italic*
 function renderMd(text: string): string {
   return text
     .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+    .replace(/\*([^*]+)\*/g, "<em>$1</em>")
+    .replace(/_([^_]+)_/g, "<em>$1</em>")
     .replace(/`([^`]+)`/g, "<code>$1</code>")
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
 }

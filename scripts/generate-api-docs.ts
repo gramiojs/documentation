@@ -67,10 +67,11 @@ function fixTelegramLinks(s: string): string {
 		s
 			// #anchor → full Bot API URL (e.g. [Message](#message) → full link)
 			.replace(/\]\(#([a-zA-Z0-9_-]+)\)/g, `](${TG_API}#$1)`)
-			// /bots/... /widgets/... /payments/... /passport/... etc.
-			.replace(/\]\(\/(bots|widgets|payments|api|telegram|passport|support|apps)\//g, `](${TG_BASE}/$1/`)
-			// bare /passport, /support etc. without trailing slash
-			.replace(/\]\(\/(bots|widgets|payments|passport|support|apps)\)/g, `](${TG_BASE}/$1)`)
+			// Any relative Telegram path: /bots/... /passport#... /widgets/... etc.
+			.replace(
+				/\]\(\/((?:bots|widgets|payments|api|telegram|passport|support|apps)[^)]*)\)/g,
+				`](${TG_BASE}/$1)`,
+			)
 	);
 }
 

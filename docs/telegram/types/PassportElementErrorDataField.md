@@ -1,0 +1,41 @@
+---
+title: PassportElementErrorDataField — Telegram Bot API Types | GramIO
+head:
+  - - meta
+    - name: description
+      content: PassportElementErrorDataField Telegram Bot API type reference. All fields with TypeScript types and GramIO usage examples.
+  - - meta
+    - name: keywords
+      content: PassportElementErrorDataField, telegram bot api types, gramio PassportElementErrorDataField, PassportElementErrorDataField object, PassportElementErrorDataField typescript
+---
+
+# PassportElementErrorDataField
+
+<!-- GENERATED:START -->
+<div class="api-badge-row">
+  <a class="api-badge official" href="https://core.telegram.org/bots/api#passportelementerrordatafield" target="_blank" rel="noopener">Official docs ↗</a>
+</div>
+
+Represents an issue in one of the data fields that was provided by the user. The error is considered resolved when the field's value changes.
+
+## Fields
+
+<ApiParam name="source" type="String" required description="Error source, must be _data_" />
+
+<ApiParam name="type" type="String" required description="The section of the user's Telegram Passport which has the error, one of “personal\_details”, “passport”, “driver\_license”, “identity\_card”, “internal\_passport”, “address”" />
+
+<ApiParam name="field_name" type="String" required description="Name of the data field which has the error" />
+
+<ApiParam name="data_hash" type="String" required description="Base64-encoded data hash" />
+
+<ApiParam name="message" type="String" required description="Error message" />
+
+<!-- GENERATED:END -->
+
+## GramIO Usage
+
+<!-- TODO: Add TypeScript examples using GramIO -->
+
+## See Also
+
+<!-- TODO: Add related types and methods -->
