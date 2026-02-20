@@ -3,10 +3,10 @@ title: deleteMyCommands — Telegram Bot API | GramIO
 head:
   - - meta
     - name: description
-      content: deleteMyCommands Telegram Bot API method with GramIO TypeScript examples. Complete parameter reference and usage guide.
+      content: Delete bot commands for a scope or language using GramIO. TypeScript examples, scope types, language fallback behavior, and error reference.
   - - meta
     - name: keywords
-      content: deleteMyCommands, telegram bot api, gramio deleteMyCommands, deleteMyCommands typescript, deleteMyCommands example
+      content: deleteMyCommands, telegram bot api, delete bot commands telegram, gramio deleteMyCommands, deleteMyCommands typescript, BotCommandScope, language_code, reset bot commands, how to delete telegram bot commands, deleteMyCommands example
 ---
 
 # deleteMyCommands
@@ -32,16 +32,71 @@ On success, *True* is returned.
 
 ## GramIO Usage
 
-<!-- TODO: Add TypeScript examples using GramIO -->
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Delete all commands globally (all scopes, all languages)
+await bot.api.deleteMyCommands({});
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Delete commands only for private chats
+await bot.api.deleteMyCommands({
+  scope: { type: "all_private_chats" },
+});
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Delete Russian-language commands for all group chat admins
+await bot.api.deleteMyCommands({
+  scope: { type: "all_chat_administrators" },
+  language_code: "ru",
+});
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Delete commands set for a specific chat
+await bot.api.deleteMyCommands({
+  scope: { type: "chat", chat_id: -1001234567890 },
+});
+```
 
 ## Errors
 
-<!-- TODO: Add common errors table -->
+| Code | Error | Cause |
+|------|-------|-------|
+| 400 | `Bad Request: bad parameter scope` | The `scope` object has an invalid `type` or is missing required fields (e.g. `chat_id` for scope `chat`) |
+| 400 | `Bad Request: language code is invalid` | `language_code` is not a valid ISO 639-1 two-letter code |
+| 429 | `Too Many Requests: retry after N` | Rate limit hit — check `retry_after`, use [auto-retry plugin](/plugins/official/auto-retry) |
+
+::: tip
+Use GramIO's [auto-retry plugin](/plugins/official/auto-retry) to handle `429` errors automatically.
+:::
 
 ## Tips & Gotchas
 
-<!-- TODO: Add tips and gotchas -->
+- **All parameters are optional.** Calling `deleteMyCommands({})` with no arguments clears commands for the default scope (all users, no language filter). This is the most common "reset" use case.
+- **Deletion reveals higher-level commands.** After deletion, Telegram falls back to commands registered at a higher scope level (e.g. deleting chat-specific commands reveals group-wide commands). It does not show an empty menu.
+- **Language code acts as a filter, not a full reset.** Passing `language_code: "en"` only deletes commands specific to English users — commands with no language code (the "all users" fallback) are unaffected.
+- **Scope must match exactly what was set.** You must pass the same scope type you used in `setMyCommands`. Deleting `all_group_chats` won't touch commands set for a specific `chat`.
+- **Chat-specific scopes require `chat_id`.** Scopes like `chat`, `chat_administrators`, and `chat_member` need a valid `chat_id` (numeric or `@username`).
 
 ## See Also
 
-<!-- TODO: Add related methods and links -->
+- [setMyCommands](/telegram/methods/setMyCommands) — register commands for a scope/language
+- [getMyCommands](/telegram/methods/getMyCommands) — retrieve current commands list
+- [BotCommandScope](/telegram/types/BotCommandScope) — scope object reference
