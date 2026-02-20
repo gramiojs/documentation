@@ -78,6 +78,19 @@ bot.start();
 | OpenTelemetry | `@gramio/opentelemetry` | Distributed tracing and spans |
 | Sentry | `@gramio/sentry` | Error tracking + performance monitoring |
 
+## Telegram Bot API Reference Pages
+
+GramIO docs include a dedicated reference page for **every** Telegram Bot API method and type:
+
+- **Methods**: `https://gramio.dev/telegram/methods/{methodName}` — e.g. `sendMessage`, `createChatInviteLink`, `answerCallbackQuery`
+- **Types**: `https://gramio.dev/telegram/types/{typeName}` — e.g. `Message`, `ChatInviteLink`, `InlineKeyboard`
+
+Each page contains: GramIO TypeScript examples, parameter details, error table with causes and fixes, tips & gotchas, and related links. When a user asks about a specific Telegram API method or type, you can fetch or reference the corresponding page for accurate GramIO-specific usage.
+
+> These pages are **not** included in this skill by default — fetch them on demand when the user asks about a specific method/type.
+
+**To quickly find which methods exist** — use the pre-built index: [telegram-api-index](references/telegram-api-index.md). It lists all 165+ Bot API methods with short descriptions in one file. Load it when you need to discover a method name or confirm one exists before fetching a full page.
+
 ## References
 
 ### Core
