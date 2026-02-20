@@ -76,7 +76,7 @@ const bot = new Bot("");
 const me = await bot.api.getMe();
 
 if (me.supports_inline_queries) {
-  bot.on("inline_query", (ctx) => ctx.answer({ results: [] }));
+  bot.on("inline_query", (ctx) => ctx.answer([]));
 }
 ```
 

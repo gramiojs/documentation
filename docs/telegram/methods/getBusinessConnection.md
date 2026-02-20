@@ -45,8 +45,8 @@ console.log(`Connected: ${new Date(connection.date * 1000).toLocaleDateString()}
 console.log(`Active: ${connection.is_enabled}`);
 
 if (connection.rights) {
-  console.log(`Can manage messages: ${connection.rights.can_manage_messages}`);
   console.log(`Can reply: ${connection.rights.can_reply}`);
+  console.log(`Can delete all messages: ${connection.rights.can_delete_all_messages}`);
 }
 ```
 

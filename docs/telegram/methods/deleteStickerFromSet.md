@@ -63,9 +63,9 @@ const bot = new Bot("");
 // ---cut---
 // Handle a sticker message and remove it from its set
 bot.on("message", async (ctx) => {
-  if (ctx.sticker && ctx.sticker.set_name) {
+  if (ctx.sticker && ctx.sticker.setName) {
     await bot.api.deleteStickerFromSet({
-      sticker: ctx.sticker.file_id,
+      sticker: ctx.sticker.fileId,
     });
     await ctx.send("Sticker removed from its set.");
   }

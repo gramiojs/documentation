@@ -44,17 +44,14 @@ await bot.api.deleteForumTopic({
 });
 ```
 
-```ts twoslash
-import { Bot } from "gramio";
-
-const bot = new Bot("");
-// ---cut---
+```ts
 // Delete the current forum topic from within a message handler
 bot.on("message", async (ctx) => {
-  if (ctx.messageThreadId && ctx.text === "/deletetopic") {
+  const threadId = ctx.update.message?.message_thread_id;
+  if (threadId && ctx.text === "/deletetopic") {
     await bot.api.deleteForumTopic({
       chat_id: ctx.chatId,
-      message_thread_id: ctx.messageThreadId,
+      message_thread_id: threadId,
     });
   }
 });

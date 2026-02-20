@@ -52,9 +52,9 @@ const message = await bot.api.editMessageChecklist({
   checklist: {
     title: "Sprint Tasks",
     tasks: [
-      { text: "Review pull requests" },
-      { text: "Deploy to staging" },
-      { text: "Update documentation" },
+      { id: 1, text: "Review pull requests" },
+      { id: 2, text: "Deploy to staging" },
+      { id: 3, text: "Update documentation" },
     ],
   },
 });
@@ -73,9 +73,9 @@ const message = await bot.api.editMessageChecklist({
   checklist: {
     title: "Shopping List",
     tasks: [
-      { text: "Milk" },
-      { text: "Eggs" },
-      { text: "Bread" },
+      { id: 1, text: "Milk" },
+      { id: 2, text: "Eggs" },
+      { id: 3, text: "Bread" },
     ],
     others_can_mark_tasks_as_done: true,
   },
@@ -95,7 +95,7 @@ const message = await bot.api.editMessageChecklist({
   message_id: 100,
   checklist: {
     title: "Team Tasks",
-    tasks: [{ text: "Assign tickets" }, { text: "Set deadline" }],
+    tasks: [{ id: 1, text: "Assign tickets" }, { id: 2, text: "Set deadline" }],
     others_can_add_tasks: true,
     others_can_mark_tasks_as_done: true,
   },

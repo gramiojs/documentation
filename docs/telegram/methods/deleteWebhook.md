@@ -102,4 +102,4 @@ Use GramIO's [auto-retry plugin](/plugins/official/auto-retry) to handle `429` e
 - [setWebhook](/telegram/methods/setWebhook) — register a webhook URL
 - [getWebhookInfo](/telegram/methods/getWebhookInfo) — inspect the current webhook configuration
 - [getUpdates](/telegram/methods/getUpdates) — long polling alternative to webhooks
-- [Webhook guide](/guides/webhook) — full guide for setting up webhooks with GramIO
+- [Webhook guide](/updates/webhook) — full guide for setting up webhooks with GramIO

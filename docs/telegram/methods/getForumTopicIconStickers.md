@@ -63,12 +63,13 @@ const bot = new Bot("");
 const stickers = await bot.api.getForumTopicIconStickers();
 const heartIcon = stickers.find((s) => s.emoji === "❤️");
 
-if (heartIcon?.custom_emoji_id) {
+const heartEmojiId = heartIcon?.custom_emoji_id;
+if (heartEmojiId) {
   await bot.api.createForumTopic({
     chat_id: -1001234567890,
     name: "Love & Support",
-    icon_color: 0xFF5733,
-    icon_custom_emoji_id: heartIcon.custom_emoji_id,
+    icon_color: 0xFB6F5F,
+    icon_custom_emoji_id: heartEmojiId,
   });
 }
 ```

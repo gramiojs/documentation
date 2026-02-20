@@ -76,18 +76,16 @@ await bot.api.editForumTopic({
 });
 ```
 
-```ts twoslash
-import { Bot } from "gramio";
-
-const bot = new Bot("");
-// ---cut---
+```ts
 // Handle the forum_topic_created event and immediately rename it
 bot.on("message", async (ctx) => {
-  if (ctx.forumTopicCreated && ctx.messageThreadId) {
+  const threadId = ctx.update.message?.message_thread_id;
+  const topicCreated = ctx.update.message?.forum_topic_created;
+  if (topicCreated && threadId) {
     await bot.api.editForumTopic({
-      chat_id: ctx.chat.id,
-      message_thread_id: ctx.messageThreadId,
-      name: `[OPEN] ${ctx.forumTopicCreated.name}`,
+      chat_id: ctx.chatId,
+      message_thread_id: threadId,
+      name: `[OPEN] ${topicCreated.name}`,
     });
   }
 });

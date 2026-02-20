@@ -83,16 +83,12 @@ bot.command("ban", async (ctx) => {
 });
 ```
 
-```ts twoslash
-import { Bot } from "gramio";
-
-const bot = new Bot("");
-// ---cut---
+```ts
 // Save charge IDs from successful_payment for later subscription management
 bot.on("message", (ctx) => {
-  if (ctx.message.successful_payment) {
-    const chargeId =
-      ctx.message.successful_payment.telegram_payment_charge_id;
+  const payment = ctx.update.message?.successful_payment;
+  if (payment) {
+    const chargeId = payment.telegram_payment_charge_id;
     const userId = ctx.from?.id;
     // persist chargeId → userId mapping in your database
     console.log(`Subscription charge for user ${userId}: ${chargeId}`);
