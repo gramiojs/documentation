@@ -87,6 +87,10 @@ GramIO docs include a dedicated reference page for **every** Telegram Bot API me
 
 Each page contains: GramIO TypeScript examples, parameter details, error table with causes and fixes, tips & gotchas, and related links. When a user asks about a specific Telegram API method or type, you can fetch or reference the corresponding page for accurate GramIO-specific usage.
 
+> **Tip for LLMs:** Any GramIO docs page can be fetched as clean Markdown by appending `.md` to the URL:
+> `https://gramio.dev/telegram/methods/sendMessage.md` — clean Markdown instead of HTML.
+> This works for **all** sections of the docs, not just API pages.
+
 > These pages are **not** included in this skill by default — fetch them on demand when the user asks about a specific method/type.
 
 **To quickly find which methods exist** — use the pre-built index: [telegram-api-index](references/telegram-api-index.md). It lists all 165+ Bot API methods with short descriptions in one file. Load it when you need to discover a method name or confirm one exists before fetching a full page.
