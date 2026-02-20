@@ -137,7 +137,7 @@ Use `WebFetch` to check types at these URLs:
 | `@gramio/core` | `https://jsr.io/@gramio/core/doc` | `Bot` class, `bot.api.*` methods |
 | `@gramio/format` | `https://jsr.io/@gramio/format/doc` | `format`, `bold`, `italic`, `code`, `link` and other formatting helpers |
 | `@gramio/keyboards` | `https://jsr.io/@gramio/keyboards/doc` | `Keyboard`, `InlineKeyboard`, `ForceReply`, `RemoveKeyboard` |
-| `@gramio/files` | `https://jsr.io/@gramio/files/doc` | `MediaUpload` (`.path()`, `.url()`, `.buffer()`, `.text()`) |
+| `@gramio/files` | `https://jsr.io/@gramio/files/doc` | `MediaUpload` (`.path()`, `.url()`, `.buffer()`, `.stream()`, `.text()`) and `MediaInput` (`.photo()`, `.video()`, `.audio()`, `.document()`, `.animation()`) |
 
 **Key context types** (from `@gramio/contexts`):
 
@@ -194,24 +194,33 @@ bot.command("start", (ctx) => ctx.send("Hello!"));
 - `ctx.reply()` → additionally sets `reply_parameters`
 - For files: `await MediaUpload.path("./file.jpg")` or `await MediaUpload.url("https://...")` — both are **async**, always use `await`
 - `MediaUpload.buffer(buf, "name.ext")` and `MediaUpload.text("content", "name.txt")` are synchronous (no `await` needed)
+- **`MediaInput`** builds complete `TelegramInputMedia*` objects — use it for methods that accept `InputMedia` arrays/objects (`sendMediaGroup`, `editMessageMedia`):
+  - `MediaInput.photo(media, options?)` → `TelegramInputMediaPhoto` (`{ type: "photo", media, ...options }`)
+  - `MediaInput.video(media, options?)` → `TelegramInputMediaVideo`
+  - `MediaInput.audio(media, options?)` → `TelegramInputMediaAudio`
+  - `MediaInput.document(media, options?)` → `TelegramInputMediaDocument`
+  - `MediaInput.animation(media, options?)` → `TelegramInputMediaAnimation`
+  - The `media` argument is a file_id string or a `MediaUpload` result; `options` can include `caption`, `parse_mode`, etc.
+  - **Do NOT use `MediaInput` for `InputStoryContent`** — story content uses `{ type, photo/video }` (different field name), not `{ type, media }`. Use plain `MediaUpload` + manual object construction for stories.
 - Always link to [`/files/media-upload`](/files/media-upload) in See Also when the method involves file uploads
 - Always link to [`/formatting`](/formatting) in See Also when the method accepts `text`, `caption`, or `message_text` (formatting is applicable)
 - Always link to [`/keyboards/overview`](/keyboards/overview) in See Also when the method involves `reply_markup`, inline keyboards, or callback queries
 
 **Import convention — prefer importing from `"gramio"` directly:**
 - `Keyboard`, `InlineKeyboard`, `ForceReply`, `RemoveKeyboard` are **re-exported from `"gramio"`** — import them from `"gramio"`, not `"@gramio/keyboards"`
-- `MediaUpload` is **re-exported from `"gramio"`** — import it from `"gramio"`, not `"@gramio/files"`
+- `MediaUpload` and `MediaInput` are **re-exported from `"gramio"`** — import them from `"gramio"`, not `"@gramio/files"`
 - `format`, `bold`, `italic`, `code`, `link`, etc. are **re-exported from `"gramio"`** — import them from `"gramio"`, not `"@gramio/format"`
 - Only use the individual package imports (`@gramio/keyboards`, `@gramio/files`, `@gramio/format`) when explicitly working outside of the main `gramio` package
 
 Good:
 ```ts
-import { Bot, InlineKeyboard, MediaUpload, format, bold } from "gramio";
+import { Bot, InlineKeyboard, MediaUpload, MediaInput, format, bold } from "gramio";
 ```
 Avoid:
 ```ts
 import { InlineKeyboard } from "@gramio/keyboards";
 import { MediaUpload } from "@gramio/files";
+import { MediaInput } from "@gramio/files";
 ```
 
 #### `## Errors`
