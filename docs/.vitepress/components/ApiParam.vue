@@ -30,7 +30,7 @@ interface TypeSegment {
 }
 
 function getClass(raw: string): string {
-  const base = raw.replace(/\[\]$/, "").trim();
+  const base = raw.replace(/(\[\])+$/, "").trim();
   if (base === "String") return "type-string";
   if (base === "Integer" || base === "Float" || base === "Int") return "type-number";
   if (base === "Boolean" || base === "True" || base === "False") return "type-boolean";
@@ -41,7 +41,7 @@ function getClass(raw: string): string {
 
 function parseSegment(raw: string): TypeSegment {
   const trimmed = raw.trim();
-  const base = trimmed.replace(/\[\]$/, "").trim();
+  const base = trimmed.replace(/(\[\])+$/, "").trim();
   const isRef = /^[A-Z]/.test(base) && !PRIMITIVES.has(base);
   return {
     label: trimmed,

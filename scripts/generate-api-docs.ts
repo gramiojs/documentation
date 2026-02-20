@@ -145,12 +145,21 @@ function returnBadge(f: FieldNoKey): string {
 	switch (f.type) {
 		case "reference":
 			return `<a href="/telegram/types/${f.reference.name}">${f.reference.name}</a>`;
-		case "array":
-			if (f.arrayOf.type === "reference") {
-				const n = f.arrayOf.reference.name;
-				return `<a href="/telegram/types/${n}">${n}[]</a>`;
+		case "array": {
+			// Unwrap nested arrays to find the innermost reference (e.g. KeyboardButton[][])
+			let inner: FieldNoKey = f.arrayOf;
+			let depth = 1;
+			while (inner.type === "array") {
+				inner = inner.arrayOf;
+				depth++;
+			}
+			if (inner.type === "reference") {
+				const n = inner.reference.name;
+				const brackets = "[]".repeat(depth);
+				return `<a href="/telegram/types/${n}">${n}${brackets}</a>`;
 			}
 			return typeStr(f);
+		}
 		case "one_of":
 			// Render all variants with links (e.g. "Message | True")
 			return f.variants.map(returnBadge).join(" | ");
