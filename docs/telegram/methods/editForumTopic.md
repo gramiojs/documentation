@@ -3,10 +3,10 @@ title: editForumTopic — Telegram Bot API | GramIO
 head:
   - - meta
     - name: description
-      content: editForumTopic Telegram Bot API method with GramIO TypeScript examples. Complete parameter reference and usage guide.
+      content: Edit forum topic name and icon in Telegram supergroups using GramIO with TypeScript. Rename topics, change custom emoji icons, and manage forum threads.
   - - meta
     - name: keywords
-      content: editForumTopic, telegram bot api, gramio editForumTopic, editForumTopic typescript, editForumTopic example
+      content: editForumTopic, telegram bot api, telegram forum topic, edit forum topic telegram bot, gramio editForumTopic, editForumTopic typescript, editForumTopic example, message_thread_id, icon_custom_emoji_id, can_manage_topics, telegram supergroup topics, forum thread name, how to edit forum topic telegram bot
 ---
 
 # editForumTopic
@@ -36,16 +36,94 @@ On success, *True* is returned.
 
 ## GramIO Usage
 
-<!-- TODO: Add TypeScript examples using GramIO -->
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Rename a forum topic
+await bot.api.editForumTopic({
+  chat_id: -1001234567890,
+  message_thread_id: 42,
+  name: "Announcements",
+});
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Change both the topic name and its custom emoji icon
+await bot.api.editForumTopic({
+  chat_id: "@mysupergroup",
+  message_thread_id: 42,
+  name: "Dev Discussion",
+  icon_custom_emoji_id: "5312536423851630001",
+});
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Remove the topic icon by passing an empty string
+await bot.api.editForumTopic({
+  chat_id: -1001234567890,
+  message_thread_id: 42,
+  icon_custom_emoji_id: "",
+});
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Handle the forum_topic_created event and immediately rename it
+bot.on("message", async (ctx) => {
+  if (ctx.forumTopicCreated && ctx.messageThreadId) {
+    await bot.api.editForumTopic({
+      chat_id: ctx.chat.id,
+      message_thread_id: ctx.messageThreadId,
+      name: `[OPEN] ${ctx.forumTopicCreated.name}`,
+    });
+  }
+});
+```
 
 ## Errors
 
-<!-- TODO: Add common errors table -->
+| Code | Error | Cause |
+|------|-------|-------|
+| 400 | `Bad Request: chat not found` | Invalid `chat_id` or the bot is not a member of the chat |
+| 400 | `Bad Request: message thread not found` | `message_thread_id` doesn't exist in the target chat |
+| 400 | `Bad Request: not enough rights to manage topics` | Bot is not the topic creator and lacks the `can_manage_topics` admin right |
+| 400 | `Bad Request: TOPIC_NAME_INVALID` | `name` exceeds 128 characters |
+| 400 | `Bad Request: method is available only in supergroups` | `chat_id` points to a regular group or channel, not a supergroup with forums enabled |
+| 403 | `Forbidden: not enough rights` | Bot is not an administrator in the supergroup |
+| 429 | `Too Many Requests: retry after N` | Rate limit hit — check `retry_after`, use [auto-retry plugin](/plugins/official/auto-retry) |
+
+::: tip
+Use GramIO's [auto-retry plugin](/plugins/official/auto-retry) to handle `429` errors automatically.
+:::
 
 ## Tips & Gotchas
 
-<!-- TODO: Add tips and gotchas -->
+- **Both `name` and `icon_custom_emoji_id` are optional.** Omit a field to keep its current value — passing only `name` leaves the icon unchanged.
+- **Pass an empty string for `icon_custom_emoji_id` to remove the icon.** Omitting it keeps the current icon; an empty string clears it.
+- **Use `getForumTopicIconStickers` to get valid emoji IDs.** Only specific emoji from the sticker set are allowed as topic icons — you can't use arbitrary custom emoji.
+- **Bot must be creator of the topic or have `can_manage_topics` admin right.** If neither condition is met, the call returns a 400 error.
+- **Works in private chats with topics** (as of Bot API 9.0). The `message_thread_id` works the same way in both supergroups and private chats with topics enabled.
+- **General topic cannot be edited with this method.** Use [`editGeneralForumTopic`](/telegram/methods/editGeneralForumTopic) for the special General topic.
 
 ## See Also
 
-<!-- TODO: Add related methods and links -->
+- [`createForumTopic`](/telegram/methods/createForumTopic) — Create a new forum topic
+- [`closeForumTopic`](/telegram/methods/closeForumTopic) — Close a forum topic to new messages
+- [`reopenForumTopic`](/telegram/methods/reopenForumTopic) — Reopen a closed forum topic
+- [`deleteForumTopic`](/telegram/methods/deleteForumTopic) — Delete a forum topic and all its messages
+- [`editGeneralForumTopic`](/telegram/methods/editGeneralForumTopic) — Edit the special General topic name
+- [`getForumTopicIconStickers`](/telegram/methods/getForumTopicIconStickers) — Get the list of allowed topic icon emoji
+- [`ForumTopic`](/telegram/types/ForumTopic) — Forum topic object type
