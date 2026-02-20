@@ -57,8 +57,8 @@ async function convertFirstGift(businessConnectionId: string) {
 
   const regularGift = gifts.gifts.find((g) => g.type === "regular");
 
-  if (!regularGift) {
-    console.log("No regular gifts to convert.");
+  if (!regularGift || !regularGift.owned_gift_id) {
+    console.log("No convertible regular gift found.");
     return;
   }
 

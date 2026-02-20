@@ -79,6 +79,8 @@ function fixTelegramLinks(s: string): string {
 function escAttr(s: string): string {
 	return fixTelegramLinks(s)
 		.replace(/&/g, "&amp;")
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;")
 		.replace(/"/g, "&quot;")
 		.replace(/\n/g, " ")
 		.trim();
@@ -87,8 +89,6 @@ function escAttr(s: string): string {
 /** Converts a Field to an <ApiParam .../> component line */
 function toApiParam(field: Field): string {
 	const type = typeStr(field);
-	const required = field.required ? " required" : "";
-	const desc = field.description ? ` description="${escAttr(field.description)}"` : "";
 
 	const attrs: string[] = [`name="${field.key}"`, `type="${type}"`];
 	if (field.required) attrs.push("required");

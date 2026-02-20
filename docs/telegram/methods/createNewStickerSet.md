@@ -23,13 +23,13 @@ Use this method to create a new sticker set owned by a user. The bot will be abl
 
 <ApiParam name="user_id" type="Integer" required description="User identifier of created sticker set owner" />
 
-<ApiParam name="name" type="String" required description="Short name of sticker set, to be used in `t.me/addstickers/` URLs (e.g., _animals_). Can contain only English letters, digits and underscores. Must begin with a letter, can't contain consecutive underscores and must end in `&quot;_by_<bot_username>&quot;`. `<bot_username>` is case insensitive. 1-64 characters." />
+<ApiParam name="name" type="String" required description="Short name of sticker set, to be used in `t.me/addstickers/` URLs (e.g., _animals_). Can contain only English letters, digits and underscores. Must begin with a letter, can't contain consecutive underscores and must end in `&quot;_by_&lt;bot_username&gt;&quot;`. `&lt;bot_username&gt;` is case insensitive. 1-64 characters." />
 
 <ApiParam name="title" type="String" required description="Sticker set title, 1-64 characters" />
 
 <ApiParam name="stickers" type="InputSticker[]" required description="A JSON-serialized list of 1-50 initial stickers to be added to the sticker set" />
 
-<ApiParam name="sticker_type" type="String" required description="Type of stickers in the set, pass "regular", "mask", or "custom\_emoji". By default, a regular sticker set is created." />
+<ApiParam name="sticker_type" type="String" required description="Type of stickers in the set, pass &quot;regular&quot;, &quot;mask&quot;, or &quot;custom\_emoji&quot;. By default, a regular sticker set is created." />
 
 <ApiParam name="needs_repainting" type="Boolean" required description="Pass _True_ if stickers in the sticker set must be repainted to the color of text when used in messages, the accent color if used as emoji status, white on chat photos, or another appropriate color based on context; for custom emoji sticker sets only" />
 
@@ -80,7 +80,7 @@ await bot.api.createNewStickerSet({
       emoji_list: ["😀", "🎉"],
     },
   ],
-  sticker_type: "regular",
+  // sticker_type defaults to "regular" when omitted
 });
 ```
 
@@ -133,7 +133,7 @@ Use GramIO's [auto-retry plugin](/plugins/official/auto-retry) to handle `429` e
 - **The sticker owner (`user_id`) must have previously started the bot.** The bot cannot create a sticker set for a user it has never interacted with.
 - **`emoji_list` is required and must contain 1–20 valid emoji.** This controls which emoji suggest the sticker in the emoji picker.
 - **Static stickers must be 512×512 px WEBP.** Animated stickers use TGS format; video stickers use WEBM. The `format` field must match the file type.
-- **`needs_repainting: true` is only valid for `sticker_type: "custom_emoji"`.** Setting it for regular or mask stickers will cause an error.
+- **`needs_repainting: true` is only valid for `sticker_type: "custom_emoji"`.** The TypeScript type for `sticker_type` only accepts `"mask"` or `"custom_emoji"` — omit the field entirely to get the default regular sticker set.
 - **Use `addStickerToSet` to add more stickers after creation.** The initial `stickers` array supports 1–50 items; add more later up to the set limit.
 - **First upload the file with `uploadStickerFile` if you plan to reuse it.** This gives you a stable `file_id` you can reference across multiple calls without re-uploading.
 

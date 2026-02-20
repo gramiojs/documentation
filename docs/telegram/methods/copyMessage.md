@@ -93,8 +93,9 @@ bot.on("message", async (ctx) => {
 ```
 
 ```ts twoslash
-import { Bot } from "gramio";
-import { format, bold, italic } from "@gramio/format";
+import { Bot, format, bold, italic } from "gramio";
+
+const bot = new Bot("");
 // ---cut---
 // Copy a media message and replace its caption using GramIO format helpers
 await bot.api.copyMessage({
@@ -106,8 +107,9 @@ await bot.api.copyMessage({
 ```
 
 ```ts twoslash
-import { Bot } from "gramio";
-import { InlineKeyboard } from "@gramio/keyboards";
+import { Bot, InlineKeyboard } from "gramio";
+
+const bot = new Bot("");
 // ---cut---
 // Copy a message and attach an inline keyboard
 await bot.api.copyMessage({
