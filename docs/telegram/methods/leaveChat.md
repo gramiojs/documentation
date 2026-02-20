@@ -3,10 +3,10 @@ title: leaveChat — Telegram Bot API | GramIO
 head:
   - - meta
     - name: description
-      content: leaveChat Telegram Bot API method with GramIO TypeScript examples. Complete parameter reference and usage guide.
+      content: Make your Telegram bot leave a group, supergroup, or channel using GramIO and TypeScript. Complete leaveChat parameter reference, chat_id usage, and common error handling.
   - - meta
     - name: keywords
-      content: leaveChat, telegram bot api, gramio leaveChat, leaveChat typescript, leaveChat example
+      content: leaveChat, telegram bot api, gramio leaveChat, leaveChat typescript, leaveChat example, telegram bot leave group, bot leave channel, bot leave supergroup, chat_id, how to leave chat telegram bot, remove bot from group
 ---
 
 # leaveChat
@@ -30,16 +30,77 @@ On success, *True* is returned.
 
 ## GramIO Usage
 
-<!-- TODO: Add TypeScript examples using GramIO -->
+Leave a group by numeric chat ID:
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+await bot.api.leaveChat({ chat_id: -1001234567890 });
+```
+
+Leave a public channel by username:
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+await bot.api.leaveChat({ chat_id: "@mychannelname" });
+```
+
+Leave the current chat from a command handler:
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+bot.command("leave", async (ctx) => {
+  await ctx.send("Goodbye! Leaving the chat now.");
+  await bot.api.leaveChat({ chat_id: ctx.chat.id });
+});
+```
+
+Self-destruct after completing a task — useful for temporary bots:
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+async function runOneTimeTask(chatId: number) {
+  // ... do work ...
+  await bot.api.leaveChat({ chat_id: chatId });
+  console.log("Task complete, bot left the chat.");
+}
+```
 
 ## Errors
 
-<!-- TODO: Add common errors table -->
+| Code | Error | Cause |
+|------|-------|-------|
+| 400 | `Bad Request: chat not found` | Invalid `chat_id` or the bot is not a member of the specified chat |
+| 400 | `Bad Request: User_deactivated` | The bot's account has been deactivated |
+| 400 | `Bad Request: method is not available for private chats` | `chat_id` points to a private user chat — bots cannot "leave" private conversations |
+| 403 | `Forbidden: bot is not a member of the channel chat` | Bot is already not a member of the channel |
+| 429 | `Too Many Requests: retry after N` | Rate limit hit — check `retry_after`, use [auto-retry plugin](/plugins/official/auto-retry) |
+
+::: tip
+Use GramIO's [auto-retry plugin](/plugins/official/auto-retry) to handle `429` errors automatically.
+:::
 
 ## Tips & Gotchas
 
-<!-- TODO: Add tips and gotchas -->
+- **Channel DM chats are not supported.** If a channel has a linked discussion group or a "direct messages" chat, use the channel's `chat_id` — not the DM chat's ID.
+- **Leaving is permanent and immediate.** Once the bot leaves, it stops receiving updates from that chat. There is no "rejoin" method — the bot must be re-added manually by a user.
+- **`@username` works for public chats.** The `chat_id` field accepts `@channelusername` for public channels and supergroups, so you don't need to store the numeric ID.
+- **No confirmation event.** After calling `leaveChat`, the bot won't receive a `my_chat_member` update confirming the departure within the same session — the leave is applied immediately.
+- **Use `banChatMember` to kick users, not bots.** `leaveChat` only makes your bot leave. To remove other users, use [banChatMember](/telegram/methods/banChatMember).
 
 ## See Also
 
-<!-- TODO: Add related methods and links -->
+- [banChatMember](/telegram/methods/banChatMember) — remove another member from a chat
+- [getChat](/telegram/methods/getChat) — retrieve chat info before deciding to leave
+- [getChatMember](/telegram/methods/getChatMember) — check the bot's current membership status in a chat
