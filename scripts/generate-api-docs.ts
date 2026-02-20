@@ -106,6 +106,8 @@ function escAttr(s: string): string {
 		.replace(/</g, "&lt;")
 		.replace(/>/g, "&gt;")
 		.replace(/"/g, "&quot;")
+		// Smart/curly double quotes from the schema — also escape them
+		.replace(/\u201c|\u201d/g, "&quot;")
 		.replace(/\n/g, " ")
 		.trim();
 }
