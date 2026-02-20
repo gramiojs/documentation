@@ -3,10 +3,10 @@ title: createChatSubscriptionInviteLink — Telegram Bot API | GramIO
 head:
   - - meta
     - name: description
-      content: createChatSubscriptionInviteLink Telegram Bot API method with GramIO TypeScript examples. Complete parameter reference and usage guide.
+      content: Create Telegram Stars subscription invite links for channels using GramIO. Complete createChatSubscriptionInviteLink TypeScript reference with pricing, period, and recurring subscription examples.
   - - meta
     - name: keywords
-      content: createChatSubscriptionInviteLink, telegram bot api, gramio createChatSubscriptionInviteLink, createChatSubscriptionInviteLink typescript, createChatSubscriptionInviteLink example
+      content: createChatSubscriptionInviteLink, telegram bot api, telegram subscription invite link, telegram stars channel subscription, gramio createChatSubscriptionInviteLink, createChatSubscriptionInviteLink typescript, subscription_period, subscription_price, telegram stars subscription, how to create subscription link telegram bot, channel paid subscription, ChatInviteLink
 ---
 
 # createChatSubscriptionInviteLink
@@ -36,16 +36,62 @@ On success, the [ChatInviteLink](/telegram/types/ChatInviteLink) object is retur
 
 ## GramIO Usage
 
-<!-- TODO: Add TypeScript examples using GramIO -->
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Create a 30-day subscription invite link for 100 Stars/month
+const link = await bot.api.createChatSubscriptionInviteLink({
+  chat_id: "@mypaidchannel",
+  subscription_period: 2592000,
+  subscription_price: 100,
+});
+console.log(link.invite_link);
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Create a named subscription link for easier tracking
+const link = await bot.api.createChatSubscriptionInviteLink({
+  chat_id: -1001234567890,
+  name: "VIP Access",
+  subscription_period: 2592000,
+  subscription_price: 500,
+});
+console.log(`VIP link: ${link.invite_link}`);
+```
 
 ## Errors
 
-<!-- TODO: Add common errors table -->
+| Code | Error | Cause |
+|------|-------|-------|
+| 400 | `Bad Request: chat not found` | Invalid or inaccessible `chat_id` — verify the bot is in the channel |
+| 400 | `Bad Request: SUBSCRIPTION_PERIOD_INVALID` | `subscription_period` is not exactly `2592000` — the only supported value |
+| 400 | `Bad Request: STARS_SUBSCRIPTION_PRICE_INVALID` | `subscription_price` is outside the 1–10000 Stars range |
+| 400 | `Bad Request: method not available for this chat type` | Target chat is not a channel — subscription invite links only work on channels, not groups |
+| 403 | `Forbidden: not enough rights` | Bot lacks the `can_invite_users` administrator right |
+| 429 | `Too Many Requests: retry after N` | Rate limit hit — check `retry_after`, use [auto-retry plugin](/plugins/official/auto-retry) |
+
+::: tip
+Use GramIO's [auto-retry plugin](/plugins/official/auto-retry) to handle `429` errors automatically.
+:::
 
 ## Tips & Gotchas
 
-<!-- TODO: Add tips and gotchas -->
+- **Only works for channels, not groups.** Subscription invite links are channel-only; use [`createChatInviteLink`](/telegram/methods/createChatInviteLink) for groups.
+- **`subscription_period` must always be exactly `2592000` (30 days).** This is the only currently supported value; any other number will fail.
+- **`subscription_price` is in Telegram Stars, not a fiat currency.** The range is 1–10000 Stars; Stars are integers with no fractional values.
+- **Revoking stops new subscriptions but does not cancel active ones.** Existing subscribers keep access until their period ends after you revoke the link.
+- **Multiple subscription links can coexist.** A channel can have several active subscription links at different price points simultaneously.
+- **The `name` field helps distinguish links in admin analytics.** Use descriptive names like "Tier 1 — 100 Stars" to track conversion per link.
 
 ## See Also
 
-<!-- TODO: Add related methods and links -->
+- [`editChatSubscriptionInviteLink`](/telegram/methods/editChatSubscriptionInviteLink) — Edit an existing subscription invite link's name or price
+- [`revokeChatInviteLink`](/telegram/methods/revokeChatInviteLink) — Revoke a subscription invite link
+- [`createChatInviteLink`](/telegram/methods/createChatInviteLink) — Create a regular (non-subscription) invite link
+- [`ChatInviteLink`](/telegram/types/ChatInviteLink) — Return type containing the generated link and subscription metadata

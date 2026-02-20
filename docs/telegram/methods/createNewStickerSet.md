@@ -3,10 +3,10 @@ title: createNewStickerSet — Telegram Bot API | GramIO
 head:
   - - meta
     - name: description
-      content: createNewStickerSet Telegram Bot API method with GramIO TypeScript examples. Complete parameter reference and usage guide.
+      content: Create new Telegram sticker sets for your bot using GramIO. Complete createNewStickerSet TypeScript reference with InputSticker format, file upload, sticker types, and name convention guide.
   - - meta
     - name: keywords
-      content: createNewStickerSet, telegram bot api, gramio createNewStickerSet, createNewStickerSet typescript, createNewStickerSet example
+      content: createNewStickerSet, telegram bot api, telegram sticker set, gramio createNewStickerSet, createNewStickerSet typescript, createNewStickerSet example, InputSticker, sticker_type, custom emoji sticker set, mask sticker set, how to create sticker set telegram bot, MediaUpload sticker, needs_repainting
 ---
 
 # createNewStickerSet
@@ -29,7 +29,7 @@ Use this method to create a new sticker set owned by a user. The bot will be abl
 
 <ApiParam name="stickers" type="InputSticker[]" required description="A JSON-serialized list of 1-50 initial stickers to be added to the sticker set" />
 
-<ApiParam name="sticker_type" type="String" required description="Type of stickers in the set, pass “regular”, “mask”, or “custom\_emoji”. By default, a regular sticker set is created." />
+<ApiParam name="sticker_type" type="String" required description="Type of stickers in the set, pass "regular", "mask", or "custom\_emoji". By default, a regular sticker set is created." />
 
 <ApiParam name="needs_repainting" type="Boolean" required description="Pass _True_ if stickers in the sticker set must be repainted to the color of text when used in messages, the accent color if used as emoji status, white on chat photos, or another appropriate color based on context; for custom emoji sticker sets only" />
 
@@ -40,16 +40,109 @@ On success, *True* is returned.
 
 ## GramIO Usage
 
-<!-- TODO: Add TypeScript examples using GramIO -->
+```ts twoslash
+import { Bot } from "gramio";
+import { MediaUpload } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Create a regular sticker set with one initial sticker from a local file
+const stickerFile = await MediaUpload.path("./sticker.webp");
+
+await bot.api.createNewStickerSet({
+  user_id: 123456789,
+  name: "my_animals_by_mybotname",
+  title: "My Animals",
+  stickers: [
+    {
+      sticker: stickerFile,
+      format: "static",
+      emoji_list: ["🐱"],
+    },
+  ],
+});
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Create a sticker set using an already-uploaded file_id
+await bot.api.createNewStickerSet({
+  user_id: 123456789,
+  name: "my_pack_by_mybotname",
+  title: "My Sticker Pack",
+  stickers: [
+    {
+      sticker: "EXISTING_FILE_ID_HERE", // re-use an uploaded sticker file
+      format: "static",
+      emoji_list: ["😀", "🎉"],
+    },
+  ],
+  sticker_type: "regular",
+});
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+import { MediaUpload } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Create a custom emoji sticker set with repainting (adapts to theme colors)
+const stickerFile = await MediaUpload.path("./emoji.webp");
+
+await bot.api.createNewStickerSet({
+  user_id: 123456789,
+  name: "my_emoji_by_mybotname",
+  title: "My Custom Emoji",
+  stickers: [
+    {
+      sticker: stickerFile,
+      format: "static",
+      emoji_list: ["⭐"],
+      keywords: ["star", "favorite", "highlight"],
+    },
+  ],
+  sticker_type: "custom_emoji",
+  needs_repainting: true,
+});
+```
 
 ## Errors
 
-<!-- TODO: Add common errors table -->
+| Code | Error | Cause |
+|------|-------|-------|
+| 400 | `Bad Request: STICKERSET_INVALID` | The `name` is already taken or the bot already owns a set with this name |
+| 400 | `Bad Request: STICKER_PNG_DIMENSIONS` | Sticker image dimensions are invalid — static stickers must be 512×512 px |
+| 400 | `Bad Request: STICKER_EMOJI_INVALID` | `emoji_list` is empty or contains an invalid emoji — must be 1–20 valid emoji |
+| 400 | `Bad Request: STICKERSET_NAME_INVALID` | `name` does not match the required format or does not end in `_by_<botusername>` |
+| 400 | `Bad Request: USER_ID_INVALID` | `user_id` is not a valid Telegram user ID |
+| 400 | `Bad Request: wrong file identifier/HTTP URL specified` | Invalid `sticker` value — check the file_id or use `MediaUpload` for fresh uploads |
+| 403 | `Forbidden: bot was blocked by the user` | The owner user has blocked the bot — the bot must have interacted with the owner first |
+| 429 | `Too Many Requests: retry after N` | Rate limit hit — check `retry_after`, use [auto-retry plugin](/plugins/official/auto-retry) |
+
+::: tip
+Use GramIO's [auto-retry plugin](/plugins/official/auto-retry) to handle `429` errors automatically.
+:::
 
 ## Tips & Gotchas
 
-<!-- TODO: Add tips and gotchas -->
+- **`name` must end in `_by_<bot_username>` (case-insensitive).** For a bot with username `@MyBot`, a valid name is `cool_stickers_by_mybot`. Forgetting this suffix is the most common error.
+- **The sticker owner (`user_id`) must have previously started the bot.** The bot cannot create a sticker set for a user it has never interacted with.
+- **`emoji_list` is required and must contain 1–20 valid emoji.** This controls which emoji suggest the sticker in the emoji picker.
+- **Static stickers must be 512×512 px WEBP.** Animated stickers use TGS format; video stickers use WEBM. The `format` field must match the file type.
+- **`needs_repainting: true` is only valid for `sticker_type: "custom_emoji"`.** Setting it for regular or mask stickers will cause an error.
+- **Use `addStickerToSet` to add more stickers after creation.** The initial `stickers` array supports 1–50 items; add more later up to the set limit.
+- **First upload the file with `uploadStickerFile` if you plan to reuse it.** This gives you a stable `file_id` you can reference across multiple calls without re-uploading.
 
 ## See Also
 
-<!-- TODO: Add related methods and links -->
+- [`addStickerToSet`](/telegram/methods/addStickerToSet) — Add more stickers to an existing set
+- [`deleteStickerFromSet`](/telegram/methods/deleteStickerFromSet) — Remove a sticker from a set
+- [`getStickerSet`](/telegram/methods/getStickerSet) — Get information about a sticker set by name
+- [`uploadStickerFile`](/telegram/methods/uploadStickerFile) — Upload a sticker file to get a reusable file_id
+- [`InputSticker`](/telegram/types/InputSticker) — The sticker descriptor type used in the `stickers` array
+- [`StickerSet`](/telegram/types/StickerSet) — Type returned by `getStickerSet`
+- [File uploads guide](/files/media-upload) — How to use `MediaUpload` for sticker file uploads
