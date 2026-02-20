@@ -20,13 +20,13 @@ The background is a gradient fill.
 
 ## Fields
 
-<ApiParam name="type" type="String" required description="Type of the background fill, always “gradient”" />
+<ApiParam name="type" type="String" description="Type of the background fill, always “gradient”" defaultValue="gradient" />
 
 <ApiParam name="top_color" type="Integer" required description="Top color of the gradient in the RGB24 format" />
 
 <ApiParam name="bottom_color" type="Integer" required description="Bottom color of the gradient in the RGB24 format" />
 
-<ApiParam name="rotation_angle" type="Integer" required description="Clockwise rotation angle of the background fill in degrees; 0-359" :min="0" :max="359" />
+<ApiParam name="rotation_angle" type="Integer" required description="Clockwise rotation angle of the background fill in degrees; 0-359" />
 
 <!-- GENERATED:END -->
 

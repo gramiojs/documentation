@@ -20,9 +20,9 @@ Represents an issue with the selfie with a document. The error is considered res
 
 ## Fields
 
-<ApiParam name="source" type="String" required description="Error source, must be _selfie_" />
+<ApiParam name="source" type="String" description="Error source, must be *selfie*" defaultValue="selfie" />
 
-<ApiParam name="type" type="String" required description="The section of the user's Telegram Passport which has the issue, one of “passport”, “driver\_license”, “identity\_card”, “internal\_passport”" />
+<ApiParam name="type" type="String" required description="The section of the user's Telegram Passport which has the issue, one of “passport”, “driver\_license”, “identity\_card”, “internal\_passport”" :enumValues='["passport","driver_license","identity_card","internal_passport"]' />
 
 <ApiParam name="file_hash" type="String" required description="Base64-encoded hash of the file with the selfie" />
 

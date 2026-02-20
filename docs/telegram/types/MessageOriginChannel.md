@@ -20,7 +20,7 @@ The message was originally sent to a channel chat.
 
 ## Fields
 
-<ApiParam name="type" type="String" required description="Type of the message origin, always “channel”" />
+<ApiParam name="type" type="String" description="Type of the message origin, always “channel”" defaultValue="channel" />
 
 <ApiParam name="date" type="Integer" required description="Date the message was sent originally in Unix time" />
 
@@ -28,7 +28,7 @@ The message was originally sent to a channel chat.
 
 <ApiParam name="message_id" type="Integer" required description="Unique message identifier inside the chat" />
 
-<ApiParam name="author_signature" type="String" description="_Optional_. Signature of the original post author" />
+<ApiParam name="author_signature" type="String" description="*Optional*. Signature of the original post author" />
 
 <!-- GENERATED:END -->
 

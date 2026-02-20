@@ -20,19 +20,19 @@ Represents a photo to be sent.
 
 ## Fields
 
-<ApiParam name="type" type="String" required description="Type of the result, must be _photo_" />
+<ApiParam name="type" type="String" description="Type of the result, must be *photo*" defaultValue="photo" />
 
-<ApiParam name="media" type="String" required description="File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file\_attach\_name>” to upload a new one using multipart/form-data under <file\_attach\_name> name. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)" />
+<ApiParam name="media" type="String" required description="File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file\_attach\_name&gt;” to upload a new one using multipart/form-data under &lt;file\_attach\_name&gt; name. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)" />
 
-<ApiParam name="caption" type="String" description="_Optional_. Caption of the photo to be sent, 0-1024 characters after entities parsing" />
+<ApiParam name="caption" type="String" description="*Optional*. Caption of the photo to be sent, 0-1024 characters after entities parsing" :minLen="0" :maxLen="1024" />
 
-<ApiParam name="parse_mode" type="String" description="_Optional_. Mode for parsing entities in the photo caption. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details." />
+<ApiParam name="parse_mode" type="String" description="*Optional*. Mode for parsing entities in the photo caption. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details." />
 
-<ApiParam name="caption_entities" type="MessageEntity[]" description="_Optional_. List of special entities that appear in the caption, which can be specified instead of _parse\_mode_" />
+<ApiParam name="caption_entities" type="MessageEntity[]" description="*Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*" />
 
-<ApiParam name="show_caption_above_media" type="Boolean" description="_Optional_. Pass _True_, if the caption must be shown above the message media" />
+<ApiParam name="show_caption_above_media" type="Boolean" description="*Optional*. Pass *True*, if the caption must be shown above the message media" />
 
-<ApiParam name="has_spoiler" type="Boolean" description="_Optional_. Pass _True_ if the photo needs to be covered with a spoiler animation" />
+<ApiParam name="has_spoiler" type="Boolean" description="*Optional*. Pass *True* if the photo needs to be covered with a spoiler animation" />
 
 <!-- GENERATED:END -->
 

@@ -13,11 +13,11 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: String</span>
+  <span class="api-badge returns">Returns: <a href="/telegram/types/StarAmount">StarAmount</a></span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#getbusinessaccountstarbalance" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Returns the amount of Telegram Stars owned by a managed business account. Requires the _can\_view\_gifts\_and\_stars_ business bot right. Returns [StarAmount](https://core.telegram.org/bots/api#staramount) on success.
+Returns the amount of Telegram Stars owned by a managed business account. Requires the *can\_view\_gifts\_and\_stars* business bot right. Returns [StarAmount](https://core.telegram.org/bots/api#staramount) on success.
 
 ## Parameters
 
@@ -25,7 +25,7 @@ Returns the amount of Telegram Stars owned by a managed business account. Requir
 
 ## Returns
 
-On success, String is returned.
+On success, the [StarAmount](/telegram/types/StarAmount) object is returned.
 <!-- GENERATED:END -->
 
 ## GramIO Usage

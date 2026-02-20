@@ -26,17 +26,17 @@ This object represents an audio file to be treated as music by the Telegram clie
 
 <ApiParam name="duration" type="Integer" required description="Duration of the audio in seconds as defined by the sender" />
 
-<ApiParam name="performer" type="String" description="_Optional_. Performer of the audio as defined by the sender or by audio tags" />
+<ApiParam name="performer" type="String" description="*Optional*. Performer of the audio as defined by the sender or by audio tags" />
 
-<ApiParam name="title" type="String" description="_Optional_. Title of the audio as defined by the sender or by audio tags" />
+<ApiParam name="title" type="String" description="*Optional*. Title of the audio as defined by the sender or by audio tags" />
 
-<ApiParam name="file_name" type="String" description="_Optional_. Original filename as defined by the sender" />
+<ApiParam name="file_name" type="String" description="*Optional*. Original filename as defined by the sender" />
 
-<ApiParam name="mime_type" type="String" description="_Optional_. MIME type of the file as defined by the sender" />
+<ApiParam name="mime_type" type="String" description="*Optional*. MIME type of the file as defined by the sender" />
 
-<ApiParam name="file_size" type="Integer" description="_Optional_. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value." />
+<ApiParam name="file_size" type="Integer" description="*Optional*. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value." />
 
-<ApiParam name="thumbnail" type="PhotoSize" description="_Optional_. Thumbnail of the album cover to which the music file belongs" />
+<ApiParam name="thumbnail" type="PhotoSize" description="*Optional*. Thumbnail of the album cover to which the music file belongs" />
 
 <!-- GENERATED:END -->
 

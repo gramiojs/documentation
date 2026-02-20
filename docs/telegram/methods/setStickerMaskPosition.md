@@ -17,13 +17,13 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#setstickermaskposition" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to change the [mask position](https://core.telegram.org/bots/api#maskposition) of a mask sticker. The sticker must belong to a sticker set that was created by the bot. Returns _True_ on success.
+Use this method to change the [mask position](https://core.telegram.org/bots/api#maskposition) of a mask sticker. The sticker must belong to a sticker set that was created by the bot. Returns *True* on success.
 
 ## Parameters
 
 <ApiParam name="sticker" type="String" required description="File identifier of the sticker" />
 
-<ApiParam name="mask_position" type="MaskPosition" required description="A JSON-serialized object with the position where the mask should be placed on faces. Omit the parameter to remove the mask position." />
+<ApiParam name="mask_position" type="MaskPosition" description="A JSON-serialized object with the position where the mask should be placed on faces. Omit the parameter to remove the mask position." />
 
 ## Returns
 

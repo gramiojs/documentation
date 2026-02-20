@@ -20,13 +20,13 @@ The message was originally sent on behalf of a chat to a group chat.
 
 ## Fields
 
-<ApiParam name="type" type="String" required description="Type of the message origin, always “chat”" />
+<ApiParam name="type" type="String" description="Type of the message origin, always “chat”" defaultValue="chat" />
 
 <ApiParam name="date" type="Integer" required description="Date the message was sent originally in Unix time" />
 
 <ApiParam name="sender_chat" type="Chat" required description="Chat that sent the message originally" />
 
-<ApiParam name="author_signature" type="String" description="_Optional_. For messages originally sent by an anonymous chat administrator, original message author signature" />
+<ApiParam name="author_signature" type="String" description="*Optional*. For messages originally sent by an anonymous chat administrator, original message author signature" />
 
 <!-- GENERATED:END -->
 

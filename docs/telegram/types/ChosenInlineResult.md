@@ -24,9 +24,9 @@ Represents a [result](https://core.telegram.org/bots/api#inlinequeryresult) of a
 
 <ApiParam name="from" type="User" required description="The user that chose the result" />
 
-<ApiParam name="location" type="Location" description="_Optional_. Sender location, only for bots that require user location" />
+<ApiParam name="location" type="Location" description="*Optional*. Sender location, only for bots that require user location" />
 
-<ApiParam name="inline_message_id" type="String" description="_Optional_. Identifier of the sent inline message. Available only if there is an [inline keyboard](https://core.telegram.org/bots/api#inlinekeyboardmarkup) attached to the message. Will be also received in [callback queries](https://core.telegram.org/bots/api#callbackquery) and can be used to [edit](https://core.telegram.org/bots/api#updating-messages) the message." />
+<ApiParam name="inline_message_id" type="String" description="*Optional*. Identifier of the sent inline message. Available only if there is an [inline keyboard](https://core.telegram.org/bots/api#inlinekeyboardmarkup) attached to the message. Will be also received in [callback queries](https://core.telegram.org/bots/api#callbackquery) and can be used to [edit](https://core.telegram.org/bots/api#updating-messages) the message." />
 
 <ApiParam name="query" type="String" required description="The query that was used to obtain the result" />
 

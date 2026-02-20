@@ -20,13 +20,13 @@ Represents the [content](https://core.telegram.org/bots/api#inputmessagecontent)
 
 ## Fields
 
-<ApiParam name="message_text" type="String" required description="Text of the message to be sent, 1-4096 characters" />
+<ApiParam name="message_text" type="String" required description="Text of the message to be sent, 1-4096 characters" :minLen="1" :maxLen="4096" />
 
-<ApiParam name="parse_mode" type="String" description="_Optional_. Mode for parsing entities in the message text. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details." />
+<ApiParam name="parse_mode" type="String" description="*Optional*. Mode for parsing entities in the message text. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details." />
 
-<ApiParam name="entities" type="MessageEntity[]" description="_Optional_. List of special entities that appear in message text, which can be specified instead of _parse\_mode_" />
+<ApiParam name="entities" type="MessageEntity[]" description="*Optional*. List of special entities that appear in message text, which can be specified instead of *parse\_mode*" />
 
-<ApiParam name="link_preview_options" type="LinkPreviewOptions" description="_Optional_. Link preview generation options for the message" />
+<ApiParam name="link_preview_options" type="LinkPreviewOptions" description="*Optional*. Link preview generation options for the message" />
 
 <!-- GENERATED:END -->
 

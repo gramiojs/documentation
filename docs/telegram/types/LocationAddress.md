@@ -22,11 +22,11 @@ Describes the physical address of a location.
 
 <ApiParam name="country_code" type="String" required description="The two-letter ISO 3166-1 alpha-2 country code of the country where the location is located" />
 
-<ApiParam name="state" type="String" description="_Optional_. State of the location" />
+<ApiParam name="state" type="String" description="*Optional*. State of the location" />
 
-<ApiParam name="city" type="String" description="_Optional_. City of the location" />
+<ApiParam name="city" type="String" description="*Optional*. City of the location" />
 
-<ApiParam name="street" type="String" description="_Optional_. Street address of the location" />
+<ApiParam name="street" type="String" description="*Optional*. Street address of the location" />
 
 <!-- GENERATED:END -->
 

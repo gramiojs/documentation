@@ -17,11 +17,11 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#deletewebhook" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to remove webhook integration if you decide to switch back to [getUpdates](https://core.telegram.org/bots/api#getupdates). Returns _True_ on success.
+Use this method to remove webhook integration if you decide to switch back to [getUpdates](https://core.telegram.org/bots/api#getupdates). Returns *True* on success.
 
 ## Parameters
 
-<ApiParam name="drop_pending_updates" type="Boolean" required description="Pass _True_ to drop all pending updates" />
+<ApiParam name="drop_pending_updates" type="Boolean" description="Pass *True* to drop all pending updates" />
 
 ## Returns
 

@@ -17,13 +17,13 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#setmydefaultadministratorrights" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to change the default administrator rights requested by the bot when it's added as an administrator to groups or channels. These rights will be suggested to users, but they are free to modify the list before adding the bot. Returns _True_ on success.
+Use this method to change the default administrator rights requested by the bot when it's added as an administrator to groups or channels. These rights will be suggested to users, but they are free to modify the list before adding the bot. Returns *True* on success.
 
 ## Parameters
 
-<ApiParam name="rights" type="ChatAdministratorRights" required description="A JSON-serialized object describing new default administrator rights. If not specified, the default administrator rights will be cleared." />
+<ApiParam name="rights" type="ChatAdministratorRights" description="A JSON-serialized object describing new default administrator rights. If not specified, the default administrator rights will be cleared." />
 
-<ApiParam name="for_channels" type="Boolean" required description="Pass _True_ to change the default administrator rights of the bot in channels. Otherwise, the default administrator rights of the bot for groups and supergroups will be changed." />
+<ApiParam name="for_channels" type="Boolean" description="Pass *True* to change the default administrator rights of the bot in channels. Otherwise, the default administrator rights of the bot for groups and supergroups will be changed." />
 
 ## Returns
 

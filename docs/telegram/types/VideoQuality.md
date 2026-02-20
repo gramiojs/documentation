@@ -28,9 +28,9 @@ This object represents a video file of a specific quality.
 
 <ApiParam name="height" type="Integer" required description="Video height" />
 
-<ApiParam name="codec" type="String" required description="Codec that was used to encode the video, for example, “h264”, “h265”, or “av01”" />
+<ApiParam name="codec" type="String" required description="Codec that was used to encode the video, for example, “h264”, “h265”, or “av01”" :enumValues='["h265","av01"]' />
 
-<ApiParam name="file_size" type="Integer" description="_Optional_. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value." />
+<ApiParam name="file_size" type="Integer" description="*Optional*. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value." />
 
 <!-- GENERATED:END -->
 

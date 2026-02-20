@@ -13,33 +13,33 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: String</span>
+  <span class="api-badge returns">Returns: <a href="/telegram/types/MessageId">MessageId[]</a></span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#copymessages" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz [poll](https://core.telegram.org/bots/api#poll) can be copied only if the value of the field _correct\_option\_id_ is known to the bot. The method is analogous to the method [forwardMessages](https://core.telegram.org/bots/api#forwardmessages), but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an array of [MessageId](https://core.telegram.org/bots/api#messageid) of the sent messages is returned.
+Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz [poll](https://core.telegram.org/bots/api#poll) can be copied only if the value of the field *correct\_option\_id* is known to the bot. The method is analogous to the method [forwardMessages](https://core.telegram.org/bots/api#forwardmessages), but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an array of [MessageId](https://core.telegram.org/bots/api#messageid) of the sent messages is returned.
 
 ## Parameters
 
 <ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)" />
 
-<ApiParam name="message_thread_id" type="Integer" required description="Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only" />
+<ApiParam name="message_thread_id" type="Integer" description="Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only" />
 
-<ApiParam name="direct_messages_topic_id" type="Integer" required description="Identifier of the direct messages topic to which the messages will be sent; required if the messages are sent to a direct messages chat" />
+<ApiParam name="direct_messages_topic_id" type="Integer" description="Identifier of the direct messages topic to which the messages will be sent; required if the messages are sent to a direct messages chat" />
 
 <ApiParam name="from_chat_id" type="Integer | String" required description="Unique identifier for the chat where the original messages were sent (or channel username in the format `@channelusername`)" />
 
-<ApiParam name="message_ids" type="Integer[]" required description="A JSON-serialized list of 1-100 identifiers of messages in the chat _from\_chat\_id_ to copy. The identifiers must be specified in a strictly increasing order." />
+<ApiParam name="message_ids" type="Integer[]" required description="A JSON-serialized list of 1-100 identifiers of messages in the chat *from\_chat\_id* to copy. The identifiers must be specified in a strictly increasing order." />
 
-<ApiParam name="disable_notification" type="Boolean" required description="Sends the messages [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound." />
+<ApiParam name="disable_notification" type="Boolean" description="Sends the messages [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound." />
 
-<ApiParam name="protect_content" type="Boolean" required description="Protects the contents of the sent messages from forwarding and saving" />
+<ApiParam name="protect_content" type="Boolean" description="Protects the contents of the sent messages from forwarding and saving" />
 
-<ApiParam name="remove_caption" type="Boolean" required description="Pass _True_ to copy the messages without their captions" />
+<ApiParam name="remove_caption" type="Boolean" description="Pass *True* to copy the messages without their captions" />
 
 ## Returns
 
-On success, String is returned.
+On success, an array of [MessageId](/telegram/types/MessageId) objects is returned.
 <!-- GENERATED:END -->
 
 ## GramIO Usage

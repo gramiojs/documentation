@@ -22,7 +22,7 @@ Represents a location to which a chat is connected.
 
 <ApiParam name="location" type="Location" required description="The location to which the supergroup is connected. Can't be a live location." />
 
-<ApiParam name="address" type="String" required description="Location address; 1-64 characters, as defined by the chat owner" />
+<ApiParam name="address" type="String" required description="Location address; 1-64 characters, as defined by the chat owner" :minLen="1" :maxLen="64" />
 
 <!-- GENERATED:END -->
 

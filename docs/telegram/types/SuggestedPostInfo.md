@@ -20,11 +20,11 @@ Contains information about a suggested post.
 
 ## Fields
 
-<ApiParam name="state" type="String" required description="State of the suggested post. Currently, it can be one of “pending”, “approved”, “declined”." />
+<ApiParam name="state" type="String" required description="State of the suggested post. Currently, it can be one of “pending”, “approved”, “declined”." :enumValues='["pending","approved","declined"]' />
 
-<ApiParam name="price" type="SuggestedPostPrice" description="_Optional_. Proposed price of the post. If the field is omitted, then the post is unpaid." />
+<ApiParam name="price" type="SuggestedPostPrice" description="*Optional*. Proposed price of the post. If the field is omitted, then the post is unpaid." />
 
-<ApiParam name="send_date" type="Integer" description="_Optional_. Proposed send date of the post. If the field is omitted, then the post can be published at any time within 30 days at the sole discretion of the user or administrator who approves it." />
+<ApiParam name="send_date" type="Integer" description="*Optional*. Proposed send date of the post. If the field is omitted, then the post can be published at any time within 30 days at the sole discretion of the user or administrator who approves it." />
 
 <!-- GENERATED:END -->
 

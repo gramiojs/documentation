@@ -17,7 +17,7 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#edituserstarsubscription" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Allows the bot to cancel or re-enable extension of a subscription paid in Telegram Stars. Returns _True_ on success.
+Allows the bot to cancel or re-enable extension of a subscription paid in Telegram Stars. Returns *True* on success.
 
 ## Parameters
 
@@ -25,7 +25,7 @@ Allows the bot to cancel or re-enable extension of a subscription paid in Telegr
 
 <ApiParam name="telegram_payment_charge_id" type="String" required description="Telegram payment identifier for the subscription" />
 
-<ApiParam name="is_canceled" type="Boolean" required description="Pass _True_ to cancel extension of the user subscription; the subscription must be active up to the end of the current subscription period. Pass _False_ to allow the user to re-enable a subscription that was previously canceled by the bot." />
+<ApiParam name="is_canceled" type="Boolean" required description="Pass *True* to cancel extension of the user subscription; the subscription must be active up to the end of the current subscription period. Pass *False* to allow the user to re-enable a subscription that was previously canceled by the bot." />
 
 ## Returns
 

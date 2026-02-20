@@ -17,13 +17,13 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#verifyuser" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Verifies a user [on behalf of the organization](https://telegram.org/verify#third-party-verification) which is represented by the bot. Returns _True_ on success.
+Verifies a user [on behalf of the organization](https://telegram.org/verify#third-party-verification) which is represented by the bot. Returns *True* on success.
 
 ## Parameters
 
 <ApiParam name="user_id" type="Integer" required description="Unique identifier of the target user" />
 
-<ApiParam name="custom_description" type="String" required description="Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description." />
+<ApiParam name="custom_description" type="String" description="Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description." :minLen="0" :maxLen="70" />
 
 ## Returns
 

@@ -22,11 +22,11 @@ Describes a task to add to a checklist.
 
 <ApiParam name="id" type="Integer" required description="Unique identifier of the task; must be positive and unique among all task identifiers currently present in the checklist" />
 
-<ApiParam name="text" type="String" required description="Text of the task; 1-100 characters after entities parsing" />
+<ApiParam name="text" type="String" required description="Text of the task; 1-100 characters after entities parsing" :minLen="1" :maxLen="100" />
 
-<ApiParam name="parse_mode" type="String" description="_Optional_. Mode for parsing entities in the text. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details." />
+<ApiParam name="parse_mode" type="String" description="*Optional*. Mode for parsing entities in the text. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details." />
 
-<ApiParam name="text_entities" type="MessageEntity[]" description="_Optional_. List of special entities that appear in the text, which can be specified instead of parse\_mode. Currently, only _bold_, _italic_, _underline_, _strikethrough_, _spoiler_, and _custom\_emoji_ entities are allowed." />
+<ApiParam name="text_entities" type="MessageEntity[]" description="*Optional*. List of special entities that appear in the text, which can be specified instead of parse\_mode. Currently, only *bold*, *italic*, *underline*, *strikethrough*, *spoiler*, and *custom\_emoji* entities are allowed." />
 
 <!-- GENERATED:END -->
 

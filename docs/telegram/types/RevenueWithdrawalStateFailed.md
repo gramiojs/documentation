@@ -20,7 +20,7 @@ The withdrawal failed and the transaction was refunded.
 
 ## Fields
 
-<ApiParam name="type" type="String" required description="Type of the state, always “failed”" />
+<ApiParam name="type" type="String" description="Type of the state, always “failed”" defaultValue="failed" />
 
 <!-- GENERATED:END -->
 

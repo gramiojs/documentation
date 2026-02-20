@@ -22,11 +22,11 @@ This object contains information about the quoted part of a message that is repl
 
 <ApiParam name="text" type="String" required description="Text of the quoted part of a message that is replied to by the given message" />
 
-<ApiParam name="entities" type="MessageEntity[]" description="_Optional_. Special entities that appear in the quote. Currently, only _bold_, _italic_, _underline_, _strikethrough_, _spoiler_, and _custom\_emoji_ entities are kept in quotes." />
+<ApiParam name="entities" type="MessageEntity[]" description="*Optional*. Special entities that appear in the quote. Currently, only *bold*, *italic*, *underline*, *strikethrough*, *spoiler*, and *custom\_emoji* entities are kept in quotes." />
 
 <ApiParam name="position" type="Integer" required description="Approximate quote position in the original message in UTF-16 code units as specified by the sender" />
 
-<ApiParam name="is_manual" type="Boolean" description="_Optional_. _True_, if the quote was chosen manually by the message sender. Otherwise, the quote was added automatically by the server." />
+<ApiParam name="is_manual" type="True" description="*Optional*. *True*, if the quote was chosen manually by the message sender. Otherwise, the quote was added automatically by the server." />
 
 <!-- GENERATED:END -->
 

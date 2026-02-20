@@ -17,17 +17,17 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#createforumtopic" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to create a topic in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the _can\_manage\_topics_ administrator right. Returns information about the created topic as a [ForumTopic](https://core.telegram.org/bots/api#forumtopic) object.
+Use this method to create a topic in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the *can\_manage\_topics* administrator right. Returns information about the created topic as a [ForumTopic](https://core.telegram.org/bots/api#forumtopic) object.
 
 ## Parameters
 
 <ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)" />
 
-<ApiParam name="name" type="String" required description="Topic name, 1-128 characters" />
+<ApiParam name="name" type="String" required description="Topic name, 1-128 characters" :minLen="1" :maxLen="128" />
 
-<ApiParam name="icon_color" type="Integer" required description="Color of the topic icon in RGB format. Currently, must be one of 7322096 (0x6FB9F0), 16766590 (0xFFD67E), 13338331 (0xCB86DB), 9367192 (0x8EEE98), 16749490 (0xFF93B2), or 16478047 (0xFB6F5F)" />
+<ApiParam name="icon_color" type="Integer" description="Color of the topic icon in RGB format. Currently, must be one of 7322096 (0x6FB9F0), 16766590 (0xFFD67E), 13338331 (0xCB86DB), 9367192 (0x8EEE98), 16749490 (0xFF93B2), or 16478047 (0xFB6F5F)" :enumValues='[7322096,16766590,13338331,9367192,16749490,16478047]' />
 
-<ApiParam name="icon_custom_emoji_id" type="String" required description="Unique identifier of the custom emoji shown as the topic icon. Use [getForumTopicIconStickers](https://core.telegram.org/bots/api#getforumtopiciconstickers) to get all allowed custom emoji identifiers." />
+<ApiParam name="icon_custom_emoji_id" type="String" description="Unique identifier of the custom emoji shown as the topic icon. Use [getForumTopicIconStickers](https://core.telegram.org/bots/api#getforumtopiciconstickers) to get all allowed custom emoji identifiers." />
 
 ## Returns
 

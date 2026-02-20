@@ -20,9 +20,9 @@ This object contains information about one answer option in a poll.
 
 ## Fields
 
-<ApiParam name="text" type="String" required description="Option text, 1-100 characters" />
+<ApiParam name="text" type="String" required description="Option text, 1-100 characters" :minLen="1" :maxLen="100" />
 
-<ApiParam name="text_entities" type="MessageEntity[]" description="_Optional_. Special entities that appear in the option _text_. Currently, only custom emoji entities are allowed in poll option texts" />
+<ApiParam name="text_entities" type="MessageEntity[]" description="*Optional*. Special entities that appear in the option *text*. Currently, only custom emoji entities are allowed in poll option texts" />
 
 <ApiParam name="voter_count" type="Integer" required description="Number of users that voted for this option" />
 

@@ -20,7 +20,7 @@ The reaction is based on a custom emoji.
 
 ## Fields
 
-<ApiParam name="type" type="String" required description="Type of the reaction, always “custom\_emoji”" />
+<ApiParam name="type" type="String" description="Type of the reaction, always “custom\_emoji”" defaultValue="custom_emoji" />
 
 <ApiParam name="custom_emoji_id" type="String" required description="Custom emoji identifier" />
 

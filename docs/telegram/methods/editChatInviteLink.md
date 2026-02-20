@@ -25,13 +25,13 @@ Use this method to edit a non-primary invite link created by the bot. The bot mu
 
 <ApiParam name="invite_link" type="String" required description="The invite link to edit" />
 
-<ApiParam name="name" type="String" required description="Invite link name; 0-32 characters" />
+<ApiParam name="name" type="String" description="Invite link name; 0-32 characters" :minLen="0" :maxLen="32" />
 
-<ApiParam name="expire_date" type="Integer" required description="Point in time (Unix timestamp) when the link will expire" />
+<ApiParam name="expire_date" type="Integer" description="Point in time (Unix timestamp) when the link will expire" />
 
-<ApiParam name="member_limit" type="Integer" required description="The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999" :min="1" :max="1" />
+<ApiParam name="member_limit" type="Integer" description="The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999" />
 
-<ApiParam name="creates_join_request" type="Boolean" required description="_True_, if users joining the chat via the link need to be approved by chat administrators. If _True_, _member\_limit_ can't be specified" />
+<ApiParam name="creates_join_request" type="Boolean" description="*True*, if users joining the chat via the link need to be approved by chat administrators. If *True*, *member\_limit* can't be specified" />
 
 ## Returns
 

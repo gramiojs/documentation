@@ -28,9 +28,9 @@ Represents a join request sent to a chat.
 
 <ApiParam name="date" type="Integer" required description="Date the request was sent in Unix time" />
 
-<ApiParam name="bio" type="String" description="_Optional_. Bio of the user." />
+<ApiParam name="bio" type="String" description="*Optional*. Bio of the user." />
 
-<ApiParam name="invite_link" type="ChatInviteLink" description="_Optional_. Chat invite link that was used by the user to send the join request" />
+<ApiParam name="invite_link" type="ChatInviteLink" description="*Optional*. Chat invite link that was used by the user to send the join request" />
 
 <!-- GENERATED:END -->
 

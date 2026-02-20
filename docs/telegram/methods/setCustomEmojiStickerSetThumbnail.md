@@ -17,13 +17,13 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#setcustomemojistickersetthumbnail" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to set the thumbnail of a custom emoji sticker set. Returns _True_ on success.
+Use this method to set the thumbnail of a custom emoji sticker set. Returns *True* on success.
 
 ## Parameters
 
 <ApiParam name="name" type="String" required description="Sticker set name" />
 
-<ApiParam name="custom_emoji_id" type="String" required description="Custom emoji identifier of a sticker from the sticker set; pass an empty string to drop the thumbnail and use the first sticker as the thumbnail." />
+<ApiParam name="custom_emoji_id" type="String" description="Custom emoji identifier of a sticker from the sticker set; pass an empty string to drop the thumbnail and use the first sticker as the thumbnail." />
 
 ## Returns
 

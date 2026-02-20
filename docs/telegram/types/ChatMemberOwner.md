@@ -20,13 +20,13 @@ Represents a [chat member](https://core.telegram.org/bots/api#chatmember) that o
 
 ## Fields
 
-<ApiParam name="status" type="String" required description="The member's status in the chat, always “creator”" />
+<ApiParam name="status" type="String" description="The member's status in the chat, always “creator”" defaultValue="creator" />
 
 <ApiParam name="user" type="User" required description="Information about the user" />
 
-<ApiParam name="is_anonymous" type="Boolean" required description="_True_, if the user's presence in the chat is hidden" />
+<ApiParam name="is_anonymous" type="Boolean" required description="*True*, if the user's presence in the chat is hidden" />
 
-<ApiParam name="custom_title" type="String" description="_Optional_. Custom title for this user" />
+<ApiParam name="custom_title" type="String" description="*Optional*. Custom title for this user" />
 
 <!-- GENERATED:END -->
 

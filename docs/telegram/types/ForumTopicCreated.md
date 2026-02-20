@@ -24,9 +24,9 @@ This object represents a service message about a new forum topic created in the 
 
 <ApiParam name="icon_color" type="Integer" required description="Color of the topic icon in RGB format" />
 
-<ApiParam name="icon_custom_emoji_id" type="String" description="_Optional_. Unique identifier of the custom emoji shown as the topic icon" />
+<ApiParam name="icon_custom_emoji_id" type="String" description="*Optional*. Unique identifier of the custom emoji shown as the topic icon" />
 
-<ApiParam name="is_name_implicit" type="Boolean" description="_Optional_. _True_, if the name of the topic wasn't specified explicitly by its creator and likely needs to be changed by the bot" />
+<ApiParam name="is_name_implicit" type="True" description="*Optional*. *True*, if the name of the topic wasn't specified explicitly by its creator and likely needs to be changed by the bot" />
 
 <!-- GENERATED:END -->
 

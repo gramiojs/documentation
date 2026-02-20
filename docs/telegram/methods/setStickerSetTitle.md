@@ -17,13 +17,13 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#setstickersettitle" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to set the title of a created sticker set. Returns _True_ on success.
+Use this method to set the title of a created sticker set. Returns *True* on success.
 
 ## Parameters
 
 <ApiParam name="name" type="String" required description="Sticker set name" />
 
-<ApiParam name="title" type="String" required description="Sticker set title, 1-64 characters" />
+<ApiParam name="title" type="String" required description="Sticker set title, 1-64 characters" :minLen="1" :maxLen="64" />
 
 ## Returns
 

@@ -20,11 +20,11 @@ This object contains information about one answer option in a poll to be sent.
 
 ## Fields
 
-<ApiParam name="text" type="String" required description="Option text, 1-100 characters" />
+<ApiParam name="text" type="String" required description="Option text, 1-100 characters" :minLen="1" :maxLen="100" />
 
-<ApiParam name="text_parse_mode" type="String" description="_Optional_. Mode for parsing entities in the text. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details. Currently, only custom emoji entities are allowed" />
+<ApiParam name="text_parse_mode" type="String" description="*Optional*. Mode for parsing entities in the text. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details. Currently, only custom emoji entities are allowed" />
 
-<ApiParam name="text_entities" type="MessageEntity[]" description="_Optional_. A JSON-serialized list of special entities that appear in the poll option text. It can be specified instead of _text\_parse\_mode_" />
+<ApiParam name="text_entities" type="MessageEntity[]" description="*Optional*. A JSON-serialized list of special entities that appear in the poll option text. It can be specified instead of *text\_parse\_mode*" />
 
 <!-- GENERATED:END -->
 

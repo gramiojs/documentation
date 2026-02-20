@@ -20,11 +20,11 @@ Describes a transaction with a chat.
 
 ## Fields
 
-<ApiParam name="type" type="String" required description="Type of the transaction partner, always “chat”" />
+<ApiParam name="type" type="String" description="Type of the transaction partner, always “chat”" defaultValue="chat" />
 
 <ApiParam name="chat" type="Chat" required description="Information about the chat" />
 
-<ApiParam name="gift" type="Gift" description="_Optional_. The gift sent to the chat by the bot" />
+<ApiParam name="gift" type="Gift" description="*Optional*. The gift sent to the chat by the bot" />
 
 <!-- GENERATED:END -->
 

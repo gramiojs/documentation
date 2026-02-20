@@ -24,7 +24,7 @@ Contains the list of gifts received and owned by a user or a chat.
 
 <ApiParam name="gifts" type="OwnedGift[]" required description="The list of gifts" />
 
-<ApiParam name="next_offset" type="String" description="_Optional_. Offset for the next request. If empty, then there are no more results" />
+<ApiParam name="next_offset" type="String" description="*Optional*. Offset for the next request. If empty, then there are no more results" />
 
 <!-- GENERATED:END -->
 

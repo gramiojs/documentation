@@ -20,7 +20,7 @@ The reaction is paid.
 
 ## Fields
 
-<ApiParam name="type" type="String" required description="Type of the reaction, always “paid”" />
+<ApiParam name="type" type="String" description="Type of the reaction, always “paid”" defaultValue="paid" />
 
 <!-- GENERATED:END -->
 

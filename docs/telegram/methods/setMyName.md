@@ -17,13 +17,13 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#setmyname" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to change the bot's name. Returns _True_ on success.
+Use this method to change the bot's name. Returns *True* on success.
 
 ## Parameters
 
-<ApiParam name="name" type="String" required description="New bot name; 0-64 characters. Pass an empty string to remove the dedicated name for the given language." />
+<ApiParam name="name" type="String" description="New bot name; 0-64 characters. Pass an empty string to remove the dedicated name for the given language." :minLen="0" :maxLen="64" />
 
-<ApiParam name="language_code" type="String" required description="A two-letter ISO 639-1 language code. If empty, the name will be shown to all users for whose language there is no dedicated name." />
+<ApiParam name="language_code" type="String" description="A two-letter ISO 639-1 language code. If empty, the name will be shown to all users for whose language there is no dedicated name." />
 
 ## Returns
 

@@ -20,17 +20,17 @@ Describes a Telegram Star transaction. Note that if the buyer initiates a charge
 
 ## Fields
 
-<ApiParam name="id" type="String" required description="Unique identifier of the transaction. Coincides with the identifier of the original transaction for refund transactions. Coincides with _SuccessfulPayment.telegram\_payment\_charge\_id_ for successful incoming payments from users." />
+<ApiParam name="id" type="String" required description="Unique identifier of the transaction. Coincides with the identifier of the original transaction for refund transactions. Coincides with *SuccessfulPayment.telegram\_payment\_charge\_id* for successful incoming payments from users." />
 
 <ApiParam name="amount" type="Integer" required description="Integer amount of Telegram Stars transferred by the transaction" />
 
-<ApiParam name="nanostar_amount" type="Integer" description="_Optional_. The number of 1/1000000000 shares of Telegram Stars transferred by the transaction; from 0 to 999999999" />
+<ApiParam name="nanostar_amount" type="Integer" description="*Optional*. The number of 1/1000000000 shares of Telegram Stars transferred by the transaction; from 0 to 999999999" />
 
 <ApiParam name="date" type="Integer" required description="Date the transaction was created in Unix time" />
 
-<ApiParam name="source" type="TransactionPartner" description="_Optional_. Source of an incoming transaction (e.g., a user purchasing goods or services, Fragment refunding a failed withdrawal). Only for incoming transactions" />
+<ApiParam name="source" type="TransactionPartner" description="*Optional*. Source of an incoming transaction (e.g., a user purchasing goods or services, Fragment refunding a failed withdrawal). Only for incoming transactions" />
 
-<ApiParam name="receiver" type="TransactionPartner" description="_Optional_. Receiver of an outgoing transaction (e.g., a user for a purchase refund, Fragment for a withdrawal). Only for outgoing transactions" />
+<ApiParam name="receiver" type="TransactionPartner" description="*Optional*. Receiver of an outgoing transaction (e.g., a user for a purchase refund, Fragment for a withdrawal). Only for outgoing transactions" />
 
 <!-- GENERATED:END -->
 

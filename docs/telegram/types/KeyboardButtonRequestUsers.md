@@ -22,17 +22,17 @@ This object defines the criteria used to request suitable users. Information abo
 
 <ApiParam name="request_id" type="Integer" required description="Signed 32-bit identifier of the request that will be received back in the [UsersShared](https://core.telegram.org/bots/api#usersshared) object. Must be unique within the message" />
 
-<ApiParam name="user_is_bot" type="Boolean" description="_Optional_. Pass _True_ to request bots, pass _False_ to request regular users. If not specified, no additional restrictions are applied." />
+<ApiParam name="user_is_bot" type="Boolean" description="*Optional*. Pass *True* to request bots, pass *False* to request regular users. If not specified, no additional restrictions are applied." />
 
-<ApiParam name="user_is_premium" type="Boolean" description="_Optional_. Pass _True_ to request premium users, pass _False_ to request non-premium users. If not specified, no additional restrictions are applied." />
+<ApiParam name="user_is_premium" type="Boolean" description="*Optional*. Pass *True* to request premium users, pass *False* to request non-premium users. If not specified, no additional restrictions are applied." />
 
-<ApiParam name="max_quantity" type="Integer" description="_Optional_. The maximum number of users to be selected; 1-10. Defaults to 1." :max="1" />
+<ApiParam name="max_quantity" type="Integer" description="*Optional*. The maximum number of users to be selected; 1-10. Defaults to 1." :defaultValue="1" />
 
-<ApiParam name="request_name" type="Boolean" description="_Optional_. Pass _True_ to request the users' first and last names" />
+<ApiParam name="request_name" type="Boolean" description="*Optional*. Pass *True* to request the users' first and last names" />
 
-<ApiParam name="request_username" type="Boolean" description="_Optional_. Pass _True_ to request the users' usernames" />
+<ApiParam name="request_username" type="Boolean" description="*Optional*. Pass *True* to request the users' usernames" />
 
-<ApiParam name="request_photo" type="Boolean" description="_Optional_. Pass _True_ to request the users' photos" />
+<ApiParam name="request_photo" type="Boolean" description="*Optional*. Pass *True* to request the users' photos" />
 
 <!-- GENERATED:END -->
 

@@ -17,7 +17,7 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#reopengeneralforumtopic" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to reopen a closed 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the _can\_manage\_topics_ administrator rights. The topic will be automatically unhidden if it was hidden. Returns _True_ on success.
+Use this method to reopen a closed 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the *can\_manage\_topics* administrator rights. The topic will be automatically unhidden if it was hidden. Returns *True* on success.
 
 ## Parameters
 

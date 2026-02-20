@@ -20,9 +20,9 @@ This object represents a bot command.
 
 ## Fields
 
-<ApiParam name="command" type="String" required description="Text of the command; 1-32 characters. Can contain only lowercase English letters, digits and underscores." />
+<ApiParam name="command" type="String" required description="Text of the command; 1-32 characters. Can contain only lowercase English letters, digits and underscores." :minLen="1" :maxLen="32" />
 
-<ApiParam name="description" type="String" required description="Description of the command; 1-256 characters." />
+<ApiParam name="description" type="String" required description="Description of the command; 1-256 characters." :minLen="1" :maxLen="256" />
 
 <!-- GENERATED:END -->
 

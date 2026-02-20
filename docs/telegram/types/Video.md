@@ -30,19 +30,19 @@ This object represents a video file.
 
 <ApiParam name="duration" type="Integer" required description="Duration of the video in seconds as defined by the sender" />
 
-<ApiParam name="thumbnail" type="PhotoSize" description="_Optional_. Video thumbnail" />
+<ApiParam name="thumbnail" type="PhotoSize" description="*Optional*. Video thumbnail" />
 
-<ApiParam name="cover" type="PhotoSize[]" description="_Optional_. Available sizes of the cover of the video in the message" />
+<ApiParam name="cover" type="PhotoSize[]" description="*Optional*. Available sizes of the cover of the video in the message" />
 
-<ApiParam name="start_timestamp" type="Integer" description="_Optional_. Timestamp in seconds from which the video will play in the message" />
+<ApiParam name="start_timestamp" type="Integer" description="*Optional*. Timestamp in seconds from which the video will play in the message" />
 
-<ApiParam name="qualities" type="VideoQuality[]" description="_Optional_. List of available qualities of the video" />
+<ApiParam name="qualities" type="VideoQuality[]" description="*Optional*. List of available qualities of the video" />
 
-<ApiParam name="file_name" type="String" description="_Optional_. Original filename as defined by the sender" />
+<ApiParam name="file_name" type="String" description="*Optional*. Original filename as defined by the sender" />
 
-<ApiParam name="mime_type" type="String" description="_Optional_. MIME type of the file as defined by the sender" />
+<ApiParam name="mime_type" type="String" description="*Optional*. MIME type of the file as defined by the sender" />
 
-<ApiParam name="file_size" type="Integer" description="_Optional_. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value." />
+<ApiParam name="file_size" type="Integer" description="*Optional*. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value." />
 
 <!-- GENERATED:END -->
 

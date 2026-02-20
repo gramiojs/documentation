@@ -20,15 +20,15 @@ This object represents an inline button that switches the current user to inline
 
 ## Fields
 
-<ApiParam name="query" type="String" description="_Optional_. The default inline query to be inserted in the input field. If left empty, only the bot's username will be inserted" />
+<ApiParam name="query" type="String" description="*Optional*. The default inline query to be inserted in the input field. If left empty, only the bot's username will be inserted" />
 
-<ApiParam name="allow_user_chats" type="Boolean" description="_Optional_. _True_, if private chats with users can be chosen" />
+<ApiParam name="allow_user_chats" type="Boolean" description="*Optional*. *True*, if private chats with users can be chosen" />
 
-<ApiParam name="allow_bot_chats" type="Boolean" description="_Optional_. _True_, if private chats with bots can be chosen" />
+<ApiParam name="allow_bot_chats" type="Boolean" description="*Optional*. *True*, if private chats with bots can be chosen" />
 
-<ApiParam name="allow_group_chats" type="Boolean" description="_Optional_. _True_, if group and supergroup chats can be chosen" />
+<ApiParam name="allow_group_chats" type="Boolean" description="*Optional*. *True*, if group and supergroup chats can be chosen" />
 
-<ApiParam name="allow_channel_chats" type="Boolean" description="_Optional_. _True_, if channel chats can be chosen" />
+<ApiParam name="allow_channel_chats" type="Boolean" description="*Optional*. *True*, if channel chats can be chosen" />
 
 <!-- GENERATED:END -->
 

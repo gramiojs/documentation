@@ -22,7 +22,7 @@ Describes an amount of Telegram Stars.
 
 <ApiParam name="amount" type="Integer" required description="Integer amount of Telegram Stars, rounded to 0; can be negative" />
 
-<ApiParam name="nanostar_amount" type="Integer" description="_Optional_. The number of 1/1000000000 shares of Telegram Stars; from -999999999 to 999999999; can be negative if and only if _amount_ is non-positive" />
+<ApiParam name="nanostar_amount" type="Integer" description="*Optional*. The number of 1/1000000000 shares of Telegram Stars; from -999999999 to 999999999; can be negative if and only if *amount* is non-positive" />
 
 <!-- GENERATED:END -->
 

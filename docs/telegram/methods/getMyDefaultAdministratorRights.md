@@ -21,7 +21,7 @@ Use this method to get the current default administrator rights of the bot. Retu
 
 ## Parameters
 
-<ApiParam name="for_channels" type="Boolean" required description="Pass _True_ to get default administrator rights of the bot in channels. Otherwise, default administrator rights of the bot for groups and supergroups will be returned." />
+<ApiParam name="for_channels" type="Boolean" description="Pass *True* to get default administrator rights of the bot in channels. Otherwise, default administrator rights of the bot for groups and supergroups will be returned." />
 
 ## Returns
 

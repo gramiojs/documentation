@@ -26,9 +26,9 @@ This object represents a voice note.
 
 <ApiParam name="duration" type="Integer" required description="Duration of the audio in seconds as defined by the sender" />
 
-<ApiParam name="mime_type" type="String" description="_Optional_. MIME type of the file as defined by the sender" />
+<ApiParam name="mime_type" type="String" description="*Optional*. MIME type of the file as defined by the sender" />
 
-<ApiParam name="file_size" type="Integer" description="_Optional_. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value." />
+<ApiParam name="file_size" type="Integer" description="*Optional*. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value." />
 
 <!-- GENERATED:END -->
 

@@ -21,7 +21,7 @@ Use this method to get the current bot name for the given user language. Returns
 
 ## Parameters
 
-<ApiParam name="language_code" type="String" required description="A two-letter ISO 639-1 language code or an empty string" />
+<ApiParam name="language_code" type="String" description="A two-letter ISO 639-1 language code or an empty string" />
 
 ## Returns
 

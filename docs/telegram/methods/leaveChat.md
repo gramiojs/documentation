@@ -17,7 +17,7 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#leavechat" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method for your bot to leave a group, supergroup or channel. Returns _True_ on success.
+Use this method for your bot to leave a group, supergroup or channel. Returns *True* on success.
 
 ## Parameters
 

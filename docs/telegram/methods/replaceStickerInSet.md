@@ -14,10 +14,11 @@ head:
 <!-- GENERATED:START -->
 <div class="api-badge-row">
   <span class="api-badge returns">Returns: True</span>
+  <span class="api-badge multipart">📎 Accepts files</span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#replacestickerinset" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to replace an existing sticker in a sticker set with a new one. The method is equivalent to calling [deleteStickerFromSet](https://core.telegram.org/bots/api#deletestickerfromset), then [addStickerToSet](https://core.telegram.org/bots/api#addstickertoset), then [setStickerPositionInSet](https://core.telegram.org/bots/api#setstickerpositioninset). Returns _True_ on success.
+Use this method to replace an existing sticker in a sticker set with a new one. The method is equivalent to calling [deleteStickerFromSet](https://core.telegram.org/bots/api#deletestickerfromset), then [addStickerToSet](https://core.telegram.org/bots/api#addstickertoset), then [setStickerPositionInSet](https://core.telegram.org/bots/api#setstickerpositioninset). Returns *True* on success.
 
 ## Parameters
 

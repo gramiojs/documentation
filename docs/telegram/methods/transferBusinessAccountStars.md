@@ -17,13 +17,13 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#transferbusinessaccountstars" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Transfers Telegram Stars from the business account balance to the bot's balance. Requires the _can\_transfer\_stars_ business bot right. Returns _True_ on success.
+Transfers Telegram Stars from the business account balance to the bot's balance. Requires the *can\_transfer\_stars* business bot right. Returns *True* on success.
 
 ## Parameters
 
 <ApiParam name="business_connection_id" type="String" required description="Unique identifier of the business connection" />
 
-<ApiParam name="star_count" type="Integer" required description="Number of Telegram Stars to transfer; 1-10000" :min="1" :max="10000" />
+<ApiParam name="star_count" type="Integer" required description="Number of Telegram Stars to transfer; 1-10000" />
 
 ## Returns
 

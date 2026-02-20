@@ -24,13 +24,13 @@ Describes a task in a checklist.
 
 <ApiParam name="text" type="String" required description="Text of the task" />
 
-<ApiParam name="text_entities" type="MessageEntity[]" description="_Optional_. Special entities that appear in the task text" />
+<ApiParam name="text_entities" type="MessageEntity[]" description="*Optional*. Special entities that appear in the task text" />
 
-<ApiParam name="completed_by_user" type="User" description="_Optional_. User that completed the task; omitted if the task wasn't completed by a user" />
+<ApiParam name="completed_by_user" type="User" description="*Optional*. User that completed the task; omitted if the task wasn't completed by a user" />
 
-<ApiParam name="completed_by_chat" type="Chat" description="_Optional_. Chat that completed the task; omitted if the task wasn't completed by a chat" />
+<ApiParam name="completed_by_chat" type="Chat" description="*Optional*. Chat that completed the task; omitted if the task wasn't completed by a chat" />
 
-<ApiParam name="completion_date" type="Integer" description="_Optional_. Point in time (Unix timestamp) when the task was completed; 0 if the task wasn't completed" />
+<ApiParam name="completion_date" type="Integer" description="*Optional*. Point in time (Unix timestamp) when the task was completed; 0 if the task wasn't completed" />
 
 <!-- GENERATED:END -->
 

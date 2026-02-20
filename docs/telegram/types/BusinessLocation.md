@@ -22,7 +22,7 @@ Contains information about the location of a Telegram Business account.
 
 <ApiParam name="address" type="String" required description="Address of the business" />
 
-<ApiParam name="location" type="Location" description="_Optional_. Location of the business" />
+<ApiParam name="location" type="Location" description="*Optional*. Location of the business" />
 
 <!-- GENERATED:END -->
 

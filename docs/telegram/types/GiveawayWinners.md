@@ -30,19 +30,19 @@ This object represents a message about the completion of a giveaway with public 
 
 <ApiParam name="winners" type="User[]" required description="List of up to 100 winners of the giveaway" />
 
-<ApiParam name="additional_chat_count" type="Integer" description="_Optional_. The number of other chats the user had to join in order to be eligible for the giveaway" />
+<ApiParam name="additional_chat_count" type="Integer" description="*Optional*. The number of other chats the user had to join in order to be eligible for the giveaway" />
 
-<ApiParam name="prize_star_count" type="Integer" description="_Optional_. The number of Telegram Stars that were split between giveaway winners; for Telegram Star giveaways only" />
+<ApiParam name="prize_star_count" type="Integer" description="*Optional*. The number of Telegram Stars that were split between giveaway winners; for Telegram Star giveaways only" />
 
-<ApiParam name="premium_subscription_month_count" type="Integer" description="_Optional_. The number of months the Telegram Premium subscription won from the giveaway will be active for; for Telegram Premium giveaways only" />
+<ApiParam name="premium_subscription_month_count" type="Integer" description="*Optional*. The number of months the Telegram Premium subscription won from the giveaway will be active for; for Telegram Premium giveaways only" />
 
-<ApiParam name="unclaimed_prize_count" type="Integer" description="_Optional_. Number of undistributed prizes" />
+<ApiParam name="unclaimed_prize_count" type="Integer" description="*Optional*. Number of undistributed prizes" />
 
-<ApiParam name="only_new_members" type="Boolean" description="_Optional_. _True_, if only users who had joined the chats after the giveaway started were eligible to win" />
+<ApiParam name="only_new_members" type="True" description="*Optional*. *True*, if only users who had joined the chats after the giveaway started were eligible to win" />
 
-<ApiParam name="was_refunded" type="Boolean" description="_Optional_. _True_, if the giveaway was canceled because the payment for it was refunded" />
+<ApiParam name="was_refunded" type="True" description="*Optional*. *True*, if the giveaway was canceled because the payment for it was refunded" />
 
-<ApiParam name="prize_description" type="String" description="_Optional_. Description of additional giveaway prize" />
+<ApiParam name="prize_description" type="String" description="*Optional*. Description of additional giveaway prize" />
 
 <!-- GENERATED:END -->
 

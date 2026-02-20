@@ -17,7 +17,7 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#transfergift" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Transfers an owned unique gift to another user. Requires the _can\_transfer\_and\_upgrade\_gifts_ business bot right. Requires _can\_transfer\_stars_ business bot right if the transfer is paid. Returns _True_ on success.
+Transfers an owned unique gift to another user. Requires the *can\_transfer\_and\_upgrade\_gifts* business bot right. Requires *can\_transfer\_stars* business bot right if the transfer is paid. Returns *True* on success.
 
 ## Parameters
 
@@ -27,7 +27,7 @@ Transfers an owned unique gift to another user. Requires the _can\_transfer\_and
 
 <ApiParam name="new_owner_chat_id" type="Integer" required description="Unique identifier of the chat which will own the gift. The chat must be active in the last 24 hours." />
 
-<ApiParam name="star_count" type="Integer" required description="The amount of Telegram Stars that will be paid for the transfer from the business account balance. If positive, then the _can\_transfer\_stars_ business bot right is required." />
+<ApiParam name="star_count" type="Integer" description="The amount of Telegram Stars that will be paid for the transfer from the business account balance. If positive, then the *can\_transfer\_stars* business bot right is required." />
 
 ## Returns
 

@@ -20,15 +20,15 @@ The background is a wallpaper in the JPEG format.
 
 ## Fields
 
-<ApiParam name="type" type="String" required description="Type of the background, always “wallpaper”" />
+<ApiParam name="type" type="String" description="Type of the background, always “wallpaper”" defaultValue="wallpaper" />
 
 <ApiParam name="document" type="Document" required description="Document with the wallpaper" />
 
-<ApiParam name="dark_theme_dimming" type="Integer" required description="Dimming of the background in dark themes, as a percentage; 0-100" :min="0" :max="100" />
+<ApiParam name="dark_theme_dimming" type="Integer" required description="Dimming of the background in dark themes, as a percentage; 0-100" />
 
-<ApiParam name="is_blurred" type="Boolean" description="_Optional_. _True_, if the wallpaper is downscaled to fit in a 450x450 square and then box-blurred with radius 12" />
+<ApiParam name="is_blurred" type="True" description="*Optional*. *True*, if the wallpaper is downscaled to fit in a 450x450 square and then box-blurred with radius 12" />
 
-<ApiParam name="is_moving" type="Boolean" description="_Optional_. _True_, if the background moves slightly when the device is tilted" />
+<ApiParam name="is_moving" type="True" description="*Optional*. *True*, if the background moves slightly when the device is tilted" />
 
 <!-- GENERATED:END -->
 

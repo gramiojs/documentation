@@ -17,13 +17,13 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#editgeneralforumtopic" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to edit the name of the 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the _can\_manage\_topics_ administrator rights. Returns _True_ on success.
+Use this method to edit the name of the 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the *can\_manage\_topics* administrator rights. Returns *True* on success.
 
 ## Parameters
 
 <ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)" />
 
-<ApiParam name="name" type="String" required description="New topic name, 1-128 characters" />
+<ApiParam name="name" type="String" required description="New topic name, 1-128 characters" :minLen="1" :maxLen="128" />
 
 ## Returns
 

@@ -17,7 +17,7 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#setmessagereaction" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to change the chosen reactions on a message. Service messages of some types can't be reacted to. Automatically forwarded messages from a channel to its discussion group have the same available reactions as messages in the channel. Bots can't use paid reactions. Returns _True_ on success.
+Use this method to change the chosen reactions on a message. Service messages of some types can't be reacted to. Automatically forwarded messages from a channel to its discussion group have the same available reactions as messages in the channel. Bots can't use paid reactions. Returns *True* on success.
 
 ## Parameters
 
@@ -25,9 +25,9 @@ Use this method to change the chosen reactions on a message. Service messages of
 
 <ApiParam name="message_id" type="Integer" required description="Identifier of the target message. If the message belongs to a media group, the reaction is set to the first non-deleted message in the group instead." />
 
-<ApiParam name="reaction" type="ReactionType[]" required description="A JSON-serialized list of reaction types to set on the message. Currently, as non-premium users, bots can set up to one reaction per message. A custom emoji reaction can be used if it is either already present on the message or explicitly allowed by chat administrators. Paid reactions can't be used by bots." />
+<ApiParam name="reaction" type="ReactionType[]" description="A JSON-serialized list of reaction types to set on the message. Currently, as non-premium users, bots can set up to one reaction per message. A custom emoji reaction can be used if it is either already present on the message or explicitly allowed by chat administrators. Paid reactions can't be used by bots." />
 
-<ApiParam name="is_big" type="Boolean" required description="Pass _True_ to set the reaction with a big animation" />
+<ApiParam name="is_big" type="Boolean" description="Pass *True* to set the reaction with a big animation" />
 
 ## Returns
 

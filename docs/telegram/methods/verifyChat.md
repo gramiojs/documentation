@@ -17,13 +17,13 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#verifychat" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Verifies a chat [on behalf of the organization](https://telegram.org/verify#third-party-verification) which is represented by the bot. Returns _True_ on success.
+Verifies a chat [on behalf of the organization](https://telegram.org/verify#third-party-verification) which is represented by the bot. Returns *True* on success.
 
 ## Parameters
 
 <ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel (in the format `@channelusername`). Channel direct messages chats can't be verified." />
 
-<ApiParam name="custom_description" type="String" required description="Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description." />
+<ApiParam name="custom_description" type="String" description="Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description." :minLen="0" :maxLen="70" />
 
 ## Returns
 

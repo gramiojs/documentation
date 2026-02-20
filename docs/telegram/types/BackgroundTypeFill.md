@@ -20,11 +20,11 @@ The background is automatically filled based on the selected colors.
 
 ## Fields
 
-<ApiParam name="type" type="String" required description="Type of the background, always “fill”" />
+<ApiParam name="type" type="String" description="Type of the background, always “fill”" defaultValue="fill" />
 
 <ApiParam name="fill" type="BackgroundFill" required description="The background fill" />
 
-<ApiParam name="dark_theme_dimming" type="Integer" required description="Dimming of the background in dark themes, as a percentage; 0-100" :min="0" :max="100" />
+<ApiParam name="dark_theme_dimming" type="Integer" required description="Dimming of the background in dark themes, as a percentage; 0-100" />
 
 <!-- GENERATED:END -->
 

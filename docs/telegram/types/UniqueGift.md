@@ -34,15 +34,15 @@ This object describes a unique gift that was upgraded from a regular gift.
 
 <ApiParam name="backdrop" type="UniqueGiftBackdrop" required description="Backdrop of the gift" />
 
-<ApiParam name="is_premium" type="Boolean" description="_Optional_. _True_, if the original regular gift was exclusively purchaseable by Telegram Premium subscribers" />
+<ApiParam name="is_premium" type="True" description="*Optional*. *True*, if the original regular gift was exclusively purchaseable by Telegram Premium subscribers" />
 
-<ApiParam name="is_burned" type="Boolean" description="_Optional_. _True_, if the gift was used to craft another gift and isn't available anymore" />
+<ApiParam name="is_burned" type="True" description="*Optional*. *True*, if the gift was used to craft another gift and isn't available anymore" />
 
-<ApiParam name="is_from_blockchain" type="Boolean" description="_Optional_. _True_, if the gift is assigned from the TON blockchain and can't be resold or transferred in Telegram" />
+<ApiParam name="is_from_blockchain" type="True" description="*Optional*. *True*, if the gift is assigned from the TON blockchain and can't be resold or transferred in Telegram" />
 
-<ApiParam name="colors" type="UniqueGiftColors" description="_Optional_. The color scheme that can be used by the gift's owner for the chat's name, replies to messages and link previews; for business account gifts and gifts that are currently on sale only" />
+<ApiParam name="colors" type="UniqueGiftColors" description="*Optional*. The color scheme that can be used by the gift's owner for the chat's name, replies to messages and link previews; for business account gifts and gifts that are currently on sale only" />
 
-<ApiParam name="publisher_chat" type="Chat" description="_Optional_. Information about the chat that published the gift" />
+<ApiParam name="publisher_chat" type="Chat" description="*Optional*. Information about the chat that published the gift" />
 
 <!-- GENERATED:END -->
 

@@ -13,25 +13,25 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: String</span>
+  <span class="api-badge returns">Returns: True</span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#answershippingquery" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-If you sent an invoice requesting a shipping address and the parameter _is\_flexible_ was specified, the Bot API will send an [Update](https://core.telegram.org/bots/api#update) with a _shipping\_query_ field to the bot. Use this method to reply to shipping queries. On success, _True_ is returned.
+If you sent an invoice requesting a shipping address and the parameter *is\_flexible* was specified, the Bot API will send an [Update](https://core.telegram.org/bots/api#update) with a *shipping\_query* field to the bot. Use this method to reply to shipping queries. On success, *True* is returned.
 
 ## Parameters
 
 <ApiParam name="shipping_query_id" type="String" required description="Unique identifier for the query to be answered" />
 
-<ApiParam name="ok" type="Boolean" required description="Pass _True_ if delivery to the specified address is possible and _False_ if there are any problems (for example, if delivery to the specified address is not possible)" />
+<ApiParam name="ok" type="Boolean" required description="Pass *True* if delivery to the specified address is possible and *False* if there are any problems (for example, if delivery to the specified address is not possible)" />
 
-<ApiParam name="shipping_options" type="ShippingOption[]" required description="Required if _ok_ is _True_. A JSON-serialized array of available shipping options." />
+<ApiParam name="shipping_options" type="ShippingOption[]" description="Required if *ok* is *True*. A JSON-serialized array of available shipping options." />
 
-<ApiParam name="error_message" type="String" required description="Required if _ok_ is _False_. Error message in human readable form that explains why it is impossible to complete the order (e.g. &quot;Sorry, delivery to your desired address is unavailable&quot;). Telegram will display this message to the user." />
+<ApiParam name="error_message" type="String" description="Required if *ok* is *False*. Error message in human readable form that explains why it is impossible to complete the order (e.g. “Sorry, delivery to your desired address is unavailable”). Telegram will display this message to the user." />
 
 ## Returns
 
-On success, String is returned.
+On success, *True* is returned.
 <!-- GENERATED:END -->
 
 ## GramIO Usage

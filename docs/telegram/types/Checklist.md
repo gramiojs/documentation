@@ -22,13 +22,13 @@ Describes a checklist.
 
 <ApiParam name="title" type="String" required description="Title of the checklist" />
 
-<ApiParam name="title_entities" type="MessageEntity[]" description="_Optional_. Special entities that appear in the checklist title" />
+<ApiParam name="title_entities" type="MessageEntity[]" description="*Optional*. Special entities that appear in the checklist title" />
 
 <ApiParam name="tasks" type="ChecklistTask[]" required description="List of tasks in the checklist" />
 
-<ApiParam name="others_can_add_tasks" type="Boolean" description="_Optional_. _True_, if users other than the creator of the list can add tasks to the list" />
+<ApiParam name="others_can_add_tasks" type="True" description="*Optional*. *True*, if users other than the creator of the list can add tasks to the list" />
 
-<ApiParam name="others_can_mark_tasks_as_done" type="Boolean" description="_Optional_. _True_, if users other than the creator of the list can mark tasks as done or not done" />
+<ApiParam name="others_can_mark_tasks_as_done" type="True" description="*Optional*. *True*, if users other than the creator of the list can mark tasks as done or not done" />
 
 <!-- GENERATED:END -->
 

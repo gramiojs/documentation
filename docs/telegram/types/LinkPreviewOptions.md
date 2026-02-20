@@ -20,15 +20,15 @@ Describes the options used for link preview generation.
 
 ## Fields
 
-<ApiParam name="is_disabled" type="Boolean" description="_Optional_. _True_, if the link preview is disabled" />
+<ApiParam name="is_disabled" type="Boolean" description="*Optional*. *True*, if the link preview is disabled" />
 
-<ApiParam name="url" type="String" description="_Optional_. URL to use for the link preview. If empty, then the first URL found in the message text will be used" />
+<ApiParam name="url" type="String" description="*Optional*. URL to use for the link preview. If empty, then the first URL found in the message text will be used" />
 
-<ApiParam name="prefer_small_media" type="Boolean" description="_Optional_. _True_, if the media in the link preview is supposed to be shrunk; ignored if the URL isn't explicitly specified or media size change isn't supported for the preview" />
+<ApiParam name="prefer_small_media" type="Boolean" description="*Optional*. *True*, if the media in the link preview is supposed to be shrunk; ignored if the URL isn't explicitly specified or media size change isn't supported for the preview" />
 
-<ApiParam name="prefer_large_media" type="Boolean" description="_Optional_. _True_, if the media in the link preview is supposed to be enlarged; ignored if the URL isn't explicitly specified or media size change isn't supported for the preview" />
+<ApiParam name="prefer_large_media" type="Boolean" description="*Optional*. *True*, if the media in the link preview is supposed to be enlarged; ignored if the URL isn't explicitly specified or media size change isn't supported for the preview" />
 
-<ApiParam name="show_above_text" type="Boolean" description="_Optional_. _True_, if the link preview must be shown above the message text; otherwise, the link preview will be shown below the message text" />
+<ApiParam name="show_above_text" type="Boolean" description="*Optional*. *True*, if the link preview must be shown above the message text; otherwise, the link preview will be shown below the message text" />
 
 <!-- GENERATED:END -->
 

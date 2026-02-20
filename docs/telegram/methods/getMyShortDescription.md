@@ -21,7 +21,7 @@ Use this method to get the current bot short description for the given user lang
 
 ## Parameters
 
-<ApiParam name="language_code" type="String" required description="A two-letter ISO 639-1 language code or an empty string" />
+<ApiParam name="language_code" type="String" description="A two-letter ISO 639-1 language code or an empty string" />
 
 ## Returns
 

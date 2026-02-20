@@ -22,21 +22,21 @@ Describes the current status of a webhook.
 
 <ApiParam name="url" type="String" required description="Webhook URL, may be empty if webhook is not set up" />
 
-<ApiParam name="has_custom_certificate" type="Boolean" required description="_True_, if a custom certificate was provided for webhook certificate checks" />
+<ApiParam name="has_custom_certificate" type="Boolean" required description="*True*, if a custom certificate was provided for webhook certificate checks" />
 
 <ApiParam name="pending_update_count" type="Integer" required description="Number of updates awaiting delivery" />
 
-<ApiParam name="ip_address" type="String" description="_Optional_. Currently used webhook IP address" />
+<ApiParam name="ip_address" type="String" description="*Optional*. Currently used webhook IP address" />
 
-<ApiParam name="last_error_date" type="Integer" description="_Optional_. Unix time for the most recent error that happened when trying to deliver an update via webhook" />
+<ApiParam name="last_error_date" type="Integer" description="*Optional*. Unix time for the most recent error that happened when trying to deliver an update via webhook" />
 
-<ApiParam name="last_error_message" type="String" description="_Optional_. Error message in human-readable format for the most recent error that happened when trying to deliver an update via webhook" />
+<ApiParam name="last_error_message" type="String" description="*Optional*. Error message in human-readable format for the most recent error that happened when trying to deliver an update via webhook" />
 
-<ApiParam name="last_synchronization_error_date" type="Integer" description="_Optional_. Unix time of the most recent error that happened when trying to synchronize available updates with Telegram datacenters" />
+<ApiParam name="last_synchronization_error_date" type="Integer" description="*Optional*. Unix time of the most recent error that happened when trying to synchronize available updates with Telegram datacenters" />
 
-<ApiParam name="max_connections" type="Integer" description="_Optional_. The maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery" />
+<ApiParam name="max_connections" type="Integer" description="*Optional*. The maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery" />
 
-<ApiParam name="allowed_updates" type="String[]" description="_Optional_. A list of update types the bot is subscribed to. Defaults to all update types except _chat\_member_" />
+<ApiParam name="allowed_updates" type="String[]" description="*Optional*. A list of update types the bot is subscribed to. Defaults to all update types except *chat\_member*" />
 
 <!-- GENERATED:END -->
 

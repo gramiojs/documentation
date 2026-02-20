@@ -20,9 +20,9 @@ Describes a service message about the rejection of a suggested post.
 
 ## Fields
 
-<ApiParam name="suggested_post_message" type="Message" description="_Optional_. Message containing the suggested post. Note that the [Message](https://core.telegram.org/bots/api#message) object in this field will not contain the _reply\_to\_message_ field even if it itself is a reply." />
+<ApiParam name="suggested_post_message" type="Message" description="*Optional*. Message containing the suggested post. Note that the [Message](https://core.telegram.org/bots/api#message) object in this field will not contain the *reply\_to\_message* field even if it itself is a reply." />
 
-<ApiParam name="comment" type="String" description="_Optional_. Comment with which the post was declined" />
+<ApiParam name="comment" type="String" description="*Optional*. Comment with which the post was declined" />
 
 <!-- GENERATED:END -->
 

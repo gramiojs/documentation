@@ -17,7 +17,7 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#setstickerpositioninset" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to move a sticker in a set created by the bot to a specific position. Returns _True_ on success.
+Use this method to move a sticker in a set created by the bot to a specific position. Returns *True* on success.
 
 ## Parameters
 

@@ -24,13 +24,13 @@ This object represents a point on the map.
 
 <ApiParam name="longitude" type="Float" required description="Longitude as defined by the sender" />
 
-<ApiParam name="horizontal_accuracy" type="Float" description="_Optional_. The radius of uncertainty for the location, measured in meters; 0-1500" />
+<ApiParam name="horizontal_accuracy" type="Float" description="*Optional*. The radius of uncertainty for the location, measured in meters; 0-1500" />
 
-<ApiParam name="live_period" type="Integer" description="_Optional_. Time relative to the message sending date, during which the location can be updated; in seconds. For active live locations only." />
+<ApiParam name="live_period" type="Integer" description="*Optional*. Time relative to the message sending date, during which the location can be updated; in seconds. For active live locations only." />
 
-<ApiParam name="heading" type="Integer" description="_Optional_. The direction in which user is moving, in degrees; 1-360. For active live locations only." :min="1" :max="360" />
+<ApiParam name="heading" type="Integer" description="*Optional*. The direction in which user is moving, in degrees; 1-360. For active live locations only." />
 
-<ApiParam name="proximity_alert_radius" type="Integer" description="_Optional_. The maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only." />
+<ApiParam name="proximity_alert_radius" type="Integer" description="*Optional*. The maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only." />
 
 <!-- GENERATED:END -->
 

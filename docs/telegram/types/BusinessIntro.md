@@ -20,11 +20,11 @@ Contains information about the start page settings of a Telegram Business accoun
 
 ## Fields
 
-<ApiParam name="title" type="String" description="_Optional_. Title text of the business intro" />
+<ApiParam name="title" type="String" description="*Optional*. Title text of the business intro" />
 
-<ApiParam name="message" type="String" description="_Optional_. Message text of the business intro" />
+<ApiParam name="message" type="String" description="*Optional*. Message text of the business intro" />
 
-<ApiParam name="sticker" type="Sticker" description="_Optional_. Sticker of the business intro" />
+<ApiParam name="sticker" type="Sticker" description="*Optional*. Sticker of the business intro" />
 
 <!-- GENERATED:END -->
 

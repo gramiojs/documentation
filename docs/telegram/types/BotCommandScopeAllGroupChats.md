@@ -20,7 +20,7 @@ Represents the [scope](https://core.telegram.org/bots/api#botcommandscope) of bo
 
 ## Fields
 
-<ApiParam name="type" type="String" required description="Scope type, must be _all\_group\_chats_" />
+<ApiParam name="type" type="String" description="Scope type, must be *all\_group\_chats*" defaultValue="all_group_chats" />
 
 <!-- GENERATED:END -->
 

@@ -13,7 +13,8 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: String</span>
+  <span class="api-badge returns">Returns: <a href="/telegram/types/Message">Message</a></span>
+  <span class="api-badge multipart">📎 Accepts files</span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#sendchecklist" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -27,19 +28,19 @@ Use this method to send a checklist on behalf of a connected business account. O
 
 <ApiParam name="checklist" type="InputChecklist" required description="A JSON-serialized object for the checklist to send" />
 
-<ApiParam name="disable_notification" type="Boolean" required description="Sends the message silently. Users will receive a notification with no sound." />
+<ApiParam name="disable_notification" type="Boolean" description="Sends the message silently. Users will receive a notification with no sound." />
 
-<ApiParam name="protect_content" type="Boolean" required description="Protects the contents of the sent message from forwarding and saving" />
+<ApiParam name="protect_content" type="Boolean" description="Protects the contents of the sent message from forwarding and saving" />
 
-<ApiParam name="message_effect_id" type="String" required description="Unique identifier of the message effect to be added to the message" />
+<ApiParam name="message_effect_id" type="String" description="Unique identifier of the message effect to be added to the message" />
 
-<ApiParam name="reply_parameters" type="ReplyParameters" required description="A JSON-serialized object for description of the message to reply to" />
+<ApiParam name="reply_parameters" type="ReplyParameters" description="A JSON-serialized object for description of the message to reply to" />
 
-<ApiParam name="reply_markup" type="InlineKeyboardMarkup" required description="A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards)" />
+<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards)" />
 
 ## Returns
 
-On success, String is returned.
+On success, the [Message](/telegram/types/Message) object is returned.
 <!-- GENERATED:END -->
 
 ## GramIO Usage

@@ -20,13 +20,13 @@ Represents a [Game](https://core.telegram.org/bots/api#games).
 
 ## Fields
 
-<ApiParam name="type" type="String" required description="Type of the result, must be _game_" />
+<ApiParam name="type" type="String" description="Type of the result, must be *game*" defaultValue="game" />
 
 <ApiParam name="id" type="String" required description="Unique identifier for this result, 1-64 bytes" />
 
 <ApiParam name="game_short_name" type="String" required description="Short name of the game" />
 
-<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="_Optional_. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message" />
+<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="*Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message" />
 
 <!-- GENERATED:END -->
 

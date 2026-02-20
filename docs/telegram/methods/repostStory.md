@@ -17,7 +17,7 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#repoststory" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Reposts a story on behalf of a business account from another business account. Both business accounts must be managed by the same bot, and the story on the source account must have been posted (or reposted) by the bot. Requires the _can\_manage\_stories_ business bot right for both business accounts. Returns [Story](https://core.telegram.org/bots/api#story) on success.
+Reposts a story on behalf of a business account from another business account. Both business accounts must be managed by the same bot, and the story on the source account must have been posted (or reposted) by the bot. Requires the *can\_manage\_stories* business bot right for both business accounts. Returns [Story](https://core.telegram.org/bots/api#story) on success.
 
 ## Parameters
 
@@ -27,11 +27,11 @@ Reposts a story on behalf of a business account from another business account. B
 
 <ApiParam name="from_story_id" type="Integer" required description="Unique identifier of the story that should be reposted" />
 
-<ApiParam name="active_period" type="Integer" required description="Period after which the story is moved to the archive, in seconds; must be one of `6 * 3600`, `12 * 3600`, `86400`, or `2 * 86400`" />
+<ApiParam name="active_period" type="Integer" required description="Period after which the story is moved to the archive, in seconds; must be one of `6 * 3600`, `12 * 3600`, `86400`, or `2 * 86400`" :enumValues='[21600,43200,86400,172800]' />
 
-<ApiParam name="post_to_chat_page" type="Boolean" required description="Pass _True_ to keep the story accessible after it expires" />
+<ApiParam name="post_to_chat_page" type="Boolean" description="Pass *True* to keep the story accessible after it expires" />
 
-<ApiParam name="protect_content" type="Boolean" required description="Pass _True_ if the content of the story must be protected from forwarding and screenshotting" />
+<ApiParam name="protect_content" type="Boolean" description="Pass *True* if the content of the story must be protected from forwarding and screenshotting" />
 
 ## Returns
 

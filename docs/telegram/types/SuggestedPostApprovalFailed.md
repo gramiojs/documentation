@@ -20,7 +20,7 @@ Describes a service message about the failed approval of a suggested post. Curre
 
 ## Fields
 
-<ApiParam name="suggested_post_message" type="Message" description="_Optional_. Message containing the suggested post whose approval has failed. Note that the [Message](https://core.telegram.org/bots/api#message) object in this field will not contain the _reply\_to\_message_ field even if it itself is a reply." />
+<ApiParam name="suggested_post_message" type="Message" description="*Optional*. Message containing the suggested post whose approval has failed. Note that the [Message](https://core.telegram.org/bots/api#message) object in this field will not contain the *reply\_to\_message* field even if it itself is a reply." />
 
 <ApiParam name="price" type="SuggestedPostPrice" required description="Expected price of the post" />
 

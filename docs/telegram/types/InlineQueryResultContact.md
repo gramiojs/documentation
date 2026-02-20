@@ -16,11 +16,11 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#inlinequeryresultcontact" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Represents a contact with a phone number. By default, this contact will be sent by the user. Alternatively, you can use _input\_message\_content_ to send a message with the specified content instead of the contact.
+Represents a contact with a phone number. By default, this contact will be sent by the user. Alternatively, you can use *input\_message\_content* to send a message with the specified content instead of the contact.
 
 ## Fields
 
-<ApiParam name="type" type="String" required description="Type of the result, must be _contact_" />
+<ApiParam name="type" type="String" description="Type of the result, must be *contact*" defaultValue="contact" />
 
 <ApiParam name="id" type="String" required description="Unique identifier for this result, 1-64 Bytes" />
 
@@ -28,19 +28,19 @@ Represents a contact with a phone number. By default, this contact will be sent 
 
 <ApiParam name="first_name" type="String" required description="Contact's first name" />
 
-<ApiParam name="last_name" type="String" description="_Optional_. Contact's last name" />
+<ApiParam name="last_name" type="String" description="*Optional*. Contact's last name" />
 
-<ApiParam name="vcard" type="String" description="_Optional_. Additional data about the contact in the form of a [vCard](https://en.wikipedia.org/wiki/VCard), 0-2048 bytes" />
+<ApiParam name="vcard" type="String" description="*Optional*. Additional data about the contact in the form of a [vCard](https://en.wikipedia.org/wiki/VCard), 0-2048 bytes" />
 
-<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="_Optional_. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message" />
+<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="*Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message" />
 
-<ApiParam name="input_message_content" type="InputMessageContent" description="_Optional_. Content of the message to be sent instead of the contact" />
+<ApiParam name="input_message_content" type="InputMessageContent" description="*Optional*. Content of the message to be sent instead of the contact" />
 
-<ApiParam name="thumbnail_url" type="String" description="_Optional_. Url of the thumbnail for the result" />
+<ApiParam name="thumbnail_url" type="String" description="*Optional*. Url of the thumbnail for the result" />
 
-<ApiParam name="thumbnail_width" type="Integer" description="_Optional_. Thumbnail width" />
+<ApiParam name="thumbnail_width" type="Integer" description="*Optional*. Thumbnail width" />
 
-<ApiParam name="thumbnail_height" type="Integer" description="_Optional_. Thumbnail height" />
+<ApiParam name="thumbnail_height" type="Integer" description="*Optional*. Thumbnail height" />
 
 <!-- GENERATED:END -->
 

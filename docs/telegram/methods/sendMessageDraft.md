@@ -17,21 +17,21 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#sendmessagedraft" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to stream a partial message to a user while the message is being generated; supported only for bots with forum topic mode enabled. Returns _True_ on success.
+Use this method to stream a partial message to a user while the message is being generated; supported only for bots with forum topic mode enabled. Returns *True* on success.
 
 ## Parameters
 
 <ApiParam name="chat_id" type="Integer" required description="Unique identifier for the target private chat" />
 
-<ApiParam name="message_thread_id" type="Integer" required description="Unique identifier for the target message thread" />
+<ApiParam name="message_thread_id" type="Integer" description="Unique identifier for the target message thread" />
 
 <ApiParam name="draft_id" type="Integer" required description="Unique identifier of the message draft; must be non-zero. Changes of drafts with the same identifier are animated" />
 
-<ApiParam name="text" type="String" required description="Text of the message to be sent, 1-4096 characters after entities parsing" />
+<ApiParam name="text" type="String" required description="Text of the message to be sent, 1-4096 characters after entities parsing" :minLen="1" :maxLen="4096" />
 
-<ApiParam name="parse_mode" type="String" required description="Mode for parsing entities in the message text. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details." />
+<ApiParam name="parse_mode" type="String" description="Mode for parsing entities in the message text. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details." />
 
-<ApiParam name="entities" type="MessageEntity[]" required description="A JSON-serialized list of special entities that appear in message text, which can be specified instead of _parse\_mode_" />
+<ApiParam name="entities" type="MessageEntity[]" description="A JSON-serialized list of special entities that appear in message text, which can be specified instead of *parse\_mode*" />
 
 ## Returns
 

@@ -17,13 +17,13 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#removebusinessaccountprofilephoto" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Removes the current profile photo of a managed business account. Requires the _can\_edit\_profile\_photo_ business bot right. Returns _True_ on success.
+Removes the current profile photo of a managed business account. Requires the *can\_edit\_profile\_photo* business bot right. Returns *True* on success.
 
 ## Parameters
 
 <ApiParam name="business_connection_id" type="String" required description="Unique identifier of the business connection" />
 
-<ApiParam name="is_public" type="Boolean" required description="Pass _True_ to remove the public photo, which is visible even if the main photo is hidden by the business account's privacy settings. After the main photo is removed, the previous profile photo (if present) becomes the main photo." />
+<ApiParam name="is_public" type="Boolean" description="Pass *True* to remove the public photo, which is visible even if the main photo is hidden by the business account's privacy settings. After the main photo is removed, the previous profile photo (if present) becomes the main photo." />
 
 ## Returns
 

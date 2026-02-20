@@ -28,9 +28,9 @@ Describes the connection of the bot with a business account.
 
 <ApiParam name="date" type="Integer" required description="Date the connection was established in Unix time" />
 
-<ApiParam name="rights" type="BusinessBotRights" description="_Optional_. Rights of the business bot" />
+<ApiParam name="rights" type="BusinessBotRights" description="*Optional*. Rights of the business bot" />
 
-<ApiParam name="is_enabled" type="Boolean" required description="_True_, if the connection is active" />
+<ApiParam name="is_enabled" type="Boolean" required description="*True*, if the connection is active" />
 
 <!-- GENERATED:END -->
 

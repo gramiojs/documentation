@@ -17,7 +17,7 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#refundstarpayment" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Refunds a successful payment in [Telegram Stars](https://t.me/BotNews/90). Returns _True_ on success.
+Refunds a successful payment in [Telegram Stars](https://t.me/BotNews/90). Returns *True* on success.
 
 ## Parameters
 

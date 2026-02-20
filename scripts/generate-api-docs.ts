@@ -26,10 +26,11 @@ import type {
 } from "@gramio/schema-parser";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 
 // ── Paths ────────────────────────────────────────────────────────────────────
 
-const ROOT = new URL("..", import.meta.url).pathname;
+const ROOT = fileURLToPath(new URL("..", import.meta.url));
 const DOCS = join(ROOT, "docs");
 const METHODS_DIR = join(DOCS, "telegram", "methods");
 const TYPES_DIR = join(DOCS, "telegram", "types");

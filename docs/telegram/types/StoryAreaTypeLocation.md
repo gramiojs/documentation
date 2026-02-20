@@ -20,13 +20,13 @@ Describes a story area pointing to a location. Currently, a story can have up to
 
 ## Fields
 
-<ApiParam name="type" type="String" required description="Type of the area, always “location”" />
+<ApiParam name="type" type="String" description="Type of the area, always “location”" defaultValue="location" />
 
 <ApiParam name="latitude" type="Float" required description="Location latitude in degrees" />
 
 <ApiParam name="longitude" type="Float" required description="Location longitude in degrees" />
 
-<ApiParam name="address" type="LocationAddress" description="_Optional_. Address of the location" />
+<ApiParam name="address" type="LocationAddress" description="*Optional*. Address of the location" />
 
 <!-- GENERATED:END -->
 

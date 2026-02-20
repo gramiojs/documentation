@@ -13,7 +13,7 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: <a href="/telegram/types/gifts that can be sent by the bot to users and channel chats">gifts that can be sent by the bot to users and channel chats[]</a></span>
+  <span class="api-badge returns">Returns: <a href="/telegram/types/Gifts">Gifts</a></span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#getavailablegifts" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -21,7 +21,7 @@ Returns the list of gifts that can be sent by the bot to users and channel chats
 
 ## Returns
 
-On success, an array of [gifts that can be sent by the bot to users and channel chats](/telegram/types/gifts that can be sent by the bot to users and channel chats) objects is returned.
+On success, the [Gifts](/telegram/types/Gifts) object is returned.
 <!-- GENERATED:END -->
 
 ## GramIO Usage

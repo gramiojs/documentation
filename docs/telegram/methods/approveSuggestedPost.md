@@ -17,7 +17,7 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#approvesuggestedpost" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to approve a suggested post in a direct messages chat. The bot must have the 'can\_post\_messages' administrator right in the corresponding channel chat. Returns _True_ on success.
+Use this method to approve a suggested post in a direct messages chat. The bot must have the 'can\_post\_messages' administrator right in the corresponding channel chat. Returns *True* on success.
 
 ## Parameters
 
@@ -25,7 +25,7 @@ Use this method to approve a suggested post in a direct messages chat. The bot m
 
 <ApiParam name="message_id" type="Integer" required description="Identifier of a suggested post message to approve" />
 
-<ApiParam name="send_date" type="Integer" required description="Point in time (Unix timestamp) when the post is expected to be published; omit if the date has already been specified when the suggested post was created. If specified, then the date must be not more than 2678400 seconds (30 days) in the future" />
+<ApiParam name="send_date" type="Integer" description="Point in time (Unix timestamp) when the post is expected to be published; omit if the date has already been specified when the suggested post was created. If specified, then the date must be not more than 2678400 seconds (30 days) in the future" />
 
 ## Returns
 

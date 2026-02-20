@@ -28,9 +28,9 @@ This object represents a [video message](https://telegram.org/blog/video-message
 
 <ApiParam name="duration" type="Integer" required description="Duration of the video in seconds as defined by the sender" />
 
-<ApiParam name="thumbnail" type="PhotoSize" description="_Optional_. Video thumbnail" />
+<ApiParam name="thumbnail" type="PhotoSize" description="*Optional*. Video thumbnail" />
 
-<ApiParam name="file_size" type="Integer" description="_Optional_. File size in bytes" />
+<ApiParam name="file_size" type="Integer" description="*Optional*. File size in bytes" />
 
 <!-- GENERATED:END -->
 

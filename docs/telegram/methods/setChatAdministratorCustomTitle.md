@@ -17,7 +17,7 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#setchatadministratorcustomtitle" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to set a custom title for an administrator in a supergroup promoted by the bot. Returns _True_ on success.
+Use this method to set a custom title for an administrator in a supergroup promoted by the bot. Returns *True* on success.
 
 ## Parameters
 
@@ -25,7 +25,7 @@ Use this method to set a custom title for an administrator in a supergroup promo
 
 <ApiParam name="user_id" type="Integer" required description="Unique identifier of the target user" />
 
-<ApiParam name="custom_title" type="String" required description="New custom title for the administrator; 0-16 characters, emoji are not allowed" />
+<ApiParam name="custom_title" type="String" required description="New custom title for the administrator; 0-16 characters, emoji are not allowed" :minLen="0" :maxLen="16" />
 
 ## Returns
 

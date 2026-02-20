@@ -13,7 +13,7 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: String</span>
+  <span class="api-badge returns">Returns: <a href="/telegram/types/StickerSet">StickerSet</a></span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#getstickerset" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -25,7 +25,7 @@ Use this method to get a sticker set. On success, a [StickerSet](https://core.te
 
 ## Returns
 
-On success, String is returned.
+On success, the [StickerSet](/telegram/types/StickerSet) object is returned.
 <!-- GENERATED:END -->
 
 ## GramIO Usage

@@ -20,7 +20,7 @@ Describes a service message about tasks added to a checklist.
 
 ## Fields
 
-<ApiParam name="checklist_message" type="Message" description="_Optional_. Message containing the checklist to which the tasks were added. Note that the [Message](https://core.telegram.org/bots/api#message) object in this field will not contain the _reply\_to\_message_ field even if it itself is a reply." />
+<ApiParam name="checklist_message" type="Message" description="*Optional*. Message containing the checklist to which the tasks were added. Note that the [Message](https://core.telegram.org/bots/api#message) object in this field will not contain the *reply\_to\_message* field even if it itself is a reply." />
 
 <ApiParam name="tasks" type="ChecklistTask[]" required description="List of tasks added to the checklist" />
 

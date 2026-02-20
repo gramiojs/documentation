@@ -20,11 +20,11 @@ Upon receiving a message with this object, Telegram clients will display a reply
 
 ## Fields
 
-<ApiParam name="force_reply" type="Boolean" required description="Shows reply interface to the user, as if they manually selected the bot's message and tapped 'Reply'" />
+<ApiParam name="force_reply" type="True" required description="Shows reply interface to the user, as if they manually selected the bot's message and tapped 'Reply'" />
 
-<ApiParam name="input_field_placeholder" type="String" description="_Optional_. The placeholder to be shown in the input field when the reply is active; 1-64 characters" />
+<ApiParam name="input_field_placeholder" type="String" description="*Optional*. The placeholder to be shown in the input field when the reply is active; 1-64 characters" :minLen="1" :maxLen="64" />
 
-<ApiParam name="selective" type="Boolean" description="_Optional_. Use this parameter if you want to force reply from specific users only. Targets: 1) users that are @mentioned in the _text_ of the [Message](https://core.telegram.org/bots/api#message) object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message." />
+<ApiParam name="selective" type="Boolean" description="*Optional*. Use this parameter if you want to force reply from specific users only. Targets: 1) users that are @mentioned in the *text* of the [Message](https://core.telegram.org/bots/api#message) object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message." />
 
 <!-- GENERATED:END -->
 

@@ -140,7 +140,7 @@ To look up a **type/object** (e.g. `Message`, `User`, `InlineKeyboardMarkup`):
 | [editMessageCaption](/telegram/methods/editMessageCaption) | Use this method to edit captions of messages. |
 | [editMessageMedia](/telegram/methods/editMessageMedia) | Use this method to edit animation, audio, document, photo, or video messages, or to add media to text messages. |
 | [editMessageLiveLocation](/telegram/methods/editMessageLiveLocation) | Use this method to edit live location messages. |
-| [stopMessageLiveLocation](/telegram/methods/stopMessageLiveLocation) | Use this method to stop updating a live location message before _live\_period_ expires. |
+| [stopMessageLiveLocation](/telegram/methods/stopMessageLiveLocation) | Use this method to stop updating a live location message before *live\_period* expires. |
 | [editMessageChecklist](/telegram/methods/editMessageChecklist) | Use this method to edit a checklist on behalf of a connected business account. |
 | [editMessageReplyMarkup](/telegram/methods/editMessageReplyMarkup) | Use this method to edit only the reply markup of messages. |
 | [stopPoll](/telegram/methods/stopPoll) | Use this method to stop a poll which was sent by the bot. |
@@ -169,7 +169,7 @@ To look up a **type/object** (e.g. `Message`, `User`, `InlineKeyboardMarkup`):
 | [savePreparedInlineMessage](/telegram/methods/savePreparedInlineMessage) | Stores a message that can be sent by a user of a Mini App. |
 | [sendInvoice](/telegram/methods/sendInvoice) | Use this method to send invoices. |
 | [createInvoiceLink](/telegram/methods/createInvoiceLink) | Use this method to create a link for an invoice. |
-| [answerShippingQuery](/telegram/methods/answerShippingQuery) | If you sent an invoice requesting a shipping address and the parameter _is\_flexible_ was specified, the Bot API will se |
+| [answerShippingQuery](/telegram/methods/answerShippingQuery) | If you sent an invoice requesting a shipping address and the parameter *is\_flexible* was specified, the Bot API will se |
 | [answerPreCheckoutQuery](/telegram/methods/answerPreCheckoutQuery) | Once the user has confirmed their payment and shipping details, the Bot API sends the final confirmation in the form of |
 | [getMyStarBalance](/telegram/methods/getMyStarBalance) | A method to get the current Telegram Stars balance of the bot. |
 | [getStarTransactions](/telegram/methods/getStarTransactions) | Returns the bot's Telegram Star transactions in chronological order. |

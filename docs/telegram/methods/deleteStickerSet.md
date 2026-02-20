@@ -17,7 +17,7 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#deletestickerset" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to delete a sticker set that was created by the bot. Returns _True_ on success.
+Use this method to delete a sticker set that was created by the bot. Returns *True* on success.
 
 ## Parameters
 

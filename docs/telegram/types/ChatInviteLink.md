@@ -24,23 +24,23 @@ Represents an invite link for a chat.
 
 <ApiParam name="creator" type="User" required description="Creator of the link" />
 
-<ApiParam name="creates_join_request" type="Boolean" required description="_True_, if users joining the chat via the link need to be approved by chat administrators" />
+<ApiParam name="creates_join_request" type="Boolean" required description="*True*, if users joining the chat via the link need to be approved by chat administrators" />
 
-<ApiParam name="is_primary" type="Boolean" required description="_True_, if the link is primary" />
+<ApiParam name="is_primary" type="Boolean" required description="*True*, if the link is primary" />
 
-<ApiParam name="is_revoked" type="Boolean" required description="_True_, if the link is revoked" />
+<ApiParam name="is_revoked" type="Boolean" required description="*True*, if the link is revoked" />
 
-<ApiParam name="name" type="String" description="_Optional_. Invite link name" />
+<ApiParam name="name" type="String" description="*Optional*. Invite link name" />
 
-<ApiParam name="expire_date" type="Integer" description="_Optional_. Point in time (Unix timestamp) when the link will expire or has been expired" />
+<ApiParam name="expire_date" type="Integer" description="*Optional*. Point in time (Unix timestamp) when the link will expire or has been expired" />
 
-<ApiParam name="member_limit" type="Integer" description="_Optional_. The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999" :min="1" :max="1" />
+<ApiParam name="member_limit" type="Integer" description="*Optional*. The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999" />
 
-<ApiParam name="pending_join_request_count" type="Integer" description="_Optional_. Number of pending join requests created using this link" />
+<ApiParam name="pending_join_request_count" type="Integer" description="*Optional*. Number of pending join requests created using this link" />
 
-<ApiParam name="subscription_period" type="Integer" description="_Optional_. The number of seconds the subscription will be active for before the next payment" />
+<ApiParam name="subscription_period" type="Integer" description="*Optional*. The number of seconds the subscription will be active for before the next payment" />
 
-<ApiParam name="subscription_price" type="Integer" description="_Optional_. The amount of Telegram Stars a user must pay initially and after each subsequent subscription period to be a member of the chat using the link" />
+<ApiParam name="subscription_price" type="Integer" description="*Optional*. The amount of Telegram Stars a user must pay initially and after each subsequent subscription period to be a member of the chat using the link" />
 
 <!-- GENERATED:END -->
 

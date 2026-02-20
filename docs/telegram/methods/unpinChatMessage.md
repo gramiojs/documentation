@@ -17,15 +17,15 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#unpinchatmessage" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to remove a message from the list of pinned messages in a chat. In private chats and channel direct messages chats, all messages can be unpinned. Conversely, the bot must be an administrator with the 'can\_pin\_messages' right or the 'can\_edit\_messages' right to unpin messages in groups and channels respectively. Returns _True_ on success.
+Use this method to remove a message from the list of pinned messages in a chat. In private chats and channel direct messages chats, all messages can be unpinned. Conversely, the bot must be an administrator with the 'can\_pin\_messages' right or the 'can\_edit\_messages' right to unpin messages in groups and channels respectively. Returns *True* on success.
 
 ## Parameters
 
-<ApiParam name="business_connection_id" type="String" required description="Unique identifier of the business connection on behalf of which the message will be unpinned" />
+<ApiParam name="business_connection_id" type="String" description="Unique identifier of the business connection on behalf of which the message will be unpinned" />
 
 <ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)" />
 
-<ApiParam name="message_id" type="Integer" required description="Identifier of the message to unpin. Required if _business\_connection\_id_ is specified. If not specified, the most recent pinned message (by sending date) will be unpinned." />
+<ApiParam name="message_id" type="Integer" description="Identifier of the message to unpin. Required if *business\_connection\_id* is specified. If not specified, the most recent pinned message (by sending date) will be unpinned." />
 
 ## Returns
 

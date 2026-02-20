@@ -28,7 +28,7 @@ This object represents one size of a photo or a [file](https://core.telegram.org
 
 <ApiParam name="height" type="Integer" required description="Photo height" />
 
-<ApiParam name="file_size" type="Integer" description="_Optional_. File size in bytes" />
+<ApiParam name="file_size" type="Integer" description="*Optional*. File size in bytes" />
 
 <!-- GENERATED:END -->
 

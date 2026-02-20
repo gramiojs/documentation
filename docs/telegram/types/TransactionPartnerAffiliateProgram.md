@@ -20,9 +20,9 @@ Describes the affiliate program that issued the affiliate commission received vi
 
 ## Fields
 
-<ApiParam name="type" type="String" required description="Type of the transaction partner, always “affiliate\_program”" />
+<ApiParam name="type" type="String" description="Type of the transaction partner, always “affiliate\_program”" defaultValue="affiliate_program" />
 
-<ApiParam name="sponsor_user" type="User" description="_Optional_. Information about the bot that sponsored the affiliate program" />
+<ApiParam name="sponsor_user" type="User" description="*Optional*. Information about the bot that sponsored the affiliate program" />
 
 <ApiParam name="commission_per_mille" type="Integer" required description="The number of Telegram Stars received by the bot for each 1000 Telegram Stars received by the affiliate program sponsor from referred users" />
 

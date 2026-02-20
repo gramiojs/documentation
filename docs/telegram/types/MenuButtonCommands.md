@@ -20,7 +20,7 @@ Represents a menu button, which opens the bot's list of commands.
 
 ## Fields
 
-<ApiParam name="type" type="String" required description="Type of the button, must be _commands_" />
+<ApiParam name="type" type="String" description="Type of the button, must be *commands*" defaultValue="commands" />
 
 <!-- GENERATED:END -->
 

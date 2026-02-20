@@ -24,9 +24,9 @@ This object represents a change of a reaction on a message performed by a user.
 
 <ApiParam name="message_id" type="Integer" required description="Unique identifier of the message inside the chat" />
 
-<ApiParam name="user" type="User" description="_Optional_. The user that changed the reaction, if the user isn't anonymous" />
+<ApiParam name="user" type="User" description="*Optional*. The user that changed the reaction, if the user isn't anonymous" />
 
-<ApiParam name="actor_chat" type="Chat" description="_Optional_. The chat on behalf of which the reaction was changed, if the user is anonymous" />
+<ApiParam name="actor_chat" type="Chat" description="*Optional*. The chat on behalf of which the reaction was changed, if the user is anonymous" />
 
 <ApiParam name="date" type="Integer" required description="Date of the change in Unix time" />
 

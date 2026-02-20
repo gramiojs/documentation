@@ -13,7 +13,7 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: String</span>
+  <span class="api-badge returns">Returns: <a href="/telegram/types/Poll">Poll</a></span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#stoppoll" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -21,17 +21,17 @@ Use this method to stop a poll which was sent by the bot. On success, the stoppe
 
 ## Parameters
 
-<ApiParam name="business_connection_id" type="String" required description="Unique identifier of the business connection on behalf of which the message to be edited was sent" />
+<ApiParam name="business_connection_id" type="String" description="Unique identifier of the business connection on behalf of which the message to be edited was sent" />
 
 <ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)" />
 
 <ApiParam name="message_id" type="Integer" required description="Identifier of the original message with the poll" />
 
-<ApiParam name="reply_markup" type="InlineKeyboardMarkup" required description="A JSON-serialized object for a new message [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards)." />
+<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="A JSON-serialized object for a new message [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards)." />
 
 ## Returns
 
-On success, String is returned.
+On success, the [Poll](/telegram/types/Poll) object is returned.
 <!-- GENERATED:END -->
 
 ## GramIO Usage

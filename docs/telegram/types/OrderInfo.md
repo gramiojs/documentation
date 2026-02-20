@@ -20,13 +20,13 @@ This object represents information about an order.
 
 ## Fields
 
-<ApiParam name="name" type="String" description="_Optional_. User name" />
+<ApiParam name="name" type="String" description="*Optional*. User name" />
 
-<ApiParam name="phone_number" type="String" description="_Optional_. User's phone number" />
+<ApiParam name="phone_number" type="String" description="*Optional*. User's phone number" />
 
-<ApiParam name="email" type="String" description="_Optional_. User email" />
+<ApiParam name="email" type="String" description="*Optional*. User email" />
 
-<ApiParam name="shipping_address" type="ShippingAddress" description="_Optional_. User shipping address" />
+<ApiParam name="shipping_address" type="ShippingAddress" description="*Optional*. User shipping address" />
 
 <!-- GENERATED:END -->
 

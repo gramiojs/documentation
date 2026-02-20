@@ -20,13 +20,13 @@ Describes a story area pointing to a suggested reaction. Currently, a story can 
 
 ## Fields
 
-<ApiParam name="type" type="String" required description="Type of the area, always “suggested\_reaction”" />
+<ApiParam name="type" type="String" description="Type of the area, always “suggested\_reaction”" defaultValue="suggested_reaction" />
 
 <ApiParam name="reaction_type" type="ReactionType" required description="Type of the reaction" />
 
-<ApiParam name="is_dark" type="Boolean" description="_Optional_. Pass _True_ if the reaction area has a dark background" />
+<ApiParam name="is_dark" type="Boolean" description="*Optional*. Pass *True* if the reaction area has a dark background" />
 
-<ApiParam name="is_flipped" type="Boolean" description="_Optional_. Pass _True_ if reaction area corner is flipped" />
+<ApiParam name="is_flipped" type="Boolean" description="*Optional*. Pass *True* if reaction area corner is flipped" />
 
 <!-- GENERATED:END -->
 

@@ -20,7 +20,7 @@ Describes that no specific value for the menu button was set.
 
 ## Fields
 
-<ApiParam name="type" type="String" required description="Type of the button, must be _default_" />
+<ApiParam name="type" type="String" description="Type of the button, must be *default*" defaultValue="default" />
 
 <!-- GENERATED:END -->
 

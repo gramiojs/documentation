@@ -20,9 +20,9 @@ Describes a service message about the approval of a suggested post.
 
 ## Fields
 
-<ApiParam name="suggested_post_message" type="Message" description="_Optional_. Message containing the suggested post. Note that the [Message](https://core.telegram.org/bots/api#message) object in this field will not contain the _reply\_to\_message_ field even if it itself is a reply." />
+<ApiParam name="suggested_post_message" type="Message" description="*Optional*. Message containing the suggested post. Note that the [Message](https://core.telegram.org/bots/api#message) object in this field will not contain the *reply\_to\_message* field even if it itself is a reply." />
 
-<ApiParam name="price" type="SuggestedPostPrice" description="_Optional_. Amount paid for the post" />
+<ApiParam name="price" type="SuggestedPostPrice" description="*Optional*. Amount paid for the post" />
 
 <ApiParam name="send_date" type="Integer" required description="Date when the post will be published" />
 

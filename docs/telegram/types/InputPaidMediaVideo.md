@@ -20,23 +20,23 @@ The paid media to send is a video.
 
 ## Fields
 
-<ApiParam name="type" type="String" required description="Type of the media, must be _video_" />
+<ApiParam name="type" type="String" description="Type of the media, must be *video*" defaultValue="video" />
 
-<ApiParam name="media" type="String" required description="File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file\_attach\_name>” to upload a new one using multipart/form-data under <file\_attach\_name> name. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)" />
+<ApiParam name="media" type="String" required description="File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file\_attach\_name&gt;” to upload a new one using multipart/form-data under &lt;file\_attach\_name&gt; name. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)" />
 
-<ApiParam name="thumbnail" type="String" description="_Optional_. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file\_attach\_name>” if the thumbnail was uploaded using multipart/form-data under <file\_attach\_name>. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)" />
+<ApiParam name="thumbnail" type="String" description="*Optional*. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file\_attach\_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file\_attach\_name&gt;. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)" />
 
-<ApiParam name="cover" type="String" description="_Optional_. Cover for the video in the message. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file\_attach\_name>” to upload a new one using multipart/form-data under <file\_attach\_name> name. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)" />
+<ApiParam name="cover" type="String" description="*Optional*. Cover for the video in the message. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://&lt;file\_attach\_name&gt;” to upload a new one using multipart/form-data under &lt;file\_attach\_name&gt; name. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)" />
 
-<ApiParam name="start_timestamp" type="Integer" description="_Optional_. Start timestamp for the video in the message" />
+<ApiParam name="start_timestamp" type="Integer" description="*Optional*. Start timestamp for the video in the message" />
 
-<ApiParam name="width" type="Integer" description="_Optional_. Video width" />
+<ApiParam name="width" type="Integer" description="*Optional*. Video width" />
 
-<ApiParam name="height" type="Integer" description="_Optional_. Video height" />
+<ApiParam name="height" type="Integer" description="*Optional*. Video height" />
 
-<ApiParam name="duration" type="Integer" description="_Optional_. Video duration in seconds" />
+<ApiParam name="duration" type="Integer" description="*Optional*. Video duration in seconds" />
 
-<ApiParam name="supports_streaming" type="Boolean" description="_Optional_. Pass _True_ if the uploaded video is suitable for streaming" />
+<ApiParam name="supports_streaming" type="Boolean" description="*Optional*. Pass *True* if the uploaded video is suitable for streaming" />
 
 <!-- GENERATED:END -->
 

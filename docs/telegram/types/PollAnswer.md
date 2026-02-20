@@ -22,9 +22,9 @@ This object represents an answer of a user in a non-anonymous poll.
 
 <ApiParam name="poll_id" type="String" required description="Unique poll identifier" />
 
-<ApiParam name="voter_chat" type="Chat" description="_Optional_. The chat that changed the answer to the poll, if the voter is anonymous" />
+<ApiParam name="voter_chat" type="Chat" description="*Optional*. The chat that changed the answer to the poll, if the voter is anonymous" />
 
-<ApiParam name="user" type="User" description="_Optional_. The user that changed the answer to the poll, if the voter isn't anonymous" />
+<ApiParam name="user" type="User" description="*Optional*. The user that changed the answer to the poll, if the voter isn't anonymous" />
 
 <ApiParam name="option_ids" type="Integer[]" required description="0-based identifiers of chosen answer options. May be empty if the vote was retracted." />
 

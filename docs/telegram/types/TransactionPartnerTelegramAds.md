@@ -20,7 +20,7 @@ Describes a withdrawal transaction to the Telegram Ads platform.
 
 ## Fields
 
-<ApiParam name="type" type="String" required description="Type of the transaction partner, always “telegram\_ads”" />
+<ApiParam name="type" type="String" description="Type of the transaction partner, always “telegram\_ads”" defaultValue="telegram_ads" />
 
 <!-- GENERATED:END -->
 

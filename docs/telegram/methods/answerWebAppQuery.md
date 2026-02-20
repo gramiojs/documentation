@@ -13,7 +13,7 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: String</span>
+  <span class="api-badge returns">Returns: <a href="/telegram/types/SentWebAppMessage">SentWebAppMessage</a></span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#answerwebappquery" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -27,7 +27,7 @@ Use this method to set the result of an interaction with a [Web App](https://cor
 
 ## Returns
 
-On success, String is returned.
+On success, the [SentWebAppMessage](/telegram/types/SentWebAppMessage) object is returned.
 <!-- GENERATED:END -->
 
 ## GramIO Usage

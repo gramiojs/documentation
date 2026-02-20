@@ -14,10 +14,11 @@ head:
 <!-- GENERATED:START -->
 <div class="api-badge-row">
   <span class="api-badge returns">Returns: True</span>
+  <span class="api-badge multipart">📎 Accepts files</span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#addstickertoset" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to add a new sticker to a set created by the bot. Emoji sticker sets can have up to 200 stickers. Other sticker sets can have up to 120 stickers. Returns _True_ on success.
+Use this method to add a new sticker to a set created by the bot. Emoji sticker sets can have up to 200 stickers. Other sticker sets can have up to 120 stickers. Returns *True* on success.
 
 ## Parameters
 

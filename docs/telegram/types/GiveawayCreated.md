@@ -20,7 +20,7 @@ This object represents a service message about the creation of a scheduled givea
 
 ## Fields
 
-<ApiParam name="prize_star_count" type="Integer" description="_Optional_. The number of Telegram Stars to be split between giveaway winners; for Telegram Star giveaways only" />
+<ApiParam name="prize_star_count" type="Integer" description="*Optional*. The number of Telegram Stars to be split between giveaway winners; for Telegram Star giveaways only" />
 
 <!-- GENERATED:END -->
 

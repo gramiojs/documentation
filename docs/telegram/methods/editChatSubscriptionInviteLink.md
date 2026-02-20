@@ -17,7 +17,7 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#editchatsubscriptioninvitelink" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to edit a subscription invite link created by the bot. The bot must have the _can\_invite\_users_ administrator rights. Returns the edited invite link as a [ChatInviteLink](https://core.telegram.org/bots/api#chatinvitelink) object.
+Use this method to edit a subscription invite link created by the bot. The bot must have the *can\_invite\_users* administrator rights. Returns the edited invite link as a [ChatInviteLink](https://core.telegram.org/bots/api#chatinvitelink) object.
 
 ## Parameters
 
@@ -25,7 +25,7 @@ Use this method to edit a subscription invite link created by the bot. The bot m
 
 <ApiParam name="invite_link" type="String" required description="The invite link to edit" />
 
-<ApiParam name="name" type="String" required description="Invite link name; 0-32 characters" />
+<ApiParam name="name" type="String" description="Invite link name; 0-32 characters" :minLen="0" :maxLen="32" />
 
 ## Returns
 

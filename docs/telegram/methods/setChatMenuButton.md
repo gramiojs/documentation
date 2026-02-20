@@ -17,13 +17,13 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#setchatmenubutton" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to change the bot's menu button in a private chat, or the default menu button. Returns _True_ on success.
+Use this method to change the bot's menu button in a private chat, or the default menu button. Returns *True* on success.
 
 ## Parameters
 
-<ApiParam name="chat_id" type="Integer" required description="Unique identifier for the target private chat. If not specified, default bot's menu button will be changed" />
+<ApiParam name="chat_id" type="Integer" description="Unique identifier for the target private chat. If not specified, default bot's menu button will be changed" />
 
-<ApiParam name="menu_button" type="MenuButton" required description="A JSON-serialized object for the bot's new menu button. Defaults to [MenuButtonDefault](https://core.telegram.org/bots/api#menubuttondefault)" />
+<ApiParam name="menu_button" type="MenuButton" description="A JSON-serialized object for the bot's new menu button. Defaults to [MenuButtonDefault](https://core.telegram.org/bots/api#menubuttondefault)" />
 
 ## Returns
 

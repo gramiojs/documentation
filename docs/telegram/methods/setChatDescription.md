@@ -17,13 +17,13 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#setchatdescription" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to change the description of a group, a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns _True_ on success.
+Use this method to change the description of a group, a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns *True* on success.
 
 ## Parameters
 
 <ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)" />
 
-<ApiParam name="description" type="String" required description="New chat description, 0-255 characters" />
+<ApiParam name="description" type="String" description="New chat description, 0-255 characters" :minLen="0" :maxLen="255" />
 
 ## Returns
 

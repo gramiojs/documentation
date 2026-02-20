@@ -20,9 +20,9 @@ Represents an issue with a document scan. The error is considered resolved when 
 
 ## Fields
 
-<ApiParam name="source" type="String" required description="Error source, must be _file_" />
+<ApiParam name="source" type="String" description="Error source, must be *file*" defaultValue="file" />
 
-<ApiParam name="type" type="String" required description="The section of the user's Telegram Passport which has the issue, one of “utility\_bill”, “bank\_statement”, “rental\_agreement”, “passport\_registration”, “temporary\_registration”" />
+<ApiParam name="type" type="String" required description="The section of the user's Telegram Passport which has the issue, one of “utility\_bill”, “bank\_statement”, “rental\_agreement”, “passport\_registration”, “temporary\_registration”" :enumValues='["utility_bill","bank_statement","rental_agreement","passport_registration","temporary_registration"]' />
 
 <ApiParam name="file_hash" type="String" required description="Base64-encoded file hash" />
 

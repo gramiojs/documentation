@@ -25,13 +25,13 @@ Stores a message that can be sent by a user of a Mini App. Returns a [PreparedIn
 
 <ApiParam name="result" type="InlineQueryResult" required description="A JSON-serialized object describing the message to be sent" />
 
-<ApiParam name="allow_user_chats" type="Boolean" required description="Pass _True_ if the message can be sent to private chats with users" />
+<ApiParam name="allow_user_chats" type="Boolean" description="Pass *True* if the message can be sent to private chats with users" />
 
-<ApiParam name="allow_bot_chats" type="Boolean" required description="Pass _True_ if the message can be sent to private chats with bots" />
+<ApiParam name="allow_bot_chats" type="Boolean" description="Pass *True* if the message can be sent to private chats with bots" />
 
-<ApiParam name="allow_group_chats" type="Boolean" required description="Pass _True_ if the message can be sent to group and supergroup chats" />
+<ApiParam name="allow_group_chats" type="Boolean" description="Pass *True* if the message can be sent to group and supergroup chats" />
 
-<ApiParam name="allow_channel_chats" type="Boolean" required description="Pass _True_ if the message can be sent to channel chats" />
+<ApiParam name="allow_channel_chats" type="Boolean" description="Pass *True* if the message can be sent to channel chats" />
 
 ## Returns
 

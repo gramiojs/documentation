@@ -20,7 +20,7 @@ Represents a menu button, which launches a [Web App](https://core.telegram.org/b
 
 ## Fields
 
-<ApiParam name="type" type="String" required description="Type of the button, must be _web\_app_" />
+<ApiParam name="type" type="String" description="Type of the button, must be *web\_app*" defaultValue="web_app" />
 
 <ApiParam name="text" type="String" required description="Text on the button" />
 

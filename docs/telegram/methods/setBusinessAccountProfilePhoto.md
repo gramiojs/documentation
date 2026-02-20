@@ -14,10 +14,11 @@ head:
 <!-- GENERATED:START -->
 <div class="api-badge-row">
   <span class="api-badge returns">Returns: True</span>
+  <span class="api-badge multipart">📎 Accepts files</span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#setbusinessaccountprofilephoto" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Changes the profile photo of a managed business account. Requires the _can\_edit\_profile\_photo_ business bot right. Returns _True_ on success.
+Changes the profile photo of a managed business account. Requires the *can\_edit\_profile\_photo* business bot right. Returns *True* on success.
 
 ## Parameters
 
@@ -25,7 +26,7 @@ Changes the profile photo of a managed business account. Requires the _can\_edit
 
 <ApiParam name="photo" type="InputProfilePhoto" required description="The new profile photo to set" />
 
-<ApiParam name="is_public" type="Boolean" required description="Pass _True_ to set the public photo, which will be visible even if the main photo is hidden by the business account's privacy settings. An account can have only one public photo." />
+<ApiParam name="is_public" type="Boolean" description="Pass *True* to set the public photo, which will be visible even if the main photo is hidden by the business account's privacy settings. An account can have only one public photo." />
 
 ## Returns
 

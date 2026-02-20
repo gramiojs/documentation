@@ -22,11 +22,11 @@ This object represents a service message about the completion of a giveaway with
 
 <ApiParam name="winner_count" type="Integer" required description="Number of winners in the giveaway" />
 
-<ApiParam name="unclaimed_prize_count" type="Integer" description="_Optional_. Number of undistributed prizes" />
+<ApiParam name="unclaimed_prize_count" type="Integer" description="*Optional*. Number of undistributed prizes" />
 
-<ApiParam name="giveaway_message" type="Message" description="_Optional_. Message with the giveaway that was completed, if it wasn't deleted" />
+<ApiParam name="giveaway_message" type="Message" description="*Optional*. Message with the giveaway that was completed, if it wasn't deleted" />
 
-<ApiParam name="is_star_giveaway" type="Boolean" description="_Optional_. _True_, if the giveaway is a Telegram Star giveaway. Otherwise, currently, the giveaway is a Telegram Premium giveaway." />
+<ApiParam name="is_star_giveaway" type="True" description="*Optional*. *True*, if the giveaway is a Telegram Star giveaway. Otherwise, currently, the giveaway is a Telegram Premium giveaway." />
 
 <!-- GENERATED:END -->
 

@@ -23,9 +23,9 @@ Use this method to get a list of profile audios for a user. Returns a [UserProfi
 
 <ApiParam name="user_id" type="Integer" required description="Unique identifier of the target user" />
 
-<ApiParam name="offset" type="Integer" required description="Sequential number of the first audio to be returned. By default, all audios are returned." />
+<ApiParam name="offset" type="Integer" description="Sequential number of the first audio to be returned. By default, all audios are returned." />
 
-<ApiParam name="limit" type="Integer" required description="Limits the number of audios to be retrieved. Values between 1-100 are accepted. Defaults to 100." />
+<ApiParam name="limit" type="Integer" description="Limits the number of audios to be retrieved. Values between 1-100 are accepted. Defaults to 100." :min="1" :max="100" :defaultValue="100" />
 
 ## Returns
 

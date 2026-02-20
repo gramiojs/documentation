@@ -20,7 +20,7 @@ This object represents an inline keyboard button that copies specified text to t
 
 ## Fields
 
-<ApiParam name="text" type="String" required description="The text to be copied to the clipboard; 1-256 characters" />
+<ApiParam name="text" type="String" required description="The text to be copied to the clipboard; 1-256 characters" :minLen="1" :maxLen="256" />
 
 <!-- GENERATED:END -->
 

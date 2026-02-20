@@ -17,15 +17,15 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#setuseremojistatus" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Changes the emoji status for a given user that previously allowed the bot to manage their emoji status via the Mini App method [requestEmojiStatusAccess](https://core.telegram.org/bots/webapps#initializing-mini-apps). Returns _True_ on success.
+Changes the emoji status for a given user that previously allowed the bot to manage their emoji status via the Mini App method [requestEmojiStatusAccess](https://core.telegram.org/bots/webapps#initializing-mini-apps). Returns *True* on success.
 
 ## Parameters
 
 <ApiParam name="user_id" type="Integer" required description="Unique identifier of the target user" />
 
-<ApiParam name="emoji_status_custom_emoji_id" type="String" required description="Custom emoji identifier of the emoji status to set. Pass an empty string to remove the status." />
+<ApiParam name="emoji_status_custom_emoji_id" type="String" description="Custom emoji identifier of the emoji status to set. Pass an empty string to remove the status." />
 
-<ApiParam name="emoji_status_expiration_date" type="Integer" required description="Expiration date of the emoji status, if any" />
+<ApiParam name="emoji_status_expiration_date" type="Integer" description="Expiration date of the emoji status, if any" />
 
 ## Returns
 

@@ -13,7 +13,7 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: String</span>
+  <span class="api-badge returns">Returns: <a href="/telegram/types/File">File</a></span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#getfile" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -25,7 +25,7 @@ Use this method to get basic information about a file and prepare it for downloa
 
 ## Returns
 
-On success, String is returned.
+On success, the [File](/telegram/types/File) object is returned.
 <!-- GENERATED:END -->
 
 ## GramIO Usage

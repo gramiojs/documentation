@@ -20,11 +20,11 @@ Describes the birthdate of a user.
 
 ## Fields
 
-<ApiParam name="day" type="Integer" required description="Day of the user's birth; 1-31" :min="1" :max="31" />
+<ApiParam name="day" type="Integer" required description="Day of the user's birth; 1-31" />
 
-<ApiParam name="month" type="Integer" required description="Month of the user's birth; 1-12" :min="1" :max="12" />
+<ApiParam name="month" type="Integer" required description="Month of the user's birth; 1-12" />
 
-<ApiParam name="year" type="Integer" description="_Optional_. Year of the user's birth" />
+<ApiParam name="year" type="Integer" description="*Optional*. Year of the user's birth" />
 
 <!-- GENERATED:END -->
 

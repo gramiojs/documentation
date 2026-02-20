@@ -20,11 +20,11 @@ Describes a service message about checklist tasks marked as done or not done.
 
 ## Fields
 
-<ApiParam name="checklist_message" type="Message" description="_Optional_. Message containing the checklist whose tasks were marked as done or not done. Note that the [Message](https://core.telegram.org/bots/api#message) object in this field will not contain the _reply\_to\_message_ field even if it itself is a reply." />
+<ApiParam name="checklist_message" type="Message" description="*Optional*. Message containing the checklist whose tasks were marked as done or not done. Note that the [Message](https://core.telegram.org/bots/api#message) object in this field will not contain the *reply\_to\_message* field even if it itself is a reply." />
 
-<ApiParam name="marked_as_done_task_ids" type="Integer[]" description="_Optional_. Identifiers of the tasks that were marked as done" />
+<ApiParam name="marked_as_done_task_ids" type="Integer[]" description="*Optional*. Identifiers of the tasks that were marked as done" />
 
-<ApiParam name="marked_as_not_done_task_ids" type="Integer[]" description="_Optional_. Identifiers of the tasks that were marked as not done" />
+<ApiParam name="marked_as_not_done_task_ids" type="Integer[]" description="*Optional*. Identifiers of the tasks that were marked as not done" />
 
 <!-- GENERATED:END -->
 

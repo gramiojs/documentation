@@ -17,13 +17,13 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#setmyshortdescription" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to change the bot's short description, which is shown on the bot's profile page and is sent together with the link when users share the bot. Returns _True_ on success.
+Use this method to change the bot's short description, which is shown on the bot's profile page and is sent together with the link when users share the bot. Returns *True* on success.
 
 ## Parameters
 
-<ApiParam name="short_description" type="String" required description="New short description for the bot; 0-120 characters. Pass an empty string to remove the dedicated short description for the given language." />
+<ApiParam name="short_description" type="String" description="New short description for the bot; 0-120 characters. Pass an empty string to remove the dedicated short description for the given language." :minLen="0" :maxLen="120" />
 
-<ApiParam name="language_code" type="String" required description="A two-letter ISO 639-1 language code. If empty, the short description will be applied to all users for whose language there is no dedicated short description." />
+<ApiParam name="language_code" type="String" description="A two-letter ISO 639-1 language code. If empty, the short description will be applied to all users for whose language there is no dedicated short description." />
 
 ## Returns
 

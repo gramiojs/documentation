@@ -20,7 +20,7 @@ Describes an inline message sent by a [Web App](https://core.telegram.org/bots/w
 
 ## Fields
 
-<ApiParam name="inline_message_id" type="String" description="_Optional_. Identifier of the sent inline message. Available only if there is an [inline keyboard](https://core.telegram.org/bots/api#inlinekeyboardmarkup) attached to the message." />
+<ApiParam name="inline_message_id" type="String" description="*Optional*. Identifier of the sent inline message. Available only if there is an [inline keyboard](https://core.telegram.org/bots/api#inlinekeyboardmarkup) attached to the message." />
 
 <!-- GENERATED:END -->
 

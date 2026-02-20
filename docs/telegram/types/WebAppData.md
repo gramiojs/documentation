@@ -22,7 +22,7 @@ Describes data sent from a [Web App](https://core.telegram.org/bots/webapps) to 
 
 <ApiParam name="data" type="String" required description="The data. Be aware that a bad client can send arbitrary data in this field." />
 
-<ApiParam name="button_text" type="String" required description="Text of the _web\_app_ keyboard button from which the Web App was opened. Be aware that a bad client can send arbitrary data in this field." />
+<ApiParam name="button_text" type="String" required description="Text of the *web\_app* keyboard button from which the Web App was opened. Be aware that a bad client can send arbitrary data in this field." />
 
 <!-- GENERATED:END -->
 

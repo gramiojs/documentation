@@ -20,9 +20,9 @@ Describes a withdrawal transaction with Fragment.
 
 ## Fields
 
-<ApiParam name="type" type="String" required description="Type of the transaction partner, always “fragment”" />
+<ApiParam name="type" type="String" description="Type of the transaction partner, always “fragment”" defaultValue="fragment" />
 
-<ApiParam name="withdrawal_state" type="RevenueWithdrawalState" description="_Optional_. State of the transaction if the transaction is outgoing" />
+<ApiParam name="withdrawal_state" type="RevenueWithdrawalState" description="*Optional*. State of the transaction if the transaction is outgoing" />
 
 <!-- GENERATED:END -->
 

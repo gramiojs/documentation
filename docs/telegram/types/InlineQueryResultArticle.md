@@ -20,7 +20,7 @@ Represents a link to an article or web page.
 
 ## Fields
 
-<ApiParam name="type" type="String" required description="Type of the result, must be _article_" />
+<ApiParam name="type" type="String" description="Type of the result, must be *article*" defaultValue="article" />
 
 <ApiParam name="id" type="String" required description="Unique identifier for this result, 1-64 Bytes" />
 
@@ -28,17 +28,17 @@ Represents a link to an article or web page.
 
 <ApiParam name="input_message_content" type="InputMessageContent" required description="Content of the message to be sent" />
 
-<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="_Optional_. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message" />
+<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="*Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message" />
 
-<ApiParam name="url" type="String" description="_Optional_. URL of the result" />
+<ApiParam name="url" type="String" description="*Optional*. URL of the result" />
 
-<ApiParam name="description" type="String" description="_Optional_. Short description of the result" />
+<ApiParam name="description" type="String" description="*Optional*. Short description of the result" />
 
-<ApiParam name="thumbnail_url" type="String" description="_Optional_. Url of the thumbnail for the result" />
+<ApiParam name="thumbnail_url" type="String" description="*Optional*. Url of the thumbnail for the result" />
 
-<ApiParam name="thumbnail_width" type="Integer" description="_Optional_. Thumbnail width" />
+<ApiParam name="thumbnail_width" type="Integer" description="*Optional*. Thumbnail width" />
 
-<ApiParam name="thumbnail_height" type="Integer" description="_Optional_. Thumbnail height" />
+<ApiParam name="thumbnail_height" type="Integer" description="*Optional*. Thumbnail height" />
 
 <!-- GENERATED:END -->
 

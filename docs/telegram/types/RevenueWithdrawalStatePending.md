@@ -20,7 +20,7 @@ The withdrawal is in progress.
 
 ## Fields
 
-<ApiParam name="type" type="String" required description="Type of the state, always “pending”" />
+<ApiParam name="type" type="String" description="Type of the state, always “pending”" defaultValue="pending" />
 
 <!-- GENERATED:END -->
 

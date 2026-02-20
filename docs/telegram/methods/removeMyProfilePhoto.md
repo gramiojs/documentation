@@ -17,7 +17,7 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#removemyprofilephoto" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Removes the profile photo of the bot. Requires no parameters. Returns _True_ on success.
+Removes the profile photo of the bot. Requires no parameters. Returns *True* on success.
 
 ## Returns
 

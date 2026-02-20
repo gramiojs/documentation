@@ -13,11 +13,11 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: String</span>
+  <span class="api-badge returns">Returns: Integer</span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#getchatmembercount" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to get the number of members in a chat. Returns _Int_ on success.
+Use this method to get the number of members in a chat. Returns *Int* on success.
 
 ## Parameters
 
@@ -25,7 +25,7 @@ Use this method to get the number of members in a chat. Returns _Int_ on success
 
 ## Returns
 
-On success, String is returned.
+On success, Integer is returned.
 <!-- GENERATED:END -->
 
 ## GramIO Usage

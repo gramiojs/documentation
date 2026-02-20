@@ -14,10 +14,11 @@ head:
 <!-- GENERATED:START -->
 <div class="api-badge-row">
   <span class="api-badge returns">Returns: True</span>
+  <span class="api-badge multipart">📎 Accepts files</span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#setmyprofilephoto" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Changes the profile photo of the bot. Returns _True_ on success.
+Changes the profile photo of the bot. Returns *True* on success.
 
 ## Parameters
 

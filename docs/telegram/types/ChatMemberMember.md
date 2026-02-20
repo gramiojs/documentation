@@ -20,11 +20,11 @@ Represents a [chat member](https://core.telegram.org/bots/api#chatmember) that h
 
 ## Fields
 
-<ApiParam name="status" type="String" required description="The member's status in the chat, always “member”" />
+<ApiParam name="status" type="String" description="The member's status in the chat, always “member”" defaultValue="member" />
 
 <ApiParam name="user" type="User" required description="Information about the user" />
 
-<ApiParam name="until_date" type="Integer" description="_Optional_. Date when the user's subscription will expire; Unix time" />
+<ApiParam name="until_date" type="Integer" description="*Optional*. Date when the user's subscription will expire; Unix time" />
 
 <!-- GENERATED:END -->
 

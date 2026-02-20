@@ -21,7 +21,7 @@ Use this method to get the current value of the bot's menu button in a private c
 
 ## Parameters
 
-<ApiParam name="chat_id" type="Integer" required description="Unique identifier for the target private chat. If not specified, default bot's menu button will be returned" />
+<ApiParam name="chat_id" type="Integer" description="Unique identifier for the target private chat. If not specified, default bot's menu button will be returned" />
 
 ## Returns
 

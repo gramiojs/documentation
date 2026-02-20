@@ -17,13 +17,13 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#setmydescription" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to change the bot's description, which is shown in the chat with the bot if the chat is empty. Returns _True_ on success.
+Use this method to change the bot's description, which is shown in the chat with the bot if the chat is empty. Returns *True* on success.
 
 ## Parameters
 
-<ApiParam name="description" type="String" required description="New bot description; 0-512 characters. Pass an empty string to remove the dedicated description for the given language." />
+<ApiParam name="description" type="String" description="New bot description; 0-512 characters. Pass an empty string to remove the dedicated description for the given language." :minLen="0" :maxLen="512" />
 
-<ApiParam name="language_code" type="String" required description="A two-letter ISO 639-1 language code. If empty, the description will be applied to all users for whose language there is no dedicated description." />
+<ApiParam name="language_code" type="String" description="A two-letter ISO 639-1 language code. If empty, the description will be applied to all users for whose language there is no dedicated description." />
 
 ## Returns
 

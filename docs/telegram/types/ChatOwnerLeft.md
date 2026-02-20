@@ -20,7 +20,7 @@ Describes a service message about the chat owner leaving the chat.
 
 ## Fields
 
-<ApiParam name="new_owner" type="User" description="_Optional_. The user which will be the new owner of the chat if the previous owner does not return to the chat" />
+<ApiParam name="new_owner" type="User" description="*Optional*. The user which will be the new owner of the chat if the previous owner does not return to the chat" />
 
 <!-- GENERATED:END -->
 

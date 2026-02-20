@@ -20,13 +20,13 @@ The paid media isn't available before the payment.
 
 ## Fields
 
-<ApiParam name="type" type="String" required description="Type of the paid media, always “preview”" />
+<ApiParam name="type" type="String" description="Type of the paid media, always “preview”" defaultValue="preview" />
 
-<ApiParam name="width" type="Integer" description="_Optional_. Media width as defined by the sender" />
+<ApiParam name="width" type="Integer" description="*Optional*. Media width as defined by the sender" />
 
-<ApiParam name="height" type="Integer" description="_Optional_. Media height as defined by the sender" />
+<ApiParam name="height" type="Integer" description="*Optional*. Media height as defined by the sender" />
 
-<ApiParam name="duration" type="Integer" description="_Optional_. Duration of the media in seconds as defined by the sender" />
+<ApiParam name="duration" type="Integer" description="*Optional*. Duration of the media in seconds as defined by the sender" />
 
 <!-- GENERATED:END -->
 

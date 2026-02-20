@@ -14,6 +14,7 @@ head:
 <!-- GENERATED:START -->
 <div class="api-badge-row">
   <span class="api-badge returns">Returns: <a href="/telegram/types/File">File</a></span>
+  <span class="api-badge multipart">📎 Accepts files</span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#uploadstickerfile" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -23,9 +24,9 @@ Use this method to upload a file with a sticker for later use in the [createNewS
 
 <ApiParam name="user_id" type="Integer" required description="User identifier of sticker file owner" />
 
-<ApiParam name="sticker" type="InputFile" required description="A file with the sticker in .WEBP, .PNG, .TGS, or .WEBM format. See [](/stickers)[https://core.telegram.org/stickers](https://core.telegram.org/stickers) for technical requirements. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)" />
+<ApiParam name="sticker" type="InputFile" required description="A file with the sticker in .WEBP, .PNG, .TGS, or .WEBM format. See [](https://core.telegram.org/stickers)[https://core.telegram.org/stickers](https://core.telegram.org/stickers) for technical requirements. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)" />
 
-<ApiParam name="sticker_format" type="String" required description="Format of the sticker, must be one of “static”, “animated”, “video”" />
+<ApiParam name="sticker_format" type="String" required description="Format of the sticker, must be one of “static”, “animated”, “video”" :enumValues='["static","animated","video"]' />
 
 ## Returns
 

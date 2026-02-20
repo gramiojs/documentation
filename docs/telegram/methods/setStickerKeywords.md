@@ -17,13 +17,13 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#setstickerkeywords" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to change search keywords assigned to a regular or custom emoji sticker. The sticker must belong to a sticker set created by the bot. Returns _True_ on success.
+Use this method to change search keywords assigned to a regular or custom emoji sticker. The sticker must belong to a sticker set created by the bot. Returns *True* on success.
 
 ## Parameters
 
 <ApiParam name="sticker" type="String" required description="File identifier of the sticker" />
 
-<ApiParam name="keywords" type="String[]" required description="A JSON-serialized list of 0-20 search keywords for the sticker with total length of up to 64 characters" />
+<ApiParam name="keywords" type="String[]" description="A JSON-serialized list of 0-20 search keywords for the sticker with total length of up to 64 characters" />
 
 ## Returns
 

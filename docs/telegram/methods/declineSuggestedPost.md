@@ -17,7 +17,7 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#declinesuggestedpost" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to decline a suggested post in a direct messages chat. The bot must have the 'can\_manage\_direct\_messages' administrator right in the corresponding channel chat. Returns _True_ on success.
+Use this method to decline a suggested post in a direct messages chat. The bot must have the 'can\_manage\_direct\_messages' administrator right in the corresponding channel chat. Returns *True* on success.
 
 ## Parameters
 
@@ -25,7 +25,7 @@ Use this method to decline a suggested post in a direct messages chat. The bot m
 
 <ApiParam name="message_id" type="Integer" required description="Identifier of a suggested post message to decline" />
 
-<ApiParam name="comment" type="String" required description="Comment for the creator of the suggested post; 0-128 characters" />
+<ApiParam name="comment" type="String" description="Comment for the creator of the suggested post; 0-128 characters" :minLen="0" :maxLen="128" />
 
 ## Returns
 

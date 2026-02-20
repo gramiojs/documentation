@@ -24,9 +24,9 @@ Represents the [content](https://core.telegram.org/bots/api#inputmessagecontent)
 
 <ApiParam name="first_name" type="String" required description="Contact's first name" />
 
-<ApiParam name="last_name" type="String" description="_Optional_. Contact's last name" />
+<ApiParam name="last_name" type="String" description="*Optional*. Contact's last name" />
 
-<ApiParam name="vcard" type="String" description="_Optional_. Additional data about the contact in the form of a [vCard](https://en.wikipedia.org/wiki/VCard), 0-2048 bytes" />
+<ApiParam name="vcard" type="String" description="*Optional*. Additional data about the contact in the form of a [vCard](https://en.wikipedia.org/wiki/VCard), 0-2048 bytes" />
 
 <!-- GENERATED:END -->
 

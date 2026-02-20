@@ -24,13 +24,13 @@ This object represents a general file (as opposed to [photos](https://core.teleg
 
 <ApiParam name="file_unique_id" type="String" required description="Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file." />
 
-<ApiParam name="thumbnail" type="PhotoSize" description="_Optional_. Document thumbnail as defined by the sender" />
+<ApiParam name="thumbnail" type="PhotoSize" description="*Optional*. Document thumbnail as defined by the sender" />
 
-<ApiParam name="file_name" type="String" description="_Optional_. Original filename as defined by the sender" />
+<ApiParam name="file_name" type="String" description="*Optional*. Original filename as defined by the sender" />
 
-<ApiParam name="mime_type" type="String" description="_Optional_. MIME type of the file as defined by the sender" />
+<ApiParam name="mime_type" type="String" description="*Optional*. MIME type of the file as defined by the sender" />
 
-<ApiParam name="file_size" type="Integer" description="_Optional_. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value." />
+<ApiParam name="file_size" type="Integer" description="*Optional*. File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value." />
 
 <!-- GENERATED:END -->
 

@@ -17,13 +17,13 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#setbusinessaccountbio" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Changes the bio of a managed business account. Requires the _can\_change\_bio_ business bot right. Returns _True_ on success.
+Changes the bio of a managed business account. Requires the *can\_change\_bio* business bot right. Returns *True* on success.
 
 ## Parameters
 
 <ApiParam name="business_connection_id" type="String" required description="Unique identifier of the business connection" />
 
-<ApiParam name="bio" type="String" required description="The new value of the bio for the business account; 0-140 characters" />
+<ApiParam name="bio" type="String" description="The new value of the bio for the business account; 0-140 characters" :minLen="0" :maxLen="140" />
 
 ## Returns
 

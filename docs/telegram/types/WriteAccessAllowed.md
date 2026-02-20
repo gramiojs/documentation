@@ -20,11 +20,11 @@ This object represents a service message about a user allowing a bot to write me
 
 ## Fields
 
-<ApiParam name="from_request" type="Boolean" description="_Optional_. _True_, if the access was granted after the user accepted an explicit request from a Web App sent by the method [requestWriteAccess](https://core.telegram.org/bots/webapps#initializing-mini-apps)" />
+<ApiParam name="from_request" type="Boolean" description="*Optional*. *True*, if the access was granted after the user accepted an explicit request from a Web App sent by the method [requestWriteAccess](https://core.telegram.org/bots/webapps#initializing-mini-apps)" />
 
-<ApiParam name="web_app_name" type="String" description="_Optional_. Name of the Web App, if the access was granted when the Web App was launched from a link" />
+<ApiParam name="web_app_name" type="String" description="*Optional*. Name of the Web App, if the access was granted when the Web App was launched from a link" />
 
-<ApiParam name="from_attachment_menu" type="Boolean" description="_Optional_. _True_, if the access was granted when the bot was added to the attachment or side menu" />
+<ApiParam name="from_attachment_menu" type="Boolean" description="*Optional*. *True*, if the access was granted when the bot was added to the attachment or side menu" />
 
 <!-- GENERATED:END -->
 

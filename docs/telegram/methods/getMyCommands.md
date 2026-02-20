@@ -21,9 +21,9 @@ Use this method to get the current list of the bot's commands for the given scop
 
 ## Parameters
 
-<ApiParam name="scope" type="BotCommandScope" required description="A JSON-serialized object, describing scope of users. Defaults to [BotCommandScopeDefault](https://core.telegram.org/bots/api#botcommandscopedefault)." />
+<ApiParam name="scope" type="BotCommandScope" description="A JSON-serialized object, describing scope of users. Defaults to [BotCommandScopeDefault](https://core.telegram.org/bots/api#botcommandscopedefault)." />
 
-<ApiParam name="language_code" type="String" required description="A two-letter ISO 639-1 language code or an empty string" />
+<ApiParam name="language_code" type="String" description="A two-letter ISO 639-1 language code or an empty string" />
 
 ## Returns
 

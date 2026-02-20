@@ -17,13 +17,13 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#setbusinessaccountusername" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Changes the username of a managed business account. Requires the _can\_change\_username_ business bot right. Returns _True_ on success.
+Changes the username of a managed business account. Requires the *can\_change\_username* business bot right. Returns *True* on success.
 
 ## Parameters
 
 <ApiParam name="business_connection_id" type="String" required description="Unique identifier of the business connection" />
 
-<ApiParam name="username" type="String" required description="The new value of the username for the business account; 0-32 characters" />
+<ApiParam name="username" type="String" description="The new value of the username for the business account; 0-32 characters" :minLen="0" :maxLen="32" />
 
 ## Returns
 

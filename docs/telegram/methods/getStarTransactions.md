@@ -13,7 +13,7 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: String</span>
+  <span class="api-badge returns">Returns: <a href="/telegram/types/StarTransactions">StarTransactions</a></span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#getstartransactions" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -21,13 +21,13 @@ Returns the bot's Telegram Star transactions in chronological order. On success,
 
 ## Parameters
 
-<ApiParam name="offset" type="Integer" required description="Number of transactions to skip in the response" />
+<ApiParam name="offset" type="Integer" description="Number of transactions to skip in the response" />
 
-<ApiParam name="limit" type="Integer" required description="The maximum number of transactions to be retrieved. Values between 1-100 are accepted. Defaults to 100." :max="1" />
+<ApiParam name="limit" type="Integer" description="The maximum number of transactions to be retrieved. Values between 1-100 are accepted. Defaults to 100." :min="1" :max="100" :defaultValue="100" />
 
 ## Returns
 
-On success, String is returned.
+On success, the [StarTransactions](/telegram/types/StarTransactions) object is returned.
 <!-- GENERATED:END -->
 
 ## GramIO Usage

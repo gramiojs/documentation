@@ -17,17 +17,17 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#pinchatmessage" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to add a message to the list of pinned messages in a chat. In private chats and channel direct messages chats, all non-service messages can be pinned. Conversely, the bot must be an administrator with the 'can\_pin\_messages' right or the 'can\_edit\_messages' right to pin messages in groups and channels respectively. Returns _True_ on success.
+Use this method to add a message to the list of pinned messages in a chat. In private chats and channel direct messages chats, all non-service messages can be pinned. Conversely, the bot must be an administrator with the 'can\_pin\_messages' right or the 'can\_edit\_messages' right to pin messages in groups and channels respectively. Returns *True* on success.
 
 ## Parameters
 
-<ApiParam name="business_connection_id" type="String" required description="Unique identifier of the business connection on behalf of which the message will be pinned" />
+<ApiParam name="business_connection_id" type="String" description="Unique identifier of the business connection on behalf of which the message will be pinned" />
 
 <ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)" />
 
 <ApiParam name="message_id" type="Integer" required description="Identifier of a message to pin" />
 
-<ApiParam name="disable_notification" type="Boolean" required description="Pass _True_ if it is not necessary to send a notification to all chat members about the new pinned message. Notifications are always disabled in channels and private chats." />
+<ApiParam name="disable_notification" type="Boolean" description="Pass *True* if it is not necessary to send a notification to all chat members about the new pinned message. Notifications are always disabled in channels and private chats." />
 
 ## Returns
 

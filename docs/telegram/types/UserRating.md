@@ -26,7 +26,7 @@ This object describes the rating of a user based on their Telegram Star spending
 
 <ApiParam name="current_level_rating" type="Integer" required description="The rating value required to get the current level" />
 
-<ApiParam name="next_level_rating" type="Integer" description="_Optional_. The rating value required to get to the next level; omitted if the maximum level was reached" />
+<ApiParam name="next_level_rating" type="Integer" description="*Optional*. The rating value required to get to the next level; omitted if the maximum level was reached" />
 
 <!-- GENERATED:END -->
 
