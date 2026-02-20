@@ -198,6 +198,22 @@ bot.command("start", (ctx) => ctx.send("Hello!"));
 - Always link to [`/formatting`](/formatting) in See Also when the method accepts `text`, `caption`, or `message_text` (formatting is applicable)
 - Always link to [`/keyboards/overview`](/keyboards/overview) in See Also when the method involves `reply_markup`, inline keyboards, or callback queries
 
+**Import convention — prefer importing from `"gramio"` directly:**
+- `Keyboard`, `InlineKeyboard`, `ForceReply`, `RemoveKeyboard` are **re-exported from `"gramio"`** — import them from `"gramio"`, not `"@gramio/keyboards"`
+- `MediaUpload` is **re-exported from `"gramio"`** — import it from `"gramio"`, not `"@gramio/files"`
+- `format`, `bold`, `italic`, `code`, `link`, etc. are **re-exported from `"gramio"`** — import them from `"gramio"`, not `"@gramio/format"`
+- Only use the individual package imports (`@gramio/keyboards`, `@gramio/files`, `@gramio/format`) when explicitly working outside of the main `gramio` package
+
+Good:
+```ts
+import { Bot, InlineKeyboard, MediaUpload, format, bold } from "gramio";
+```
+Avoid:
+```ts
+import { InlineKeyboard } from "@gramio/keyboards";
+import { MediaUpload } from "@gramio/files";
+```
+
 #### `## Errors`
 
 Write a markdown table with **context annotations** in the Cause column:
