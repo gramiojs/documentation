@@ -3,10 +3,10 @@ title: sendPhoto — Telegram Bot API | GramIO
 head:
   - - meta
     - name: description
-      content: sendPhoto Telegram Bot API method with GramIO TypeScript examples. Complete parameter reference and usage guide.
+      content: Send photos using GramIO with TypeScript. Complete sendPhoto reference with file_id caching, caption formatting, spoiler blur, has_spoiler, reply_markup, and error handling.
   - - meta
     - name: keywords
-      content: sendPhoto, telegram bot api, gramio sendPhoto, sendPhoto typescript, sendPhoto example
+      content: sendPhoto, telegram bot api, send photo telegram bot, gramio sendPhoto, sendPhoto typescript, sendPhoto example, telegram send image, photo file_id, caption entities, has_spoiler, show_caption_above_media, telegram bot send photo, how to send photo telegram bot, photo upload telegram
 ---
 
 # sendPhoto
@@ -63,16 +63,106 @@ On success, the [Message](/telegram/types/Message) object is returned.
 
 ## GramIO Usage
 
-<!-- TODO: Add TypeScript examples using GramIO -->
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Send a photo by file_id (fastest — no re-upload)
+bot.command("photo", (ctx) => ctx.sendPhoto("file_id_here"));
+```
+
+```ts twoslash
+import { Bot, MediaUpload } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Upload from disk and reply to the current message
+bot.command("snapshot", async (ctx) =>
+  ctx.replyWithPhoto(await MediaUpload.path("./snapshot.jpg"), {
+    caption: "Here is your snapshot!",
+  })
+);
+```
+
+```ts twoslash
+import { Bot, MediaUpload, format, bold } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Send a spoiler photo with formatted caption
+bot.command("spoiler", async (ctx) =>
+  ctx.sendPhoto(await MediaUpload.path("./reveal.jpg"), {
+    caption: format`${bold("Spoiler alert!")} Click to reveal`,
+    has_spoiler: true,
+  })
+);
+```
+
+```ts twoslash
+import { Bot, MediaUpload } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Fetch a photo from a URL (Telegram downloads it server-side)
+bot.command("avatar", async (ctx) =>
+  ctx.sendPhoto(await MediaUpload.url("https://example.com/avatar.jpg"), {
+    caption: "Profile photo",
+  })
+);
+```
+
+```ts twoslash
+import { Bot, InlineKeyboard } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Direct API call with an inline keyboard
+await bot.api.sendPhoto({
+  chat_id: 123456789,
+  photo: "file_id_here",
+  caption: "Check out this photo!",
+  reply_markup: new InlineKeyboard()
+    .text("Like", "like")
+    .text("Share", "share"),
+});
+```
 
 ## Errors
 
-<!-- TODO: Add common errors table -->
+| Code | Error | Cause |
+|------|-------|-------|
+| 400 | `Bad Request: chat not found` | `chat_id` is invalid or the bot has no access to that chat |
+| 400 | `Bad Request: wrong file identifier/HTTP URL specified` | `photo` is a malformed `file_id` or the URL is inaccessible |
+| 400 | `Bad Request: failed to get HTTP URL content` | Telegram could not download the photo from the URL — ensure it is publicly accessible |
+| 400 | `Bad Request: PHOTO_INVALID_DIMENSIONS` | Photo exceeds 10,000 total width+height or 20:1 aspect ratio — resize before sending |
+| 400 | `Bad Request: can't parse entities` | Malformed `caption_entities` or bad `parse_mode` markup |
+| 403 | `Forbidden: bot was blocked by the user` | User blocked the bot — catch and mark as inactive |
+| 403 | `Forbidden: not enough rights to send photos` | Bot lacks `can_send_photos` permission in a restricted group |
+| 429 | `Too Many Requests: retry after N` | Rate limit hit — check `retry_after`, use [auto-retry plugin](/plugins/official/auto-retry) |
+
+::: tip
+Use GramIO's [auto-retry plugin](/plugins/official/auto-retry) to handle `429` errors automatically.
+:::
 
 ## Tips & Gotchas
 
-<!-- TODO: Add tips and gotchas -->
+- **10 MB file limit.** Photos larger than 10 MB cannot be sent via the Bot API. For larger images, send as a document via `sendDocument` (50 MB limit) — the image won't be displayed inline but can be downloaded.
+- **Dimension constraints.** Total width+height must not exceed 10,000 and the aspect ratio must not exceed 20:1. Very wide panoramas or extreme crops trigger `PHOTO_INVALID_DIMENSIONS` — resize before sending.
+- **Cache `file_id` after first upload.** The returned `Message.photo` is an array of `PhotoSize` objects (different resolutions). Save the largest one's `file_id` for instant resends with no re-upload. The [media-cache plugin](/plugins/official/media-cache) can automate this.
+- **`caption` vs `parse_mode` / `caption_entities`.** They are mutually exclusive. GramIO's `format` helper produces `caption_entities` — never add `parse_mode` alongside it.
+- **`has_spoiler` blurs the photo.** Users must tap/click to reveal it. Works in private chats, groups, and channels.
+- **`show_caption_above_media` floats the caption above the photo.** The default is caption below. Useful for image gallery presentations where context should appear first.
 
 ## See Also
 
-<!-- TODO: Add related methods and links -->
+- [sendDocument](/telegram/methods/sendDocument) — Send any file (50 MB limit, no dimension constraints)
+- [sendVideo](/telegram/methods/sendVideo) — Send a video
+- [sendMediaGroup](/telegram/methods/sendMediaGroup) — Send multiple photos as an album
+- [sendPaidMedia](/telegram/methods/sendPaidMedia) — Send a paid photo/video requiring Stars
+- [Message](/telegram/types/Message) — The returned message object
+- [Files & MediaUpload](/files/media-upload) — How to upload files in GramIO
+- [Formatting guide](/formatting) — Format captions with `format` and entities
+- [Keyboards guide](/keyboards/overview) — Add inline keyboard to photo messages
+- [auto-retry plugin](/plugins/official/auto-retry) — Handle rate limits automatically
+- [media-cache plugin](/plugins/official/media-cache) — Cache `file_id` values automatically

@@ -6,7 +6,7 @@ head:
       content: Send text messages via the Telegram Bot API using GramIO. Complete parameter reference with TypeScript examples, entities formatting, reply_markup, and more.
   - - meta
     - name: keywords
-      content: sendMessage, telegram bot api, send message telegram, telegram send text, gramio sendMessage, bot send message, entities, reply_markup
+      content: sendMessage, telegram bot api, send message telegram bot, gramio sendMessage, telegram send text message, sendMessage typescript, sendMessage example, chat_id, text, parse_mode, entities, reply_markup, link_preview_options, how to send message telegram bot, telegram bot send message
 ---
 
 # sendMessage
@@ -58,13 +58,23 @@ On success, the [Message](/telegram/types/Message) object is returned.
 
 ## GramIO Usage
 
-```typescript
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
 // The simplest way — via context shorthand
 bot.command("start", (ctx) => ctx.send("Hello! 👋"));
 
-// reply() automatically sets reply_parameters
+// reply() automatically sets reply_parameters to the current message
 bot.on("message", (ctx) => ctx.reply("Got your message!"));
+```
 
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
 // Direct API call
 await bot.api.sendMessage({
   chat_id: 123456789,
@@ -76,12 +86,14 @@ await bot.api.sendMessage({
 
 GramIO's `format` tagged template builds **entities** (not `parse_mode`) — type-safe, no escaping needed:
 
-```typescript
-import { format, bold, italic, code, link } from "gramio";
+```ts twoslash
+import { Bot, format, bold, code, link } from "gramio";
 
+const bot = new Bot("");
+// ---cut---
 bot.command("info", (ctx) =>
   ctx.send(
-    format`Hello, ${bold(ctx.from.first_name)}!
+    format`Hello, ${bold(ctx.from?.first_name ?? "there")}!
 Version: ${code("1.0.0")}
 Docs: ${link("gramio.dev", "https://gramio.dev")}`
   )
@@ -90,9 +102,11 @@ Docs: ${link("gramio.dev", "https://gramio.dev")}`
 
 ### With inline keyboard
 
-```typescript
-import { InlineKeyboard } from "gramio";
+```ts twoslash
+import { Bot, InlineKeyboard } from "gramio";
 
+const bot = new Bot("");
+// ---cut---
 bot.command("menu", (ctx) =>
   ctx.send("Choose an option:", {
     reply_markup: new InlineKeyboard()
@@ -104,12 +118,16 @@ bot.command("menu", (ctx) =>
 
 ### Silent message
 
-```typescript
-await bot.api.sendMessage({
-  chat_id: ctx.chat.id,
-  text: "This arrives without a notification sound",
-  disable_notification: true,
-});
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+bot.on("message", (ctx) =>
+  ctx.send("This arrives without a notification sound", {
+    disable_notification: true,
+  })
+);
 ```
 
 ## Errors
