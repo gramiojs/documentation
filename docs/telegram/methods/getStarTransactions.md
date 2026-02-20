@@ -41,7 +41,7 @@ const bot = new Bot("");
 const result = await bot.api.getStarTransactions();
 
 for (const tx of result.transactions) {
-  console.log(`ID: ${tx.id}, Stars: ${tx.nanostar_amount}`);
+  console.log(`ID: ${tx.id}, Stars: ${tx.nanostar_amount ?? 0}`);
 }
 ```
 
@@ -55,7 +55,7 @@ const result = await bot.api.getStarTransactions({ limit: 10 });
 
 console.log(`Fetched ${result.transactions.length} transactions`);
 result.transactions.forEach((tx, i) => {
-  console.log(`[${i + 1}] ${tx.id} — nanostar_amount: ${tx.nanostar_amount}`);
+  console.log(`[${i + 1}] ${tx.id} — nanostar_amount: ${tx.nanostar_amount ?? 0}`);
 });
 ```
 
@@ -99,7 +99,7 @@ const result = await bot.api.getStarTransactions({ limit: 100 });
 
 const totalNanoStars = result.transactions
   .filter((tx) => tx.source !== undefined)
-  .reduce((sum, tx) => sum + tx.nanostar_amount, 0);
+  .reduce((sum, tx) => sum + (tx.nanostar_amount ?? 0), 0);
 
 const totalStars = totalNanoStars / 1_000_000_000;
 console.log(`Total received: ~${totalStars.toFixed(2)} Stars`);
