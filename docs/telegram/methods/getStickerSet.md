@@ -103,7 +103,7 @@ const bot = new Bot("");
 // ---cut---
 // Reply with the first sticker from the set when a user sends its name
 bot.on("message", async (ctx) => {
-  const name = ctx.update.message?.text?.trim();
+  const name = ctx.text?.trim();
   if (!name) return;
 
   try {
@@ -111,10 +111,7 @@ bot.on("message", async (ctx) => {
     const first = set.stickers[0];
     if (first) {
       await ctx.reply(`First sticker from "${set.title}":`);
-      await bot.api.sendSticker({
-        chat_id: ctx.update.message!.chat.id,
-        sticker: first.file_id,
-      });
+      await ctx.sendSticker(first.file_id);
     }
   } catch {
     await ctx.reply(`Sticker set "${name}" not found.`);

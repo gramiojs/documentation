@@ -116,46 +116,119 @@ Use this error knowledge base, then add method-specific ones from official docs:
 - `400 message is not modified` — new content identical to current
 - `400 message can't be edited` — message too old, or sent by a different bot
 
-### 5. Verify types via JSR API references
+### 5. Verify types via local .d.ts (primary) or JSR (fallback)
 
-**CRITICAL: Never invent types or properties.** Before writing any code example, look up the actual type signatures on JSR.
+**CRITICAL: Never invent types or properties.** Before writing any code example, verify the actual type signatures.
 
 **Context naming convention — camelCase only:**
 - GramIO contexts use **camelCase** for all properties and methods: `ctx.text`, `ctx.from`, `ctx.chat`, `ctx.replyToMessage`, `ctx.senderChat`, etc.
-- **NEVER use snake_case** on context objects — `ctx.reply_to_message` is WRONG, `ctx.message.reply_to_message` is WRONG
-- Snake_case exists **only** in the raw Telegram payload: `ctx.payload.reply_to_message` — but prefer the typed camelCase accessors
-- When in doubt, check the context class on JSR to find the correct camelCase property name
+- **NEVER use snake_case** on context objects — `ctx.reply_to_message` is WRONG, `ctx.update.message?.text` is WRONG
+- Snake_case exists **only** in the raw Telegram payload: `ctx.payload.reply_to_message` — but always prefer the typed camelCase accessors
+- **NEVER pass object to `ctx.send()`** — `ctx.send({ sticker: id })` is WRONG; each media type has its own method
 
-> **Note:** JSR docs may lag slightly behind the latest release. Use them as the primary reference, but if a property clearly should exist based on the Telegram API and the context class pattern, verify against the actual source code or the latest npm/jsr package version.
+#### Primary: Grep the local .d.ts
 
-Use `WebFetch` to check types at these URLs:
+The most reliable and fastest way. The `.d.ts` for `@gramio/contexts` is available locally:
 
-| Package | JSR Doc URL | What to check |
-|---------|-------------|---------------|
-| `@gramio/contexts` | `https://jsr.io/@gramio/contexts/doc` | **All context classes** — the actual `ctx` object types. Start here for any `ctx.*` usage |
-| `@gramio/types` | `https://jsr.io/@gramio/types/doc` | Telegram API types (`TelegramMessage`, `TelegramUser`, `APIMethodParams<"methodName">`, etc.) |
-| `@gramio/core` | `https://jsr.io/@gramio/core/doc` | `Bot` class, `bot.api.*` methods |
-| `@gramio/format` | `https://jsr.io/@gramio/format/doc` | `format`, `bold`, `italic`, `code`, `link` and other formatting helpers |
-| `@gramio/keyboards` | `https://jsr.io/@gramio/keyboards/doc` | `Keyboard`, `InlineKeyboard`, `ForceReply`, `RemoveKeyboard` |
-| `@gramio/files` | `https://jsr.io/@gramio/files/doc` | `MediaUpload` (`.path()`, `.url()`, `.buffer()`, `.stream()`, `.text()`) and `MediaInput` (`.photo()`, `.video()`, `.audio()`, `.document()`, `.animation()`) |
+```
+node_modules/@gramio/contexts/dist/index.d.ts
+```
 
-**Key context types** (from `@gramio/contexts`):
+Use `Grep` to find exact method signatures before using them:
 
-| Event | Context class | JSR doc URL |
-|-------|--------------|-------------|
-| `message` | `MessageContext` | `https://jsr.io/@gramio/contexts/doc/~/MessageContext` |
-| `callback_query` | `CallbackQueryContext` | `https://jsr.io/@gramio/contexts/doc/~/CallbackQueryContext` |
-| `inline_query` | `InlineQueryContext` | `https://jsr.io/@gramio/contexts/doc/~/InlineQueryContext` |
-| `pre_checkout_query` | `PreCheckoutQueryContext` | `https://jsr.io/@gramio/contexts/doc/~/PreCheckoutQueryContext` |
-| `chat_join_request` | `ChatJoinRequestContext` | `https://jsr.io/@gramio/contexts/doc/~/ChatJoinRequestContext` |
-| `chat_member` | `ChatMemberContext` | `https://jsr.io/@gramio/contexts/doc/~/ChatMemberContext` |
-| All mappings | `ContextsMapping` | `https://jsr.io/@gramio/contexts/doc/~/ContextsMapping` |
+```bash
+# Find a specific method on a context:
+Grep "sendSticker" node_modules/@gramio/contexts/dist/index.d.ts
+Grep "replyWithSticker" node_modules/@gramio/contexts/dist/index.d.ts
 
-**How to verify:**
-1. **Context properties** (`ctx.text`, `ctx.from`, `ctx.chat`, etc.): fetch the specific context class from `@gramio/contexts` — e.g. `https://jsr.io/@gramio/contexts/doc/~/MessageContext` to see what properties/methods actually exist
-2. **API method params**: fetch `https://jsr.io/@gramio/types/doc/~/APIMethodParams` to see the actual parameter type for `bot.api.methodName()`
-3. **Telegram objects** (e.g. `TelegramMessage`, `TelegramUser`): check `@gramio/types` — all Telegram types are prefixed with `Telegram` (e.g. `TelegramMessage`, not `Message`)
-4. **If a property doesn't exist on JSR — don't use it.** Find the correct way to access the data
+# Find all properties on a context class:
+Grep "get text\|get from\|get chat\|get caption" node_modules/@gramio/contexts/dist/index.d.ts
+```
+
+#### Built-in cheat sheet — MessageContext
+
+These methods are confirmed from `@gramio/contexts/dist/index.d.ts`. Use this before grepping.
+
+**Send methods** — `chat_id` is injected automatically, first arg is the media/content:
+
+| Method | First arg | Notes |
+|--------|-----------|-------|
+| `ctx.send(text, params?)` | string | sendMessage shorthand |
+| `ctx.sendPhoto(photo, params?)` | file | — |
+| `ctx.sendDocument(document, params?)` | file | — |
+| `ctx.sendAudio(audio, params?)` | file | — |
+| `ctx.sendVideo(video, params?)` | file | — |
+| `ctx.sendAnimation(animation, params?)` | file | — |
+| `ctx.sendVoice(voice, params?)` | file | — |
+| `ctx.sendVideoNote(videoNote, params?)` | file | — |
+| `ctx.sendSticker(sticker, params?)` | file | — |
+| `ctx.sendLocation(lat, lon, params?)` | numbers | — |
+| `ctx.sendDice(emoji, params?)` | string | — |
+| `ctx.sendPoll(params)` | — | full params |
+| `ctx.sendContact(params)` | — | full params |
+| `ctx.sendVenue(params)` | — | full params |
+| `ctx.sendInvoice(params)` | — | full params |
+| `ctx.sendMediaGroup(media, params?)` | array | returns `MessageContext[]` |
+| `ctx.sendPaidMedia(media, starCount, params?)` | array, number | — |
+| `ctx.sendChatAction(action, params?)` | string | returns `true` |
+
+**Reply methods** — same as send* but also set `reply_parameters` pointing to the current message:
+
+| Method | Notes |
+|--------|-------|
+| `ctx.reply(text, params?)` | reply to current message with text |
+| `ctx.replyWithPhoto(photo, params?)` | — |
+| `ctx.replyWithDocument(document, params?)` | — |
+| `ctx.replyWithAudio(audio, params?)` | — |
+| `ctx.replyWithVideo(video, params?)` | — |
+| `ctx.replyWithAnimation(animation, params?)` | — |
+| `ctx.replyWithVoice(voice, params?)` | — |
+| `ctx.replyWithVideoNote(videoNote, params?)` | — |
+| `ctx.replyWithSticker(sticker, params?)` | — |
+| `ctx.replyWithLocation(lat, lon, params?)` | — |
+| `ctx.replyWithMediaGroup(media, params?)` | returns `MessageContext[]` |
+| `ctx.replyWithDice(emoji, params?)` | — |
+| `ctx.replyWithPoll(params)` | — |
+| `ctx.replyWithContact(params)` | — |
+| `ctx.replyWithVenue(params)` | — |
+| `ctx.replyWithInvoice(params)` | — |
+
+**Edit/delete methods:**
+
+| Method | Notes |
+|--------|-------|
+| `ctx.editText(text, params?)` | alias: `editMessageText` |
+| `ctx.editCaption(caption, params?)` | alias: `editMessageCaption` |
+| `ctx.editMedia(media, params?)` | alias: `editMessageMedia` |
+| `ctx.editReplyMarkup(markup, params?)` | alias: `editMessageReplyMarkup` |
+| `ctx.editChecklist(checklist, params?)` | — |
+| `ctx.delete(params?)` | delete current message |
+| `ctx.deleteMessages(ids)` | delete multiple |
+| `ctx.copy(params?)` | copyMessage shorthand |
+| `ctx.forward(params?)` | forwardMessage shorthand |
+
+**Common properties** (all camelCase):
+
+| Property | Type | Notes |
+|----------|------|-------|
+| `ctx.text` | `string \| undefined` | message text |
+| `ctx.caption` | `string \| undefined` | media caption |
+| `ctx.from` | `User \| undefined` | sender (undefined in channel posts) |
+| `ctx.chat` | `Chat` | current chat |
+| `ctx.attachment` | varies | message media (photo, sticker, etc.) |
+| `ctx.replyToMessage` | `MessageContext \| undefined` | replied-to message |
+| `ctx.payload` | raw TelegramMessage | raw snake_case data |
+
+#### Fallback: JSR (for uncommon context classes)
+
+For context classes not covered by the cheat sheet above (e.g. `CallbackQueryContext`, `InlineQueryContext`, `ChatJoinRequestContext`), use `Grep` on the local `.d.ts` first. JSR is a last resort only when the `.d.ts` is not available:
+
+| Package | JSR URL |
+|---------|---------|
+| `@gramio/contexts` | `https://jsr.io/@gramio/contexts/doc` |
+| `@gramio/types` | `https://jsr.io/@gramio/types/doc` |
+
+**If a method/property is not found via Grep — don't use it.**
 
 ### 6. Write the enriched sections
 
@@ -304,7 +377,7 @@ After all pages are done, print a summary table:
 ## Quality Bar
 
 - **SEO:** title matches the exact search query people use; keywords include all major variants
-- **Types:** every property access, method call, and type annotation must exist in the real GramIO/Telegram types — verified via JSR docs. **Zero invented types.**
+- **Types:** every property access, method call, and type annotation must exist in the real GramIO/Telegram types — verified via Grep on local `.d.ts` or the cheat sheet above. **Zero invented types.** `ctx.send({ sticker })` is WRONG — use `ctx.sendSticker(id)`.
 - **Examples:** `ts twoslash` code blocks, correct imports, realistic values, idiomatic GramIO. Build MUST pass — if twoslash fails, the type is wrong
 - **Errors:** accurate (mark uncertain ones with `*`); Cause column is a useful annotation, not just error text
 - **Tips:** actionable, non-obvious, each one saves a developer real time
