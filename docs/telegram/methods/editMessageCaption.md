@@ -3,10 +3,10 @@ title: editMessageCaption — Telegram Bot API | GramIO
 head:
   - - meta
     - name: description
-      content: editMessageCaption Telegram Bot API method with GramIO TypeScript examples. Complete parameter reference and usage guide.
+      content: Edit media message captions in Telegram bots using GramIO with TypeScript. Complete editMessageCaption reference with formatting, show_caption_above_media, and error handling.
   - - meta
     - name: keywords
-      content: editMessageCaption, telegram bot api, gramio editMessageCaption, editMessageCaption typescript, editMessageCaption example
+      content: editMessageCaption, telegram bot api, edit caption telegram, gramio editMessageCaption, editMessageCaption typescript, editMessageCaption example, edit photo caption, update caption telegram bot, ctx.editCaption, caption, parse_mode, caption_entities, show_caption_above_media, reply_markup, how to edit caption telegram bot
 ---
 
 # editMessageCaption
@@ -46,16 +46,91 @@ On success, String is returned.
 
 ## GramIO Usage
 
-<!-- TODO: Add TypeScript examples using GramIO -->
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Update a photo/video caption when a user presses a button
+bot.on("callback_query", async (ctx) => {
+    await ctx.editCaption("Caption updated!");
+    await ctx.answer();
+});
+```
+
+```ts twoslash
+import { Bot, format, bold } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Edit caption with rich formatting — entities are built automatically
+bot.on("callback_query", async (ctx) => {
+    await ctx.editCaption(
+        format`${bold("Updated:")} new caption text`,
+    );
+    await ctx.answer();
+});
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Remove a caption by passing an empty string
+bot.on("callback_query", async (ctx) => {
+    await ctx.editCaption("");
+    await ctx.answer();
+});
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Direct API call — edit caption and show it above the media
+await bot.api.editMessageCaption({
+    chat_id: "@mychannel",
+    message_id: 123,
+    caption: "Updated caption for this photo",
+    show_caption_above_media: true,
+});
+```
 
 ## Errors
 
-<!-- TODO: Add common errors table -->
+| Code | Error | Cause |
+|------|-------|-------|
+| 400 | `Bad Request: message is not modified` | New caption is identical to current — check before calling to avoid unnecessary requests |
+| 400 | `Bad Request: message can't be edited` | Message too old, sent by another bot, or is not a media message with a caption |
+| 400 | `Bad Request: CAPTION_TOO_LONG` | `caption` exceeds 1024 characters |
+| 400 | `Bad Request: can't parse entities` | Malformed HTML/Markdown markup — use GramIO's `format` helper to build `caption_entities` safely |
+| 400 | `Bad Request: chat not found` | Invalid or inaccessible `chat_id` |
+| 400 | `Bad Request: message not found` | `message_id` doesn't exist in the chat |
+| 403 | `Forbidden: bot was blocked by the user` | User blocked the bot — catch and mark user as inactive |
+| 403 | `Forbidden: not enough rights` | Bot lacks edit permissions in a channel |
+| 429 | `Too Many Requests: retry after N` | Flood control — check `retry_after`, use [auto-retry plugin](/plugins/official/auto-retry) |
+
+::: tip
+Use GramIO's [auto-retry plugin](/plugins/official/auto-retry) to handle `429` errors automatically.
+:::
 
 ## Tips & Gotchas
 
-<!-- TODO: Add tips and gotchas -->
+- **Caption limit is 1024 characters** — half the 4096-character limit for text messages. Plan your content layout accordingly.
+- **Caption can be cleared by passing `""`** — unlike `editMessageText`, the caption is optional and can be set to zero characters to remove it entirely.
+- **`parse_mode` and `caption_entities` are mutually exclusive.** GramIO's `format` helper always produces `caption_entities`, so never pass `parse_mode` alongside a formatted string.
+- **`show_caption_above_media` only works for animation, photo, and video** — it has no effect on documents or audio messages.
+- **Business messages have a 48-hour edit window.** Messages sent via a business connection by another user without an inline keyboard can only be edited within 48 hours of sending.
+- **Inline messages return `true`, not `Message`.** When editing via `inline_message_id`, the method returns `true` on success instead of the updated `Message` object.
 
 ## See Also
 
-<!-- TODO: Add related methods and links -->
+- [editMessageText](/telegram/methods/editMessageText) — edit the text of a text message
+- [editMessageMedia](/telegram/methods/editMessageMedia) — replace the media file itself
+- [editMessageReplyMarkup](/telegram/methods/editMessageReplyMarkup) — update only the inline keyboard
+- [Formatting guide](/formatting) — using `format`, `bold`, `italic`, and more
+- [Keyboards overview](/keyboards/overview) — building inline keyboards with `InlineKeyboard`
+- [Message](/telegram/types/Message) — the type returned on success for non-inline messages
+- [auto-retry plugin](/plugins/official/auto-retry) — automatic `429` retry handling

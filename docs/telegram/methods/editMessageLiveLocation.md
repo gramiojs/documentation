@@ -3,10 +3,10 @@ title: editMessageLiveLocation — Telegram Bot API | GramIO
 head:
   - - meta
     - name: description
-      content: editMessageLiveLocation Telegram Bot API method with GramIO TypeScript examples. Complete parameter reference and usage guide.
+      content: Update live location coordinates in Telegram messages using GramIO with TypeScript. Complete editMessageLiveLocation reference with heading, accuracy, proximity alerts, and live_period management.
   - - meta
     - name: keywords
-      content: editMessageLiveLocation, telegram bot api, gramio editMessageLiveLocation, editMessageLiveLocation typescript, editMessageLiveLocation example
+      content: editMessageLiveLocation, telegram bot api, update live location telegram, gramio editMessageLiveLocation, editMessageLiveLocation typescript, editMessageLiveLocation example, edit location telegram bot, latitude longitude update, heading, horizontal_accuracy, live_period, proximity_alert_radius, ctx.editLiveLocation, stopMessageLiveLocation, real-time location tracking
 ---
 
 # editMessageLiveLocation
@@ -50,16 +50,94 @@ On success, String is returned.
 
 ## GramIO Usage
 
-<!-- TODO: Add TypeScript examples using GramIO -->
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Update live location coordinates via direct API call
+await bot.api.editMessageLiveLocation({
+    chat_id: 123456789,
+    message_id: 42,
+    latitude: 51.509865,
+    longitude: -0.118092,
+});
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Update with full precision metadata — heading and accuracy
+await bot.api.editMessageLiveLocation({
+    chat_id: 123456789,
+    message_id: 42,
+    latitude: 40.712776,
+    longitude: -74.005974,
+    heading: 90,                  // Moving east
+    horizontal_accuracy: 25,      // ±25 meters
+    proximity_alert_radius: 500,  // Alert when within 500m
+});
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Stop live location sharing early
+await bot.api.stopMessageLiveLocation({
+    chat_id: 123456789,
+    message_id: 42,
+});
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Use ctx shorthand — context fills in chat_id and message_id automatically
+bot.on("callback_query", async (ctx) => {
+    await ctx.editLiveLocation({
+        latitude: 48.858844,
+        longitude: 2.294351,
+    });
+    await ctx.answer("Location updated!");
+});
+```
 
 ## Errors
 
-<!-- TODO: Add common errors table -->
+| Code | Error | Cause |
+|------|-------|-------|
+| 400 | `Bad Request: message is not modified` | Coordinates and metadata are identical to the current location |
+| 400 | `Bad Request: message can't be edited` | Live location `live_period` has expired — start a new `sendLocation` with a fresh `live_period` |
+| 400 | `Bad Request: LOCATION_INVALID` | Coordinates out of valid range (`latitude` must be –90 to 90, `longitude` –180 to 180) |
+| 400 | `Bad Request: chat not found` | Invalid or inaccessible `chat_id` |
+| 400 | `Bad Request: message not found` | `message_id` doesn't exist in the chat |
+| 403 | `Forbidden: bot was blocked by the user` | User blocked the bot — stop sending location updates |
+| 429 | `Too Many Requests: retry after N` | Flood control — check `retry_after`, use [auto-retry plugin](/plugins/official/auto-retry) |
+
+::: tip
+Use GramIO's [auto-retry plugin](/plugins/official/auto-retry) to handle `429` errors automatically.
+:::
 
 ## Tips & Gotchas
 
-<!-- TODO: Add tips and gotchas -->
+- **No 48-hour business message restriction** — unlike other `editMessage*` methods, live location has no special business-message time limit. Instead, it is governed solely by the message's own `live_period`.
+- **`live_period` can be extended but not by more than 86400 seconds (one day) per call.** The resulting expiration date must also remain within the next 90 days. To create a permanent live location, pass `0x7FFFFFFF` (2147483647) as `live_period`.
+- **`heading` must be 1–360, not 0.** A value of 0 is invalid and will be rejected. Omit the field entirely if direction is unknown.
+- **`horizontal_accuracy` is 0–1500 metres.** This is the GPS uncertainty radius — pass `0` to omit it rather than omitting the field.
+- **Stop the location sharing early with `stopMessageLiveLocation`** — if the user's journey ends before `live_period` expires, call `stopMessageLiveLocation` to remove the live indicator from the message immediately.
+- **Inline messages return `true`, not `Message`.** When editing via `inline_message_id`, the method returns `true` on success instead of the updated `Message` object.
 
 ## See Also
 
-<!-- TODO: Add related methods and links -->
+- [stopMessageLiveLocation](/telegram/methods/stopMessageLiveLocation) — explicitly end live location sharing
+- [sendLocation](/telegram/methods/sendLocation) — send a new location (static or live) to start sharing
+- [editMessageReplyMarkup](/telegram/methods/editMessageReplyMarkup) — update only the keyboard without changing coordinates
+- [Keyboards overview](/keyboards/overview) — building inline keyboards with `InlineKeyboard`
+- [Message](/telegram/types/Message) — the type returned on success for non-inline messages
+- [auto-retry plugin](/plugins/official/auto-retry) — automatic `429` retry handling
