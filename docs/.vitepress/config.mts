@@ -39,7 +39,7 @@ export default defineConfig({
 				domain: "https://gramio.dev",
 				description:
 					"GramIO — TypeScript Telegram Bot API framework for Node.js, Bun, and Deno. Type-safe, plugin-based, with keyboards, formatting, file handling, hooks, and more.",
-				ignoreFiles: ["ru/**"],
+				ignoreFiles: ["ru/**", "telegram/**"],
 			}),
 		],
 	},

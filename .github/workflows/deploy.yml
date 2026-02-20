@@ -27,6 +27,8 @@ jobs:
 
             - name: Build
               run: bun run build
+              env:
+                  NODE_OPTIONS: "--max-old-space-size=8192"
 
             - name: Deploy to Netlify
               uses: nwtgck/actions-netlify@v2.0
