@@ -3,10 +3,10 @@ title: reopenForumTopic — Telegram Bot API | GramIO
 head:
   - - meta
     - name: description
-      content: reopenForumTopic Telegram Bot API method with GramIO TypeScript examples. Complete parameter reference and usage guide.
+      content: Reopen a closed forum topic in a supergroup using GramIO. TypeScript examples with context shorthand, error table, and tips for forum topic management in Telegram bots.
   - - meta
     - name: keywords
-      content: reopenForumTopic, telegram bot api, gramio reopenForumTopic, reopenForumTopic typescript, reopenForumTopic example
+      content: reopenForumTopic, telegram bot api, reopen forum topic telegram, gramio reopenForumTopic, reopenForumTopic typescript, reopenForumTopic example, forum topic management, can_manage_topics, message_thread_id, chat_id, how to reopen forum topic telegram bot, supergroup forum
 ---
 
 # reopenForumTopic
@@ -32,16 +32,85 @@ On success, *True* is returned.
 
 ## GramIO Usage
 
-<!-- TODO: Add TypeScript examples using GramIO -->
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Context shorthand — reopens the topic the current message belongs to
+// (chat_id and message_thread_id are injected automatically from the context)
+bot.on("forum_topic_closed", async (ctx) => {
+  await ctx.reopenTopic();
+});
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Direct API call with explicit chat_id and message_thread_id
+await bot.api.reopenForumTopic({
+  chat_id: -1001234567890,
+  message_thread_id: 42,
+});
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Reopen a specific topic from a command with the thread ID as argument
+bot.command("reopentopic", async (ctx) => {
+  const threadId = Number(ctx.args);
+  if (!threadId || isNaN(threadId)) return ctx.reply("Usage: /reopentopic <thread_id>");
+
+  await bot.api.reopenForumTopic({
+    chat_id: ctx.chat.id,
+    message_thread_id: threadId,
+  });
+  await ctx.reply(`Topic ${threadId} has been reopened.`);
+});
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Automatically reopen topics that were closed by a specific condition
+bot.on("message", async (ctx) => {
+  if (ctx.forumTopicClosed && ctx.chat.is_forum) {
+    // ctx.messageThreadId holds the thread ID of the current message
+    await ctx.reopenTopic();
+  }
+});
+```
 
 ## Errors
 
-<!-- TODO: Add common errors table -->
+| Code | Error | Cause |
+|------|-------|-------|
+| 400 | `Bad Request: chat not found` | `chat_id` is invalid or the bot is not a member of the chat |
+| 400 | `Bad Request: message thread not found` | `message_thread_id` doesn't exist in the target chat |
+| 400 | `Bad Request: TOPIC_NOT_MODIFIED` | The topic is already open — no state change needed |
+| 400 | `Bad Request: method is available only for supergroups` | The target chat is not a supergroup with forum mode enabled |
+| 403 | `Forbidden: not enough rights` | Bot lacks `can_manage_topics` admin right and is not the topic creator |
+| 429 | `Too Many Requests: retry after N` | Rate limit hit — check `retry_after` and use the [auto-retry plugin](/plugins/official/auto-retry) |
 
 ## Tips & Gotchas
 
-<!-- TODO: Add tips and gotchas -->
+- **Forum mode must be enabled.** This method only works in supergroups where the "Topics" (forum) feature is turned on. Calling it in a regular group returns an error.
+- **`can_manage_topics` is required** unless the bot created the topic itself. Use [`promoteChatMember`](/telegram/methods/promoteChatMember) to grant this right if needed.
+- **Context shorthand `ctx.reopenTopic()`** automatically fills `chat_id` and `message_thread_id` from the current message context, which is the cleanest way to reopen the topic a message was sent in.
+- **Check topic state before calling.** Calling `reopenForumTopic` on an already-open topic returns `TOPIC_NOT_MODIFIED`. Use this call only when you know the topic is closed.
+- **Does not automatically unhide.** Unlike `reopenGeneralForumTopic`, this method does not unhide the topic — use [`editForumTopic`](/telegram/methods/editForumTopic) if the topic also needs to be made visible.
 
 ## See Also
 
-<!-- TODO: Add related methods and links -->
+- [`closeForumTopic`](/telegram/methods/closeForumTopic) — close an open forum topic
+- [`createForumTopic`](/telegram/methods/createForumTopic) — create a new forum topic
+- [`editForumTopic`](/telegram/methods/editForumTopic) — edit a forum topic's name and icon
+- [`deleteForumTopic`](/telegram/methods/deleteForumTopic) — delete a forum topic and all its messages
+- [`reopenGeneralForumTopic`](/telegram/methods/reopenGeneralForumTopic) — reopen the General topic specifically
