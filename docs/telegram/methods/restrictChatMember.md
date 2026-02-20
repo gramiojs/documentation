@@ -110,7 +110,7 @@ import { Bot } from "gramio";
 const bot = new Bot("");
 // ---cut---
 bot.command("mute", async (ctx) => {
-  const target = ctx.replyToMessage?.from;
+  const target = ctx.replyMessage?.from;
   if (!target) return ctx.reply("Reply to a message to mute that user.");
 
   await bot.api.restrictChatMember({

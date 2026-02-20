@@ -3,10 +3,10 @@ title: sendAnimation — Telegram Bot API | GramIO
 head:
   - - meta
     - name: description
-      content: sendAnimation Telegram Bot API method with GramIO TypeScript examples. Complete parameter reference and usage guide.
+      content: Send GIF or H.264/MPEG-4 AVC animations with GramIO in TypeScript. Supports file_id, URL, and local file upload with captions, spoiler, and thumbnail. Up to 50 MB.
   - - meta
     - name: keywords
-      content: sendAnimation, telegram bot api, gramio sendAnimation, sendAnimation typescript, sendAnimation example
+      content: sendAnimation, telegram bot api, gramio sendAnimation, sendAnimation typescript, sendAnimation example, send gif telegram bot, send animation telegram, animation caption, has_spoiler, thumbnail, MediaUpload, file_id, animation typescript
 ---
 
 # sendAnimation
@@ -38,7 +38,7 @@ Use this method to send animation files (GIF or H.264/MPEG-4 AVC video without s
 
 <ApiParam name="height" type="Integer" description="Animation height" />
 
-<ApiParam name="thumbnail" type="InputFile | String" description="Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file\_attach\_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file\_attach\_name&gt;. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)" />
+<ApiParam name="thumbnail" type="InputFile | String" description="Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass &quot;attach://&lt;file\_attach\_name&gt;&quot; if the thumbnail was uploaded using multipart/form-data under &lt;file\_attach\_name&gt;. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)" />
 
 <ApiParam name="caption" type="String" description="Animation caption (may also be used when resending animation by *file\_id*), 0-1024 characters after entities parsing" :minLen="0" :maxLen="1024" />
 
@@ -71,16 +71,117 @@ On success, the [Message](/telegram/types/Message) object is returned.
 
 ## GramIO Usage
 
-<!-- TODO: Add TypeScript examples using GramIO -->
+Send an animation from a public URL using the context shorthand inside a message handler:
+
+```ts twoslash
+import { Bot, MediaUpload } from "gramio";
+const bot = new Bot("");
+// ---cut---
+bot.on("message", async (ctx) => {
+  await ctx.sendAnimation(
+    "https://media.giphy.com/media/26xBwdIuRJiAIqHLa/giphy.gif",
+    { caption: "Here's your animation!" }
+  );
+});
+```
+
+Reply to the user's message with an animation using `replyWithAnimation`:
+
+```ts twoslash
+import { Bot, MediaUpload } from "gramio";
+const bot = new Bot("");
+// ---cut---
+bot.on("message", async (ctx) => {
+  await ctx.replyWithAnimation(
+    "https://media.giphy.com/media/26xBwdIuRJiAIqHLa/giphy.gif",
+    { caption: "Replying with animation" }
+  );
+});
+```
+
+Upload a local GIF file using `MediaUpload.path`:
+
+```ts twoslash
+import { Bot, MediaUpload } from "gramio";
+const bot = new Bot("");
+// ---cut---
+bot.on("message", async (ctx) => {
+  await ctx.sendAnimation(await MediaUpload.path("./assets/hello.gif"), {
+    caption: "Uploaded from disk",
+    duration: 3,
+    width: 480,
+    height: 270,
+  });
+});
+```
+
+Send a spoiler-wrapped animation with a caption:
+
+```ts twoslash
+import { Bot, format, bold } from "gramio";
+const bot = new Bot("");
+// ---cut---
+bot.on("message", async (ctx) => {
+  await ctx.sendAnimation(
+    "AgACAgIAAxkBAAIB...", // file_id
+    {
+      caption: format`${bold("Spoiler!")} Tap to reveal.`,
+      has_spoiler: true,
+    }
+  );
+});
+```
+
+Direct API call with `bot.api.sendAnimation` (useful outside handlers):
+
+```ts twoslash
+import { Bot, MediaUpload } from "gramio";
+const bot = new Bot("");
+// ---cut---
+const msg = await bot.api.sendAnimation({
+  chat_id: 123456789,
+  animation: await MediaUpload.url(
+    "https://media.giphy.com/media/26xBwdIuRJiAIqHLa/giphy.gif"
+  ),
+  caption: "Sent via direct API call",
+  width: 480,
+  height: 270,
+  duration: 5,
+});
+```
 
 ## Errors
 
-<!-- TODO: Add common errors table -->
+| Code | Error | Cause |
+|------|-------|-------|
+| 400 | `Bad Request: chat not found` | The `chat_id` is invalid, the bot has never interacted with the user, or the chat does not exist. |
+| 400 | `Bad Request: wrong file identifier/HTTP URL specified` | The `file_id` is malformed or the URL is unreachable / returns a non-media response. |
+| 400 | `Bad Request: failed to get HTTP URL content` | Telegram could not download the animation from the provided HTTP URL. Check the URL is publicly accessible. |
+| 400 | `Bad Request: PHOTO_INVALID_DIMENSIONS` | The uploaded file does not meet dimension expectations for animated media. Provide correct `width`/`height`. |
+| 400 | `Bad Request: file is too big` | The animation exceeds the 50 MB server-side limit. Compress or trim the file before uploading. |
+| 403 | `Forbidden: bot was blocked by the user` | The user blocked the bot. Remove them from your active user list. |
+| 429 | `Too Many Requests: retry after N` | Flood control triggered. Back off for the specified number of seconds. |
+
+::: tip
+Use GramIO's [auto-retry plugin](/plugins/official/auto-retry) to handle `429` errors automatically.
+:::
 
 ## Tips & Gotchas
 
-<!-- TODO: Add tips and gotchas -->
+- **50 MB hard limit.** Animations larger than 50 MB are rejected. Compress the GIF or use a short MPEG-4 clip instead.
+- **GIF vs MP4.** Telegram internally converts GIFs to MP4 for efficient delivery. Sending an MP4 with no audio is more bandwidth-friendly and avoids re-encoding.
+- **Thumbnail is only applied for new uploads.** If you pass a `file_id`, Telegram ignores the `thumbnail` parameter entirely.
+- **`has_spoiler` blurs the preview.** The animation plays normally after the user taps the spoiler overlay. This works in private chats, groups, and channels.
+- **Caption limit is 1024 characters.** Unlike `sendMessage` (4096 chars), animation captions are capped. Truncate or split long text.
+- **`show_caption_above_media`** places the caption text above the animation instead of below — useful for storytelling-style posts.
 
 ## See Also
 
-<!-- TODO: Add related methods and links -->
+- [Media Upload guide](/files/media-upload) — file_id, URL, path, buffer upload patterns
+- [Formatting guide](/formatting) — bold, italic, and entity-based caption formatting
+- [Keyboards overview](/keyboards/overview) — attaching inline or reply keyboards
+- [sendVideo](/telegram/methods/sendVideo) — send MP4 video with audio
+- [sendDocument](/telegram/methods/sendDocument) — send files without media player rendering
+- [sendPhoto](/telegram/methods/sendPhoto) — send static images
+- [Animation type](/telegram/types/Animation) — structure of the returned animation object
+- [Message type](/telegram/types/Message) — full structure of the returned message

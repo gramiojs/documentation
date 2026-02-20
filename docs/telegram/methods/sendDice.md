@@ -3,10 +3,10 @@ title: sendDice — Telegram Bot API | GramIO
 head:
   - - meta
     - name: description
-      content: sendDice Telegram Bot API method with GramIO TypeScript examples. Complete parameter reference and usage guide.
+      content: Send animated emoji dice, dartboard, basketball, football, bowling, or slot machine with GramIO in TypeScript. sendDice reference with value ranges and TypeScript examples.
   - - meta
     - name: keywords
-      content: sendDice, telegram bot api, gramio sendDice, sendDice typescript, sendDice example
+      content: sendDice, telegram bot api, gramio sendDice, sendDice typescript, sendDice example, telegram dice bot, animated emoji telegram, slot machine bot, dice value range, basketball telegram, dartboard emoji, bowling telegram
 ---
 
 # sendDice
@@ -29,7 +29,7 @@ Use this method to send an animated emoji that will display a random value. On s
 
 <ApiParam name="direct_messages_topic_id" type="Integer" description="Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat" />
 
-<ApiParam name="emoji" type="String" description="Emoji on which the dice throw animation is based. Currently, must be one of “![🎲](//telegram.org/img/emoji/40/F09F8EB2.png)”, “![🎯](//telegram.org/img/emoji/40/F09F8EAF.png)”, “![🏀](//telegram.org/img/emoji/40/F09F8F80.png)”, “![⚽](//telegram.org/img/emoji/40/E29ABD.png)”, “![🎳](//telegram.org/img/emoji/40/F09F8EB3.png)”, or “![🎰](//telegram.org/img/emoji/40/F09F8EB0.png)”. Dice can have values 1-6 for “![🎲](//telegram.org/img/emoji/40/F09F8EB2.png)”, “![🎯](//telegram.org/img/emoji/40/F09F8EAF.png)” and “![🎳](//telegram.org/img/emoji/40/F09F8EB3.png)”, values 1-5 for “![🏀](//telegram.org/img/emoji/40/F09F8F80.png)” and “![⚽](//telegram.org/img/emoji/40/E29ABD.png)”, and values 1-64 for “![🎰](//telegram.org/img/emoji/40/F09F8EB0.png)”. Defaults to “![🎲](//telegram.org/img/emoji/40/F09F8EB2.png)”" defaultValue="🎲" :enumValues='["🎲","🎯","🏀","⚽","🎳","🎰"]' />
+<ApiParam name="emoji" type="String" description="Emoji on which the dice throw animation is based. Currently, must be one of &quot;🎲&quot;, &quot;🎯&quot;, &quot;🏀&quot;, &quot;⚽&quot;, &quot;🎳&quot;, or &quot;🎰&quot;. Dice can have values 1-6 for 🎲, 🎯, and 🎳; values 1-5 for 🏀 and ⚽; and values 1-64 for 🎰. Defaults to 🎲." defaultValue="🎲" :enumValues='["🎲","🎯","🏀","⚽","🎳","🎰"]' />
 
 <ApiParam name="disable_notification" type="Boolean" description="Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound." />
 
@@ -52,16 +52,105 @@ On success, the [Message](/telegram/types/Message) object is returned.
 
 ## GramIO Usage
 
-<!-- TODO: Add TypeScript examples using GramIO -->
+Send a default dice (🎲) and read its rolled value:
+
+```ts twoslash
+import { Bot } from "gramio";
+const bot = new Bot("");
+// ---cut---
+bot.on("message", async (ctx) => {
+  const msg = await ctx.sendDice("🎲");
+  const rolled = msg.dice?.value ?? 0;
+  await ctx.send(`You rolled a ${rolled}!`);
+});
+```
+
+Reply to the user's message with a dice throw:
+
+```ts twoslash
+import { Bot } from "gramio";
+const bot = new Bot("");
+// ---cut---
+bot.on("message", async (ctx) => {
+  const msg = await ctx.replyWithDice("🎲");
+  const rolled = msg.dice?.value ?? 0;
+  await ctx.send(`You rolled: ${rolled}`);
+});
+```
+
+Send a slot machine (🎰) and check for a jackpot (value 64):
+
+```ts twoslash
+import { Bot } from "gramio";
+const bot = new Bot("");
+// ---cut---
+bot.on("message", async (ctx) => {
+  const msg = await ctx.sendDice("🎰");
+  const result = msg.dice?.value ?? 0;
+
+  if (result === 64) {
+    await ctx.send("Jackpot! You hit the maximum!");
+  } else {
+    await ctx.send(`Slot result: ${result} — better luck next time!`);
+  }
+});
+```
+
+Build a simple basketball mini-game (🏀, values 1–5):
+
+```ts twoslash
+import { Bot } from "gramio";
+const bot = new Bot("");
+// ---cut---
+bot.command("shoot", async (ctx) => {
+  const msg = await ctx.sendDice("🏀");
+  const score = msg.dice?.value ?? 0;
+
+  const verdict =
+    score >= 4 ? "Slam dunk!" : score >= 2 ? "Nice shot!" : "Missed!";
+  await ctx.send(verdict);
+});
+```
+
+Direct API call with `bot.api.sendDice` (useful outside message handlers):
+
+```ts twoslash
+import { Bot } from "gramio";
+const bot = new Bot("");
+// ---cut---
+const msg = await bot.api.sendDice({
+  chat_id: 123456789,
+  emoji: "🎯",
+});
+const value = msg.dice?.value ?? 0;
+```
 
 ## Errors
 
-<!-- TODO: Add common errors table -->
+| Code | Error | Cause |
+|------|-------|-------|
+| 400 | `Bad Request: chat not found` | The `chat_id` is invalid, the bot has never interacted with the user, or the chat does not exist. |
+| 400 | `Bad Request: wrong dice emoji` | The `emoji` value is not one of the six supported emojis (🎲 🎯 🏀 ⚽ 🎳 🎰). |
+| 403 | `Forbidden: bot was blocked by the user` | The user blocked the bot. Remove them from your active user list. |
+| 429 | `Too Many Requests: retry after N` | Flood control triggered. Back off for the specified number of seconds. |
+
+::: tip
+Use GramIO's [auto-retry plugin](/plugins/official/auto-retry) to handle `429` errors automatically.
+:::
 
 ## Tips & Gotchas
 
-<!-- TODO: Add tips and gotchas -->
+- **The value is truly random.** Telegram generates the random value server-side — you cannot control or predict the outcome. Read `message.dice.value` from the returned `Message` object.
+- **Value ranges differ by emoji.** 🎲 🎯 🎳 → 1–6 · 🏀 ⚽ → 1–5 · 🎰 → 1–64. Design game logic around the correct range for your chosen emoji.
+- **Omitting `emoji` defaults to 🎲.** If you want a specific animated emoji, always pass the `emoji` parameter explicitly.
+- **The animation plays client-side.** The rolled value is embedded in the message immediately, but the visual animation takes a few seconds to complete. Do not read the value before the `Message` is returned — the value is already final when `sendDice` resolves.
+- **Not suitable for real gambling.** The dice is entertainment-only. Telegram reserves the right to change value ranges or behavior in future API versions.
+- **`protect_content` prevents forwarding.** Use this in fair-play scenarios where users should not forward a lucky roll to another chat.
 
 ## See Also
 
-<!-- TODO: Add related methods and links -->
+- [Dice type](/telegram/types/Dice) — structure of the dice object in the returned message
+- [Message type](/telegram/types/Message) — full structure of the returned message
+- [Keyboards overview](/keyboards/overview) — attaching inline keyboards for follow-up actions
+- [sendMessage](/telegram/methods/sendMessage) — send a text response after reading the dice value
+- [auto-retry plugin](/plugins/official/auto-retry) — handle rate limits automatically

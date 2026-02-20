@@ -3,10 +3,10 @@ title: sendContact — Telegram Bot API | GramIO
 head:
   - - meta
     - name: description
-      content: sendContact Telegram Bot API method with GramIO TypeScript examples. Complete parameter reference and usage guide.
+      content: Send phone contacts with GramIO in TypeScript. sendContact reference with phone_number, first_name, vCard support, and TypeScript usage examples for Telegram bots.
   - - meta
     - name: keywords
-      content: sendContact, telegram bot api, gramio sendContact, sendContact typescript, sendContact example
+      content: sendContact, telegram bot api, gramio sendContact, sendContact typescript, sendContact example, send phone contact telegram bot, vcard telegram, phone_number format, contact message, first_name last_name, contact typescript
 ---
 
 # sendContact
@@ -58,16 +58,101 @@ On success, the [Message](/telegram/types/Message) object is returned.
 
 ## GramIO Usage
 
-<!-- TODO: Add TypeScript examples using GramIO -->
+Send a basic contact with a phone number and name using the context shorthand:
+
+```ts twoslash
+import { Bot } from "gramio";
+const bot = new Bot("");
+// ---cut---
+bot.on("message", async (ctx) => {
+  await ctx.sendContact({
+    phone_number: "+15551234567",
+    first_name: "Alice",
+    last_name: "Smith",
+  });
+});
+```
+
+Reply to the user's message while sending a contact:
+
+```ts twoslash
+import { Bot } from "gramio";
+const bot = new Bot("");
+// ---cut---
+bot.on("message", async (ctx) => {
+  await ctx.replyWithContact({
+    phone_number: "+15551234567",
+    first_name: "Support Team",
+  });
+});
+```
+
+Send a contact with full vCard data for rich client-side import:
+
+```ts twoslash
+import { Bot } from "gramio";
+const bot = new Bot("");
+// ---cut---
+bot.on("message", async (ctx) => {
+  const vcard = [
+    "BEGIN:VCARD",
+    "VERSION:3.0",
+    "FN:Alice Smith",
+    "TEL;TYPE=CELL:+15551234567",
+    "EMAIL:alice@example.com",
+    "ORG:Example Inc.",
+    "END:VCARD",
+  ].join("\n");
+
+  await ctx.sendContact({
+    phone_number: "+15551234567",
+    first_name: "Alice",
+    last_name: "Smith",
+    vcard,
+  });
+});
+```
+
+Direct API call with `bot.api.sendContact` (useful outside message handlers):
+
+```ts twoslash
+import { Bot } from "gramio";
+const bot = new Bot("");
+// ---cut---
+const msg = await bot.api.sendContact({
+  chat_id: 123456789,
+  phone_number: "+15551234567",
+  first_name: "Alice",
+  last_name: "Smith",
+});
+```
 
 ## Errors
 
-<!-- TODO: Add common errors table -->
+| Code | Error | Cause |
+|------|-------|-------|
+| 400 | `Bad Request: chat not found` | The `chat_id` is invalid, the bot has never interacted with the user, or the chat does not exist. |
+| 400 | `Bad Request: phone number is invalid` | The `phone_number` string is empty or contains invalid characters. Include the country code (e.g. `+1555...`). |
+| 400 | `Bad Request: CONTACT_NAME_EMPTY` | The `first_name` field is empty or missing. A non-empty first name is required. |
+| 403 | `Forbidden: bot was blocked by the user` | The user blocked the bot. Remove them from your active user list. |
+| 429 | `Too Many Requests: retry after N` | Flood control triggered. Back off for the specified number of seconds. |
+
+::: tip
+Use GramIO's [auto-retry plugin](/plugins/official/auto-retry) to handle `429` errors automatically.
+:::
 
 ## Tips & Gotchas
 
-<!-- TODO: Add tips and gotchas -->
+- **`phone_number` is a free-form string.** Telegram does not validate the phone number format server-side in detail, but clients display it as-is. Use standard international format (e.g. `+15551234567`) to ensure correct display and click-to-call behavior.
+- **The contact is not linked to a Telegram account.** Even if the phone number belongs to a Telegram user, the contact message just shows the raw number. Users can choose to add it to their contacts manually.
+- **`vcard` enriches the contact card.** Clients that support vCard can import additional fields (email, organization, address). Keep the vCard under 2048 bytes.
+- **`last_name` is optional but recommended.** Many clients display the full name in the contact bubble. Providing both first and last names creates a cleaner contact entry.
+- **Note: `sendContact` takes a params object, not positional arguments.** Unlike `sendAnimation(animation, params?)`, you must pass all fields including `phone_number` inside a single object.
 
 ## See Also
 
-<!-- TODO: Add related methods and links -->
+- [Keyboards overview](/keyboards/overview) — attaching inline or reply keyboards
+- [Contact type](/telegram/types/Contact) — structure of the received contact object
+- [Message type](/telegram/types/Message) — full structure of the returned message
+- [sendMessage](/telegram/methods/sendMessage) — send plain text
+- [auto-retry plugin](/plugins/official/auto-retry) — handle rate limits automatically
