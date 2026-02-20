@@ -3,10 +3,10 @@ title: getChatGifts — Telegram Bot API | GramIO
 head:
   - - meta
     - name: description
-      content: getChatGifts Telegram Bot API method with GramIO TypeScript examples. Complete parameter reference and usage guide.
+      content: Get gifts owned by a Telegram channel using GramIO. TypeScript examples for listing channel gifts, filtering by type, and paginating results. Returns OwnedGifts.
   - - meta
     - name: keywords
-      content: getChatGifts, telegram bot api, gramio getChatGifts, getChatGifts typescript, getChatGifts example
+      content: getChatGifts, telegram bot api, get chat gifts, gramio getChatGifts, telegram channel gifts, getChatGifts typescript, getChatGifts example, OwnedGifts, telegram star gifts, how to get telegram channel gifts, telegram gifts bot api, channel gift list, exclude_unique, sort_by_price
 ---
 
 # getChatGifts
@@ -50,16 +50,82 @@ On success, String is returned.
 
 ## GramIO Usage
 
-<!-- TODO: Add TypeScript examples using GramIO -->
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Get all gifts for a channel (first page)
+const gifts = await bot.api.getChatGifts({
+    chat_id: "@mychannel",
+    offset: "",
+    limit: 100,
+});
+console.log(`Total gifts: ${gifts.total_count}`);
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Get only unique gifts, sorted by price
+const uniqueGifts = await bot.api.getChatGifts({
+    chat_id: -1001234567890,
+    exclude_unlimited: true,
+    exclude_limited_non_upgradable: true,
+    sort_by_price: true,
+    offset: "",
+    limit: 50,
+});
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Paginate through all gifts using an async generator
+async function* getAllChatGifts(chatId: number | string) {
+    let offset = "";
+    while (true) {
+        const result = await bot.api.getChatGifts({
+            chat_id: chatId,
+            offset,
+            limit: 100,
+        });
+        yield* result.gifts;
+        if (!result.next_offset) break;
+        offset = result.next_offset;
+    }
+}
+```
 
 ## Errors
 
-<!-- TODO: Add common errors table -->
+| Code | Error | Cause |
+|------|-------|-------|
+| 400 | `Bad Request: chat not found` | Invalid or inaccessible `chat_id` — ensure the bot is an admin in the channel |
+| 400 | `Bad Request: method is available for channels only` | Called on a group, supergroup, or private chat — only channels are supported |
+| 403 | `Forbidden: not enough rights` | Bot lacks `can_post_messages` — without it only saved gifts are visible |
+| 403 | `Forbidden: bot is not a member of the channel chat` | Bot was removed from the channel |
+| 429 | `Too Many Requests: retry after N` | Rate limit hit — check `retry_after`, use the [auto-retry plugin](/plugins/official/auto-retry) |
+
+::: tip
+Use GramIO's [auto-retry plugin](/plugins/official/auto-retry) to handle `429` errors automatically.
+:::
 
 ## Tips & Gotchas
 
-<!-- TODO: Add tips and gotchas -->
+- **Admin rights affect visibility.** Without `can_post_messages`, you can only see gifts already saved to the profile page — unsaved gifts are hidden. Grant the right for full access.
+- **All filter params default to `false` (not excluded).** Only pass an `exclude_*` flag when you actually want to filter that category out. Passing none returns all gift types.
+- **Exclusion filters are additive.** You can combine multiple `exclude_*` flags. For example, passing both `exclude_unlimited` and `exclude_limited_non_upgradable` returns only limited-upgradable and unique gifts.
+- **`sort_by_price` is applied server-side before pagination.** This means cross-page ordering is consistent — don't sort client-side and expect it to match across pages.
+- **Pagination uses opaque string offsets.** Pass `""` for the first page, then use `result.next_offset` as the next `offset`. If `next_offset` is absent, there are no more pages.
+- **Max 100 gifts per request.** For channels with many gifts, implement pagination as shown in the generator example above.
 
 ## See Also
 
-<!-- TODO: Add related methods and links -->
+- [getUserGifts](/telegram/methods/getUserGifts) — get gifts for an individual user
+- [getChat](/telegram/methods/getChat) — get channel info including accepted gift types
+- [OwnedGifts](/telegram/types/OwnedGifts) — the returned type
