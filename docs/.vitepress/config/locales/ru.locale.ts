@@ -11,6 +11,7 @@ export const localeRu = {
 				{ text: "Главная", link: "/ru" },
 				{ text: "Начало", link: "/ru/get-started" },
 				{ text: "Плагины", link: "/ru/plugins/overview" },
+				{ text: "API Reference", link: "/api/" },
 				{ text: "Журнал изменений", link: "/ru/changelogs/" },
 				// { text: "Гайды", link: "/ru/guides" },
 			],

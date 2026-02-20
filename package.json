@@ -26,6 +26,9 @@
 		"grammy": "^1.39.3",
 		"ioredis": "^5.9.2",
 		"jobify": "^0.1.6",
+		"typedoc": "^0.28.17",
+		"typedoc-plugin-markdown": "^4.10.0",
+		"typedoc-vitepress-theme": "^1.1.2",
 		"undici": "^7.20.0",
 		"unocss": "^66.6.0",
 		"vitepress": "^1.6.4",
@@ -39,10 +42,11 @@
 	},
 	"scripts": {
 		"dev": "bunx vitepress dev docs",
-		"build": "bunx vitepress build docs",
+		"build": "bun run gen:typedoc && NODE_OPTIONS='--max-old-space-size=8192' bunx vitepress build docs",
 		"preview": "bunx --bun vitepress preview docs",
 		"gen:api": "bun scripts/generate-api-docs.ts",
-		"gen:api:dry": "bun scripts/generate-api-docs.ts --dry-run"
+		"gen:api:dry": "bun scripts/generate-api-docs.ts --dry-run",
+		"gen:typedoc": "bun scripts/generate-typedoc.ts"
 	},
 	"trustedDependencies": ["@biomejs/biome"],
 	"type": "module"

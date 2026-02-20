@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2022"],
+    "strict": false,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true
+  },
+  "files": [
+    "node_modules/gramio/dist/index.d.ts",
+    "node_modules/@gramio/contexts/dist/index.d.ts",
+    "node_modules/@gramio/keyboards/dist/index.d.ts",
+    "node_modules/@gramio/files/dist/index.d.ts",
+    "node_modules/@gramio/format/dist/index.d.ts",
+    "node_modules/@gramio/callback-data/dist/index.d.ts",
+    "node_modules/@gramio/composer/dist/index.d.ts",
+    "node_modules/@gramio/scenes/dist/index.d.ts",
+    "node_modules/@gramio/session/dist/index.d.ts",
+    "node_modules/@gramio/storage/dist/index.d.ts",
+    "node_modules/@gramio/storage-redis/dist/ioredis.d.ts",
+    "node_modules/@gramio/i18n/dist/index.d.ts",
+    "node_modules/@gramio/autoload/dist/index.d.ts",
+    "node_modules/@gramio/auto-retry/dist/index.d.ts",
+    "node_modules/@gramio/prompt/dist/index.d.ts",
+    "node_modules/@gramio/init-data/dist/index.d.ts"
+  ]
+}
