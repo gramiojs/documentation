@@ -3,10 +3,10 @@ title: deleteChatStickerSet — Telegram Bot API | GramIO
 head:
   - - meta
     - name: description
-      content: deleteChatStickerSet Telegram Bot API method with GramIO TypeScript examples. Complete parameter reference and usage guide.
+      content: Delete a group sticker set from a Telegram supergroup using GramIO. TypeScript examples for bot admins. Check can_set_sticker_set before calling. Supergroups only.
   - - meta
     - name: keywords
-      content: deleteChatStickerSet, telegram bot api, gramio deleteChatStickerSet, deleteChatStickerSet typescript, deleteChatStickerSet example
+      content: deleteChatStickerSet, telegram bot api, delete group sticker set, remove supergroup sticker set, gramio deleteChatStickerSet, telegram sticker set management, can_set_sticker_set, setChatStickerSet, supergroup stickers typescript, telegram bot sticker admin
 ---
 
 # deleteChatStickerSet
@@ -30,16 +30,58 @@ On success, *True* is returned.
 
 ## GramIO Usage
 
-<!-- TODO: Add TypeScript examples using GramIO -->
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Remove the sticker set from a supergroup by numeric ID
+await bot.api.deleteChatStickerSet({
+  chat_id: -1001234567890,
+});
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Remove the sticker set from a supergroup by username
+await bot.api.deleteChatStickerSet({
+  chat_id: "@mysupergroup",
+});
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Admin command to remove the group sticker set
+bot.command("removestickers", async (ctx) => {
+  await bot.api.deleteChatStickerSet({ chat_id: ctx.chatId });
+  await ctx.send("Group sticker set has been removed.");
+});
+```
 
 ## Errors
 
-<!-- TODO: Add common errors table -->
+| Code | Error | Cause |
+|------|-------|-------|
+| 400 | `Bad Request: chat not found` | `chat_id` is invalid or inaccessible |
+| 400 | `Bad Request: CHAT_NOT_MODIFIED` | The supergroup has no sticker set to remove |
+| 400 | `Bad Request: method is available for supergroup chats only` | This method only works for supergroups — not regular groups or channels |
+| 403 | `Forbidden: not enough rights` | Bot is not an admin or lacks the right to manage sticker sets |
+| 429 | `Too Many Requests: retry after N` | Rate limit hit — check `retry_after`, use [auto-retry plugin](/plugins/official/auto-retry) |
 
 ## Tips & Gotchas
 
-<!-- TODO: Add tips and gotchas -->
+- **Supergroups only — not regular groups or channels.** This method is restricted to supergroups. Calling it on a basic group or channel will fail.
+- **Check `can_set_sticker_set` from `getChat` first.** The `Chat` object returned by `getChat` has an optional `can_set_sticker_set` boolean. If it's `false` or absent, the bot cannot manage the sticker set in that chat.
+- **No need to delete before setting a new sticker set.** Calling `setChatStickerSet` directly replaces the current sticker set — you don't need to call `deleteChatStickerSet` beforehand.
+- **Bot must be admin with `can_change_info`.** The appropriate administrator right for managing sticker sets falls under `can_change_info`.
 
 ## See Also
 
-<!-- TODO: Add related methods and links -->
+- [setChatStickerSet](/telegram/methods/setChatStickerSet) — assign a sticker set to a supergroup
+- [getChat](/telegram/methods/getChat) — check `can_set_sticker_set` before calling
