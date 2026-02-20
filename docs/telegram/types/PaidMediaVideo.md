@@ -20,7 +20,7 @@ The paid media is a video.
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the paid media, always “video”" defaultValue="video" />
+<ApiParam name="type" type="String" description="Type of the paid media, always &quot;video&quot;" defaultValue="video" />
 
 <ApiParam name="video" type="Video" required description="The video" />
 

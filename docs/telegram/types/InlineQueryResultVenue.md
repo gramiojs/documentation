@@ -34,7 +34,7 @@ Represents a venue. By default, the venue will be sent by the user. Alternativel
 
 <ApiParam name="foursquare_id" type="String" description="*Optional*. Foursquare identifier of the venue if known" />
 
-<ApiParam name="foursquare_type" type="String" description="*Optional*. Foursquare type of the venue, if known. (For example, “arts\_entertainment/default”, “arts\_entertainment/aquarium” or “food/icecream”.)" />
+<ApiParam name="foursquare_type" type="String" description="*Optional*. Foursquare type of the venue, if known. (For example, &quot;arts\_entertainment/default&quot;, &quot;arts\_entertainment/aquarium&quot; or &quot;food/icecream&quot;.)" />
 
 <ApiParam name="google_place_id" type="String" description="*Optional*. Google Places identifier of the venue" />
 

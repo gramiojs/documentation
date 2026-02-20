@@ -3,10 +3,10 @@ title: sendInvoice — Telegram Bot API | GramIO
 head:
   - - meta
     - name: description
-      content: sendInvoice Telegram Bot API method with GramIO TypeScript examples. Complete parameter reference and usage guide.
+      content: Send payment invoices using GramIO with TypeScript. Complete sendInvoice reference with Telegram Stars (XTR), LabeledPrice, provider_token, pre-checkout flow, and error handling examples.
   - - meta
     - name: keywords
-      content: sendInvoice, telegram bot api, gramio sendInvoice, sendInvoice typescript, sendInvoice example
+      content: sendInvoice, telegram bot api, send invoice telegram bot, gramio sendInvoice, sendInvoice typescript, sendInvoice example, telegram payments, telegram stars payment, XTR currency, LabeledPrice, provider_token, answerPreCheckoutQuery, telegram bot payment, how to accept payment telegram bot
 ---
 
 # sendInvoice
@@ -35,7 +35,7 @@ Use this method to send invoices. On success, the sent [Message](https://core.te
 
 <ApiParam name="provider_token" type="String" description="Payment provider token, obtained via [@BotFather](https://t.me/botfather). Pass an empty string for payments in [Telegram Stars](https://t.me/BotNews/90)." />
 
-<ApiParam name="currency" type="String" required description="Three-letter ISO 4217 currency code, see [more on currencies](https://core.telegram.org/bots/payments#supported-currencies). Pass “XTR” for payments in [Telegram Stars](https://t.me/BotNews/90)." />
+<ApiParam name="currency" type="String" required description="Three-letter ISO 4217 currency code, see [more on currencies](https://core.telegram.org/bots/payments#supported-currencies). Pass &quot;XTR&quot; for payments in [Telegram Stars](https://t.me/BotNews/90)." />
 
 <ApiParam name="prices" type="LabeledPrice[]" required description="Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.). Must contain exactly one item for payments in [Telegram Stars](https://t.me/BotNews/90)." />
 
@@ -90,16 +90,134 @@ On success, the [Message](/telegram/types/Message) object is returned.
 
 ## GramIO Usage
 
-<!-- TODO: Add TypeScript examples using GramIO -->
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Send a Telegram Stars invoice (no provider_token needed)
+bot.command("buy", (ctx) =>
+    ctx.sendInvoice({
+        title: "Premium Access",
+        description: "Unlock all premium features for 30 days",
+        payload: "premium_30d",
+        currency: "XTR",
+        prices: [{ label: "Premium (30 days)", amount: 100 }],
+    })
+);
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Send an invoice with fiat currency and tipping options
+bot.command("donate", (ctx) =>
+    ctx.sendInvoice({
+        title: "Support the project",
+        description: "Help us keep the bot running",
+        payload: `donation_${ctx.from?.id}`,
+        provider_token: "PROVIDER_TOKEN_FROM_BOTFATHER",
+        currency: "USD",
+        // Prices are in smallest units: 100 = $1.00
+        prices: [{ label: "Donation", amount: 500 }],
+        max_tip_amount: 1000,
+        suggested_tip_amounts: [100, 300, 500, 1000],
+    })
+);
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Handle pre-checkout: MUST answer within 10 seconds
+bot.on("pre_checkout_query", async (ctx) => {
+    // Validate the order (check stock, verify payload, etc.)
+    const isValid = ctx.payload.invoice_payload.startsWith("premium_");
+
+    if (isValid) {
+        await bot.api.answerPreCheckoutQuery({
+            pre_checkout_query_id: ctx.payload.id,
+            ok: true,
+        });
+    } else {
+        await bot.api.answerPreCheckoutQuery({
+            pre_checkout_query_id: ctx.payload.id,
+            ok: false,
+            error_message: "This product is no longer available.",
+        });
+    }
+});
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Handle successful payment
+bot.on("message", (ctx) => {
+    if (!ctx.payload.successful_payment) return;
+    const payment = ctx.payload.successful_payment;
+    // payment.telegram_payment_charge_id — save for refund support
+    // payment.invoice_payload — your bot-defined identifier
+    return ctx.send(`✅ Payment received! Order: ${payment.invoice_payload}`);
+});
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Direct API call — send invoice to a channel
+await bot.api.sendInvoice({
+    chat_id: "@mychannel",
+    title: "Channel Subscription",
+    description: "Support the channel with a Stars donation",
+    payload: "channel_sub",
+    currency: "XTR",
+    prices: [{ label: "Subscription", amount: 50 }],
+});
+```
 
 ## Errors
 
-<!-- TODO: Add common errors table -->
+| Code | Error | Cause |
+|------|-------|-------|
+| 400 | `Bad Request: chat not found` | `chat_id` is invalid or the bot has no access |
+| 400 | `Bad Request: CURRENCY_INVALID` | `currency` code is not in the [supported list](https://core.telegram.org/bots/payments#supported-currencies) |
+| 400 | `Bad Request: INVOICE_PAYLOAD_INVALID` | `payload` is empty or exceeds 128 bytes |
+| 400 | `Bad Request: prices must be non-empty` | `prices` array is empty — at least one `LabeledPrice` is required |
+| 400 | `Bad Request: XTR invoices must have exactly one price` | For `currency: "XTR"`, the `prices` array must contain exactly one item |
+| 400 | `Bad Request: provider_token is required` | Non-XTR currencies need a `provider_token` from BotFather |
+| 400 | `Bad Request: TITLE_INVALID` | `title` is empty or longer than 32 characters |
+| 400 | `Bad Request: DESCRIPTION_INVALID` | `description` is empty or longer than 255 characters |
+| 403 | `Forbidden: bot was blocked by the user` | User blocked the bot — catch and mark as inactive |
+| 429 | `Too Many Requests: retry after N` | Rate limit hit — check `retry_after`, use [auto-retry plugin](/plugins/official/auto-retry) |
+
+::: tip
+Use GramIO's [auto-retry plugin](/plugins/official/auto-retry) to handle `429` errors automatically.
+:::
 
 ## Tips & Gotchas
 
-<!-- TODO: Add tips and gotchas -->
+- **For Telegram Stars (`currency: "XTR"`), omit `provider_token`.** Pass an empty string `""` or simply omit it. Stars payments don't go through an external provider.
+- **`XTR` invoices must have exactly one price item.** The `prices` array must contain a single `LabeledPrice`. Multiple items cause a `400` error.
+- **Prices are in the smallest currency unit.** For USD, `amount: 100` = $1.00 (cents). For XTR (Stars), `amount: 50` = 50 Stars. Check the `exp` field in [currencies.json](https://core.telegram.org/bots/payments/currencies.json).
+- **You MUST answer `pre_checkout_query` within 10 seconds.** Failure to call `answerPreCheckoutQuery` in time causes the payment to fail on the user's side — always handle this event promptly.
+- **The `payload` is your order identifier — store it.** Use `payload` to link the payment to your internal order. It's returned in both `pre_checkout_query` and `successful_payment` events.
+- **`need_name`, `need_email`, etc. are silently ignored for XTR payments.** These data-collection flags only apply to fiat currency payments with a provider token.
+- **If `start_parameter` is empty, forwarded invoices remain payable.** Setting a `start_parameter` converts the Pay button in forwarded copies to a deep link, preventing others from paying the same forwarded invoice.
 
 ## See Also
 
-<!-- TODO: Add related methods and links -->
+- [answerPreCheckoutQuery](/telegram/methods/answerPreCheckoutQuery) — confirm or reject a payment before charging
+- [LabeledPrice](/telegram/types/LabeledPrice) — price item type used in `prices`
+- [Invoice](/telegram/types/Invoice) — the Invoice type in received messages
+- [SuccessfulPayment](/telegram/types/SuccessfulPayment) — payment confirmation message type
+- [Keyboards overview](/keyboards/overview) — how to build inline keyboards
+- [auto-retry plugin](/plugins/official/auto-retry) — automatic `429` handling

@@ -20,7 +20,7 @@ The background is a wallpaper in the JPEG format.
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the background, always “wallpaper”" defaultValue="wallpaper" />
+<ApiParam name="type" type="String" description="Type of the background, always &quot;wallpaper&quot;" defaultValue="wallpaper" />
 
 <ApiParam name="document" type="Document" required description="Document with the wallpaper" />
 

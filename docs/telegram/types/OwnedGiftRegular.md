@@ -20,7 +20,7 @@ Describes a regular gift owned by a user or a chat.
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the gift, always “regular”" defaultValue="regular" />
+<ApiParam name="type" type="String" description="Type of the gift, always &quot;regular&quot;" defaultValue="regular" />
 
 <ApiParam name="gift" type="Gift" required description="Information about the regular gift" />
 

@@ -28,7 +28,7 @@ This object represents an incoming inline query. When the user sends an empty qu
 
 <ApiParam name="offset" type="String" required description="Offset of the results to be returned, can be controlled by the bot" />
 
-<ApiParam name="chat_type" type="String" description="*Optional*. Type of the chat from which the inline query was sent. Can be either “sender” for a private chat with the inline query sender, “private”, “group”, “supergroup”, or “channel”. The chat type should be always known for requests sent from official clients and most third-party clients, unless the request was sent from a secret chat" :enumValues='["sender","private","group","supergroup","channel"]' />
+<ApiParam name="chat_type" type="String" description="*Optional*. Type of the chat from which the inline query was sent. Can be either &quot;sender&quot; for a private chat with the inline query sender, &quot;private&quot;, &quot;group&quot;, &quot;supergroup&quot;, or &quot;channel&quot;. The chat type should be always known for requests sent from official clients and most third-party clients, unless the request was sent from a secret chat" :enumValues='["sender","private","group","supergroup","channel"]' />
 
 <ApiParam name="location" type="Location" description="*Optional*. Sender location, only for bots that request user location" />
 

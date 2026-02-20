@@ -20,7 +20,7 @@ The background is taken directly from a built-in chat theme.
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the background, always “chat\_theme”" defaultValue="chat_theme" />
+<ApiParam name="type" type="String" description="Type of the background, always &quot;chat\_theme&quot;" defaultValue="chat_theme" />
 
 <ApiParam name="theme_name" type="String" required description="Name of the chat theme, which is usually an emoji" />
 

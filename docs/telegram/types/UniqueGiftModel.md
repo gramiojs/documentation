@@ -26,7 +26,7 @@ This object describes the model of a unique gift.
 
 <ApiParam name="rarity_per_mille" type="Integer" required description="The number of unique gifts that receive this model for every 1000 gift upgrades. Always 0 for crafted gifts." />
 
-<ApiParam name="rarity" type="String" description="*Optional*. Rarity of the model if it is a crafted model. Currently, can be “uncommon”, “rare”, “epic”, or “legendary”." :enumValues='["uncommon","rare","epic","legendary"]' />
+<ApiParam name="rarity" type="String" description="*Optional*. Rarity of the model if it is a crafted model. Currently, can be &quot;uncommon&quot;, &quot;rare&quot;, &quot;epic&quot;, or &quot;legendary&quot;." :enumValues='["uncommon","rare","epic","legendary"]' />
 
 <!-- GENERATED:END -->
 

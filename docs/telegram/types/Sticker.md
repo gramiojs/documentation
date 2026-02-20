@@ -24,7 +24,7 @@ This object represents a sticker.
 
 <ApiParam name="file_unique_id" type="String" required description="Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file." />
 
-<ApiParam name="type" type="String" required description="Type of the sticker, currently one of “regular”, “mask”, “custom\_emoji”. The type of the sticker is independent from its format, which is determined by the fields *is\_animated* and *is\_video*." :enumValues='["regular","mask","custom_emoji"]' />
+<ApiParam name="type" type="String" required description="Type of the sticker, currently one of &quot;regular&quot;, &quot;mask&quot;, &quot;custom\_emoji&quot;. The type of the sticker is independent from its format, which is determined by the fields *is\_animated* and *is\_video*." :enumValues='["regular","mask","custom_emoji"]' />
 
 <ApiParam name="width" type="Integer" required description="Sticker width" />
 

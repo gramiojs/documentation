@@ -30,7 +30,7 @@ Use this method to create a new sticker set owned by a user. The bot will be abl
 
 <ApiParam name="stickers" type="InputSticker[]" required description="A JSON-serialized list of 1-50 initial stickers to be added to the sticker set" />
 
-<ApiParam name="sticker_type" type="String" description="Type of stickers in the set, pass “regular”, “mask”, or “custom\_emoji”. By default, a regular sticker set is created." :enumValues='["mask","custom_emoji"]' />
+<ApiParam name="sticker_type" type="String" description="Type of stickers in the set, pass &quot;regular&quot;, &quot;mask&quot;, or &quot;custom\_emoji&quot;. By default, a regular sticker set is created." :enumValues='["mask","custom_emoji"]' />
 
 <ApiParam name="needs_repainting" type="Boolean" description="Pass *True* if stickers in the sticker set must be repainted to the color of text when used in messages, the accent color if used as emoji status, white on chat photos, or another appropriate color based on context; for custom emoji sticker sets only" />
 

@@ -37,7 +37,7 @@ Use this method to send a native poll. On success, the sent [Message](https://co
 
 <ApiParam name="is_anonymous" type="Boolean" description="*True*, if the poll needs to be anonymous, defaults to *True*" />
 
-<ApiParam name="type" type="String" description="Poll type, “quiz” or “regular”, defaults to “regular”" :enumValues='["quiz","regular"]' />
+<ApiParam name="type" type="String" description="Poll type, &quot;quiz&quot; or &quot;regular&quot;, defaults to &quot;regular&quot;" :enumValues='["quiz","regular"]' />
 
 <ApiParam name="allows_multiple_answers" type="Boolean" description="*True*, if the poll allows multiple answers, ignored for polls in quiz mode, defaults to *False*" />
 

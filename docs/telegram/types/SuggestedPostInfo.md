@@ -20,7 +20,7 @@ Contains information about a suggested post.
 
 ## Fields
 
-<ApiParam name="state" type="String" required description="State of the suggested post. Currently, it can be one of “pending”, “approved”, “declined”." :enumValues='["pending","approved","declined"]' />
+<ApiParam name="state" type="String" required description="State of the suggested post. Currently, it can be one of &quot;pending&quot;, &quot;approved&quot;, &quot;declined&quot;." :enumValues='["pending","approved","declined"]' />
 
 <ApiParam name="price" type="SuggestedPostPrice" description="*Optional*. Proposed price of the post. If the field is omitted, then the post is unpaid." />
 

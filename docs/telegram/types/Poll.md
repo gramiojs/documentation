@@ -34,7 +34,7 @@ This object contains information about a poll.
 
 <ApiParam name="is_anonymous" type="Boolean" required description="*True*, if the poll is anonymous" />
 
-<ApiParam name="type" type="String" required description="Poll type, currently can be “regular” or “quiz”" :enumValues='["regular","quiz"]' />
+<ApiParam name="type" type="String" required description="Poll type, currently can be &quot;regular&quot; or &quot;quiz&quot;" :enumValues='["regular","quiz"]' />
 
 <ApiParam name="allows_multiple_answers" type="Boolean" required description="*True*, if the poll allows multiple answers" />
 

@@ -24,7 +24,7 @@ This object represents a sticker set.
 
 <ApiParam name="title" type="String" required description="Sticker set title" />
 
-<ApiParam name="sticker_type" type="String" required description="Type of stickers in the set, currently one of “regular”, “mask”, “custom\_emoji”" :enumValues='["regular","mask","custom_emoji"]' />
+<ApiParam name="sticker_type" type="String" required description="Type of stickers in the set, currently one of &quot;regular&quot;, &quot;mask&quot;, &quot;custom\_emoji&quot;" :enumValues='["regular","mask","custom_emoji"]' />
 
 <ApiParam name="stickers" type="Sticker[]" required description="List of all set stickers" />
 

@@ -34,7 +34,7 @@ Represents a link to a video animation (H.264/MPEG-4 AVC video without sound). B
 
 <ApiParam name="thumbnail_url" type="String" required description="URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result" />
 
-<ApiParam name="thumbnail_mime_type" type="String" description="*Optional*. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”" defaultValue="image/jpeg" :enumValues='["image/jpeg","image/gif","video/mp4"]' />
+<ApiParam name="thumbnail_mime_type" type="String" description="*Optional*. MIME type of the thumbnail, must be one of &quot;image/jpeg&quot;, &quot;image/gif&quot;, or &quot;video/mp4&quot;. Defaults to &quot;image/jpeg&quot;" defaultValue="image/jpeg" :enumValues='["image/jpeg","image/gif","video/mp4"]' />
 
 <ApiParam name="title" type="String" description="*Optional*. Title for the result" />
 

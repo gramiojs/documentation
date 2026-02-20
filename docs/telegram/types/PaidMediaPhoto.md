@@ -20,7 +20,7 @@ The paid media is a photo.
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the paid media, always “photo”" defaultValue="photo" />
+<ApiParam name="type" type="String" description="Type of the paid media, always &quot;photo&quot;" defaultValue="photo" />
 
 <ApiParam name="photo" type="PhotoSize[]" required description="The photo" />
 

@@ -20,7 +20,7 @@ The boost was obtained by the creation of a Telegram Premium or a Telegram Star 
 
 ## Fields
 
-<ApiParam name="source" type="String" description="Source of the boost, always “giveaway”" defaultValue="giveaway" />
+<ApiParam name="source" type="String" description="Source of the boost, always &quot;giveaway&quot;" defaultValue="giveaway" />
 
 <ApiParam name="giveaway_message_id" type="Integer" required description="Identifier of a message in the chat with the giveaway; the message could have been deleted already. May be 0 if the message isn't sent yet." />
 

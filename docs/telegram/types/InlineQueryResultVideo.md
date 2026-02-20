@@ -26,7 +26,7 @@ Represents a link to a page containing an embedded video player or a video file.
 
 <ApiParam name="video_url" type="String" required description="A valid URL for the embedded video player or video file" />
 
-<ApiParam name="mime_type" type="String" required description="MIME type of the content of the video URL, “text/html” or “video/mp4”" :enumValues='["text/html","video/mp4"]' />
+<ApiParam name="mime_type" type="String" required description="MIME type of the content of the video URL, &quot;text/html&quot; or &quot;video/mp4&quot;" :enumValues='["text/html","video/mp4"]' />
 
 <ApiParam name="thumbnail_url" type="String" required description="URL of the thumbnail (JPEG only) for the video" />
 

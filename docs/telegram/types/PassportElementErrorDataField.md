@@ -22,7 +22,7 @@ Represents an issue in one of the data fields that was provided by the user. The
 
 <ApiParam name="source" type="String" description="Error source, must be *data*" defaultValue="data" />
 
-<ApiParam name="type" type="String" required description="The section of the user's Telegram Passport which has the error, one of “personal\_details”, “passport”, “driver\_license”, “identity\_card”, “internal\_passport”, “address”" :enumValues='["personal_details","passport","driver_license","identity_card","internal_passport","address"]' />
+<ApiParam name="type" type="String" required description="The section of the user's Telegram Passport which has the error, one of &quot;personal\_details&quot;, &quot;passport&quot;, &quot;driver\_license&quot;, &quot;identity\_card&quot;, &quot;internal\_passport&quot;, &quot;address&quot;" :enumValues='["personal_details","passport","driver_license","identity_card","internal_passport","address"]' />
 
 <ApiParam name="field_name" type="String" required description="Name of the data field which has the error" />
 

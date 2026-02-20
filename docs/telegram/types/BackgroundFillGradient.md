@@ -20,7 +20,7 @@ The background is a gradient fill.
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the background fill, always “gradient”" defaultValue="gradient" />
+<ApiParam name="type" type="String" description="Type of the background fill, always &quot;gradient&quot;" defaultValue="gradient" />
 
 <ApiParam name="top_color" type="Integer" required description="Top color of the gradient in the RGB24 format" />
 

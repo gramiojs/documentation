@@ -20,7 +20,7 @@ The paid media isn't available before the payment.
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the paid media, always “preview”" defaultValue="preview" />
+<ApiParam name="type" type="String" description="Type of the paid media, always &quot;preview&quot;" defaultValue="preview" />
 
 <ApiParam name="width" type="Integer" description="*Optional*. Media width as defined by the sender" />
 

@@ -22,9 +22,9 @@ Describes a service message about a unique gift that was sent or received.
 
 <ApiParam name="gift" type="UniqueGift" required description="Information about the gift" />
 
-<ApiParam name="origin" type="String" required description="Origin of the gift. Currently, either “upgrade” for gifts upgraded from regular gifts, “transfer” for gifts transferred from other users or channels, “resale” for gifts bought from other users, “gifted\_upgrade” for upgrades purchased after the gift was sent, or “offer” for gifts bought or sold through gift purchase offers" :enumValues='["upgrade","transfer","resale","gifted_upgrade","offer"]' />
+<ApiParam name="origin" type="String" required description="Origin of the gift. Currently, either &quot;upgrade&quot; for gifts upgraded from regular gifts, &quot;transfer&quot; for gifts transferred from other users or channels, &quot;resale&quot; for gifts bought from other users, &quot;gifted\_upgrade&quot; for upgrades purchased after the gift was sent, or &quot;offer&quot; for gifts bought or sold through gift purchase offers" :enumValues='["upgrade","transfer","resale","gifted_upgrade","offer"]' />
 
-<ApiParam name="last_resale_currency" type="String" description="*Optional*. For gifts bought from other users, the currency in which the payment for the gift was done. Currently, one of “XTR” for Telegram Stars or “TON” for toncoins." :enumValues='["XTR","TON"]' />
+<ApiParam name="last_resale_currency" type="String" description="*Optional*. For gifts bought from other users, the currency in which the payment for the gift was done. Currently, one of &quot;XTR&quot; for Telegram Stars or &quot;TON&quot; for toncoins." :enumValues='["XTR","TON"]' />
 
 <ApiParam name="last_resale_amount" type="Integer" description="*Optional*. For gifts bought from other users, the price paid for the gift in either Telegram Stars or nanotoncoins" />
 

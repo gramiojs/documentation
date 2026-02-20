@@ -22,7 +22,7 @@ Describes a service message about a successful payment for a suggested post.
 
 <ApiParam name="suggested_post_message" type="Message" description="*Optional*. Message containing the suggested post. Note that the [Message](https://core.telegram.org/bots/api#message) object in this field will not contain the *reply\_to\_message* field even if it itself is a reply." />
 
-<ApiParam name="currency" type="String" required description="Currency in which the payment was made. Currently, one of “XTR” for Telegram Stars or “TON” for toncoins" :enumValues='["XTR","TON"]' />
+<ApiParam name="currency" type="String" required description="Currency in which the payment was made. Currently, one of &quot;XTR&quot; for Telegram Stars or &quot;TON&quot; for toncoins" :enumValues='["XTR","TON"]' />
 
 <ApiParam name="amount" type="Integer" description="*Optional*. The amount of the currency that was received by the channel in nanotoncoins; for payments in toncoins only" />
 

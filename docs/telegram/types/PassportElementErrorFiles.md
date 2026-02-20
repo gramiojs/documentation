@@ -22,7 +22,7 @@ Represents an issue with a list of scans. The error is considered resolved when 
 
 <ApiParam name="source" type="String" description="Error source, must be *files*" defaultValue="files" />
 
-<ApiParam name="type" type="String" required description="The section of the user's Telegram Passport which has the issue, one of “utility\_bill”, “bank\_statement”, “rental\_agreement”, “passport\_registration”, “temporary\_registration”" :enumValues='["utility_bill","bank_statement","rental_agreement","passport_registration","temporary_registration"]' />
+<ApiParam name="type" type="String" required description="The section of the user's Telegram Passport which has the issue, one of &quot;utility\_bill&quot;, &quot;bank\_statement&quot;, &quot;rental\_agreement&quot;, &quot;passport\_registration&quot;, &quot;temporary\_registration&quot;" :enumValues='["utility_bill","bank_statement","rental_agreement","passport_registration","temporary_registration"]' />
 
 <ApiParam name="file_hashes" type="String[]" required description="List of base64-encoded file hashes" />
 

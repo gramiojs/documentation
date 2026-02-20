@@ -20,7 +20,7 @@ The boost was obtained by the creation of Telegram Premium gift codes to boost a
 
 ## Fields
 
-<ApiParam name="source" type="String" description="Source of the boost, always “gift\_code”" defaultValue="gift_code" />
+<ApiParam name="source" type="String" description="Source of the boost, always &quot;gift\_code&quot;" defaultValue="gift_code" />
 
 <ApiParam name="user" type="User" required description="User for which the gift code was created" />
 

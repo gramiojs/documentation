@@ -20,7 +20,7 @@ Describes a story area pointing to an HTTP or tg:// link. Currently, a story can
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the area, always “link”" defaultValue="link" />
+<ApiParam name="type" type="String" description="Type of the area, always &quot;link&quot;" defaultValue="link" />
 
 <ApiParam name="url" type="String" required description="HTTP or tg:// URL to be opened when the area is clicked" />
 

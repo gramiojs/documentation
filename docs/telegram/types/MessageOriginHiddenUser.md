@@ -20,7 +20,7 @@ The message was originally sent by an unknown user.
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the message origin, always “hidden\_user”" defaultValue="hidden_user" />
+<ApiParam name="type" type="String" description="Type of the message origin, always &quot;hidden\_user&quot;" defaultValue="hidden_user" />
 
 <ApiParam name="date" type="Integer" required description="Date the message was sent originally in Unix time" />
 

@@ -20,7 +20,7 @@ Describes a story area pointing to a suggested reaction. Currently, a story can 
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the area, always “suggested\_reaction”" defaultValue="suggested_reaction" />
+<ApiParam name="type" type="String" description="Type of the area, always &quot;suggested\_reaction&quot;" defaultValue="suggested_reaction" />
 
 <ApiParam name="reaction_type" type="ReactionType" required description="Type of the reaction" />
 

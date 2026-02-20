@@ -26,7 +26,7 @@ Use this method to upload a file with a sticker for later use in the [createNewS
 
 <ApiParam name="sticker" type="InputFile" required description="A file with the sticker in .WEBP, .PNG, .TGS, or .WEBM format. See [](https://core.telegram.org/stickers)[https://core.telegram.org/stickers](https://core.telegram.org/stickers) for technical requirements. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)" />
 
-<ApiParam name="sticker_format" type="String" required description="Format of the sticker, must be one of “static”, “animated”, “video”" :enumValues='["static","animated","video"]' />
+<ApiParam name="sticker_format" type="String" required description="Format of the sticker, must be one of &quot;static&quot;, &quot;animated&quot;, &quot;video&quot;" :enumValues='["static","animated","video"]' />
 
 ## Returns
 

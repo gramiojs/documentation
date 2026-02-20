@@ -22,7 +22,7 @@ This object represents a chat.
 
 <ApiParam name="id" type="Integer" required description="Unique identifier for this chat. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier." />
 
-<ApiParam name="type" type="String" required description="Type of the chat, can be either “private”, “group”, “supergroup” or “channel”" :enumValues='["private","group","supergroup","channel"]' />
+<ApiParam name="type" type="String" required description="Type of the chat, can be either &quot;private&quot;, &quot;group&quot;, &quot;supergroup&quot; or &quot;channel&quot;" :enumValues='["private","group","supergroup","channel"]' />
 
 <ApiParam name="title" type="String" description="*Optional*. Title, for supergroups, channels and group chats" />
 

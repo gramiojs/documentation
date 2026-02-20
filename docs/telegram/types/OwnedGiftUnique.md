@@ -20,7 +20,7 @@ Describes a unique gift received and owned by a user or a chat.
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the gift, always “unique”" defaultValue="unique" />
+<ApiParam name="type" type="String" description="Type of the gift, always &quot;unique&quot;" defaultValue="unique" />
 
 <ApiParam name="gift" type="UniqueGift" required description="Information about the unique gift" />
 

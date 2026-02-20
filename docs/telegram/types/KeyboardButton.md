@@ -24,11 +24,11 @@ This object represents one button of the reply keyboard. At most one of the fiel
 
 <ApiParam name="icon_custom_emoji_id" type="String" description="*Optional*. Unique identifier of the custom emoji shown before the text of the button. Can only be used by bots that purchased additional usernames on [Fragment](https://fragment.com) or in the messages directly sent by the bot to private, group and supergroup chats if the owner of the bot has a Telegram Premium subscription." />
 
-<ApiParam name="style" type="String" description="*Optional*. Style of the button. Must be one of “danger” (red), “success” (green) or “primary” (blue). If omitted, then an app-specific style is used." :enumValues='["danger","success","primary"]' />
+<ApiParam name="style" type="String" description="*Optional*. Style of the button. Must be one of &quot;danger&quot; (red), &quot;success&quot; (green) or &quot;primary&quot; (blue). If omitted, then an app-specific style is used." :enumValues='["danger","success","primary"]' />
 
-<ApiParam name="request_users" type="KeyboardButtonRequestUsers" description="*Optional*. If specified, pressing the button will open a list of suitable users. Identifiers of selected users will be sent to the bot in a “users\_shared” service message. Available in private chats only." />
+<ApiParam name="request_users" type="KeyboardButtonRequestUsers" description="*Optional*. If specified, pressing the button will open a list of suitable users. Identifiers of selected users will be sent to the bot in a &quot;users\_shared&quot; service message. Available in private chats only." />
 
-<ApiParam name="request_chat" type="KeyboardButtonRequestChat" description="*Optional*. If specified, pressing the button will open a list of suitable chats. Tapping on a chat will send its identifier to the bot in a “chat\_shared” service message. Available in private chats only." />
+<ApiParam name="request_chat" type="KeyboardButtonRequestChat" description="*Optional*. If specified, pressing the button will open a list of suitable chats. Tapping on a chat will send its identifier to the bot in a &quot;chat\_shared&quot; service message. Available in private chats only." />
 
 <ApiParam name="request_contact" type="Boolean" description="*Optional*. If *True*, the user's phone number will be sent as a contact when the button is pressed. Available in private chats only." />
 
@@ -36,7 +36,7 @@ This object represents one button of the reply keyboard. At most one of the fiel
 
 <ApiParam name="request_poll" type="KeyboardButtonPollType" description="*Optional*. If specified, the user will be asked to create a poll and send it to the bot when the button is pressed. Available in private chats only." />
 
-<ApiParam name="web_app" type="WebAppInfo" description="*Optional*. If specified, the described [Web App](https://core.telegram.org/bots/webapps) will be launched when the button is pressed. The Web App will be able to send a “web\_app\_data” service message. Available in private chats only." />
+<ApiParam name="web_app" type="WebAppInfo" description="*Optional*. If specified, the described [Web App](https://core.telegram.org/bots/webapps) will be launched when the button is pressed. The Web App will be able to send a &quot;web\_app\_data&quot; service message. Available in private chats only." />
 
 <!-- GENERATED:END -->
 

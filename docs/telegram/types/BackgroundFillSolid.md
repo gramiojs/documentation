@@ -20,7 +20,7 @@ The background is filled using the selected color.
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the background fill, always “solid”" defaultValue="solid" />
+<ApiParam name="type" type="String" description="Type of the background fill, always &quot;solid&quot;" defaultValue="solid" />
 
 <ApiParam name="color" type="Integer" required description="The color of the background fill in the RGB24 format" />
 

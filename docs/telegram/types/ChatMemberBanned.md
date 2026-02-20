@@ -20,7 +20,7 @@ Represents a [chat member](https://core.telegram.org/bots/api#chatmember) that w
 
 ## Fields
 
-<ApiParam name="status" type="String" description="The member's status in the chat, always “kicked”" defaultValue="kicked" />
+<ApiParam name="status" type="String" description="The member's status in the chat, always &quot;kicked&quot;" defaultValue="kicked" />
 
 <ApiParam name="user" type="User" required description="Information about the user" />
 

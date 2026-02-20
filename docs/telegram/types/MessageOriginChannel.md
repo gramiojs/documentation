@@ -20,7 +20,7 @@ The message was originally sent to a channel chat.
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the message origin, always “channel”" defaultValue="channel" />
+<ApiParam name="type" type="String" description="Type of the message origin, always &quot;channel&quot;" defaultValue="channel" />
 
 <ApiParam name="date" type="Integer" required description="Date the message was sent originally in Unix time" />
 

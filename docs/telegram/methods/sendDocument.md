@@ -3,10 +3,10 @@ title: sendDocument — Telegram Bot API | GramIO
 head:
   - - meta
     - name: description
-      content: sendDocument Telegram Bot API method with GramIO TypeScript examples. Complete parameter reference and usage guide.
+      content: Send documents and files using GramIO with TypeScript. Complete sendDocument reference with file_id caching, caption formatting, thumbnail, disable_content_type_detection, and error handling.
   - - meta
     - name: keywords
-      content: sendDocument, telegram bot api, gramio sendDocument, sendDocument typescript, sendDocument example
+      content: sendDocument, telegram bot api, send document telegram bot, gramio sendDocument, sendDocument typescript, sendDocument example, telegram send file, telegram bot send document, document file_id, caption entities, thumbnail, disable_content_type_detection, how to send file telegram bot
 ---
 
 # sendDocument
@@ -32,7 +32,7 @@ Use this method to send general files. On success, the sent [Message](https://co
 
 <ApiParam name="document" type="InputFile | String" required description="File to send. Pass a file\_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)" />
 
-<ApiParam name="thumbnail" type="InputFile | String" description="Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file\_attach\_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file\_attach\_name&gt;. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)" />
+<ApiParam name="thumbnail" type="InputFile | String" description="Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass &quot;attach://&lt;file\_attach\_name&gt;&quot; if the thumbnail was uploaded using multipart/form-data under &lt;file\_attach\_name&gt;. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)" />
 
 <ApiParam name="caption" type="String" description="Document caption (may also be used when resending documents by *file\_id*), 0-1024 characters after entities parsing" :minLen="0" :maxLen="1024" />
 
@@ -63,16 +63,103 @@ On success, the [Message](/telegram/types/Message) object is returned.
 
 ## GramIO Usage
 
-<!-- TODO: Add TypeScript examples using GramIO -->
+```ts twoslash
+import { Bot, MediaUpload, format, bold, italic } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Send a document from disk
+bot.command("report", async (ctx) => {
+    const doc = await MediaUpload.path("./report.pdf");
+    return ctx.sendDocument(doc, { caption: "Monthly report" });
+});
+```
+
+```ts twoslash
+import { Bot, MediaUpload, format, bold } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Send with formatted caption using format helper
+bot.command("contract", async (ctx) => {
+    const doc = await MediaUpload.path("./contract.pdf");
+    return ctx.sendDocument(doc, {
+        caption: format`${bold("Contract")} — please review and sign`,
+    });
+});
+```
+
+```ts twoslash
+import { Bot, MediaUpload } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Resend a cached document by file_id (fastest, no re-upload)
+const fileId = "BQACAgIAAxkBAAIB..."; // stored from a previous send
+bot.command("download", (ctx) => ctx.sendDocument(fileId));
+```
+
+```ts twoslash
+import { Bot, MediaUpload } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Upload a document via URL and disable auto content-type detection
+bot.command("rawfile", async (ctx) => {
+    return ctx.replyWithDocument(
+        await MediaUpload.url("https://example.com/data.bin"),
+        { disable_content_type_detection: true }
+    );
+});
+```
+
+```ts twoslash
+import { Bot, MediaUpload } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Direct API call with a custom thumbnail
+await bot.api.sendDocument({
+    chat_id: 123456789,
+    document: await MediaUpload.path("./archive.zip"),
+    thumbnail: await MediaUpload.path("./preview.jpg"),
+    caption: "Archive with preview",
+});
+```
 
 ## Errors
 
-<!-- TODO: Add common errors table -->
+| Code | Error | Cause |
+|------|-------|-------|
+| 400 | `Bad Request: chat not found` | `chat_id` is invalid or the bot has no access to that chat |
+| 400 | `Bad Request: wrong file identifier/HTTP URL specified` | `document` is a malformed `file_id` or the HTTP URL is inaccessible |
+| 400 | `Bad Request: failed to get HTTP URL content` | Telegram could not download the file from the provided URL — check that it's publicly accessible |
+| 400 | `Bad Request: DOCUMENT_INVALID` | The uploaded file could not be processed — check file integrity |
+| 403 | `Forbidden: bot was blocked by the user` | User blocked the bot — catch and mark as inactive |
+| 403 | `Forbidden: not enough rights to send documents` | Bot lacks `can_send_documents` permission in the restricted group |
+| 429 | `Too Many Requests: retry after N` | Rate limit hit — check `retry_after`, use [auto-retry plugin](/plugins/official/auto-retry) |
+
+::: tip
+Use GramIO's [auto-retry plugin](/plugins/official/auto-retry) to handle `429` errors automatically.
+:::
 
 ## Tips & Gotchas
 
-<!-- TODO: Add tips and gotchas -->
+- **50 MB upload limit.** Files larger than 50 MB cannot be sent via the standard Bot API. For larger files, host a [local Bot API server](https://core.telegram.org/bots/api#using-a-local-bot-api-server) which allows up to 2 GB.
+- **Cache `file_id` after the first upload.** Once a document is uploaded, save the `file_id` from the returned `Message.document.file_id`. Subsequent sends using `file_id` are instant — no re-upload — and bypass the size limit. See [media-cache plugin](/plugins/official/media-cache) for automatic caching.
+- **`caption` + `parse_mode` vs `caption_entities`.** They are mutually exclusive. GramIO's `format` helper produces `caption_entities`, so never set `parse_mode` alongside it.
+- **`disable_content_type_detection` only affects new uploads.** When resending by `file_id`, this flag has no effect since the file is already stored on Telegram servers.
+- **Thumbnail constraints.** The `thumbnail` must be JPEG, under 200 kB, and at most 320×320 px. It must also be a fresh upload (no reuse of existing thumbnails by `file_id`).
+- **`caption` limit is 1024 characters.** Longer captions will cause a `400` error. If the document description is very long, send it as a separate text message after the document.
 
 ## See Also
 
-<!-- TODO: Add related methods and links -->
+- [sendPhoto](/telegram/methods/sendPhoto) — send images
+- [sendAudio](/telegram/methods/sendAudio) — send audio/music
+- [sendVideo](/telegram/methods/sendVideo) — send video
+- [sendMediaGroup](/telegram/methods/sendMediaGroup) — send multiple files in one message
+- [Document](/telegram/types/Document) — the Document type returned in the message
+- [Files & MediaUpload](/files/media-upload) — how to upload files in GramIO
+- [Formatting](/formatting) — how to format captions with `format` and entities
+- [media-cache plugin](/plugins/official/media-cache) — cache `file_id` values automatically
+- [auto-retry plugin](/plugins/official/auto-retry) — automatic `429` handling

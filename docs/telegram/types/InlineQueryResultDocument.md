@@ -34,7 +34,7 @@ Represents a link to a file. By default, this file will be sent by the user with
 
 <ApiParam name="document_url" type="String" required description="A valid URL for the file" />
 
-<ApiParam name="mime_type" type="String" required description="MIME type of the content of the file, either “application/pdf” or “application/zip”" :enumValues='["application/pdf","application/zip"]' />
+<ApiParam name="mime_type" type="String" required description="MIME type of the content of the file, either &quot;application/pdf&quot; or &quot;application/zip&quot;" :enumValues='["application/pdf","application/zip"]' />
 
 <ApiParam name="description" type="String" description="*Optional*. Short description of the result" />
 

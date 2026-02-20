@@ -20,7 +20,7 @@ Represents an invite link for a chat.
 
 ## Fields
 
-<ApiParam name="invite_link" type="String" required description="The invite link. If the link was created by another chat administrator, then the second part of the link will be replaced with “…”." />
+<ApiParam name="invite_link" type="String" required description="The invite link. If the link was created by another chat administrator, then the second part of the link will be replaced with &quot;…&quot;." />
 
 <ApiParam name="creator" type="User" required description="Creator of the link" />
 

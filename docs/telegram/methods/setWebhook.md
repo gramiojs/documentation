@@ -36,7 +36,7 @@ If you'd like to make sure that the webhook was set by you, you can specify secr
 
 <ApiParam name="drop_pending_updates" type="Boolean" description="Pass *True* to drop all pending updates" />
 
-<ApiParam name="secret_token" type="String" description="A secret token to be sent in a header “X-Telegram-Bot-Api-Secret-Token” in every webhook request, 1-256 characters. Only characters `A-Z`, `a-z`, `0-9`, `_` and `-` are allowed. The header is useful to ensure that the request comes from a webhook set by you." :minLen="1" :maxLen="256" />
+<ApiParam name="secret_token" type="String" description="A secret token to be sent in a header &quot;X-Telegram-Bot-Api-Secret-Token&quot; in every webhook request, 1-256 characters. Only characters `A-Z`, `a-z`, `0-9`, `_` and `-` are allowed. The header is useful to ensure that the request comes from a webhook set by you." :minLen="1" :maxLen="256" />
 
 ## Returns
 
