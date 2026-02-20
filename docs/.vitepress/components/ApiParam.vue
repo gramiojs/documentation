@@ -9,9 +9,19 @@ const props = defineProps<{
   description: string;
   required?: boolean;
   defaultValue?: string | number;
+  constValue?: string;
   min?: number | string;
   max?: number | string;
+  minLen?: number;
+  maxLen?: number;
+  enumValues?: (string | number)[];
 }>();
+
+const hasConstraints =
+  props.min !== undefined ||
+  props.max !== undefined ||
+  props.minLen !== undefined ||
+  props.maxLen !== undefined;
 
 interface TypeSegment {
   label: string;
@@ -72,16 +82,25 @@ function renderMd(text: string): string {
           >{{ seg.label }}</span>
         </template>
       </span>
+      <span class="api-param-const" v-if="constValue !== undefined">
+        = <code>{{ constValue }}</code>
+      </span>
       <span class="api-param-badge" :class="required ? 'badge-required' : 'badge-optional'">
         {{ required ? "Required" : "Optional" }}
       </span>
       <span class="api-param-default" v-if="defaultValue !== undefined">
         Default: <code>{{ defaultValue }}</code>
       </span>
-      <span class="api-param-constraints" v-if="min !== undefined || max !== undefined">
+      <span class="api-param-constraints" v-if="hasConstraints">
         <span v-if="min !== undefined">min {{ min }}</span>
         <span v-if="max !== undefined">max {{ max }}</span>
+        <span v-if="minLen !== undefined">minLen {{ minLen }}</span>
+        <span v-if="maxLen !== undefined">maxLen {{ maxLen }}</span>
       </span>
+    </div>
+    <div class="api-param-enum" v-if="enumValues && enumValues.length > 0">
+      <span class="api-param-enum-label">Values:</span>
+      <code v-for="val in enumValues" :key="String(val)" class="api-param-enum-value">{{ val }}</code>
     </div>
     <div class="api-param-desc" v-html="renderMd(description)" />
   </div>

@@ -13,7 +13,17 @@
  */
 
 import { getCustomSchema } from "@gramio/schema-parser";
-import type { Field } from "@gramio/schema-parser";
+import type {
+	Field,
+	FieldArray,
+	FieldBoolean,
+	FieldFloat,
+	FieldInteger,
+	FieldOneOf,
+	FieldReference,
+	FieldString,
+	Method,
+} from "@gramio/schema-parser";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
@@ -32,7 +42,18 @@ mkdirSync(TYPES_DIR, { recursive: true });
 
 // ── Type utilities ────────────────────────────────────────────────────────────
 
-type FieldNoKey = Omit<Field, "key">;
+/**
+ * Distribute Omit<_, "key"> over the union so TypeScript keeps the
+ * discriminated-union narrowing inside switch/if on `.type`.
+ */
+type FieldNoKey =
+	| Omit<FieldInteger, "key">
+	| Omit<FieldFloat, "key">
+	| Omit<FieldString, "key">
+	| Omit<FieldBoolean, "key">
+	| Omit<FieldArray, "key">
+	| Omit<FieldReference, "key">
+	| Omit<FieldOneOf, "key">;
 
 /** Converts a schema field type to the display string used in <ApiParam type="..."> */
 function typeStr(f: FieldNoKey): string {
@@ -44,6 +65,8 @@ function typeStr(f: FieldNoKey): string {
 		case "float":
 			return "Float";
 		case "boolean":
+			// const: true → "True", const: false → "False" (literal types)
+			if (f.const !== undefined) return f.const ? "True" : "False";
 			return "Boolean";
 		case "reference":
 			return f.reference.name;
@@ -94,20 +117,21 @@ function toApiParam(field: Field): string {
 	if (field.required) attrs.push("required");
 	if (field.description) attrs.push(`description="${escAttr(field.description)}"`);
 
-	// Integer/float range constraints
-	if (
-		(field.type === "integer" || field.type === "float") &&
-		"min" in field &&
-		field.min !== undefined
-	) {
-		attrs.push(`:min="${field.min}"`);
+	if (field.type === "integer" || field.type === "float") {
+		if (field.min !== undefined) attrs.push(`:min="${field.min}"`);
+		if (field.max !== undefined) attrs.push(`:max="${field.max}"`);
+		if (field.default !== undefined) attrs.push(`:defaultValue="${field.default}"`);
+		if (field.enum && field.enum.length > 0)
+			attrs.push(`:enumValues='${JSON.stringify(field.enum)}'`);
 	}
-	if (
-		(field.type === "integer" || field.type === "float") &&
-		"max" in field &&
-		field.max !== undefined
-	) {
-		attrs.push(`:max="${field.max}"`);
+
+	if (field.type === "string") {
+		if (field.minLen !== undefined) attrs.push(`:minLen="${field.minLen}"`);
+		if (field.maxLen !== undefined) attrs.push(`:maxLen="${field.maxLen}"`);
+		if (field.default !== undefined) attrs.push(`defaultValue="${escAttr(field.default)}"`);
+		if (field.const !== undefined) attrs.push(`constValue="${escAttr(field.const)}"`);
+		if (field.enum && field.enum.length > 0)
+			attrs.push(`:enumValues='${JSON.stringify(field.enum)}'`);
 	}
 
 	return `<ApiParam ${attrs.join(" ")} />`;
@@ -126,12 +150,9 @@ function returnBadge(f: FieldNoKey): string {
 				return `<a href="/telegram/types/${n}">${n}[]</a>`;
 			}
 			return typeStr(f);
-		case "one_of": {
-			// Show the first reference type as the primary link
-			const ref = f.variants.find((v) => v.type === "reference");
-			if (ref) return returnBadge(ref);
-			return typeStr(f);
-		}
+		case "one_of":
+			// Render all variants with links (e.g. "Message | True")
+			return f.variants.map(returnBadge).join(" | ");
 		case "boolean":
 			return "True";
 		default:
@@ -162,22 +183,22 @@ function returnDesc(f: FieldNoKey): string {
 const GEN_START = "<!-- GENERATED:START -->";
 const GEN_END = "<!-- GENERATED:END -->";
 
-function buildMethodBlock(method: {
-	name: string;
-	anchor: string;
-	description?: string;
-	parameters: Field[];
-	returns: FieldNoKey;
-}): string {
+function buildMethodBlock(method: Method): string {
+	// The library types Method.returns as Omit<Field,"key"> (non-distributed),
+	// cast to our distributed FieldNoKey so switch narrowing works inside helpers.
+	const returns = method.returns as FieldNoKey;
 	const officialUrl = `https://core.telegram.org/bots/api${method.anchor}`;
 	const params = method.parameters.map(toApiParam).join("\n\n");
 	const paramsSection =
 		method.parameters.length > 0 ? `## Parameters\n\n${params}\n\n` : "";
 	const description = method.description ? fixTelegramLinks(method.description) : "";
+	const multipartBadge = method.hasMultipart
+		? `\n  <span class="api-badge multipart">📎 Accepts files</span>`
+		: "";
 
 	return `${GEN_START}
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: ${returnBadge(method.returns)}</span>
+  <span class="api-badge returns">Returns: ${returnBadge(returns)}</span>${multipartBadge}
   <a class="api-badge official" href="${officialUrl}" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -185,7 +206,7 @@ ${description}
 
 ${paramsSection}## Returns
 
-${returnDesc(method.returns)}
+${returnDesc(returns)}
 ${GEN_END}`;
 }
 
