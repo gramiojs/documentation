@@ -67,7 +67,7 @@ await bot.api.giftPremiumSubscription({
   month_count: 12,
   star_count: 2500,
   // format produces text_entities — don't pass text_parse_mode alongside it
-  ...format`${bold("Congratulations!")} ${italic("Enjoy a full year of Telegram Premium.")}`,
+  text: format`${bold("Congratulations!")} ${italic("Enjoy a full year of Telegram Premium.")}`,
 });
 ```
 
