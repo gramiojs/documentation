@@ -3,10 +3,10 @@ title: sendVideo — Telegram Bot API | GramIO
 head:
   - - meta
     - name: description
-      content: sendVideo Telegram Bot API method with GramIO TypeScript examples. Complete parameter reference and usage guide.
+      content: Send MPEG4 video files up to 50 MB with GramIO in TypeScript. Complete sendVideo reference with captions, thumbnails, spoiler, streaming flag, and error handling.
   - - meta
     - name: keywords
-      content: sendVideo, telegram bot api, gramio sendVideo, sendVideo typescript, sendVideo example
+      content: sendVideo, telegram bot api, gramio sendVideo, sendVideo typescript, sendVideo example, telegram video bot, send video telegram, video upload, MPEG4 video, video caption, video thumbnail, has_spoiler, supports_streaming, show_caption_above_media, InputFile, MediaUpload, file_id video, video duration width height, cover video
 ---
 
 # sendVideo
@@ -77,16 +77,120 @@ On success, the [Message](/telegram/types/Message) object is returned.
 
 ## GramIO Usage
 
-<!-- TODO: Add TypeScript examples using GramIO -->
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Send a video by file_id (fastest — no re-upload)
+bot.command("clip", (ctx) =>
+  ctx.sendVideo(
+    "BAACAgIAAxkBAAIBjmXzPexample_video_file_id_hereOjcQ"
+  )
+);
+```
+
+```ts twoslash
+import { Bot, MediaUpload } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Upload a local MPEG4 file with metadata and streaming flag
+bot.command("upload", async (ctx) => {
+  const video = await MediaUpload.path("./assets/intro.mp4");
+  return ctx.sendVideo(video, {
+    duration: 42,
+    width: 1280,
+    height: 720,
+    supports_streaming: true,
+    caption: "Welcome to GramIO!",
+  });
+});
+```
+
+```ts twoslash
+import { Bot, MediaUpload, format, bold } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Video with formatted caption and a spoiler overlay
+bot.command("spoiler", async (ctx) => {
+  const video = await MediaUpload.path("./assets/reveal.mp4");
+  return ctx.sendVideo(video, {
+    caption: format`${bold("Spoiler")} — watch at your own risk!`,
+    has_spoiler: true,
+  });
+});
+```
+
+```ts twoslash
+import { Bot, MediaUpload } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Upload video from a URL with a custom JPEG thumbnail
+bot.command("remote", async (ctx) => {
+  const thumbnail = await MediaUpload.path("./assets/thumb.jpg");
+  return ctx.sendVideo("https://example.com/demo.mp4", {
+    thumbnail,
+    caption: "Demo video from the web",
+    supports_streaming: true,
+  });
+});
+```
+
+```ts twoslash
+import { Bot, MediaUpload } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Reply with a video and caption shown above the media
+bot.command("reply", async (ctx) => {
+  const video = await MediaUpload.path("./assets/promo.mp4");
+  return ctx.replyWithVideo(video, {
+    caption: "This caption appears above the video",
+    show_caption_above_media: true,
+    duration: 15,
+  });
+});
+```
 
 ## Errors
 
-<!-- TODO: Add common errors table -->
+| Code | Error | Cause |
+|------|-------|-------|
+| 400 | `Bad Request: chat not found` | Invalid or inaccessible `chat_id` — verify the chat exists and the bot is a member |
+| 400 | `Bad Request: VIDEO_INVALID` | The provided `file_id` does not refer to a video |
+| 400 | `Bad Request: failed to get HTTP URL content` | Telegram could not fetch the video from the provided HTTP URL |
+| 400 | `Bad Request: wrong type of the web page content` | The URL did not return an MPEG4 file — non-MPEG4 formats are sent as Document |
+| 400 | `Bad Request: caption is too long` | Caption exceeds 1024 characters after entity parsing |
+| 400 | `Bad Request: MEDIA_CAPTION_TOO_LONG` | Same as above via a different code path |
+| 413 | `Request Entity Too Large` | Uploaded file exceeds the 50 MB limit |
+| 403 | `Forbidden: bot was blocked by the user` | The target user has blocked the bot |
+| 403 | `Forbidden: not enough rights` | Bot lacks `can_send_media_messages` permission in the group/channel |
+| 429 | `Too Many Requests: retry after N` | Flood control triggered — use the auto-retry plugin to handle this automatically |
+
+::: tip Auto-retry for 429 errors
+Install the [@gramio/auto-retry](/plugins/official/auto-retry) plugin to transparently handle flood-wait errors without manual retry logic.
+:::
 
 ## Tips & Gotchas
 
-<!-- TODO: Add tips and gotchas -->
+- **Only MPEG4 (.mp4) renders inline.** Other formats (AVI, MOV, MKV, etc.) will be sent as a generic Document without a video preview. Transcode to MPEG4 before sending.
+- **50 MB upload limit.** Files larger than 50 MB cannot be sent by bots. For larger files, consider hosting the video externally and passing a URL, or compress first.
+- **Cache `file_id` after the first upload.** Capture `message.video.file_id` from the returned `MessageContext` and store it so subsequent sends avoid re-uploading.
+- **Set `supports_streaming: true` for streamable videos.** This allows Telegram clients to start playing the video before it has fully buffered. Ensure the video is encoded with a fast-start flag (moov atom at the start of the file).
+- **Thumbnail constraints.** Custom thumbnails must be JPEG, under 200 kB, and at most 320×320 px. Thumbnails cannot be reused — they must be uploaded fresh each time.
+- **`has_spoiler` blurs the preview.** Users must tap to reveal the video. This is useful for plot spoilers or NSFW content gating.
+- **Use `sendMediaGroup` for multiple videos.** Sending up to 10 videos in a single album is more efficient and groups them visually for the recipient.
 
 ## See Also
 
-<!-- TODO: Add related methods and links -->
+- [sendVideoNote](/telegram/methods/sendVideoNote) — Send a rounded video message (video circle)
+- [sendAnimation](/telegram/methods/sendAnimation) — Send GIF or MP4 animation without sound
+- [sendAudio](/telegram/methods/sendAudio) — Send an audio file with music player display
+- [sendMediaGroup](/telegram/methods/sendMediaGroup) — Send multiple videos/photos as an album
+- [Video](/telegram/types/Video) — The Video type embedded in Message
+- [Media upload guide](/files/media-upload) — Upload files using `MediaUpload` helpers
+- [Media input guide](/files/media-input) — Work with `InputMedia` for albums
+- [Formatting guide](/formatting) — Format captions using GramIO's `format` tagged template

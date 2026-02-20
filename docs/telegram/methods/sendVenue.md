@@ -3,10 +3,10 @@ title: sendVenue — Telegram Bot API | GramIO
 head:
   - - meta
     - name: description
-      content: sendVenue Telegram Bot API method with GramIO TypeScript examples. Complete parameter reference and usage guide.
+      content: Send venue location cards with GramIO in TypeScript. Complete sendVenue reference covering Foursquare, Google Places integration, coordinates, and error handling.
   - - meta
     - name: keywords
-      content: sendVenue, telegram bot api, gramio sendVenue, sendVenue typescript, sendVenue example
+      content: sendVenue, telegram bot api, gramio sendVenue, sendVenue typescript, sendVenue example, telegram venue bot, send venue telegram, foursquare venue, google places venue, latitude longitude, venue title address, foursquare_id, foursquare_type, google_place_id, google_place_type, location bot, place bot
 ---
 
 # sendVenue
@@ -66,16 +66,108 @@ On success, the [Message](/telegram/types/Message) object is returned.
 
 ## GramIO Usage
 
-<!-- TODO: Add TypeScript examples using GramIO -->
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Send a minimal venue with just coordinates, name, and address
+bot.command("office", (ctx) =>
+  ctx.sendVenue({
+    latitude: 37.7749,
+    longitude: -122.4194,
+    title: "GramIO HQ",
+    address: "San Francisco, CA",
+  })
+);
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Venue enriched with Foursquare metadata for a richer card
+bot.command("cafe", (ctx) =>
+  ctx.sendVenue({
+    latitude: 48.8566,
+    longitude: 2.3522,
+    title: "Café de Flore",
+    address: "172 Bd Saint-Germain, 75006 Paris",
+    foursquare_id: "4adcda04f964a5208f3521e3",
+    foursquare_type: "food/coffeeshop",
+  })
+);
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Venue with Google Places ID for Maps integration
+bot.command("museum", (ctx) =>
+  ctx.sendVenue({
+    latitude: 51.5074,
+    longitude: -0.1278,
+    title: "The British Museum",
+    address: "Great Russell St, London WC1B 3DG",
+    google_place_id: "ChIJB9OTMDIbdkgRp0JWbW3M4kM",
+    google_place_type: "museum",
+  })
+);
+```
+
+```ts twoslash
+import { Bot, InlineKeyboard } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Reply to a message with a venue and navigation button
+bot.command("meetup", (ctx) =>
+  ctx.replyWithVenue({
+    latitude: 40.7128,
+    longitude: -74.006,
+    title: "Team Meetup Spot",
+    address: "New York, NY 10007",
+    reply_markup: new InlineKeyboard().url(
+      "Open in Maps",
+      "https://maps.google.com/?q=40.7128,-74.006"
+    ),
+  })
+);
+```
 
 ## Errors
 
-<!-- TODO: Add common errors table -->
+| Code | Error | Cause |
+|------|-------|-------|
+| 400 | `Bad Request: chat not found` | Invalid or inaccessible `chat_id` — verify the chat exists and the bot is a member |
+| 400 | `Bad Request: VENUE_ADDRESS_INVALID` | The `address` field is empty or invalid |
+| 400 | `Bad Request: VENUE_TITLE_INVALID` | The `title` field is empty or too long |
+| 400 | `Bad Request: Bad latitude/longitude` | Coordinates are outside valid ranges (latitude −90 to 90, longitude −180 to 180) |
+| 403 | `Forbidden: bot was blocked by the user` | The target user has blocked the bot |
+| 403 | `Forbidden: not enough rights` | Bot lacks `can_send_messages` permission in the group/channel |
+| 429 | `Too Many Requests: retry after N` | Flood control triggered — use the auto-retry plugin to handle this automatically |
+
+::: tip Auto-retry for 429 errors
+Install the [@gramio/auto-retry](/plugins/official/auto-retry) plugin to transparently handle flood-wait errors without manual retry logic.
+:::
 
 ## Tips & Gotchas
 
-<!-- TODO: Add tips and gotchas -->
+- **Venue vs. Location.** `sendVenue` shows a named card with title and address in Telegram — use it when you have a meaningful place name. Use `sendLocation` when you only have coordinates.
+- **Foursquare and Google Places IDs are independent.** You can provide either, both, or neither. When both are present Telegram prefers Google Places for the enriched card.
+- **Coordinates must be valid floats.** Latitude must be in the range −90 to 90 and longitude in −180 to 180. Out-of-range values result in a 400 error.
+- **No live-location updates.** `sendVenue` sends a static pin. If you need a location that updates in real time, use `sendLocation` with `live_period`.
+- **The address is mandatory.** Even if you supply a Foursquare or Google Place ID, the `address` field cannot be empty.
+- **Venue messages cannot be edited to change coordinates.** Once sent, the latitude/longitude of a venue message is fixed. Send a new message if the location changes.
 
 ## See Also
 
-<!-- TODO: Add related methods and links -->
+- [sendLocation](/telegram/methods/sendLocation) — Send a live or static map pin without a place name
+- [sendContact](/telegram/methods/sendContact) — Send a contact card with phone number
+- [Venue](/telegram/types/Venue) — The Venue type embedded in Message
+- [Location](/telegram/types/Location) — The Location type (coordinates only)
+- [Keyboards overview](/keyboards/overview) — Add reply markup to venue messages
+- [sendMessage](/telegram/methods/sendMessage) — Send a plain text message

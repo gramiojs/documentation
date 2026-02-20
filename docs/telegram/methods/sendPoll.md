@@ -3,10 +3,10 @@ title: sendPoll — Telegram Bot API | GramIO
 head:
   - - meta
     - name: description
-      content: sendPoll Telegram Bot API method with GramIO TypeScript examples. Complete parameter reference and usage guide.
+      content: Send native polls and quizzes with GramIO in TypeScript. Complete sendPoll reference covering quiz mode, correct answers, open period, explanation, and error handling.
   - - meta
     - name: keywords
-      content: sendPoll, telegram bot api, gramio sendPoll, sendPoll typescript, sendPoll example
+      content: sendPoll, telegram bot api, gramio sendPoll, sendPoll typescript, sendPoll example, telegram poll bot, telegram quiz bot, poll question, poll options, InputPollOption, quiz mode, correct_option_id, explanation, open_period, close_date, is_anonymous, allows_multiple_answers, stopPoll, regular poll, quiz poll, send poll telegram, gramio poll
 ---
 
 # sendPoll
@@ -74,16 +74,122 @@ On success, the [Message](/telegram/types/Message) object is returned.
 
 ## GramIO Usage
 
-<!-- TODO: Add TypeScript examples using GramIO -->
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Simple anonymous regular poll with 30-second timer
+bot.command("poll", (ctx) =>
+  ctx.sendPoll({
+    question: "What is your favorite runtime?",
+    options: [
+      { text: "Bun" },
+      { text: "Node.js" },
+      { text: "Deno" },
+    ],
+    is_anonymous: false,
+    open_period: 30,
+  })
+);
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Quiz mode with correct answer and explanation
+bot.command("quiz", (ctx) =>
+  ctx.sendPoll({
+    question: "Which HTTP status code means 'Too Many Requests'?",
+    options: [
+      { text: "400" },
+      { text: "404" },
+      { text: "429" },
+      { text: "500" },
+    ],
+    type: "quiz",
+    correct_option_id: 2,
+    explanation: "429 is the standard rate-limit code defined in RFC 6585.",
+    is_anonymous: true,
+  })
+);
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Multiple-choice poll that closes at a specific Unix timestamp
+bot.command("multivote", (ctx) =>
+  ctx.sendPoll({
+    question: "Which features do you use? (pick all that apply)",
+    options: [
+      { text: "Inline keyboards" },
+      { text: "Scenes" },
+      { text: "Sessions" },
+      { text: "i18n" },
+    ],
+    allows_multiple_answers: true,
+    close_date: Math.floor(Date.now() / 1000) + 300, // closes in 5 min
+  })
+);
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Reply to a message with a poll and immediately stop it (useful for previews)
+bot.command("preview", async (ctx) => {
+  const msg = await ctx.replyWithPoll({
+    question: "Draft poll — closed for preview",
+    options: [{ text: "Option A" }, { text: "Option B" }],
+    is_closed: true,
+  });
+  // msg.messageId is available on the returned MessageContext
+  return msg;
+});
+```
 
 ## Errors
 
-<!-- TODO: Add common errors table -->
+| Code | Error | Cause |
+|------|-------|-------|
+| 400 | `Bad Request: chat not found` | Invalid or inaccessible `chat_id` — verify the chat exists and the bot is a member |
+| 400 | `Bad Request: POLL_OPTION_INVALID` | Fewer than 2 or more than 12 options provided, or an option text is empty |
+| 400 | `Bad Request: POLL_ANSWERS_TOO_MUCH` | More than 12 options in the `options` array |
+| 400 | `Bad Request: POLL_QUESTION_INVALID` | `question` is empty or exceeds 300 characters |
+| 400 | `Bad Request: poll can't be sent to channel direct messages chats` | Polls are not supported in channel direct message threads |
+| 400 | `Bad Request: POLL_OPTION_CORRECT_ID_INVALID` | `correct_option_id` is out of range or used without `type: "quiz"` |
+| 400 | `Bad Request: can't use both open_period and close_date` | `open_period` and `close_date` are mutually exclusive |
+| 403 | `Forbidden: bot was blocked by the user` | The target user has blocked the bot |
+| 403 | `Forbidden: not enough rights` | Bot lacks `can_send_polls` permission in the group/channel |
+| 429 | `Too Many Requests: retry after N` | Flood control triggered — use the auto-retry plugin to handle this automatically |
+
+::: tip Auto-retry for 429 errors
+Install the [@gramio/auto-retry](/plugins/official/auto-retry) plugin to transparently handle flood-wait errors without manual retry logic.
+:::
 
 ## Tips & Gotchas
 
-<!-- TODO: Add tips and gotchas -->
+- **2–12 options are required.** Sending fewer than 2 or more than 12 `InputPollOption` objects throws a `POLL_OPTION_INVALID` error. Each option's `text` must be 1–100 characters.
+- **Quiz mode requires `correct_option_id`.** Omitting it when `type: "quiz"` is set causes a 400 error. The ID is 0-based (first option = `0`).
+- **`open_period` and `close_date` are mutually exclusive.** Use one or the other. Both valid ranges map to 5–600 seconds from the time of sending.
+- **Polls are anonymous by default.** Set `is_anonymous: false` to make votes public. This cannot be changed after the poll is created.
+- **Multiple answers are not allowed in quiz mode.** `allows_multiple_answers: true` is silently ignored when `type: "quiz"` is set.
+- **Stop a poll later with `stopPoll`.** Use `ctx.stopPoll(messageId)` to close a poll early and receive the final [Poll](/telegram/types/Poll) object with vote counts.
 
 ## See Also
 
-<!-- TODO: Add related methods and links -->
+- [stopPoll](/telegram/methods/stopPoll) — Close an active poll and retrieve final results
+- [Poll](/telegram/types/Poll) — The Poll type returned inside the Message
+- [PollAnswer](/telegram/types/PollAnswer) — Update received when a user votes
+- [InputPollOption](/telegram/types/InputPollOption) — Structure of each answer option
+- [sendMessage](/telegram/methods/sendMessage) — Send a plain text message
+- [sendLocation](/telegram/methods/sendLocation) — Send a location pin
+- [sendContact](/telegram/methods/sendContact) — Send a contact card
+- [Formatting guide](/formatting) — Format text using GramIO's `format` tagged template

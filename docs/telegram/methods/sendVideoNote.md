@@ -3,10 +3,10 @@ title: sendVideoNote — Telegram Bot API | GramIO
 head:
   - - meta
     - name: description
-      content: sendVideoNote Telegram Bot API method with GramIO TypeScript examples. Complete parameter reference and usage guide.
+      content: Send rounded square video messages (video circles) up to 1 minute with GramIO in TypeScript. Complete sendVideoNote reference with upload, length, thumbnail, and error handling.
   - - meta
     - name: keywords
-      content: sendVideoNote, telegram bot api, gramio sendVideoNote, sendVideoNote typescript, sendVideoNote example
+      content: sendVideoNote, telegram bot api, gramio sendVideoNote, sendVideoNote typescript, sendVideoNote example, telegram video note bot, video circle telegram, rounded video message, video message telegram, MPEG4 video note, video_note file_id, InputFile MediaUpload, duration length thumbnail, video circle upload
 ---
 
 # sendVideoNote
@@ -59,16 +59,95 @@ On success, the [Message](/telegram/types/Message) object is returned.
 
 ## GramIO Usage
 
-<!-- TODO: Add TypeScript examples using GramIO -->
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Send a video note by file_id (fastest — no re-upload)
+bot.command("vidnote", (ctx) =>
+  ctx.sendVideoNote(
+    "DQACAgIAAxkBAAIBjmXzPexample_videonote_file_id_hereQ"
+  )
+);
+```
+
+```ts twoslash
+import { Bot, MediaUpload } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Upload a local square MPEG4 video note with dimensions
+bot.command("circle", async (ctx) => {
+  const videoNote = await MediaUpload.path("./assets/greeting.mp4");
+  return ctx.sendVideoNote(videoNote, {
+    duration: 10,
+    length: 480, // diameter in pixels — video must be square
+  });
+});
+```
+
+```ts twoslash
+import { Bot, MediaUpload } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Upload video note with a custom JPEG thumbnail
+bot.command("thumb", async (ctx) => {
+  const videoNote = await MediaUpload.path("./assets/note.mp4");
+  const thumbnail = await MediaUpload.path("./assets/note_thumb.jpg");
+  return ctx.sendVideoNote(videoNote, {
+    duration: 20,
+    length: 360,
+    thumbnail,
+  });
+});
+```
+
+```ts twoslash
+import { Bot, MediaUpload } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Reply with a video note (sets reply_parameters automatically)
+bot.command("reply", async (ctx) => {
+  const videoNote = await MediaUpload.path("./assets/response.mp4");
+  return ctx.replyWithVideoNote(videoNote, { duration: 5, length: 240 });
+});
+```
 
 ## Errors
 
-<!-- TODO: Add common errors table -->
+| Code | Error | Cause |
+|------|-------|-------|
+| 400 | `Bad Request: chat not found` | Invalid or inaccessible `chat_id` — verify the chat exists and the bot is a member |
+| 400 | `Bad Request: VIDEO_NOTE_INVALID` | The provided `file_id` does not refer to a video note |
+| 400 | `Bad Request: failed to get HTTP URL content` | Video notes cannot be sent via URL — upload required |
+| 400 | `Bad Request: wrong video note length` | `length` value is outside the acceptable range or the video is not square |
+| 400 | `Bad Request: VIDEO_NOTE_LENGTH_INVALID` | Same as above via a different code path |
+| 413 | `Request Entity Too Large` | Uploaded file exceeds the size limit |
+| 403 | `Forbidden: bot was blocked by the user` | The target user has blocked the bot |
+| 403 | `Forbidden: not enough rights` | Bot lacks `can_send_media_messages` permission in the group/channel |
+| 429 | `Too Many Requests: retry after N` | Flood control triggered — use the auto-retry plugin to handle this automatically |
+
+::: tip Auto-retry for 429 errors
+Install the [@gramio/auto-retry](/plugins/official/auto-retry) plugin to transparently handle flood-wait errors without manual retry logic.
+:::
 
 ## Tips & Gotchas
 
-<!-- TODO: Add tips and gotchas -->
+- **Video notes cannot be sent via URL.** Unlike regular videos, `sendVideoNote` does not accept HTTP URLs as the `video_note` parameter — you must upload the file directly using `MediaUpload.path()` or pass an existing `file_id`.
+- **The video must be square.** Telegram crops video notes into a circle, so the source video must have equal width and height. Non-square videos may be rejected or displayed incorrectly.
+- **Maximum 1 minute duration.** Video notes are capped at 60 seconds. Files longer than that will be rejected.
+- **`length` is the diameter, not width+height.** Pass the pixel diameter of the square video (e.g. `360` for a 360×360 video). This is a single integer, not an array.
+- **Cache `file_id` after the first upload.** Capture `message.videoNote.file_id` from the returned `MessageContext` and persist it to avoid re-uploading on repeat sends.
+- **Thumbnails must be fresh JPEG files.** Thumbnail `file_id` values from previous messages cannot be reused — always upload a new JPEG file under 200 kB and at most 320×320 px.
 
 ## See Also
 
-<!-- TODO: Add related methods and links -->
+- [sendVideo](/telegram/methods/sendVideo) — Send a full-length MPEG4 video with caption
+- [sendVoice](/telegram/methods/sendVoice) — Send an audio voice message
+- [sendAnimation](/telegram/methods/sendAnimation) — Send a GIF or silent MP4 animation
+- [VideoNote](/telegram/types/VideoNote) — The VideoNote type embedded in Message
+- [Media upload guide](/files/media-upload) — Upload files using `MediaUpload` helpers
+- [sendMessage](/telegram/methods/sendMessage) — Send a plain text message
