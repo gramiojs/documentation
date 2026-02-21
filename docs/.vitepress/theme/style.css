@@ -279,6 +279,12 @@ a.api-param-docs-link:hover {
     background: var(--vp-c-brand-soft);
     color: var(--vp-c-brand-1);
     border: 1px solid var(--vp-c-brand-2);
+    gap: 6px;
+}
+
+.api-badge.returns .returns-label {
+    opacity: 0.65;
+    font-weight: 400;
 }
 
 .api-badge.returns a {
@@ -286,6 +292,34 @@ a.api-param-docs-link:hover {
     font-weight: 600;
     text-decoration: underline;
     text-underline-offset: 2px;
+}
+
+.api-badge.formattable {
+    background: #14532d22;
+    color: #22c55e;
+    border: 1px solid #22c55e40;
+    text-decoration: none !important;
+    transition: opacity 0.2s;
+}
+
+.api-badge.markup {
+    background: #1e3a5f22;
+    color: #60a5fa;
+    border: 1px solid #60a5fa40;
+    text-decoration: none !important;
+    transition: opacity 0.2s;
+}
+
+.dark .api-badge.formattable {
+    background: #14532d33;
+    color: #4ade80;
+    border-color: #22c55e50;
+}
+
+.dark .api-badge.markup {
+    background: #1e3a5f33;
+    color: #93c5fd;
+    border-color: #60a5fa50;
 }
 
 .api-badge.official {

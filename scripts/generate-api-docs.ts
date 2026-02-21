@@ -12,6 +12,9 @@
  *   bun run gen:api --dry-run — print stats without writing files
  */
 
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { getCustomSchema } from "@gramio/schema-parser";
 import type {
 	Field,
@@ -23,10 +26,8 @@ import type {
 	FieldReference,
 	FieldString,
 	Method,
+	ObjectFile,
 } from "@gramio/schema-parser";
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
-import { fileURLToPath } from "node:url";
 
 // ── Paths ────────────────────────────────────────────────────────────────────
 
@@ -54,7 +55,8 @@ type FieldNoKey =
 	| Omit<FieldBoolean, "key">
 	| Omit<FieldArray, "key">
 	| Omit<FieldReference, "key">
-	| Omit<FieldOneOf, "key">;
+	| Omit<FieldOneOf, "key">
+	| Omit<ObjectFile, "key">;
 
 /** Converts a schema field type to the display string used in <ApiParam type="..."> */
 function typeStr(f: FieldNoKey): string {
@@ -75,8 +77,12 @@ function typeStr(f: FieldNoKey): string {
 			return `${typeStr(f.arrayOf)}[]`;
 		case "one_of":
 			return f.variants.map(typeStr).join(" | ");
+		case "file":
+			return "InputFile";
 	}
 }
+
+const MARKUP_PATTERN = /Markup$|^ReplyKeyboardRemove$|^ForceReply$/;
 
 const TG_BASE = "https://core.telegram.org";
 const TG_API = `${TG_BASE}/bots/api`;
@@ -101,15 +107,17 @@ function fixTelegramLinks(s: string): string {
 
 /** Escapes a string for use in an HTML attribute value (double-quoted) */
 function escAttr(s: string): string {
-	return fixTelegramLinks(s)
-		.replace(/&/g, "&amp;")
-		.replace(/</g, "&lt;")
-		.replace(/>/g, "&gt;")
-		.replace(/"/g, "&quot;")
-		// Smart/curly double quotes from the schema — also escape them
-		.replace(/\u201c|\u201d/g, "&quot;")
-		.replace(/\n/g, " ")
-		.trim();
+	return (
+		fixTelegramLinks(s)
+			.replace(/&/g, "&amp;")
+			.replace(/</g, "&lt;")
+			.replace(/>/g, "&gt;")
+			.replace(/"/g, "&quot;")
+			// Smart/curly double quotes from the schema — also escape them
+			.replace(/\u201c|\u201d/g, "&quot;")
+			.replace(/\n/g, " ")
+			.trim()
+	);
 }
 
 /** Converts a Field to an <ApiParam .../> component line */
@@ -118,12 +126,14 @@ function toApiParam(field: Field): string {
 
 	const attrs: string[] = [`name="${field.key}"`, `type="${type}"`];
 	if (field.required) attrs.push("required");
-	if (field.description) attrs.push(`description="${escAttr(field.description)}"`);
+	if (field.description)
+		attrs.push(`description="${escAttr(field.description)}"`);
 
 	if (field.type === "integer" || field.type === "float") {
 		if (field.min !== undefined) attrs.push(`:min="${field.min}"`);
 		if (field.max !== undefined) attrs.push(`:max="${field.max}"`);
-		if (field.default !== undefined) attrs.push(`:defaultValue="${field.default}"`);
+		if (field.default !== undefined)
+			attrs.push(`:defaultValue="${field.default}"`);
 		if (field.enum && field.enum.length > 0)
 			attrs.push(`:enumValues='${JSON.stringify(field.enum)}'`);
 	}
@@ -131,10 +141,45 @@ function toApiParam(field: Field): string {
 	if (field.type === "string") {
 		if (field.minLen !== undefined) attrs.push(`:minLen="${field.minLen}"`);
 		if (field.maxLen !== undefined) attrs.push(`:maxLen="${field.maxLen}"`);
-		if (field.default !== undefined) attrs.push(`defaultValue="${escAttr(field.default)}"`);
-		if (field.const !== undefined) attrs.push(`constValue="${escAttr(field.const)}"`);
+		if (field.default !== undefined)
+			attrs.push(`defaultValue="${escAttr(field.default)}"`);
+		if (field.const !== undefined)
+			attrs.push(`constValue="${escAttr(field.const)}"`);
 		if (field.enum && field.enum.length > 0)
 			attrs.push(`:enumValues='${JSON.stringify(field.enum)}'`);
+		const st = field.semanticType;
+		if (st) {
+			attrs.push(`semanticType="${st}"`);
+			if (st === "formattable") attrs.push(`docsLink="/formatting"`);
+		}
+	}
+
+	if (
+		(field.type === "reference" && field.reference.name === "InputFile") ||
+		(field.type === "one_of" &&
+			field.variants.some(
+				(f) => f.type === "reference" && f.reference.name === "InputFile",
+			))
+	) {
+		attrs.push(`docsLink="/files/media-upload"`);
+	}
+
+	if (
+		(field.type === "reference" && MARKUP_PATTERN.test(field.reference.name)) ||
+		(field.type === "one_of" &&
+			field.variants.some(
+				(f) => f.type === "reference" && MARKUP_PATTERN.test(f.reference.name),
+			))
+	) {
+		attrs.push(`docsLink="/keyboards/overview"`);
+	}
+
+	if (field.type === "array" && field.arrayOf.type === "string") {
+		const st = field.arrayOf.semanticType;
+		if (st) {
+			attrs.push(`semanticType="${st}"`);
+			if (st === "formattable") attrs.push(`docsLink="/formatting"`);
+		}
 	}
 
 	return `<ApiParam ${attrs.join(" ")} />`;
@@ -167,6 +212,8 @@ function returnBadge(f: FieldNoKey): string {
 			return f.variants.map(returnBadge).join(" | ");
 		case "boolean":
 			return "True";
+		case "file":
+			return "InputFile";
 		default:
 			return typeStr(f);
 	}
@@ -195,6 +242,26 @@ function returnDesc(f: FieldNoKey): string {
 const GEN_START = "<!-- GENERATED:START -->";
 const GEN_END = "<!-- GENERATED:END -->";
 
+function hasFormattableParam(params: Field[]): boolean {
+	return params.some((f) => {
+		if (f.type === "string") return (f as any).semanticType === "formattable";
+		if (f.type === "array" && f.arrayOf.type === "string")
+			return (f.arrayOf as any).semanticType === "formattable";
+		return false;
+	});
+}
+
+function hasMarkupParam(params: Field[]): boolean {
+	return params.some((f) => {
+		if (f.type === "reference") return MARKUP_PATTERN.test(f.reference.name);
+		if (f.type === "one_of")
+			return f.variants.some(
+				(v) => v.type === "reference" && MARKUP_PATTERN.test(v.reference.name),
+			);
+		return false;
+	});
+}
+
 function buildMethodBlock(method: Method): string {
 	// The library types Method.returns as Omit<Field,"key"> (non-distributed),
 	// cast to our distributed FieldNoKey so switch narrowing works inside helpers.
@@ -203,14 +270,22 @@ function buildMethodBlock(method: Method): string {
 	const params = method.parameters.map(toApiParam).join("\n\n");
 	const paramsSection =
 		method.parameters.length > 0 ? `## Parameters\n\n${params}\n\n` : "";
-	const description = method.description ? fixTelegramLinks(method.description) : "";
+	const description = method.description
+		? fixTelegramLinks(method.description)
+		: "";
 	const multipartBadge = method.hasMultipart
-		? `\n  <span class="api-badge multipart">📎 Accepts files</span>`
+		? `\n  <a class="api-badge multipart" href="/files/media-upload">📎 Accepts files</a>`
+		: "";
+	const formattableBadge = hasFormattableParam(method.parameters)
+		? `\n  <a class="api-badge formattable" href="/formatting">✏️ Formattable text</a>`
+		: "";
+	const markupBadge = hasMarkupParam(method.parameters)
+		? `\n  <a class="api-badge markup" href="/keyboards/overview">⌨️ Keyboards</a>`
 		: "";
 
 	return `${GEN_START}
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: ${returnBadge(returns)}</span>${multipartBadge}
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> ${returnBadge(returns)}</span>${multipartBadge}${formattableBadge}${markupBadge}
   <a class="api-badge official" href="${officialUrl}" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -219,6 +294,7 @@ ${description}
 ${paramsSection}## Returns
 
 ${returnDesc(returns)}
+
 ${GEN_END}`;
 }
 
@@ -228,12 +304,22 @@ function buildObjectBlock(obj: {
 	description?: string;
 	fields?: Field[];
 	oneOf?: FieldNoKey[];
+	type?: string;
+	values?: string[];
+	semanticType?: string;
 }): string {
 	const officialUrl = `https://core.telegram.org/bots/api${obj.anchor}`;
 	const description = obj.description ? fixTelegramLinks(obj.description) : "";
+	const markupBadge =
+		obj.semanticType === "markup"
+			? `\n  <a class="api-badge docs" href="/keyboards/overview">⌨️ Keyboard type</a>`
+			: "";
 
 	let fieldsSection = "";
-	if (obj.fields && obj.fields.length > 0) {
+	if (obj.type === "enum" && obj.values && obj.values.length > 0) {
+		const valueList = obj.values.map((v) => `- \`"${v}"\``).join("\n");
+		fieldsSection = `## Values\n\n${valueList}\n`;
+	} else if (obj.fields && obj.fields.length > 0) {
 		fieldsSection = `## Fields\n\n${obj.fields.map(toApiParam).join("\n\n")}\n`;
 	} else if (obj.oneOf && obj.oneOf.length > 0) {
 		const variants = obj.oneOf
@@ -247,7 +333,7 @@ function buildObjectBlock(obj: {
 
 	return `${GEN_START}
 <div class="api-badge-row">
-  <a class="api-badge official" href="${officialUrl}" target="_blank" rel="noopener">Official docs ↗</a>
+  <a class="api-badge official" href="${officialUrl}" target="_blank" rel="noopener">Official docs ↗</a>${markupBadge}
 </div>
 
 ${description}
@@ -272,7 +358,9 @@ function applyGeneratedBlock(existing: string, newBlock: string): string {
 	}
 
 	return (
-		existing.slice(0, startIdx) + newBlock + existing.slice(endIdx + GEN_END.length)
+		existing.slice(0, startIdx) +
+		newBlock +
+		existing.slice(endIdx + GEN_END.length)
 	);
 }
 
@@ -340,7 +428,12 @@ ${block}
 
 // ── Skills index ─────────────────────────────────────────────────────────────
 
-const SKILLS_INDEX = join(ROOT, "skills", "references", "telegram-api-index.md");
+const SKILLS_INDEX = join(
+	ROOT,
+	"skills",
+	"references",
+	"telegram-api-index.md",
+);
 
 /**
  * Extracts the first sentence from a markdown description.
@@ -473,7 +566,8 @@ function updateSidebar(methods: string[], types: string[]): void {
 				if (depth === 0) {
 					let end = i + 1;
 					if (content[end] === ",") end++; // include trailing comma
-					content = content.slice(0, keyIdx) + newBlock + "," + content.slice(end);
+					content =
+						content.slice(0, keyIdx) + newBlock + "," + content.slice(end);
 					break;
 				}
 			}
@@ -484,7 +578,9 @@ function updateSidebar(methods: string[], types: string[]): void {
 	if (!DRY_RUN) {
 		writeFileSync(EN_LOCALE, content, "utf-8");
 	}
-	console.log(`✅ ${DRY_RUN ? "[dry-run] Would update" : "Updated"} sidebar in en.locale.ts`);
+	console.log(
+		`✅ ${DRY_RUN ? "[dry-run] Would update" : "Updated"} sidebar in en.locale.ts`,
+	);
 }
 
 // ── Main ──────────────────────────────────────────────────────────────────────
@@ -519,7 +615,8 @@ for (const method of schema.methods) {
 			skipped++;
 		}
 	} else {
-		if (!DRY_RUN) writeFileSync(filePath, methodTemplate(method.name, block), "utf-8");
+		if (!DRY_RUN)
+			writeFileSync(filePath, methodTemplate(method.name, block), "utf-8");
 		created++;
 		console.log(`  ✨ ${method.name}`);
 	}
@@ -542,7 +639,8 @@ for (const obj of schema.objects) {
 			skipped++;
 		}
 	} else {
-		if (!DRY_RUN) writeFileSync(filePath, typeTemplate(obj.name, block), "utf-8");
+		if (!DRY_RUN)
+			writeFileSync(filePath, typeTemplate(obj.name, block), "utf-8");
 		created++;
 		console.log(`  ✨ ${obj.name}`);
 	}
@@ -550,8 +648,12 @@ for (const obj of schema.objects) {
 
 // ── Sidebar ───────────────────────────────────────────────────────────────────
 console.log("");
-const methodNames = schema.methods.map((m) => m.name).sort((a, b) => a.localeCompare(b));
-const typeNames = schema.objects.map((o) => o.name).sort((a, b) => a.localeCompare(b));
+const methodNames = schema.methods
+	.map((m) => m.name)
+	.sort((a, b) => a.localeCompare(b));
+const typeNames = schema.objects
+	.map((o) => o.name)
+	.sort((a, b) => a.localeCompare(b));
 updateSidebar(methodNames, typeNames);
 
 // ── Skills index ──────────────────────────────────────────────────────────────
