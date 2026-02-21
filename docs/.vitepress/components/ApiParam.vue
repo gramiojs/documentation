@@ -24,9 +24,15 @@ const SEMANTIC_LABELS: Record<string, string> = {
   updateType: "🔔 Update type",
 };
 
+const DOCS_LINK_LABELS: Record<string, string> = {
+  "/files/media-upload": "📎 Files",
+  "/formatting": "✏️ Formattable",
+  "/keyboards/overview": "⌨️ Keyboards",
+};
+
 function semanticLabel(): string {
   if (props.semanticType) return SEMANTIC_LABELS[props.semanticType] ?? "📖 Docs";
-  if (props.docsLink) return "📖 Docs";
+  if (props.docsLink) return DOCS_LINK_LABELS[props.docsLink] ?? "📖 Docs";
   return "";
 }
 
