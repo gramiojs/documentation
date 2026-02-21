@@ -30,6 +30,10 @@ jobs:
         env:
           NODE_OPTIONS: "--max-old-space-size=8192"
 
+      - name: Write IndexNow key file
+        if: github.ref == 'refs/heads/main'
+        run: echo "${{ secrets.INDEXNOW_KEY }}" > "./docs/.vitepress/dist/${{ secrets.INDEXNOW_KEY }}.txt"
+
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v3.0
         with:
@@ -44,3 +48,12 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         timeout-minutes: 8
+
+      - name: Notify IndexNow
+        if: github.ref == 'refs/heads/main'
+        uses: bojieyang/indexnow-action@v2
+        with:
+          sitemap-location: "https://gramio.dev/sitemap.xml"
+          key: ${{ secrets.INDEXNOW_KEY }}
+          key-location: "https://gramio.dev/${{ secrets.INDEXNOW_KEY }}.txt"
+          endpoint: api.indexnow.org
