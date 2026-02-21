@@ -137,6 +137,34 @@ a.api-param-type:hover {
     border: 1px solid var(--vp-c-divider);
 }
 
+a.api-param-docs-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 1px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    line-height: 1.6;
+    margin-left: 2px;
+    background: #0c4a6e22;
+    color: #0ea5e9;
+    border: 1px solid #0ea5e940;
+    text-decoration: none;
+    transition: background 0.15s;
+}
+
+a.api-param-docs-link:hover {
+    background: #0c4a6e44;
+    text-decoration: none;
+}
+
+.dark a.api-param-docs-link {
+    background: #0c4a6e33;
+    color: #38bdf8;
+    border-color: #0ea5e950;
+}
+
 .api-param-default {
     font-size: 12px;
     color: var(--vp-c-text-2);
