@@ -13,7 +13,7 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: <a href="/telegram/types/UserChatBoosts">UserChatBoosts</a></span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> <a href="/telegram/types/UserChatBoosts">UserChatBoosts</a></span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#getuserchatboosts" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -28,6 +28,7 @@ Use this method to get the list of boosts added to a chat by a user. Requires ad
 ## Returns
 
 On success, the [UserChatBoosts](/telegram/types/UserChatBoosts) object is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

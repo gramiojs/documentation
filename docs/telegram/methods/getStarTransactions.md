@@ -13,7 +13,7 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: <a href="/telegram/types/StarTransactions">StarTransactions</a></span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> <a href="/telegram/types/StarTransactions">StarTransactions</a></span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#getstartransactions" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -28,6 +28,7 @@ Returns the bot's Telegram Star transactions in chronological order. On success,
 ## Returns
 
 On success, the [StarTransactions](/telegram/types/StarTransactions) object is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

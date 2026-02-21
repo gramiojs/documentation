@@ -20,7 +20,7 @@ The withdrawal succeeded.
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the state, always &quot;succeeded&quot;" defaultValue="succeeded" />
+<ApiParam name="type" type="String" required description="Type of the state, always &quot;succeeded&quot;" constValue="succeeded" />
 
 <ApiParam name="date" type="Integer" required description="Date the withdrawal was completed in Unix time" />
 

@@ -20,7 +20,7 @@ Represents an issue with one of the files that constitute the translation of a d
 
 ## Fields
 
-<ApiParam name="source" type="String" description="Error source, must be *translation\_file*" defaultValue="translation_file" />
+<ApiParam name="source" type="String" required description="Error source, must be *translation\_file*" constValue="translation_file" />
 
 <ApiParam name="type" type="String" required description="Type of element of the user's Telegram Passport which has the issue, one of &quot;passport&quot;, &quot;driver\_license&quot;, &quot;identity\_card&quot;, &quot;internal\_passport&quot;, &quot;utility\_bill&quot;, &quot;bank\_statement&quot;, &quot;rental\_agreement&quot;, &quot;passport\_registration&quot;, &quot;temporary\_registration&quot;" :enumValues='["passport","driver_license","identity_card","internal_passport","utility_bill","bank_statement","rental_agreement","passport_registration","temporary_registration"]' />
 

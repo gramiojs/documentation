@@ -20,7 +20,7 @@ Represents an issue in one of the data fields that was provided by the user. The
 
 ## Fields
 
-<ApiParam name="source" type="String" description="Error source, must be *data*" defaultValue="data" />
+<ApiParam name="source" type="String" required description="Error source, must be *data*" constValue="data" />
 
 <ApiParam name="type" type="String" required description="The section of the user's Telegram Passport which has the error, one of &quot;personal\_details&quot;, &quot;passport&quot;, &quot;driver\_license&quot;, &quot;identity\_card&quot;, &quot;internal\_passport&quot;, &quot;address&quot;" :enumValues='["personal_details","passport","driver_license","identity_card","internal_passport","address"]' />
 

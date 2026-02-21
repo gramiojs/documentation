@@ -13,7 +13,7 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: <a href="/telegram/types/ChatFullInfo">ChatFullInfo</a></span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> <a href="/telegram/types/ChatFullInfo">ChatFullInfo</a></span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#getchat" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -26,6 +26,7 @@ Use this method to get up-to-date information about the chat. Returns a [ChatFul
 ## Returns
 
 On success, the [ChatFullInfo](/telegram/types/ChatFullInfo) object is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

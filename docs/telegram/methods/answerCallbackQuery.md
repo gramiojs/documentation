@@ -13,11 +13,13 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: True</span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> True</span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#answercallbackquery" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
 Use this method to send answers to callback queries sent from [inline keyboards](https://core.telegram.org/bots/features#inline-keyboards). The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, *True* is returned.
+
+> Alternatively, the user can be redirected to the specified Game URL. For this option to work, you must first create a game for your bot via [@BotFather](https://t.me/botfather) and accept the terms. Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot with a parameter.
 
 ## Parameters
 
@@ -27,13 +29,14 @@ Use this method to send answers to callback queries sent from [inline keyboards]
 
 <ApiParam name="show_alert" type="Boolean" description="If *True*, an alert will be shown by the client instead of a notification at the top of the chat screen. Defaults to *false*." />
 
-<ApiParam name="url" type="String" description="URL that will be opened by the user's client. If you have created a [Game](https://core.telegram.org/bots/api#game) and accepted the conditions via [@BotFather](https://t.me/botfather), specify the URL that opens your game - note that this will only work if the query comes from a [callback_game](https://core.telegram.org/bots/api#inlinekeyboardbutton) button.      Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot with a parameter." />
+<ApiParam name="url" type="String" description="URL that will be opened by the user's client. If you have created a [Game](https://core.telegram.org/bots/api#game) and accepted the conditions via [@BotFather](https://t.me/botfather), specify the URL that opens your game - note that this will only work if the query comes from a [*callback\_game*](https://core.telegram.org/bots/api#inlinekeyboardbutton) button.      Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot with a parameter." />
 
 <ApiParam name="cache_time" type="Integer" description="The maximum amount of time in seconds that the result of the callback query may be cached client-side. Telegram apps will support caching starting in version 3.14. Defaults to 0." :defaultValue="0" />
 
 ## Returns
 
 On success, *True* is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

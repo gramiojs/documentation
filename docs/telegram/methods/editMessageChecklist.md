@@ -13,8 +13,9 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: <a href="/telegram/types/Message">Message</a></span>
-  <span class="api-badge multipart">📎 Accepts files</span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> <a href="/telegram/types/Message">Message</a></span>
+  <a class="api-badge multipart" href="/files/media-upload">📎 Accepts files</a>
+  <a class="api-badge markup" href="/keyboards/overview">⌨️ Keyboards</a>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#editmessagechecklist" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -30,11 +31,12 @@ Use this method to edit a checklist on behalf of a connected business account. O
 
 <ApiParam name="checklist" type="InputChecklist" required description="A JSON-serialized object for the new checklist" />
 
-<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="A JSON-serialized object for the new [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) for the message" />
+<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="A JSON-serialized object for the new [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) for the message" docsLink="/keyboards/overview" />
 
 ## Returns
 
 On success, the [Message](/telegram/types/Message) object is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

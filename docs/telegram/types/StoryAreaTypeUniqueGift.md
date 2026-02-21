@@ -20,7 +20,7 @@ Describes a story area pointing to a unique gift. Currently, a story can have at
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the area, always &quot;unique\_gift&quot;" defaultValue="unique_gift" />
+<ApiParam name="type" type="String" required description="Type of the area, always &quot;unique\_gift&quot;" constValue="unique_gift" />
 
 <ApiParam name="name" type="String" required description="Unique name of the gift" />
 

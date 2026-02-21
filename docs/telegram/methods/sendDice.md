@@ -13,7 +13,8 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: <a href="/telegram/types/Message">Message</a></span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> <a href="/telegram/types/Message">Message</a></span>
+  <a class="api-badge markup" href="/keyboards/overview">⌨️ Keyboards</a>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#senddice" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -29,7 +30,7 @@ Use this method to send an animated emoji that will display a random value. On s
 
 <ApiParam name="direct_messages_topic_id" type="Integer" description="Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat" />
 
-<ApiParam name="emoji" type="String" description="Emoji on which the dice throw animation is based. Currently, must be one of &quot;![🎲](//telegram.org/img/emoji/40/F09F8EB2.png)&quot;, &quot;![🎯](//telegram.org/img/emoji/40/F09F8EAF.png)&quot;, &quot;![🏀](//telegram.org/img/emoji/40/F09F8F80.png)&quot;, &quot;![⚽](//telegram.org/img/emoji/40/E29ABD.png)&quot;, &quot;![🎳](//telegram.org/img/emoji/40/F09F8EB3.png)&quot;, or &quot;![🎰](//telegram.org/img/emoji/40/F09F8EB0.png)&quot;. Dice can have values 1-6 for &quot;![🎲](//telegram.org/img/emoji/40/F09F8EB2.png)&quot;, &quot;![🎯](//telegram.org/img/emoji/40/F09F8EAF.png)&quot; and &quot;![🎳](//telegram.org/img/emoji/40/F09F8EB3.png)&quot;, values 1-5 for &quot;![🏀](//telegram.org/img/emoji/40/F09F8F80.png)&quot; and &quot;![⚽](//telegram.org/img/emoji/40/E29ABD.png)&quot;, and values 1-64 for &quot;![🎰](//telegram.org/img/emoji/40/F09F8EB0.png)&quot;. Defaults to &quot;![🎲](//telegram.org/img/emoji/40/F09F8EB2.png)&quot;" defaultValue="🎲" :enumValues='["🎲","🎯","🏀","⚽","🎳","🎰"]' />
+<ApiParam name="emoji" type="String" description="Emoji on which the dice throw animation is based. Currently, must be one of &quot;![🎲](https://telegram.org/img/emoji/40/F09F8EB2.png)&quot;, &quot;![🎯](https://telegram.org/img/emoji/40/F09F8EAF.png)&quot;, &quot;![🏀](https://telegram.org/img/emoji/40/F09F8F80.png)&quot;, &quot;![⚽](https://telegram.org/img/emoji/40/E29ABD.png)&quot;, &quot;![🎳](https://telegram.org/img/emoji/40/F09F8EB3.png)&quot;, or &quot;![🎰](https://telegram.org/img/emoji/40/F09F8EB0.png)&quot;. Dice can have values 1-6 for &quot;![🎲](https://telegram.org/img/emoji/40/F09F8EB2.png)&quot;, &quot;![🎯](https://telegram.org/img/emoji/40/F09F8EAF.png)&quot; and &quot;![🎳](https://telegram.org/img/emoji/40/F09F8EB3.png)&quot;, values 1-5 for &quot;![🏀](https://telegram.org/img/emoji/40/F09F8F80.png)&quot; and &quot;![⚽](https://telegram.org/img/emoji/40/E29ABD.png)&quot;, and values 1-64 for &quot;![🎰](https://telegram.org/img/emoji/40/F09F8EB0.png)&quot;. Defaults to &quot;![🎲](https://telegram.org/img/emoji/40/F09F8EB2.png)&quot;" defaultValue="🎲" :enumValues='["🎲","🎯","🏀","⚽","🎳","🎰"]' />
 
 <ApiParam name="disable_notification" type="Boolean" description="Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound." />
 
@@ -43,11 +44,12 @@ Use this method to send an animated emoji that will display a random value. On s
 
 <ApiParam name="reply_parameters" type="ReplyParameters" description="Description of the message to reply to" />
 
-<ApiParam name="reply_markup" type="InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply" description="Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user" />
+<ApiParam name="reply_markup" type="InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply" description="Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user" docsLink="/keyboards/overview" />
 
 ## Returns
 
 On success, the [Message](/telegram/types/Message) object is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

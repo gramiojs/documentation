@@ -14,6 +14,7 @@ head:
 <!-- GENERATED:START -->
 <div class="api-badge-row">
   <a class="api-badge official" href="https://core.telegram.org/bots/api#forcereply" target="_blank" rel="noopener">Official docs ↗</a>
+  <a class="api-badge docs" href="/keyboards/overview">⌨️ Keyboard type</a>
 </div>
 
 Upon receiving a message with this object, Telegram clients will display a reply interface to the user (act as if the user has selected the bot's message and tapped 'Reply'). This can be extremely useful if you want to create user-friendly step-by-step interfaces without having to sacrifice [privacy mode](https://core.telegram.org/bots/features#privacy-mode). Not supported in channels and for messages sent on behalf of a Telegram Business account.

@@ -13,7 +13,7 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: <a href="/telegram/types/BusinessConnection">BusinessConnection</a></span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> <a href="/telegram/types/BusinessConnection">BusinessConnection</a></span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#getbusinessconnection" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -26,6 +26,7 @@ Use this method to get information about the connection of the bot with a busine
 ## Returns
 
 On success, the [BusinessConnection](/telegram/types/BusinessConnection) object is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

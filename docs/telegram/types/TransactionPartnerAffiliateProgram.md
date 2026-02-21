@@ -20,7 +20,7 @@ Describes the affiliate program that issued the affiliate commission received vi
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the transaction partner, always &quot;affiliate\_program&quot;" defaultValue="affiliate_program" />
+<ApiParam name="type" type="String" required description="Type of the transaction partner, always &quot;affiliate\_program&quot;" constValue="affiliate_program" />
 
 <ApiParam name="sponsor_user" type="User" description="*Optional*. Information about the bot that sponsored the affiliate program" />
 

@@ -13,7 +13,7 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: <a href="/telegram/types/ChatInviteLink">ChatInviteLink</a></span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> <a href="/telegram/types/ChatInviteLink">ChatInviteLink</a></span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#createchatinvitelink" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -34,6 +34,7 @@ Use this method to create an additional invite link for a chat. The bot must be 
 ## Returns
 
 On success, the [ChatInviteLink](/telegram/types/ChatInviteLink) object is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

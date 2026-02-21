@@ -13,8 +13,8 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: <a href="/telegram/types/Message">Message[]</a></span>
-  <span class="api-badge multipart">📎 Accepts files</span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> <a href="/telegram/types/Message">Message[]</a></span>
+  <a class="api-badge multipart" href="/files/media-upload">📎 Accepts files</a>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#sendmediagroup" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -30,7 +30,7 @@ Use this method to send a group of photos, videos, documents or audios as an alb
 
 <ApiParam name="direct_messages_topic_id" type="Integer" description="Identifier of the direct messages topic to which the messages will be sent; required if the messages are sent to a direct messages chat" />
 
-<ApiParam name="media" type="InputMediaAudio[]" required description="A JSON-serialized array describing messages to be sent, must include 2-10 items" />
+<ApiParam name="media" type="InputMediaAudio | InputMediaDocument | InputMediaPhoto | InputMediaVideo[]" required description="A JSON-serialized array describing messages to be sent, must include 2-10 items" />
 
 <ApiParam name="disable_notification" type="Boolean" description="Sends messages [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound." />
 
@@ -45,6 +45,7 @@ Use this method to send a group of photos, videos, documents or audios as an alb
 ## Returns
 
 On success, an array of [Message](/telegram/types/Message) objects is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

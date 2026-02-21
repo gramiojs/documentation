@@ -20,13 +20,13 @@ Represents a link to a sticker stored on the Telegram servers. By default, this 
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the result, must be *sticker*" defaultValue="sticker" />
+<ApiParam name="type" type="String" required description="Type of the result, must be *sticker*" constValue="sticker" />
 
 <ApiParam name="id" type="String" required description="Unique identifier for this result, 1-64 bytes" />
 
 <ApiParam name="sticker_file_id" type="String" required description="A valid file identifier of the sticker" />
 
-<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="*Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message" />
+<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="*Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message" docsLink="/keyboards/overview" />
 
 <ApiParam name="input_message_content" type="InputMessageContent" description="*Optional*. Content of the message to be sent instead of the sticker" />
 

@@ -13,7 +13,8 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: True</span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> True</span>
+  <a class="api-badge formattable" href="/formatting">✏️ Formattable text</a>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#giftpremiumsubscription" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -27,7 +28,7 @@ Gifts a Telegram Premium subscription to the given user. Returns *True* on succe
 
 <ApiParam name="star_count" type="Integer" required description="Number of Telegram Stars to pay for the Telegram Premium subscription; must be 1000 for 3 months, 1500 for 6 months, and 2500 for 12 months" />
 
-<ApiParam name="text" type="String" description="Text that will be shown along with the service message about the subscription; 0-128 characters" :minLen="0" :maxLen="128" />
+<ApiParam name="text" type="String" description="Text that will be shown along with the service message about the subscription; 0-128 characters" :minLen="0" :maxLen="128" semanticType="formattable" docsLink="/formatting" />
 
 <ApiParam name="text_parse_mode" type="String" description="Mode for parsing entities in the text. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details. Entities other than &quot;bold&quot;, &quot;italic&quot;, &quot;underline&quot;, &quot;strikethrough&quot;, &quot;spoiler&quot;, and &quot;custom\_emoji&quot; are ignored." />
 
@@ -36,6 +37,7 @@ Gifts a Telegram Premium subscription to the given user. Returns *True* on succe
 ## Returns
 
 On success, *True* is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

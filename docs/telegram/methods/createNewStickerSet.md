@@ -13,8 +13,8 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: True</span>
-  <span class="api-badge multipart">📎 Accepts files</span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> True</span>
+  <a class="api-badge multipart" href="/files/media-upload">📎 Accepts files</a>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#createnewstickerset" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -30,13 +30,14 @@ Use this method to create a new sticker set owned by a user. The bot will be abl
 
 <ApiParam name="stickers" type="InputSticker[]" required description="A JSON-serialized list of 1-50 initial stickers to be added to the sticker set" />
 
-<ApiParam name="sticker_type" type="String" description="Type of stickers in the set, pass &quot;regular&quot;, &quot;mask&quot;, or &quot;custom\_emoji&quot;. By default, a regular sticker set is created." :enumValues='["mask","custom_emoji"]' />
+<ApiParam name="sticker_type" type="String" description="Type of stickers in the set, pass &quot;regular&quot;, &quot;mask&quot;, or &quot;custom\_emoji&quot;. By default, a regular sticker set is created." :enumValues='["regular","mask","custom_emoji"]' />
 
 <ApiParam name="needs_repainting" type="Boolean" description="Pass *True* if stickers in the sticker set must be repainted to the color of text when used in messages, the accent color if used as emoji status, white on chat photos, or another appropriate color based on context; for custom emoji sticker sets only" />
 
 ## Returns
 
 On success, *True* is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

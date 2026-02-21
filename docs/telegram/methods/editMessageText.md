@@ -13,7 +13,9 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: <a href="/telegram/types/Message">Message</a> | True</span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> <a href="/telegram/types/Message">Message</a> | True</span>
+  <a class="api-badge formattable" href="/formatting">✏️ Formattable text</a>
+  <a class="api-badge markup" href="/keyboards/overview">⌨️ Keyboards</a>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#editmessagetext" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -29,7 +31,7 @@ Use this method to edit text and [game](https://core.telegram.org/bots/api#games
 
 <ApiParam name="inline_message_id" type="String" description="Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message" />
 
-<ApiParam name="text" type="String" required description="New text of the message, 1-4096 characters after entities parsing" :minLen="1" :maxLen="4096" />
+<ApiParam name="text" type="String" required description="New text of the message, 1-4096 characters after entities parsing" :minLen="1" :maxLen="4096" semanticType="formattable" docsLink="/formatting" />
 
 <ApiParam name="parse_mode" type="String" description="Mode for parsing entities in the message text. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details." />
 
@@ -37,11 +39,12 @@ Use this method to edit text and [game](https://core.telegram.org/bots/api#games
 
 <ApiParam name="link_preview_options" type="LinkPreviewOptions" description="Link preview generation options for the message" />
 
-<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards)." />
+<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards)." docsLink="/keyboards/overview" />
 
 ## Returns
 
 On success, Message | True is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

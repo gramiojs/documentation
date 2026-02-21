@@ -13,7 +13,9 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: <a href="/telegram/types/Message">Message</a> | True</span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> <a href="/telegram/types/Message">Message</a> | True</span>
+  <a class="api-badge formattable" href="/formatting">✏️ Formattable text</a>
+  <a class="api-badge markup" href="/keyboards/overview">⌨️ Keyboards</a>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#editmessagecaption" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -29,7 +31,7 @@ Use this method to edit captions of messages. On success, if the edited message 
 
 <ApiParam name="inline_message_id" type="String" description="Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message" />
 
-<ApiParam name="caption" type="String" description="New caption of the message, 0-1024 characters after entities parsing" :minLen="0" :maxLen="1024" />
+<ApiParam name="caption" type="String" description="New caption of the message, 0-1024 characters after entities parsing" :minLen="0" :maxLen="1024" semanticType="formattable" docsLink="/formatting" />
 
 <ApiParam name="parse_mode" type="String" description="Mode for parsing entities in the message caption. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details." />
 
@@ -37,11 +39,12 @@ Use this method to edit captions of messages. On success, if the edited message 
 
 <ApiParam name="show_caption_above_media" type="Boolean" description="Pass *True*, if the caption must be shown above the message media. Supported only for animation, photo and video messages." />
 
-<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards)." />
+<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards)." docsLink="/keyboards/overview" />
 
 ## Returns
 
 On success, Message | True is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

@@ -20,7 +20,7 @@ The background is a freeform gradient that rotates after every message in the ch
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the background fill, always &quot;freeform\_gradient&quot;" defaultValue="freeform_gradient" />
+<ApiParam name="type" type="String" required description="Type of the background fill, always &quot;freeform\_gradient&quot;" constValue="freeform_gradient" />
 
 <ApiParam name="colors" type="Integer[]" required description="A list of the 3 or 4 base colors that are used to generate the freeform gradient in the RGB24 format" />
 

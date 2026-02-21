@@ -20,9 +20,9 @@ The paid media to send is a photo.
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the media, must be *photo*" defaultValue="photo" />
+<ApiParam name="type" type="String" required description="Type of the media, must be *photo*" constValue="photo" />
 
-<ApiParam name="media" type="String" required description="File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass &quot;attach://&lt;file\_attach\_name&gt;&quot; to upload a new one using multipart/form-data under &lt;file\_attach\_name&gt; name. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)" />
+<ApiParam name="media" type="InputFile | String" required description="File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass &quot;attach://&lt;file\_attach\_name&gt;&quot; to upload a new one using multipart/form-data under &lt;file\_attach\_name&gt; name. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)" docsLink="/files/media-upload" />
 
 <!-- GENERATED:END -->
 

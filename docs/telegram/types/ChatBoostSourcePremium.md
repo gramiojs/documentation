@@ -20,7 +20,7 @@ The boost was obtained by subscribing to Telegram Premium or by gifting a Telegr
 
 ## Fields
 
-<ApiParam name="source" type="String" description="Source of the boost, always &quot;premium&quot;" defaultValue="premium" />
+<ApiParam name="source" type="String" required description="Source of the boost, always &quot;premium&quot;" constValue="premium" />
 
 <ApiParam name="user" type="User" required description="User that boosted the chat" />
 

@@ -20,7 +20,7 @@ The message was originally sent on behalf of a chat to a group chat.
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the message origin, always &quot;chat&quot;" defaultValue="chat" />
+<ApiParam name="type" type="String" required description="Type of the message origin, always &quot;chat&quot;" constValue="chat" />
 
 <ApiParam name="date" type="Integer" required description="Date the message was sent originally in Unix time" />
 

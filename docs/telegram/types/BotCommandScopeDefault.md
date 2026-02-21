@@ -20,7 +20,7 @@ Represents the default [scope](https://core.telegram.org/bots/api#botcommandscop
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Scope type, must be *default*" defaultValue="default" />
+<ApiParam name="type" type="String" required description="Scope type, must be *default*" constValue="default" />
 
 <!-- GENERATED:END -->
 

@@ -20,7 +20,7 @@ Represents a link to a file stored on the Telegram servers. By default, this fil
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the result, must be *document*" defaultValue="document" />
+<ApiParam name="type" type="String" required description="Type of the result, must be *document*" constValue="document" />
 
 <ApiParam name="id" type="String" required description="Unique identifier for this result, 1-64 bytes" />
 
@@ -30,13 +30,13 @@ Represents a link to a file stored on the Telegram servers. By default, this fil
 
 <ApiParam name="description" type="String" description="*Optional*. Short description of the result" />
 
-<ApiParam name="caption" type="String" description="*Optional*. Caption of the document to be sent, 0-1024 characters after entities parsing" :minLen="0" :maxLen="1024" />
+<ApiParam name="caption" type="String" description="*Optional*. Caption of the document to be sent, 0-1024 characters after entities parsing" :minLen="0" :maxLen="1024" semanticType="formattable" docsLink="/formatting" />
 
 <ApiParam name="parse_mode" type="String" description="*Optional*. Mode for parsing entities in the document caption. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details." />
 
 <ApiParam name="caption_entities" type="MessageEntity[]" description="*Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*" />
 
-<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="*Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message" />
+<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="*Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message" docsLink="/keyboards/overview" />
 
 <ApiParam name="input_message_content" type="InputMessageContent" description="*Optional*. Content of the message to be sent instead of the file" />
 

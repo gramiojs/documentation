@@ -13,8 +13,8 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: True</span>
-  <span class="api-badge multipart">📎 Accepts files</span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> True</span>
+  <a class="api-badge multipart" href="/files/media-upload">📎 Accepts files</a>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#setchatphoto" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -24,11 +24,12 @@ Use this method to set a new profile photo for the chat. Photos can't be changed
 
 <ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)" />
 
-<ApiParam name="photo" type="InputFile" required description="New chat photo, uploaded using multipart/form-data" />
+<ApiParam name="photo" type="InputFile" required description="New chat photo, uploaded using multipart/form-data" docsLink="/files/media-upload" />
 
 ## Returns
 
 On success, *True* is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

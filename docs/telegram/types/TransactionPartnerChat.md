@@ -20,7 +20,7 @@ Describes a transaction with a chat.
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the transaction partner, always &quot;chat&quot;" defaultValue="chat" />
+<ApiParam name="type" type="String" required description="Type of the transaction partner, always &quot;chat&quot;" constValue="chat" />
 
 <ApiParam name="chat" type="Chat" required description="Information about the chat" />
 

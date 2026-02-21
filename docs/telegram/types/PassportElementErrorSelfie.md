@@ -20,7 +20,7 @@ Represents an issue with the selfie with a document. The error is considered res
 
 ## Fields
 
-<ApiParam name="source" type="String" description="Error source, must be *selfie*" defaultValue="selfie" />
+<ApiParam name="source" type="String" required description="Error source, must be *selfie*" constValue="selfie" />
 
 <ApiParam name="type" type="String" required description="The section of the user's Telegram Passport which has the issue, one of &quot;passport&quot;, &quot;driver\_license&quot;, &quot;identity\_card&quot;, &quot;internal\_passport&quot;" :enumValues='["passport","driver_license","identity_card","internal_passport"]' />
 

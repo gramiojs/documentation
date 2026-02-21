@@ -137,6 +137,34 @@ a.api-param-type:hover {
     border: 1px solid var(--vp-c-divider);
 }
 
+a.api-param-docs-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 1px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    line-height: 1.6;
+    margin-left: 2px;
+    background: #0c4a6e22;
+    color: #0ea5e9;
+    border: 1px solid #0ea5e940;
+    text-decoration: none;
+    transition: background 0.15s;
+}
+
+a.api-param-docs-link:hover {
+    background: #0c4a6e44;
+    text-decoration: none;
+}
+
+.dark a.api-param-docs-link {
+    background: #0c4a6e33;
+    color: #38bdf8;
+    border-color: #0ea5e950;
+}
+
 .api-param-default {
     font-size: 12px;
     color: var(--vp-c-text-2);
@@ -251,6 +279,12 @@ a.api-param-type:hover {
     background: var(--vp-c-brand-soft);
     color: var(--vp-c-brand-1);
     border: 1px solid var(--vp-c-brand-2);
+    gap: 6px;
+}
+
+.api-badge.returns .returns-label {
+    opacity: 0.65;
+    font-weight: 400;
 }
 
 .api-badge.returns a {
@@ -258,6 +292,34 @@ a.api-param-type:hover {
     font-weight: 600;
     text-decoration: underline;
     text-underline-offset: 2px;
+}
+
+.api-badge.formattable {
+    background: #14532d22;
+    color: #22c55e;
+    border: 1px solid #22c55e40;
+    text-decoration: none !important;
+    transition: opacity 0.2s;
+}
+
+.api-badge.markup {
+    background: #1e3a5f22;
+    color: #60a5fa;
+    border: 1px solid #60a5fa40;
+    text-decoration: none !important;
+    transition: opacity 0.2s;
+}
+
+.dark .api-badge.formattable {
+    background: #14532d33;
+    color: #4ade80;
+    border-color: #22c55e50;
+}
+
+.dark .api-badge.markup {
+    background: #1e3a5f33;
+    color: #93c5fd;
+    border-color: #60a5fa50;
 }
 
 .api-badge.official {

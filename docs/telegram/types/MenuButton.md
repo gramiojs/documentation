@@ -18,6 +18,10 @@ head:
 
 This object describes the bot's menu button in a private chat. It should be one of
 
+*   [MenuButtonCommands](https://core.telegram.org/bots/api#menubuttoncommands)
+*   [MenuButtonWebApp](https://core.telegram.org/bots/api#menubuttonwebapp)
+*   [MenuButtonDefault](https://core.telegram.org/bots/api#menubuttondefault)
+
 ## Variants
 
 This type is one of the following:

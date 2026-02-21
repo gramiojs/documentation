@@ -20,7 +20,7 @@ Represents an issue in an unspecified place. The error is considered resolved wh
 
 ## Fields
 
-<ApiParam name="source" type="String" description="Error source, must be *unspecified*" defaultValue="unspecified" />
+<ApiParam name="source" type="String" required description="Error source, must be *unspecified*" constValue="unspecified" />
 
 <ApiParam name="type" type="String" required description="Type of element of the user's Telegram Passport which has the issue" />
 

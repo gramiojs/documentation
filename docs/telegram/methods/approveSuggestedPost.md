@@ -13,7 +13,7 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: True</span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> True</span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#approvesuggestedpost" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -30,6 +30,7 @@ Use this method to approve a suggested post in a direct messages chat. The bot m
 ## Returns
 
 On success, *True* is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

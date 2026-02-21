@@ -13,11 +13,13 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: <a href="/telegram/types/GameHighScore">GameHighScore[]</a></span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> <a href="/telegram/types/GameHighScore">GameHighScore[]</a></span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#getgamehighscores" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
 Use this method to get data for high score tables. Will return the score of the specified user and several of their neighbors in a game. Returns an Array of [GameHighScore](https://core.telegram.org/bots/api#gamehighscore) objects.
+
+> This method will currently return scores for the target user, plus two of their closest neighbors on each side. Will also return the top three users if the user and their neighbors are not among them. Please note that this behavior is subject to change.
 
 ## Parameters
 
@@ -32,6 +34,7 @@ Use this method to get data for high score tables. Will return the score of the 
 ## Returns
 
 On success, an array of [GameHighScore](/telegram/types/GameHighScore) objects is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

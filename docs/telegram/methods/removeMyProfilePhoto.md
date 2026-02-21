@@ -13,7 +13,7 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: True</span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> True</span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#removemyprofilephoto" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -22,6 +22,7 @@ Removes the profile photo of the bot. Requires no parameters. Returns *True* on 
 ## Returns
 
 On success, *True* is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

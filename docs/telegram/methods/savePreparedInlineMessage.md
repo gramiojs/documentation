@@ -13,7 +13,7 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: <a href="/telegram/types/PreparedInlineMessage">PreparedInlineMessage</a></span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> <a href="/telegram/types/PreparedInlineMessage">PreparedInlineMessage</a></span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#savepreparedinlinemessage" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -36,6 +36,7 @@ Stores a message that can be sent by a user of a Mini App. Returns a [PreparedIn
 ## Returns
 
 On success, the [PreparedInlineMessage](/telegram/types/PreparedInlineMessage) object is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

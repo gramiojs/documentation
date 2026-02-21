@@ -13,7 +13,7 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: True</span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> True</span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#convertgifttostars" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -28,6 +28,7 @@ Converts a given regular gift to Telegram Stars. Requires the *can\_convert\_gif
 ## Returns
 
 On success, *True* is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

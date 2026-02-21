@@ -15,7 +15,26 @@ const props = defineProps<{
   minLen?: number;
   maxLen?: number;
   enumValues?: (string | number)[];
+  docsLink?: string;
+  semanticType?: "formattable" | "updateType";
 }>();
+
+const SEMANTIC_LABELS: Record<string, string> = {
+  formattable: "✏️ Formattable",
+  updateType: "🔔 Update type",
+};
+
+const DOCS_LINK_LABELS: Record<string, string> = {
+  "/files/media-upload": "📎 Files",
+  "/formatting": "✏️ Formattable",
+  "/keyboards/overview": "⌨️ Keyboards",
+};
+
+function semanticLabel(): string {
+  if (props.semanticType) return SEMANTIC_LABELS[props.semanticType] ?? "📖 Docs";
+  if (props.docsLink) return DOCS_LINK_LABELS[props.docsLink] ?? "📖 Docs";
+  return "";
+}
 
 const hasConstraints =
   props.min !== undefined ||
@@ -88,6 +107,11 @@ function renderMd(text: string): string {
       <span class="api-param-badge" :class="required ? 'badge-required' : 'badge-optional'">
         {{ required ? "Required" : "Optional" }}
       </span>
+      <a
+        v-if="docsLink"
+        :href="docsLink"
+        class="api-param-docs-link"
+      >{{ semanticLabel() }}</a>
       <span class="api-param-default" v-if="defaultValue !== undefined">
         Default: <code>{{ defaultValue }}</code>
       </span>

@@ -20,7 +20,7 @@ The message was originally sent by a known user.
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the message origin, always &quot;user&quot;" defaultValue="user" />
+<ApiParam name="type" type="String" required description="Type of the message origin, always &quot;user&quot;" constValue="user" />
 
 <ApiParam name="date" type="Integer" required description="Date the message was sent originally in Unix time" />
 

@@ -20,7 +20,7 @@ This object contains information about one answer option in a poll to be sent.
 
 ## Fields
 
-<ApiParam name="text" type="String" required description="Option text, 1-100 characters" :minLen="1" :maxLen="100" />
+<ApiParam name="text" type="String" required description="Option text, 1-100 characters" :minLen="1" :maxLen="100" semanticType="formattable" docsLink="/formatting" />
 
 <ApiParam name="text_parse_mode" type="String" description="*Optional*. Mode for parsing entities in the text. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details. Currently, only custom emoji entities are allowed" />
 
