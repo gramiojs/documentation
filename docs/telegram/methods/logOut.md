@@ -13,7 +13,7 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: True</span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> True</span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#logout" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -22,6 +22,7 @@ Use this method to log out from the cloud Bot API server before launching the bo
 ## Returns
 
 On success, *True* is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

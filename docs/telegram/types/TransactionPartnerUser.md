@@ -20,7 +20,7 @@ Describes a transaction with a user.
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the transaction partner, always &quot;user&quot;" defaultValue="user" />
+<ApiParam name="type" type="String" required description="Type of the transaction partner, always &quot;user&quot;" constValue="user" />
 
 <ApiParam name="transaction_type" type="String" required description="Type of the transaction, currently one of &quot;invoice\_payment&quot; for payments via invoices, &quot;paid\_media\_payment&quot; for payments for paid media, &quot;gift\_purchase&quot; for gifts sent by the bot, &quot;premium\_purchase&quot; for Telegram Premium subscriptions gifted by the bot, &quot;business\_account\_transfer&quot; for direct transfers from managed business accounts" :enumValues='["invoice_payment","paid_media_payment","gift_purchase","premium_purchase","business_account_transfer"]' />
 

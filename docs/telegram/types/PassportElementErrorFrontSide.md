@@ -20,7 +20,7 @@ Represents an issue with the front side of a document. The error is considered r
 
 ## Fields
 
-<ApiParam name="source" type="String" description="Error source, must be *front\_side*" defaultValue="front_side" />
+<ApiParam name="source" type="String" required description="Error source, must be *front\_side*" constValue="front_side" />
 
 <ApiParam name="type" type="String" required description="The section of the user's Telegram Passport which has the issue, one of &quot;passport&quot;, &quot;driver\_license&quot;, &quot;identity\_card&quot;, &quot;internal\_passport&quot;" :enumValues='["passport","driver_license","identity_card","internal_passport"]' />
 

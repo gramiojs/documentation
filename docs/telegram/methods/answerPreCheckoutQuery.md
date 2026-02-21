@@ -13,7 +13,7 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: True</span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> True</span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#answerprecheckoutquery" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -30,6 +30,7 @@ Once the user has confirmed their payment and shipping details, the Bot API send
 ## Returns
 
 On success, *True* is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

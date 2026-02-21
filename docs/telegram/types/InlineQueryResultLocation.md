@@ -20,7 +20,7 @@ Represents a location on a map. By default, the location will be sent by the use
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the result, must be *location*" defaultValue="location" />
+<ApiParam name="type" type="String" required description="Type of the result, must be *location*" constValue="location" />
 
 <ApiParam name="id" type="String" required description="Unique identifier for this result, 1-64 Bytes" />
 
@@ -38,7 +38,7 @@ Represents a location on a map. By default, the location will be sent by the use
 
 <ApiParam name="proximity_alert_radius" type="Integer" description="*Optional*. For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified." />
 
-<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="*Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message" />
+<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="*Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message" docsLink="/keyboards/overview" />
 
 <ApiParam name="input_message_content" type="InputMessageContent" description="*Optional*. Content of the message to be sent instead of the location" />
 

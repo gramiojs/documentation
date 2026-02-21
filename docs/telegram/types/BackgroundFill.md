@@ -18,6 +18,10 @@ head:
 
 This object describes the way a background is filled based on the selected colors. Currently, it can be one of
 
+*   [BackgroundFillSolid](https://core.telegram.org/bots/api#backgroundfillsolid)
+*   [BackgroundFillGradient](https://core.telegram.org/bots/api#backgroundfillgradient)
+*   [BackgroundFillFreeformGradient](https://core.telegram.org/bots/api#backgroundfillfreeformgradient)
+
 ## Variants
 
 This type is one of the following:

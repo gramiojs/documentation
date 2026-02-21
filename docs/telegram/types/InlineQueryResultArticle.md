@@ -20,7 +20,7 @@ Represents a link to an article or web page.
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the result, must be *article*" defaultValue="article" />
+<ApiParam name="type" type="String" required description="Type of the result, must be *article*" constValue="article" />
 
 <ApiParam name="id" type="String" required description="Unique identifier for this result, 1-64 Bytes" />
 
@@ -28,7 +28,7 @@ Represents a link to an article or web page.
 
 <ApiParam name="input_message_content" type="InputMessageContent" required description="Content of the message to be sent" />
 
-<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="*Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message" />
+<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="*Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message" docsLink="/keyboards/overview" />
 
 <ApiParam name="url" type="String" description="*Optional*. URL of the result" />
 

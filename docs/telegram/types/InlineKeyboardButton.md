@@ -44,7 +44,7 @@ This object represents one button of an inline keyboard. Exactly one of the fiel
 
 <ApiParam name="callback_game" type="CallbackGame" description="*Optional*. Description of the game that will be launched when the user presses the button.      **NOTE:** This type of button **must** always be the first button in the first row." />
 
-<ApiParam name="pay" type="Boolean" description="*Optional*. Specify *True*, to send a [Pay button](https://core.telegram.org/bots/api#payments). Substrings &quot;![⭐](//telegram.org/img/emoji/40/E2AD90.png)&quot; and &quot;XTR&quot; in the buttons's text will be replaced with a Telegram Star icon.      **NOTE:** This type of button **must** always be the first button in the first row and can only be used in invoice messages." />
+<ApiParam name="pay" type="Boolean" description="*Optional*. Specify *True*, to send a [Pay button](https://core.telegram.org/bots/api#payments). Substrings &quot;![⭐](https://telegram.org/img/emoji/40/E2AD90.png)&quot; and &quot;XTR&quot; in the buttons's text will be replaced with a Telegram Star icon.      **NOTE:** This type of button **must** always be the first button in the first row and can only be used in invoice messages." />
 
 <!-- GENERATED:END -->
 

@@ -20,7 +20,7 @@ Represents a link to a video file stored on the Telegram servers. By default, th
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the result, must be *video*" defaultValue="video" />
+<ApiParam name="type" type="String" required description="Type of the result, must be *video*" constValue="video" />
 
 <ApiParam name="id" type="String" required description="Unique identifier for this result, 1-64 bytes" />
 
@@ -30,7 +30,7 @@ Represents a link to a video file stored on the Telegram servers. By default, th
 
 <ApiParam name="description" type="String" description="*Optional*. Short description of the result" />
 
-<ApiParam name="caption" type="String" description="*Optional*. Caption of the video to be sent, 0-1024 characters after entities parsing" :minLen="0" :maxLen="1024" />
+<ApiParam name="caption" type="String" description="*Optional*. Caption of the video to be sent, 0-1024 characters after entities parsing" :minLen="0" :maxLen="1024" semanticType="formattable" docsLink="/formatting" />
 
 <ApiParam name="parse_mode" type="String" description="*Optional*. Mode for parsing entities in the video caption. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details." />
 
@@ -38,7 +38,7 @@ Represents a link to a video file stored on the Telegram servers. By default, th
 
 <ApiParam name="show_caption_above_media" type="Boolean" description="*Optional*. Pass *True*, if the caption must be shown above the message media" />
 
-<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="*Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message" />
+<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="*Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message" docsLink="/keyboards/overview" />
 
 <ApiParam name="input_message_content" type="InputMessageContent" description="*Optional*. Content of the message to be sent instead of the video" />
 

@@ -18,6 +18,9 @@ head:
 
 This object describes the paid media to be sent. Currently, it can be one of
 
+*   [InputPaidMediaPhoto](https://core.telegram.org/bots/api#inputpaidmediaphoto)
+*   [InputPaidMediaVideo](https://core.telegram.org/bots/api#inputpaidmediavideo)
+
 ## Variants
 
 This type is one of the following:

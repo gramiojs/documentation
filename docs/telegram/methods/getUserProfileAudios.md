@@ -13,7 +13,7 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: <a href="/telegram/types/UserProfileAudios">UserProfileAudios</a></span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> <a href="/telegram/types/UserProfileAudios">UserProfileAudios</a></span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#getuserprofileaudios" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -30,6 +30,7 @@ Use this method to get a list of profile audios for a user. Returns a [UserProfi
 ## Returns
 
 On success, the [UserProfileAudios](/telegram/types/UserProfileAudios) object is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

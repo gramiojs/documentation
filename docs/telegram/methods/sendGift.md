@@ -13,7 +13,8 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: True</span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> True</span>
+  <a class="api-badge formattable" href="/formatting">✏️ Formattable text</a>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#sendgift" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -29,7 +30,7 @@ Sends a gift to the given user or channel chat. The gift can't be converted to T
 
 <ApiParam name="pay_for_upgrade" type="Boolean" description="Pass *True* to pay for the gift upgrade from the bot's balance, thereby making the upgrade free for the receiver" />
 
-<ApiParam name="text" type="String" description="Text that will be shown along with the gift; 0-128 characters" :minLen="0" :maxLen="128" />
+<ApiParam name="text" type="String" description="Text that will be shown along with the gift; 0-128 characters" :minLen="0" :maxLen="128" semanticType="formattable" docsLink="/formatting" />
 
 <ApiParam name="text_parse_mode" type="String" description="Mode for parsing entities in the text. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details. Entities other than &quot;bold&quot;, &quot;italic&quot;, &quot;underline&quot;, &quot;strikethrough&quot;, &quot;spoiler&quot;, and &quot;custom\_emoji&quot; are ignored." />
 
@@ -38,6 +39,7 @@ Sends a gift to the given user or channel chat. The gift can't be converted to T
 ## Returns
 
 On success, *True* is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

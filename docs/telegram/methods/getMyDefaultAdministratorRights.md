@@ -13,7 +13,7 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: <a href="/telegram/types/ChatAdministratorRights">ChatAdministratorRights</a></span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> <a href="/telegram/types/ChatAdministratorRights">ChatAdministratorRights</a></span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#getmydefaultadministratorrights" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -26,6 +26,7 @@ Use this method to get the current default administrator rights of the bot. Retu
 ## Returns
 
 On success, the [ChatAdministratorRights](/telegram/types/ChatAdministratorRights) object is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

@@ -13,7 +13,8 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: <a href="/telegram/types/Poll">Poll</a></span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> <a href="/telegram/types/Poll">Poll</a></span>
+  <a class="api-badge markup" href="/keyboards/overview">⌨️ Keyboards</a>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#stoppoll" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -27,11 +28,12 @@ Use this method to stop a poll which was sent by the bot. On success, the stoppe
 
 <ApiParam name="message_id" type="Integer" required description="Identifier of the original message with the poll" />
 
-<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="A JSON-serialized object for a new message [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards)." />
+<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="A JSON-serialized object for a new message [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards)." docsLink="/keyboards/overview" />
 
 ## Returns
 
 On success, the [Poll](/telegram/types/Poll) object is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

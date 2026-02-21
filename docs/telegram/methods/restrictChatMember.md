@@ -13,7 +13,7 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: True</span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> True</span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#restrictchatmember" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -34,6 +34,7 @@ Use this method to restrict a user in a supergroup. The bot must be an administr
 ## Returns
 
 On success, *True* is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

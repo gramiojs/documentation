@@ -22,7 +22,7 @@ This object represents an animated emoji that displays a random value.
 
 <ApiParam name="emoji" type="String" required description="Emoji on which the dice throw animation is based" />
 
-<ApiParam name="value" type="Integer" required description="Value of the dice, 1-6 for &quot;![🎲](//telegram.org/img/emoji/40/F09F8EB2.png)&quot;, &quot;![🎯](//telegram.org/img/emoji/40/F09F8EAF.png)&quot; and &quot;![🎳](//telegram.org/img/emoji/40/F09F8EB3.png)&quot; base emoji, 1-5 for &quot;![🏀](//telegram.org/img/emoji/40/F09F8F80.png)&quot; and &quot;![⚽](//telegram.org/img/emoji/40/E29ABD.png)&quot; base emoji, 1-64 for &quot;![🎰](//telegram.org/img/emoji/40/F09F8EB0.png)&quot; base emoji" :enumValues='["🎲","🎯","🎳","🏀","⚽","🎰"]' />
+<ApiParam name="value" type="Integer" required description="Value of the dice, 1-6 for &quot;![🎲](https://telegram.org/img/emoji/40/F09F8EB2.png)&quot;, &quot;![🎯](https://telegram.org/img/emoji/40/F09F8EAF.png)&quot; and &quot;![🎳](https://telegram.org/img/emoji/40/F09F8EB3.png)&quot; base emoji, 1-5 for &quot;![🏀](https://telegram.org/img/emoji/40/F09F8F80.png)&quot; and &quot;![⚽](https://telegram.org/img/emoji/40/E29ABD.png)&quot; base emoji, 1-64 for &quot;![🎰](https://telegram.org/img/emoji/40/F09F8EB0.png)&quot; base emoji" />
 
 <!-- GENERATED:END -->
 

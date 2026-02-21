@@ -228,7 +228,7 @@ This object represents a message.
 
 <ApiParam name="web_app_data" type="WebAppData" description="*Optional*. Service message: data sent by a Web App" />
 
-<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="*Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message. `login_url` buttons are represented as ordinary `url` buttons." />
+<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="*Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message. `login_url` buttons are represented as ordinary `url` buttons." docsLink="/keyboards/overview" />
 
 <!-- GENERATED:END -->
 

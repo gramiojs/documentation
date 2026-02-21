@@ -20,7 +20,7 @@ Describes a story area pointing to a location. Currently, a story can have up to
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the area, always &quot;location&quot;" defaultValue="location" />
+<ApiParam name="type" type="String" required description="Type of the area, always &quot;location&quot;" constValue="location" />
 
 <ApiParam name="latitude" type="Float" required description="Location latitude in degrees" />
 

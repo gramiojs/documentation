@@ -13,7 +13,7 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: True</span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> True</span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#promotechatmember" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -60,6 +60,7 @@ Use this method to promote or demote a user in a supergroup or a channel. The bo
 ## Returns
 
 On success, *True* is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

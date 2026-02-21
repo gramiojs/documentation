@@ -13,7 +13,7 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: <a href="/telegram/types/ChatMember">ChatMember[]</a></span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> <a href="/telegram/types/ChatMember">ChatMember[]</a></span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#getchatadministrators" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -26,6 +26,7 @@ Use this method to get a list of administrators in a chat, which aren't bots. Re
 ## Returns
 
 On success, an array of [ChatMember](/telegram/types/ChatMember) objects is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

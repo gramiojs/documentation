@@ -13,7 +13,7 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: <a href="/telegram/types/Story">Story</a></span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> <a href="/telegram/types/Story">Story</a></span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#repoststory" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -36,6 +36,7 @@ Reposts a story on behalf of a business account from another business account. B
 ## Returns
 
 On success, the [Story](/telegram/types/Story) object is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

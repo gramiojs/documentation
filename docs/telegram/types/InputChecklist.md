@@ -20,7 +20,7 @@ Describes a checklist to create.
 
 ## Fields
 
-<ApiParam name="title" type="String" required description="Title of the checklist; 1-255 characters after entities parsing" :minLen="1" :maxLen="255" />
+<ApiParam name="title" type="String" required description="Title of the checklist; 1-255 characters after entities parsing" :minLen="1" :maxLen="255" semanticType="formattable" docsLink="/formatting" />
 
 <ApiParam name="parse_mode" type="String" description="*Optional*. Mode for parsing entities in the title. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details." />
 

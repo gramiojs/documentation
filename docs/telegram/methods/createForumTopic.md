@@ -13,7 +13,7 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: <a href="/telegram/types/ForumTopic">ForumTopic</a></span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> <a href="/telegram/types/ForumTopic">ForumTopic</a></span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#createforumtopic" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -32,6 +32,7 @@ Use this method to create a topic in a forum supergroup chat or a private chat w
 ## Returns
 
 On success, the [ForumTopic](/telegram/types/ForumTopic) object is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

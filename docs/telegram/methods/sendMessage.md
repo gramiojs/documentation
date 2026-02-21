@@ -13,7 +13,9 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: <a href="/telegram/types/Message">Message</a></span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> <a href="/telegram/types/Message">Message</a></span>
+  <a class="api-badge formattable" href="/formatting">✏️ Formattable text</a>
+  <a class="api-badge markup" href="/keyboards/overview">⌨️ Keyboards</a>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#sendmessage" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -29,7 +31,7 @@ Use this method to send text messages. On success, the sent [Message](https://co
 
 <ApiParam name="direct_messages_topic_id" type="Integer" description="Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat" />
 
-<ApiParam name="text" type="String" required description="Text of the message to be sent, 1-4096 characters after entities parsing" :minLen="1" :maxLen="4096" />
+<ApiParam name="text" type="String" required description="Text of the message to be sent, 1-4096 characters after entities parsing" :minLen="1" :maxLen="4096" semanticType="formattable" docsLink="/formatting" />
 
 <ApiParam name="parse_mode" type="String" description="Mode for parsing entities in the message text. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details." />
 
@@ -49,11 +51,12 @@ Use this method to send text messages. On success, the sent [Message](https://co
 
 <ApiParam name="reply_parameters" type="ReplyParameters" description="Description of the message to reply to" />
 
-<ApiParam name="reply_markup" type="InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply" description="Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user" />
+<ApiParam name="reply_markup" type="InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply" description="Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user" docsLink="/keyboards/overview" />
 
 ## Returns
 
 On success, the [Message](/telegram/types/Message) object is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

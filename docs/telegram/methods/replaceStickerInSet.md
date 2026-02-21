@@ -13,8 +13,8 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: True</span>
-  <span class="api-badge multipart">📎 Accepts files</span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> True</span>
+  <a class="api-badge multipart" href="/files/media-upload">📎 Accepts files</a>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#replacestickerinset" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -33,6 +33,7 @@ Use this method to replace an existing sticker in a sticker set with a new one. 
 ## Returns
 
 On success, *True* is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

@@ -13,7 +13,8 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: True</span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> True</span>
+  <a class="api-badge formattable" href="/formatting">✏️ Formattable text</a>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#sendmessagedraft" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -27,7 +28,7 @@ Use this method to stream a partial message to a user while the message is being
 
 <ApiParam name="draft_id" type="Integer" required description="Unique identifier of the message draft; must be non-zero. Changes of drafts with the same identifier are animated" />
 
-<ApiParam name="text" type="String" required description="Text of the message to be sent, 1-4096 characters after entities parsing" :minLen="1" :maxLen="4096" />
+<ApiParam name="text" type="String" required description="Text of the message to be sent, 1-4096 characters after entities parsing" :minLen="1" :maxLen="4096" semanticType="formattable" docsLink="/formatting" />
 
 <ApiParam name="parse_mode" type="String" description="Mode for parsing entities in the message text. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details." />
 
@@ -36,6 +37,7 @@ Use this method to stream a partial message to a user while the message is being
 ## Returns
 
 On success, *True* is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

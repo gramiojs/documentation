@@ -14,6 +14,7 @@ head:
 <!-- GENERATED:START -->
 <div class="api-badge-row">
   <a class="api-badge official" href="https://core.telegram.org/bots/api#replykeyboardmarkup" target="_blank" rel="noopener">Official docs ↗</a>
+  <a class="api-badge docs" href="/keyboards/overview">⌨️ Keyboard type</a>
 </div>
 
 This object represents a [custom keyboard](https://core.telegram.org/bots/features#keyboards) with reply options (see [Introduction to bots](https://core.telegram.org/bots/features#keyboards) for details and examples). Not supported in channels and for messages sent on behalf of a Telegram Business account.

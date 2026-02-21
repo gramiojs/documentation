@@ -20,7 +20,7 @@ Represents the [scope](https://core.telegram.org/bots/api#botcommandscope) of bo
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Scope type, must be *chat*" defaultValue="chat" />
+<ApiParam name="type" type="String" required description="Scope type, must be *chat*" constValue="chat" />
 
 <ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`). Channel direct messages chats and channel chats aren't supported." />
 

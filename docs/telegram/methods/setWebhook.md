@@ -13,8 +13,8 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: True</span>
-  <span class="api-badge multipart">📎 Accepts files</span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> True</span>
+  <a class="api-badge multipart" href="/files/media-upload">📎 Accepts files</a>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#setwebhook" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -26,13 +26,13 @@ If you'd like to make sure that the webhook was set by you, you can specify secr
 
 <ApiParam name="url" type="String" required description="HTTPS URL to send updates to. Use an empty string to remove webhook integration" />
 
-<ApiParam name="certificate" type="InputFile" description="Upload your public key certificate so that the root certificate in use can be checked. See our [self-signed guide](https://core.telegram.org/bots/self-signed) for details." />
+<ApiParam name="certificate" type="InputFile" description="Upload your public key certificate so that the root certificate in use can be checked. See our [self-signed guide](https://core.telegram.org/bots/self-signed) for details." docsLink="/files/media-upload" />
 
 <ApiParam name="ip_address" type="String" description="The fixed IP address which will be used to send webhook requests instead of the IP address resolved through DNS" />
 
 <ApiParam name="max_connections" type="Integer" description="The maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery, 1-100. Defaults to *40*. Use lower values to limit the load on your bot's server, and higher values to increase your bot's throughput." :defaultValue="40" />
 
-<ApiParam name="allowed_updates" type="String[]" description="A JSON-serialized list of the update types you want your bot to receive. For example, specify `[&quot;message&quot;, &quot;edited_channel_post&quot;, &quot;callback_query&quot;]` to only receive updates of these types. See [Update](https://core.telegram.org/bots/api#update) for a complete list of available update types. Specify an empty list to receive all update types except *chat\_member*, *message\_reaction*, and *message\_reaction\_count* (default). If not specified, the previous setting will be used.   Please note that this parameter doesn't affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time." />
+<ApiParam name="allowed_updates" type="String[]" description="A JSON-serialized list of the update types you want your bot to receive. For example, specify `[&quot;message&quot;, &quot;edited_channel_post&quot;, &quot;callback_query&quot;]` to only receive updates of these types. See [Update](https://core.telegram.org/bots/api#update) for a complete list of available update types. Specify an empty list to receive all update types except *chat\_member*, *message\_reaction*, and *message\_reaction\_count* (default). If not specified, the previous setting will be used.   Please note that this parameter doesn't affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time." semanticType="updateType" />
 
 <ApiParam name="drop_pending_updates" type="Boolean" description="Pass *True* to drop all pending updates" />
 
@@ -41,6 +41,7 @@ If you'd like to make sure that the webhook was set by you, you can specify secr
 ## Returns
 
 On success, *True* is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

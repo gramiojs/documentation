@@ -13,7 +13,7 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: True</span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> True</span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#removechatverification" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -26,6 +26,7 @@ Removes verification from a chat that is currently verified [on behalf of the or
 ## Returns
 
 On success, *True* is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

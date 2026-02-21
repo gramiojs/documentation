@@ -20,7 +20,7 @@ Describes a transaction with an unknown source or recipient.
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the transaction partner, always &quot;other&quot;" defaultValue="other" />
+<ApiParam name="type" type="String" required description="Type of the transaction partner, always &quot;other&quot;" constValue="other" />
 
 <!-- GENERATED:END -->
 

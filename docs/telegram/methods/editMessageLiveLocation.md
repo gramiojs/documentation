@@ -13,7 +13,8 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: <a href="/telegram/types/Message">Message</a> | True</span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> <a href="/telegram/types/Message">Message</a> | True</span>
+  <a class="api-badge markup" href="/keyboards/overview">⌨️ Keyboards</a>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#editmessagelivelocation" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -41,11 +42,12 @@ Use this method to edit live location messages. A location can be edited until i
 
 <ApiParam name="proximity_alert_radius" type="Integer" description="The maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified." />
 
-<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="A JSON-serialized object for a new [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards)." />
+<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="A JSON-serialized object for a new [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards)." docsLink="/keyboards/overview" />
 
 ## Returns
 
 On success, Message | True is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

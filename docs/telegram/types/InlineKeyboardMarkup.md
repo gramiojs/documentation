@@ -14,6 +14,7 @@ head:
 <!-- GENERATED:START -->
 <div class="api-badge-row">
   <a class="api-badge official" href="https://core.telegram.org/bots/api#inlinekeyboardmarkup" target="_blank" rel="noopener">Official docs ↗</a>
+  <a class="api-badge docs" href="/keyboards/overview">⌨️ Keyboard type</a>
 </div>
 
 This object represents an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) that appears right next to the message it belongs to.

@@ -20,9 +20,9 @@ A static profile photo in the .JPG format.
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the profile photo, must be *static*" defaultValue="static" />
+<ApiParam name="type" type="String" required description="Type of the profile photo, must be *static*" constValue="static" />
 
-<ApiParam name="photo" type="String" required description="The static profile photo. Profile photos can't be reused and can only be uploaded as a new file, so you can pass &quot;attach://&lt;file\_attach\_name&gt;&quot; if the photo was uploaded using multipart/form-data under &lt;file\_attach\_name&gt;. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)" />
+<ApiParam name="photo" type="InputFile | String" required description="The static profile photo. Profile photos can't be reused and can only be uploaded as a new file, so you can pass &quot;attach://&lt;file\_attach\_name&gt;&quot; if the photo was uploaded using multipart/form-data under &lt;file\_attach\_name&gt;. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)" docsLink="/files/media-upload" />
 
 <!-- GENERATED:END -->
 

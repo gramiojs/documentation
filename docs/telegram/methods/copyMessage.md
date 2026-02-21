@@ -13,7 +13,9 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: <a href="/telegram/types/MessageId">MessageId</a></span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> <a href="/telegram/types/MessageId">MessageId</a></span>
+  <a class="api-badge formattable" href="/formatting">✏️ Formattable text</a>
+  <a class="api-badge markup" href="/keyboards/overview">⌨️ Keyboards</a>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#copymessage" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -33,7 +35,7 @@ Use this method to copy messages of any kind. Service messages, paid media messa
 
 <ApiParam name="video_start_timestamp" type="Integer" description="New start timestamp for the copied video in the message" />
 
-<ApiParam name="caption" type="String" description="New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept" :minLen="0" :maxLen="1024" />
+<ApiParam name="caption" type="String" description="New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept" :minLen="0" :maxLen="1024" semanticType="formattable" docsLink="/formatting" />
 
 <ApiParam name="parse_mode" type="String" description="Mode for parsing entities in the new caption. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details." />
 
@@ -53,11 +55,12 @@ Use this method to copy messages of any kind. Service messages, paid media messa
 
 <ApiParam name="reply_parameters" type="ReplyParameters" description="Description of the message to reply to" />
 
-<ApiParam name="reply_markup" type="InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply" description="Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user" />
+<ApiParam name="reply_markup" type="InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply" description="Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user" docsLink="/keyboards/overview" />
 
 ## Returns
 
 On success, the [MessageId](/telegram/types/MessageId) object is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

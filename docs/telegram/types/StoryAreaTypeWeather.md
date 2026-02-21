@@ -20,7 +20,7 @@ Describes a story area containing weather information. Currently, a story can ha
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the area, always &quot;weather&quot;" defaultValue="weather" />
+<ApiParam name="type" type="String" required description="Type of the area, always &quot;weather&quot;" constValue="weather" />
 
 <ApiParam name="temperature" type="Float" required description="Temperature, in degree Celsius" />
 

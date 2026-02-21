@@ -20,7 +20,7 @@ Represents an issue with the reverse side of a document. The error is considered
 
 ## Fields
 
-<ApiParam name="source" type="String" description="Error source, must be *reverse\_side*" defaultValue="reverse_side" />
+<ApiParam name="source" type="String" required description="Error source, must be *reverse\_side*" constValue="reverse_side" />
 
 <ApiParam name="type" type="String" required description="The section of the user's Telegram Passport which has the issue, one of &quot;driver\_license&quot;, &quot;identity\_card&quot;" :enumValues='["driver_license","identity_card"]' />
 

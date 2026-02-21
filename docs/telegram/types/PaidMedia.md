@@ -18,6 +18,10 @@ head:
 
 This object describes paid media. Currently, it can be one of
 
+*   [PaidMediaPreview](https://core.telegram.org/bots/api#paidmediapreview)
+*   [PaidMediaPhoto](https://core.telegram.org/bots/api#paidmediaphoto)
+*   [PaidMediaVideo](https://core.telegram.org/bots/api#paidmediavideo)
+
 ## Variants
 
 This type is one of the following:

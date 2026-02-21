@@ -20,7 +20,7 @@ Represents a [chat member](https://core.telegram.org/bots/api#chatmember) that h
 
 ## Fields
 
-<ApiParam name="status" type="String" description="The member's status in the chat, always &quot;administrator&quot;" defaultValue="administrator" />
+<ApiParam name="status" type="String" required description="The member's status in the chat, always &quot;administrator&quot;" constValue="administrator" />
 
 <ApiParam name="user" type="User" required description="Information about the user" />
 

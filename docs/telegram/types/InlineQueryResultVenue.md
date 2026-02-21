@@ -20,7 +20,7 @@ Represents a venue. By default, the venue will be sent by the user. Alternativel
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the result, must be *venue*" defaultValue="venue" />
+<ApiParam name="type" type="String" required description="Type of the result, must be *venue*" constValue="venue" />
 
 <ApiParam name="id" type="String" required description="Unique identifier for this result, 1-64 Bytes" />
 
@@ -40,7 +40,7 @@ Represents a venue. By default, the venue will be sent by the user. Alternativel
 
 <ApiParam name="google_place_type" type="String" description="*Optional*. Google Places type of the venue. (See [supported types](https://developers.google.com/places/web-service/supported_types).)" />
 
-<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="*Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message" />
+<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="*Optional*. [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards) attached to the message" docsLink="/keyboards/overview" />
 
 <ApiParam name="input_message_content" type="InputMessageContent" description="*Optional*. Content of the message to be sent instead of the venue" />
 

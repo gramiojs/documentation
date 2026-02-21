@@ -20,7 +20,7 @@ The background is a .PNG or .TGV (gzipped subset of SVG with MIME type “applic
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the background, always &quot;pattern&quot;" defaultValue="pattern" />
+<ApiParam name="type" type="String" required description="Type of the background, always &quot;pattern&quot;" constValue="pattern" />
 
 <ApiParam name="document" type="Document" required description="Document with the pattern" />
 

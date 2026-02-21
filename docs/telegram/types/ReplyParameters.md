@@ -26,7 +26,7 @@ Describes reply parameters for the message that is being sent.
 
 <ApiParam name="allow_sending_without_reply" type="Boolean" description="*Optional*. Pass *True* if the message should be sent even if the specified message to be replied to is not found. Always *False* for replies in another chat or forum topic. Always *True* for messages sent on behalf of a business account." />
 
-<ApiParam name="quote" type="String" description="*Optional*. Quoted part of the message to be replied to; 0-1024 characters after entities parsing. The quote must be an exact substring of the message to be replied to, including *bold*, *italic*, *underline*, *strikethrough*, *spoiler*, and *custom\_emoji* entities. The message will fail to send if the quote isn't found in the original message." :minLen="0" :maxLen="1024" />
+<ApiParam name="quote" type="String" description="*Optional*. Quoted part of the message to be replied to; 0-1024 characters after entities parsing. The quote must be an exact substring of the message to be replied to, including *bold*, *italic*, *underline*, *strikethrough*, *spoiler*, and *custom\_emoji* entities. The message will fail to send if the quote isn't found in the original message." :minLen="0" :maxLen="1024" semanticType="formattable" docsLink="/formatting" />
 
 <ApiParam name="quote_parse_mode" type="String" description="*Optional*. Mode for parsing entities in the quote. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details." />
 

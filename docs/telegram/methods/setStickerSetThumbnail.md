@@ -13,8 +13,8 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: True</span>
-  <span class="api-badge multipart">📎 Accepts files</span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> True</span>
+  <a class="api-badge multipart" href="/files/media-upload">📎 Accepts files</a>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#setstickersetthumbnail" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -26,13 +26,14 @@ Use this method to set the thumbnail of a regular or mask sticker set. The forma
 
 <ApiParam name="user_id" type="Integer" required description="User identifier of the sticker set owner" />
 
-<ApiParam name="thumbnail" type="InputFile | String" description="A **.WEBP** or **.PNG** image with the thumbnail, must be up to 128 kilobytes in size and have a width and height of exactly 100px, or a **.TGS** animation with a thumbnail up to 32 kilobytes in size (see [](https://core.telegram.org/stickers#animation-requirements)[https://core.telegram.org/stickers#animation-requirements](https://core.telegram.org/stickers#animation-requirements) for animated sticker technical requirements), or a **.WEBM** video with the thumbnail up to 32 kilobytes in size; see [](https://core.telegram.org/stickers#video-requirements)[https://core.telegram.org/stickers#video-requirements](https://core.telegram.org/stickers#video-requirements) for video sticker technical requirements. Pass a *file\_id* as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files). Animated and video sticker set thumbnails can't be uploaded via HTTP URL. If omitted, then the thumbnail is dropped and the first sticker is used as the thumbnail." />
+<ApiParam name="thumbnail" type="InputFile | String" description="A **.WEBP** or **.PNG** image with the thumbnail, must be up to 128 kilobytes in size and have a width and height of exactly 100px, or a **.TGS** animation with a thumbnail up to 32 kilobytes in size (see [https://core.telegram.org/stickers#animation-requirements](https://core.telegram.org/stickers#animation-requirements) for animated sticker technical requirements), or a **.WEBM** video with the thumbnail up to 32 kilobytes in size; see [https://core.telegram.org/stickers#video-requirements](https://core.telegram.org/stickers#video-requirements) for video sticker technical requirements. Pass a *file\_id* as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files). Animated and video sticker set thumbnails can't be uploaded via HTTP URL. If omitted, then the thumbnail is dropped and the first sticker is used as the thumbnail." docsLink="/files/media-upload" />
 
 <ApiParam name="format" type="String" required description="Format of the thumbnail, must be one of &quot;static&quot; for a **.WEBP** or **.PNG** image, &quot;animated&quot; for a **.TGS** animation, or &quot;video&quot; for a **.WEBM** video" :enumValues='["static","animated","video"]' />
 
 ## Returns
 
 On success, *True* is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

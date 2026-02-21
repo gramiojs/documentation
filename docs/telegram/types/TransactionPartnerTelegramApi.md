@@ -20,7 +20,7 @@ Describes a transaction with payment for [paid broadcasting](https://core.telegr
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the transaction partner, always &quot;telegram\_api&quot;" defaultValue="telegram_api" />
+<ApiParam name="type" type="String" required description="Type of the transaction partner, always &quot;telegram\_api&quot;" constValue="telegram_api" />
 
 <ApiParam name="request_count" type="Integer" required description="The number of successful requests that exceeded regular limits and were therefore billed" />
 

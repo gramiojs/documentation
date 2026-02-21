@@ -13,8 +13,9 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: <a href="/telegram/types/Story">Story</a></span>
-  <span class="api-badge multipart">📎 Accepts files</span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> <a href="/telegram/types/Story">Story</a></span>
+  <a class="api-badge multipart" href="/files/media-upload">📎 Accepts files</a>
+  <a class="api-badge formattable" href="/formatting">✏️ Formattable text</a>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#editstory" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -28,7 +29,7 @@ Edits a story previously posted by the bot on behalf of a managed business accou
 
 <ApiParam name="content" type="InputStoryContent" required description="Content of the story" />
 
-<ApiParam name="caption" type="String" description="Caption of the story, 0-2048 characters after entities parsing" :minLen="0" :maxLen="2048" />
+<ApiParam name="caption" type="String" description="Caption of the story, 0-2048 characters after entities parsing" :minLen="0" :maxLen="2048" semanticType="formattable" docsLink="/formatting" />
 
 <ApiParam name="parse_mode" type="String" description="Mode for parsing entities in the story caption. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details." />
 
@@ -39,6 +40,7 @@ Edits a story previously posted by the bot on behalf of a managed business accou
 ## Returns
 
 On success, the [Story](/telegram/types/Story) object is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

@@ -13,7 +13,7 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: <a href="/telegram/types/User">User</a></span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> <a href="/telegram/types/User">User</a></span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#getme" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -22,6 +22,7 @@ A simple method for testing your bot's authentication token. Requires no paramet
 ## Returns
 
 On success, the [User](/telegram/types/User) object is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

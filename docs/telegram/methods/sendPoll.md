@@ -13,7 +13,9 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: <a href="/telegram/types/Message">Message</a></span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> <a href="/telegram/types/Message">Message</a></span>
+  <a class="api-badge formattable" href="/formatting">✏️ Formattable text</a>
+  <a class="api-badge markup" href="/keyboards/overview">⌨️ Keyboards</a>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#sendpoll" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -27,7 +29,7 @@ Use this method to send a native poll. On success, the sent [Message](https://co
 
 <ApiParam name="message_thread_id" type="Integer" description="Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only" />
 
-<ApiParam name="question" type="String" required description="Poll question, 1-300 characters" :minLen="1" :maxLen="300" />
+<ApiParam name="question" type="String" required description="Poll question, 1-300 characters" :minLen="1" :maxLen="300" semanticType="formattable" docsLink="/formatting" />
 
 <ApiParam name="question_parse_mode" type="String" description="Mode for parsing entities in the question. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details. Currently, only custom emoji entities are allowed" />
 
@@ -43,7 +45,7 @@ Use this method to send a native poll. On success, the sent [Message](https://co
 
 <ApiParam name="correct_option_id" type="Integer" description="0-based identifier of the correct answer option, required for polls in quiz mode" />
 
-<ApiParam name="explanation" type="String" description="Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 characters with at most 2 line feeds after entities parsing" :minLen="0" :maxLen="200" />
+<ApiParam name="explanation" type="String" description="Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 characters with at most 2 line feeds after entities parsing" :minLen="0" :maxLen="200" semanticType="formattable" docsLink="/formatting" />
 
 <ApiParam name="explanation_parse_mode" type="String" description="Mode for parsing entities in the explanation. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details." />
 
@@ -65,11 +67,12 @@ Use this method to send a native poll. On success, the sent [Message](https://co
 
 <ApiParam name="reply_parameters" type="ReplyParameters" description="Description of the message to reply to" />
 
-<ApiParam name="reply_markup" type="InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply" description="Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user" />
+<ApiParam name="reply_markup" type="InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply" description="Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user" docsLink="/keyboards/overview" />
 
 ## Returns
 
 On success, the [Message](/telegram/types/Message) object is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

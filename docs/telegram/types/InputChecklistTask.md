@@ -22,7 +22,7 @@ Describes a task to add to a checklist.
 
 <ApiParam name="id" type="Integer" required description="Unique identifier of the task; must be positive and unique among all task identifiers currently present in the checklist" />
 
-<ApiParam name="text" type="String" required description="Text of the task; 1-100 characters after entities parsing" :minLen="1" :maxLen="100" />
+<ApiParam name="text" type="String" required description="Text of the task; 1-100 characters after entities parsing" :minLen="1" :maxLen="100" semanticType="formattable" docsLink="/formatting" />
 
 <ApiParam name="parse_mode" type="String" description="*Optional*. Mode for parsing entities in the text. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details." />
 

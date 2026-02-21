@@ -20,7 +20,7 @@ The background is automatically filled based on the selected colors.
 
 ## Fields
 
-<ApiParam name="type" type="String" description="Type of the background, always &quot;fill&quot;" defaultValue="fill" />
+<ApiParam name="type" type="String" required description="Type of the background, always &quot;fill&quot;" constValue="fill" />
 
 <ApiParam name="fill" type="BackgroundFill" required description="The background fill" />
 

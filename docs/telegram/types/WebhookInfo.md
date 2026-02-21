@@ -36,7 +36,7 @@ Describes the current status of a webhook.
 
 <ApiParam name="max_connections" type="Integer" description="*Optional*. The maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery" />
 
-<ApiParam name="allowed_updates" type="String[]" description="*Optional*. A list of update types the bot is subscribed to. Defaults to all update types except *chat\_member*" />
+<ApiParam name="allowed_updates" type="String[]" description="*Optional*. A list of update types the bot is subscribed to. Defaults to all update types except *chat\_member*" semanticType="updateType" />
 
 <!-- GENERATED:END -->
 

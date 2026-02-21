@@ -13,7 +13,7 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: <a href="/telegram/types/MenuButton">MenuButton</a></span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> <a href="/telegram/types/MenuButton">MenuButton</a></span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#getchatmenubutton" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -26,6 +26,7 @@ Use this method to get the current value of the bot's menu button in a private c
 ## Returns
 
 On success, the [MenuButton](/telegram/types/MenuButton) object is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

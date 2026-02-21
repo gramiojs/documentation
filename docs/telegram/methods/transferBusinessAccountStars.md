@@ -13,7 +13,7 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: True</span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> True</span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#transferbusinessaccountstars" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -28,6 +28,7 @@ Transfers Telegram Stars from the business account balance to the bot's balance.
 ## Returns
 
 On success, *True* is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

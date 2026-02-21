@@ -13,7 +13,7 @@ head:
 
 <!-- GENERATED:START -->
 <div class="api-badge-row">
-  <span class="api-badge returns">Returns: True</span>
+  <span class="api-badge returns"><span class="returns-label">Returns:</span> True</span>
   <a class="api-badge official" href="https://core.telegram.org/bots/api#setchatadministratorcustomtitle" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
@@ -30,6 +30,7 @@ Use this method to set a custom title for an administrator in a supergroup promo
 ## Returns
 
 On success, *True* is returned.
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage
