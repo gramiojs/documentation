@@ -22,13 +22,17 @@ import Spoiler from './.vitepress/components/Spoiler.vue'
 
 See also [API Reference](https://jsr.io/@gramio/format/doc).
 
+> [!IMPORTANT]
+> **Do not use `parse_mode` with GramIO.** The `format` template literal and entity helpers produce structured `MessageEntity` objects, not escaped HTML/Markdown strings. Setting `parse_mode: "HTML"` or `parse_mode: "MarkdownV2"` alongside `@gramio/format` output will break your messages. GramIO handles entity injection automatically — no `parse_mode` needed.
+
 ## Format
 
 Template literal that helps construct message entities for text formatting.
 
 Use if you want to strip all of the indentation from the beginning of each line. (like [common-tags#stripindents](https://www.npmjs.com/package/common-tags#stripindents) or [dedent](https://www.npmjs.com/package/dedent))
 
-**NOTE**: for format with **arrays** use it with [`join`](#join) helper
+> [!IMPORTANT]
+> For formatting with **arrays** always use the [`join`](#join) helper — never native `.join()`.
 
 ```ts twoslash
 import { format, bold, link, italic, Bot } from "gramio";
@@ -68,7 +72,8 @@ Template literal that helps construct message entities for text formatting.
 
 Use if you want to save all of the indentation.
 
-**NOTE**: for format with **arrays** use it with [`join`](#join) helper
+> [!IMPORTANT]
+> For formatting with **arrays** always use the [`join`](#join) helper — never native `.join()`.
 
 ```ts twoslash
 import { formatSaveIndents, bold, link, italic, spoiler, Bot } from "gramio";
@@ -247,11 +252,48 @@ format`text with emoji - ${customEmoji("⚔️", "5222106016283378623")}`;
 > - it's an inline query result where you edit the sent message afterwards (custom emoji aren't allowed in the initial inline result; edit the message to apply them).
 >   Previously this was only available to bots that paid for additional usernames (Fragment). Now the username purchase is no longer required under the conditions above.
 
+## Composing format templates
+
+`format` returns a **Formattable** object — not a plain string. It tracks both the text and entity offsets. You can store it in a variable and embed it in another `format` template; entities will be correctly re-offset.
+
+```ts twoslash
+import { format, bold, italic } from "@gramio/format";
+// ---cut---
+// ✅ Store result in a variable, then embed it
+const greeting = format`Hello, ${bold`World`}!`;
+const message = format`${greeting} ${italic`How are you?`}`;
+// Bold entity from `greeting` is correctly shifted inside `message`
+```
+
+> [!WARNING]
+> **Never interpolate a Formattable into a plain template literal.** Calling `.toString()` (which happens in `` `${formattable}` ``) discards all entities and produces a plain string:
+>
+> ```ts
+> // ❌ Wrong — entities are lost
+> const a = `Hello, ${bold`World`}`;    // bold is stripped to plain text
+> const b = `${a} and ${italic`more`}`; // italic survives, bold is gone
+>
+> // ✅ Correct — always use format``
+> const a = format`Hello, ${bold`World`}`;
+> const b = format`${a} and ${italic`more`}`;
+> ```
+
 ## Helpers
 
 ### Join
 
-Helper for great work with formattable arrays. ([].join break styling)
+Helper for correct formatting of arrays. Native `Array.prototype.join()` converts each element to a string via `.toString()`, which **destroys all entity data**.
+
+> [!WARNING]
+> **Do not use `[...].join()` with formattable values.** Each entity function returns a Formattable object. Calling `.join()` on an array of them discards every entity, producing plain unstyled text:
+>
+> ```ts
+> // ❌ Wrong — every bold/italic/etc. is silently stripped
+> const text = items.map((x) => bold(x)).join(", ");
+>
+> // ✅ Correct — use the join helper
+> const text = join(items, (x) => bold(x), ", ");
+> ```
 
 Separator by default is `, `
 
