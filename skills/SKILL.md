@@ -58,6 +58,10 @@ bot.start();
 5. **Error suppression** — `bot.api.method({ suppress: true })` returns error instead of throwing.
 6. **Lazy plugins** — async plugins (without `await`) load at `bot.start()`. Use `await` for immediate loading.
 7. **Derive vs Decorate** — `.derive()` runs per-update (computed), `.decorate()` injects static values once.
+8. **Formatting — three critical rules** (read [formatting](references/formatting.md) before writing any message text):
+   - **Never use `parse_mode`** — `format` produces `MessageEntity` arrays, not HTML/Markdown strings. Adding `parse_mode: "HTML"` or `"MarkdownV2"` will break the message. GramIO passes entities automatically.
+   - **Never use native `.join()`** on arrays of formatted values — it calls `.toString()` on each `Formattable`, silently destroying all styling. Always use the `join` helper: `join(items, (x) => bold(x), "\n")`.
+   - **Always wrap styled content in `format\`\``** when composing or reusing — embedding a `Formattable` in a plain template literal (`` `${bold`x`}` ``) strips all entities. Use `format\`${bold\`x\`}\`` instead.
 
 ## Official Plugins
 
@@ -113,7 +117,7 @@ Each page contains: GramIO TypeScript examples, parameter details, error table w
 | Topic | Description | Reference |
 |-------|-------------|-----------|
 | Keyboards | Keyboard, InlineKeyboard, layout helpers, styling | [keyboards](references/keyboards.md) |
-| Formatting | bold, italic, code, pre, link, mention, join | [formatting](references/formatting.md) |
+| Formatting | entity helpers, `join` (never native `.join()`!), variable composition, no `parse_mode` | [formatting](references/formatting.md) |
 | Files | MediaUpload, MediaInput, download, Bun.file() | [files](references/files.md) |
 | CallbackData | Type-safe callback data schemas | [callback-data](references/callback-data.md) |
 | Storage | In-memory, Redis, Cloudflare adapters | [storage](references/storage.md) |
@@ -152,7 +156,7 @@ Each page contains: GramIO TypeScript examples, parameter details, error table w
 | Basic bot | Commands, hooks, error handling | [basic.ts](examples/basic.ts) |
 | Keyboards | Reply, inline, columns, conditional | [keyboards.ts](examples/keyboards.ts) |
 | CallbackData | Type-safe callback schemas | [callback-data.ts](examples/callback-data.ts) |
-| Formatting | All entity types, join helper | [formatting.ts](examples/formatting.ts) |
+| Formatting | Entity types, join helper, variable composition, parse_mode anti-pattern | [formatting.ts](examples/formatting.ts) |
 | File upload | Path, URL, buffer, media groups | [file-upload.ts](examples/file-upload.ts) |
 | Error handling | Custom errors, suppress, scoped | [error-handling.ts](examples/error-handling.ts) |
 | Webhook | Framework integration | [webhook.ts](examples/webhook.ts) |
