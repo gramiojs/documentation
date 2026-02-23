@@ -3,10 +3,10 @@ title: setWebhook — Telegram Bot API | GramIO
 head:
   - - meta
     - name: description
-      content: setWebhook Telegram Bot API method with GramIO TypeScript examples. Complete parameter reference and usage guide.
+      content: Configure a Telegram bot webhook using GramIO. Set HTTPS URL, secret token, allowed updates, and connection limits. Complete parameter reference and TypeScript examples.
   - - meta
     - name: keywords
-      content: setWebhook, telegram bot api, gramio setWebhook, setWebhook typescript, setWebhook example
+      content: setWebhook, telegram bot api, telegram webhook, gramio setWebhook, configure telegram webhook, telegram bot webhook setup, setWebhook typescript, setWebhook example, url, secret_token, allowed_updates, max_connections, drop_pending_updates, HTTPS webhook, how to set telegram bot webhook
 ---
 
 # setWebhook
@@ -20,7 +20,7 @@ head:
 
 Use this method to specify a URL and receive incoming updates via an outgoing webhook. Whenever there is an update for the bot, we will send an HTTPS POST request to the specified URL, containing a JSON-serialized [Update](https://core.telegram.org/bots/api#update). In case of an unsuccessful request (a request with response [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) different from `2XY`), we will repeat the request and give up after a reasonable amount of attempts. Returns *True* on success.
 
-If you'd like to make sure that the webhook was set by you, you can specify secret data in the parameter *secret\_token*. If specified, the request will contain a header “X-Telegram-Bot-Api-Secret-Token” with the secret token as content.
+If you'd like to make sure that the webhook was set by you, you can specify secret data in the parameter *secret\_token*. If specified, the request will contain a header "X-Telegram-Bot-Api-Secret-Token" with the secret token as content.
 
 ## Parameters
 
@@ -46,16 +46,84 @@ On success, *True* is returned.
 
 ## GramIO Usage
 
-<!-- TODO: Add TypeScript examples using GramIO -->
+GramIO handles webhook setup automatically when you call `bot.start({ webhook: ... })`. Direct `setWebhook` calls are only needed for advanced configurations.
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// GramIO recommended way — webhook is configured automatically
+bot.start({
+  webhook: {
+    url: "https://example.com/bot",
+    port: 3000,
+  },
+});
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Direct API call — useful for manual setup or when bot.start() isn't used
+await bot.api.setWebhook({
+  url: "https://example.com/bot",
+  secret_token: "my-secret-token-abc123",
+  allowed_updates: ["message", "callback_query", "inline_query"],
+  max_connections: 100,
+  drop_pending_updates: true,
+});
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Set webhook with a self-signed certificate
+import { MediaUpload } from "gramio";
+
+await bot.api.setWebhook({
+  url: "https://my-server.com/bot",
+  certificate: await MediaUpload.path("./public.pem"),
+  drop_pending_updates: false,
+});
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Remove webhook (fall back to getUpdates / long polling)
+await bot.api.setWebhook({ url: "" });
+```
 
 ## Errors
 
-<!-- TODO: Add common errors table -->
+| Code | Error | Cause |
+|------|-------|-------|
+| 400 | `Bad Request: bad webhook: HTTPS URL must be provided for webhook` | The `url` is not HTTPS — Telegram requires a valid HTTPS URL (not HTTP) |
+| 400 | `Bad Request: bad webhook: Failed to resolve host` | DNS lookup failed for the webhook host — verify the domain exists and resolves |
+| 400 | `Bad Request: bad webhook: Wrong response from the webhook: N UNKNOWN` | Telegram received a non-2xx response from your server during the test probe at registration — ensure your endpoint is live and returns 200 |
+| 400 | `Bad Request: bad webhook: IP address N is not allowed` | The resolved IP is in a reserved/private range — Telegram doesn't allow webhooks to internal IPs |
+| 400 | `Bad Request: bad webhook: SSL certificate verification failed` | Certificate is self-signed without being uploaded, expired, or uses an untrusted CA — upload it via `certificate` or use a CA-signed cert |
+| 429 | `Too Many Requests: retry after N` | Rate limit hit — check `retry_after`, use [auto-retry plugin](/plugins/official/auto-retry) |
 
 ## Tips & Gotchas
 
-<!-- TODO: Add tips and gotchas -->
+- **HTTPS is mandatory.** Telegram only sends webhook requests to HTTPS endpoints. Port 443, 80, 88, or 8443 are supported — other ports are blocked.
+- **`allowed_updates` omission keeps the previous setting.** If you omit `allowed_updates`, Telegram continues using whatever was set before. Pass an explicit list to ensure your bot receives exactly what it needs, nothing more. Unneeded update types add overhead.
+- **`drop_pending_updates: true` is useful on redeploy.** When restarting a bot that was down, there may be a backlog of updates. Set this to `true` to start fresh and avoid processing stale messages.
+- **`secret_token` prevents spoofed requests.** Always set a `secret_token` in production and verify the `X-Telegram-Bot-Api-Secret-Token` header in your webhook handler — without it, anyone who knows your URL can send fake updates.
+- **You cannot use long polling (getUpdates) while a webhook is active.** Call [deleteWebhook](/telegram/methods/deleteWebhook) first, or pass `url: ""` to switch back to polling mode.
+- **`max_connections` affects concurrency, not throughput.** Higher values allow Telegram to send more parallel requests, but your server must be able to handle them. Start with the default 40 and increase if you're a high-traffic bot.
 
 ## See Also
 
-<!-- TODO: Add related methods and links -->
+- [deleteWebhook](/telegram/methods/deleteWebhook) — remove the webhook and switch to getUpdates polling
+- [getWebhookInfo](/telegram/methods/getWebhookInfo) — check current webhook configuration and error info
+- [WebhookInfo](/telegram/types/WebhookInfo) — the webhook info object returned by getWebhookInfo
+- [Media Upload guide](/files/media-upload) — how to upload a self-signed certificate
