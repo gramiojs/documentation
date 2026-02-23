@@ -3,10 +3,10 @@ title: setPassportDataErrors — Telegram Bot API | GramIO
 head:
   - - meta
     - name: description
-      content: setPassportDataErrors Telegram Bot API method with GramIO TypeScript examples. Complete parameter reference and usage guide.
+      content: Inform users of Telegram Passport data errors using GramIO. Block re-submission until errors are fixed. Complete PassportElementError reference with TypeScript examples.
   - - meta
     - name: keywords
-      content: setPassportDataErrors, telegram bot api, gramio setPassportDataErrors, setPassportDataErrors typescript, setPassportDataErrors example
+      content: setPassportDataErrors, telegram bot api, telegram passport errors, gramio setPassportDataErrors, PassportElementError, telegram passport verification, setPassportDataErrors typescript, setPassportDataErrors example, passport data validation, telegram bot passport, user_id errors, passport document errors
 ---
 
 # setPassportDataErrors
@@ -35,16 +35,89 @@ On success, *True* is returned.
 
 ## GramIO Usage
 
-<!-- TODO: Add TypeScript examples using GramIO -->
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Report an error in a data field (e.g. invalid birthday in personal details)
+await bot.api.setPassportDataErrors({
+  user_id: 123456789,
+  errors: [
+    {
+      source: "data",
+      type: "personal_details",
+      field_name: "birth_date",
+      data_hash: "base64encodedDataHash==",
+      message: "The birth date appears to be invalid. Please check and re-enter.",
+    },
+  ],
+});
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Report a blurry or tampered front-side document scan
+await bot.api.setPassportDataErrors({
+  user_id: 123456789,
+  errors: [
+    {
+      source: "front_side",
+      type: "passport",
+      file_hash: "base64encodedFileHash==",
+      message: "The document scan is blurry. Please upload a clearer photo.",
+    },
+  ],
+});
+```
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot("");
+// ---cut---
+// Report multiple errors at once across different passport elements
+await bot.api.setPassportDataErrors({
+  user_id: 123456789,
+  errors: [
+    {
+      source: "data",
+      type: "address",
+      field_name: "city",
+      data_hash: "base64encodedDataHash==",
+      message: "City name contains invalid characters.",
+    },
+    {
+      source: "selfie",
+      type: "passport",
+      file_hash: "base64encodedFileHash==",
+      message: "The selfie does not match the document photo.",
+    },
+  ],
+});
+```
 
 ## Errors
 
-<!-- TODO: Add common errors table -->
+| Code | Error | Cause |
+|------|-------|-------|
+| 400 | `Bad Request: user not found` | The `user_id` does not correspond to a user who has interacted with the bot |
+| 400 | `Bad Request: PASSPORT_ELEMENT_HASH_INVALID` | One of the element hashes does not match the data provided by the user — re-fetch the Passport data and use the correct hash |
+| 400 | `Bad Request: errors is empty` | The `errors` array must contain at least one error object |
+| 429 | `Too Many Requests: retry after N` | Rate limit hit — check `retry_after`, use [auto-retry plugin](/plugins/official/auto-retry) |
 
 ## Tips & Gotchas
 
-<!-- TODO: Add tips and gotchas -->
+- **Errors block re-submission until the specific field changes.** The user cannot re-submit their Passport until the *content* of the flagged element changes — this is enforced by Telegram, not your bot. Be precise about which field has the issue.
+- **Hashes must match exactly.** Each error object requires the hash of the element you're rejecting (`data_hash` for data fields, `file_hash` for files). These hashes come from the Telegram Passport data the user submitted — do not generate or guess them.
+- **Multiple errors can be reported in one call.** Send all errors in a single `setPassportDataErrors` call rather than multiple calls — this gives the user a complete picture of what needs fixing.
+- **Error messages are shown to the user.** Write clear, human-readable `message` values that explain *what* is wrong and *how* to fix it. Vague messages lead to repeated incorrect re-submissions.
+- **Resolving errors: call again with empty array or corrected errors.** Once the user has fixed the issues and re-submitted, you may call `setPassportDataErrors` again with an empty `errors` array or updated errors if new issues are found.
+- **This is part of Telegram Passport — a separate feature requiring setup.** You must configure Telegram Passport with a public key via [@BotFather](https://t.me/botfather) before receiving or validating Passport data.
 
 ## See Also
 
-<!-- TODO: Add related methods and links -->
+- [PassportElementError](/telegram/types/PassportElementError) — union type of all error subtypes
