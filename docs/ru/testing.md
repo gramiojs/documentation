@@ -85,6 +85,8 @@ const env = new TelegramTestEnvironment(bot);
 | `env.onApi(method, handler)` | Переопределяет ответ для конкретного API-метода |
 | `env.offApi(method?)` | Удаляет обработчик (или все обработчики, если метод не указан) |
 | `env.apiCalls` | Массив `{ method, params, response }` — лог всех API-вызовов |
+| `env.clearApiCalls()` | Очищает массив `apiCalls` (полезно между фазами теста) |
+| `env.lastApiCall(method)` | Последний записанный вызов для `method`, или `undefined` |
 | `env.users` / `env.chats` | Все созданные пользователи и чаты |
 
 ## `UserObject` — главное действующее лицо
@@ -127,6 +129,54 @@ expect(group.members.has(user)).toBe(false);
 ```ts
 const msg = await user.sendMessage("Pick an option");
 await user.click("option:1", msg);
+```
+
+### `user.editMessage(msg, text)` — эмуляция редактирования сообщения
+
+Генерирует апдейт `edited_message`. Тестируйте обработчики `bot.on("edited_message", ...)`:
+
+```ts
+const msg = await user.sendMessage("Привет");
+await user.editMessage(msg, "Привет, мир!");
+```
+
+### `user.forwardMessage(msg, toChat?)` — пересылка сообщения
+
+Генерирует апдейт `message` с заполненным `forward_origin`. Для тестирования логики определения пересылок:
+
+```ts
+const msg = await user.sendMessage("Оригинал");
+await user.forwardMessage(msg, group);
+```
+
+### `user.sendMediaGroup(chat, payloads[])` — отправка альбома
+
+Генерирует несколько апдейтов `message` с одним `media_group_id`:
+
+```ts
+await user.sendMediaGroup(group, [
+    { photo: {} },
+    { video: {} },
+]);
+```
+
+### `user.pinMessage(msg, inChat?)` — закрепление сообщения
+
+Генерирует служебное сообщение с `pinned_message`. GramIO направляет их в событие `"pinned_message"`:
+
+```ts
+const msg = await user.sendMessage("Важное объявление");
+await user.pinMessage(msg);
+```
+
+### Медиа-методы
+
+Помимо существующих методов, доступны три новых — с автогенерацией `file_id`:
+
+```ts
+await user.sendAudio({ caption: "Название трека" });
+await user.sendAnimation(group, { caption: "Гифка" });
+await user.sendVideoNote(); // кружочек
 ```
 
 ### `user.react(emojiOrObject, message?, options?)` — реагировать на сообщение
@@ -186,7 +236,12 @@ await user.in(group).on(msg).react("🔥");
 // Скоуп к сообщению
 await user.on(msg).react("👍");
 await user.on(msg).click("action:1");
+
+// clickByText — найти кнопку по тексту и нажать
+await user.on(botReply).clickByText("Подтвердить");
 ```
+
+`clickByText(buttonText)` ищет в `inline_keyboard` кнопку с нужным текстом и кликает на её `callback_data`. Выбрасывает исключение, если клавиатуры нет или кнопка не найдена.
 
 ## `ChatObject`
 
@@ -194,6 +249,15 @@ await user.on(msg).click("action:1");
 
 - **`chat.members`** — `Set<UserObject>` текущих участников
 - **`chat.messages`** — `MessageObject[]` — история всех сообщений в чате
+
+### `chat.post(text)` — симуляция поста в канале
+
+Генерирует апдейт `channel_post` (без поля `from`). Для тестирования ботов в каналах:
+
+```ts
+const channel = env.createChat({ type: "channel", title: "Мой канал" });
+await channel.post("Новый пост");
+```
 
 ## `MessageObject`
 

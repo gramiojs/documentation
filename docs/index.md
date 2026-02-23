@@ -54,9 +54,9 @@ features:
 
 ## Latest Updates
 
-**[GramIO v0.5.0 — Composer Rearchitecture, Observability & Testing Superpowers](/changelogs/2026-02-17)** — February 16–18, 2026
+**[Testing Gets Richer, CallbackData Gets Safer, TypeScript API Reference Launches](/changelogs/2026-02-23)** — February 18–22, 2026
 
-GramIO v0.5.0 drops `middleware-io` and builds on `@gramio/composer` v0.2.0 with `decorate()`, `when()`, `inspect()`, `trace()`, and custom framework methods. `@gramio/test` reaches v0.1.0 with reactions, inline queries, and a fluent scope API. `@gramio/session` v0.2.0 adds lazy session loading — reducing storage reads by up to 90%.
+`@gramio/test` v0.3.0 adds 9 new methods: edit messages, forward, pin, send media groups, and click inline buttons by label text. `@gramio/callback-data` v0.1.0 ships `safeUnpack()` — never crash on stale buttons. The full TypeScript API reference launches at `/api/`.
 
 [All changelogs →](/changelogs/)
 

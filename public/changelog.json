@@ -2,6 +2,67 @@
     "version": 1,
     "entries": [
         {
+            "id": "2026-02-23-testing-richer-callback-data-safer-api-reference",
+            "date": "2026-02-23",
+            "dateRange": {
+                "from": "2026-02-15",
+                "to": "2026-02-22"
+            },
+            "page": {
+                "en": "https://gramio.dev/changelogs/2026-02-23",
+                "ru": "https://gramio.dev/ru/changelogs/2026-02-23"
+            },
+            "en": {
+                "title": "Testing Gets Richer, CallbackData Gets Safer, TypeScript API Reference Launches",
+                "summary": [
+                    "@gramio/test v0.3.0: editMessage(), forwardMessage(), sendMediaGroup(), pinMessage() added",
+                    "clickByText() — click inline buttons by label text without knowing callback_data",
+                    "New media methods: sendAudio(), sendAnimation(), sendVideoNote()",
+                    "ChatObject.post() for channel_post updates in channel bot tests",
+                    "env.clearApiCalls() and env.lastApiCall() for cleaner assertions",
+                    "@gramio/callback-data v0.1.0: safeUnpack() never throws — returns typed discriminated union",
+                    "Adding optional fields to CallbackData schemas is now backward-compatible",
+                    "@gramio/schema-parser v1.0.1 launched — native TypeScript Telegram API schema engine",
+                    "@gramio/types v9.4.2 migrated to @gramio/schema-parser with semantic type markers",
+                    "Currencies enum added including XTR for Telegram Stars payments",
+                    "Full TypeScript API reference launched at /api/ with 200+ packages covered",
+                    "Telegram Bot API reference at /telegram/ with 200+ method/type pages"
+                ]
+            },
+            "ru": {
+                "title": "Тестирование стало богаче, CallbackData — надёжнее, TypeScript API Reference запущен",
+                "summary": [
+                    "@gramio/test v0.3.0: добавлены editMessage(), forwardMessage(), sendMediaGroup(), pinMessage()",
+                    "clickByText() — клик по инлайн-кнопке по тексту без знания callback_data",
+                    "Новые медиа-методы: sendAudio(), sendAnimation(), sendVideoNote()",
+                    "ChatObject.post() для channel_post-событий при тестировании ботов в каналах",
+                    "env.clearApiCalls() и env.lastApiCall() для чистых проверок",
+                    "@gramio/callback-data v0.1.0: safeUnpack() никогда не падает — возвращает дискриминированный union",
+                    "Добавление optional-полей в схему CallbackData теперь обратно совместимо",
+                    "@gramio/schema-parser v1.0.1 — нативный TypeScript-движок схем Telegram API",
+                    "@gramio/types v9.4.2 переехал на @gramio/schema-parser с семантической типизацией",
+                    "Добавлен enum Currencies с поддержкой XTR (Telegram Stars)",
+                    "Запущен TypeScript API Reference по адресу /api/ — охватывает 200+ пакетов",
+                    "Справочник Telegram Bot API по адресу /telegram/ — 200+ методов и типов"
+                ]
+            },
+            "packages": [
+                "@gramio/test",
+                "@gramio/callback-data",
+                "@gramio/schema-parser",
+                "@gramio/types",
+                "gramio"
+            ],
+            "tags": [
+                "testing",
+                "callback-data",
+                "schema-parser",
+                "api-reference",
+                "filters",
+                "typescript"
+            ]
+        },
+        {
             "id": "2026-02-17-gramio-v0-5-0-composer-rearchitecture",
             "date": "2026-02-17",
             "dateRange": {

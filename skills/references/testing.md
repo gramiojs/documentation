@@ -48,6 +48,8 @@ const env = new TelegramTestEnvironment(bot);
 | `env.onApi(method, handler)` | Override response for a specific API method |
 | `env.offApi(method?)` | Remove handler (or all handlers) |
 | `env.apiCalls` | Array of `{ method, params, response }` — every API call |
+| `env.clearApiCalls()` | Empties `apiCalls` (v0.3.0+) |
+| `env.lastApiCall(method)` | Last recorded call for `method`, or `undefined` (v0.3.0+) |
 | `env.users` / `env.chats` | All created users and chats |
 
 ## UserObject — Primary Actor
@@ -84,6 +86,46 @@ expect(group.members.has(user)).toBe(false);
 ```typescript
 const msg = await user.sendMessage("Pick an option");
 await user.click("option:1", msg);
+```
+
+### editMessage / forwardMessage / sendMediaGroup / pinMessage (v0.3.0+)
+
+```typescript
+// Edit a message — emits edited_message
+await user.editMessage(msg, "Updated text");
+
+// Forward — emits message with forward_origin
+await user.forwardMessage(msg, group);
+
+// Send album — emits multiple messages sharing media_group_id
+await user.sendMediaGroup(group, [{ photo: {} }, { video: {} }]);
+
+// Pin — emits service message with pinned_message
+await user.pinMessage(msg);
+```
+
+### clickByText (v0.3.0+)
+
+Scans `inline_keyboard` for a button by label and clicks it:
+
+```typescript
+await user.on(botReply).clickByText("Confirm");
+```
+
+### New media methods (v0.3.0+)
+
+```typescript
+await user.sendAudio({ caption: "Track" });
+await user.sendAnimation(group);
+await user.sendVideoNote();
+```
+
+### ChatObject.post() (v0.3.0+)
+
+For channel bots — emits `channel_post` without `from`:
+
+```typescript
+await channel.post("New channel post");
 ```
 
 ### react (v0.1.0+)

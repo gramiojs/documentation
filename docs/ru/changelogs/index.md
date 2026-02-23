@@ -15,6 +15,7 @@ head:
 
 <!-- Новые записи добавляются ниже этой строки, сначала новейшие -->
 
+- [2026-02-23 — Тестирование стало богаче, CallbackData — надёжнее, запускается TypeScript API Reference](/ru/changelogs/2026-02-23)
 - [2026-02-17 — GramIO v0.5.0, рефакторинг Composer, наблюдаемость и суперсилы тестирования](/ru/changelogs/2026-02-17)
 - [2026-02-15 — Bot API 9.4, Views, OpenTelemetry, `onApiCall`, `streamMessage`](/ru/changelogs/2026-02-15)
 - [2026-02-08 — Типобезопасные ключи в Storage, `onEnter` в сценах, адаптер SQLite](/ru/changelogs/2026-02-08)

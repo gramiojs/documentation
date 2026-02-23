@@ -550,6 +550,10 @@ export function createLocaleEn(typeDocSidebar: Record<string, unknown[]> = {}) {
 						items: [
 							// new entries added here by the skill, newest first
 							{
+								text: "2026-02-23",
+								link: "/changelogs/2026-02-23",
+							},
+							{
 								text: "2026-02-17",
 								link: "/changelogs/2026-02-17",
 							},

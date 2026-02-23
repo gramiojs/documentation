@@ -85,6 +85,8 @@ const env = new TelegramTestEnvironment(bot);
 | `env.onApi(method, handler)` | Override the response for a specific API method |
 | `env.offApi(method?)` | Remove a handler (or all handlers if no method given) |
 | `env.apiCalls` | Array of `{ method, params, response }` recording every API call |
+| `env.clearApiCalls()` | Empties the `apiCalls` array (useful between logical test phases) |
+| `env.lastApiCall(method)` | Returns the most recent recorded call for `method`, or `undefined` |
 | `env.users` / `env.chats` | All created users and chats |
 
 ## `UserObject` — the primary actor
@@ -127,6 +129,54 @@ Emits a `callback_query` update. Perfect for testing inline keyboard interaction
 ```ts
 const msg = await user.sendMessage("Pick an option");
 await user.click("option:1", msg);
+```
+
+### `user.editMessage(msg, text)` — simulate message editing
+
+Emits an `edited_message` update. Test `bot.on("edited_message", ...)` handlers:
+
+```ts
+const msg = await user.sendMessage("Hello");
+await user.editMessage(msg, "Hello, world!");
+```
+
+### `user.forwardMessage(msg, toChat?)` — forward a message
+
+Emits a `message` update with `forward_origin` set. Tests forward-detection logic:
+
+```ts
+const msg = await user.sendMessage("Original");
+await user.forwardMessage(msg, group);
+```
+
+### `user.sendMediaGroup(chat, payloads[])` — send an album
+
+Emits multiple `message` updates sharing the same `media_group_id`:
+
+```ts
+await user.sendMediaGroup(group, [
+    { photo: {} },
+    { video: {} },
+]);
+```
+
+### `user.pinMessage(msg, inChat?)` — pin a message
+
+Emits a service message with `pinned_message`. GramIO routes these to the `"pinned_message"` event:
+
+```ts
+const msg = await user.sendMessage("Important!");
+await user.pinMessage(msg);
+```
+
+### Media send methods
+
+In addition to existing methods (`sendPhoto`, `sendVideo`, `sendDocument`, `sendVoice`, `sendSticker`), three new ones are available — all with auto-generated file IDs:
+
+```ts
+await user.sendAudio({ caption: "Track title" });
+await user.sendAnimation(group, { caption: "Funny gif" });
+await user.sendVideoNote(); // circle video
 ```
 
 ### `user.react(emojiOrObject, message?, options?)` — react to a message
@@ -225,7 +275,12 @@ const msg = await user.sendMessage("Hello");
 await user.on(msg).react("👍");
 await user.on(msg).react("❤", { oldReactions: ["👍"] });
 await user.on(msg).click("action:1");
+
+// clickByText — find button by label and click it
+await user.on(botReply).clickByText("Confirm");
 ```
+
+`clickByText(buttonText)` scans the message's `inline_keyboard` for a button whose `text` matches, then clicks its `callback_data`. Throws if no inline keyboard is present or no button matches.
 
 ## `ChatObject`
 
@@ -233,6 +288,15 @@ Wraps `TelegramChat` with in-memory state tracking:
 
 - **`chat.members`** — `Set<UserObject>` of current members
 - **`chat.messages`** — `MessageObject[]` history of all messages in the chat
+
+### `chat.post(text)` — simulate a channel post
+
+Emits a `channel_post` update (no `from` field). For testing channel bots:
+
+```ts
+const channel = env.createChat({ type: "channel", title: "My Channel" });
+await channel.post("New post from channel");
+```
 
 ## `MessageObject`
 

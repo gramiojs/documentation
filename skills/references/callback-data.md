@@ -47,6 +47,31 @@ bot.callbackQuery(itemAction, (context) => {
 });
 ```
 
+## safeUnpack() (v0.1.0+)
+
+Never throws — returns a discriminated union. Useful for stale buttons from old schema versions:
+
+```typescript
+const result = data.safeUnpack(ctx.data!);
+if (!result.success) {
+    return ctx.answerCallbackQuery({ text: "This button is outdated!" });
+}
+console.log(result.data.id); // typed
+```
+
+Return type: `SafeUnpackResult<T>` = `{ success: true; data: T } | { success: false; error: Error }`
+
+### Schema Migration Safety
+
+Safe: adding optional fields to the end of a schema
+```typescript
+const v2 = new CallbackData("page")
+    .number("id")
+    .string("tab", { optional: true }); // safe — old strings unpack as tab=undefined
+```
+
+Unsafe (breaking): adding required fields, reordering, renaming `nameId`, changing types.
+
 ## Comparison with Raw Strings
 
 ```typescript
