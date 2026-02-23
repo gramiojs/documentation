@@ -57,7 +57,6 @@ const bot = new Bot("");
 bot.start({
   webhook: {
     url: "https://example.com/bot",
-    port: 3000,
   },
 });
 ```
