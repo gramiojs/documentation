@@ -43,12 +43,25 @@ Example questions to ask:
 Run `ghlog` to get commit data and patches from all `gramiojs` repos:
 
 ```bash
-bunx ghlog --org gramiojs --since <last-date> --until <today> --patch --patch-dir /tmp/gramio-patches --format markdown --output /tmp/gramio-ghlog.md
+bunx ghlog --org gramiojs --since <last-date> --until <tomorrow> --patch --patch-dir /tmp/gramio-patches --format markdown --output /tmp/gramio-ghlog.md
 ```
 
-Replace `<last-date>` with the value from state (or the user-provided start date) and `<today>` with today's date (`YYYY-MM-DD`).
+Replace `<last-date>` with the value from state (or the user-provided start date).
+Replace `<tomorrow>` with **today's date + 1 day** (i.e. if today is `2026-02-23`, use `2026-02-24`).
 
-> **Note:** `--since` and `--until` are inclusive whole-day boundaries — `ghlog` handles this correctly by default. Always use `YYYY-MM-DD` format (no time component) to ensure full days are covered and no commits are missed at day boundaries.
+> **Critical — how GitHub API interprets dates:**
+>
+> - `--since DATE` → includes commits **from** `DATE T00:00:00Z` (inclusive)
+> - `--until DATE` → includes commits **before** `DATE T00:00:00Z` (exclusive — the named date itself is NOT included)
+>
+> This means `--until <today>` would silently drop all commits made today. Always pass `--until <tomorrow>` to capture the full current day. Compute `<tomorrow>` as:
+>
+> ```bash
+> date -v+1d +%Y-%m-%d   # macOS / BSD
+> date -d "+1 day" +%Y-%m-%d  # Linux / GNU
+> ```
+>
+> For sequential runs: the `--since` of the next run must equal the `--until` of this run (both are stored as `lastRunDate` in state). This guarantees no gaps and no duplicates between runs.
 
 ### 4. Read the Markdown Summary
 
@@ -63,6 +76,23 @@ Read the patch files from `/tmp/gramio-patches/`. Focus on extracting:
 - **Bug fixes** — error corrections, edge-case handling
 - **Dependency bumps and version changes** — read `package.json` diffs to extract version numbers
 - **Documentation-relevant changes** — anything that should be reflected in docs or skills
+
+**Token budget — skip heavy patches that don't need full reading:**
+
+Not every patch is worth reading in full. Use the commit message/title to decide:
+
+Use the commit message/title to decide whether to open the patch at all:
+
+| Patch type | Default action | Open the patch if… |
+|---|---|---|
+| `docs:` — prose updates, API reference, translations | Skip | Title mentions a new page, new section, or new feature being documented for the first time |
+| `chore:` / `ci:` — internal tooling, CI config, formatting | Skip | Title hints at a user-visible change (e.g. "add exports field", "drop Node 16 support") |
+| `refactor:` — internal restructuring | Skip | Title mentions a public API being touched |
+| `fix:` / `feat:` with small diffs (< ~50 lines) | Read fully | — |
+| `feat:` / `BREAKING CHANGE:` with large diffs | Read selectively | Always — focus on `package.json`, exported types/interfaces, entry point. Skip test files, lock files, generated files. |
+| `bump` / `release` — only `package.json` changes | Read only `package.json` | — |
+
+**Rule of thumb:** if the commit subject already tells you everything you need for the changelog entry, don't open the patch. The title is the first filter — only reach for the diff when you need concrete details (new API signatures, before/after examples, version numbers).
 
 ### 6. Compose the Changelog Page
 
@@ -284,8 +314,8 @@ Read `public/changelog.json`. If it doesn't exist, create it with an empty `entr
 **Field rules:**
 
 - `id` — `YYYY-MM-DD-<kebab-slug>` where slug is 3–5 words from the EN title (lowercase, hyphens). Must be unique.
-- `dateRange.from` — the `--since` date used for this run (= `lastRunDate` from state + 1 day, or the user-provided start date)
-- `dateRange.to` — today's date (= `--until`)
+- `dateRange.from` — the `--since` date used for this run (= `lastRunDate` from state, or the user-provided start date)
+- `dateRange.to` — the **last actually included day** = `--until - 1 day` (= today's date). Since `--until` is exclusive, the range covers `[from, to]` inclusive when expressed in calendar days.
 - `summary` — array of short bullet strings, plain text only (no markdown, no links). Each item = one key change, 1 line, punchy. 12 bullets max. EN and RU versions independently written (not translated mechanically) — write like a native speaker of each language.
 - `packages` — list of affected package names extracted from patches (e.g. `"gramio"`, `"@gramio/keyboards"`)
 - `tags` — 3–6 lowercase keywords useful for bot filtering (e.g. `"breaking"`, `"keyboards"`, `"sessions"`, `"performance"`, `"new-plugin"`)
@@ -309,6 +339,11 @@ Write `.changelog-state.json` at the project root:
 { "lastRunDate": "YYYY-MM-DD", "lastPage": "changelogs/YYYY-MM-DD" }
 ```
 
+**`lastRunDate` must be set to `<today>` (not `<tomorrow>`).** Reason: if you run mid-day and then push more commits later the same day, the next run must re-scan from today to catch them. Saving `<tomorrow>` here would cause those commits to fall into the gap between `[..., tomorrow)` and `[tomorrow, ...]` — they'd be skipped permanently.
+
+- The next run will slightly overlap (re-fetching today's already-processed commits), but that's harmless — changelogs are human-reviewed.
+- Sequence: `lastRunDate = today`, next run uses `--since today --until <next-tomorrow>`.
+
 ### 14. Clean Up
 
 Remove temporary files:
@@ -326,3 +361,5 @@ Summarize:
 - All documentation pages that were updated (and why)
 - All skill files that were updated (and why)
 - Any changes that need manual review or attention
+
+**Ideas based on the changelog.** If during analysis you spotted opportunities to improve the docs — new guide that would help explain a feature, a page that's grown stale, a missing example, a plugin that deserves its own doc page, etc. — list them at the end of the report as suggestions. Don't implement them automatically; just mention them so the user can decide. Format as a short bullet list under a "💡 Ideas" heading.
