@@ -49,6 +49,9 @@ In this example:
 -   The bot listens for inline queries that match the pattern `search (.*)`.
 -   If a match is found, the bot extracts the search term and returns a list of inline query results.
 
+> [!TIP]
+> `context.answer()` accepts [`answerInlineQuery`](/telegram/methods/answerInlineQuery) parameters as a second argument. The most notable is **`cache_time`** — how long Telegram caches results on its servers (default **300 s**). Pass `cache_time: 0` for dynamic results that change with every keystroke — and especially during development.
+
 ### Parameters
 
 -   **`trigger`**: The condition that the inline query must meet. This can be a regular expression, a string, or a custom function.
