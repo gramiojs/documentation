@@ -46,6 +46,7 @@
     "@biomejs/biome",
   ],
   "overrides": {
+    "@gramio/types": "^9.4.2",
     "ioredis": "^5.9.2",
   },
   "packages": {
@@ -1003,12 +1004,6 @@
 
     "@gerrit0/mini-shiki/@shikijs/types": ["@shikijs/types@3.22.0", "", { "dependencies": { "@shikijs/vscode-textmate": "^10.0.2", "@types/hast": "^3.0.4" } }, "sha512-491iAekgKDBFE67z70Ok5a8KBMsQ2IJwOWw3us/7ffQkIBCyOQfm/aNwVMBUriP02QshIfgHCBSIYAl3u2eWjg=="],
 
-    "@gramio/files/@gramio/types": ["@gramio/types@9.0.3", "", {}, "sha512-GinRVfBXlSFhsUpJPSGWrn23Fi2ieqt1wyCRgGgbIIMuqUjB8+cGasqrCbAmwT/YqKeq1XYn0VCsCHpOVwhCaA=="],
-
-    "@gramio/format/@gramio/types": ["@gramio/types@9.3.0", "", {}, "sha512-gZGZFuxEjcV1pi2kjc5Nn2Js+sTJFLbPhuoCDYLY4awVjgcGRfrXK07Ah1zm4jsScT4xoVCAEf63dQvKzwooLQ=="],
-
-    "@gramio/keyboards/@gramio/types": ["@gramio/types@9.3.1", "", {}, "sha512-vptADjo3iG11ZJnewn+Kf2uSlk0OisnEXlW4gSLwqNlSIwgZ7gyWC0PuebNbjWgqowLWDlFpjbzUycojTMNY+w=="],
-
     "@gramio/scenes/@gramio/storage": ["@gramio/storage@1.0.0", "", {}, "sha512-dNwauFx4vn17gjav16BRGkr+lRamAIK+qZb0pTPaMeiJ3SQkVwwkvROCkU5O6NYpOSviMNTx4iFTh0LMescXLA=="],
 
     "@jridgewell/gen-mapping/@jridgewell/sourcemap-codec": ["@jridgewell/sourcemap-codec@1.5.0", "", {}, "sha512-gv3ZRaISU3fjPAgNsriBRqGWQL6quFx04YMPW/zD8XMLsU32mhCCbfbO6KZFLjvYpCZ8zyDEgqsgf+PwPaM7GQ=="],
@@ -1064,10 +1059,6 @@
     "@vueuse/integrations/vue": ["vue@3.5.16", "", { "dependencies": { "@vue/compiler-dom": "3.5.16", "@vue/compiler-sfc": "3.5.16", "@vue/runtime-dom": "3.5.16", "@vue/server-renderer": "3.5.16", "@vue/shared": "3.5.16" }, "peerDependencies": { "typescript": "*" }, "optionalPeers": ["typescript"] }, "sha512-rjOV2ecxMd5SiAmof2xzh2WxntRcigkX/He4YFJ6WdRvVUrbt6DxC1Iujh10XLl8xCDRDtGKMeO3D+pRQ1PP9w=="],
 
     "@vueuse/shared/vue": ["vue@3.5.16", "", { "dependencies": { "@vue/compiler-dom": "3.5.16", "@vue/compiler-sfc": "3.5.16", "@vue/runtime-dom": "3.5.16", "@vue/server-renderer": "3.5.16", "@vue/shared": "3.5.16" }, "peerDependencies": { "typescript": "*" }, "optionalPeers": ["typescript"] }, "sha512-rjOV2ecxMd5SiAmof2xzh2WxntRcigkX/He4YFJ6WdRvVUrbt6DxC1Iujh10XLl8xCDRDtGKMeO3D+pRQ1PP9w=="],
-
-    "bullmq/ioredis": ["ioredis@5.9.2", "", { "dependencies": { "@ioredis/commands": "1.5.0", "cluster-key-slot": "^1.1.0", "debug": "^4.3.4", "denque": "^2.1.0", "lodash.defaults": "^4.2.0", "lodash.isarguments": "^3.1.0", "redis-errors": "^1.2.0", "redis-parser": "^3.0.0", "standard-as-callback": "^2.1.0" } }, "sha512-tAAg/72/VxOUW7RQSX1pIxJVucYKcjFjfvj60L57jrZpYCHC3XN0WCQ3sNYL4Gmvv+7GPvTAjc+KSdeNuE8oWQ=="],
-
-    "gramio/@gramio/types": ["@gramio/types@9.4.1", "", {}, "sha512-mkX7cojQQswt/r6CF16yBKsTRYIpWK1c0yq8Hx1oeil0w+FI7MgHrVr2K1s14ZcBgvNArkjt0PPnejWITknSUg=="],
 
     "hast-util-to-html/mdast-util-to-hast": ["mdast-util-to-hast@13.2.0", "", { "dependencies": { "@types/hast": "^3.0.0", "@types/mdast": "^4.0.0", "@ungap/structured-clone": "^1.0.0", "devlop": "^1.0.0", "micromark-util-sanitize-uri": "^2.0.0", "trim-lines": "^3.0.0", "unist-util-position": "^5.0.0", "unist-util-visit": "^5.0.0", "vfile": "^6.0.0" } }, "sha512-QGYKEuUsYT9ykKBCMOEDLsU5JRObWQusAolFMeko/tYPufNkRffBAQjIE+99jbA87xv6FgmjLtwjh9wBWajwAA=="],
 

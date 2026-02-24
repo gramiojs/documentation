@@ -25,21 +25,17 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-vitepress-
 
-      - name: Monitor memory (background)
+      - name: Build
         run: |
           while true; do
             printf "[MEM] %s — %s\n" "$(date -u +%H:%M:%S)" "$(free -h | awk '/Mem:/{print $3"/"$2}')"
             sleep 15
           done &
-        shell: bash
-
-      - name: Build
-        run: bun run build
+          bun run build
         env:
-          # ubuntu-22.04 runners have 7 GB total RAM.
-          # 6144 leaves <1 GB for OS + Node non-heap → OOM on large builds.
-          # 4096 keeps GC aggressive enough to stay within budget.
-          NODE_OPTIONS: "--max-old-space-size=4096"
+          # Runner has ~15 GB RAM; the build (1000+ TypeDoc pages + llms-full.txt)
+          # was hitting the 6144 MB V8 heap ceiling. Raise it so GC has room to work.
+          NODE_OPTIONS: "--max-old-space-size=10240"
 
       - name: Write IndexNow key file
         if: github.ref == 'refs/heads/main'
