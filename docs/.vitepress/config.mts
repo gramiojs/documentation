@@ -89,9 +89,6 @@ export default defineConfig({
 
 		return [["link", { rel: "canonical", href: canonicalUrl }]];
 	},
-	buildEnd(config) {
-		console.log(config);
-	},
 	// transformPageData(pageData) {
 	// 	const canonicalUrl = `https://example.com/${pageData.relativePath}`
 	// 		.replace(/index\.md$/, "")
@@ -162,6 +159,15 @@ export default defineConfig({
 		},
 		search: {
 			provider: "local",
+			options: {
+				// Exclude TypeDoc API pages from search index — they are ~1000 files of
+				// machine-generated type signatures and would blow the SSR memory budget
+				// (V8 heap OOM during minisearch tokenization on GitHub runners).
+				_render(src, env, md) {
+					if (env.relativePath?.startsWith("api/")) return "";
+					return md.render(src, env);
+				},
+			},
 		},
 		editLink: {
 			pattern: "https://github.com/gramiojs/documentation/edit/main/docs/:path",
