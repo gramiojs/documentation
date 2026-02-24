@@ -42,7 +42,7 @@
 	},
 	"scripts": {
 		"dev": "bunx vitepress dev docs",
-		"build": "bun run gen:typedoc && NODE_OPTIONS='--max-old-space-size=8192' bunx vitepress build docs",
+		"build": "bun run gen:typedoc && NODE_OPTIONS='--max-old-space-size=6144' bunx vitepress build docs",
 		"preview": "bunx --bun vitepress preview docs",
 		"gen:api": "bun scripts/generate-api-docs.ts",
 		"gen:api:dry": "bun scripts/generate-api-docs.ts --dry-run",

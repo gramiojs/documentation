@@ -47,7 +47,7 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        timeout-minutes: 8
+        timeout-minutes: 10
 
       - name: Notify IndexNow
         if: github.ref == 'refs/heads/main'
