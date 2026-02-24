@@ -21,14 +21,14 @@ jobs:
       - uses: actions/cache@v4
         with:
           path: ./docs/.vitepress/cache
-          key: ${{ runner.os }}-vitepress
+          key: ${{ runner.os }}-vitepress-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-vitepress
+            ${{ runner.os }}-vitepress-
 
       - name: Build
         run: bun run build
         env:
-          NODE_OPTIONS: "--max-old-space-size=8192"
+          NODE_OPTIONS: "--max-old-space-size=6144"
 
       - name: Write IndexNow key file
         if: github.ref == 'refs/heads/main'
