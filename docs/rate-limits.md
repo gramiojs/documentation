@@ -7,7 +7,7 @@ head:
 
     - - meta
       - name: "keywords"
-        content: Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, 429, rate-limit, error-code, retry later, retry_after, too many requests, limits, messages, how to solve, redis, bull, queue, 30 messages per second, broadcast, mailing, flood control
+        content: Telegram, Telegram Bot API, GramIO, TypeScript, Deno, Bun, Node.JS, 429, rate-limit, error-code, retry later, retry_after, too many requests, limits, messages, how to solve, redis, bull, queue, 30 messages per second, broadcast, mailing, flood control, allow_paid_broadcast, Telegram Stars, paid broadcast, 1000 messages per second
 ---
 
 # Rate limits
@@ -24,6 +24,7 @@ Telegram **does not officially publish** exact rate limit numbers. The values be
 | Messages to **different chats** | ~30 per second |
 | Bulk notifications / broadcasts | ~30 per second total |
 | Group/channel operations | Lower, depends on members |
+| **Paid** broadcast (`allow_paid_broadcast`) | Up to **1000 per second** (0.1 Stars/msg) |
 
 > [!NOTE]
 > In practice the limits are more nuanced than a simple "30 per second" — they can change dynamically and may differ between bots. If your bot needs higher throughput, you can **contact [@BotSupport](https://t.me/BotSupport)** and request a limit increase for your bot.
@@ -65,6 +66,33 @@ This fires requests at maximum speed. After roughly 30 messages, Telegram blocks
 <BroadcastVisualizer />
 
 ## How to broadcast correctly
+
+### Paid approach: `allow_paid_broadcast`
+
+If budget allows, the simplest way to bypass rate limits entirely is the `allow_paid_broadcast` parameter. Pass `true` to any send method (e.g. [`sendMessage`](/telegram/methods/sendMessage)) and your bot can send **up to 1000 messages per second** — at a cost of **0.1 Telegram Stars per message**, withdrawn automatically from the bot's balance.
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot(process.env.BOT_TOKEN as string);
+const chatIds: number[] = [
+    /** some chat ids */
+];
+
+for (const chatId of chatIds) {
+    await bot.api.sendMessage({
+        chat_id: chatId,
+        text: "Hi!",
+        allow_paid_broadcast: true,
+    });
+}
+```
+
+> [!TIP]
+> `allow_paid_broadcast` doesn't replace retry logic — you should still handle transient errors. Combine it with [auto-retry](/plugins/official/auto-retry) for a robust solution.
+
+> [!WARNING]
+> Make sure your bot has enough Stars in its balance before starting a large broadcast. You can check and top up the balance via [@BotFather](https://t.me/BotFather).
 
 ### Simple approach: loop with delay
 
