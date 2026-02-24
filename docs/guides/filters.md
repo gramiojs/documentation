@@ -179,6 +179,6 @@ Without a type predicate (boolean guard), it acts as a gate that blocks the chai
 
 ## See Also
 
-- [Middleware guide](/guides/middleware) — how middleware chains work
+- [Middleware guide](/extend/middleware) — how middleware chains work
 - [`.on()` reference](/bot-class#on) — full method signature
 - [`guard()` reference](/bot-class#guard) — gate vs side-effect modes

@@ -178,6 +178,6 @@ bot
 
 ## Смотри также
 
-- [Руководство по middleware](/ru/guides/middleware) — как работают цепочки middleware
+- [Руководство по middleware](/ru/extend/middleware) — как работают цепочки middleware
 - [Справочник `.on()`](/ru/bot-class#on) — полная сигнатура метода
 - [Справочник `guard()`](/ru/bot-class#guard) — режимы шлюза и побочных эффектов
