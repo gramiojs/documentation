@@ -8,7 +8,7 @@ head:
 
     - - meta
       - name: "keywords"
-        content: "телеграм бот, фреймворк, как создать бота, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, callback query, обработка нажатий, инлайн клавиатура, callback data, ответ на нажатие кнопки, answerCallbackQuery, regex callback, json callback, parse callback, валидация callback, колбек запросы, обработчик колбеков, взаимодействие с кнопками, обработка действий пользователя"
+        content: "телеграм бот, фреймворк, как создать бота, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, callback query, обработка нажатий, инлайн клавиатура, callback data, ответ на нажатие кнопки, answerCallbackQuery, regex callback, json callback, parse callback, валидация callback, колбек запросы, обработчик колбеков, взаимодействие с кнопками, safeUnpack, миграция схемы, CallbackData"
 ---
 
 # Метод `callbackQuery`
@@ -106,3 +106,51 @@ bot.command("start", (context) =>
 2. `callback_data` кнопки упаковываются с помощью `buttonData.pack()`.
 3. Метод `callbackQuery` слушает `callback_query`, которые соответствуют `buttonData`.
 4. Обработчик отвечает ID выбранного действия.
+
+## Миграции схемы и `safeUnpack()`
+
+Кнопки инлайн-клавиатуры остаются в истории Telegram — пользователи могут нажать кнопку спустя дни или недели после её отправки. Если схема `CallbackData` изменилась между деплоями, старые кнопки могут содержать данные, которые больше не соответствуют схеме.
+
+### Что менять безопасно
+
+| Операция | Безопасно? | Почему |
+|---|---|---|
+| Добавить optional-поле в конец | ✅ Да | Старые данные распакуются как `undefined` / дефолт |
+| Добавить default к существующему optional | ✅ Да | Меняет только поведение при отсутствующем значении |
+| Добавить required-поле | ❌ Нет | В старых данных нет значения |
+| Удалить поле | ❌ Нет | Сдвигает позиции всех следующих полей |
+| Поменять порядок полей | ❌ Нет | Позиционный формат — значения попадут не в те поля |
+| Сменить тип поля | ❌ Нет | Десериализация по другому алгоритму |
+| Переименовать `nameId` | ❌ Нет | `callbackQuery(schema)` не матчит старые кнопки |
+
+### `safeUnpack()` — для сырых обработчиков `callback_query`
+
+`bot.callbackQuery(schema, handler)` автоматически фильтрует и распаковывает данные — внутри обработчика `ctx.queryData` всегда валиден. **`safeUnpack` там не нужен.**
+
+`safeUnpack()` полезен, когда вы обрабатываете `callback_query` через `bot.on()` и хотите попробовать несколько схем или корректно обработать устаревшие кнопки:
+
+```ts
+const v2Schema = new CallbackData("item").number("id").string("tab", { optional: true });
+
+bot.on("callback_query", (ctx) => {
+    const result = v2Schema.safeUnpack(ctx.data ?? "");
+
+    if (!result.success) {
+        // старая кнопка — схема изменилась или неверный nameId
+        return ctx.answerCallbackQuery({ text: "Кнопка устарела, воспользуйтесь новым меню." });
+    }
+
+    // result.data типизировано: { id: number; tab: string | undefined }
+    return ctx.answerCallbackQuery({ text: `Позиция ${result.data.id}` });
+});
+```
+
+Тип возврата — `SafeUnpackResult<T>`, экспортируется из `@gramio/callback-data`:
+
+```ts
+import type { SafeUnpackResult } from "@gramio/callback-data";
+
+function handleData(raw: string): SafeUnpackResult<{ id: number }> {
+    return mySchema.safeUnpack(raw);
+}
+```

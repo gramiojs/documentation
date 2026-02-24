@@ -8,7 +8,7 @@ head:
 
     - - meta
       - name: "keywords"
-        content: "telegram bot, framework, how to create a bot, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, callback query, button clicks, inline keyboard, callback data, button click response, answerCallbackQuery, regex callback, json callback, parse callback, callback validation, callback queries, callback handler, button interaction, user action handling"
+        content: "telegram bot, framework, how to create a bot, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, callback query, button clicks, inline keyboard, callback data, button click response, answerCallbackQuery, regex callback, json callback, parse callback, callback validation, callback queries, callback handler, button interaction, safeUnpack, schema migration, CallbackData"
 ---
 
 # `callbackQuery` Method
@@ -106,3 +106,51 @@ In this example:
 2. The button's callback data is packed using `buttonData.pack()`.
 3. The `callbackQuery` method listens for callback queries that match `buttonData`.
 4. The handler responds with the ID of the selected action.
+
+## Schema Migrations & `safeUnpack()`
+
+Inline keyboard buttons persist in Telegram's chat history — users can press a button days or weeks after it was sent. If your `CallbackData` schema changes between deployments, old buttons may carry data that no longer matches your schema.
+
+### What's safe to change
+
+| Operation | Safe? | Why |
+|---|---|---|
+| Add optional field to the end | ✅ Yes | Old data unpacks as `undefined` / default |
+| Add default to existing optional | ✅ Yes | Only changes missing-value behavior |
+| Add required field | ❌ No | Old data has no value for it |
+| Remove a field | ❌ No | Shifts positions of all following fields |
+| Reorder fields | ❌ No | Positional format — values land in wrong fields |
+| Change field type | ❌ No | Deserialized by wrong algorithm |
+| Rename `nameId` | ❌ No | `callbackQuery(schema)` won't match old buttons |
+
+### `safeUnpack()` — for raw `callback_query` handlers
+
+`bot.callbackQuery(schema, handler)` handles filtering and unpacking automatically — inside the handler you always have valid `ctx.queryData`. **You don't need `safeUnpack` there.**
+
+`safeUnpack()` is useful when you handle `callback_query` with `bot.on()` and want to try multiple schemas or gracefully handle outdated buttons:
+
+```ts
+const v2Schema = new CallbackData("item").number("id").string("tab", { optional: true });
+
+bot.on("callback_query", (ctx) => {
+    const result = v2Schema.safeUnpack(ctx.data ?? "");
+
+    if (!result.success) {
+        // old button — schema changed or wrong nameId
+        return ctx.answerCallbackQuery({ text: "This button is outdated, please use the new menu." });
+    }
+
+    // result.data is fully typed: { id: number; tab: string | undefined }
+    return ctx.answerCallbackQuery({ text: `Item ${result.data.id}` });
+});
+```
+
+The return type is `SafeUnpackResult<T>`, exported from `@gramio/callback-data`:
+
+```ts
+import type { SafeUnpackResult } from "@gramio/callback-data";
+
+function handleData(raw: string): SafeUnpackResult<{ id: number }> {
+    return mySchema.safeUnpack(raw);
+}
+```

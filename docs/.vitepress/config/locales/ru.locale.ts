@@ -287,6 +287,10 @@ export const localeRu = {
 										text: "Crypto Pay API",
 										link: "/ru/ecosystem/crypto-pay-api",
 									},
+									{
+										text: "@gramio/schema-parser",
+										link: "/ru/ecosystem/schema-parser",
+									},
 								],
 							},
 						],
@@ -319,6 +323,10 @@ export const localeRu = {
 							{
 								text: "Telegram Stars",
 								link: "/ru/guides/telegram-stars",
+							},
+							{
+								text: "Фильтры",
+								link: "/ru/guides/filters",
 							},
 							{
 								text: "AI навыки",

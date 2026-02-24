@@ -846,6 +846,10 @@ export function createLocaleEn(typeDocSidebar: Record<string, unknown[]> = {}) {
 										text: "Crypto Pay API",
 										link: "/ecosystem/crypto-pay-api",
 									},
+									{
+										text: "@gramio/schema-parser",
+										link: "/ecosystem/schema-parser",
+									},
 								],
 							},
 						],
@@ -878,6 +882,10 @@ export function createLocaleEn(typeDocSidebar: Record<string, unknown[]> = {}) {
 							{
 								text: "Telegram Stars",
 								link: "/guides/telegram-stars",
+							},
+							{
+								text: "Filters",
+								link: "/guides/filters",
 							},
 							{
 								text: "AI Skills",
