@@ -53,6 +53,8 @@ head:
 
 - [Миграция с grammY](/ru/guides/migration-from-grammy) — Сравнение кода для пользователей grammY
 - [Миграция с puregram](/ru/guides/migration-from-puregram) — Сравнение кода для пользователей puregram
+- [Миграция с Telegraf](/ru/guides/migration-from-telegraf) — Сравнение кода для пользователей Telegraf
+- [Миграция с node-telegram-bot-api](/ru/guides/migration-from-ntba) — Сравнение кода для пользователей NTBA
 
 ---
 

@@ -54,6 +54,7 @@ export function createLocaleEn(typeDocSidebar: Record<string, unknown[]> = {}) {
 				// https://vitepress.dev/reference/default-theme-config
 				nav: [
 					{ text: "Home", link: "/" },
+					{ text: "Introduction", link: "/introduction" },
 					{ text: "Get started", link: "/get-started" },
 					{ text: "Cheat Sheet", link: "/cheat-sheet" },
 					{ text: "Plugins", link: "/plugins/overview" },
@@ -660,6 +661,7 @@ export function createLocaleEn(typeDocSidebar: Record<string, unknown[]> = {}) {
 					{
 						text: "Documentation",
 						items: [
+							{ text: "Introduction", link: "/introduction" },
 							{ text: "Get started", link: "/get-started" },
 							{ text: "Cheat Sheet", link: "/cheat-sheet" },
 							{ text: "Bot API", link: "/bot-api" },
@@ -890,6 +892,28 @@ export function createLocaleEn(typeDocSidebar: Record<string, unknown[]> = {}) {
 							{
 								text: "AI Skills",
 								link: "/guides/ai-skills",
+							},
+							{
+								text: "Migration",
+								collapsed: true,
+								items: [
+									{
+										text: "From grammY",
+										link: "/guides/migration-from-grammy",
+									},
+									{
+										text: "From puregram",
+										link: "/guides/migration-from-puregram",
+									},
+									{
+										text: "From Telegraf",
+										link: "/guides/migration-from-telegraf",
+									},
+									{
+										text: "From node-telegram-bot-api",
+										link: "/guides/migration-from-ntba",
+									},
+								],
 							},
 						],
 					},

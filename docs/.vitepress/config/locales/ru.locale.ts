@@ -9,7 +9,9 @@ export const localeRu = {
 			// https://vitepress.dev/reference/default-theme-config
 			nav: [
 				{ text: "Главная", link: "/ru" },
+				{ text: "Введение", link: "/ru/introduction" },
 				{ text: "Начало", link: "/ru/get-started" },
+				{ text: "Шпаргалка", link: "/ru/cheat-sheet" },
 				{ text: "Плагины", link: "/ru/plugins/overview" },
 				{ text: "API Reference", link: "/api/" },
 				{ text: "Журнал изменений", link: "/ru/changelogs/" },
@@ -136,7 +138,9 @@ export const localeRu = {
 					{
 						text: "Руководство",
 						items: [
+							{ text: "Введение", link: "/ru/introduction" },
 							{ text: "Начало работы", link: "/ru/get-started" },
+							{ text: "Шпаргалка", link: "/ru/cheat-sheet" },
 							{ text: "Bot API", link: "/ru/bot-api" },
 							{
 								text: "Обновления",
@@ -331,6 +335,28 @@ export const localeRu = {
 							{
 								text: "AI навыки",
 								link: "/ru/guides/ai-skills",
+							},
+							{
+								text: "Миграция",
+								collapsed: true,
+								items: [
+									{
+										text: "С grammY",
+										link: "/ru/guides/migration-from-grammy",
+									},
+									{
+										text: "С puregram",
+										link: "/ru/guides/migration-from-puregram",
+									},
+									{
+										text: "С Telegraf",
+										link: "/ru/guides/migration-from-telegraf",
+									},
+									{
+										text: "С node-telegram-bot-api",
+										link: "/ru/guides/migration-from-ntba",
+									},
+								],
 							},
 						],
 					},
