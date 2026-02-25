@@ -50,6 +50,38 @@ bot.on("message", (context) =>
 );
 ```
 
+## Референс Telegram API
+
+GramIO поставляется с полным [референсом Telegram Bot API](/telegram/) — каждый метод и тип, синхронизированный с официальным API и дополненный GramIO-специфичным контентом.
+
+### Что есть на странице каждого метода
+
+Каждый метод имеет свою страницу по адресу `/telegram/methods/{methodName}` (например, [`sendMessage`](/telegram/methods/sendMessage)):
+
+| Раздел | Что найдёте |
+|--------|------------|
+| **Parameters** | Каждое поле — тип, обязательность, описание |
+| **GramIO usage** | TypeScript-примеры через `bot.api.*` и шортхенды контекста |
+| **Errors** | Коды ошибок с объяснением причин |
+| **Tips & Gotchas** | Граничные случаи, лимиты и частые ошибки |
+| **See also** | Связанные методы и гайды |
+
+### Что есть на странице каждого типа
+
+Типы находятся по адресу `/telegram/types/{TypeName}` (например, [`Message`](/telegram/types/Message)) — каждое поле с типом и описанием, со ссылками на связанные типы.
+
+### Быстрые ссылки
+
+**Популярные методы:**
+[`sendMessage`](/telegram/methods/sendMessage) · [`sendPhoto`](/telegram/methods/sendPhoto) · [`editMessageText`](/telegram/methods/editMessageText) · [`answerCallbackQuery`](/telegram/methods/answerCallbackQuery) · [`answerInlineQuery`](/telegram/methods/answerInlineQuery) · [`getChat`](/telegram/methods/getChat) · [`getChatMember`](/telegram/methods/getChatMember)
+
+**Основные типы:**
+[`Message`](/telegram/types/Message) · [`User`](/telegram/types/User) · [`Chat`](/telegram/types/Chat) · [`Update`](/telegram/types/Update) · [`InlineKeyboardMarkup`](/telegram/types/InlineKeyboardMarkup) · [`CallbackQuery`](/telegram/types/CallbackQuery)
+
+[Открыть полный референс →](/telegram/)
+
+---
+
 ### Подавление ошибок
 
 Бывает удобно обрабатывать ошибку на месте без использования блоков **try/catch**. Для этого был создан аргумент `suppress`, который можно использовать в **любом** методе API.

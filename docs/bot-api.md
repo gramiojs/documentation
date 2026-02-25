@@ -50,6 +50,38 @@ bot.on("message", (context) =>
 );
 ```
 
+## Telegram API Reference
+
+GramIO ships a full [Telegram Bot API reference](/telegram/) — every method and type, kept in sync with the official API and enriched with GramIO-specific content.
+
+### What's on each method page
+
+Every method has its own page at `/telegram/methods/{methodName}` (e.g. [`sendMessage`](/telegram/methods/sendMessage)):
+
+| Section | What you get |
+|---------|-------------|
+| **Parameters** | Every field — type, required/optional, description |
+| **GramIO usage** | TypeScript examples via `bot.api.*` and context shorthands |
+| **Errors** | Common error codes with root-cause explanations |
+| **Tips & Gotchas** | Edge cases, limits, and common mistakes |
+| **See also** | Related methods and guides |
+
+### What's on each type page
+
+Types live at `/telegram/types/{TypeName}` (e.g. [`Message`](/telegram/types/Message)) — every field with its type and description, linked to related types.
+
+### Quick links
+
+**Common methods:**
+[`sendMessage`](/telegram/methods/sendMessage) · [`sendPhoto`](/telegram/methods/sendPhoto) · [`editMessageText`](/telegram/methods/editMessageText) · [`answerCallbackQuery`](/telegram/methods/answerCallbackQuery) · [`answerInlineQuery`](/telegram/methods/answerInlineQuery) · [`getChat`](/telegram/methods/getChat) · [`getChatMember`](/telegram/methods/getChatMember)
+
+**Core types:**
+[`Message`](/telegram/types/Message) · [`User`](/telegram/types/User) · [`Chat`](/telegram/types/Chat) · [`Update`](/telegram/types/Update) · [`InlineKeyboardMarkup`](/telegram/types/InlineKeyboardMarkup) · [`CallbackQuery`](/telegram/types/CallbackQuery)
+
+[Browse the full reference →](/telegram/)
+
+---
+
 ### Suppressing errors
 
 It can be convenient to handle an error on the spot without using **try/catch** blocks. That's why the `suppress` argument was created, which you can use in **any** API method.
