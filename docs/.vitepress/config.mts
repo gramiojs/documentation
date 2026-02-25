@@ -39,6 +39,7 @@ try {
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+	base: process.env.BASE_URL ?? "/",
 	title: "GramIO",
 	description: "Build your bots with convenience!",
 	cleanUrls: true,

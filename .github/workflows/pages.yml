@@ -1,0 +1,61 @@
+name: Build and Deploy documentation to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install modules
+        run: bun install --frozen-lockfile
+
+      - uses: actions/cache@v4
+        with:
+          path: ./docs/.vitepress/cache
+          key: ${{ runner.os }}-vitepress-pages-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-vitepress-pages-
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Build
+        run: bun run build
+        env:
+          BASE_URL: /documentation/
+          NODE_OPTIONS: "--max-old-space-size=10240"
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./docs/.vitepress/dist
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
