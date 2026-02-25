@@ -1,29 +1,31 @@
 ---
-title: Начало работы с GramIO - Мощный Telegram Bot API фреймворк для создания ботов Telegram на TypeScript/JavaScript
+title: Начало работы с GramIO - Создание Telegram ботов на TypeScript/JavaScript
 
 head:
     - - meta
       - name: "description"
-        content: GramIO - фреймворк на TypeScript/JavaScript для создания ботов Telegram, работающий на Node.js, Bun и Deno. Создайте бота с помощью «npm create gramio mybot» и запустите бота с помощью «npm run dev».
+        content: Создайте своего первого Telegram бота менее чем за минуту. Одна команда разворачивает полный TypeScript-проект — ORM, линтинг, плагины, Docker. Работает на Node.js, Bun и Deno.
 
     - - meta
       - name: "keywords"
-        content: телеграм бот, фреймворк, как создать бота, Telegram, Telegram Bot API, GramIO, Grammy, Telegraf, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, как создать бота, создание бота, создание бота в Telegram, создание бота в Telegram на TypeScript, создание бота в Telegram на JavaScript, создание бота в Telegram на Node.JS, создание бота в Telegram на Nodejs, создание бота в Telegram на Deno, создание бота в Telegram на Bun
+        content: телеграм бот, фреймворк, как создать бота, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, быстрый старт, токен бота, BotFather, скаффолдинг, create gramio, команды бота, инлайн клавиатуры, форматирование сообщений, сессии, плагины, сцены, i18n, мидлвар, derive, типобезопасный бот
 ---
 
 # Начало работы
 
-Создайте нового бота с GramIO за считанные минуты. У вас уже должен быть установлен [Node.js](https://nodejs.org/), [Bun](https://bun.sh/) или [Deno](https://deno.com/).
+Создайте своего первого Telegram бота **менее чем за минуту** — типобезопасно, на любом рантайме, с богатой экосистемой плагинов.
 
-## Получите токен бота
+## 1. Получите токен бота
 
-Сначала создайте бота и получите `токен`. Вы можете сделать это с помощью бота [@BotFather](https://t.me/BotFather).
+Откройте [@BotFather](https://t.me/BotFather) в Telegram, отправьте `/newbot` и следуйте инструкциям. Вы получите токен вида:
 
-Отправьте команду `/newbot` и следуйте инструкциям, пока не получите токен вида `110201543:AAHdqTcvCH1vGWJxfSeofSAs0K5PALDsaw`.
+```
+110201543:AAHdqTcvCH1vGWJxfSeofSAs0K5PALDsaw
+```
 
-## Создание проекта вместе с `create-gramio`
+## 2. Создайте проект
 
-Эта команда поможет вам создать проект с GramIO самым простым способом.
+Одна команда настраивает всё — TypeScript, линтинг, ORM, плагины, Docker — на ваш выбор.
 
 ::: code-group
 
@@ -43,45 +45,267 @@ pnpm create gramio@latest ./bot
 bun create gramio@latest ./bot
 ```
 
-```bash [deno]
-TODO:// Deno поддерживается, но не в генераторе проектов
+:::
+
+::: details Что можно выбрать в генераторе?
+- **ORM** — [Prisma](https://www.prisma.io/), [Drizzle](https://orm.drizzle.team/)
+- **Линтеры** — [Biome](https://biomejs.dev/), [ESLint](https://eslint.org/) (с автонастройкой нужных плагинов)
+- **Официальные плагины** — [Scenes](/ru/plugins/official/scenes), [Session](/ru/plugins/official/session), [I18n](/ru/plugins/official/i18n), [Autoload](/ru/plugins/official/autoload), [Prompt](/ru/plugins/official/prompt), [Auto-retry](/ru/plugins/official/auto-retry), [Media-cache](/ru/plugins/official/media-cache), [Media-group](/ru/plugins/official/media-group)
+- **Другое** — Dockerfile + docker-compose, [Husky](https://typicode.github.io/husky/) git-хуки, [Jobify](https://github.com/kravetsone/jobify) (обёртка для BullMQ), [хранилища GramIO](/ru/storages)
+:::
+
+## 3. Запустите разработку
+
+::: code-group
+
+```bash [npm]
+cd bot && npm run dev
+```
+
+```bash [yarn]
+cd bot && yarn dev
+```
+
+```bash [pnpm]
+cd bot && pnpm dev
+```
+
+```bash [bun]
+cd bot && bun dev
 ```
 
 :::
 
-#### Поддерживаемые инструменты
+Бот работает и перезапускается при изменениях. **Готово.** Теперь посмотрим, что можно с этим сделать.
 
--   ORM/Query builders
--   -   [Prisma](https://www.prisma.io/)
--   -   [Drizzle](https://orm.drizzle.team/)
--   Линтеры
--   -   [Biome](https://biomejs.dev/)
--   -   [ESLint](https://eslint.org/) с [@antfu/eslint-config](https://github.com/antfu/eslint-config)
--   Плагины
--   -   [Scenes](https://gramio.dev/ru/plugins/official/scenes.html)
--   -   [Session](https://gramio.dev/ru/plugins/official/session.html)
--   -   [Autoload](https://gramio.dev/ru/plugins/official/autoload.html)
--   -   [Prompt](https://gramio.dev/ru/plugins/official/prompt.html)
--   -   [Auto-retry](https://gramio.dev/ru/plugins/official/auto-retry.html)
--   -   [Media-cache](https://gramio.dev/ru/plugins/official/media-cache.html)
--   -   [I18n](https://gramio.dev/ru/plugins/official/i18n.html)
--   -   [Media-group](https://gramio.dev/ru/plugins/official/media-group.html)
--   Другое
--   -   [Dockerfile](https://www.docker.com/) + [docker-compose.yml](https://docs.docker.com/compose/)
--   -   [Jobify](https://github.com/kravetsone/jobify) (обертка для [Bullmq](https://docs.bullmq.io/))
--   -   [Husky](https://typicode.github.io/husky/) (Git-хуки)
--   -   [Fluent2ts](https://github.com/kravetsone/fluent2ts)
--   -   [GramIO storages](https://gramio.dev/ru/storages/)
--   [Telegram apps](https://github.com/Telegram-Mini-Apps/telegram-apps/tree/master/packages/create-mini-app)
--   [Elysia](https://elysiajs.com/) (через [create-elysiajs](https://github.com/kravetsone/create-elysiajs))
+---
 
-> Инструменты могут работать `вместе`
->
-> Когда вы выбираете [ESLint](https://eslint.org/) и [Drizzle](https://orm.drizzle.team/), вы получаете [eslint-plugin-drizzle](https://orm.drizzle.team/docs/eslint-plugin)
+## Как выглядит GramIO
+
+### Обработка команд
+
+```ts twoslash
+import { Bot } from "gramio";
+
+const bot = new Bot(process.env.BOT_TOKEN as string)
+    .command("start", (ctx) => ctx.send("Привет! 👋"))
+    .command("help", (ctx) => ctx.send("Вот что я умею..."))
+    .onStart(({ info }) => console.log(`Запущен как @${info.username}`));
+
+bot.start();
+```
+
+### Форматирование сообщений
+
+Никакого `parse_mode` — GramIO использует тегированные шаблонные строки, которые автоматически создают корректные объекты `MessageEntity`:
+
+```ts twoslash
+import { Bot, format, bold, italic, link, code } from "gramio";
+
+const bot = new Bot(process.env.BOT_TOKEN as string)
+    .command("start", (ctx) =>
+        ctx.send(
+            format`${bold`Добро пожаловать!`}
+            Загляните на ${link("GramIO", "https://gramio.dev")} — ${italic("типобезопасно до последней строчки")}.`
+        )
+    );
+
+bot.start();
+```
+
+### Создание клавиатур
+
+Удобный цепочный API для инлайн и reply-клавиатур:
+
+```ts twoslash
+import { Bot, InlineKeyboard } from "gramio";
+
+const bot = new Bot(process.env.BOT_TOKEN as string)
+    .command("menu", (ctx) =>
+        ctx.send("Что вы хотите сделать?", {
+            reply_markup: new InlineKeyboard()
+                .text("О проекте", "about")
+                .url("GitHub", "https://github.com/gramiojs/gramio")
+                .row()
+                .text("Настройки ⚙️", "settings"),
+        })
+    );
+
+bot.start();
+```
+
+### Типобезопасное расширение контекста через `derive`
+
+Добавляйте свои данные в каждый обработчик — без приведения типов, полная типизация:
+
+```ts twoslash
+// @filename: db.ts
+export const db = { getUser: async (id: number) => ({ name: "Alice", id }) };
+
+// @filename: index.ts
+// ---cut---
+import { Bot } from "gramio";
+import { db } from "./db";
+
+const bot = new Bot(process.env.BOT_TOKEN as string)
+    .derive("message", async (ctx) => ({
+        user: await db.getUser(ctx.from!.id),
+    }))
+    .on("message", (ctx) => {
+        ctx.user;
+        //   ^?
+        //
+        //
+        //
+        //
+        return ctx.send(`Привет, ${ctx.user.name}!`);
+    });
+
+bot.start();
+```
+
+### Конвейер мидлваров — Composer
+
+`Bot` расширяет [Composer](/ru/extend/composer) — цепочный типобезопасный конвейер обработки обновлений. Каждый метод обогащает контекст и возвращает обновлённый тип, поэтому вся цепочка всегда полностью типизирована.
+
+`Composer` также существует как **отдельный класс** — его можно импортировать и использовать независимо от `Bot`. Это важно, когда проект начинает расти:
+
+| Метод | Что делает |
+|-------|-----------|
+| `use(ctx, next)` | Сырой мидлвар — вызовите `next()` чтобы продолжить |
+| `derive(fn)` | Асинхронное обогащение контекста на каждый запрос |
+| `decorate(obj)` | Статическое обогащение при запуске — без накладных расходов |
+| `guard(fn)` | Продолжить только если предикат вернул `true` |
+| `on(event, fn)` | Обработать конкретный тип обновления |
+| `extend(composer)` | Встроить другой композер — унаследовав его полные типы |
+
+#### Продакшн-паттерн: общий плагинный композер
+
+В реальном проекте регистрируйте все плагины **один раз** в общем `Composer`, а затем расширяйте его в каждом файле с фичами. Каждый обработчик становится чистым `Composer` — без `Bot`, без токена, легко тестируется:
+
+```ts
+// src/plugins/index.ts
+import { Composer } from "gramio";
+import { scenes } from "@gramio/scenes";
+import { session } from "@gramio/session";
+import { greetingScene } from "../scenes/greeting.ts";
+
+export const composer = new Composer()
+    .extend(scenes([greetingScene]))
+    .extend(session());
+```
+
+```ts
+// src/features/start.ts
+import { Composer } from "gramio";
+import { composer } from "../plugins/index.ts";
+
+export const startFeature = new Composer()
+    .extend(composer) // ← наследует все типы плагинов
+    .command("start", (ctx) => {
+        ctx.scene; // ✅ полная типизация — без Bot, без токена
+        return ctx.scene.enter(greetingScene);
+    });
+```
+
+```ts
+// src/index.ts
+import { Bot } from "gramio";
+import { composer } from "./plugins/index.ts";
+import { startFeature } from "./features/start.ts";
+
+const bot = new Bot(process.env.BOT_TOKEN as string)
+    .extend(composer)      // плагины
+    .extend(startFeature); // обработчики фич
+
+bot.start();
+```
+
+::: tip Почему это работает
+`Composer` передаёт свои типы через каждый `.extend()`. Когда `startFeature` расширяет `composer`, TypeScript видит все свойства, добавленные плагинами — `ctx.scene`, `ctx.session` и т.д. — без приведения типов и ручных аннотаций.
+:::
+
+### Расширение плагинами через `.extend()`
+
+Плагины подключаются через `.extend()`. Они могут добавлять новые свойства в контекст, регистрировать обработчики и встраиваться в жизненный цикл — всё с полной типизацией.
+
+Пример подключения [Scenes](/ru/plugins/official/scenes) для многошаговых диалогов:
+
+::: code-group
+
+```bash [npm]
+npm install @gramio/scenes
+```
+
+```bash [yarn]
+yarn add @gramio/scenes
+```
+
+```bash [pnpm]
+pnpm add @gramio/scenes
+```
+
+```bash [bun]
+bun add @gramio/scenes
+```
+
+:::
+
+```ts twoslash
+import { Bot } from "gramio";
+import { scenes, Scene } from "@gramio/scenes";
+
+const registrationScene = new Scene("registration")
+    .step("message", (ctx) => {
+        if (ctx.scene.step.firstTime) return ctx.send("Как вас зовут?");
+        return ctx.scene.update({ name: ctx.text });
+    })
+    .step("message", (ctx) => {
+        ctx.scene.state;
+        //          ^?
+        //
+        //
+        //
+        //
+        return ctx.send(`Приятно познакомиться, ${ctx.scene.state.name}!`);
+    });
+
+const bot = new Bot(process.env.BOT_TOKEN as string)
+    .extend(scenes([registrationScene]))
+    .command("start", (ctx) => ctx.scene.enter(registrationScene));
+
+bot.start();
+```
+
+Каждый `.step()` срабатывает на следующее подходящее обновление от того же пользователя. Состояние сохраняется между шагами и полностью типизировано.
+
+---
+
+## Официальные плагины
+
+Расширяйте бота первоклассными плагинами, которые работают бесшовно:
+
+| Плагин | Что делает |
+|--------|-----------|
+| [Session](/ru/plugins/official/session) | Состояние пользователя между сообщениями |
+| [Scenes](/ru/plugins/official/scenes) | Многошаговые диалоги и визарды |
+| [I18n](/ru/plugins/official/i18n) | Интернационализация на базе Fluent |
+| [Autoload](/ru/plugins/official/autoload) | Автоимпорт обработчиков из файловой системы |
+| [Auto-retry](/ru/plugins/official/auto-retry) | Автоматический повтор при rate-limit ошибках |
+| [Media-cache](/ru/plugins/official/media-cache) | Кэширование file_id загруженных файлов |
+| [Media-group](/ru/plugins/official/media-group) | Обработка альбомов как одного события |
+| [Views](/ru/plugins/official/views) | JSX-рендеринг сообщений |
+| [Prompt](/ru/plugins/official/prompt) | Ожидание следующего сообщения пользователя |
+| [OpenTelemetry](/ru/plugins/official/opentelemetry) | Трассировка и метрики |
+| [Sentry](/ru/plugins/official/sentry) | Отслеживание ошибок и мониторинг |
+
+[Смотреть все плагины →](/ru/plugins/overview)
+
+---
 
 ## Ручная установка
 
-Чтобы вручную создать нового бота с GramIO, установите пакет:
+Предпочитаете настроить всё самостоятельно?
 
 ::: code-group
 
@@ -103,41 +327,15 @@ bun install gramio
 
 :::
 
-Настройте TypeScript:
+Создайте `src/index.ts`:
 
 ::: code-group
 
-```bash [npm]
-npm install typescript -D
-npx tsc --init
-```
-
-```bash [yarn]
-yarn add typescript -D
-yarn dlx tsc --init
-```
-
-```bash [pnpm]
-pnpm add typescript -D
-pnpm exec tsc --init
-```
-
-```bash [bun]
-bun install typescript -D
-bunx tsc --init
-```
-
-:::
-
-Создайте папку `src` с файлом `index.ts` и напишите что-то вроде:
-
-::: code-group
-
-```ts twoslash [Bun или Node.js]
+```ts twoslash [Node.js / Bun]
 import { Bot } from "gramio";
 
-const bot = new Bot("") // укажите ваш токен здесь
-    .command("start", (context) => context.send("Привет!"))
+const bot = new Bot(process.env.BOT_TOKEN as string)
+    .command("start", (ctx) => ctx.send("Привет! 👋"))
     .onStart(console.log);
 
 bot.start();
@@ -146,8 +344,8 @@ bot.start();
 ```ts [Deno]
 import { Bot } from "jsr:@gramio/core";
 
-const bot = new Bot("") // укажите ваш токен здесь
-    .command("start", (context) => context.send("Привет!"))
+const bot = new Bot(process.env.BOT_TOKEN as string)
+    .command("start", (ctx) => ctx.send("Привет! 👋"))
     .onStart(console.log);
 
 bot.start();
@@ -155,7 +353,7 @@ bot.start();
 
 :::
 
-И запустите бота с помощью:
+Запустите:
 
 ::: code-group
 
@@ -172,7 +370,3 @@ deno run --allow-net --allow-env ./src/index.ts
 ```
 
 :::
-
-Готово! 🎉
-
-Теперь вы можете взаимодействовать со своим ботом Telegram.
