@@ -53,6 +53,8 @@ Focused deep-dives on specific features and integrations.
 
 - [Migrate from grammY](/guides/migration-from-grammy) — Side-by-side code comparisons for grammY users
 - [Migrate from puregram](/guides/migration-from-puregram) — Side-by-side code comparisons for puregram users
+- [Migrate from Telegraf](/guides/migration-from-telegraf) — Side-by-side code comparisons for Telegraf users
+- [Migrate from node-telegram-bot-api](/guides/migration-from-ntba) — Side-by-side code comparisons for NTBA users
 
 ---
 

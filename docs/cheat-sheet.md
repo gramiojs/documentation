@@ -307,11 +307,14 @@ const ru = {
 
 const i18n = defineI18n({ primaryLanguage: "en", languages: { en, ru } });
 
-bot.command("start", (ctx) => {
-    const lang = ctx.from?.language_code ?? "en";
-    const t = i18n.buildT(lang);
-    return ctx.send(t("welcome", ctx.from?.first_name ?? "stranger"));
-});
+const bot = new Bot(token)
+    .derive((ctx) => ({
+        t: i18n.buildT(ctx.from?.language_code ?? "en"),
+    }));
+
+bot.command("start", (ctx) =>
+    ctx.send(ctx.t("welcome", ctx.from?.first_name ?? "stranger"))
+);
 ```
 
 ---

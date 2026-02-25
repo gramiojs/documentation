@@ -27,6 +27,7 @@ GramIO is a modern, type-safe Telegram Bot API framework for TypeScript. It runs
 - Containerizing bots with Docker
 - Using standalone `@gramio/types` for custom Bot API wrappers
 - Writing and publishing custom plugins
+- Migrating bots from puregram, grammY, Telegraf, or node-telegram-bot-api to GramIO
 
 ## Quick Start
 
@@ -133,6 +134,16 @@ Each page contains: GramIO TypeScript examples, parameter details, error table w
 | Docker | Dockerfile, multi-stage build, Docker Compose | [docker](references/docker.md) |
 | TMA | Mini Apps, mkcert HTTPS, @gramio/init-data auth | [tma](references/tma.md) |
 | Testing | Event-driven bot testing, user actors, API mocking | [testing](references/testing.md) |
+
+### Migrations
+
+Load when the user wants to migrate an existing bot to GramIO.
+
+| From | Description | Reference |
+|------|-------------|-----------|
+| puregram | Symbol mapping, API comparisons, checklist for puregram → GramIO refactor | [migration-from-puregram](references/migration-from-puregram.md) |
+| Telegraf | Symbol mapping, context typing, Scenes/WizardScene, webhook differences, checklist | [migration-from-telegraf](references/migration-from-telegraf.md) |
+| node-telegram-bot-api | Symbol mapping, middleware concepts, keyboard builders, session, checklist | [migration-from-ntba](references/migration-from-ntba.md) |
 
 ### Plugins
 
