@@ -3,15 +3,19 @@ title: GramIO Cheat Sheet - Quick Reference for Telegram Bot Development
 head:
     - - meta
       - name: "description"
-        content: "Quick reference for GramIO — the TypeScript Telegram Bot API framework. Commands, triggers, keyboards, formatting, plugins, hooks and more in one place."
+        content: "Quick reference for GramIO — the TypeScript Telegram Bot API framework. Commands, triggers, keyboards, formatting, plugins, hooks, guards, i18n, testing and more in one page."
     - - meta
       - name: "keywords"
-        content: "GramIO, cheat sheet, quick reference, telegram bot, TypeScript, commands, triggers, keyboards, hooks, plugins, formatting, sessions, files"
+        content: "GramIO, cheat sheet, quick reference, telegram bot, TypeScript, commands, triggers, keyboards, hooks, plugins, formatting, sessions, files, guard, derive, i18n, testing"
 ---
 
 # Cheat Sheet
 
 Quick reference for the most common GramIO patterns. Click any heading to go to the full docs.
+
+**On this page:** [Setup](#setup) · [Commands](#commands) · [Hears](#hears) · [Any update](#listen-to-any-update) · [Derive & Decorate](#derive-decorate) · [Guards](#guards) · [Inline Keyboard](#inline-keyboard) · [Callback Query](#callback-query) · [Reply Keyboard](#reply-keyboard) · [Formatting](#format-messages) · [Files](#send-files) · [Session](#session) · [Scenes](#scenes-conversations) · [I18n](#i18n) · [Error Handling](#error-handling) · [Hooks](#hooks) · [Plugins](#use-a-plugin) · [Write Plugin](#write-a-plugin) · [Inline Query](#inline-query) · [Autoload](#autoload-handlers) · [Testing](#testing) · [Webhook](#webhook)
+
+---
 
 ## [Setup](/get-started)
 
@@ -27,6 +31,8 @@ const bot = new Bot(process.env.BOT_TOKEN as string);
 bot.start();
 ```
 
+---
+
 ## [Commands](/triggers/command)
 
 ```ts
@@ -35,6 +41,8 @@ bot.command("start", (ctx) => ctx.send("Hello!"));
 // With arguments: /say hello world → ctx.args = "hello world"
 bot.command("say", (ctx) => ctx.send(ctx.args ?? "nothing"));
 ```
+
+---
 
 ## [Hears](/triggers/hears)
 
@@ -45,12 +53,14 @@ bot.hears("hi", (ctx) => ctx.send("Hey!"));
 // Regex — ctx.args holds the match array
 bot.hears(/^hello (.+)/i, (ctx) => ctx.send(`Hi, ${ctx.args?.[1]}!`));
 
-// Function
+// Function predicate
 bot.hears(
     (ctx) => ctx.text?.startsWith("?"),
     (ctx) => ctx.send("A question!"),
 );
 ```
+
+---
 
 ## [Listen to any update](/bot-api)
 
@@ -59,6 +69,71 @@ bot.on("message", (ctx) => ctx.send("Got your message!"));
 
 bot.on(["message", "edited_message"], (ctx) => ctx.send("New or edited!"));
 ```
+
+---
+
+## [Derive & Decorate](/extend/middleware)
+
+`derive` runs per-request; `decorate` runs once at startup.
+
+```ts
+// Per-request: enriches ctx with fresh data each time
+const bot = new Bot(token)
+    .derive(async (ctx) => ({
+        user: await db.getUser(ctx.from?.id),
+    }))
+    .on("message", (ctx) => {
+        ctx.user; // fully typed ✅
+    });
+```
+
+```ts
+// Per-update-type: only for specific events
+const bot = new Bot(token)
+    .derive("message", async (ctx) => ({
+        isAdmin: await db.isAdmin(ctx.from.id),
+    }))
+    .on("message", (ctx) => {
+        ctx.isAdmin; // ✅ — only typed on "message" handlers
+    });
+```
+
+```ts
+// Startup-time: no per-request overhead
+const bot = new Bot(token)
+    .decorate({ db, redis, config })
+    .on("message", (ctx) => {
+        ctx.db.query("..."); // ✅ — same instance every time
+    });
+```
+
+---
+
+## [Guards](/extend/middleware)
+
+Stop the middleware chain when a condition isn't met. Downstream handlers only run if the guard passes.
+
+```ts
+// Reusable admin guard
+const adminOnly = bot.guard(
+    (ctx) => ctx.from?.id === ADMIN_ID,
+    // optional rejection handler:
+    (ctx) => ctx.send("Admins only.")
+);
+
+adminOnly.command("ban", (ctx) => ctx.send("User banned."));
+```
+
+```ts
+// Narrow update type — filter for messages with text
+const textOnly = bot.guard((ctx) => ctx.is("message") && !!ctx.text);
+
+textOnly.on("message", (ctx) => {
+    ctx.text; // string — narrowed by the guard ✅
+});
+```
+
+---
 
 ## [Inline Keyboard](/keyboards/inline-keyboard)
 
@@ -86,10 +161,12 @@ ctx.send("Pick one:", {
 });
 ```
 
+---
+
 ## [Callback Query](/triggers/callback-query)
 
 ```ts
-// String
+// String match
 bot.callbackQuery("yes", (ctx) => ctx.editText("You said yes!"));
 
 // Type-safe CallbackData
@@ -100,6 +177,8 @@ bot.callbackQuery(actionData, (ctx) => {
     //                                      ^? number
 });
 ```
+
+---
 
 ## [Reply Keyboard](/keyboards/keyboard)
 
@@ -116,6 +195,8 @@ const keyboard = new Keyboard()
 ctx.send("Choose:", { reply_markup: keyboard });
 ```
 
+---
+
 ## [Remove Keyboard](/keyboards/remove-keyboard)
 
 ```ts
@@ -123,6 +204,8 @@ import { RemoveKeyboard } from "gramio";
 
 ctx.send("Keyboard removed.", { reply_markup: new RemoveKeyboard() });
 ```
+
+---
 
 ## [Format Messages](/formatting)
 
@@ -138,6 +221,8 @@ ctx.send(format`
     ${pre("const x = 1;", "typescript")}
 `);
 ```
+
+---
 
 ## [Send Files](/files/media-upload)
 
@@ -157,6 +242,8 @@ ctx.sendDocument(await MediaUpload.buffer(buffer, "file.pdf"));
 ctx.sendPhoto("AgACAgIAAxk...");
 ```
 
+---
+
 ## [Session](/plugins/official/session)
 
 ```ts
@@ -175,6 +262,59 @@ bot.command("count", (ctx) => {
     ctx.send(`Count: ${ctx.session.count}`);
 });
 ```
+
+---
+
+## [Scenes (conversations)](/plugins/official/scenes)
+
+```ts
+import { Scene, scenes } from "@gramio/scenes";
+import { session } from "@gramio/session";
+
+const loginScene = new Scene("login")
+    .step("message", (ctx) => {
+        if (ctx.scene.step.firstTime) return ctx.send("Enter your email:");
+        return ctx.scene.update({ email: ctx.text });
+    })
+    .step("message", (ctx) =>
+        ctx.send(`Registered: ${ctx.scene.state.email}`)
+    );
+
+const bot = new Bot(process.env.BOT_TOKEN as string)
+    .extend(session())
+    .extend(scenes([loginScene]));
+
+bot.command("login", (ctx) => ctx.scene.enter(loginScene));
+```
+
+---
+
+## [I18n](/plugins/official/i18n)
+
+```ts
+import { defineI18n, type LanguageMap, type ShouldFollowLanguage } from "@gramio/i18n";
+import { format, bold } from "gramio";
+
+const en = {
+    welcome: (name: string) => format`Hello, ${bold(name)}!`,
+    items: (count: number) => `You have ${count} item${count === 1 ? "" : "s"}`,
+} satisfies LanguageMap;
+
+const ru = {
+    welcome: (name: string) => format`Привет, ${bold(name)}!`,
+    items: (count: number) => `У вас ${count} предмет${count === 1 ? "" : "ов"}`,
+} satisfies ShouldFollowLanguage<typeof en>; // must match en keys/signatures
+
+const i18n = defineI18n({ primaryLanguage: "en", languages: { en, ru } });
+
+bot.command("start", (ctx) => {
+    const lang = ctx.from?.language_code ?? "en";
+    const t = i18n.buildT(lang);
+    return ctx.send(t("welcome", ctx.from?.first_name ?? "stranger"));
+});
+```
+
+---
 
 ## [Error Handling](/hooks/on-error)
 
@@ -205,6 +345,8 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
     });
 ```
 
+---
+
 ## [Hooks](/hooks/overview)
 
 ```ts
@@ -217,7 +359,15 @@ bot.preRequest((ctx) => {
     console.log("Calling", ctx.method);
     return ctx;
 });
+
+// Inspect every response
+bot.onResponse((ctx) => {
+    console.log(ctx.method, "→", ctx.response);
+    return ctx;
+});
 ```
+
+---
 
 ## [Use a Plugin](/plugins/overview)
 
@@ -226,6 +376,8 @@ import { autoAnswerCallbackQuery } from "@gramio/auto-answer-callback-query";
 
 bot.extend(autoAnswerCallbackQuery());
 ```
+
+---
 
 ## [Write a Plugin](/plugins/how-to-write)
 
@@ -244,6 +396,8 @@ bot.on("message", (ctx) => {
 });
 ```
 
+---
+
 ## [Inline Query](/triggers/inline-query)
 
 ```ts
@@ -261,6 +415,8 @@ bot.inlineQuery("cats", async (ctx) => {
 });
 ```
 
+---
+
 ## [Autoload handlers](/plugins/official/autoload)
 
 ```ts
@@ -277,32 +433,48 @@ import type { Bot } from "gramio";
 export default (bot: Bot) => bot.command("start", (ctx) => ctx.send("Hi!"));
 ```
 
-## [Scenes (conversations)](/plugins/official/scenes)
+---
+
+## [Testing](/testing)
 
 ```ts
-import { Scene, Scenes } from "@gramio/scenes";
+import { describe, expect, it } from "bun:test";
+import { Bot } from "gramio";
+import { TelegramTestEnvironment } from "@gramio/test";
 
-const loginScene = new Scene("login")
-    .step("message", (ctx) => ctx.send("Enter your email:"))
-    .step("message", (ctx) => {
-        const email = ctx.text;
-        return ctx.send(`Got it: ${email}`);
-    });
+const bot = new Bot("test");
+bot.command("start", (ctx) => ctx.send("Hello!"));
 
-const bot = new Bot(process.env.BOT_TOKEN as string).extend(
-    new Scenes([loginScene]),
-);
+const env = new TelegramTestEnvironment(bot);
+const user = env.createUser({ first_name: "Alice" });
 
-bot.command("login", (ctx) => ctx.scene.enter("login"));
+// Simulate a /start command
+await user.sendMessage("/start");
+
+// Assert the response
+expect(env.apiCalls[0].method).toBe("sendMessage");
+expect(env.apiCalls[0].params.text).toBe("Hello!");
 ```
+
+---
 
 ## [Webhook](/updates/webhook)
 
+GramIO has no built-in HTTP server — bring your own framework and use `webhookHandler`:
+
 ```ts
+import { Bot, webhookHandler } from "gramio";
+import Fastify from "fastify";
+
+const bot = new Bot(process.env.BOT_TOKEN as string);
+const fastify = Fastify();
+
+fastify.post("/webhook", webhookHandler(bot, "fastify"));
+fastify.listen({ port: 3000, host: "::" });
+
 bot.start({
-    webhook: {
-        url: "https://example.com/bot",
-        port: 8080,
-    },
+    webhook: { url: "https://example.com/webhook" },
 });
 ```
+
+See [all supported frameworks →](/updates/webhook) (Hono, Express, Elysia, Koa, Bun.serve, Deno.serve, node:http)
