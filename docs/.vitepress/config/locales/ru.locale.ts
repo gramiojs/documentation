@@ -333,6 +333,10 @@ export const localeRu = {
 								link: "/ru/guides/filters",
 							},
 							{
+								text: "Composer (модули)",
+								link: "/ru/guides/composer",
+							},
+							{
 								text: "AI навыки",
 								link: "/ru/guides/ai-skills",
 							},

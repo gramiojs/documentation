@@ -890,6 +890,10 @@ export function createLocaleEn(typeDocSidebar: Record<string, unknown[]> = {}) {
 								link: "/guides/filters",
 							},
 							{
+								text: "Composer (modules)",
+								link: "/guides/composer",
+							},
+							{
 								text: "AI Skills",
 								link: "/guides/ai-skills",
 							},

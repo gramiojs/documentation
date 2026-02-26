@@ -45,6 +45,10 @@ Focused deep-dives on specific features and integrations.
 
 - [Filters](/guides/filters) — Route updates to the right handler with composable filter functions
 
+### Architecture
+
+- [Composer (modules)](/guides/composer) — Split a large bot into feature modules, share context with `derive()`, type handlers across files
+
 ### AI & Tooling
 
 - [AI Skills](/guides/ai-skills) — Give your AI assistant deep GramIO knowledge with installable skills
