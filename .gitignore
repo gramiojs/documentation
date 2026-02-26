@@ -21,3 +21,4 @@ service_account.json
 # TypeDoc-generated API reference (rebuilt via `bun run gen:typedoc`)
 docs/api/
 !docs/api/index.md
+memory

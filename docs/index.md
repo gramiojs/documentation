@@ -7,50 +7,171 @@ title: GramIO - Powerful Telegram Bot API framework for TypeScript/JavaScript
 head:
     - - meta
       - name: "description"
-        content: GramIO is a TypeScript/JavaScript framework for building Telegram bots that works on Node.js, Bun and Deno. To start, bootstrap a new project with «npx create gramio bot-dir» and run the bot with «npm run dev». This is all it needs to do a get started with GramIO.
+        content: GramIO is a type-safe TypeScript framework for building Telegram bots on Node.js, Bun and Deno. One command scaffolds everything — plugins, ORM, Docker. End-to-end typed, multi-runtime, extensible.
 
     - - meta
       - name: "keywords"
-        content: telegram bot, framework, how to create a bot, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, bot development, easy bot creation, modern bot framework, cross-platform bots, inline keyboards, webhook support, bot plugins, command handlers, conversation flow, middleware, context-based API
+        content: telegram bot, framework, how to create a bot, Telegram, Telegram Bot API, GramIO, TypeScript, JavaScript, Node.JS, Nodejs, Deno, Bun, bot development, type-safe, inline keyboards, webhook support, bot plugins, command handlers, middleware, scenes, sessions, i18n
 
 hero:
     name: "GramIO"
     text: |
-        Create your 
-        <span class="text-telegram"><span class="i-logos:telegram inline-block text-3xl md:text-5xl"></span> Telegram</span> bots with convenience!
-
+        Build <span class="text-telegram"><span class="i-logos:telegram inline-block text-3xl md:text-5xl"></span> Telegram</span> bots, the right way.
+    tagline: Type-safe · Multi-runtime · Extensible
     image:
         dark: /logo.svg
         light: /logo-light.svg
     actions:
         - theme: brand
-          text: Get started
+          text: Get started →
           link: /get-started
-        # - theme: alt
-        #   text: API Examples
-        #   link: /api-examples
+        - theme: alt
+          text: Why GramIO
+          link: /introduction
+
 features:
-    # - title: Alpha
-    #   details: The project is currently in development (but it can already be used)
-    - icon: 🔥
-      title: Fast start project
-      details: With <strong>npm create gramio</strong> you can quickly start a project in various configurations without wasting time on boring setup
-    - icon: ✨
-      title: Extensible
-      details: Our <a href="/plugins/overview">plugin</a> and <a href="/hooks/overview">hook</a> system is awesome
-    - icon: ⚙️
-      title: Code-generated
-      details: Many parts are code-generated
+    - icon: ⚡
+      title: Zero to bot in 30 seconds
+      details: <code>npm create gramio@latest</code> scaffolds a full project — TypeScript, ORM, linting, plugins, Docker — your choice.
     - icon: 🛡️
-      title: Type-safe
-      details: Written in TypeScript with love ❤️
+      title: End-to-end type safety
+      details: Types flow from plugins through <a href="/extend/middleware">middleware</a> and <a href="/extend/composer">derive()</a> all the way into handlers. No casting, no <code>any</code>.
+    - icon: 🧩
+      title: Rich plugin ecosystem
+      details: <a href="/plugins/official/scenes">Scenes</a>, <a href="/plugins/official/session">Sessions</a>, <a href="/plugins/official/i18n">I18n</a>, <a href="/plugins/official/auto-retry">Auto-retry</a>, <a href="/plugins/official/autoload">Autoload</a> and more — all composable via <code>.extend()</code>.
     - icon: 🌐
-      title: Multi-runtime
-      details: Works on <a href="https://nodejs.org/">Node.js</a>, <a href="https://bun.sh/">Bun</a> and <a href="https://deno.com/">Deno</a>
-    - icon: 🪄
-      title: And something else
-      # details: Works on <a href="https://nodejs.org/">Node.js</a>, <a href="https://bun.sh/">Bun</a> and <a href="https://deno.com/">Deno</a>
+      title: Truly multi-runtime
+      details: Runs on <a href="https://nodejs.org/">Node.js</a>, <a href="https://bun.sh/">Bun</a>, and <a href="https://deno.com/">Deno</a> with zero configuration changes.
+    - icon: 📡
+      title: Full Telegram API reference
+      details: Every method and type documented with GramIO TypeScript examples, error tables, and tips. <a href="/telegram/">Browse the reference →</a>
+    - icon: ⚙️
+      title: Code-generated & always up to date
+      details: Telegram Bot API types are auto-generated and published on every API release — you're never waiting for a maintainer.
 ---
+
+## See it in action
+
+::: code-group
+
+```ts [Commands & Formatting]
+import { Bot, format, bold, link } from "gramio";
+
+const bot = new Bot(process.env.BOT_TOKEN as string)
+    .command("start", (ctx) =>
+        ctx.send(
+            format`${bold`Hello, ${ctx.from?.first_name ?? "stranger"}!`}
+
+Welcome to ${link("GramIO", "https://gramio.dev")} — build Telegram bots the right way.`
+        )
+    )
+    .onError(({ kind, error }) => console.error(kind, error))
+    .start();
+```
+
+```ts [Keyboards & Callbacks]
+import { Bot, InlineKeyboard, CallbackData } from "gramio";
+
+const voteData = new CallbackData("vote").string("choice");
+
+const bot = new Bot(process.env.BOT_TOKEN as string)
+    .command("poll", (ctx) =>
+        ctx.send("Do you like GramIO?", {
+            reply_markup: new InlineKeyboard()
+                .text("Yes ✅", voteData.pack({ choice: "yes" }))
+                .text("Absolutely 🔥", voteData.pack({ choice: "yes2" })),
+        })
+    )
+    .callbackQuery(voteData, (ctx) => {
+        ctx.queryData.choice; // ^? string
+        return ctx.answer();
+    })
+    .start();
+```
+
+```ts [I18n]
+import { defineI18n, type LanguageMap, type ShouldFollowLanguage } from "@gramio/i18n";
+import { Bot, format, bold } from "gramio";
+
+const en = {
+    welcome: (name: string) => format`Hello, ${bold(name)}!`,
+    items: (n: number) => `You have ${n} item${n === 1 ? "" : "s"}`,
+} satisfies LanguageMap;
+
+const ru = {
+    welcome: (name: string) => format`Привет, ${bold(name)}!`,
+    items: (n: number) => `У вас ${n} предмет${n === 1 ? "" : "ов"}`,
+} satisfies ShouldFollowLanguage<typeof en>; // enforces matching keys & signatures
+
+const i18n = defineI18n({ primaryLanguage: "en", languages: { en, ru } });
+
+const bot = new Bot(process.env.BOT_TOKEN as string)
+    .derive((ctx) => ({
+        t: i18n.buildT(ctx.from?.language_code ?? "en"),
+    }))
+    .command("start", (ctx) =>
+        ctx.send(ctx.t("welcome", ctx.from?.first_name ?? "stranger"))
+    )
+    .start();
+```
+
+```ts [Scenes]
+import { Bot } from "gramio";
+import { session } from "@gramio/session";
+import { Scene, scenes } from "@gramio/scenes";
+
+const registerScene = new Scene("register")
+    .step("message", (ctx) => {
+        if (ctx.scene.step.firstTime) return ctx.send("What's your name?");
+        return ctx.scene.update({ name: ctx.text });
+    })
+    .step("message", (ctx) => {
+        if (ctx.scene.step.firstTime) return ctx.send(`Hi, ${ctx.scene.state.name}! Your email?`);
+        return ctx.scene.update({ email: ctx.text });
+    })
+    .step("message", (ctx) =>
+        ctx.send(`Registered: ${ctx.scene.state.name} — ${ctx.scene.state.email} ✅`)
+    );
+
+const bot = new Bot(process.env.BOT_TOKEN as string)
+    .extend(session())
+    .extend(scenes([registerScene]))
+    .command("register", (ctx) => ctx.scene.enter(registerScene))
+    .start();
+```
+
+```ts [Composer]
+import { Bot } from "gramio";
+import { Composer } from "@gramio/composer";
+
+// Shared middleware — typed context available in every module
+const withUser = new Composer()
+    .derive(async (ctx) => ({
+        user: await db.getUser(ctx.from?.id ?? 0),
+    }))
+    .as("scoped");
+
+// Feature module — guard + commands in one chain
+const adminRouter = new Composer()
+    .extend(withUser)
+    .guard(
+        (ctx) => ctx.user.role === "admin",
+        (ctx) => ctx.send("Admins only."),
+    )
+    .command("ban",   (ctx) => ctx.send(`Banned by ${ctx.user.name}`))
+    .command("stats", (ctx) => ctx.send("Stats..."));
+
+const bot = new Bot(process.env.BOT_TOKEN as string)
+    .extend(withUser)      // ctx.user — typed everywhere below
+    .extend(adminRouter)   // withUser inside → deduplicated, runs once
+    .command("profile", (ctx) =>  // no guard — runs for every user
+        ctx.send(`Hello, ${ctx.user.name}!`)
+        //                  ^? fully typed
+    )
+    .start();
+```
+
+:::
 
 ## Latest Updates
 
@@ -61,8 +182,6 @@ features:
 [All changelogs →](/changelogs/)
 
 ## Get started
-
-This command will help you create a project with GramIO (and ORM, linters and plugins) the easiest way.
 
 ::: code-group
 
@@ -82,56 +201,6 @@ pnpm create gramio@latest ./bot
 bun create gramio@latest ./bot
 ```
 
-```bash [deno]
-TODO:// Deno is supported but not in scaffolding
-```
-
 :::
 
-For more information, see the «[Get started](/get-started)» section.
-
-### GramIO in action
-
-Example which uses some interesting features.
-
-```ts twoslash
-// @filename: utils.ts
-export function findOrRegisterUser() {
-    return {} as { id: number; name: string; balance: number };
-}
-
-// @filename: index.ts
-// ---cut---
-// @errors: 2339
-import { Bot, format, bold, code } from "gramio";
-import { findOrRegisterUser } from "./utils";
-
-const bot = new Bot(process.env.BOT_TOKEN as string)
-    .derive("message", async () => {
-        const user = await findOrRegisterUser();
-
-        return {
-            user,
-        };
-    })
-    .on("message", (context) => {
-        context.user;
-        //        ^?
-        //
-        //
-        //
-        //
-        //
-        //
-        //
-
-        return context.send(format`
-        Hi, ${bold(context.user.name)}! 
-        You balance: ${code(context.user.balance)}`);
-    })
-    .on("callback_query", (context) => {
-        //
-        //
-        context.user;
-    });
-```
+[Full get started guide →](/get-started)
