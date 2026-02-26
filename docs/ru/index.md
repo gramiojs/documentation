@@ -117,8 +117,9 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
 
 ```ts [Сцены]
 import { Bot } from "gramio";
-import { session } from "@gramio/session";
 import { Scene, scenes } from "@gramio/scenes";
+import { redisStorage } from "@gramio/storage-redis";
+import { Redis } from "ioredis";
 
 const registerScene = new Scene("register")
     .step("message", (ctx) => {
@@ -134,8 +135,7 @@ const registerScene = new Scene("register")
     );
 
 const bot = new Bot(process.env.BOT_TOKEN as string)
-    .extend(session())
-    .extend(scenes([registerScene]))
+    .extend(scenes([registerScene], { storage: redisStorage(new Redis()) }))
     .command("register", (ctx) => ctx.scene.enter(registerScene))
     .start();
 ```
@@ -154,10 +154,7 @@ const withUser = new Composer()
 // Feature-модуль — guard и команды в одной цепочке
 const adminRouter = new Composer()
     .extend(withUser)
-    .guard(
-        (ctx) => ctx.user.role === "admin",
-        (ctx) => ctx.send("Только для администраторов."),
-    )
+    .guard((ctx) => ctx.user.role === "admin")
     .command("ban",   (ctx) => ctx.send(`Заблокирован — ${ctx.user.name}`))
     .command("stats", (ctx) => ctx.send("Статистика..."));
 
