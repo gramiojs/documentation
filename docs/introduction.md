@@ -23,7 +23,13 @@ Most frameworks give you a typed context at entry. GramIO goes further — types
 
 ```ts twoslash
 // @filename: db.ts
-export const db = { getUser: async (id: number) => ({ name: "Alice", role: "admin" as const, balance: 42 }) }
+export const db = {
+    getUser: async (id: number) => ({
+        name: "Alice",
+        role: "admin" as const,
+        balance: 42,
+    }),
+};
 // @filename: index.ts
 // ---cut---
 // @errors: 2339
@@ -32,7 +38,7 @@ import { db } from "./db";
 
 const bot = new Bot(process.env.BOT_TOKEN as string)
     // add to every handler — typed automatically
-    .derive(async (ctx) => ({
+    .derive(["message"], async (ctx) => ({
         user: await db.getUser(ctx.from!.id),
     }))
     // ctx.user is now fully typed here
@@ -44,6 +50,7 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
         return ctx.send(`Hi, ${ctx.user.name}!`);
     })
     // ...and here, even for a different event
+    // excluded from derive events
     .on("callback_query", (ctx) => ctx.user.balance);
 ```
 
@@ -64,8 +71,8 @@ bot.command("start", (ctx) =>
     ctx.send(
         format`${bold`Welcome!`} — ${italic("no parse_mode needed")}.
 Version: ${code("2.0.0")}
-${spoiler`secret`} · ${link("gramio.dev", "https://gramio.dev")}`
-    )
+${spoiler`secret`} · ${link("gramio.dev", "https://gramio.dev")}`,
+    ),
 );
 ```
 
@@ -87,9 +94,7 @@ const onboarding = new Scene("onboarding")
         if (ctx.scene.step.firstTime) return ctx.send("What's your name?");
         return ctx.scene.update({ name: ctx.text });
     })
-    .step("message", (ctx) =>
-        ctx.send(`Welcome, ${ctx.scene.state.name}!`)
-    );
+    .step("message", (ctx) => ctx.send(`Welcome, ${ctx.scene.state.name}!`));
 
 const bot = new Bot(process.env.BOT_TOKEN as string)
     .extend(session())
@@ -105,20 +110,20 @@ bot.start();
 
 ## Comparison
 
-| Feature | GramIO | grammY | Telegraf |
-|---------|--------|--------|----------|
-| Language | TypeScript | TypeScript | TypeScript |
-| Type propagation through middleware | ✅ Full | ✅ Full | ⚠️ Partial |
-| `derive()` with auto-typed context | ✅ | ✅ | ❌ |
-| Formatting without `parse_mode` | ✅ Built-in | ❌ Manual | ❌ Manual |
-| Plugin system | ✅ `.extend()` | ✅ Flavors | ⚠️ Middleware |
-| Multi-runtime (Node/Bun/Deno) | ✅ | ✅ | ⚠️ Node focused |
-| Code-generated API types | ✅ Auto-published | ✅ | ⚠️ |
-| Built-in test utilities | ✅ `@gramio/test` | ❌ | ❌ |
-| Full Telegram API reference | ✅ `/telegram/` | ❌ | ❌ |
-| Scenes / conversations | ✅ `@gramio/scenes` | ✅ Conversations | ✅ Scenes |
-| I18n | ✅ `@gramio/i18n` (Fluent) | ✅ | ⚠️ |
-| Scaffolding CLI | ✅ `create gramio` | ❌ | ❌ |
+| Feature                             | GramIO                        | grammY           | Telegraf        |
+| ----------------------------------- | ----------------------------- | ---------------- | --------------- |
+| Language                            | TypeScript                    | TypeScript       | TypeScript      |
+| Type propagation through middleware | ✅ Full                       | ✅ Full          | ⚠️ Partial      |
+| `derive()` with auto-typed context  | ✅                            | ✅               | ❌              |
+| Formatting without `parse_mode`     | ✅ Built-in                   | ❌ Manual        | ❌ Manual       |
+| Plugin system                       | ✅ `.extend()`                | ✅ Flavors       | ⚠️ Middleware   |
+| Multi-runtime (Node/Bun/Deno)       | ✅                            | ✅               | ⚠️ Node focused |
+| Code-generated API types            | ✅ Auto-published             | ✅               | ⚠️              |
+| Built-in test utilities             | ✅ `@gramio/test`             | ❌               | ❌              |
+| Full Telegram API reference         | ✅ `/telegram/`               | ❌               | ❌              |
+| Scenes / conversations              | ✅ `@gramio/scenes`           | ✅ Conversations | ✅ Scenes       |
+| I18n                                | ✅ `@gramio/i18n` (TS-native) | ✅               | ⚠️              |
+| Scaffolding CLI                     | ✅ `create gramio`            | ❌               | ❌              |
 
 ---
 
@@ -134,13 +139,11 @@ export const composer = new Composer()
 
 // src/features/profile.ts — fully typed, no Bot needed
 export const profileFeature = new Composer()
-    .extend(composer)          // inherits ctx.session, ctx.scene
+    .extend(composer) // inherits ctx.session, ctx.scene
     .command("profile", (ctx) => ctx.send(ctx.session.name ?? "anon"));
 
 // src/index.ts — wire together
-const bot = new Bot(token)
-    .extend(composer)
-    .extend(profileFeature);
+const bot = new Bot(token).extend(composer).extend(profileFeature);
 ```
 
 ---
