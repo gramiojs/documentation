@@ -59,7 +59,8 @@ bot.start();
 5. **Error suppression** — `bot.api.method({ suppress: true })` returns error instead of throwing.
 6. **Lazy plugins** — async plugins (without `await`) load at `bot.start()`. Use `await` for immediate loading.
 7. **Derive vs Decorate** — `.derive()` runs per-update (computed), `.decorate()` injects static values once.
-8. **Formatting — three critical rules** (read [formatting](references/formatting.md) before writing any message text):
+8. **Context getters — always camelCase** — all `ctx` properties are camelCase getters (`ctx.from`, `ctx.firstName`, `ctx.chatId`, `ctx.messageId`, etc.). **Never access `ctx.payload`** — it is the raw snake_case internal Telegram object. Use the typed camelCase getters for everything.
+9. **Formatting — three critical rules** (read [formatting](references/formatting.md) before writing any message text):
    - **Never use `parse_mode`** — `format` produces `MessageEntity` arrays, not HTML/Markdown strings. Adding `parse_mode: "HTML"` or `"MarkdownV2"` will break the message. GramIO passes entities automatically.
    - **Never use native `.join()`** on arrays of formatted values — it calls `.toString()` on each `Formattable`, silently destroying all styling. Always use the `join` helper: `join(items, (x) => bold(x), "\n")`.
    - **Always wrap styled content in `format\`\``** when composing or reusing — embedding a `Formattable` in a plain template literal (`` `${bold`x`}` ``) strips all entities. Use `format\`${bold\`x\`}\`` instead.

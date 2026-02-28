@@ -54,6 +54,7 @@ CLAUDE.md                      # This file — project context for Claude
 - **Vue components**: Custom Vue components live in `docs/.vitepress/components/` and must be globally registered in `docs/.vitepress/theme/index.ts` via `app.component()` inside `enhanceApp`. They are **not** auto-registered. See [VitePress docs](https://vitepress.dev/guide/using-vue#using-components).
 - **Homepage changelog banner**: The "Latest Updates" / "Последние обновления" section on `docs/index.md` and `docs/ru/index.md` must always reflect the newest changelog entry. When running `/generate-changelog`, update both homepages with the new entry title, date range, and one-line summary.
 - **Telegram API method links**: When documenting or mentioning a Telegram Bot API method (e.g. `answerInlineQuery`, `sendMessage`), link to its reference page using a relative path `/telegram/methods/{methodName}` (camelCase, no suffix). Example: [`answerInlineQuery`](/telegram/methods/answerInlineQuery).
+- **Context getters — camelCase only**: All `ctx` (context) property accesses use camelCase getters. Never use `ctx.payload` (raw snake_case Telegram object) in documentation examples or code snippets. Every Telegram API field is exposed as a camelCase getter directly on the context (e.g. `ctx.from`, `ctx.from.firstName`, `ctx.chatId`, `ctx.messageId`).
 
 ## AI Infrastructure
 

@@ -1,9 +1,57 @@
 ---
 name: context
-description: Context injection with derive (scoped/global) and decorate, middleware with next(), type narrowing with context.is(), and bot.start()/stop() options.
+description: Context injection with derive (scoped/global) and decorate, middleware with next(), type narrowing with context.is(), camelCase getters (never ctx.payload), and bot.start()/stop() options.
 ---
 
 # Context & Updates
+
+## Context Properties — camelCase Getters (IMPORTANT)
+
+All context (`ctx`) properties are exposed as **camelCase getters** that mirror the Telegram API fields. **Never access `ctx.payload` directly** — it is the raw snake_case Telegram object and is considered internal/unstable. Always use the typed camelCase getters instead.
+
+```typescript
+// ✅ Correct — use camelCase getters
+bot.on("message", (ctx) => {
+    ctx.id;           // message_id
+    ctx.from;         // TelegramUser (camelCase inside too)
+    ctx.from?.id;
+    ctx.from?.firstName;     // first_name
+    ctx.from?.lastName;      // last_name
+    ctx.from?.isBot;         // is_bot
+    ctx.chat.id;
+    ctx.text;
+    ctx.date;
+    ctx.chatId;              // shortcut for ctx.chat.id
+    ctx.senderId;            // shortcut for ctx.from?.id
+});
+
+// ❌ Wrong — raw payload, avoid
+bot.on("message", (ctx) => {
+    ctx.payload.message_id;          // don't do this
+    ctx.payload.from?.first_name;    // don't do this
+    ctx.payload.chat.id;             // don't do this
+});
+```
+
+The rule applies to **all** context types: `MessageContext`, `CallbackQueryContext`, `InlineQueryContext`, etc. Every field from the Telegram API is available as a camelCase getter on the context object.
+
+```typescript
+bot.callbackQuery("vote", (ctx) => {
+    ctx.id;         // callback query id
+    ctx.data;       // callback data string
+    ctx.from.id;
+    ctx.from.firstName;
+    ctx.message?.id;
+    ctx.chatInstance;  // chat_instance
+});
+
+bot.inlineQuery(/search/, (ctx) => {
+    ctx.id;         // inline query id
+    ctx.query;      // query string
+    ctx.from.id;
+    ctx.offset;
+});
+```
 
 ## bot.start() Options
 
