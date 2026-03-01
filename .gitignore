@@ -15,7 +15,7 @@ tg-bot-api
 .env
 test.ts
 service_account.json
-.changelog-state.json
+# .changelog-state.json
 **/*.local.json
 
 # TypeDoc-generated API reference (rebuilt via `bun run gen:typedoc`)
