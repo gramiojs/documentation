@@ -133,6 +133,45 @@ const scene = new Scene("example")
     .step("message", handler2);
 ```
 
+## scene.extend() — Sharing Plugin Context
+
+Use `scene.extend(plugin)` to bring a plugin's derived types and middleware into a scene's handler chain. Plugin types are available in all steps and `onEnter`:
+
+```typescript
+const withUser = new Plugin("withUser")
+    .derive(async (ctx) => {
+        const user = await db.users.findById(ctx.from!.id);
+        return { user };
+    });
+
+const profileScene = new Scene("profile")
+    .extend(withUser)        // ctx.user is typed in all steps
+    .onEnter(async (ctx) => {
+        // ctx.user available here too
+        return ctx.send(`Hello ${ctx.user.name}!`);
+    })
+    .step("message", async (ctx) => {
+        ctx.user.name; // ✅ typed
+        return ctx.scene.exit();
+    });
+```
+
+`scene.extend()` also accepts `EventComposer` instances (not just `Plugin`):
+
+```typescript
+const withArgs = someComposer.derive(["message"], (ctx) => ({
+    args: ctx.text?.split(" ").slice(1) ?? [],
+}));
+
+const scene = new Scene("search")
+    .extend(withArgs)  // EventComposer accepted
+    .step("message", (ctx) => {
+        ctx.args; // ✅ typed
+    });
+```
+
+> **Deduplication:** If the plugin is already extended at the bot level, the scene engine skips re-running it inside the scene — no double execution.
+
 ## scenesDerives
 
 Get scene data before scenes plugin processes:

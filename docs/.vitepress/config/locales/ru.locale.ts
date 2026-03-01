@@ -25,6 +25,10 @@ export const localeRu = {
 						items: [
 							// новые записи добавляются здесь скиллом, сначала новейшие
 							{
+								text: "2026-03-02",
+								link: "/ru/changelogs/2026-03-02",
+							},
+							{
 								text: "2026-02-23",
 								link: "/ru/changelogs/2026-02-23",
 							},
@@ -100,6 +104,10 @@ export const localeRu = {
 									{
 										text: "PostHog",
 										link: "/ru/plugins/official/posthog",
+									},
+									{
+										text: "Rate Limiter",
+										link: "/ru/plugins/official/rate-limiter",
 									},
 									{
 										text: "Split",

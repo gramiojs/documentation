@@ -172,9 +172,9 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
 
 ## Последние обновления
 
-**[Тестирование стало богаче, CallbackData — надёжнее, TypeScript API Reference запущен](/ru/changelogs/2026-02-23)** — 18–22 февраля 2026
+**[Bot API 9.5, дебют Rate Limiter, конвертер HTML в Telegram, суперсилы Composer](/ru/changelogs/2026-03-02)** — 23 февраля – 2 марта 2026
 
-`@gramio/test` v0.3.0 добавляет 9 новых методов: редактирование, пересылка, закрепление, медиагруппы и клик по кнопке по тексту. `@gramio/callback-data` v0.1.0 получает `safeUnpack()` — больше не падаем на устаревших кнопках. Полный TypeScript API Reference запущен по адресу `/api/`.
+Поддержка Bot API 9.5 во всей экосистеме (теги участников, сущности `date_time`). Новый плагин `@gramio/rate-limit` с макросным троттлингом. `@gramio/format` v0.5.0 — `htmlToFormattable()`. `@gramio/composer` получает `EventContextOf`, `ContextOf`, `defineComposerMethods` и систему макросов.
 
 [Все обновления →](/ru/changelogs/)
 

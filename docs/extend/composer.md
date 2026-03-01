@@ -280,3 +280,93 @@ createComposer({
 ```
 
 A runtime conflict check throws if a `methods` key collides with a built-in method name.
+
+### `defineComposerMethods()` — generic custom methods with derives
+
+When custom methods have **generic signatures** that need to capture accumulated derives, use `defineComposerMethods()` first. TypeScript cannot infer generic method signatures when `TMethods` is nested inside the return type of `createComposer`, so the helper is required:
+
+```ts
+import { defineComposerMethods, createComposer } from "@gramio/composer";
+import type { ComposerLike, ContextOf, Middleware } from "@gramio/composer";
+
+const methods = defineComposerMethods({
+    command<TThis extends ComposerLike<TThis>>(
+        this: TThis,
+        name: string,
+        handler: Middleware<MessageCtx & ContextOf<TThis>>,
+    ): TThis {
+        return this.on("message", (ctx, next) => {
+            if (ctx.text === `/${name}`) return handler(ctx, next);
+            return next();
+        });
+    },
+});
+
+const { Composer } = createComposer<BaseCtx, EventMap, typeof methods>({
+    discriminator: (ctx) => ctx.updateType,
+    methods,
+});
+
+// Derives flow into the handler automatically — zero annotation:
+new Composer()
+    .derive(() => ({ user: { id: 1, name: "Alice" } }))
+    .command("start", (ctx) => {
+        ctx.user.id;  // ✅ typed — inferred via ContextOf<TThis>
+        ctx.text;     // ✅ from MessageCtx
+    });
+```
+
+## `ContextOf<T>` — extract the current context type
+
+Extracts `TOut` (the fully accumulated context after all `derive()`/`decorate()` calls) from a Composer or EventComposer instance type. Most useful in `defineComposerMethods()` custom method signatures so that derives flow in automatically:
+
+```ts
+import type { ContextOf } from "@gramio/composer";
+
+type Ctx = ContextOf<typeof myComposer>;
+// Ctx = accumulated context including all derive() results
+```
+
+## `EventContextOf<T, E>` — per-event context type
+
+Extracts the context for a **specific event** from a composer instance, including both global and per-event derives:
+
+```ts
+import type { EventContextOf } from "@gramio/composer";
+
+// Per-event derive: only visible in 'message' handlers
+composer.derive(['message'], () => ({ messageData: "..." }));
+
+type MessageCtx = EventContextOf<typeof composer, 'message'>;
+// Includes both global derives AND messageData
+```
+
+## `ComposerLike<T>` — minimal structural type for `this` constraints
+
+A minimal interface `{ on(event: any, handler: any): T }` used as an F-bounded constraint on `TThis` in custom methods. Makes `this.on(...)` fully typed and return `TThis` without casts.
+
+## Macro System
+
+Register reusable behaviors that handlers activate declaratively via an options object. Useful for cross-cutting concerns like authentication, rate limiting, validation — without polluting handler bodies with boilerplate checks:
+
+```ts
+// Register a macro
+const app = new Composer().macro("adminOnly", {
+    preHandler: async (ctx, next) => {
+        if (ctx.userId !== ADMIN_ID) return ctx.reply("Admins only");
+        return next();
+    },
+});
+
+// Activate per handler via options:
+app.on("message", handler, { adminOnly: true });
+app.on("callback_query", handler, { adminOnly: true });
+```
+
+`macro()` accepts either:
+- **Plain `MacroHooks` object** — for boolean shorthand (`{ adminOnly: true }`)
+- **`(opts) => MacroHooks` function** — for parameterized options (`{ throttle: { limit: 3 } }`)
+
+`MacroHooks` has:
+- `preHandler` — middleware that runs before the handler
+- `derive` — context enrichment function; returning `void` stops the chain

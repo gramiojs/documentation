@@ -571,6 +571,93 @@ const bot = new Bot(process.env.TOKEN as string)
     .extend(scenesDerives([testScene], { storage }));
 ```
 
+## Шеринг контекста с плагинами и композерами
+
+Используйте `scene.extend()`, чтобы прокинуть типы и данные из плагинов в цепочку обработчиков сцены. Это основной способ шерить данные (пользователь из БД, состояние авторизации, распарсенные аргументы и т.д.) между шагами сцены без ручной передачи через `scene.state`.
+
+### Extend с плагином
+
+В сцену можно добавить любой GramIO `Plugin`. Его middleware — включая `derive()`, `decorate()`, `guard()` — выполняется внутри цепочки сцены, а типы прокидываются в обработчики шагов:
+
+```ts
+import { Bot, Plugin } from "gramio";
+import { Scene, scenes } from "@gramio/scenes";
+
+// Общий плагин, загружающий текущего пользователя из базы данных
+const withUser = new Plugin("withUser")
+    .derive(async (ctx) => {
+        const user = await db.users.findById(ctx.from!.id);
+        return { user };
+    });
+
+const profileScene = new Scene("profile")
+    .extend(withUser)  // ← ctx.user типизирован в каждом шаге
+    .step("message", async (ctx) => {
+        if (ctx.scene.step.firstTime)
+            return ctx.send(`Привет, ${ctx.user.name}! Что хотите изменить?`);
+
+        return ctx.scene.update({ newName: ctx.text });
+    })
+    .step("message", async (ctx) => {
+        await db.users.update(ctx.from!.id, { name: ctx.scene.state.newName });
+        await ctx.send(`Готово! Новое имя: ${ctx.scene.state.newName}`);
+        return ctx.scene.exit();
+    });
+
+const bot = new Bot(process.env.TOKEN!)
+    .extend(scenes([profileScene]))
+    .command("profile", (ctx) => ctx.scene.enter(profileScene));
+```
+
+> [!TIP]
+> Если тот же плагин уже подключён на **уровне бота**, движок сцен это обнаружит и пропустит повторное выполнение его middleware внутри сцены — двойного запуска не будет. Типы при этом всё равно доступны, так как прокидываются из основной цепочки бота.
+
+### Extend с EventComposer
+
+`scene.extend()` также принимает инстансы `EventComposer` — удобно, когда у вас есть переиспользуемое обогащение per-event, которое нужно шерить между несколькими сценами:
+
+```ts
+import { Bot } from "gramio";
+import { Scene, scenes } from "@gramio/scenes";
+
+// Общий обогатитель сообщений — парсит аргументы команды
+const withArgs = new Bot("").derive(["message"], (ctx) => ({
+    args: ctx.text?.split(" ").slice(1) ?? [],
+}));
+
+const searchScene = new Scene("search")
+    .extend(withArgs)  // ← ctx.args типизирован в шагах message
+    .step("message", async (ctx) => {
+        if (ctx.scene.step.firstTime)
+            return ctx.send("Что вы хотите найти?");
+
+        const query = ctx.args[0] ?? ctx.text ?? "";
+        const results = await search(query);
+        await ctx.send(`Найдено ${results.length} результатов`);
+        return ctx.scene.exit();
+    });
+```
+
+### Доступ к шеринговому контексту в `onEnter`
+
+Типы из подключённых плагинов доступны и в обработчиках `onEnter`:
+
+```ts
+const checkoutScene = new Scene("checkout")
+    .extend(withUser)
+    .onEnter(async (ctx) => {
+        // ctx.user доступен здесь
+        if (ctx.user.balance < MIN_AMOUNT) {
+            await ctx.send("Недостаточно средств.");
+            return ctx.scene.exit();
+        }
+        return ctx.send(`Начинаем оформление для ${ctx.user.name}...`);
+    })
+    .step("message", async (ctx) => {
+        // ... шаги оформления
+    });
+```
+
 ## VS Prompt
 
 > Spoiler: рекомендуем использовать `scenes`

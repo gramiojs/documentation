@@ -172,9 +172,9 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
 
 ## Latest Updates
 
-**[Testing Gets Richer, CallbackData Gets Safer, TypeScript API Reference Launches](/changelogs/2026-02-23)** — February 18–22, 2026
+**[Bot API 9.5, Rate Limiter Debuts, HTML-to-Telegram Converter, Composer Superpowers](/changelogs/2026-03-02)** — February 23 – March 2, 2026
 
-`@gramio/test` v0.3.0 adds 9 new methods: edit messages, forward, pin, send media groups, and click inline buttons by label text. `@gramio/callback-data` v0.1.0 ships `safeUnpack()` — never crash on stale buttons. The full TypeScript API reference launches at `/api/`.
+Bot API 9.5 support lands across the ecosystem (member tags, `date_time` entities). New `@gramio/rate-limit` plugin throttles handlers via macros. `@gramio/format` v0.5.0 ships `htmlToFormattable()`. `@gramio/composer` gets `EventContextOf`, `ContextOf`, `defineComposerMethods`, and the macro system.
 
 [All changelogs →](/changelogs/)
 

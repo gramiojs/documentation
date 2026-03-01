@@ -303,6 +303,73 @@ import { format, join, bold } from "@gramio/format";
 format`${join(["test", "other"], (x) => format`${bold(x)}`, "\n")}`;
 ```
 
+## HTML
+
+You can convert HTML markup into Telegram entities using the `htmlToFormattable` function from `@gramio/format/html` sub-module.
+
+This is useful when your content comes from a CMS, rich text editor (TipTap, ProseMirror), or an LLM that produces HTML output. The approach is the same as Markdown: parse locally into entities and send without any `parse_mode`. Invalid HTML degrades gracefully to plain text.
+
+> [!WARNING]
+> This function may change in the future.
+
+### Installation
+
+The HTML feature requires [`node-html-parser`](https://www.npmjs.com/package/node-html-parser) as a peer dependency:
+
+::: code-group
+
+```bash [npm]
+npm install node-html-parser
+```
+
+```bash [yarn]
+yarn add node-html-parser
+```
+
+```bash [pnpm]
+pnpm add node-html-parser
+```
+
+```bash [bun]
+bun add node-html-parser
+```
+
+:::
+
+### Usage
+
+```ts
+import { htmlToFormattable } from "@gramio/format/html";
+import { Bot } from "gramio";
+
+const bot = new Bot(process.env.BOT_TOKEN!);
+
+bot.command("start", (ctx) => {
+    const html = `<h1>Hello!</h1>
+<p><strong>Bold</strong> and <em>italic</em></p>
+<ul><li>item one</li><li>item two</li></ul>
+<p>Visit <a href="https://gramio.dev">gramio.dev</a></p>`;
+
+    ctx.send(htmlToFormattable(html));
+});
+```
+
+### Supported syntax
+
+| HTML | Telegram entity |
+|---|---|
+| `<b>`, `<strong>` | bold |
+| `<i>`, `<em>` | italic |
+| `<u>` | underline |
+| `<s>`, `<del>`, `<strike>` | strikethrough |
+| `` `<code>` `` | code |
+| `<pre><code class="language-js">` | pre (with language) |
+| `<blockquote>` | blockquote |
+| `<a href="...">` | text_link |
+| `<h1>`–`<h6>` | bold |
+| `<ul>`, `<ol>`, `<li>` | plain text with bullet/number |
+| `<br>` | newline |
+
 ## Markdown
 
 You can convert standard Markdown text into Telegram entities using the `markdownToFormattable` function from `@gramio/format/markdown` sub-module.

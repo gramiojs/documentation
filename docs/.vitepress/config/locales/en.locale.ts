@@ -552,6 +552,10 @@ export function createLocaleEn(typeDocSidebar: Record<string, unknown[]> = {}) {
 						items: [
 							// new entries added here by the skill, newest first
 							{
+								text: "2026-03-02",
+								link: "/changelogs/2026-03-02",
+							},
+							{
 								text: "2026-02-23",
 								link: "/changelogs/2026-02-23",
 							},
@@ -624,6 +628,10 @@ export function createLocaleEn(typeDocSidebar: Record<string, unknown[]> = {}) {
 									{
 										text: "PostHog",
 										link: "/plugins/official/posthog",
+									},
+									{
+										text: "Rate Limiter",
+										link: "/plugins/official/rate-limiter",
 									},
 									{
 										text: "Split",
