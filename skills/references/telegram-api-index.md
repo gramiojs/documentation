@@ -1,6 +1,6 @@
 # Telegram Bot API Methods Index
 
-> Auto-generated from Bot API v9.4. Full docs at **https://gramio.dev/telegram/**
+> Auto-generated from Bot API v9.5. Full docs at **https://gramio.dev/telegram/**
 
 When a user asks about a specific Telegram Bot API method, reference the GramIO doc page.
 Each method page has: full parameter reference with types, GramIO TypeScript examples, common errors, and tips.
@@ -10,7 +10,7 @@ To look up a **type/object** (e.g. `Message`, `User`, `InlineKeyboardMarkup`):
 → Full types index: https://gramio.dev/telegram/ (scroll to Types section)
 → Key type: [Update](/telegram/types/Update) — the root object for all incoming updates
 
-## Methods (165)
+## Methods (166)
 
 | Method | Description |
 |--------|-------------|
@@ -41,7 +41,7 @@ To look up a **type/object** (e.g. `Message`, `User`, `InlineKeyboardMarkup`):
 | [sendPoll](/telegram/methods/sendPoll) | Use this method to send a native poll. |
 | [sendChecklist](/telegram/methods/sendChecklist) | Use this method to send a checklist on behalf of a connected business account. |
 | [sendDice](/telegram/methods/sendDice) | Use this method to send an animated emoji that will display a random value. |
-| [sendMessageDraft](/telegram/methods/sendMessageDraft) | Use this method to stream a partial message to a user while the message is being generated; supported only for bots with |
+| [sendMessageDraft](/telegram/methods/sendMessageDraft) | Use this method to stream a partial message to a user while the message is being generated. |
 | [sendChatAction](/telegram/methods/sendChatAction) | Use this method when you need to tell the user that something is happening on the bot's side. |
 | [setMessageReaction](/telegram/methods/setMessageReaction) | Use this method to change the chosen reactions on a message. |
 | [getUserProfilePhotos](/telegram/methods/getUserProfilePhotos) | Use this method to get a list of profile pictures for a user. |
@@ -53,6 +53,7 @@ To look up a **type/object** (e.g. `Message`, `User`, `InlineKeyboardMarkup`):
 | [restrictChatMember](/telegram/methods/restrictChatMember) | Use this method to restrict a user in a supergroup. |
 | [promoteChatMember](/telegram/methods/promoteChatMember) | Use this method to promote or demote a user in a supergroup or a channel. |
 | [setChatAdministratorCustomTitle](/telegram/methods/setChatAdministratorCustomTitle) | Use this method to set a custom title for an administrator in a supergroup promoted by the bot. |
+| [setChatMemberTag](/telegram/methods/setChatMemberTag) | Use this method to set a tag for a regular member in a group or a supergroup. |
 | [banChatSenderChat](/telegram/methods/banChatSenderChat) | Use this method to ban a channel chat in a supergroup or a channel. |
 | [unbanChatSenderChat](/telegram/methods/unbanChatSenderChat) | Use this method to unban a previously banned channel chat in a supergroup or channel. |
 | [setChatPermissions](/telegram/methods/setChatPermissions) | Use this method to set default chat permissions for all members. |

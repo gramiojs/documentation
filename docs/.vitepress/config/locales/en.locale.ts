@@ -205,6 +205,7 @@ export function createLocaleEn(typeDocSidebar: Record<string, unknown[]> = {}) {
 								{ text: "setBusinessAccountUsername", link: "/telegram/methods/setBusinessAccountUsername" },
 								{ text: "setChatAdministratorCustomTitle", link: "/telegram/methods/setChatAdministratorCustomTitle" },
 								{ text: "setChatDescription", link: "/telegram/methods/setChatDescription" },
+								{ text: "setChatMemberTag", link: "/telegram/methods/setChatMemberTag" },
 								{ text: "setChatMenuButton", link: "/telegram/methods/setChatMenuButton" },
 								{ text: "setChatPermissions", link: "/telegram/methods/setChatPermissions" },
 								{ text: "setChatPhoto", link: "/telegram/methods/setChatPhoto" },

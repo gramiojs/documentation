@@ -20,7 +20,7 @@ This object represents one special entity in a text message. For example, hashta
 
 ## Fields
 
-<ApiParam name="type" type="String" required description="Type of the entity. Currently, can be &quot;mention&quot; (`@username`), &quot;hashtag&quot; (`#hashtag` or `#hashtag@chatusername`), &quot;cashtag&quot; (`$USD` or `$USD@chatusername`), &quot;bot\_command&quot; (`/start@jobs_bot`), &quot;url&quot; (`https://telegram.org`), &quot;email&quot; (`do-not-reply@telegram.org`), &quot;phone\_number&quot; (`+1-212-555-0123`), &quot;bold&quot; (**bold text**), &quot;italic&quot; (*italic text*), &quot;underline&quot; (underlined text), &quot;strikethrough&quot; (strikethrough text), &quot;spoiler&quot; (spoiler message), &quot;blockquote&quot; (block quotation), &quot;expandable\_blockquote&quot; (collapsed-by-default block quotation), &quot;code&quot; (monowidth string), &quot;pre&quot; (monowidth block), &quot;text\_link&quot; (for clickable text URLs), &quot;text\_mention&quot; (for users [without usernames](https://telegram.org/blog/edit#new-mentions)), &quot;custom\_emoji&quot; (for inline custom emoji stickers)" :enumValues='["mention","hashtag","cashtag","bot_command","url","email","phone_number","bold","italic","underline","strikethrough","spoiler","blockquote","expandable_blockquote","code","pre","text_link","text_mention","custom_emoji"]' />
+<ApiParam name="type" type="String" required description="Type of the entity. Currently, can be &quot;mention&quot; (`@username`), &quot;hashtag&quot; (`#hashtag` or `#hashtag@chatusername`), &quot;cashtag&quot; (`$USD` or `$USD@chatusername`), &quot;bot\_command&quot; (`/start@jobs_bot`), &quot;url&quot; (`https://telegram.org`), &quot;email&quot; (`do-not-reply@telegram.org`), &quot;phone\_number&quot; (`+1-212-555-0123`), &quot;bold&quot; (**bold text**), &quot;italic&quot; (*italic text*), &quot;underline&quot; (underlined text), &quot;strikethrough&quot; (strikethrough text), &quot;spoiler&quot; (spoiler message), &quot;blockquote&quot; (block quotation), &quot;expandable\_blockquote&quot; (collapsed-by-default block quotation), &quot;code&quot; (monowidth string), &quot;pre&quot; (monowidth block), &quot;text\_link&quot; (for clickable text URLs), &quot;text\_mention&quot; (for users [without usernames](https://telegram.org/blog/edit#new-mentions)), &quot;custom\_emoji&quot; (for inline custom emoji stickers), or &quot;date\_time&quot; (for formatted date and time)" :enumValues='["mention","hashtag","cashtag","bot_command","url","email","phone_number","bold","italic","underline","strikethrough","spoiler","blockquote","expandable_blockquote","code","pre","text_link","text_mention","custom_emoji","date_time"]' />
 
 <ApiParam name="offset" type="Integer" required description="Offset in [UTF-16 code units](https://core.telegram.org/api/entities#entity-length) to the start of the entity" />
 
@@ -33,6 +33,10 @@ This object represents one special entity in a text message. For example, hashta
 <ApiParam name="language" type="String" description="*Optional*. For &quot;pre&quot; only, the programming language of the entity text" />
 
 <ApiParam name="custom_emoji_id" type="String" description="*Optional*. For &quot;custom\_emoji&quot; only, unique identifier of the custom emoji. Use [getCustomEmojiStickers](https://core.telegram.org/bots/api#getcustomemojistickers) to get full information about the sticker" />
+
+<ApiParam name="unix_time" type="Integer" description="*Optional*. For &quot;date\_time&quot; only, the Unix time associated with the entity" />
+
+<ApiParam name="date_time_format" type="String" description="*Optional*. For &quot;date\_time&quot; only, the string that defines the formatting of the date and time. See [date-time entity formatting](https://core.telegram.org/bots/api#date-time-entity-formatting) for more details." />
 
 <!-- GENERATED:END -->
 

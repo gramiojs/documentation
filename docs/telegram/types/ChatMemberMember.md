@@ -22,6 +22,8 @@ Represents a [chat member](https://core.telegram.org/bots/api#chatmember) that h
 
 <ApiParam name="status" type="String" required description="The member's status in the chat, always &quot;member&quot;" constValue="member" />
 
+<ApiParam name="tag" type="String" description="*Optional*. Tag of the member" />
+
 <ApiParam name="user" type="User" required description="Information about the user" />
 
 <ApiParam name="until_date" type="Integer" description="*Optional*. Date when the user's subscription will expire; Unix time" />
