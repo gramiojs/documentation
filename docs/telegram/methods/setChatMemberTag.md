@@ -35,35 +35,31 @@ On success, *True* is returned.
 
 ## GramIO Usage
 
-Set a custom tag for a supergroup member:
+Use the `ctx.setMemberTag()` shorthand to tag the sender of the current message:
 
 ```ts twoslash
 import { Bot } from "gramio";
 
 const bot = new Bot("");
 // ---cut---
-await bot.api.setChatMemberTag({
-  chat_id: -1001234567890,
-  user_id: 987654321,
-  tag: "VIP",
+bot.on("message", async (ctx) => {
+  await ctx.setMemberTag("VIP");
 });
 ```
 
-Remove a tag by passing an empty string (or omitting `tag`):
+Remove a tag by passing `undefined`:
 
 ```ts twoslash
 import { Bot } from "gramio";
 
 const bot = new Bot("");
 // ---cut---
-await bot.api.setChatMemberTag({
-  chat_id: -1001234567890,
-  user_id: 987654321,
-  tag: "",
+bot.on("message", async (ctx) => {
+  await ctx.setMemberTag(undefined);
 });
 ```
 
-Command-based tagging — reply to a message with `/tag <label>` to assign it, `/tag` alone to remove it:
+`/tag <label>` command — reply to a message to tag its author, `/tag` alone to remove it:
 
 ```ts twoslash
 import { Bot } from "gramio";
@@ -71,27 +67,18 @@ import { Bot } from "gramio";
 const bot = new Bot("");
 // ---cut---
 bot.command("tag", async (ctx) => {
-  const reply = ctx.replyToMessage;
-  if (!reply?.from) return ctx.send("Reply to a message to tag its author.");
+  if (!ctx.replyToMessage) return ctx.send("Reply to a message to tag its author.");
 
   const parts = ctx.text?.split(" ") ?? [];
-  const tag = parts.slice(1).join(" ").trim();
+  const tag = parts.slice(1).join(" ").trim() || undefined;
 
-  await bot.api.setChatMemberTag({
-    chat_id: ctx.chat.id,
-    user_id: reply.from.id,
-    tag,
-  });
+  await ctx.replyToMessage.setMemberTag(tag);
 
-  await ctx.send(
-    tag
-      ? `Set tag "${tag}" for user ${reply.from.id}.`
-      : `Removed tag for user ${reply.from.id}.`
-  );
+  await ctx.send(tag ? `Tag "${tag}" set.` : "Tag removed.");
 });
 ```
 
-Check a member's current tag before overwriting:
+Direct API call when you have `chat_id` and `user_id` explicitly:
 
 ```ts twoslash
 import { Bot } from "gramio";
