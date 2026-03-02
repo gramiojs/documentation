@@ -44,7 +44,7 @@ const registerScene = new Scene("register")
         return ctx.scene.update({ name: ctx.text });
     })
     .step("message", (ctx) =>
-        ctx.send(`Добро пожаловать, ${ctx.scene.state.name}!`)
+        ctx.send(`Добро пожаловать, ${ctx.scene.state.name}!`),
     );
 ```
 
@@ -62,7 +62,7 @@ const registerScene = new Scene("register")
 
 ```ts
 const bot = new Bot(token).extend(
-    session({ initial: () => ({ count: 0, name: "" }) })
+    session({ initial: () => ({ count: 0, name: "" }) }),
 );
 
 bot.command("count", (ctx) => {
@@ -85,7 +85,11 @@ TypeScript-нативная интернационализация с **полн
 - Поддержка Fluent `.ftl` также доступна для сложных правил склонения
 
 ```ts
-import { defineI18n, type LanguageMap, type ShouldFollowLanguage } from "@gramio/i18n";
+import {
+    defineI18n,
+    type LanguageMap,
+    type ShouldFollowLanguage,
+} from "@gramio/i18n";
 import { format, bold } from "gramio";
 
 const en = {
@@ -105,7 +109,7 @@ const bot = new Bot(token)
     }));
 
 bot.command("start", (ctx) =>
-    ctx.send(ctx.t("welcome", ctx.from?.first_name ?? "незнакомец"))
+    ctx.send(ctx.t("welcome", ctx.from?.firstName ?? "незнакомец")),
 );
 ```
 
@@ -286,21 +290,21 @@ bot.command("start", (ctx) =>
 
 ## Какой плагин мне нужен?
 
-| Сценарий | Используйте |
-|----------|------------|
-| Многошаговые формы / мастера | [Scenes](/ru/plugins/official/scenes) |
-| Хранение настроек / состояния пользователя | [Session](/ru/plugins/official/session) |
-| Мультиязычный бот | [I18n](/ru/plugins/official/i18n) |
-| Большой бот с множеством файлов команд | [Autoload](/ru/plugins/official/autoload) |
-| Задать вопрос, ждать ответа | [Prompt](/ru/plugins/official/prompt) |
-| Автоматическая обработка ограничений скорости | [Auto Retry](/ru/plugins/official/auto-retry) |
-| Избежать ошибок неподтверждённых callback | [Auto Answer Callback Query](/ru/plugins/official/auto-answer-callback-query) |
-| Избежать повторной загрузки одних файлов | [Media Cache](/ru/plugins/official/media-cache) |
-| Обработка сообщений альбома/медиагруппы | [Media Group](/ru/plugins/official/media-group) |
-| Пагинированные списки с инлайн-кнопками | [Pagination](/ru/plugins/official/pagination) |
-| Отслеживание событий и воронок пользователей | [PostHog](/ru/plugins/official/posthog) |
-| Мониторинг ошибок в продакшене | [Sentry](/ru/plugins/official/sentry) |
-| Распределённая трассировка / наблюдаемость | [OpenTelemetry](/ru/plugins/official/opentelemetry) |
+| Сценарий                                      | Используйте                                                                   |
+| --------------------------------------------- | ----------------------------------------------------------------------------- |
+| Многошаговые формы / мастера                  | [Scenes](/ru/plugins/official/scenes)                                         |
+| Хранение настроек / состояния пользователя    | [Session](/ru/plugins/official/session)                                       |
+| Мультиязычный бот                             | [I18n](/ru/plugins/official/i18n)                                             |
+| Большой бот с множеством файлов команд        | [Autoload](/ru/plugins/official/autoload)                                     |
+| Задать вопрос, ждать ответа                   | [Prompt](/ru/plugins/official/prompt)                                         |
+| Автоматическая обработка ограничений скорости | [Auto Retry](/ru/plugins/official/auto-retry)                                 |
+| Избежать ошибок неподтверждённых callback     | [Auto Answer Callback Query](/ru/plugins/official/auto-answer-callback-query) |
+| Избежать повторной загрузки одних файлов      | [Media Cache](/ru/plugins/official/media-cache)                               |
+| Обработка сообщений альбома/медиагруппы       | [Media Group](/ru/plugins/official/media-group)                               |
+| Пагинированные списки с инлайн-кнопками       | [Pagination](/ru/plugins/official/pagination)                                 |
+| Отслеживание событий и воронок пользователей  | [PostHog](/ru/plugins/official/posthog)                                       |
+| Мониторинг ошибок в продакшене                | [Sentry](/ru/plugins/official/sentry)                                         |
+| Распределённая трассировка / наблюдаемость    | [OpenTelemetry](/ru/plugins/official/opentelemetry)                           |
 
 ---
 
@@ -328,8 +332,9 @@ const bot = new Bot(token)
 ```ts
 import { Plugin } from "gramio";
 
-export const myPlugin = new Plugin("my-plugin")
-    .derive((ctx) => ({ isAdmin: ctx.from?.id === ADMIN_ID }));
+export const myPlugin = new Plugin("my-plugin").derive((ctx) => ({
+    isAdmin: ctx.from?.id === ADMIN_ID,
+}));
 
 // В боте:
 bot.extend(myPlugin);

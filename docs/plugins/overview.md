@@ -43,9 +43,7 @@ const registerScene = new Scene("register")
         if (ctx.scene.step.firstTime) return ctx.send("What's your name?");
         return ctx.scene.update({ name: ctx.text });
     })
-    .step("message", (ctx) =>
-        ctx.send(`Welcome, ${ctx.scene.state.name}!`)
-    );
+    .step("message", (ctx) => ctx.send(`Welcome, ${ctx.scene.state.name}!`));
 ```
 
 [Full docs →](/plugins/official/scenes)
@@ -62,7 +60,7 @@ Per-user persistent state across messages. Reads and writes are transparent — 
 
 ```ts
 const bot = new Bot(token).extend(
-    session({ initial: () => ({ count: 0, name: "" }) })
+    session({ initial: () => ({ count: 0, name: "" }) }),
 );
 
 bot.command("count", (ctx) => {
@@ -85,7 +83,11 @@ TypeScript-native internationalization with **full compile-time type safety** �
 - Fluent `.ftl` support also available if you need advanced pluralization
 
 ```ts
-import { defineI18n, type LanguageMap, type ShouldFollowLanguage } from "@gramio/i18n";
+import {
+    defineI18n,
+    type LanguageMap,
+    type ShouldFollowLanguage,
+} from "@gramio/i18n";
 import { format, bold } from "gramio";
 
 const en = {
@@ -105,7 +107,7 @@ const bot = new Bot(token)
     }));
 
 bot.command("start", (ctx) =>
-    ctx.send(ctx.t("welcome", ctx.from?.first_name ?? "stranger"))
+    ctx.send(ctx.t("welcome", ctx.from?.firstName ?? "stranger")),
 );
 ```
 
@@ -286,21 +288,21 @@ Multi-instance routing. Split incoming updates across multiple bot instances or 
 
 ## Which plugin do I need?
 
-| Scenario | Use |
-|----------|-----|
-| Multi-step forms / wizards | [Scenes](/plugins/official/scenes) |
-| Store user preferences / state | [Session](/plugins/official/session) |
-| Multi-language bot | [I18n](/plugins/official/i18n) |
-| Large bot with many command files | [Autoload](/plugins/official/autoload) |
-| Ask a question, await response | [Prompt](/plugins/official/prompt) |
-| Handle rate limits automatically | [Auto Retry](/plugins/official/auto-retry) |
+| Scenario                             | Use                                                                        |
+| ------------------------------------ | -------------------------------------------------------------------------- |
+| Multi-step forms / wizards           | [Scenes](/plugins/official/scenes)                                         |
+| Store user preferences / state       | [Session](/plugins/official/session)                                       |
+| Multi-language bot                   | [I18n](/plugins/official/i18n)                                             |
+| Large bot with many command files    | [Autoload](/plugins/official/autoload)                                     |
+| Ask a question, await response       | [Prompt](/plugins/official/prompt)                                         |
+| Handle rate limits automatically     | [Auto Retry](/plugins/official/auto-retry)                                 |
 | Avoid unacknowledged callback errors | [Auto Answer Callback Query](/plugins/official/auto-answer-callback-query) |
-| Avoid re-uploading the same files | [Media Cache](/plugins/official/media-cache) |
-| Handle album/media group messages | [Media Group](/plugins/official/media-group) |
-| Paginated lists with inline buttons | [Pagination](/plugins/official/pagination) |
-| Track user events and funnels | [PostHog](/plugins/official/posthog) |
-| Error monitoring in production | [Sentry](/plugins/official/sentry) |
-| Distributed tracing / observability | [OpenTelemetry](/plugins/official/opentelemetry) |
+| Avoid re-uploading the same files    | [Media Cache](/plugins/official/media-cache)                               |
+| Handle album/media group messages    | [Media Group](/plugins/official/media-group)                               |
+| Paginated lists with inline buttons  | [Pagination](/plugins/official/pagination)                                 |
+| Track user events and funnels        | [PostHog](/plugins/official/posthog)                                       |
+| Error monitoring in production       | [Sentry](/plugins/official/sentry)                                         |
+| Distributed tracing / observability  | [OpenTelemetry](/plugins/official/opentelemetry)                           |
 
 ---
 
@@ -328,8 +330,9 @@ Any `Composer` can be packaged as a plugin. The [`Plugin`](/plugins/how-to-write
 ```ts
 import { Plugin } from "gramio";
 
-export const myPlugin = new Plugin("my-plugin")
-    .derive((ctx) => ({ isAdmin: ctx.from?.id === ADMIN_ID }));
+export const myPlugin = new Plugin("my-plugin").derive((ctx) => ({
+    isAdmin: ctx.from?.id === ADMIN_ID,
+}));
 
 // In consuming bot:
 bot.extend(myPlugin);

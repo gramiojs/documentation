@@ -1,12 +1,12 @@
 ---
 title: sendMessage — Telegram Bot API | GramIO
 head:
-  - - meta
-    - name: description
-      content: Send text messages via the Telegram Bot API using GramIO. Complete parameter reference with TypeScript examples, entities formatting, reply_markup, and more.
-  - - meta
-    - name: keywords
-      content: sendMessage, telegram bot api, send message telegram bot, gramio sendMessage, telegram send text message, sendMessage typescript, sendMessage example, chat_id, text, parse_mode, entities, reply_markup, link_preview_options, how to send message telegram bot, telegram bot send message
+    - - meta
+      - name: description
+        content: Send text messages via the Telegram Bot API using GramIO. Complete parameter reference with TypeScript examples, entities formatting, reply_markup, and more.
+    - - meta
+      - name: keywords
+        content: sendMessage, telegram bot api, send message telegram bot, gramio sendMessage, telegram send text message, sendMessage typescript, sendMessage example, chat_id, text, parse_mode, entities, reply_markup, link_preview_options, how to send message telegram bot, telegram bot send message
 ---
 
 # sendMessage
@@ -80,8 +80,8 @@ const bot = new Bot("");
 // ---cut---
 // Direct API call
 await bot.api.sendMessage({
-  chat_id: 123456789,
-  text: "Hello from the API!",
+    chat_id: 123456789,
+    text: "Hello from the API!",
 });
 ```
 
@@ -95,11 +95,11 @@ import { Bot, format, bold, code, link } from "gramio";
 const bot = new Bot("");
 // ---cut---
 bot.command("info", (ctx) =>
-  ctx.send(
-    format`Hello, ${bold(ctx.from?.first_name ?? "there")}!
+    ctx.send(
+        format`Hello, ${bold(ctx.from?.firstName ?? "there")}!
 Version: ${code("1.0.0")}
-Docs: ${link("gramio.dev", "https://gramio.dev")}`
-  )
+Docs: ${link("gramio.dev", "https://gramio.dev")}`,
+    ),
 );
 ```
 
@@ -111,11 +111,11 @@ import { Bot, InlineKeyboard } from "gramio";
 const bot = new Bot("");
 // ---cut---
 bot.command("menu", (ctx) =>
-  ctx.send("Choose an option:", {
-    reply_markup: new InlineKeyboard()
-      .text("Option A", "option_a")
-      .text("Option B", "option_b"),
-  })
+    ctx.send("Choose an option:", {
+        reply_markup: new InlineKeyboard()
+            .text("Option A", "option_a")
+            .text("Option B", "option_b"),
+    }),
 );
 ```
 
@@ -127,23 +127,23 @@ import { Bot } from "gramio";
 const bot = new Bot("");
 // ---cut---
 bot.on("message", (ctx) =>
-  ctx.send("This arrives without a notification sound", {
-    disable_notification: true,
-  })
+    ctx.send("This arrives without a notification sound", {
+        disable_notification: true,
+    }),
 );
 ```
 
 ## Errors
 
-| Code | Error | Cause |
-|------|-------|-------|
-| 400 | `Bad Request: chat not found` | Invalid or inaccessible `chat_id` |
-| 400 | `Bad Request: not enough rights to send text messages` | Bot lacks send permission in the chat |
-| 400 | `Bad Request: TEXT_TOO_LONG` | `text` exceeds 4096 characters |
-| 400 | `Bad Request: can't parse entities` | Malformed `entities` array or bad `parse_mode` markup |
-| 400 | `Bad Request: BUTTON_DATA_INVALID` | Callback data in `reply_markup` is too long or malformed |
-| 403 | `Forbidden: bot was blocked by the user` | User has blocked the bot |
-| 429 | `Too Many Requests: retry after N` | Rate limit hit — check `retry_after` in the response |
+| Code | Error                                                  | Cause                                                    |
+| ---- | ------------------------------------------------------ | -------------------------------------------------------- |
+| 400  | `Bad Request: chat not found`                          | Invalid or inaccessible `chat_id`                        |
+| 400  | `Bad Request: not enough rights to send text messages` | Bot lacks send permission in the chat                    |
+| 400  | `Bad Request: TEXT_TOO_LONG`                           | `text` exceeds 4096 characters                           |
+| 400  | `Bad Request: can't parse entities`                    | Malformed `entities` array or bad `parse_mode` markup    |
+| 400  | `Bad Request: BUTTON_DATA_INVALID`                     | Callback data in `reply_markup` is too long or malformed |
+| 403  | `Forbidden: bot was blocked by the user`               | User has blocked the bot                                 |
+| 429  | `Too Many Requests: retry after N`                     | Rate limit hit — check `retry_after` in the response     |
 
 ::: tip
 Use GramIO's [auto-retry plugin](/plugins/official/auto-retry) to handle `429` errors automatically.

@@ -67,7 +67,9 @@ bot.hears(
 ```ts
 bot.on("message", (ctx) => ctx.send("Получил твоё сообщение!"));
 
-bot.on(["message", "edited_message"], (ctx) => ctx.send("Новое или отредактированное!"));
+bot.on(["message", "edited_message"], (ctx) =>
+    ctx.send("Новое или отредактированное!"),
+);
 ```
 
 ---
@@ -118,7 +120,7 @@ const bot = new Bot(token)
 const adminOnly = bot.guard(
     (ctx) => ctx.from?.id === ADMIN_ID,
     // опциональный обработчик отклонения:
-    (ctx) => ctx.send("Только для администраторов.")
+    (ctx) => ctx.send("Только для администраторов."),
 );
 
 adminOnly.command("ban", (ctx) => ctx.send("Пользователь заблокирован."));
@@ -277,7 +279,7 @@ const loginScene = new Scene("login")
         return ctx.scene.update({ email: ctx.text });
     })
     .step("message", (ctx) =>
-        ctx.send(`Зарегистрировано: ${ctx.scene.state.email}`)
+        ctx.send(`Зарегистрировано: ${ctx.scene.state.email}`),
     );
 
 const bot = new Bot(process.env.BOT_TOKEN as string)
@@ -292,7 +294,11 @@ bot.command("login", (ctx) => ctx.scene.enter(loginScene));
 ## [I18n](/ru/plugins/official/i18n)
 
 ```ts
-import { defineI18n, type LanguageMap, type ShouldFollowLanguage } from "@gramio/i18n";
+import {
+    defineI18n,
+    type LanguageMap,
+    type ShouldFollowLanguage,
+} from "@gramio/i18n";
 import { format, bold } from "gramio";
 
 const en = {
@@ -302,18 +308,18 @@ const en = {
 
 const ru = {
     welcome: (name: string) => format`Привет, ${bold(name)}!`,
-    items: (count: number) => `У вас ${count} предмет${count === 1 ? "" : "ов"}`,
+    items: (count: number) =>
+        `У вас ${count} предмет${count === 1 ? "" : "ов"}`,
 } satisfies ShouldFollowLanguage<typeof en>; // должен совпадать с ключами/сигнатурами en
 
 const i18n = defineI18n({ primaryLanguage: "en", languages: { en, ru } });
 
-const bot = new Bot(token)
-    .derive((ctx) => ({
-        t: i18n.buildT(ctx.from?.language_code ?? "en"),
-    }));
+const bot = new Bot(token).derive((ctx) => ({
+    t: i18n.buildT(ctx.from?.language_code ?? "en"),
+}));
 
 bot.command("start", (ctx) =>
-    ctx.send(ctx.t("welcome", ctx.from?.first_name ?? "незнакомец"))
+    ctx.send(ctx.t("welcome", ctx.from?.firstName ?? "незнакомец")),
 );
 ```
 
@@ -410,7 +416,9 @@ bot.inlineQuery("cats", async (ctx) => {
             ctx.buildInlineQueryResult.article({
                 id: "1",
                 title: "Факт о кошках",
-                input_message_content: { message_text: "Кошки мурлычут на частоте 25 Гц." },
+                input_message_content: {
+                    message_text: "Кошки мурлычут на частоте 25 Гц.",
+                },
             }),
         ],
         { cache_time: 30 },

@@ -60,10 +60,10 @@ import { Bot, format, bold, link } from "gramio";
 const bot = new Bot(process.env.BOT_TOKEN as string)
     .command("start", (ctx) =>
         ctx.send(
-            format`${bold`Привет, ${ctx.from?.first_name ?? "незнакомец"}!`}
+            format`${bold`Привет, ${ctx.from?.firstName ?? "незнакомец"}!`}
 
-Добро пожаловать в ${link("GramIO", "https://gramio.dev")} — создавайте Telegram-ботов правильно.`
-        )
+Добро пожаловать в ${link("GramIO", "https://gramio.dev")} — создавайте Telegram-ботов правильно.`,
+        ),
     )
     .onError(({ kind, error }) => console.error(kind, error))
     .start();
@@ -80,7 +80,7 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
             reply_markup: new InlineKeyboard()
                 .text("Да ✅", voteData.pack({ choice: "yes" }))
                 .text("Конечно 🔥", voteData.pack({ choice: "yes2" })),
-        })
+        }),
     )
     .callbackQuery(voteData, (ctx) => {
         ctx.queryData.choice; // ^? string
@@ -90,7 +90,11 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
 ```
 
 ```ts [I18n]
-import { defineI18n, type LanguageMap, type ShouldFollowLanguage } from "@gramio/i18n";
+import {
+    defineI18n,
+    type LanguageMap,
+    type ShouldFollowLanguage,
+} from "@gramio/i18n";
 import { Bot, format, bold } from "gramio";
 
 const en = {
@@ -110,7 +114,7 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
         t: i18n.buildT(ctx.from?.language_code ?? "en"),
     }))
     .command("start", (ctx) =>
-        ctx.send(ctx.t("welcome", ctx.from?.first_name ?? "незнакомец"))
+        ctx.send(ctx.t("welcome", ctx.from?.firstName ?? "незнакомец")),
     )
     .start();
 ```
@@ -127,11 +131,14 @@ const registerScene = new Scene("register")
         return ctx.scene.update({ name: ctx.text });
     })
     .step("message", (ctx) => {
-        if (ctx.scene.step.firstTime) return ctx.send(`Привет, ${ctx.scene.state.name}! Ваш email?`);
+        if (ctx.scene.step.firstTime)
+            return ctx.send(`Привет, ${ctx.scene.state.name}! Ваш email?`);
         return ctx.scene.update({ email: ctx.text });
     })
     .step("message", (ctx) =>
-        ctx.send(`Зарегистрирован: ${ctx.scene.state.name} — ${ctx.scene.state.email} ✅`)
+        ctx.send(
+            `Зарегистрирован: ${ctx.scene.state.name} — ${ctx.scene.state.email} ✅`,
+        ),
     );
 
 const bot = new Bot(process.env.BOT_TOKEN as string)
@@ -155,14 +162,17 @@ const withUser = new Composer()
 const adminRouter = new Composer()
     .extend(withUser)
     .guard((ctx) => ctx.user.role === "admin")
-    .command("ban",   (ctx) => ctx.send(`Заблокирован — ${ctx.user.name}`))
+    .command("ban", (ctx) => ctx.send(`Заблокирован — ${ctx.user.name}`))
     .command("stats", (ctx) => ctx.send("Статистика..."));
 
 const bot = new Bot(process.env.BOT_TOKEN as string)
-    .extend(withUser)      // ctx.user — типизирован везде ниже
-    .extend(adminRouter)   // withUser внутри → дедуплицируется, запускается один раз
-    .command("profile", (ctx) =>  // без guard — выполняется для всех
-        ctx.send(`Привет, ${ctx.user.name}!`)
+    .extend(withUser) // ctx.user — типизирован везде ниже
+    .extend(adminRouter) // withUser внутри → дедуплицируется, запускается один раз
+    .command(
+        "profile",
+        (
+            ctx, // без guard — выполняется для всех
+        ) => ctx.send(`Привет, ${ctx.user.name}!`),
         //                  ^? полностью типизировано
     )
     .start();

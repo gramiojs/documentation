@@ -118,7 +118,7 @@ Stop the middleware chain when a condition isn't met. Downstream handlers only r
 const adminOnly = bot.guard(
     (ctx) => ctx.from?.id === ADMIN_ID,
     // optional rejection handler:
-    (ctx) => ctx.send("Admins only.")
+    (ctx) => ctx.send("Admins only."),
 );
 
 adminOnly.command("ban", (ctx) => ctx.send("User banned."));
@@ -276,9 +276,7 @@ const loginScene = new Scene("login")
         if (ctx.scene.step.firstTime) return ctx.send("Enter your email:");
         return ctx.scene.update({ email: ctx.text });
     })
-    .step("message", (ctx) =>
-        ctx.send(`Registered: ${ctx.scene.state.email}`)
-    );
+    .step("message", (ctx) => ctx.send(`Registered: ${ctx.scene.state.email}`));
 
 const bot = new Bot(process.env.BOT_TOKEN as string)
     .extend(session())
@@ -292,7 +290,11 @@ bot.command("login", (ctx) => ctx.scene.enter(loginScene));
 ## [I18n](/plugins/official/i18n)
 
 ```ts
-import { defineI18n, type LanguageMap, type ShouldFollowLanguage } from "@gramio/i18n";
+import {
+    defineI18n,
+    type LanguageMap,
+    type ShouldFollowLanguage,
+} from "@gramio/i18n";
 import { format, bold } from "gramio";
 
 const en = {
@@ -302,18 +304,18 @@ const en = {
 
 const ru = {
     welcome: (name: string) => format`Привет, ${bold(name)}!`,
-    items: (count: number) => `У вас ${count} предмет${count === 1 ? "" : "ов"}`,
+    items: (count: number) =>
+        `У вас ${count} предмет${count === 1 ? "" : "ов"}`,
 } satisfies ShouldFollowLanguage<typeof en>; // must match en keys/signatures
 
 const i18n = defineI18n({ primaryLanguage: "en", languages: { en, ru } });
 
-const bot = new Bot(token)
-    .derive((ctx) => ({
-        t: i18n.buildT(ctx.from?.language_code ?? "en"),
-    }));
+const bot = new Bot(token).derive((ctx) => ({
+    t: i18n.buildT(ctx.from?.language_code ?? "en"),
+}));
 
 bot.command("start", (ctx) =>
-    ctx.send(ctx.t("welcome", ctx.from?.first_name ?? "stranger"))
+    ctx.send(ctx.t("welcome", ctx.from?.firstName ?? "stranger")),
 );
 ```
 
