@@ -1,12 +1,12 @@
 ---
 title: unpinChatMessage — Telegram Bot API | GramIO
 head:
-  - - meta
-    - name: description
-      content: Remove a pinned message from a Telegram chat using GramIO. Learn message_id behavior, business connection support, admin rights by chat type, and TypeScript examples.
-  - - meta
-    - name: keywords
-      content: unpinChatMessage, telegram bot api, gramio unpinChatMessage, unpin message telegram, remove pinned message, can_pin_messages, can_edit_messages, business_connection_id, message_id, typescript unpinChatMessage example, how to unpin message telegram bot
+    - - meta
+      - name: description
+        content: Remove a pinned message from a Telegram chat using GramIO. Learn message_id behavior, business connection support, admin rights by chat type, and TypeScript examples.
+    - - meta
+      - name: keywords
+        content: unpinChatMessage, telegram bot api, gramio unpinChatMessage, unpin message telegram, remove pinned message, can_pin_messages, can_edit_messages, business_connection_id, message_id, typescript unpinChatMessage example, how to unpin message telegram bot
 ---
 
 # unpinChatMessage
@@ -17,7 +17,7 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#unpinchatmessage" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to remove a message from the list of pinned messages in a chat. In private chats and channel direct messages chats, all messages can be unpinned. Conversely, the bot must be an administrator with the 'can\_pin\_messages' right or the 'can\_edit\_messages' right to unpin messages in groups and channels respectively. Returns *True* on success.
+Use this method to remove a message from the list of pinned messages in a chat. In private chats and channel direct messages chats, all messages can be unpinned. Conversely, the bot must be an administrator with the 'can_pin_messages' right or the 'can_edit_messages' right to unpin messages in groups and channels respectively. Returns _True_ on success.
 
 ## Parameters
 
@@ -29,7 +29,7 @@ Use this method to remove a message from the list of pinned messages in a chat. 
 
 ## Returns
 
-On success, *True* is returned.
+On success, _True_ is returned.
 
 <!-- GENERATED:END -->
 
@@ -43,12 +43,12 @@ import { Bot } from "gramio";
 const bot = new Bot("");
 // ---cut---
 bot.command("unpin", async (ctx) => {
-  // Unpins the most recently pinned message in this chat
-  await bot.api.unpinChatMessage({
-    chat_id: ctx.chat.id,
-  });
+    // Unpins the most recently pinned message in this chat
+    await bot.api.unpinChatMessage({
+        chat_id: ctx.chat.id,
+    });
 
-  await ctx.send("Most recent pinned message has been unpinned.");
+    await ctx.send("Most recent pinned message has been unpinned.");
 });
 ```
 
@@ -60,17 +60,17 @@ import { Bot } from "gramio";
 const bot = new Bot("");
 // ---cut---
 bot.command("unpin", async (ctx) => {
-  const targetMessageId = ctx.replyToMessage?.id;
-  if (!targetMessageId) {
-    return ctx.reply("Reply to the pinned message you want to unpin.");
-  }
+    const targetMessageId = ctx.replyMessage?.id;
+    if (!targetMessageId) {
+        return ctx.reply("Reply to the pinned message you want to unpin.");
+    }
 
-  await bot.api.unpinChatMessage({
-    chat_id: ctx.chat.id,
-    message_id: targetMessageId,
-  });
+    await bot.api.unpinChatMessage({
+        chat_id: ctx.chat.id,
+        message_id: targetMessageId,
+    });
 
-  await ctx.send("Message unpinned.");
+    await ctx.send("Message unpinned.");
 });
 ```
 
@@ -82,10 +82,10 @@ import { Bot } from "gramio";
 const bot = new Bot("");
 // ---cut---
 async function unpinChannelMessage(messageId: number) {
-  await bot.api.unpinChatMessage({
-    chat_id: "@mychannel",
-    message_id: messageId,
-  });
+    await bot.api.unpinChatMessage({
+        chat_id: "@mychannel",
+        message_id: messageId,
+    });
 }
 ```
 
@@ -97,25 +97,25 @@ import { Bot } from "gramio";
 const bot = new Bot("");
 // ---cut---
 bot.on("business_message", async (ctx) => {
-  // When acting via a business connection, message_id is required
-  await bot.api.unpinChatMessage({
-    business_connection_id: ctx.businessConnectionId,
-    chat_id: ctx.chat.id,
-    message_id: ctx.id,
-  });
+    // When acting via a business connection, message_id is required
+    await bot.api.unpinChatMessage({
+        business_connection_id: ctx.businessConnectionId,
+        chat_id: ctx.chat.id,
+        message_id: ctx.id,
+    });
 });
 ```
 
 ## Errors
 
-| Code | Error | Cause |
-|------|-------|-------|
-| 400 | `Bad Request: chat not found` | `chat_id` is invalid, the bot is not in the chat, or the chat no longer exists |
-| 400 | `Bad Request: message to unpin not found` | `message_id` does not correspond to a currently pinned message or does not exist |
-| 400 | `Bad Request: not enough rights to unpin messages` | Bot lacks `can_pin_messages` (groups/supergroups) or `can_edit_messages` (channels) |
-| 400 | `Bad Request: MESSAGE_ID_REQUIRED` | `business_connection_id` was provided but `message_id` was omitted — business unpins require a specific message |
-| 403 | `Forbidden: bot is not an administrator` | The bot has no admin status in the chat |
-| 429 | `Too Many Requests: retry after N` | Rate limit hit — check `retry_after`, use the [auto-retry plugin](/plugins/official/auto-retry) |
+| Code | Error                                              | Cause                                                                                                           |
+| ---- | -------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| 400  | `Bad Request: chat not found`                      | `chat_id` is invalid, the bot is not in the chat, or the chat no longer exists                                  |
+| 400  | `Bad Request: message to unpin not found`          | `message_id` does not correspond to a currently pinned message or does not exist                                |
+| 400  | `Bad Request: not enough rights to unpin messages` | Bot lacks `can_pin_messages` (groups/supergroups) or `can_edit_messages` (channels)                             |
+| 400  | `Bad Request: MESSAGE_ID_REQUIRED`                 | `business_connection_id` was provided but `message_id` was omitted — business unpins require a specific message |
+| 403  | `Forbidden: bot is not an administrator`           | The bot has no admin status in the chat                                                                         |
+| 429  | `Too Many Requests: retry after N`                 | Rate limit hit — check `retry_after`, use the [auto-retry plugin](/plugins/official/auto-retry)                 |
 
 ::: tip
 Use GramIO's [auto-retry plugin](/plugins/official/auto-retry) to handle `429` errors automatically.

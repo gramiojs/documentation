@@ -29,17 +29,20 @@ import { Bot } from "gramio";
 const bot = new Bot(process.env.BOT_TOKEN!);
 
 // Boolean filter — runs on any update where ctx has `text`
-bot.on((ctx) => "text" in ctx && ctx.text?.startsWith("!"), (ctx) => {
-    // ctx is narrowed to the union of all events that have a `text` field
-    ctx.send("Command received!");
-});
+bot.on(
+    (ctx) => "text" in ctx && ctx.text?.startsWith("!"),
+    (ctx) => {
+        // ctx is narrowed to the union of all events that have a `text` field
+        ctx.send("Command received!");
+    },
+);
 
 // Type-narrowing predicate — narrows the handler's context type
 bot.on(
     (ctx): ctx is { text: string } => typeof (ctx as any).text === "string",
     (ctx) => {
         ctx.text; // string — not string | undefined
-    }
+    },
 );
 ```
 
@@ -48,9 +51,13 @@ bot.on(
 You can also pass a filter as the second argument to a named `.on()`:
 
 ```ts
-bot.on("message", (ctx) => ctx.text?.startsWith("/"), (ctx) => {
-    // only messages starting with "/"
-});
+bot.on(
+    "message",
+    (ctx) => ctx.text?.startsWith("/"),
+    (ctx) => {
+        // only messages starting with "/"
+    },
+);
 
 // Type-narrowing inline filter
 bot.on(
@@ -58,7 +65,7 @@ bot.on(
     (ctx): ctx is typeof ctx & { text: string } => typeof ctx.text === "string",
     (ctx) => {
         ctx.text; // string
-    }
+    },
 );
 ```
 
@@ -72,22 +79,22 @@ import { filters } from "gramio";
 
 ### Message Content Filters
 
-| Filter | Narrows to / Guards for |
-|---|---|
-| `filters.reply` | Message has `reply_to_message` |
-| `filters.entities` | Message has `entities` |
-| `filters.captionEntities` | Message has `caption_entities` |
-| `filters.quote` | Message has a quoted reply (`quote`) |
-| `filters.viaBot` | Message was sent via a bot (`via_bot`) |
-| `filters.linkPreview` | Message has `link_preview_options` |
-| `filters.startPayload` | `/start` with a deep-link payload |
-| `filters.authorSignature` | Message has `author_signature` |
-| `filters.mediaGroup` | Message belongs to a media group |
-| `filters.venue` | Message is a venue |
+| Filter                    | Narrows to / Guards for                |
+| ------------------------- | -------------------------------------- |
+| `filters.reply`           | Message has `reply_to_message`         |
+| `filters.entities`        | Message has `entities`                 |
+| `filters.captionEntities` | Message has `caption_entities`         |
+| `filters.quote`           | Message has a quoted reply (`quote`)   |
+| `filters.viaBot`          | Message was sent via a bot (`via_bot`) |
+| `filters.linkPreview`     | Message has `link_preview_options`     |
+| `filters.startPayload`    | `/start` with a deep-link payload      |
+| `filters.authorSignature` | Message has `author_signature`         |
+| `filters.mediaGroup`      | Message belongs to a media group       |
+| `filters.venue`           | Message is a venue                     |
 
 ```ts
 bot.on("message", filters.reply, (ctx) => {
-    ctx.replyToMessage; // guaranteed present
+    ctx.replyMessage; // guaranteed present
 });
 
 bot.on("message", filters.startPayload, (ctx) => {
@@ -97,19 +104,19 @@ bot.on("message", filters.startPayload, (ctx) => {
 
 ### Sender & Chat Filters
 
-| Filter | Description |
-|---|---|
-| `filters.hasFrom` | Update has a `from` field (user sender) |
-| `filters.isBot` | `from.is_bot === true` |
-| `filters.isPremium` | `from.is_premium === true` |
-| `filters.isForum` | Chat has `is_forum === true` |
-| `filters.service` | Message is a service message |
-| `filters.topicMessage` | Message is in a forum topic |
-| `filters.mediaSpoiler` | Media has spoiler effect |
-| `filters.giveaway` | Message contains a giveaway |
-| `filters.game` | Message contains a game |
-| `filters.story` | Message is a story |
-| `filters.effectId` | Message has a message effect |
+| Filter                 | Description                             |
+| ---------------------- | --------------------------------------- |
+| `filters.hasFrom`      | Update has a `from` field (user sender) |
+| `filters.isBot`        | `from.is_bot === true`                  |
+| `filters.isPremium`    | `from.is_premium === true`              |
+| `filters.isForum`      | Chat has `is_forum === true`            |
+| `filters.service`      | Message is a service message            |
+| `filters.topicMessage` | Message is in a forum topic             |
+| `filters.mediaSpoiler` | Media has spoiler effect                |
+| `filters.giveaway`     | Message contains a giveaway             |
+| `filters.game`         | Message contains a game                 |
+| `filters.story`        | Message is a story                      |
+| `filters.effectId`     | Message has a message effect            |
 
 ### `filters.forwardOrigin(type?)` — Forward Origin Narrowing
 
@@ -129,8 +136,8 @@ bot.on("message", filters.forwardOrigin("user"), (ctx) => {
 
 bot.on("message", filters.forwardOrigin("channel"), (ctx) => {
     ctx.forwardOrigin; // MessageOriginChannel
-    ctx.forwardOrigin.chat;         // TelegramChat
-    ctx.forwardOrigin.message_id;   // number
+    ctx.forwardOrigin.chat; // TelegramChat
+    ctx.forwardOrigin.message_id; // number
 });
 ```
 
@@ -156,7 +163,9 @@ Filters are plain functions — compose them with boolean logic:
 
 ```ts
 const isPremiumAdmin = (ctx: any) =>
-    filters.isPremium(ctx) && filters.hasFrom(ctx) && ctx.from.status === "administrator";
+    filters.isPremium(ctx) &&
+    filters.hasFrom(ctx) &&
+    ctx.from.status === "administrator";
 
 bot.on("message", isPremiumAdmin, handler);
 ```
@@ -168,11 +177,11 @@ bot.on("message", isPremiumAdmin, handler);
 ```ts
 const bot = new Bot(process.env.BOT_TOKEN!);
 
-bot
-    .guard((ctx): ctx is typeof ctx & { text: string } => typeof ctx.text === "string")
-    .on("message", (ctx) => {
-        ctx.text; // string — narrowed for all handlers after the guard
-    });
+bot.guard(
+    (ctx): ctx is typeof ctx & { text: string } => typeof ctx.text === "string",
+).on("message", (ctx) => {
+    ctx.text; // string — narrowed for all handlers after the guard
+});
 ```
 
 Without a type predicate (boolean guard), it acts as a gate that blocks the chain on `false` but doesn't narrow types.

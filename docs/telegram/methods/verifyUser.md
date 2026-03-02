@@ -1,12 +1,12 @@
 ---
 title: verifyUser — Telegram Bot API | GramIO
 head:
-  - - meta
-    - name: description
-      content: Verify a Telegram user on behalf of your organization using GramIO with TypeScript. Add third-party verification badges to user accounts via bot API.
-  - - meta
-    - name: keywords
-      content: verifyUser, telegram bot api, verify user telegram bot, gramio verifyUser, verifyUser typescript, verifyUser example, user_id, custom_description, third-party verification, telegram verification badge, removeUserVerification, how to verify user telegram bot
+    - - meta
+      - name: description
+        content: Verify a Telegram user on behalf of your organization using GramIO with TypeScript. Add third-party verification badges to user accounts via bot API.
+    - - meta
+      - name: keywords
+        content: verifyUser, telegram bot api, verify user telegram bot, gramio verifyUser, verifyUser typescript, verifyUser example, user_id, custom_description, third-party verification, telegram verification badge, removeUserVerification, how to verify user telegram bot
 ---
 
 # verifyUser
@@ -17,7 +17,7 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#verifyuser" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Verifies a user [on behalf of the organization](https://telegram.org/verify#third-party-verification) which is represented by the bot. Returns *True* on success.
+Verifies a user [on behalf of the organization](https://telegram.org/verify#third-party-verification) which is represented by the bot. Returns _True_ on success.
 
 ## Parameters
 
@@ -27,7 +27,7 @@ Verifies a user [on behalf of the organization](https://telegram.org/verify#thir
 
 ## Returns
 
-On success, *True* is returned.
+On success, _True_ is returned.
 
 <!-- GENERATED:END -->
 
@@ -40,7 +40,7 @@ const bot = new Bot("");
 // ---cut---
 // Verify a user by their numeric ID
 await bot.api.verifyUser({
-  user_id: 123456789,
+    user_id: 123456789,
 });
 ```
 
@@ -51,8 +51,8 @@ const bot = new Bot("");
 // ---cut---
 // Verify a user with a custom description
 await bot.api.verifyUser({
-  user_id: 123456789,
-  custom_description: "Verified member",
+    user_id: 123456789,
+    custom_description: "Verified member",
 });
 ```
 
@@ -63,15 +63,15 @@ const bot = new Bot("");
 // ---cut---
 // Verify a user from a message context
 bot.command("verify", async (ctx) => {
-  const replyMsg = ctx.replyToMessage;
-  if (!replyMsg?.from) return ctx.reply("Reply to a user's message.");
+    const replyMsg = ctx.replyMessage;
+    if (!replyMsg?.from) return ctx.reply("Reply to a user's message.");
 
-  await bot.api.verifyUser({
-    user_id: replyMsg.from.id,
-    custom_description: "Verified by admin",
-  });
+    await bot.api.verifyUser({
+        user_id: replyMsg.from.id,
+        custom_description: "Verified by admin",
+    });
 
-  await ctx.reply(`User ${replyMsg.from.id} has been verified.`);
+    await ctx.reply(`User ${replyMsg.from.id} has been verified.`);
 });
 ```
 
@@ -82,18 +82,18 @@ const bot = new Bot("");
 // ---cut---
 // Remove user verification
 await bot.api.removeUserVerification({
-  user_id: 123456789,
+    user_id: 123456789,
 });
 ```
 
 ## Errors
 
-| Code | Error | Cause |
-|------|-------|-------|
-| 400 | `Bad Request: USER_NOT_FOUND` | `user_id` is invalid or the user has never interacted with the bot |
-| 400 | `Bad Request: custom description not allowed` | Your organization isn't authorized to provide custom descriptions — omit the field or pass an empty string |
-| 400 | `Bad Request: user can't be verified` | The target user cannot be verified in the current context (e.g. bots cannot be verified) |
-| 403 | `Forbidden: not enough rights` | The bot hasn't been granted third-party verification permissions by Telegram |
+| Code | Error                                         | Cause                                                                                                      |
+| ---- | --------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| 400  | `Bad Request: USER_NOT_FOUND`                 | `user_id` is invalid or the user has never interacted with the bot                                         |
+| 400  | `Bad Request: custom description not allowed` | Your organization isn't authorized to provide custom descriptions — omit the field or pass an empty string |
+| 400  | `Bad Request: user can't be verified`         | The target user cannot be verified in the current context (e.g. bots cannot be verified)                   |
+| 403  | `Forbidden: not enough rights`                | The bot hasn't been granted third-party verification permissions by Telegram                               |
 
 ## Tips & Gotchas
 
