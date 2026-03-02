@@ -272,3 +272,93 @@ createComposer({
 ```
 
 Рантаймовая проверка конфликтов бросает ошибку, если ключ `methods` совпадает со встроенным именем метода.
+
+### `defineComposerMethods()` — generic кастомные методы с derive
+
+Когда кастомные методы имеют **generic-сигнатуры** для захвата накопленных derive, нужен `defineComposerMethods()`. TypeScript не может вывести generic-сигнатуры методов, когда `TMethods` вложен внутрь возвращаемого типа `createComposer`:
+
+```ts
+import { defineComposerMethods, createComposer } from "@gramio/composer";
+import type { ComposerLike, ContextOf, Middleware } from "@gramio/composer";
+
+const methods = defineComposerMethods({
+    command<TThis extends ComposerLike<TThis>>(
+        this: TThis,
+        name: string,
+        handler: Middleware<MessageCtx & ContextOf<TThis>>,
+    ): TThis {
+        return this.on("message", (ctx, next) => {
+            if (ctx.text === `/${name}`) return handler(ctx, next);
+            return next();
+        });
+    },
+});
+
+const { Composer } = createComposer<BaseCtx, EventMap, typeof methods>({
+    discriminator: (ctx) => ctx.updateType,
+    methods,
+});
+
+// Derive автоматически попадает в обработчик — без аннотаций:
+new Composer()
+    .derive(() => ({ user: { id: 1, name: "Alice" } }))
+    .command("start", (ctx) => {
+        ctx.user.id;  // ✅ типизировано — выводится через ContextOf<TThis>
+        ctx.text;     // ✅ из MessageCtx
+    });
+```
+
+## `ContextOf<T>` — тип текущего контекста
+
+Извлекает `TOut` (полный накопленный контекст после всех `derive()`/`decorate()`) из инстанса Composer или EventComposer:
+
+```ts
+import type { ContextOf } from "@gramio/composer";
+
+type Ctx = ContextOf<typeof myComposer>;
+// Ctx = накопленный контекст со всеми результатами derive()
+```
+
+## `EventContextOf<T, E>` — тип контекста для конкретного события
+
+Извлекает контекст для **конкретного события** из инстанса composer, включая как глобальные, так и per-event derive:
+
+```ts
+import type { EventContextOf } from "@gramio/composer";
+
+// Per-event derive: виден только в обработчиках 'message'
+composer.derive(['message'], () => ({ messageData: "..." }));
+
+type MessageCtx = EventContextOf<typeof composer, 'message'>;
+// Включает глобальные derive И messageData
+```
+
+## `ComposerLike<T>` — минимальный структурный тип для ограничений `this`
+
+Минимальный интерфейс `{ on(event: any, handler: any): T }` для F-bounded ограничения `TThis` в кастомных методах. Делает `this.on(...)` полностью типизированным и возвращающим `TThis` без кастов.
+
+## Система макросов
+
+Регистрируйте переиспользуемые поведения, которые обработчики активируют декларативно через объект опций. Удобно для сквозных задач — аутентификации, rate limiting, валидации — без засорения тел обработчиков проверками:
+
+```ts
+// Регистрируем макрос
+const app = new Composer().macro("adminOnly", {
+    preHandler: async (ctx, next) => {
+        if (ctx.userId !== ADMIN_ID) return ctx.reply("Только для админов");
+        return next();
+    },
+});
+
+// Активируем в конкретном обработчике через опции:
+app.on("message", handler, { adminOnly: true });
+app.on("callback_query", handler, { adminOnly: true });
+```
+
+`macro()` принимает:
+- **Объект `MacroHooks`** — для булевого сокращения (`{ adminOnly: true }`)
+- **Функцию `(opts) => MacroHooks`** — для параметризованных опций (`{ throttle: { limit: 3 } }`)
+
+Поля `MacroHooks`:
+- `preHandler` — middleware, выполняющийся перед обработчиком
+- `derive` — функция обогащения контекста; возврат `void` останавливает цепочку

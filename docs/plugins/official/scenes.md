@@ -554,6 +554,94 @@ const bot = new Bot(process.env.TOKEN as string)
 > [!IMPORTANT]
 > Be careful. The first step of the scene should also include the event from which you entered the scene. (For example, if you enter via InlineButton click — `callback_query`)
 
+## Sharing context with plugins and composers
+
+Use `scene.extend()` to bring plugin-derived types and enrichments into a scene's handler chain. This is the primary way to share data (database user, auth state, parsed arguments, etc.) across scene steps without passing it manually through `scene.state`.
+
+### Extending with a Plugin
+
+Any GramIO `Plugin` can be extended into a scene. The plugin's middleware — including `derive()`, `decorate()`, `guard()` — runs inside the scene chain and its types flow into step handlers:
+
+```ts
+import { Bot, Plugin } from "gramio";
+import { Scene, scenes } from "@gramio/scenes";
+
+// A shared plugin that loads the current user from the database
+const withUser = new Plugin("withUser")
+    .derive(async (ctx) => {
+        const user = await db.users.findById(ctx.from!.id);
+        return { user };
+    });
+
+const profileScene = new Scene("profile")
+    .extend(withUser)  // ← ctx.user is now typed in every step
+    .step("message", async (ctx) => {
+        if (ctx.scene.step.firstTime)
+            return ctx.send(`Hello, ${ctx.user.name}! What would you like to update?`);
+
+        return ctx.scene.update({ newName: ctx.text });
+    })
+    .step("message", async (ctx) => {
+        await db.users.update(ctx.from!.id, { name: ctx.scene.state.newName });
+        await ctx.send(`Updated! Your new name: ${ctx.scene.state.newName}`);
+        return ctx.scene.exit();
+    });
+
+const bot = new Bot(process.env.TOKEN!)
+    .extend(withUser)
+    .extend(scenes([profileScene]))
+    .command("profile", (ctx) => ctx.scene.enter(profileScene));
+```
+
+> [!TIP]
+> If the same plugin is already extended at the **bot level**, the scene engine detects this and skips re-running its middleware inside the scene — avoiding double execution. The types are still available because they flow from the bot's main chain.
+
+### Extending with an EventComposer
+
+`scene.extend()` also accepts `EventComposer` instances — useful when you've built a reusable per-event enrichment that you want to share across multiple scenes:
+
+```ts
+import { Bot } from "gramio";
+import { Scene, scenes } from "@gramio/scenes";
+
+// A shared message enricher — parses command arguments
+const withArgs = new Composer({ name: "withArgs" }).derive(["message"], (ctx) => ({
+    args: ctx.text?.split(" ").slice(1) ?? [],
+}));
+
+const searchScene = new Scene("search")
+    .extend(withArgs)  // ← ctx.args is typed in message steps
+    .step("message", async (ctx) => {
+        if (ctx.scene.step.firstTime)
+            return ctx.send("What would you like to search for?");
+
+        const query = ctx.args[0] ?? ctx.text ?? "";
+        const results = await search(query);
+        await ctx.send(`Found ${results.length} results`);
+        return ctx.scene.exit();
+    });
+```
+
+### Accessing shared context in `onEnter`
+
+Extended plugin types are also available in `onEnter` handlers:
+
+```ts
+const checkoutScene = new Scene("checkout")
+    .extend(withUser)
+    .onEnter(async (ctx) => {
+        // ctx.user is available here too
+        if (ctx.user.balance < MIN_AMOUNT) {
+            await ctx.send("Insufficient balance.");
+            return ctx.scene.exit();
+        }
+        return ctx.send(`Starting checkout for ${ctx.user.name}...`);
+    })
+    .step("message", async (ctx) => {
+        // ... checkout steps
+    });
+```
+
 ## VS Prompt
 
 > Spoiler: We recommend using `scenes`

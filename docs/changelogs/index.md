@@ -15,6 +15,7 @@ Track the latest changes across the GramIO ecosystem. Each entry covers updates 
 
 <!-- New entries are added below this line, newest first -->
 
+- [2026-03-02 — Bot API 9.5, Rate Limiter Debuts, HTML-to-Telegram Converter, Composer Superpowers](/changelogs/2026-03-02)
 - [2026-02-23 — Testing Gets Richer, CallbackData Gets Safer, TypeScript API Reference Launches](/changelogs/2026-02-23)
 - [2026-02-17 — GramIO v0.5.0, Composer Rearchitecture, Observability & Testing Superpowers](/changelogs/2026-02-17)
 - [2026-02-15 — Bot API 9.4, Views, OpenTelemetry, `onApiCall`, `streamMessage`](/changelogs/2026-02-15)

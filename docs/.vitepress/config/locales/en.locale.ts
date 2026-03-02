@@ -205,6 +205,7 @@ export function createLocaleEn(typeDocSidebar: Record<string, unknown[]> = {}) {
 								{ text: "setBusinessAccountUsername", link: "/telegram/methods/setBusinessAccountUsername" },
 								{ text: "setChatAdministratorCustomTitle", link: "/telegram/methods/setChatAdministratorCustomTitle" },
 								{ text: "setChatDescription", link: "/telegram/methods/setChatDescription" },
+								{ text: "setChatMemberTag", link: "/telegram/methods/setChatMemberTag" },
 								{ text: "setChatMenuButton", link: "/telegram/methods/setChatMenuButton" },
 								{ text: "setChatPermissions", link: "/telegram/methods/setChatPermissions" },
 								{ text: "setChatPhoto", link: "/telegram/methods/setChatPhoto" },
@@ -551,6 +552,10 @@ export function createLocaleEn(typeDocSidebar: Record<string, unknown[]> = {}) {
 						items: [
 							// new entries added here by the skill, newest first
 							{
+								text: "2026-03-02",
+								link: "/changelogs/2026-03-02",
+							},
+							{
 								text: "2026-02-23",
 								link: "/changelogs/2026-02-23",
 							},
@@ -623,6 +628,10 @@ export function createLocaleEn(typeDocSidebar: Record<string, unknown[]> = {}) {
 									{
 										text: "PostHog",
 										link: "/plugins/official/posthog",
+									},
+									{
+										text: "Rate Limiter",
+										link: "/plugins/official/rate-limiter",
 									},
 									{
 										text: "Split",

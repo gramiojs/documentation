@@ -57,6 +57,8 @@ Use this method to promote or demote a user in a supergroup or a channel. The bo
 
 <ApiParam name="can_manage_direct_messages" type="Boolean" description="Pass *True* if the administrator can manage direct messages within the channel and decline suggested posts; for channels only" />
 
+<ApiParam name="can_manage_tags" type="Boolean" description="Pass *True* if the administrator can edit the tags of regular members; for groups and supergroups only" />
+
 ## Returns
 
 On success, *True* is returned.

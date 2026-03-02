@@ -1,0 +1,19 @@
+{
+    "sinceMap": {
+        "composer": "6dae6fc0fb71859d4c2f100a5617c1d27c34f684",
+        "contexts": "116aacd059d0ecf675563bd9800a2fe23dc9bdf3",
+        "create-gramio": "73ed80558e8ec84f7c178b14473bb8566477ae44",
+        "documentation": "a28836fcb312e28cd80dc2a007efd311adb8e1b4",
+        "files": "496423f1b835ddaf4b448da700aa81e42fd285df",
+        "format": "01680971ed4319c665da35ac6c8e46498d1d70b7",
+        "gramio": "d3dc668edcdfdf69114cf862de50c7af13677c7a",
+        "keyboards": "60148076b5096fcd41baf5c284c7e7e29b2a78ee",
+        "rate-limiter": "fffe4fb0638a486b9195c584ac4cb5adc834de60",
+        "scenes": "13be794f76ce599569e7130e7c7f098c2fd45fb0",
+        "test": "73d9670a115f7583a6154808b48e1e08524cee79",
+        "types": "fdd8f1ff4da66204350631fa5816590509837076",
+        "views": "62b5bf895e9984a8545b3cc8a673b92356e317b2"
+    },
+    "lastRunDate": "2026-03-02",
+    "lastPage": "changelogs/2026-03-02"
+}

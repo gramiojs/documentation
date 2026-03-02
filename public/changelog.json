@@ -2,6 +2,73 @@
     "version": 1,
     "entries": [
         {
+            "id": "2026-03-02-bot-api-9-5-rate-limiter-html-composer-superpowers",
+            "date": "2026-03-02",
+            "dateRange": {
+                "from": "2026-02-23",
+                "to": "2026-03-01"
+            },
+            "page": {
+                "en": "https://gramio.dev/changelogs/2026-03-02",
+                "ru": "https://gramio.dev/ru/changelogs/2026-03-02"
+            },
+            "en": {
+                "title": "Bot API 9.5, Rate Limiter Debuts, HTML-to-Telegram Converter, Composer Superpowers",
+                "summary": [
+                    "Bot API 9.5: setChatMemberTag method and member tag fields in ChatMember types",
+                    "New date_time MessageEntity type with unixTime and dateTimeFormat fields",
+                    "can_manage_tags administrator right added to ChatAdministratorRights",
+                    "@gramio/rate-limit v0.0.1: new rate limiting plugin with macro-based per-handler throttling",
+                    "@gramio/format v0.5.0: htmlToFormattable() converts HTML to Telegram entities without parse_mode",
+                    "@gramio/format: join() now accepts FormattableString arrays directly",
+                    "@gramio/composer v0.3.3: EventContextOf<T,E> and ContextOf<T> utility types",
+                    "@gramio/composer: defineComposerMethods() for generic custom method signatures",
+                    "@gramio/composer: Elysia-inspired macro system for declarative handler options",
+                    "@gramio/views v0.1.1: sticker, voice, video_note media type support added",
+                    "@gramio/scenes: cross-chain deduplication and EventComposer extend() support",
+                    "create-gramio v2.0.3: CLAUDE.md generation, AI Skills, Broadcast plugin, CLI presets"
+                ]
+            },
+            "ru": {
+                "title": "Bot API 9.5, дебют Rate Limiter, конвертер HTML в Telegram, суперсилы Composer",
+                "summary": [
+                    "Bot API 9.5: метод setChatMemberTag и поля тегов в типах ChatMember",
+                    "Новый тип сущности date_time с полями unixTime и dateTimeFormat",
+                    "Право администратора can_manage_tags в ChatAdministratorRights",
+                    "@gramio/rate-limit v0.0.1: новый плагин rate limiting с макросным троттлингом",
+                    "@gramio/format v0.5.0: htmlToFormattable() — HTML в Telegram-сущности без parse_mode",
+                    "@gramio/format: join() теперь принимает массивы FormattableString напрямую",
+                    "@gramio/composer v0.3.3: утилитарные типы EventContextOf<T,E> и ContextOf<T>",
+                    "@gramio/composer: defineComposerMethods() для generic кастомных методов",
+                    "@gramio/composer: система макросов в духе Elysia для декларативных опций обработчиков",
+                    "@gramio/views v0.1.1: поддержка медиатипов sticker, voice, video_note",
+                    "@gramio/scenes: кросс-цепочечная дедупликация и поддержка extend() с EventComposer",
+                    "create-gramio v2.0.3: генерация CLAUDE.md, AI Skills, плагин Broadcast, CLI-пресеты"
+                ]
+            },
+            "packages": [
+                "gramio",
+                "@gramio/types",
+                "@gramio/contexts",
+                "@gramio/keyboards",
+                "@gramio/rate-limit",
+                "@gramio/format",
+                "@gramio/composer",
+                "@gramio/views",
+                "@gramio/scenes",
+                "@gramio/files",
+                "create-gramio"
+            ],
+            "tags": [
+                "bot-api-9-5",
+                "rate-limiter",
+                "new-plugin",
+                "composer",
+                "formatting",
+                "member-tags"
+            ]
+        },
+        {
             "id": "2026-02-23-testing-richer-callback-data-safer-api-reference",
             "date": "2026-02-23",
             "dateRange": {

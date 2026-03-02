@@ -34,6 +34,8 @@ This object represents a message.
 
 <ApiParam name="sender_business_bot" type="User" description="*Optional*. The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account." />
 
+<ApiParam name="sender_tag" type="String" description="*Optional*. Tag or custom title of the sender of the message; for supergroups only" />
+
 <ApiParam name="date" type="Integer" required description="Date the message was sent in Unix time. It is always a positive number, representing a valid date." />
 
 <ApiParam name="business_connection_id" type="String" description="*Optional*. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier." />
@@ -66,7 +68,7 @@ This object represents a message.
 
 <ApiParam name="is_paid_post" type="True" description="*Optional*. *True*, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited." />
 
-<ApiParam name="media_group_id" type="String" description="*Optional*. The unique identifier of a media message group this message belongs to" />
+<ApiParam name="media_group_id" type="String" description="*Optional*. The unique identifier inside this chat of a media message group this message belongs to" />
 
 <ApiParam name="author_signature" type="String" description="*Optional*. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator" />
 

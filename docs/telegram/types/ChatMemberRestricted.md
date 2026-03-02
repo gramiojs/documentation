@@ -22,6 +22,8 @@ Represents a [chat member](https://core.telegram.org/bots/api#chatmember) that i
 
 <ApiParam name="status" type="String" required description="The member's status in the chat, always &quot;restricted&quot;" constValue="restricted" />
 
+<ApiParam name="tag" type="String" description="*Optional*. Tag of the member" />
+
 <ApiParam name="user" type="User" required description="Information about the user" />
 
 <ApiParam name="is_member" type="Boolean" required description="*True*, if the user is a member of the chat at the moment of the request" />
@@ -45,6 +47,8 @@ Represents a [chat member](https://core.telegram.org/bots/api#chatmember) that i
 <ApiParam name="can_send_other_messages" type="Boolean" required description="*True*, if the user is allowed to send animations, games, stickers and use inline bots" />
 
 <ApiParam name="can_add_web_page_previews" type="Boolean" required description="*True*, if the user is allowed to add web page previews to their messages" />
+
+<ApiParam name="can_edit_tag" type="Boolean" required description="*True*, if the user is allowed to edit their own tag" />
 
 <ApiParam name="can_change_info" type="Boolean" required description="*True*, if the user is allowed to change the chat title, photo and other settings" />
 

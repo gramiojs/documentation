@@ -18,7 +18,7 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#sendmessagedraft" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to stream a partial message to a user while the message is being generated; supported only for bots with forum topic mode enabled. Returns *True* on success.
+Use this method to stream a partial message to a user while the message is being generated. Returns *True* on success.
 
 ## Parameters
 

@@ -52,6 +52,8 @@ Represents the rights of an administrator in a chat.
 
 <ApiParam name="can_manage_direct_messages" type="Boolean" description="*Optional*. *True*, if the administrator can manage direct messages of the channel and decline suggested posts; for channels only" />
 
+<ApiParam name="can_manage_tags" type="Boolean" description="*Optional*. *True*, if the administrator can edit the tags of regular members; for groups and supergroups only. If omitted defaults to the value of can\_pin\_messages." />
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

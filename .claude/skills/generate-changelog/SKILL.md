@@ -1,6 +1,6 @@
 ---
 name: generate-changelog
-description: Generate changelog pages from gramiojs org patches using ghlog CLI. Tracks last-run date for incremental updates. Also updates docs and skills to reflect changes.
+description: Generate changelog pages from gramiojs org patches using ghlog CLI. Tracks last-seen commit SHAs per repo via --since-map for precise incremental updates. Also updates docs and skills to reflect changes.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep
 metadata:
     internal: true
@@ -19,8 +19,18 @@ Read `.changelog-state.json` from the project root. If it does not exist, this i
 The state file has the shape:
 
 ```json
-{ "lastRunDate": "2026-02-15", "lastPage": "changelogs/2026-02-15" }
+{
+    "sinceMap": {
+        "gramio": "a1b2c3d4e5f6fullsha",
+        "keyboards": "b2c3d4e5f6a1fullsha"
+    },
+    "lastRunDate": "2026-02-15",
+    "lastPage": "changelogs/2026-02-15"
+}
 ```
+
+- `sinceMap` — maps repo name (short, without `gramiojs/`) to the full SHA of the last commit that was processed. This is the preferred incremental method. If missing (old state format or first run), fall back to `lastRunDate` for date-based fetching.
+- `lastRunDate` — kept for display and fallback purposes. On the very first run after upgrading the state format, it's also used as `--since` for repos not yet in `sinceMap`.
 
 ### 2. Ask Contextual Questions During Analysis
 
@@ -40,28 +50,46 @@ Example questions to ask:
 
 ### 3. Fetch Patches
 
-Run `ghlog` to get commit data and patches from all `gramiojs` repos:
+Compute `<tomorrow>` first:
 
 ```bash
-bunx ghlog --org gramiojs --since <last-date> --until <tomorrow> --patch --patch-dir /tmp/gramio-patches --format markdown --output /tmp/gramio-ghlog.md
+date -v+1d +%Y-%m-%d   # macOS / BSD
+date -d "+1 day" +%Y-%m-%d  # Linux / GNU
 ```
 
-Replace `<last-date>` with the value from state (or the user-provided start date).
-Replace `<tomorrow>` with **today's date + 1 day** (i.e. if today is `2026-02-23`, use `2026-02-24`).
+**If `sinceMap` is present in state** (normal incremental run — preferred):
 
-> **Critical — how GitHub API interprets dates:**
+Write the sinceMap to a temp file and use `--since-map` for precise SHA-based fetching. Pass `--include-new` with `--since <lastRunDate>` so repos that appeared after the last run are also included:
+
+```bash
+echo '<sinceMap JSON>' > /tmp/gramio-since-map.json
+
+bunx ghlog --org gramiojs \
+  --since-map /tmp/gramio-since-map.json \
+  --include-new --since <lastRunDate> \
+  --until <tomorrow> \
+  --patch --patch-dir /tmp/gramio-patches \
+  --format markdown --output /tmp/gramio-ghlog.md
+```
+
+`--since-map` resolves each SHA to its exact commit timestamp before fetching, so there are no day-boundary gaps or duplicates. `--include-new` catches repos not yet in the map by falling back to `--since <lastRunDate>`.
+
+**If no `sinceMap`** (first run, or migrating from old state):
+
+```bash
+bunx ghlog --org gramiojs \
+  --since <lastRunDate or user-provided date> \
+  --until <tomorrow> \
+  --patch --patch-dir /tmp/gramio-patches \
+  --format markdown --output /tmp/gramio-ghlog.md
+```
+
+> **`--until` is always required.** Without it, commits from the current day may be silently dropped:
 >
 > - `--since DATE` → includes commits **from** `DATE T00:00:00Z` (inclusive)
-> - `--until DATE` → includes commits **before** `DATE T00:00:00Z` (exclusive — the named date itself is NOT included)
+> - `--until DATE` → includes commits **before** `DATE T00:00:00Z` (exclusive)
 >
-> This means `--until <today>` would silently drop all commits made today. Always pass `--until <tomorrow>` to capture the full current day. Compute `<tomorrow>` as:
->
-> ```bash
-> date -v+1d +%Y-%m-%d   # macOS / BSD
-> date -d "+1 day" +%Y-%m-%d  # Linux / GNU
-> ```
->
-> For sequential runs: the `--since` of the next run must equal the `--until` of this run (both are stored as `lastRunDate` in state). This guarantees no gaps and no duplicates between runs.
+> Always pass `--until <tomorrow>` to capture the full current day.
 
 ### 4. Read the Markdown Summary
 
@@ -93,6 +121,33 @@ Use the commit message/title to decide whether to open the patch at all:
 | `bump` / `release` — only `package.json` changes | Read only `package.json` | — |
 
 **Rule of thumb:** if the commit subject already tells you everything you need for the changelog entry, don't open the patch. The title is the first filter — only reach for the diff when you need concrete details (new API signatures, before/after examples, version numbers).
+
+#### 5a. Check npm Publish Status for Version Bumps
+
+For every `package.json` diff that shows a version change, verify whether the new version is actually published on npm:
+
+```bash
+npm info <package>@<version> version 2>/dev/null
+# e.g.:
+npm info gramio@1.2.3 version 2>/dev/null
+npm info @gramio/keyboards@2.0.0 version 2>/dev/null
+```
+
+- **Output = version string** → published. Document normally.
+- **Empty output / error** → not yet published. Mark this package/version as **"pending publish"** in the changelog page (add a note like `> ⚠️ Version X.Y.Z is tagged but not yet published to npm.`) and in the report.
+
+This check prevents documenting features that users can't install yet. Run the check for every version bump found in the patches; skip it for packages that don't have an npm registry (internal tools, private packages).
+
+#### 5b. Extract Latest Commit SHAs per Repo
+
+After reading the patches, parse `/tmp/gramio-ghlog.md` to collect the **full SHA** of the newest commit for each repo that had activity. These SHAs will be saved as the new `sinceMap` in step 13.
+
+Commit links in the ghlog markdown look like:
+```
+https://github.com/gramiojs/<repo>/commit/<full-sha>
+```
+
+For each repo, take the SHA of the first (most recent) commit listed. Store them in a `newSinceMap` object: `{ "gramio": "<sha>", "keyboards": "<sha>", ... }`.
 
 ### 6. Compose the Changelog Page
 
@@ -333,23 +388,31 @@ Read `public/changelog.json`. If it doesn't exist, create it with an empty `entr
 
 ### 13. Update State
 
-Write `.changelog-state.json` at the project root:
+Write `.changelog-state.json` at the project root using the `newSinceMap` collected in step 5b:
 
 ```json
-{ "lastRunDate": "YYYY-MM-DD", "lastPage": "changelogs/YYYY-MM-DD" }
+{
+    "sinceMap": {
+        "gramio": "<latest-full-sha-for-gramio>",
+        "keyboards": "<latest-full-sha-for-keyboards>"
+    },
+    "lastRunDate": "YYYY-MM-DD",
+    "lastPage": "changelogs/YYYY-MM-DD"
+}
 ```
 
-**`lastRunDate` must be set to `<today>` (not `<tomorrow>`).** Reason: if you run mid-day and then push more commits later the same day, the next run must re-scan from today to catch them. Saving `<tomorrow>` here would cause those commits to fall into the gap between `[..., tomorrow)` and `[tomorrow, ...]` — they'd be skipped permanently.
+**Rules:**
 
-- The next run will slightly overlap (re-fetching today's already-processed commits), but that's harmless — changelogs are human-reviewed.
-- Sequence: `lastRunDate = today`, next run uses `--since today --until <next-tomorrow>`.
+- `sinceMap` — merge the old `sinceMap` with `newSinceMap`. Repos that had no commits this run keep their old SHA. Repos with new commits get updated to the latest SHA from step 5b.
+- `lastRunDate` — set to **today** (not tomorrow). This is the `--since` fallback for `--include-new` repos on the next run. Setting it to today means commits pushed later today will also be caught on the next run (slight overlap is harmless since changelogs are human-reviewed).
+- The next run will use `--since-map <updated-sinceMap>` for known repos and `--since <today>` for any brand-new repos.
 
 ### 14. Clean Up
 
 Remove temporary files:
 
 ```bash
-rm -rf /tmp/gramio-patches/ /tmp/gramio-ghlog.md
+rm -rf /tmp/gramio-patches/ /tmp/gramio-ghlog.md /tmp/gramio-since-map.json
 ```
 
 ### 15. Report

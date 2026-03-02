@@ -303,6 +303,73 @@ import { format, join, bold } from "@gramio/format";
 format`${join(["test", "other"], (x) => format`${bold(x)}`, "\n")}`;
 ```
 
+## HTML
+
+Вы можете конвертировать HTML-разметку в Telegram-сущности с помощью функции `htmlToFormattable` из субмодуля `@gramio/format/html`.
+
+Это удобно, когда контент приходит из CMS, редактора с форматированием (TipTap, ProseMirror) или LLM, которая генерирует HTML. Подход тот же, что и для Markdown: парсим локально в сущности и отправляем без `parse_mode`. Некорректный HTML деградирует до обычного текста, не ломая отправку.
+
+> [!WARNING]
+> Эта функция может измениться в будущем.
+
+### Установка
+
+Для работы с HTML требуется [`node-html-parser`](https://www.npmjs.com/package/node-html-parser) в качестве peer-зависимости:
+
+::: code-group
+
+```bash [npm]
+npm install node-html-parser
+```
+
+```bash [yarn]
+yarn add node-html-parser
+```
+
+```bash [pnpm]
+pnpm add node-html-parser
+```
+
+```bash [bun]
+bun add node-html-parser
+```
+
+:::
+
+### Использование
+
+```ts
+import { htmlToFormattable } from "@gramio/format/html";
+import { Bot } from "gramio";
+
+const bot = new Bot(process.env.BOT_TOKEN!);
+
+bot.command("start", (ctx) => {
+    const html = `<h1>Привет!</h1>
+<p><strong>Жирный</strong> и <em>курсив</em></p>
+<ul><li>пункт один</li><li>пункт два</li></ul>
+<p>Посетите <a href="https://gramio.dev">gramio.dev</a></p>`;
+
+    ctx.send(htmlToFormattable(html));
+});
+```
+
+### Поддерживаемые теги
+
+| HTML | Telegram-сущность |
+|---|---|
+| `<b>`, `<strong>` | bold |
+| `<i>`, `<em>` | italic |
+| `<u>` | underline |
+| `<s>`, `<del>`, `<strike>` | strikethrough |
+| `` `<code>` `` | code |
+| `<pre><code class="language-js">` | pre (с языком) |
+| `<blockquote>` | blockquote |
+| `<a href="...">` | text_link |
+| `<h1>`–`<h6>` | bold |
+| `<ul>`, `<ol>`, `<li>` | обычный текст с маркером/номером |
+| `<br>` | перенос строки |
+
 ## Markdown
 
 Вы можете конвертировать стандартный Markdown-текст в Telegram-сущности с помощью функции `markdownToFormattable` из субмодуля `@gramio/format/markdown`.
