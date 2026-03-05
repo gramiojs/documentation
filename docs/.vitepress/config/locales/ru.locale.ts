@@ -50,163 +50,40 @@ export const localeRu = {
 				// "/ru/guides/": [
 
 				// ],
-				"/ru/plugins/": [
-					{
-						text: "Плагины",
-						items: [
-							{
-								text: "Обзор",
-								link: "/ru/plugins/overview",
-							},
-							{
-								text: "Создание плагинов",
-								link: "/ru/plugins/how-to-write",
-							},
-							{
-								text: "Ленивая загрузка",
-								link: "/ru/plugins/lazy-load",
-							},
-							{
-								text: "Официальные",
-								items: [
-									{
-										text: "Сцены",
-										link: "/ru/plugins/official/scenes",
-									},
-									{
-										text: "Локализация (i18n)",
-										link: "/ru/plugins/official/i18n",
-									},
-									{
-										text: "Автозагрузка",
-										link: "/ru/plugins/official/autoload",
-									},
-									{
-										text: "Автоответ на callback",
-										link: "/ru/plugins/official/auto-answer-callback-query",
-									},
-									{
-										text: "Сессии",
-										link: "/ru/plugins/official/session",
-									},
-									{
-										text: "Auto-retry",
-										link: "/ru/plugins/official/auto-retry",
-									},
-									{
-										text: "Кеш медиа",
-										link: "/ru/plugins/official/media-cache",
-									},
-									{
-										text: "Медиа группы",
-										link: "/ru/plugins/official/media-group",
-									},
-									{
-										text: "PostHog",
-										link: "/ru/plugins/official/posthog",
-									},
-									{
-										text: "Rate Limiter",
-										link: "/ru/plugins/official/rate-limiter",
-									},
-									{
-										text: "Split",
-										link: "/ru/plugins/official/split",
-									},
-									{
-										text: "Prompt",
-										link: "/ru/plugins/official/prompt",
-									},
-									{
-										text: "Views",
-										link: "/ru/plugins/official/views",
-									},
-									{
-										text: "OpenTelemetry",
-										link: "/ru/plugins/official/opentelemetry",
-									},
-									{
-										text: "Sentry",
-										link: "/ru/plugins/official/sentry",
-									},
-									{
-										text: "Пагинация",
-										link: "/ru/plugins/official/pagination",
-									},
-									{
-										text: "JSX",
-										link: "/ru/plugins/official/jsx",
-									},
-								],
-							},
-						],
-					},
-				],
 				"/ru/": [
 					{
-						text: "Руководство",
+						text: "С чего начать",
 						items: [
 							{ text: "Введение", link: "/ru/introduction" },
 							{ text: "Начало работы", link: "/ru/get-started" },
 							{ text: "Шпаргалка", link: "/ru/cheat-sheet" },
 							{ text: "Bot API", link: "/ru/bot-api" },
-							{
-								text: "Обновления",
-								collapsed: true,
-								link: "/ru/updates/overview",
-								items: [
-									{ text: "Обзор", link: "/ru/updates/overview" },
-									{ text: "Webhook", link: "/ru/updates/webhook" },
-									{
-										text: "Graceful shutdown",
-										link: "/ru/updates/graceful-shutdown",
-									},
-								],
-							},
+						],
+					},
+					{
+						text: "Обработка обновлений",
+						items: [
+							{ text: "Middleware и Context", link: "/ru/extend/middleware" },
+							{ text: "Composer", link: "/ru/extend/composer" },
 							{
 								text: "Триггеры",
 								collapsed: true,
 								items: [
 									{ text: "Hears", link: "/ru/triggers/hears" },
 									{ text: "Command", link: "/ru/triggers/command" },
-									{
-										text: "Callback Query",
-										link: "/ru/triggers/callback-query",
-									},
-									{
-										text: "Inline Query",
-										link: "/ru/triggers/inline-query",
-									},
-									{
-										text: "Chosen Inline Result",
-										link: "/ru/triggers/chosen-inline-result",
-									},
-									{
-										text: "Reaction",
-										link: "/ru/triggers/reaction",
-									},
+									{ text: "Callback Query", link: "/ru/triggers/callback-query" },
+									{ text: "Inline Query", link: "/ru/triggers/inline-query" },
+									{ text: "Chosen Inline Result", link: "/ru/triggers/chosen-inline-result" },
+									{ text: "Reaction", link: "/ru/triggers/reaction" },
 								],
 							},
-							{
-								text: "Хуки",
-								collapsed: true,
-								link: "/ru/hooks/overview",
-								items: [
-									{ text: "Обзор", link: "/ru/hooks/overview" },
-									{ text: "onStart", link: "/ru/hooks/on-start" },
-									{ text: "onStop", link: "/ru/hooks/on-stop" },
-									{
-										text: "onError (обработка ошибок)",
-										link: "/ru/hooks/on-error",
-									},
-									{ text: "preRequest", link: "/ru/hooks/pre-request" },
-									{ text: "onResponse", link: "/ru/hooks/on-response" },
-									{
-										text: "onResponseError",
-										link: "/ru/hooks/on-response-error",
-									},
-								],
-							},
+							{ text: "Webhook", link: "/ru/updates/webhook" },
+							{ text: "Обработка ошибок", link: "/ru/hooks/on-error" },
+						],
+					},
+					{
+						text: "Составление сообщений",
+						items: [
 							{
 								text: "Клавиатуры",
 								collapsed: true,
@@ -214,97 +91,95 @@ export const localeRu = {
 								items: [
 									{ text: "Обзор", link: "/ru/keyboards/overview" },
 									{ text: "Keyboard", link: "/ru/keyboards/keyboard" },
-									{
-										text: "Inline Keyboard",
-										link: "/ru/keyboards/inline-keyboard",
-									},
-									{
-										text: "Remove Keyboard",
-										link: "/ru/keyboards/remove-keyboard",
-									},
-									{
-										text: "Force Reply Keyboard",
-										link: "/ru/keyboards/force-reply-keyboard",
-									},
+									{ text: "Inline Keyboard", link: "/ru/keyboards/inline-keyboard" },
+									{ text: "Remove Keyboard", link: "/ru/keyboards/remove-keyboard" },
+									{ text: "Force Reply Keyboard", link: "/ru/keyboards/force-reply-keyboard" },
 								],
 							},
+							{ text: "Форматирование", link: "/ru/formatting" },
 							{
 								text: "Файлы",
 								collapsed: true,
 								link: "/ru/files/overview",
 								items: [
 									{ text: "Обзор", link: "/ru/files/overview" },
-									{
-										text: "Upload media",
-										link: "/ru/files/media-upload",
-									},
-									{
-										text: "MediaInput",
-										link: "/ru/files/media-input",
-									},
+									{ text: "Загрузка медиа", link: "/ru/files/media-upload" },
+									{ text: "Media Input", link: "/ru/files/media-input" },
 									{ text: "Скачивание", link: "/ru/files/download" },
-									{
-										text: "Использование без GramIO",
-										link: "/ru/files/usage-without-gramio",
-									},
+									{ text: "Использование без GramIO", link: "/ru/files/usage-without-gramio" },
 								],
 							},
-							{ text: "Форматирование", link: "/ru/formatting" },
+						],
+					},
+					{
+						text: "Bot",
+						items: [
+							{ text: "Класс Bot", link: "/ru/bot-class" },
+							{ text: "Обновления", link: "/ru/updates/overview" },
+							{ text: "Graceful Shutdown", link: "/ru/updates/graceful-shutdown" },
+							{ text: "onStart", link: "/ru/hooks/on-start" },
+							{ text: "onStop", link: "/ru/hooks/on-stop" },
+							{ text: "preRequest", link: "/ru/hooks/pre-request" },
+							{ text: "onResponse", link: "/ru/hooks/on-response" },
+							{ text: "onResponseError", link: "/ru/hooks/on-response-error" },
+						],
+					},
+					{
+						text: "Плагины",
+						items: [
+							{ text: "Обзор", link: "/ru/plugins/overview" },
+							{ text: "Создание плагинов", link: "/ru/plugins/how-to-write" },
+							{ text: "Ленивая загрузка", link: "/ru/plugins/lazy-load" },
+							{
+								text: "Официальные",
+								collapsed: true,
+								items: [
+									{ text: "Сцены", link: "/ru/plugins/official/scenes" },
+									{ text: "Локализация (i18n)", link: "/ru/plugins/official/i18n" },
+									{ text: "Сессии", link: "/ru/plugins/official/session" },
+									{ text: "Автозагрузка", link: "/ru/plugins/official/autoload" },
+									{ text: "Auto-retry", link: "/ru/plugins/official/auto-retry" },
+									{ text: "Автоответ на callback", link: "/ru/plugins/official/auto-answer-callback-query" },
+									{ text: "Кеш медиа", link: "/ru/plugins/official/media-cache" },
+									{ text: "Медиа группы", link: "/ru/plugins/official/media-group" },
+									{ text: "Rate Limiter", link: "/ru/plugins/official/rate-limiter" },
+									{ text: "Prompt", link: "/ru/plugins/official/prompt" },
+									{ text: "Views", link: "/ru/plugins/official/views" },
+									{ text: "Split", link: "/ru/plugins/official/split" },
+									{ text: "Пагинация", link: "/ru/plugins/official/pagination" },
+									{ text: "JSX", link: "/ru/plugins/official/jsx" },
+									{ text: "PostHog", link: "/ru/plugins/official/posthog" },
+									{ text: "OpenTelemetry", link: "/ru/plugins/official/opentelemetry" },
+									{ text: "Sentry", link: "/ru/plugins/official/sentry" },
+								],
+							},
+						],
+					},
+					{
+						text: "Дополнительно",
+						items: [
 							{ text: "Типы", link: "/ru/types" },
-							{
-								text: "Лимиты и рассылка",
-								link: "/ru/rate-limits",
-							},
 							{ text: "Хранилища", link: "/ru/storages" },
-						{ text: "Тестирование", link: "/ru/testing" },
-						{
-							text: "Расширение",
-							collapsed: true,
-							items: [
-								{
-									text: "Middleware и Context",
-									link: "/ru/extend/middleware",
-								},
-								{
-									text: "@gramio/composer",
-									link: "/ru/extend/composer",
-								},
-							],
-						},
-							{
-								text: "Telegram Web Apps",
-								collapsed: true,
-								link: "/ru/tma/overview",
-								items: [
-									{ text: "Обзор", link: "/ru/tma/overview" },
-									{
-										text: "Init data",
-										link: "/ru/tma/init-data",
-									},
-								],
-							},
-							{
-								text: "Класс Bot",
-								link: "/ru/bot-class",
-							},
-							{
-								text: "Экосистема",
-								collapsed: true,
-								items: [
-									{
-										text: "Wrappergram",
-										link: "/ru/ecosystem/wrappergram",
-									},
-									{
-										text: "Crypto Pay API",
-										link: "/ru/ecosystem/crypto-pay-api",
-									},
-									{
-										text: "@gramio/schema-parser",
-										link: "/ru/ecosystem/schema-parser",
-									},
-								],
-							},
+							{ text: "Лимиты и рассылка", link: "/ru/rate-limits" },
+							{ text: "Тестирование", link: "/ru/testing" },
+						],
+					},
+					{
+						text: "Telegram Mini Apps",
+						collapsed: true,
+						link: "/ru/tma/overview",
+						items: [
+							{ text: "Обзор", link: "/ru/tma/overview" },
+							{ text: "Init data", link: "/ru/tma/init-data" },
+						],
+					},
+					{
+						text: "Экосистема",
+						collapsed: true,
+						items: [
+							{ text: "Wrappergram", link: "/ru/ecosystem/wrappergram" },
+							{ text: "Crypto Pay API", link: "/ru/ecosystem/crypto-pay-api" },
+							{ text: "@gramio/schema-parser", link: "/ru/ecosystem/schema-parser" },
 						],
 					},
 					{
@@ -314,69 +189,29 @@ export const localeRu = {
 								text: "Для новичков",
 								collapsed: true,
 								items: [
-									{
-										text: "1. Введение",
-										link: "/ru/guides/for-beginners/1.md",
-									},
-									{
-										text: "2. Знакомство",
-										link: "/ru/guides/for-beginners/2.md",
-									},
-									{
-										text: "3. TypeScript и виды клавиатур",
-										link: "/ru/guides/for-beginners/3.md",
-									},
-									{
-										text: "4. SOON",
-										link: "/ru/guides/for-beginners/4.md",
-									},
+									{ text: "1. Введение", link: "/ru/guides/for-beginners/1.md" },
+									{ text: "2. Знакомство", link: "/ru/guides/for-beginners/2.md" },
+									{ text: "3. TypeScript и виды клавиатур", link: "/ru/guides/for-beginners/3.md" },
+									{ text: "4. SOON", link: "/ru/guides/for-beginners/4.md" },
 								],
 							},
-							{
-								text: "Telegram Stars",
-								link: "/ru/guides/telegram-stars",
-							},
-							{
-								text: "Фильтры",
-								link: "/ru/guides/filters",
-							},
-							{
-								text: "Composer (модули)",
-								link: "/ru/guides/composer",
-							},
-							{
-								text: "AI навыки",
-								link: "/ru/guides/ai-skills",
-							},
+							{ text: "Telegram Stars", link: "/ru/guides/telegram-stars" },
+							{ text: "Фильтры", link: "/ru/guides/filters" },
+							{ text: "Composer (модули)", link: "/ru/guides/composer" },
+							{ text: "AI навыки", link: "/ru/guides/ai-skills" },
 							{
 								text: "Миграция",
 								collapsed: true,
 								items: [
-									{
-										text: "С grammY",
-										link: "/ru/guides/migration-from-grammy",
-									},
-									{
-										text: "С puregram",
-										link: "/ru/guides/migration-from-puregram",
-									},
-									{
-										text: "С Telegraf",
-										link: "/ru/guides/migration-from-telegraf",
-									},
-									{
-										text: "С node-telegram-bot-api",
-										link: "/ru/guides/migration-from-ntba",
-									},
+									{ text: "С grammY", link: "/ru/guides/migration-from-grammy" },
+									{ text: "С puregram", link: "/ru/guides/migration-from-puregram" },
+									{ text: "С Telegraf", link: "/ru/guides/migration-from-telegraf" },
+									{ text: "С node-telegram-bot-api", link: "/ru/guides/migration-from-ntba" },
 								],
 							},
 						],
 					},
 				],
-			},
-			// Переводы для дефолтных интерфейсов vitepress'а
-			outline: {
-				label: "На этой странице",
 			},
 			lastUpdated: {
 				text: "Последнее обновление",
