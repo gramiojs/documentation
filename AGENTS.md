@@ -154,3 +154,13 @@ When adding a new page, it **must** be registered in both sidebar configs:
 - `docs/.vitepress/config/locales/ru.locale.ts`
 
 Follow the existing patterns for section grouping and link formatting.
+
+## Redirects (`public/_redirects`)
+
+`public/_redirects` is a **Netlify-specific** redirect file (GitHub Pages does not support it). It must be kept up to date whenever doc files are moved or renamed.
+
+- When a page is **renamed or moved** (e.g., `docs/guides/foo.md` → `docs/guides/bar.md`), add a redirect: `/guides/foo /guides/bar 301!`
+- When a page is **deleted** without a replacement, redirect to the closest relevant page.
+- When a **section index** is added (e.g., `overview.md`), add a redirect from the bare section path: `/section /section/overview 302!`
+- Both EN and RU paths may need separate redirect entries (e.g., `/ru/guides/foo` → `/ru/guides/bar`).
+- Use `301!` for permanent moves, `302!` for section index redirects.

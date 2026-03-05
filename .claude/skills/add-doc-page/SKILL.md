@@ -38,4 +38,9 @@ The user provides `[section/page-name]` — e.g., `guides/webhooks` or `plugins/
    - Find the matching section.
    - Add the new page link with `/ru/` prefix.
 
-6. **Report** what was created and where the user should add content.
+6. **Update `public/_redirects`** if the page was moved or renamed from a previous location:
+   - Add a `301!` redirect from the old path to the new path.
+   - Add a corresponding `/ru/` redirect if the RU page also moved.
+   - Note: `_redirects` is Netlify-specific; GitHub Pages does not support it.
+
+7. **Report** what was created and where the user should add content.
