@@ -54,9 +54,7 @@ export function createLocaleEn(typeDocSidebar: Record<string, unknown[]> = {}) {
 				// https://vitepress.dev/reference/default-theme-config
 				nav: [
 					{ text: "Home", link: "/" },
-					{ text: "Introduction", link: "/introduction" },
 					{ text: "Get started", link: "/get-started" },
-					{ text: "Cheat Sheet", link: "/cheat-sheet" },
 					{ text: "Plugins", link: "/plugins/overview" },
 					{ text: "TS API Reference", link: "/api/" },
 					{ text: "Bot API Reference", link: "/telegram/" },

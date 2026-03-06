@@ -5,6 +5,7 @@ import { useData } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import { nextTick, provide } from 'vue'
 import HeroBadges from '../components/HeroBadges.vue'
+import { PackageManagerSwitch } from 'vitepress-plugin-package-managers/client'
 
 const { isDark } = useData()
 
@@ -44,6 +45,9 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
 
 <template>
     <DefaultTheme.Layout>
+        <template #nav-bar-content-after>
+            <PackageManagerSwitch />
+        </template>
         <template #home-hero-info-after>
             <HeroBadges />
         </template>

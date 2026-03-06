@@ -9,9 +9,7 @@ export const localeRu = {
 			// https://vitepress.dev/reference/default-theme-config
 			nav: [
 				{ text: "Главная", link: "/ru" },
-				{ text: "Введение", link: "/ru/introduction" },
 				{ text: "Начало", link: "/ru/get-started" },
-				{ text: "Шпаргалка", link: "/ru/cheat-sheet" },
 				{ text: "Плагины", link: "/ru/plugins/overview" },
 				{ text: "API Reference", link: "/api/" },
 				{ text: "Журнал изменений", link: "/ru/changelogs/" },

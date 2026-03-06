@@ -9,6 +9,7 @@ import {
 	groupIconVitePlugin,
 } from "vitepress-plugin-group-icons";
 import llms, { copyOrDownloadAsMarkdownButtons } from "vitepress-plugin-llms";
+import { packageManagersMarkdownPlugin } from "vitepress-plugin-package-managers";
 import { createLocaleEn, localeRu } from "./config/locales";
 
 // Load TypeDoc-generated sidebar — may not exist before first `bun run gen:typedoc`
@@ -151,6 +152,7 @@ export default defineConfig({
 			// @ts-ignore
 			md.use(groupIconMdPlugin);
 			md.use(copyOrDownloadAsMarkdownButtons);
+			md.use(packageManagersMarkdownPlugin);
 		},
 	},
 	lastUpdated: true,
