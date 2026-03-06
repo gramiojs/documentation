@@ -38,24 +38,7 @@ head:
 
 Выберите предпочитаемый менеджер пакетов:
 
-::: code-group
-
-```bash [npm]
-npm create gramio@latest ./bot
-```
-
-```bash [yarn]
-yarn create gramio@latest ./bot
-```
-
-```bash [pnpm]
-pnpm create gramio@latest ./bot
-```
-
-```bash [bun]
-bun create gramio@latest ./bot
-```
-
+::: pm-create gramio@latest ./bot
 :::
 
 ### Параметры настройки проекта
@@ -94,24 +77,7 @@ bun create gramio@latest ./bot
 
 В качестве альтернативы вы можете создать только часть Mini App с помощью `@telegram-apps/create-mini-app`:
 
-::: code-group
-
-```bash [npm]
-npm create @telegram-apps/mini-app@latest ./miniapp
-```
-
-```bash [yarn]
-yarn create @telegram-apps/mini-app@latest ./miniapp
-```
-
-```bash [pnpm]
-pnpm create @telegram-apps/mini-app@latest ./miniapp
-```
-
-```bash [bun]
-bun create @telegram-apps/mini-app@latest ./miniapp
-```
-
+::: pm-create @telegram-apps/mini-app@latest ./miniapp
 :::
 
 Эта команда поможет вам создать проект с шаблоном из следующих вариантов:

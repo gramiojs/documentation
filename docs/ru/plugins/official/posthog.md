@@ -16,24 +16,7 @@
 
 ### Установка
 
-::: code-group
-
-```bash [npm]
-npm install @gramio/posthog
-```
-
-```bash [yarn]
-yarn add @gramio/posthog
-```
-
-```bash [pnpm]
-pnpm add @gramio/posthog
-```
-
-```bash [bun]
-bun install @gramio/posthog
-```
-
+::: pm-add @gramio/posthog
 :::
 
 ### Использование

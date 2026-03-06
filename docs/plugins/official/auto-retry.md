@@ -25,24 +25,7 @@ A plugin that catches errors with the `retry_after` field (**rate limit** errors
 
 ### Installation
 
-::: code-group
-
-```bash [npm]
-npm install @gramio/auto-retry
-```
-
-```bash [yarn]
-yarn add @gramio/auto-retry
-```
-
-```bash [pnpm]
-pnpm add @gramio/auto-retry
-```
-
-```bash [bun]
-bun install @gramio/auto-retry
-```
-
+::: pm-add @gramio/auto-retry
 :::
 
 ### Usage

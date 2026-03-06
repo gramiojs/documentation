@@ -12,24 +12,7 @@
 
 ### Установка
 
-::: code-group
-
-```bash [npm]
-npm install @gramio/opentelemetry
-```
-
-```bash [yarn]
-yarn add @gramio/opentelemetry
-```
-
-```bash [pnpm]
-pnpm add @gramio/opentelemetry
-```
-
-```bash [bun]
-bun install @gramio/opentelemetry
-```
-
+::: pm-add @gramio/opentelemetry
 :::
 
 ### Использование

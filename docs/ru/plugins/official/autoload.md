@@ -25,24 +25,7 @@ head:
 
 ### Установка
 
-::: code-group
-
-```bash [npm]
-npm install @gramio/autoload
-```
-
-```bash [yarn]
-yarn add @gramio/autoload
-```
-
-```bash [pnpm]
-pnpm add @gramio/autoload
-```
-
-```bash [bun]
-bun install @gramio/autoload
-```
-
+::: pm-add @gramio/autoload
 :::
 
 ## Использование

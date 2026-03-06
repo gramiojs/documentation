@@ -37,28 +37,10 @@ Both are TypeScript-native Telegram bot frameworks. Key differences:
 
 ## Installation
 
-::: code-group
+::: pm-add gramio
+:::
 
-```bash [npm]
-npm install gramio
-npm uninstall puregram
-```
-
-```bash [yarn]
-yarn add gramio
-yarn remove puregram
-```
-
-```bash [pnpm]
-pnpm add gramio
-pnpm remove puregram
-```
-
-```bash [bun]
-bun add gramio
-bun remove puregram
-```
-
+::: pm-remove puregram
 :::
 
 ---

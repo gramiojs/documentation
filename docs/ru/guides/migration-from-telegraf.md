@@ -33,28 +33,10 @@ head:
 
 ## Установка
 
-::: code-group
+::: pm-add gramio
+:::
 
-```bash [npm]
-npm install gramio
-npm uninstall telegraf
-```
-
-```bash [yarn]
-yarn add gramio
-yarn remove telegraf
-```
-
-```bash [pnpm]
-pnpm add gramio
-pnpm remove telegraf
-```
-
-```bash [bun]
-bun add gramio
-bun remove telegraf
-```
-
+::: pm-remove telegraf
 :::
 
 ---

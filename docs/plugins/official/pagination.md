@@ -29,24 +29,7 @@ A fluent, chainable API for creating **paginated inline keyboard menus** in Tele
 
 ## Installation
 
-::: code-group
-
-```bash [npm]
-npm install @gramio/pagination
-```
-
-```bash [yarn]
-yarn add @gramio/pagination
-```
-
-```bash [pnpm]
-pnpm add @gramio/pagination
-```
-
-```bash [bun]
-bun install @gramio/pagination
-```
-
+::: pm-add @gramio/pagination
 :::
 
 > [!IMPORTANT]

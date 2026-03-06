@@ -22,24 +22,7 @@ head:
 
 ## Установка
 
-::: code-group
-
-```bash [npm]
-npm install @gramio/composer
-```
-
-```bash [yarn]
-yarn add @gramio/composer
-```
-
-```bash [pnpm]
-pnpm add @gramio/composer
-```
-
-```bash [bun]
-bun add @gramio/composer
-```
-
+::: pm-add @gramio/composer
 :::
 
 ## Основные концепции

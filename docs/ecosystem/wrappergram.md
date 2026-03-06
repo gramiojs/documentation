@@ -26,24 +26,7 @@ A simple, tiny, **code-generated** Telegram Bot API wrapper for TypeScript. Wrap
 
 ## Installation
 
-::: code-group
-
-```bash [npm]
-npm install wrappergram
-```
-
-```bash [yarn]
-yarn add wrappergram
-```
-
-```bash [pnpm]
-pnpm add wrappergram
-```
-
-```bash [bun]
-bun install wrappergram
-```
-
+::: pm-add wrappergram
 :::
 
 ## Quick start

@@ -316,24 +316,7 @@ This is useful when your content comes from a CMS, rich text editor (TipTap, Pro
 
 The HTML feature requires [`node-html-parser`](https://www.npmjs.com/package/node-html-parser) as a peer dependency:
 
-::: code-group
-
-```bash [npm]
-npm install node-html-parser
-```
-
-```bash [yarn]
-yarn add node-html-parser
-```
-
-```bash [pnpm]
-pnpm add node-html-parser
-```
-
-```bash [bun]
-bun add node-html-parser
-```
-
+::: pm-add node-html-parser
 :::
 
 ### Usage
@@ -388,24 +371,7 @@ Unlike Telegram's built-in `parse_mode` (`HTML` or `MarkdownV2`), this approach 
 
 The markdown feature requires [`marked`](https://www.npmjs.com/package/marked) as a peer dependency:
 
-::: code-group
-
-```bash [npm]
-npm install marked
-```
-
-```bash [yarn]
-yarn add marked
-```
-
-```bash [pnpm]
-pnpm add marked
-```
-
-```bash [bun]
-bun install marked
-```
-
+::: pm-add marked
 :::
 
 ### Usage

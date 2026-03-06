@@ -33,28 +33,10 @@ head:
 
 ## Установка
 
-::: code-group
+::: pm-add gramio
+:::
 
-```bash [npm]
-npm install gramio
-npm uninstall grammy
-```
-
-```bash [yarn]
-yarn add gramio
-yarn remove grammy
-```
-
-```bash [pnpm]
-pnpm add gramio
-pnpm remove grammy
-```
-
-```bash [bun]
-bun add gramio
-bun remove grammy
-```
-
+::: pm-remove grammy
 :::
 
 ---

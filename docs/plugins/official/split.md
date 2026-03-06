@@ -26,24 +26,7 @@ This package splits messages that exceed the Telegram character limit into multi
 
 ## Installation
 
-::: code-group
-
-```bash [npm]
-npm install @gramio/split
-```
-
-```bash [yarn]
-yarn add @gramio/split
-```
-
-```bash [pnpm]
-pnpm add @gramio/split
-```
-
-```bash [bun]
-bun add @gramio/split
-```
-
+::: pm-add @gramio/split
 :::
 
 ## Usage

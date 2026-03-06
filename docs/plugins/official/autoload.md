@@ -25,24 +25,7 @@ Autoload commands plugin for GramIO with [`Bun.build`](#bun-build-usage) support
 
 ### Installation
 
-::: code-group
-
-```bash [npm]
-npm install @gramio/autoload
-```
-
-```bash [yarn]
-yarn add @gramio/autoload
-```
-
-```bash [pnpm]
-pnpm add @gramio/autoload
-```
-
-```bash [bun]
-bun install @gramio/autoload
-```
-
+::: pm-add @gramio/autoload
 :::
 
 ## Usage

@@ -19,24 +19,7 @@ head:
 
 ### Установка (не требуется для пользователей GramIO)
 
-::: code-group
-
-```bash [npm]
-npm install @gramio/keyboards
-```
-
-```bash [yarn]
-yarn add @gramio/keyboards
-```
-
-```bash [pnpm]
-pnpm add @gramio/keyboards
-```
-
-```bash [bun]
-bun install @gramio/keyboards
-```
-
+::: pm-add @gramio/keyboards
 :::
 
 ## Использование

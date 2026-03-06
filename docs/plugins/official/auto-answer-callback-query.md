@@ -25,24 +25,7 @@ This plugin auto answer on `callback_query` events with `answerCallbackQuery` me
 
 ### Installation
 
-::: code-group
-
-```bash [npm]
-npm install @gramio/auto-answer-callback-query
-```
-
-```bash [yarn]
-yarn add @gramio/auto-answer-callback-query
-```
-
-```bash [pnpm]
-pnpm add @gramio/auto-answer-callback-query
-```
-
-```bash [bun]
-bun install @gramio/auto-answer-callback-query
-```
-
+::: pm-add @gramio/auto-answer-callback-query
 :::
 
 ```ts

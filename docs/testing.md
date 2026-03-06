@@ -26,24 +26,7 @@ An event-driven test framework for bots built with GramIO. Users are the primary
 
 ## Installation
 
-::: code-group
-
-```bash [npm]
-npm install -D @gramio/test
-```
-
-```bash [yarn]
-yarn add -D @gramio/test
-```
-
-```bash [pnpm]
-pnpm add -D @gramio/test
-```
-
-```bash [bun]
-bun add -d @gramio/test
-```
-
+::: pm-add -D @gramio/test
 :::
 
 ## Quick Start

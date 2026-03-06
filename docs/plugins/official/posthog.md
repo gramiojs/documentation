@@ -16,24 +16,7 @@ You can use [PostHog Cloud free tier](https://posthog.com/pricing) or [self-host
 
 ### Installation
 
-::: code-group
-
-```bash [npm]
-npm install @gramio/posthog
-```
-
-```bash [yarn]
-yarn add @gramio/posthog
-```
-
-```bash [pnpm]
-pnpm add @gramio/posthog
-```
-
-```bash [bun]
-bun install @gramio/posthog
-```
-
+::: pm-add @gramio/posthog
 :::
 
 ### Usage

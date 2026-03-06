@@ -27,24 +27,7 @@ No React dependency required — the package provides its own JSX runtime.
 
 ## Installation
 
-::: code-group
-
-```bash [npm]
-npm install @gramio/jsx
-```
-
-```bash [yarn]
-yarn add @gramio/jsx
-```
-
-```bash [pnpm]
-pnpm add @gramio/jsx
-```
-
-```bash [bun]
-bun add @gramio/jsx
-```
-
+::: pm-add @gramio/jsx
 :::
 
 ## Configuration

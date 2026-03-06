@@ -27,24 +27,7 @@ Open [@BotFather](https://t.me/BotFather) in Telegram, send `/newbot`, and follo
 
 One command sets up everything — TypeScript, linting, ORM, plugins, Docker — your choice.
 
-::: code-group
-
-```bash [npm]
-npm create gramio@latest ./bot
-```
-
-```bash [yarn]
-yarn create gramio@latest ./bot
-```
-
-```bash [pnpm]
-pnpm create gramio@latest ./bot
-```
-
-```bash [bun]
-bun create gramio@latest ./bot
-```
-
+::: pm-create gramio@latest ./bot
 :::
 
 ::: details What's included in the scaffolder?
@@ -56,25 +39,7 @@ bun create gramio@latest ./bot
 
 ## 3. Start developing
 
-::: code-group
-
-```bash [npm]
-cd bot && npm run dev
-```
-
-```bash [yarn]
-cd bot && yarn dev
-```
-
-```bash [pnpm]
-cd bot && pnpm dev
-```
-
-```bash [bun]
-cd bot && bun dev
-```
-
-:::
+<PackageManagers type="run" pkg="dev" prefix="cd bot &&" />
 
 Your bot is live and hot-reloading. **That's it.** Now let's see what you can build.
 
@@ -231,24 +196,7 @@ Plugins are installed with `.extend()`. They can add new context properties, reg
 
 Here's how to add [Scenes](/plugins/official/scenes) for multi-step conversation flows:
 
-::: code-group
-
-```bash [npm]
-npm install @gramio/scenes
-```
-
-```bash [yarn]
-yarn add @gramio/scenes
-```
-
-```bash [pnpm]
-pnpm add @gramio/scenes
-```
-
-```bash [bun]
-bun add @gramio/scenes
-```
-
+::: pm-add @gramio/scenes
 :::
 
 ```ts twoslash
@@ -307,24 +255,7 @@ Extend your bot with first-party plugins that integrate seamlessly:
 
 Prefer to wire things up yourself?
 
-::: code-group
-
-```bash [npm]
-npm install gramio
-```
-
-```bash [yarn]
-yarn add gramio
-```
-
-```bash [pnpm]
-pnpm add gramio
-```
-
-```bash [bun]
-bun install gramio
-```
-
+::: pm-add gramio
 :::
 
 Create `src/index.ts`:

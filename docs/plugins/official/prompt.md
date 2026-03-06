@@ -28,24 +28,7 @@ A plugin that provides [Prompt](#prompt) and [Wait](#wait) methods
 
 ### Installation
 
-::: code-group
-
-```bash [npm]
-npm install @gramio/prompt
-```
-
-```bash [yarn]
-yarn add @gramio/prompt
-```
-
-```bash [pnpm]
-pnpm add @gramio/prompt
-```
-
-```bash [bun]
-bun install @gramio/prompt
-```
-
+::: pm-add @gramio/prompt
 :::
 
 ## Usage

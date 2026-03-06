@@ -35,28 +35,10 @@ head:
 
 ## Установка
 
-::: code-group
+::: pm-add gramio
+:::
 
-```bash [npm]
-npm install gramio
-npm uninstall node-telegram-bot-api @types/node-telegram-bot-api
-```
-
-```bash [yarn]
-yarn add gramio
-yarn remove node-telegram-bot-api @types/node-telegram-bot-api
-```
-
-```bash [pnpm]
-pnpm add gramio
-pnpm remove node-telegram-bot-api @types/node-telegram-bot-api
-```
-
-```bash [bun]
-bun add gramio
-bun remove node-telegram-bot-api @types/node-telegram-bot-api
-```
-
+::: pm-remove node-telegram-bot-api @types/node-telegram-bot-api
 :::
 
 ---

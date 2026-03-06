@@ -190,24 +190,7 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
 
 ## Начало работы
 
-::: code-group
-
-```bash [npm]
-npm create gramio@latest ./bot
-```
-
-```bash [yarn]
-yarn create gramio@latest ./bot
-```
-
-```bash [pnpm]
-pnpm create gramio@latest ./bot
-```
-
-```bash [bun]
-bun create gramio@latest ./bot
-```
-
+::: pm-create gramio@latest ./bot
 :::
 
 [Полный гайд по началу работы →](/ru/get-started)

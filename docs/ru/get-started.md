@@ -27,24 +27,7 @@ head:
 
 Одна команда настраивает всё — TypeScript, линтинг, ORM, плагины, Docker — на ваш выбор.
 
-::: code-group
-
-```bash [npm]
-npm create gramio@latest ./bot
-```
-
-```bash [yarn]
-yarn create gramio@latest ./bot
-```
-
-```bash [pnpm]
-pnpm create gramio@latest ./bot
-```
-
-```bash [bun]
-bun create gramio@latest ./bot
-```
-
+::: pm-create gramio@latest ./bot
 :::
 
 ::: details Что можно выбрать в генераторе?
@@ -56,25 +39,7 @@ bun create gramio@latest ./bot
 
 ## 3. Запустите разработку
 
-::: code-group
-
-```bash [npm]
-cd bot && npm run dev
-```
-
-```bash [yarn]
-cd bot && yarn dev
-```
-
-```bash [pnpm]
-cd bot && pnpm dev
-```
-
-```bash [bun]
-cd bot && bun dev
-```
-
-:::
+<PackageManagers type="run" pkg="dev" prefix="cd bot &&" />
 
 Бот работает и перезапускается при изменениях. **Готово.** Теперь посмотрим, что можно с этим сделать.
 
@@ -231,24 +196,7 @@ bot.start();
 
 Пример подключения [Scenes](/ru/plugins/official/scenes) для многошаговых диалогов:
 
-::: code-group
-
-```bash [npm]
-npm install @gramio/scenes
-```
-
-```bash [yarn]
-yarn add @gramio/scenes
-```
-
-```bash [pnpm]
-pnpm add @gramio/scenes
-```
-
-```bash [bun]
-bun add @gramio/scenes
-```
-
+::: pm-add @gramio/scenes
 :::
 
 ```ts twoslash
@@ -307,24 +255,7 @@ bot.start();
 
 Предпочитаете настроить всё самостоятельно?
 
-::: code-group
-
-```bash [npm]
-npm install gramio
-```
-
-```bash [yarn]
-yarn add gramio
-```
-
-```bash [pnpm]
-pnpm add gramio
-```
-
-```bash [bun]
-bun install gramio
-```
-
+::: pm-add gramio
 :::
 
 Создайте `src/index.ts`:

@@ -12,24 +12,7 @@ Sentry error tracking for GramIO with automatic error capture, user identificati
 
 ### Installation
 
-::: code-group
-
-```bash [npm]
-npm install @gramio/sentry
-```
-
-```bash [yarn]
-yarn add @gramio/sentry
-```
-
-```bash [pnpm]
-pnpm add @gramio/sentry
-```
-
-```bash [bun]
-bun install @gramio/sentry
-```
-
+::: pm-add @gramio/sentry
 :::
 
 ### Usage

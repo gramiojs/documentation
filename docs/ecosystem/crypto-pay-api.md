@@ -28,24 +28,7 @@ Works on **Node.js**, **Bun**, and **Deno**.
 
 ## Installation
 
-::: code-group
-
-```bash [npm]
-npm install @gramio/crypto-pay-api
-```
-
-```bash [yarn]
-yarn add @gramio/crypto-pay-api
-```
-
-```bash [pnpm]
-pnpm add @gramio/crypto-pay-api
-```
-
-```bash [bun]
-bun install @gramio/crypto-pay-api
-```
-
+::: pm-add @gramio/crypto-pay-api
 :::
 
 ## Quick start

@@ -26,24 +26,7 @@ head:
 
 ## Установка
 
-::: code-group
-
-```bash [npm]
-npm install wrappergram
-```
-
-```bash [yarn]
-yarn add wrappergram
-```
-
-```bash [pnpm]
-pnpm add wrappergram
-```
-
-```bash [bun]
-bun install wrappergram
-```
-
+::: pm-add wrappergram
 :::
 
 ## Быстрый старт

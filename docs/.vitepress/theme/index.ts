@@ -12,13 +12,14 @@ import BroadcastVisualizer from "../components/BroadcastVisualizer.vue";
 import UpdatePipelineVisualizer from "../components/UpdatePipelineVisualizer.vue";
 import ApiParam from "../components/ApiParam.vue";
 import { enhanceAppWithPackageManagers } from "vitepress-plugin-package-managers/client";
+import { icons } from "vitepress-plugin-package-managers/icons";
 
 export default {
 	extends: Theme,
 	Layout,
 	enhanceApp({ app }: EnhanceAppContext) {
 		app.use(TwoslashFloatingVue);
-		enhanceAppWithPackageManagers(app);
+		enhanceAppWithPackageManagers(app, { icons });
 		app.component("CopyOrDownloadAsMarkdownButtons", CopyOrDownloadAsMarkdownButtons);
 		app.component("PollingVsWebhook", PollingVsWebhook);
 		app.component("BroadcastVisualizer", BroadcastVisualizer);

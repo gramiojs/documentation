@@ -16,24 +16,7 @@ A template system for reusable message views. Auto-detects whether to send a new
 
 ### Installation
 
-::: code-group
-
-```bash [npm]
-npm install @gramio/views
-```
-
-```bash [yarn]
-yarn add @gramio/views
-```
-
-```bash [pnpm]
-pnpm add @gramio/views
-```
-
-```bash [bun]
-bun install @gramio/views
-```
-
+::: pm-add @gramio/views
 :::
 
 ### Usage

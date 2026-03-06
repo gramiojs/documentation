@@ -33,28 +33,10 @@ This guide is for developers with a bot written in [grammY](https://grammy.dev/)
 
 ## Installation
 
-::: code-group
+::: pm-add gramio
+:::
 
-```bash [npm]
-npm install gramio
-npm uninstall grammy
-```
-
-```bash [yarn]
-yarn add gramio
-yarn remove grammy
-```
-
-```bash [pnpm]
-pnpm add gramio
-pnpm remove grammy
-```
-
-```bash [bun]
-bun add gramio
-bun remove grammy
-```
-
+::: pm-remove grammy
 :::
 
 ---

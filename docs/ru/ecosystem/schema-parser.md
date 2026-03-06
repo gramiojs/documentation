@@ -26,24 +26,7 @@ TypeScript-библиотека, которая парсит HTML-докумен
 
 ## Установка
 
-::: code-group
-
-```bash [npm]
-npm install @gramio/schema-parser
-```
-
-```bash [yarn]
-yarn add @gramio/schema-parser
-```
-
-```bash [pnpm]
-pnpm add @gramio/schema-parser
-```
-
-```bash [bun]
-bun add @gramio/schema-parser
-```
-
+::: pm-add @gramio/schema-parser
 :::
 
 ## Базовое использование

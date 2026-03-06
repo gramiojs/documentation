@@ -23,24 +23,7 @@ For start, we recommend [`Telegram apps (tma.js)`](https://docs.telegram-mini-ap
 
 With [create-gramio](https://github.com/gramiojs/create-gramio) you can easily start developing Telegram mini app in monorepo. You can start a project with [tma.js](https://docs.telegram-mini-apps.com/), [Elysiajs](https://elysiajs.com/) and GramIO in a minute!
 
-::: code-group
-
-```bash [npm]
-npm create gramio@latest ./bot
-```
-
-```bash [yarn]
-yarn create gramio@latest ./bot
-```
-
-```bash [pnpm]
-pnpm create gramio@latest ./bot
-```
-
-```bash [bun]
-bun create gramio@latest ./bot
-```
-
+::: pm-create gramio@latest ./bot
 :::
 
 and choose the type of project you need!
@@ -58,24 +41,7 @@ For example, this is what a monorepo created using [create-gramio](https://githu
 
 ### Scaffold via [`Telegram apps (tma.js)`](https://docs.telegram-mini-apps.com/)
 
-::: code-group
-
-```bash [npm]
-npm create @telegram-apps/mini-app@latest ./bot
-```
-
-```bash [yarn]
-yarn create @telegram-apps/mini-app@latest ./bot
-```
-
-```bash [pnpm]
-pnpm create @telegram-apps/mini-app@latest ./bot
-```
-
-```bash [bun]
-bun create @telegram-apps/mini-app@latest ./bot
-```
-
+::: pm-create @telegram-apps/mini-app@latest ./bot
 :::
 
 This command will help you scaffold a project with a template that matches you from the list:

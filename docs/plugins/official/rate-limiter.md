@@ -10,24 +10,7 @@
 
 ### Installation
 
-::: code-group
-
-```bash [npm]
-npm install @gramio/rate-limit
-```
-
-```bash [yarn]
-yarn add @gramio/rate-limit
-```
-
-```bash [pnpm]
-pnpm add @gramio/rate-limit
-```
-
-```bash [bun]
-bun add @gramio/rate-limit
-```
-
+::: pm-add @gramio/rate-limit
 :::
 
 ### Usage

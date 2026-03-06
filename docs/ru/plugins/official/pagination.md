@@ -29,24 +29,7 @@ Fluent API с цепочками вызовов для создания **пос
 
 ## Установка
 
-::: code-group
-
-```bash [npm]
-npm install @gramio/pagination
-```
-
-```bash [yarn]
-yarn add @gramio/pagination
-```
-
-```bash [pnpm]
-pnpm add @gramio/pagination
-```
-
-```bash [bun]
-bun install @gramio/pagination
-```
-
+::: pm-add @gramio/pagination
 :::
 
 > [!IMPORTANT]

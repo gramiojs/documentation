@@ -25,24 +25,7 @@ Session plugin for GramIO.
 
 ### Installation
 
-::: code-group
-
-```bash [npm]
-npm install @gramio/session
-```
-
-```bash [yarn]
-yarn add @gramio/session
-```
-
-```bash [pnpm]
-pnpm add @gramio/session
-```
-
-```bash [bun]
-bun install @gramio/session
-```
-
+::: pm-add @gramio/session
 :::
 
 ## Usage

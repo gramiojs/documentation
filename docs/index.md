@@ -190,24 +190,7 @@ Bot API 9.5 support lands across the ecosystem (member tags, `date_time` entitie
 
 ## Get started
 
-::: code-group
-
-```bash [npm]
-npm create gramio@latest ./bot
-```
-
-```bash [yarn]
-yarn create gramio@latest ./bot
-```
-
-```bash [pnpm]
-pnpm create gramio@latest ./bot
-```
-
-```bash [bun]
-bun create gramio@latest ./bot
-```
-
+::: pm-create gramio@latest ./bot
 :::
 
 [Full get started guide →](/get-started)

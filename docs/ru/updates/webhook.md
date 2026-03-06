@@ -212,24 +212,7 @@ await bot.start({
 
 Установите пакет:
 
-::: code-group
-
-```bash [npm]
-npm install untun
-```
-
-```bash [yarn]
-yarn add untun
-```
-
-```bash [pnpm]
-pnpm install untun
-```
-
-```bash [bun]
-bun install untun
-```
-
+::: pm-add untun
 :::
 
 Запустите туннель и установите вебхук:
@@ -250,25 +233,7 @@ bot.start({
 
 Мы прослушиваем порт `3000` локально. Поэтому открываем туннель следующим образом:
 
-::: code-group
-
-```bash [npm]
-npx untun@latest tunnel http://localhost:3000
-```
-
-```bash [yarn]
-yarn dlx untun@latest tunnel http://localhost:3000
-```
-
-```bash [pnpm]
-pnpm dlx untun@latest tunnel http://localhost:3000
-```
-
-```bash [bun]
-bunx untun@latest tunnel http://localhost:3000
-```
-
-:::
+<PackageManagers type="dlx" pkg="untun@latest tunnel http://localhost:3000" />
 
 ```bash
 ◐ Starting cloudflared tunnel to http://localhost:3000

@@ -34,7 +34,6 @@
 		"vitepress": "^1.6.4",
 		"vitepress-plugin-group-icons": "^1.7.1",
 		"vitepress-plugin-llms": "^1.11.0",
-		"vitepress-plugin-package-managers": "0.1.1",
 		"zod": "^3.25.4"
 	},
 	"overrides": {
@@ -51,5 +50,8 @@
 		"gen:typedoc": "bun scripts/generate-typedoc.ts"
 	},
 	"trustedDependencies": ["@biomejs/biome"],
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"vitepress-plugin-package-managers": "0.2.1"
+	}
 }

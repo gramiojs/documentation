@@ -185,24 +185,7 @@ const views = await storage.get("counter:views"); // number | undefined
 
 ##### Установка
 
-::: code-group
-
-```bash [npm]
-npm install @gramio/storage
-```
-
-```bash [yarn]
-yarn add @gramio/storage
-```
-
-```bash [pnpm]
-pnpm add @gramio/storage
-```
-
-```bash [bun]
-bun install @gramio/storage
-```
-
+::: pm-add @gramio/storage
 :::
 
 ##### Использование
@@ -238,24 +221,7 @@ const storage = inMemoryStorage(map);
 
 ##### Установка
 
-::: code-group
-
-```bash [npm]
-npm install @gramio/storage-redis ioredis
-```
-
-```bash [yarn]
-yarn add @gramio/storage-redis ioredis
-```
-
-```bash [pnpm]
-pnpm add @gramio/storage-redis ioredis
-```
-
-```bash [bun]
-bun install @gramio/storage-redis ioredis
-```
-
+::: pm-add @gramio/storage-redis ioredis
 :::
 
 ##### Использование
@@ -373,24 +339,7 @@ const storage = sqliteStorage({
 
 ##### Установка
 
-::: code-group
-
-```bash [npm]
-npm install @gramio/storage-cloudflare
-```
-
-```bash [yarn]
-yarn add @gramio/storage-cloudflare
-```
-
-```bash [pnpm]
-pnpm add @gramio/storage-cloudflare
-```
-
-```bash [bun]
-bun install @gramio/storage-cloudflare
-```
-
+::: pm-add @gramio/storage-cloudflare
 :::
 
 ##### Использование

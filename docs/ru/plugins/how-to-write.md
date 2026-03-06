@@ -50,24 +50,7 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
 
 Эта команда поможет вам создать плагин с GramIO самым простым способом.
 
-::: code-group
-
-```bash [npm]
-npm create gramio-plugin ./plugin
-```
-
-```bash [yarn]
-yarn create gramio-plugin ./plugin
-```
-
-```bash [pnpm]
-pnpm create gramio-plugin ./plugin
-```
-
-```bash [bun]
-bun create gramio-plugin ./plugin
-```
-
+::: pm-create gramio-plugin ./plugin
 :::
 
 ## Поддерживаемые инструменты

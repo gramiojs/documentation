@@ -13,24 +13,7 @@ Key features:
 
 ### Installation
 
-::: code-group
-
-```bash [npm]
-npm install @gramio/init-data
-```
-
-```bash [yarn]
-yarn add @gramio/init-data
-```
-
-```bash [pnpm]
-pnpm add @gramio/init-data
-```
-
-```bash [bun]
-bun install @gramio/init-data
-```
-
+::: pm-add @gramio/init-data
 :::
 
 # getBotTokenSecretKey

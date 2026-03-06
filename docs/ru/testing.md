@@ -26,24 +26,7 @@ Event-driven фреймворк для тестирования ботов, на
 
 ## Установка
 
-::: code-group
-
-```bash [npm]
-npm install -D @gramio/test
-```
-
-```bash [yarn]
-yarn add -D @gramio/test
-```
-
-```bash [pnpm]
-pnpm add -D @gramio/test
-```
-
-```bash [bun]
-bun add -d @gramio/test
-```
-
+::: pm-add -D @gramio/test
 :::
 
 ## Быстрый старт

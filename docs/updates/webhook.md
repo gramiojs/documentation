@@ -212,24 +212,7 @@ This method allows you to set a link to our tunnel directly in the script.
 
 Install package:
 
-::: code-group
-
-```bash [npm]
-npm install untun
-```
-
-```bash [yarn]
-yarn add untun
-```
-
-```bash [pnpm]
-pnpm install untun
-```
-
-```bash [bun]
-bun install untun
-```
-
+::: pm-add untun
 :::
 
 Start tunnel and set webhook:
@@ -250,25 +233,7 @@ bot.start({
 
 We are listening to port `3000` locally. Therefore, we open the tunnel like this:
 
-::: code-group
-
-```bash [npm]
-npx untun@latest tunnel http://localhost:3000
-```
-
-```bash [yarn]
-yarn dlx untun@latest tunnel http://localhost:3000
-```
-
-```bash [pnpm]
-pnpm dlx untun@latest tunnel http://localhost:3000
-```
-
-```bash [bun]
-bunx untun@latest tunnel http://localhost:3000
-```
-
-:::
+<PackageManagers type="dlx" pkg="untun@latest tunnel http://localhost:3000" />
 
 ```bash
 ◐ Starting cloudflared tunnel to http://localhost:3000

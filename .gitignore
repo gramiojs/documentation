@@ -22,3 +22,4 @@ service_account.json
 docs/api/
 !docs/api/index.md
 memory
+docs/.vitepress/.temp

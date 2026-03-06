@@ -316,24 +316,7 @@ format`${join(["test", "other"], (x) => format`${bold(x)}`, "\n")}`;
 
 Для работы с HTML требуется [`node-html-parser`](https://www.npmjs.com/package/node-html-parser) в качестве peer-зависимости:
 
-::: code-group
-
-```bash [npm]
-npm install node-html-parser
-```
-
-```bash [yarn]
-yarn add node-html-parser
-```
-
-```bash [pnpm]
-pnpm add node-html-parser
-```
-
-```bash [bun]
-bun add node-html-parser
-```
-
+::: pm-add node-html-parser
 :::
 
 ### Использование
@@ -388,24 +371,7 @@ bot.command("start", (ctx) => {
 
 Для работы с Markdown необходим [`marked`](https://www.npmjs.com/package/marked) как peer-зависимость:
 
-::: code-group
-
-```bash [npm]
-npm install marked
-```
-
-```bash [yarn]
-yarn add marked
-```
-
-```bash [pnpm]
-pnpm add marked
-```
-
-```bash [bun]
-bun install marked
-```
-
+::: pm-add marked
 :::
 
 ### Использование

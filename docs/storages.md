@@ -187,24 +187,7 @@ The `Storage` interface in v2.0.x uses a generic `Data` type with typed keys acr
 
 ##### Installation
 
-::: code-group
-
-```bash [npm]
-npm install @gramio/storage
-```
-
-```bash [yarn]
-yarn add @gramio/storage
-```
-
-```bash [pnpm]
-pnpm add @gramio/storage
-```
-
-```bash [bun]
-bun install @gramio/storage
-```
-
+::: pm-add @gramio/storage
 :::
 
 ##### Usage
@@ -240,24 +223,7 @@ const storage = inMemoryStorage(map);
 
 ##### Installation
 
-::: code-group
-
-```bash [npm]
-npm install @gramio/storage-redis ioredis
-```
-
-```bash [yarn]
-yarn add @gramio/storage-redis ioredis
-```
-
-```bash [pnpm]
-pnpm add @gramio/storage-redis ioredis
-```
-
-```bash [bun]
-bun install @gramio/storage-redis ioredis
-```
-
+::: pm-add @gramio/storage-redis ioredis
 :::
 
 ##### Usage
@@ -375,24 +341,7 @@ const storage = sqliteStorage({
 
 ##### Installation
 
-::: code-group
-
-```bash [npm]
-npm install @gramio/storage-cloudflare
-```
-
-```bash [yarn]
-yarn add @gramio/storage-cloudflare
-```
-
-```bash [pnpm]
-pnpm add @gramio/storage-cloudflare
-```
-
-```bash [bun]
-bun install @gramio/storage-cloudflare
-```
-
+::: pm-add @gramio/storage-cloudflare
 :::
 
 ##### Usage

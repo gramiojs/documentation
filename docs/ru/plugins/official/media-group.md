@@ -43,24 +43,7 @@ bot.start();
 
 ### Установка
 
-::: code-group
-
-```bash [npm]
-npm install @gramio/media-group
-```
-
-```bash [yarn]
-yarn add @gramio/media-group
-```
-
-```bash [pnpm]
-pnpm add @gramio/media-group
-```
-
-```bash [bun]
-bun install @gramio/media-group
-```
-
+::: pm-add @gramio/media-group
 :::
 
 ### Настройка

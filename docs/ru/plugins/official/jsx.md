@@ -27,24 +27,7 @@ head:
 
 ## Установка
 
-::: code-group
-
-```bash [npm]
-npm install @gramio/jsx
-```
-
-```bash [yarn]
-yarn add @gramio/jsx
-```
-
-```bash [pnpm]
-pnpm add @gramio/jsx
-```
-
-```bash [bun]
-bun add @gramio/jsx
-```
-
+::: pm-add @gramio/jsx
 :::
 
 ## Настройка

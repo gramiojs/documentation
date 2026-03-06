@@ -12,24 +12,7 @@
 
 ### Установка
 
-::: code-group
-
-```bash [npm]
-npm install @gramio/sentry
-```
-
-```bash [yarn]
-yarn add @gramio/sentry
-```
-
-```bash [pnpm]
-pnpm add @gramio/sentry
-```
-
-```bash [bun]
-bun install @gramio/sentry
-```
-
+::: pm-add @gramio/sentry
 :::
 
 ### Использование
