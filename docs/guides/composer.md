@@ -50,7 +50,7 @@ const bot = new Bot(token)
 The difference: a `Composer` isn't a bot. It has no token, no API connection. It's a pipeline segment you compose into a bot with `.extend()`.
 
 ```ts
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 
 // A self-contained feature module
 const adminRouter = new Composer()
@@ -72,7 +72,7 @@ The most common use: one file per feature.
 
 ```ts
 // src/features/start.ts
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 
 export const startRouter = new Composer()
     .command("start", (ctx) => ctx.send("Hello! 👋"))
@@ -81,7 +81,7 @@ export const startRouter = new Composer()
 
 ```ts
 // src/features/admin.ts
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 
 const ADMIN_ID = Number(process.env.ADMIN_ID);
 
@@ -113,7 +113,7 @@ Often multiple modules need the same data — a user record, config, a database 
 
 ```ts
 // src/middleware/user.ts
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 
 export const withUser = new Composer()
     .derive(async (ctx) => ({
@@ -126,7 +126,7 @@ Extend it in your feature module to get the type:
 
 ```ts
 // src/features/profile.ts
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 import { withUser } from "../middleware/user";
 
 export const profileRouter = new Composer()
@@ -164,7 +164,8 @@ When you extract a handler to a standalone function, TypeScript needs a type ann
 
 ```ts
 // src/middleware/user.ts
-import { Composer, type ContextOf } from "@gramio/composer";
+import { Composer } from "gramio";
+import type { ContextOf } from "@gramio/composer";
 
 export const withUser = new Composer()
     .derive(() => ({
@@ -187,7 +188,7 @@ export async function handleProfile(ctx: WithUser) {
 
 ```ts
 // src/features/profile.ts
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 import { withUser } from "../middleware/user";
 import { handleProfile } from "../handlers/profile";
 
@@ -204,7 +205,7 @@ For things that don't change per request — database clients, config, service i
 
 ```ts
 // src/middleware/deps.ts
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 import { db } from "../db";
 import { config } from "../config";
 
@@ -215,7 +216,7 @@ export const withDeps = new Composer()
 
 ```ts
 // src/features/admin.ts
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 import { withDeps } from "../middleware/deps";
 
 export const adminRouter = new Composer()
@@ -287,7 +288,7 @@ export const rateLimitPlugin = new Plugin("rate-limit")
     });
 
 // ✅ Composer — for everything else inside your own bot
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 const adminRouter = new Composer()
     .guard((ctx) => ctx.from?.id === ADMIN_ID)
     .command("ban", (ctx) => ctx.send("Banned!"));
