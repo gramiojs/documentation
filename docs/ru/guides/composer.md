@@ -50,7 +50,7 @@ const bot = new Bot(token)
 Отличие: `Composer` — не бот. У него нет токена, нет API-соединения. Это сегмент пайплайна, который вы компонуете в бот через `.extend()`.
 
 ```ts
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 
 // Самодостаточный feature-модуль
 const adminRouter = new Composer()
@@ -72,7 +72,7 @@ const bot = new Bot(token)
 
 ```ts
 // src/features/start.ts
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 
 export const startRouter = new Composer()
     .command("start", (ctx) => ctx.send("Привет! 👋"))
@@ -81,7 +81,7 @@ export const startRouter = new Composer()
 
 ```ts
 // src/features/admin.ts
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 
 const ADMIN_ID = Number(process.env.ADMIN_ID);
 
@@ -113,7 +113,7 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
 
 ```ts
 // src/middleware/user.ts
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 
 export const withUser = new Composer()
     .derive(async (ctx) => ({
@@ -126,7 +126,7 @@ export const withUser = new Composer()
 
 ```ts
 // src/features/profile.ts
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 import { withUser } from "../middleware/user";
 
 export const profileRouter = new Composer()
@@ -164,7 +164,8 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
 
 ```ts
 // src/middleware/user.ts
-import { Composer, type ContextOf } from "@gramio/composer";
+import { Composer } from "gramio";
+import type { ContextOf } from "@gramio/composer";
 
 export const withUser = new Composer()
     .derive(() => ({
@@ -187,7 +188,7 @@ export async function handleProfile(ctx: WithUser) {
 
 ```ts
 // src/features/profile.ts
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 import { withUser } from "../middleware/user";
 import { handleProfile } from "../handlers/profile";
 
@@ -204,7 +205,7 @@ export const profileRouter = new Composer()
 
 ```ts
 // src/middleware/deps.ts
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 import { db } from "../db";
 import { config } from "../config";
 
@@ -215,7 +216,7 @@ export const withDeps = new Composer()
 
 ```ts
 // src/features/admin.ts
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 import { withDeps } from "../middleware/deps";
 
 export const adminRouter = new Composer()
@@ -287,7 +288,7 @@ export const rateLimitPlugin = new Plugin("rate-limit")
     });
 
 // ✅ Composer — для всего остального внутри вашего бота
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 const adminRouter = new Composer()
     .guard((ctx) => ctx.from?.id === ADMIN_ID)
     .command("ban", (ctx) => ctx.send("Заблокирован!"));
