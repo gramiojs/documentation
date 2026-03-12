@@ -159,14 +159,14 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
 ## Условная регистрация: when()
 
 ::: info API уровня Composer
-`when()` доступен на `Composer` из `@gramio/composer`. Создайте конвейер как `Composer`, затем подключите его через `bot.extend()`.
+`when()` доступен на `Composer` из `gramio`. Создайте конвейер как `Composer`, затем подключите его через `bot.extend()`.
 :::
 
 Регистрируйте middleware условно при **запуске** (не на каждом запросе) с помощью `when()`. Middleware либо регистрируется, либо нет — накладных расходов в рантайме нет:
 
 ```ts
 import { Bot } from "gramio";
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 
 const pipeline = new Composer()
     .when(
@@ -187,11 +187,11 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
 
 ## Компоновка и переиспользование: Composer
 
-Для переиспользования middleware-групп используйте `Composer` из `@gramio/composer`:
+Для переиспользования middleware-групп используйте `Composer` из `gramio`:
 
 ```ts
 import { Bot } from "gramio";
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 
 // ── Переиспользуемый middleware с derive ───────────────────────────────
 const userMiddleware = new Composer()
@@ -218,7 +218,7 @@ Middleware выполняется **в порядке регистрации**. 
 
 ```ts
 import { Bot } from "gramio";
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 
 const logger = new Composer().use(async (ctx, next) => {
     console.log("до:", ctx.updateType);
@@ -239,7 +239,7 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
 
 ```ts
 import { Bot } from "gramio";
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 
 const db = {
     getUser: (id: number) =>
@@ -263,7 +263,7 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
 
 ```ts
 // middleware/user.ts
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 export const withUser = new Composer()
     .derive(async (ctx) => ({ user: await db.getUser(ctx.from?.id ?? 0) }));
 
@@ -278,7 +278,7 @@ const bot = new Bot(TOKEN)
 
 ```ts
 import { Bot } from "gramio";
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 
 const FEATURES = {
     debugMode: process.env.NODE_ENV !== "production",
@@ -316,7 +316,7 @@ bot
 
 ```ts
 // middleware/user.ts
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 
 export const db = {
     getUser: (id: number) =>
@@ -341,7 +341,7 @@ export const withUser = new Composer({ name: "withUser" })
 
 ```ts
 // routers/admin.ts
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 import { withUser } from "../middleware/user";
 
 export const adminRouter = new Composer({ name: "adminRouter" })
@@ -362,7 +362,7 @@ TypeScript выводит `ctx.user` и `ctx.db` потому что `adminRoute
 
 ```ts
 // routers/chat.ts
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 import { db, withUser } from "../middleware/user";
 
 const withChat = new Composer({ name: "withChat" })
@@ -437,7 +437,7 @@ TypeScript-типы корректны; рантайм — нет. Это еди
 Один DB-запрос на обновление, `ctx.user` доступен везде.
 
 ::: tip `guard()` — это уровень Composer
-`guard()` доступен на `Composer` из `@gramio/composer`, а не напрямую на `Bot`. Именно поэтому `adminRouter` — это `Composer`: он получает полный composition API, а затем передаётся в `bot.extend()`.
+`guard()` доступен на `Composer` из `gramio`, а не напрямую на `Bot`. Именно поэтому `adminRouter` — это `Composer`: он получает полный composition API, а затем передаётся в `bot.extend()`.
 :::
 
 ## Итог
