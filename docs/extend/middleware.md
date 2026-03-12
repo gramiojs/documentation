@@ -173,14 +173,14 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
 ## Build-Time Conditionals: when()
 
 ::: info Composer-level API
-`when()` is available on `Composer` from `@gramio/composer`. Create your pipeline as a `Composer`, then pass it to `bot.extend()`.
+`when()` is available on `Composer` from `gramio`. Create your pipeline as a `Composer`, then pass it to `bot.extend()`.
 :::
 
 Register middleware conditionally at **startup** (not per-request) using `when()`. The middleware is either registered or not — there's no runtime overhead:
 
 ```ts
 import { Bot } from "gramio";
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 
 const pipeline = new Composer()
     .when(
@@ -206,7 +206,7 @@ The real power comes when you extract common middleware into a **`Composer`** an
 
 ```ts
 import { Bot } from "gramio";
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 
 // ── shared middleware ─────────────────────────────────────────────────
 const db = {
@@ -232,7 +232,7 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
     });
 ```
 
-`Composer` from `@gramio/composer` is the building block for reusable middleware. Think of it as a named, extractable pipeline segment.
+`Composer` from `gramio` is the building block for reusable middleware. Think of it as a named, extractable pipeline segment.
 
 ### Middleware order matters
 
@@ -240,7 +240,7 @@ Middleware runs in **registration order**. A `Composer` injects its middleware a
 
 ```ts
 import { Bot } from "gramio";
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 
 const logger = new Composer().use(async (ctx, next) => {
     console.log("before:", ctx.updateType);
@@ -261,7 +261,7 @@ Handlers defined inline always have correct types inferred. But when you extract
 
 ```ts
 import { Bot } from "gramio";
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 
 const userMiddleware = new Composer().derive(() => ({
     user: { name: "Alice", premium: true as boolean },
@@ -290,7 +290,7 @@ For simple handlers, keeping them inline in the chain is the most ergonomic — 
 
 ```ts
 import { Bot } from "gramio";
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 
 const db = {
     getUser: (id: number) =>
@@ -314,7 +314,7 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
 
 ```ts
 // middleware/user.ts
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 export const withUser = new Composer()
     .derive(async (ctx) => ({ user: await db.getUser(ctx.from?.id ?? 0) }));
 
@@ -329,7 +329,7 @@ const bot = new Bot(TOKEN)
 
 ```ts
 import { Bot } from "gramio";
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 
 const FEATURES = {
     betaAnalytics: process.env.FEATURE_ANALYTICS === "true",
@@ -369,7 +369,7 @@ Name your shared Composer and mark it `.as("scoped")`. Both matter:
 
 ```ts
 // middleware/user.ts
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 
 export const db = {
     getUser: (id: number) =>
@@ -394,7 +394,7 @@ export const withUser = new Composer({ name: "withUser" })
 
 ```ts
 // routers/admin.ts
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 import { withUser } from "../middleware/user";
 
 export const adminRouter = new Composer({ name: "adminRouter" })
@@ -415,7 +415,7 @@ TypeScript infers `ctx.user` and `ctx.db` because `adminRouter` extends `withUse
 
 ```ts
 // routers/chat.ts
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 import { db, withUser } from "../middleware/user";
 
 const withChat = new Composer({ name: "withChat" })
@@ -490,7 +490,7 @@ It only bites when two routers both call `next()` for the same update, which is 
 One DB query per update, `ctx.user` available everywhere.
 
 ::: tip `guard()` lives on Composer
-`guard()` is available on `Composer` from `@gramio/composer`, not on `Bot` directly. That's why `adminRouter` is a `Composer` — it gets the full composition API — and is then passed to `bot.extend()`.
+`guard()` is available on `Composer` from `gramio`, not on `Bot` directly. That's why `adminRouter` is a `Composer` — it gets the full composition API — and is then passed to `bot.extend()`.
 :::
 
 ## Summary
