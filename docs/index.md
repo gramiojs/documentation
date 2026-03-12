@@ -149,7 +149,7 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
 
 ```ts [Composer]
 import { Bot } from "gramio";
-import { Composer } from "@gramio/composer";
+import { Composer } from "gramio";
 
 // Shared middleware — typed context available in every module
 const withUser = new Composer()
