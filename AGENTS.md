@@ -43,6 +43,13 @@ The `skills/gramio/` directory distills English documentation into concise, code
 - After any skill content change, update `skills/gramio/SKILL.md` tables and bump `skills/gramio/metadata.json` version.
 - English documentation (`docs/`) is the source of truth — skills condense it, they don't replace it.
 
+**Verification is mandatory, not optional.** Any change under `skills/` MUST pass both gates before handoff:
+
+- `bun run check:skills` — strict TypeScript typecheck for every `skills/examples/*.ts`.
+- `bun run test:skills` — runtime behavior check via `@gramio/test`; each example has a matching file in `tests/examples/`.
+
+When adding a new `skills/examples/*.ts`, also add `tests/examples/<name>.test.ts` and `export { bot }` from the example. When a test fails, fix the example — the test represents what users will actually see at runtime. CI (`.github/workflows/skills.yml`) enforces both gates on every push/PR that touches `skills/**` or `tests/**`.
+
 ## Code Example Conventions
 
 ### Twoslash Annotations

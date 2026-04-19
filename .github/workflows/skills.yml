@@ -1,0 +1,39 @@
+name: Verify skills (typecheck + runtime tests)
+
+on:
+  push:
+    paths:
+      - "skills/**"
+      - "tests/**"
+      - "tsconfig.skills.json"
+      - "package.json"
+      - "bun.lock"
+      - ".github/workflows/skills.yml"
+  pull_request:
+    paths:
+      - "skills/**"
+      - "tests/**"
+      - "tsconfig.skills.json"
+      - "package.json"
+      - "bun.lock"
+      - ".github/workflows/skills.yml"
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install modules
+        run: bun install --frozen-lockfile
+
+      - name: Typecheck skill examples
+        run: bun run check:skills
+
+      - name: Run skill example runtime tests
+        run: bun run test:skills

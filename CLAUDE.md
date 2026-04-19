@@ -7,9 +7,11 @@ GramIO is a **TypeScript Telegram bot framework** that runs on Bun, Node.js, and
 ## Commands
 
 ```bash
-bun run dev       # Start local dev server
-bun run build     # Production build (VitePress)
-bun run preview   # Preview the production build
+bun run dev           # Start local dev server
+bun run build         # Production build (VitePress)
+bun run preview       # Preview the production build
+bun run check:skills  # Typecheck every skill example (strict tsc)
+bun run test:skills   # Runtime-test every skill example via @gramio/test
 ```
 
 ## Project Structure
@@ -55,6 +57,21 @@ CLAUDE.md                      # This file — project context for Claude
 - **Homepage changelog banner**: The "Latest Updates" / "Последние обновления" section on `docs/index.md` and `docs/ru/index.md` must always reflect the newest changelog entry. When running `/generate-changelog`, update both homepages with the new entry title, date range, and one-line summary.
 - **Telegram API method links**: When documenting or mentioning a Telegram Bot API method (e.g. `answerInlineQuery`, `sendMessage`), link to its reference page using a relative path `/telegram/methods/{methodName}` (camelCase, no suffix). Example: [`answerInlineQuery`](/telegram/methods/answerInlineQuery).
 - **Context getters — camelCase only**: All `ctx` (context) property accesses use camelCase getters. Never use `ctx.payload` (raw snake_case Telegram object) in documentation examples or code snippets. Every Telegram API field is exposed as a camelCase getter directly on the context (e.g. `ctx.from`, `ctx.from.firstName`, `ctx.chatId`, `ctx.messageId`).
+
+## Skill-verification protocol (MANDATORY)
+
+The `skills/` directory is shipped to users' AI agents — broken examples mislead every downstream agent. Treat skill code as production code, not docs.
+
+Whenever you touch **anything** under `skills/` — examples, references, plugin guides, rules in `SKILL.md` — you MUST, before handing control back to the user:
+
+1. Run `bun run check:skills` and make it green (strict TypeScript — no `any`, no loose types).
+2. Run `bun run test:skills` and make it green (runtime behavior, not just compilation).
+
+If you add a new `skills/examples/*.ts`, also add a matching `tests/examples/*.test.ts` that imports the example's `bot` and drives it with `@gramio/test`'s `TelegramTestEnvironment`. Every example must export `{ bot }` (plus any schemas/scenes the test needs). The harness (`tests/setup.ts`) stubs `Bot.prototype.start` and sets `BOT_TOKEN`, so examples stay copy-pasteable for users.
+
+When a runtime test fails, the example — not the test — is usually wrong. The test is ground truth: it's what will happen when a user runs the snippet. Fix the example, not the assertion.
+
+CI runs both commands on every push/PR that touches `skills/**`, `tests/**`, or the related configs (`.github/workflows/skills.yml`). Don't push a skill change that breaks CI.
 
 ## AI Infrastructure
 
