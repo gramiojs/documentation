@@ -67,3 +67,5 @@ bot.command("request", (context) => {
 });
 
 bot.start();
+
+export { bot };

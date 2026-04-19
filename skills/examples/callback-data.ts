@@ -41,3 +41,5 @@ bot.callbackQuery(/^delete_(\d+)$/, (context) => {
 });
 
 bot.start();
+
+export { bot, selectItem };

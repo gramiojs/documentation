@@ -73,6 +73,8 @@ bot.command("start", (ctx) => {
 
 bot.start();
 
+export { bot, nav };
+
 // ---
 // Why this pattern?
 //

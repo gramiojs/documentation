@@ -16,3 +16,5 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
     });
 
 bot.start();
+
+export { bot };

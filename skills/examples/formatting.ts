@@ -89,3 +89,5 @@ bot.on("message", (context) => {
 });
 
 bot.start();
+
+export { bot };

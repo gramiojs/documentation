@@ -70,3 +70,5 @@ bot.command("refund", async (context) => {
 });
 
 bot.start();
+
+export { bot };

@@ -49,3 +49,5 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
     .command("cancel", (ctx) => ctx.scene.exit());
 
 bot.start();
+
+export { bot, registration };

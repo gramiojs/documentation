@@ -53,3 +53,5 @@ bot.command("safe_api", async (context) => {
 });
 
 bot.start();
+
+export { bot, NoRightsError };

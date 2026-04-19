@@ -54,3 +54,5 @@ bot.command("bun_file", (context) => {
 });
 
 bot.start();
+
+export { bot };
