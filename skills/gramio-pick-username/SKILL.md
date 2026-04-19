@@ -1,6 +1,6 @@
 ---
-description: Pick an available Telegram bot username. Takes a topic (and optional audience/language), generates candidates respecting BotFather's rules, checks availability on t.me via button-text inspection, and returns a ranked shortlist of free names. Use BEFORE `/gramio-new-bot` or whenever the user asks "find a bot username", "check if @foo_bot is taken", "придумай юзернейм для бота", "неминг бота".
-allowed-tools: WebFetch, WebSearch, Read, Write, Bash
+description: Pick an available Telegram bot username. Takes a topic (and optional audience/language), generates candidates respecting BotFather's rules, batch-checks availability on t.me via the bundled `check-usernames.mjs` script, and returns a ranked shortlist of free names. Use BEFORE `/gramio-new-bot` or whenever the user asks "find a bot username", "check if @foo_bot is taken", "придумай юзернейм для бота", "неминг бота".
+allowed-tools: Bash, WebFetch, WebSearch, Read, Write
 ---
 
 # Pick a Telegram Bot Username
@@ -64,26 +64,73 @@ Additional taken-signals to double-check: presence of avatar image, `tgme_page_d
 - **Case doesn't matter**. `@WeatherBot` and `@weatherbot` resolve to the same account. Lowercase your candidates before fetching.
 - **Rate limits exist**. If you batch too aggressively and start seeing 429s or rate-limit pages, back off and slow the batch.
 
-## Fetch protocol (token-efficient)
+## Availability check — use the bundled script, not WebFetch
 
-1. Deduplicate + lowercase the candidate list.
-2. Drop obvious duplicates of already-checked names from prior conversations.
-3. Batch **6–10 parallel WebFetch calls** per message (send them all in one assistant turn).
-4. For each WebFetch, use this exact minimal prompt to save output tokens:
+This skill ships with `check-usernames.mjs` in its own directory. **Always use it** for availability checks — do not fall back to WebFetch per-URL.
 
-   > *"Return ONLY the exact text of the primary CTA button on this page (e.g. 'Start Bot', 'View Bot', 'Send Message', 'View Channel', 'View Group', 'Subscribe'). If no such button exists, return 'NONE'. One line, verbatim, no commentary."*
+Why:
 
-5. Classify each response using the table above.
-6. If batch results are inconclusive, fetch again with a richer prompt that also requests `og:title` and whether an avatar is present.
+- One subprocess invocation returns a compact JSON verdict per username instead of 20+ KB of raw HTML per fetch. Your context stays clean.
+- It validates each name locally (length, charset, suffix, leading digit, consecutive/trailing underscores) before fetching, so invalid candidates cost zero requests.
+- Parallelism is handled in-process with a bounded worker pool (default 8) — no wall-of-tool-calls.
+- Runs on any machine with Node ≥18, Bun, or Deno (all ship a native `fetch`). Zero dependencies. No bash / no Windows `sh` quirks — portable across Claude Code, Cursor, Copilot, and any other agent runtime that can spawn `node`.
 
-### Example fetch call
+### How to invoke
 
+```bash
+# Pass candidates as CLI args (preferred for small batches)
+node skills/gramio-pick-username/check-usernames.mjs --json \
+  weatherbot weatheritbot meteobot kakpogodabot nebobot
+
+# Or pipe from stdin (useful for larger lists)
+printf 'weatherbot\nweatheritbot\nmeteobot\n' | \
+  node skills/gramio-pick-username/check-usernames.mjs --json
+
+# Tuning knobs
+node … --concurrency 4 --timeout 10000 foo_bot bar_bot
 ```
-WebFetch(
-  url="https://t.me/weatheritbot",
-  prompt="Return ONLY the exact text of the primary CTA button (e.g. 'Start Bot', 'View Bot', 'Send Message'). One line, verbatim."
-)
+
+From inside the user's project, the script lives under whatever path they installed the skills to — usually `./skills/gramio-pick-username/check-usernames.mjs`. Check the cwd before running, and if the script isn't where you expect, fall back to `bun` or copy the script to a known location.
+
+### JSON output schema
+
+The `--json` flag emits an array of result objects:
+
+```json
+[
+  {
+    "username": "weatheritbot",
+    "verdict": "free",
+    "kind": "unclaimed",
+    "button": "Send Message",
+    "ogTitle": "Telegram: Contact @weatheritbot",
+    "hasAvatar": false,
+    "status": 200
+  },
+  {
+    "username": "weatherbot",
+    "verdict": "taken",
+    "kind": "bot_live",
+    "button": "Start Bot",
+    "hasAvatar": true,
+    "status": 200
+  },
+  {
+    "username": "1foo",
+    "verdict": "invalid",
+    "reasons": ["MUST_START_WITH_LETTER", "MISSING_BOT_SUFFIX"]
+  }
+]
 ```
+
+Verdicts: `free` · `taken` · `invalid` · `rate_limited` · `error` · `unknown`.
+Kinds (when `taken`): `bot_live` · `bot_no_start` · `user` · `channel` · `group`.
+
+### Handling non-clean results
+
+- `rate_limited` → back off: reduce `--concurrency` to 2–3, wait ~60s, retry only those names. Do not spam the endpoint.
+- `error` → retry once with a higher `--timeout`. If it still fails, mark the name as "unknown, verify manually" in the final report — do not silently treat it as free.
+- `unknown` → the HTML didn't match known patterns (rare). Fetch the page manually once via WebFetch to inspect, then update the classifier if you've found a new pattern.
 
 ## Final ranking (criteria for the shortlist)
 
