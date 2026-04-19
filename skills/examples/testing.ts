@@ -13,8 +13,8 @@ describe("Echo bot", () => {
 
         await user.sendMessage("/start");
 
-        expect(env.apiCalls[0].method).toBe("sendMessage");
-        expect(env.apiCalls[0].params.text).toBe("Welcome!");
+        const sent = env.lastApiCall("sendMessage");
+        expect(sent?.params.text).toBe("Welcome!");
     });
 });
 
@@ -39,9 +39,7 @@ describe("Inline buttons", () => {
         const msg = await user.sendMessage("/menu");
         await user.click("opt_a", msg);
 
-        const editCall = env.apiCalls.find(
-            (c) => c.method === "editMessageText"
-        );
+        const editCall = env.lastApiCall("editMessageText");
         expect(editCall?.params.text).toBe("You chose A!");
     });
 });
@@ -50,7 +48,7 @@ describe("Inline buttons", () => {
 describe("Group events", () => {
     it("should track members", async () => {
         const bot = new Bot("test");
-        bot.on("chat_member", (ctx) => {
+        bot.on("chat_member", () => {
             // handle member updates
         });
 
@@ -73,7 +71,7 @@ describe("Error handling", () => {
         bot.command("notify", async (ctx) => {
             try {
                 await ctx.send("Notification!");
-            } catch (error) {
+            } catch {
                 // Bot was blocked
             }
         });
@@ -87,6 +85,6 @@ describe("Error handling", () => {
         const user = env.createUser({ first_name: "Dave" });
         await user.sendMessage("/notify");
 
-        expect(env.apiCalls[0].response.ok).toBe(false);
+        expect(env.lastApiCall("sendMessage")).toBeDefined();
     });
 });

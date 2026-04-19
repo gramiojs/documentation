@@ -26,7 +26,7 @@ bot.callbackQuery(selectItem, (context) => {
     if (action === "buy") {
         return context.answer(`Buying item #${id}!`);
     }
-    return context.answer(`Item #${id}: Premium widget`, { show_alert: true });
+    return context.answer({ text: `Item #${id}: Premium widget`, show_alert: true });
 });
 
 // Simple string callback
@@ -34,9 +34,10 @@ bot.callbackQuery("cancel", (context) => {
     return context.answer("Cancelled!");
 });
 
-// RegExp callback
+// RegExp callback — context.queryData is the match array here
 bot.callbackQuery(/^delete_(\d+)$/, (context) => {
-    return context.answer(`Deleting item ${context.data}`);
+    const [, id] = context.queryData;
+    return context.answer(`Deleting item ${id}`);
 });
 
 bot.start();

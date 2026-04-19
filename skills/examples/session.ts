@@ -1,15 +1,15 @@
 import { Bot } from "gramio";
-import { sessionPlugin } from "@gramio/session";
+import { session } from "@gramio/session";
 
 const bot = new Bot(process.env.BOT_TOKEN as string)
     .extend(
-        sessionPlugin({
+        session({
             key: "counter",
             initial: () => 0,
         })
     )
     .extend(
-        sessionPlugin({
+        session({
             key: "settings",
             initial: () => ({
                 language: "en",
@@ -42,7 +42,7 @@ const redis = new Redis();
 
 const persistentBot = new Bot(process.env.BOT_TOKEN as string)
     .extend(
-        sessionPlugin({
+        session({
             key: "data",
             initial: () => ({ visits: 0 }),
             storage: redisStorage(redis),

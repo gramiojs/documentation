@@ -32,18 +32,18 @@ bot.command("shop", (context) => {
 // Handle pre-checkout query (must answer within 10 seconds)
 bot.on("pre_checkout_query", (context) => {
     // Validate the purchase — check inventory, user eligibility, etc.
-    return context.answer(true);
+    return context.answer({ ok: true });
 
     // To reject:
-    // return context.answer(false, { error_message: "Item out of stock" });
+    // return context.answer({ ok: false, error_message: "Item out of stock" });
 });
 
 // Handle successful payment
 bot.on("message", (context) => {
-    if (context.successful_payment) {
-        const payment = context.successful_payment;
+    if (context.successfulPayment) {
+        const payment = context.successfulPayment;
         return context.send(
-            `Payment received! Amount: ${payment.total_amount} Stars\nPayload: ${payment.invoice_payload}`
+            `Payment received! Amount: ${payment.totalAmount} Stars\nPayload: ${payment.invoicePayload}`
         );
     }
 });

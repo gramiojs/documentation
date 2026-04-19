@@ -1,11 +1,11 @@
 // Telegram Mini App — Elysia server with init-data auth guard + bot webhook
-import { Bot } from "gramio";
+import { Bot, webhookHandler } from "gramio";
 import {
     validateAndParseInitData,
     signInitData,
     getBotTokenSecretKey,
 } from "@gramio/init-data";
-import { Elysia, t } from "elysia";
+import { Elysia, status, t } from "elysia";
 
 const botToken = process.env.BOT_TOKEN as string;
 const secretKey = getBotTokenSecretKey(botToken);
@@ -25,12 +25,12 @@ const authPlugin = new Elysia({ name: "auth" })
         }),
         response: { 401: t.Literal("UNAUTHORIZED") },
     })
-    .resolve(({ headers, error }) => {
+    .resolve(({ headers }) => {
         const result = validateAndParseInitData(headers["x-init-data"], secretKey);
-        if (!result || !result.user) return error("Unauthorized", "UNAUTHORIZED");
+        if (!result || !result.user) return status(401, "UNAUTHORIZED");
         return { tgId: result.user.id, user: result.user };
     })
-    .as("plugin");
+    .as("scoped");
 
 // Bot instance
 const bot = new Bot(botToken)
@@ -44,10 +44,7 @@ const app = new Elysia()
     .use(authPlugin)
     .get("/user/profile", ({ user }) => ({ id: user.id, name: user.first_name }))
     .get("/user/balance", ({ tgId }) => ({ tgId, balance: 100 }))
-    .post("/webhook", async ({ body }) => {
-        await bot.handleUpdate(body as any);
-        return "ok";
-    })
+    .post("/webhook", webhookHandler(bot, "elysia"))
     .listen(3000);
 
 console.log(`Server running at ${app.server?.url}`);
