@@ -64,6 +64,9 @@ bot.start();
    - **Never use `parse_mode`** — `format` produces `MessageEntity` arrays, not HTML/Markdown strings. Adding `parse_mode: "HTML"` or `"MarkdownV2"` will break the message. GramIO passes entities automatically.
    - **Never use native `.join()`** on arrays of formatted values — it calls `.toString()` on each `Formattable`, silently destroying all styling. Always use the `join` helper: `join(items, (x) => bold(x), "\n")`.
    - **Always wrap styled content in `format\`\``** when composing or reusing — embedding a `Formattable` in a plain template literal (`` `${bold`x`}` ``) strips all entities. Use `format\`${bold\`x\`}\`` instead.
+10. **Callback routing — never parse strings manually** — GramIO has built-in callback routing. Use `bot.callbackQuery("string", handler)`, `bot.callbackQuery(/regex/, handler)`, or type-safe `CallbackData` schemas (`new CallbackData("prefix").number("id").string("action")` → `bot.callbackQuery(schema, handler)` with auto-typed `context.queryData`). **Never use manual `context.data?.startsWith()` + `.slice()` patterns** — always use `bot.callbackQuery()` matchers or `CallbackData`. See [callback-data](references/callback-data.md) and [triggers](references/triggers.md).
+11. **InlineQueryResult builders** — use `InlineQueryResult.article(id, title, InputMessageContent.text(...))` and similar builder methods for inline results. `bot.inlineQuery(/regex/, handler)` routes inline queries. See [triggers](references/triggers.md).
+12. **Scene `.ask()` with Standard Schema / Zod** — eliminates the `firstTime` + manual validation boilerplate: `.ask("field", zodSchema, "prompt text")` auto-sends the prompt, validates input, retries on invalid input, and types `context.scene.state.field`. Prefer `.ask()` over manual `.step()` when collecting a single validated value. See [scenes](plugins/scenes.md).
 
 ## Official Plugins
 
