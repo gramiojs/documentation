@@ -76,6 +76,41 @@ bot.command("start", (ctx) => ctx.send(WELCOME));
 > const b = format`${a} and ${italic`more`}`;
 > ```
 
+## Passing `FormattableString` to edit/send methods
+
+Every `format\`…\`` expression returns a `FormattableString` (text + entities). GramIO's `formatMiddleware` (registered by default) decomposes it into `text` + `entities` when the HTTP request is made. So you must **pass the result directly** as the `text:` or `caption:` parameter to `sendMessage`, `editMessageText`, `editMessageCaption`, `editText` (context alias), etc.
+
+```typescript
+import { format, link, bold } from "gramio";
+
+const rendered = format`Magic: ${link`click here`("https://example.com")} · ${bold`verified`}`;
+
+// ✅ send — entities survive
+await ctx.send(rendered);
+
+// ✅ edit — entities survive
+await ctx.editText(rendered);
+await ctx.editMessageText(rendered);
+
+// ✅ low-level API call — still fine, formatMiddleware decomposes
+await bot.api.editMessageText({
+    chat_id: chatId,
+    message_id: messageId,
+    text: rendered,
+});
+
+// ❌ .toString() strips ALL entities — magic-link becomes plain text
+await ctx.editText(rendered.toString());
+await bot.api.editMessageText({ chat_id, message_id, text: rendered.toString() });
+
+// ❌ template-literal interpolation strips them too
+await ctx.send(`Answer: ${rendered}`); // `${rendered}` → toString() → no entities
+// ✅ use format``
+await ctx.send(format`Answer: ${rendered}`);
+```
+
+**Never call `.toString()` on a `FormattableString` in production code — it is always a bug.** If TypeScript is complaining about a union type (`string | FormattableString`), the fix is to widen the parameter type upstream or pass the value through — not to coerce to string.
+
 ## ⚠️ Join helper — NEVER use native `.join()` with format
 
 This is the second most common mistake. Every entity function (`bold`, `italic`, etc.) returns a **Formattable** object. Calling `Array.prototype.join()` on an array of Formattable values calls `.toString()` on each one, **destroying all entity data** and producing plain unstyled text.

@@ -7,7 +7,7 @@ description: Context injection with derive (scoped/global) and decorate, middlew
 
 ## Context Properties — camelCase Getters (IMPORTANT)
 
-All context (`ctx`) properties are exposed as **camelCase getters** that mirror the Telegram API fields. **Never access `ctx.payload` directly** — it is the raw snake_case Telegram object and is considered internal/unstable. Always use the typed camelCase getters instead.
+All context (`ctx`) properties are exposed as **camelCase getters** that mirror the Telegram API fields. **Never access `ctx.payload` OR `ctx.update.*` directly** — both are raw snake_case internal objects (the first is the update's inner payload, the second is the wrapping Telegram update). Always use the typed camelCase getters instead.
 
 ```typescript
 // ✅ Correct — use camelCase getters
@@ -25,11 +25,13 @@ bot.on("message", (ctx) => {
     ctx.senderId;            // shortcut for ctx.from?.id
 });
 
-// ❌ Wrong — raw payload, avoid
+// ❌ Wrong — raw payload / update, avoid
 bot.on("message", (ctx) => {
-    ctx.payload.message_id;          // don't do this
-    ctx.payload.from?.first_name;    // don't do this
-    ctx.payload.chat.id;             // don't do this
+    ctx.payload.message_id;                // don't do this
+    ctx.payload.from?.first_name;          // don't do this
+    ctx.payload.chat.id;                   // don't do this
+    ctx.update?.callback_query?.data;      // don't do this (raw snake_case)
+    ctx.update?.message?.text;             // don't do this
 });
 ```
 
@@ -155,6 +157,73 @@ bot.command("test", (context) => {
     context.config; // typed
 });
 ```
+
+## Context Typing After derive/decorate (no `as unknown as` casts)
+
+Every `.derive()` / `.decorate()` / `.extend(plugin)` call updates the inferred context type automatically. The right way to pass that enriched context into handlers defined in separate files is to **export the bot's context type** and consume it — never cast.
+
+```typescript
+// bot.ts
+import { Bot } from "gramio";
+import { authPlugin } from "./plugins/auth.js";
+
+export const bot = new Bot(process.env.BOT_TOKEN!)
+    .extend(authPlugin)                       // derives { user: User, isAdmin: boolean }
+    .decorate("db", db);
+
+// Export a single source of truth for handler signatures
+export type BotContext = Parameters<Parameters<typeof bot.on<"message">>[1]>[0];
+// or more simply, for callback_query handlers:
+export type CallbackCtx = Parameters<Parameters<typeof bot.callbackQuery<string>>[1]>[0];
+```
+
+```typescript
+// handlers/menu.ts
+import type { BotContext } from "../bot.js";
+
+export async function handleMenu(ctx: BotContext) {
+    ctx.user;     // ✅ typed from authPlugin.derive()
+    ctx.isAdmin;  // ✅ typed
+    ctx.db;       // ✅ typed from .decorate()
+    // no `as unknown as { user: User }` anywhere
+}
+```
+
+When a handler is registered at the bot level, TS already knows the enriched context type — so prefer defining handlers inline or importing the exported `BotContext` alias, never hand-rolling generic wrappers:
+
+```typescript
+// handlers/menu.ts
+import type { BotContext } from "../bot.js";
+
+export function handleMenu(ctx: BotContext) {
+    // ctx.user / ctx.isAdmin / ctx.db — all typed from bot's derives & decorates
+}
+
+// bot.ts
+bot.command("menu", handleMenu); // registration still gets full inference
+```
+
+If you need a narrower shape for a specific update type, use `ContextType`:
+
+```typescript
+import type { ContextType } from "gramio";
+import type { BotContext } from "../bot.js";
+
+type CallbackCtx = ContextType<typeof bot, "callback_query">;
+// ...use CallbackCtx in render/helper functions
+```
+
+**Anti-pattern — do not do this:**
+
+```typescript
+// ❌ Casting through unknown means TS is not helping you
+bot.callbackQuery(nav, (ctx) => {
+    const { auth } = ctx as unknown as { auth: AuthResult };
+    // if authPlugin stops exposing `auth`, this keeps compiling but breaks at runtime
+});
+```
+
+If you are tempted to write `as unknown as { … }`, it almost always means the plugin wasn't `.extend()`ed on the bot that owns this handler, or the plugin's derive isn't typed. Fix the root cause — do not paper over it.
 
 ## Type Narrowing: context.is()
 

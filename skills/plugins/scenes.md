@@ -47,9 +47,9 @@ const registration = new Scene("registration")
 
 ```typescript
 import { scenes } from "@gramio/scenes";
-import { sessionPlugin } from "@gramio/session";
+import { session } from "@gramio/session";
 
-bot.extend(sessionPlugin({ key: "session", initial: () => ({}) }))
+bot.extend(session({ key: "session", initial: () => ({}) }))
    .extend(scenes([registration]))
    .command("register", (context) =>
        context.scene.enter(registration, { referral: context.args })
@@ -80,6 +80,60 @@ bot.extend(sessionPlugin({ key: "session", initial: () => ({}) }))
 | `context.scene.step.go(n)` | Jump to step index |
 | `context.scene.step.id` | Current step index |
 | `context.scene.step.previousId` | Previous step index |
+
+## Step Semantics (Important)
+
+`step.go(N)` / `step.next()` / `step.previous()` **do** run the scene's middleware chain immediately after advancing the index — but each `.step(updateName, handler)` adds an internal guard `if (context.is(updateName))`. That means:
+
+- `step.next()` from a **`callback_query`** context into a step declared as `.step("message", …)` → the next step's handler **will not fire** (guard fails), because the current update is not a message. It will fire on the *next* incoming message.
+- `step.next()` from a **`message`** context into a `.step("message", …)` step → fires immediately with `firstTime: true`.
+- `step.next()` into an update-type-agnostic `.step(handler)` (no `updateName`) → fires immediately regardless of current update type.
+
+**Practical rules:**
+
+1. If a step transition happens from a callback and the next step waits for a message, **send the prompt in the current handler *before* calling `step.next()`** — the user sees the prompt immediately and the next incoming message is handled by the new step with `firstTime: false`:
+
+   ```typescript
+   .step("callback_query", async (ctx) => {
+       if (ctx.data === "begin") {
+           await ctx.send("What's your name?");
+           return ctx.scene.step.next(); // move index; next message lands in step N+1
+       }
+   })
+   .step("message", (ctx) => {
+       // firstTime will be false here because the prompt was already sent above
+       ctx.scene.update({ name: ctx.text });
+       return ctx.scene.step.next();
+   })
+   ```
+
+2. If a step must handle **both** callbacks and messages (e.g. "choose from buttons or type manually"), declare it with an array: `.step(["message", "callback_query"], handler)`. That is also what `.ask()` does internally.
+
+3. If you want to **render UI the first time a step is visited** (classic wizard pattern), check `ctx.scene.step.firstTime` at the top of the handler and `return ctx.send(...)` — do not combine with `step.next()` inside the same branch.
+
+4. If a step needs arbitrary logic without input, use the update-type-agnostic overload `.step((ctx, next) => …)`.
+
+## Global Scene Exit (nav buttons / /cancel)
+
+A common pitfall: a user enters a wizard scene, then presses a top-level nav button (e.g. "◀ back"). Because `passthrough: true` is the default, the scene lets updates fall through to outer handlers — but the scene itself stays active in storage. You need to explicitly exit it from your global handler. Register `scenesDerives(list, { withCurrentScene: true, storage })` **before** `scenes(list, { storage })` (sharing the same storage), which exposes `ctx.scene.exit()` everywhere:
+
+```typescript
+import { scenes, scenesDerives } from "@gramio/scenes";
+import { inMemoryStorage } from "@gramio/storage";
+
+const storage = inMemoryStorage();
+const list = [orderScene];
+
+bot
+    .extend(scenesDerives(list, { withCurrentScene: true, storage }))
+    .extend(scenes(list, { storage }))
+    .callbackQuery(nav, async (ctx) => {
+        if (ctx.scene.current) await ctx.scene.exit(); // drop user out of any active scene first
+        return renderMenu(ctx);
+    });
+```
+
+Key rule: **the two plugins must share the same `storage` instance** — otherwise `scene.exit()` from `scenesDerives` writes to a different store than where `scenes` reads, and the user stays stuck.
 
 ## Ask with Validation (Standard Schema / Zod)
 

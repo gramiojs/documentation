@@ -84,9 +84,14 @@ bot.use(async (ctx, next) => {
 ## Context Extension (the big difference)
 
 ```typescript
-// puregram — manual middleware + type augmentation
+// puregram — manual middleware + type augmentation (shown as the pain point, not a pattern to copy)
+declare module "puregram" {
+    interface Context {
+        user?: User;
+    }
+}
 bot.updates.use(async (context, next) => {
-    (context as any).user = await db.getUser(context.from?.id);
+    context.user = await db.getUser(context.from?.id);
     await next();
 });
 

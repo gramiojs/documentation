@@ -8,10 +8,10 @@ description: Persistent user data storage with @gramio/session — key-based ses
 Package: `@gramio/session`
 
 ```typescript
-import { sessionPlugin } from "@gramio/session";
+import { session } from "@gramio/session";
 
 bot.extend(
-    sessionPlugin({
+    session({
         key: "counter",               // access as context.counter
         initial: () => 0,             // initial value (typed via return type)
         storage: undefined,           // optional: redisStorage(), cloudflareStorage()
@@ -27,8 +27,8 @@ bot.command("count", (context) => {
 ## Multiple Sessions
 
 ```typescript
-bot.extend(sessionPlugin({ key: "counter", initial: () => 0 }))
-   .extend(sessionPlugin({
+bot.extend(session({ key: "counter", initial: () => 0 }))
+   .extend(session({
        key: "settings",
        initial: () => ({ language: "en", notifications: true }),
    }));
@@ -42,7 +42,7 @@ bot.extend(sessionPlugin({ key: "counter", initial: () => 0 }))
 ```typescript
 import { redisStorage } from "@gramio/storage-redis";
 
-bot.extend(sessionPlugin({
+bot.extend(session({
     key: "data",
     initial: () => ({ visits: 0 }),
     storage: redisStorage({ host: "localhost", port: 6379 }),
@@ -59,7 +59,7 @@ interface UserSession {
     preferences: Record<string, boolean>;
 }
 
-bot.extend(sessionPlugin({
+bot.extend(session({
     key: "session",
     initial: (): UserSession => ({
         language: "en",
