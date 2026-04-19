@@ -50,18 +50,20 @@ const orderScene = new Scene("order")
             .text("test.org", orderPick.pack({ site: "test.org" }));
         return ctx.send(format`${bold`Pick a site:`}`, { reply_markup: kb });
     })
-    .step("callback_query", async (ctx) => {
+    .step("callback_query", async (ctx, next) => {
         const result = orderPick.safeUnpack(ctx.data!);
-        if (!result.success) return ctx.answer("Button expired");
+        // Not our button — pass through to bot-level handlers so global
+        // nav (e.g. "home") can still react while the user is mid-scene.
+        if (!result.success) return next();
 
-        ctx.scene.update({ site: result.data.site });
         await ctx.editText(format`Site: ${bold(result.data.site)}\n\nNow send the address:`);
         await ctx.answer();
-        // Move to the next step. Because the next step is .step("message", …)
-        // and we're currently in a callback_query, the handler won't fire
-        // synchronously — the prompt above is already visible to the user,
-        // and the next message they send lands in step 1 with firstTime=false.
-        return ctx.scene.step.next();
+        // `scene.update()` auto-advances to the next step by default (equivalent
+        // to `{ step: currentId + 1 }`). The next step is .step("message", …),
+        // and since we're currently in a callback_query, its handler won't fire
+        // synchronously — the prompt above is already visible to the user, and
+        // the next message they send lands in step 1 with firstTime=true.
+        await ctx.scene.update({ site: result.data.site });
     })
     .step("message", async (ctx) => {
         if (!ctx.text) return ctx.send("Please send a text address.");
@@ -103,3 +105,5 @@ const bot = new Bot(process.env.BOT_TOKEN!)
     });
 
 bot.start();
+
+export { bot, nav, orderPick, orderScene };
