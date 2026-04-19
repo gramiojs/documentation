@@ -73,11 +73,11 @@ The user provides `[plugin-name]` and optionally describes what the plugin shoul
 
 5. **If the plugin needs state/storage**:
    ```typescript
-   import { sessionPlugin } from "@gramio/session";
+   import { session } from "@gramio/session";
 
    // Combine with session for stateful plugins
    const bot = new Bot("TOKEN")
-       .extend(sessionPlugin({ key: "myState", initial: () => ({}) }))
+       .extend(session({ key: "myState", initial: () => ({}) }))
        .extend(pluginName);
    ```
 

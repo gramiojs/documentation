@@ -82,8 +82,8 @@ bot.on("message", (context) => {
 
 4. **If the handler needs session/state**, check if `@gramio/session` is installed:
    ```typescript
-   import { sessionPlugin } from "@gramio/session";
-   // ensure bot.extend(sessionPlugin(...)) is called
+   import { session } from "@gramio/session";
+   // ensure bot.extend(session(...)) is called
    ```
 
 5. **If the handler needs scenes** (multi-step flows), check if `@gramio/scenes` is installed.

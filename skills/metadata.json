@@ -1,7 +1,7 @@
 {
-	"version": "1.7.0",
+	"version": "1.8.0",
 	"organization": "GramIO",
-	"date": "02 Mar 2026",
-	"abstract": "Build type-safe Telegram bots with GramIO — a TypeScript framework for Node.js, Bun, and Deno with plugin system, keyboard builders, formatting, file handling, hooks, and full Bot API coverage.",
+	"date": "19 Apr 2026",
+	"abstract": "GramIO — type-safe TypeScript Telegram Bot API framework for Node.js, Bun, Deno. Use proactively for ANY Telegram-bot task: commands, callbacks, inline queries, reactions, reply/inline keyboards, message formatting with entities, file uploads, multi-step scenes/wizards/FSM, sessions, plugins, webhook vs long-polling, Telegram Stars, Mini Apps, Docker, migrations. Activate on sight of `gramio`/`@gramio/*` packages, `new Bot()`, `bot.command`, `bot.callbackQuery`, or mention of Telegram bots.",
 	"references": ["https://gramio.dev/llms.txt"]
 }

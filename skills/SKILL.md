@@ -1,9 +1,9 @@
 ---
 name: gramio
-description: GramIO — type-safe TypeScript Telegram Bot API framework for Node.js, Bun, and Deno. Use when building Telegram bots, handling commands/callbacks/inline queries, creating keyboards, formatting messages, uploading files, managing sessions/scenes, writing plugins, setting up webhooks, or integrating Telegram payments.
+description: GramIO — type-safe TypeScript Telegram Bot API framework for Node.js, Bun, and Deno. **Invoke proactively for ANY Telegram-bot work**: building or modifying bots, adding commands/callbacks/inline queries/reactions, inline or reply keyboards, message formatting with entities, file/media uploads, sessions, scenes or multi-step wizards/FSM/conversations, custom plugins, webhooks vs long-polling, Telegram Stars/payments, Mini Apps (TMA), broadcasting, Docker, migrations from Telegraf/puregram/grammY/node-telegram-bot-api. Activate on sight of `gramio` or `@gramio/*` imports, `new Bot()`, `bot.command`/`bot.callbackQuery`/`bot.on`, or any mention of Telegram bots. When delegating to a subagent, pass the relevant reference files (callback-data, scenes, formatting, context, middleware-routing) inline — this skill does not auto-load in subagent sessions.
 metadata:
   author: GramIO
-  version: "2026.2.14"
+  version: "2026.4.19"
   source: https://github.com/gramiojs/documentation
 ---
 
@@ -52,21 +52,73 @@ bot.start();
 
 ## Critical Concepts
 
-1. **Method chaining** — handlers, hooks, and plugins chain via `.command()`, `.on()`, `.extend()`, etc. Order matters.
-2. **Type-safe context** — context is automatically typed based on the update type. Use `context.is("message")` for type narrowing in generic handlers.
-3. **Plugin system** — `new Plugin("name").derive(() => ({ ... }))` adds typed properties to context. Register via `bot.extend(plugin)`.
-4. **Hooks lifecycle** — onStart → (updates with onError) → onStop. API calls: preRequest → call → onResponse/onResponseError.
-5. **Error suppression** — `bot.api.method({ suppress: true })` returns error instead of throwing.
-6. **Lazy plugins** — async plugins (without `await`) load at `bot.start()`. Use `await` for immediate loading.
-7. **Derive vs Decorate** — `.derive()` runs per-update (computed), `.decorate()` injects static values once.
-8. **Context getters — always camelCase** — all `ctx` properties are camelCase getters (`ctx.from`, `ctx.firstName`, `ctx.chatId`, `ctx.messageId`, etc.). **Never access `ctx.payload`** — it is the raw snake_case internal Telegram object. Use the typed camelCase getters for everything.
-9. **Formatting — three critical rules** (read [formatting](references/formatting.md) before writing any message text):
-   - **Never use `parse_mode`** — `format` produces `MessageEntity` arrays, not HTML/Markdown strings. Adding `parse_mode: "HTML"` or `"MarkdownV2"` will break the message. GramIO passes entities automatically.
-   - **Never use native `.join()`** on arrays of formatted values — it calls `.toString()` on each `Formattable`, silently destroying all styling. Always use the `join` helper: `join(items, (x) => bold(x), "\n")`.
-   - **Always wrap styled content in `format\`\``** when composing or reusing — embedding a `Formattable` in a plain template literal (`` `${bold`x`}` ``) strips all entities. Use `format\`${bold\`x\`}\`` instead.
-10. **Callback routing — never parse strings manually** — GramIO has built-in callback routing. Use `bot.callbackQuery("string", handler)`, `bot.callbackQuery(/regex/, handler)`, or type-safe `CallbackData` schemas (`new CallbackData("prefix").number("id").string("action")` → `bot.callbackQuery(schema, handler)` with auto-typed `context.queryData`). **Never use manual `context.data?.startsWith()` + `.slice()` patterns** — always use `bot.callbackQuery()` matchers or `CallbackData`. See [callback-data](references/callback-data.md) and [triggers](references/triggers.md).
-11. **InlineQueryResult builders** — use `InlineQueryResult.article(id, title, InputMessageContent.text(...))` and similar builder methods for inline results. `bot.inlineQuery(/regex/, handler)` routes inline queries. See [triggers](references/triggers.md).
-12. **Scene `.ask()` with Standard Schema / Zod** — eliminates the `firstTime` + manual validation boilerplate: `.ask("field", zodSchema, "prompt text")` auto-sends the prompt, validates input, retries on invalid input, and types `context.scene.state.field`. Prefer `.ask()` over manual `.step()` when collecting a single validated value. See [scenes](plugins/scenes.md).
+1. **Callback routing — NEVER parse callback data manually.** `CallbackData.pack()` produces a **6-character hash prefix** (sha1-base64url of the schema name) + serialized payload — NOT a literal prefix like `"nav:"`. Checks like `ctx.data.startsWith("nav:")` always fail at runtime. Use one of these four patterns, picked by shape of data:
+
+   ```typescript
+   // Fixed string → exact string match
+   bot.callbackQuery("refresh", (ctx) => ctx.answer("Refreshed"));
+
+   // Pattern / variable slug → RegExp with capture groups
+   bot.callbackQuery(/^user_(\d+)$/, (ctx) => {
+       const [, id] = ctx.match!;
+       ctx.answer(`User ${id}`);
+   });
+
+   // Structured data → CallbackData schema (preferred for multi-field payloads)
+   import { CallbackData } from "gramio";
+   const nav = new CallbackData("nav").enum("to", ["home", "history", "admin"]);
+   bot.callbackQuery(nav, (ctx) => {
+       ctx.queryData.to; // "home" | "history" | "admin" — fully typed
+   });
+
+   // Stale-safe unpack (when inline keyboard may outlive a schema change)
+   const result = nav.safeUnpack(ctx.data!);
+   if (!result.success) return ctx.answer("Button expired");
+   result.data.to; // typed
+   ```
+
+   ```typescript
+   // ❌ NEVER — hashed prefix means string compare won't match,
+   //    and you lose full type safety.
+   if (ctx.data?.startsWith("nav:")) {
+       const [, to] = ctx.data.slice(4).split(":");
+       // ...
+   }
+   ```
+
+   See [callback-data](references/callback-data.md) and [middleware-routing](references/middleware-routing.md) for overlapping-handler behavior across plugins.
+
+2. **Method chaining** — handlers, hooks, and plugins chain via `.command()`, `.on()`, `.extend()`, etc. Order matters: when two handlers match the same update, the **first-registered** one wins unless it calls `next()`. See [middleware-routing](references/middleware-routing.md).
+
+3. **Type-safe context** — context is automatically typed based on the update type. Use `context.is("message")` for type narrowing in generic handlers. After `.derive()`/`.decorate()`/`.extend(plugin)`, new fields appear on the inferred context type automatically — **never** cast with `ctx as unknown as { myField }`. Export the bot's context type and reuse it (see [context](references/context.md) → "Context typing after derive").
+
+4. **Context getters — always camelCase; never touch `ctx.payload` or `ctx.update.*`** — every Telegram field is exposed as a camelCase getter (`ctx.from`, `ctx.firstName`, `ctx.chatId`, `ctx.messageId`, `ctx.text`, `ctx.data`, `ctx.queryData`). Both `ctx.payload` AND `ctx.update` are raw snake_case internal objects — treat them as off-limits in handler code.
+
+5. **Plugin system** — `new Plugin("name").derive(() => ({ ... }))` adds typed properties to context. Register via `bot.extend(plugin)`.
+
+6. **Hooks lifecycle** — onStart → (updates with onError) → onStop. API calls: preRequest → call → onResponse/onResponseError.
+
+7. **Error suppression** — `bot.api.method({ suppress: true })` returns error instead of throwing.
+
+8. **Lazy plugins** — async plugins (without `await`) load at `bot.start()`. Use `await` for immediate loading.
+
+9. **Derive vs Decorate** — `.derive()` runs per-update (computed), `.decorate()` injects static values once.
+
+10. **Formatting — four critical rules** (read [formatting](references/formatting.md) before writing any message text):
+    - **Never use `parse_mode`** — `format` produces `MessageEntity` arrays, not HTML/Markdown strings. Adding `parse_mode: "HTML"` or `"MarkdownV2"` will break the message. GramIO passes entities automatically.
+    - **Never use native `.join()`** on arrays of formatted values — it calls `.toString()` on each `Formattable`, silently destroying all styling. Always use the `join` helper: `join(items, (x) => bold(x), "\n")`.
+    - **Always wrap styled content in `format\`\``** when composing or reusing — embedding a `Formattable` in a plain template literal (`` `${bold`x`}` ``) strips all entities. Use `format\`${bold\`x\`}\`` instead.
+    - **Never call `.toString()` on a `FormattableString`** — pass it directly as the `text:`/`caption:` param to `send`, `editMessageText`, `editMessageCaption`, etc. Calling `.toString()` strips all entities. This is the #1 reason magic-links and formatted entities "stop working" after an edit.
+
+11. **Scenes — step semantics and update-type filtering** — `context.scene.step.go(N)` and `context.scene.step.next()` run the scene's middleware chain **immediately**, but each `.step(updateName, handler)` filters by `context.is(updateName)`. If your current context is `callback_query` and the next step is `.step("message", …)`, it will not fire — you must either send the UI directly before `return step.next()`, use `.step(["message", "callback_query"], …)`, or render the prompt in `onEnter` / the current step's callback handler. Prefer `.ask("field", zodSchema, "prompt")` for single-value validated input. See [scenes](plugins/scenes.md).
+
+12. **InlineQueryResult builders** — use `InlineQueryResult.article(id, title, InputMessageContent.text(...))` and similar builder methods for inline results. `bot.inlineQuery(/regex/, handler)` routes inline queries. See [triggers](references/triggers.md).
+
+13. **Subagent delegation** — skills do not auto-activate inside subagent sessions. When spawning a subagent that will write bot code, explicitly pass the relevant reference-file paths (e.g. `skills/references/callback-data.md`, `skills/plugins/scenes.md`, `skills/references/formatting.md`, `skills/references/middleware-routing.md`) in the agent prompt, or include the key rules inline.
+
+14. **No `any` anywhere in examples** — never write `ctx: any`, `as any`, `<any>`, or implicit-any parameters in any file under `skills/` (examples, markdown code blocks, plugin docs). Skill examples are templates that AI copies verbatim into user bots; every `any` here multiplies into every downstream bot. Derive the proper type from `ContextType<typeof bot, "update_name">`, `CallbackQueryShorthandContext<typeof bot, typeof schema>`, or export a `BotContext = typeof bot['_']['context']` alias. If a value is genuinely unknown at a system boundary, use `unknown` + narrowing. No exceptions, even in "what-not-to-do" snippets — use `@ts-expect-error` on the specific line with a comment instead of a broad `any`.
+
+15. **Run `bun run check:skills` before finishing any skill edit** — any change to `skills/**/*.ts` or TypeScript code blocks in `skills/**/*.md` must typecheck cleanly against the currently installed gramio versions. The `check:skills` script runs `tsc --noEmit` over `skills/examples/*.ts` with strict mode. If it reports errors, fix them — don't ship. If a pre-existing example breaks because gramio's API evolved, update the example to match the current API (check `node_modules/gramio/dist/index.d.ts` and `node_modules/@gramio/*/dist/index.d.ts` for current signatures).
 
 ## Official Plugins
 
@@ -78,6 +130,8 @@ bot.start();
 | Autoload | `@gramio/autoload` | File-based handler loading |
 | Prompt | `@gramio/prompt` | Interactive single-question prompts |
 | Views | `@gramio/views` | Reusable message templates (programmatic + JSON) |
+| JSX | `@gramio/jsx` | JSX syntax for formatting + keyboards (no React) |
+| Pagination | `@gramio/pagination` | Paginated inline-keyboard menus with fluent builder |
 | Auto Retry | `@gramio/auto-retry` | Retry on 429 rate limits |
 | Media Cache | `@gramio/media-cache` | Cache file_ids |
 | Media Group | `@gramio/media-group` | Handle album messages |
@@ -114,6 +168,7 @@ Each page contains: GramIO TypeScript examples, parameter details, error table w
 | Bot API | Calling methods, suppress, withRetries, type helpers | [bot-api](references/bot-api.md) |
 | Context & Updates | derive, decorate, middleware, start/stop, type narrowing | [context](references/context.md) |
 | Triggers | command, hears, callbackQuery, inlineQuery, reaction | [triggers](references/triggers.md) |
+| Middleware Routing | handler priority, `next()`, overlapping CallbackData, centralized routing | [middleware-routing](references/middleware-routing.md) |
 | Hooks | onStart, onStop, onError, preRequest, onResponse | [hooks](references/hooks.md) |
 | Updates & Lifecycle | start/stop options, graceful shutdown (SIGINT/SIGTERM) | [updates](references/updates.md) |
 
@@ -158,7 +213,9 @@ Load when the user wants to migrate an existing bot to GramIO.
 | I18n | TS-native and Fluent internationalization | [i18n](plugins/i18n.md) |
 | Autoload | File-based handler discovery | [autoload](plugins/autoload.md) |
 | Prompt | Send + wait for response | [prompt](plugins/prompt.md) |
-| Views | Reusable message templates, JSON adapter, i18n | [views](plugins/views.md) |
+| Views | Render-function pattern + `@gramio/views` plugin (templates, JSON, i18n) | [views](plugins/views.md) |
+| JSX | JSX syntax for formatting + keyboards (no React runtime) | [jsx](plugins/jsx.md) |
+| Pagination | Fluent paginated inline keyboards (prev/next/first/last, page info) | [pagination](plugins/pagination.md) |
 | OpenTelemetry | Distributed tracing, spans, instrumentation | [opentelemetry](plugins/opentelemetry.md) |
 | Sentry | Error tracking, performance monitoring | [sentry](plugins/sentry.md) |
 | Others | auto-retry, media-cache, media-group, split, posthog | [other](plugins/other.md) |
@@ -177,6 +234,8 @@ Load when the user wants to migrate an existing bot to GramIO.
 | Webhook | Framework integration | [webhook.ts](examples/webhook.ts) |
 | Session | Counters, settings, Redis | [session.ts](examples/session.ts) |
 | Scenes | Registration flow with steps | [scenes.ts](examples/scenes.ts) |
+| Wizard scene | Callback-driven scene, mixed callback+message steps, global exit | [wizard-scene.ts](examples/wizard-scene.ts) |
+| Callback routing | Centralized router, shared nav CallbackData across features | [callback-routing.ts](examples/callback-routing.ts) |
 | Telegram Stars | Payments, invoices, refunds | [telegram-stars.ts](examples/telegram-stars.ts) |
 | TMA | Elysia server, init-data auth, webhook | [tma.ts](examples/tma.ts) |
 | Docker | Graceful shutdown, webhook/polling toggle | [docker.ts](examples/docker.ts) |
