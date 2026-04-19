@@ -106,6 +106,16 @@ Adds a new command, callback query, inline query, hears, or reaction handler wit
 
 Creates a custom GramIO plugin with `derive()`, custom error types, and TypeScript typing. Can scaffold as inline plugin or standalone package.
 
+### `/gramio-pick-username` — Pick a Bot Username
+
+```bash
+/gramio-pick-username weather bot for Russian users
+/gramio-pick-username крипто-трекер
+/gramio-pick-username is @weatherly_bot free?
+```
+
+Generates candidate Telegram bot usernames that satisfy BotFather's rules (5–32 chars, `a-z0-9_`, ends in `bot`, no leading digit / leading-trailing / consecutive underscores), checks availability on `t.me` by inspecting the main CTA button text (`Start Bot` / `View Bot` = taken, `Send Message` = free), and returns a ranked shortlist. Always reminds the user to verify the finalist in `@BotFather` — a name free on `t.me` may still be reserved from a previously deleted bot.
+
 ## What the Skills Cover
 
 The `gramio` skill gives your AI assistant knowledge of:
