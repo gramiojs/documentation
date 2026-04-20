@@ -1,5 +1,6 @@
 ---
-description: Pick an available Telegram bot username. Takes a topic (and optional audience/language), generates candidates respecting BotFather's rules, batch-checks availability on t.me via the bundled `check-usernames.mjs` script, and returns a ranked shortlist of free names. Use BEFORE `/gramio-new-bot` or whenever the user asks "find a bot username", "check if @foo_bot is taken", "придумай юзернейм для бота", "неминг бота".
+name: gramio-pick-username
+description: Pick an available Telegram bot username. Takes a topic (and optional audience/language), generates candidates respecting BotFather's rules, batch-checks availability on t.me via the bundled `check-usernames.mjs` script, and returns a ranked shortlist of free names. Use whenever the user asks "find a bot username", "check if @foo_bot is taken", "придумай юзернейм для бота", "неминг бота".
 allowed-tools: Bash, WebFetch, WebSearch, Read, Write
 ---
 
@@ -179,6 +180,6 @@ If BotFather rejects it, try the next one down the list.
 - **Don't** burn fetches on candidates that fail local validation. Validate, *then* fetch.
 - **Don't** over-ask. If the topic is clear, just generate and check — deliver a shortlist, not a questionnaire.
 
-## When to hand off to `/gramio-new-bot`
+## After the user picks a name
 
-Once the user picks a name from the shortlist and confirms BotFather accepted it, invoke `/gramio-new-bot <project-name>` to scaffold the project. The bot's `@username` and token from BotFather go into `.env` as `BOT_TOKEN=...`.
+Once the user picks a finalist from the shortlist and confirms BotFather accepted it, remind them to copy the bot's `@username` and the token BotFather returned into `.env` as `BOT_TOKEN=...` before starting the bot.

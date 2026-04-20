@@ -80,32 +80,6 @@ cp -r /tmp/gramio-docs/skills/* .claude/skills/
 
 Этот навык не нужно вызывать — ваш AI-ассистент читает его автоматически.
 
-### `/gramio-new-bot` — Создание нового бота
-
-```bash
-/gramio-new-bot my-awesome-bot
-```
-
-Создаёт новый проект GramIO с правильной структурой, TypeScript конфигурацией, `.env` и начальными обработчиками. Рекомендует `create-gramio` или создаёт вручную.
-
-### `/gramio-add-handler` — Добавление обработчика
-
-```bash
-/gramio-add-handler command /settings
-/gramio-add-handler callback approve_*
-/gramio-add-handler hears "hello"
-```
-
-Добавляет новый обработчик команд, callback query, inline query, hears или реакций с правильной типизацией и использованием контекста.
-
-### `/gramio-add-plugin` — Создание плагина
-
-```bash
-/gramio-add-plugin rate-limiter
-```
-
-Создаёт пользовательский плагин GramIO с `derive()`, кастомными типами ошибок и TypeScript типизацией. Может создать как inline-плагин, так и отдельный пакет.
-
 ### `/gramio-pick-username` — Подбор юзернейма для бота
 
 ```bash

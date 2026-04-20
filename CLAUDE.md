@@ -35,9 +35,7 @@ skills/                        # User-land AI skills (installed via `npx skills 
     examples/                  # 12 runnable TypeScript examples
     references/                # 18 deep-dive API reference docs
     plugins/                   # 6 plugin guides
-  gramio-new-bot/              # /gramio-new-bot — scaffold a new bot project
-  gramio-add-handler/          # /gramio-add-handler — add command/callback handlers
-  gramio-add-plugin/           # /gramio-add-plugin — create a custom plugin
+  gramio-pick-username/        # /gramio-pick-username — suggest and check Telegram bot usernames
 .claude/skills/                # Internal doc skills (metadata.internal: true)
 .cursor/rules/                 # Cursor editor rules
 .github/copilot-instructions.md  # GitHub Copilot instructions

@@ -80,32 +80,6 @@ The core skill. Activates automatically when you ask about GramIO. Contains:
 
 You don't invoke this skill — your AI assistant reads it automatically when relevant.
 
-### `/gramio-new-bot` — Create New Bot
-
-```bash
-/gramio-new-bot my-awesome-bot
-```
-
-Scaffolds a new GramIO project with proper structure, TypeScript config, `.env`, and initial handlers. Recommends `create-gramio` or creates manually.
-
-### `/gramio-add-handler` — Add Handler
-
-```bash
-/gramio-add-handler command /settings
-/gramio-add-handler callback approve_*
-/gramio-add-handler hears "hello"
-```
-
-Adds a new command, callback query, inline query, hears, or reaction handler with proper typing and context usage.
-
-### `/gramio-add-plugin` — Create Plugin
-
-```bash
-/gramio-add-plugin rate-limiter
-```
-
-Creates a custom GramIO plugin with `derive()`, custom error types, and TypeScript typing. Can scaffold as inline plugin or standalone package.
-
 ### `/gramio-pick-username` — Pick a Bot Username
 
 ```bash
