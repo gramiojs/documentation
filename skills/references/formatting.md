@@ -111,6 +111,55 @@ await ctx.send(format`Answer: ${rendered}`);
 
 **Never call `.toString()` on a `FormattableString` in production code — it is always a bug.** If TypeScript is complaining about a union type (`string | FormattableString`), the fix is to widen the parameter type upstream or pass the value through — not to coerce to string.
 
+## `string | { toString(): string }` — every such field is a FormattableString sink
+
+Many Bot API fields are typed `string | { toString(): string }` in `@gramio/types`. **The `{ toString(): string }` branch is misleading** — GramIO's `formatMiddleware` does **not** call `.toString()`; it recognizes a `FormattableString` at request-serialization time and decomposes it into `text`/`caption`/etc. + `entities`. Pass `format\`…\`` directly.
+
+**Reliable heuristic: if the field has a sibling `parse_mode` / `*_parse_mode` in its type, it is a FormattableString sink.**
+
+Verified sinks in the current `@gramio/types` (non-exhaustive — all follow the heuristic above):
+
+| Where | Field |
+|---|---|
+| `sendMessage` / `editMessageText` params | `text` |
+| `sendPhoto` / `sendVideo` / `sendAudio` / `sendDocument` / `sendAnimation` / `sendVoice` / `sendPaidMedia` / `editMessageCaption` / `copyMessage` params | `caption` |
+| `sendPoll` params | `question`, `explanation` |
+| `sendInvoice` params | `description` |
+| `sendGift` / `sendChecklist` params | `text` |
+| `ReplyParameters` | `quote` |
+| `InputPollOption` | `text` |
+| `InputChecklistTask` | `text` |
+| `InputChecklist` | `title` |
+| `InputMediaPhoto` / `InputMediaVideo` / `InputMediaAnimation` / `InputMediaAudio` / `InputMediaDocument` / `InputPaidMediaPhoto` / `InputPaidMediaVideo` | `caption` |
+| **`InputTextMessageContent`** (inline-query results) | **`message_text`** |
+
+```typescript
+import { format, bold, InlineQueryResult, InputMessageContent } from "gramio";
+
+// ✅ FormattableString survives all the way to the rendered inline-result message
+bot.inlineQuery(/find (.*)/i, async (ctx) => {
+    await ctx.answer(
+        [
+            InlineQueryResult.article(
+                "id-1",
+                `Result for ${ctx.args![1]}`,
+                InputMessageContent.text(format`Found: ${bold(ctx.args![1])}`),
+            ),
+        ],
+        { cache_time: 0 },
+    );
+});
+```
+
+**To verify any specific field yourself**, use the introspection tool shipped with this skill:
+
+```bash
+node tools/get-bot-api-type.mjs InputTextMessageContent
+node tools/get-bot-api-method.mjs sendInvoice
+```
+
+If the field's type shows `string | { toString(): string }` (or there is a `parse_mode` sibling), it accepts a `FormattableString` — do not stringify defensively.
+
 ## ⚠️ Join helper — NEVER use native `.join()` with format
 
 This is the second most common mistake. Every entity function (`bold`, `italic`, etc.) returns a **Formattable** object. Calling `Array.prototype.join()` on an array of Formattable values calls `.toString()` on each one, **destroying all entity data** and producing plain unstyled text.
