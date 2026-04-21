@@ -226,6 +226,8 @@ const scene = new Scene("search")
 
 > **Deduplication:** If the plugin is already extended at the bot level, the scene engine skips re-running it inside the scene — no double execution.
 
+> **Sharing a bot-level composer with scenes (i18n, auth, tracing):** for infrastructure used by *both* bot-level handlers and scene steps, don't duplicate the derive inside the scene. Reach for a named `.as("scoped")` composer extended on the bot and declared on each scene via `Scene.extend(composer)` — dedup keeps the derive single-run, types flow into every step. See [scene-composer-inheritance](../references/scene-composer-inheritance.md) for the canonical pattern and the file-split layout that avoids circular imports.
+
 ## scenesDerives
 
 Get scene data before scenes plugin processes:

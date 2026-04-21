@@ -658,6 +658,73 @@ const checkoutScene = new Scene("checkout")
     });
 ```
 
+### Шеринг именованного scoped-композера между ботом и сценой
+
+Для общей инфраструктуры, которая нужна *и* обработчикам уровня бота, *и* шагам сцены — переводы i18n, авторизация, декораторы БД, трейсинг — правильный инструмент это именованный `.as("scoped")` `Composer`, подключённый к боту **и** объявленный в каждой сцене через `Scene.extend(composer)`. Имя включает дедупликацию на стадии регистрации в GramIO, так что middleware композера выполняется ровно один раз на обновление; `.as("scoped")` поднимает его из дефолтной `local`-группы изоляции, чтобы записи попадали в реальный контекст, который читает движок сцен.
+
+```ts
+// plugins/base.ts — именованный scoped-композер, без импортов сцен
+import { Composer } from "gramio";
+
+export const baseComposer = new Composer({ name: "base" })
+    .derive(() => ({
+        t: (key: string) => translate(key),
+    }))
+    .as("scoped");
+```
+
+```ts
+// scenes/demo.ts — сцена импортирует композер ради типов
+import { Scene } from "@gramio/scenes";
+import { baseComposer } from "../plugins/base.js";
+
+export const demoScene = new Scene("demo")
+    .extend(baseComposer)                          // типы прокидываются в onEnter и каждый шаг
+    .onEnter((ctx) => ctx.send(ctx.t("hi")))       // ctx.t типизирован ✅
+    .step("message", (ctx) => ctx.send(ctx.t("ok")));
+```
+
+```ts
+// plugins/index.ts — сборка: бот подключает baseComposer (рантайм) + scenes (роутинг)
+import { Bot } from "gramio";
+import { scenes } from "@gramio/scenes";
+import { baseComposer } from "./base.js";
+import { demoScene } from "../scenes/demo.js";
+
+export const bot = new Bot(process.env.TOKEN!)
+    .extend(baseComposer)                          // derive выполняется один раз на обновление
+    .extend(scenes([demoScene]))
+    .command("start", (ctx) => ctx.scene.enter(demoScene));
+```
+
+> [!WARNING]
+> Обязательны и опция `name:`, **и** хвостовой `.as("scoped")`:
+>
+> - Без `name` каждый вызов `extend()` прогоняет всё middleware заново — derive срабатывает дважды на обновление, любые сайд-эффекты (счётчики, spans, вызовы БД) дублируются.
+> - Без `.as("scoped")` derive попадает в `local`-группу изоляции (`Object.create(ctx)`). Типы говорят, что `ctx.t` есть, а в рантайме там `undefined`. Единственное место в GramIO, где типы и рантайм могут разойтись.
+
+#### Раскладка файлов: избегаем циклического импорта
+
+Заманчивая раскладка в один файл — композер, derives *и* `scenes([...])` в одном `plugins/index.ts` — ломается, как только сцена захочет `extend` этот композер:
+
+```
+scenes/demo.ts → импортирует composer из plugins/index.ts
+plugins/index.ts → импортирует demo.ts, чтобы передать в scenes([demoScene])
+// циклическая зависимость → TypeScript молча схлопывает тип композера в `any`
+```
+
+Ни ошибки, ни предупреждения — просто `ctx.t: any` внутри обработчиков шагов. Отделите композер от сборки со сценами:
+
+```
+src/plugins/
+  ├── base.ts     ← baseComposer (только derives, без импортов сцен)
+  └── index.ts    ← импортирует baseComposer + сцены, экспортирует собранного бота
+src/scenes/
+  └── demo.ts     ← импортирует baseComposer из plugins/base.ts
+```
+
+`base.ts` не знает о сценах, поэтому сцены свободно из него импортируют. `index.ts` импортирует оба и собирает всё вместе. Цикла нет.
+
 ## VS Prompt
 
 > Spoiler: рекомендуем использовать `scenes`

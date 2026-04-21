@@ -642,6 +642,73 @@ const checkoutScene = new Scene("checkout")
     });
 ```
 
+### Sharing a named scoped composer with both bot and scene
+
+For shared infrastructure that *both* bot-level handlers and scene steps need — i18n translators, auth, database decorators, tracing — the right tool is a named, `.as("scoped")` `Composer` extended on the bot **and** declared on each scene via `Scene.extend(composer)`. The name enables GramIO's registration-time deduplication, so the composer's middleware runs exactly once per update; `.as("scoped")` promotes it out of the default `local` isolation group so its writes land on the real context the scene engine reads.
+
+```ts
+// plugins/base.ts — named scoped composer, no scene imports here
+import { Composer } from "gramio";
+
+export const baseComposer = new Composer({ name: "base" })
+    .derive(() => ({
+        t: (key: string) => translate(key),
+    }))
+    .as("scoped");
+```
+
+```ts
+// scenes/demo.ts — scene imports the composer for types
+import { Scene } from "@gramio/scenes";
+import { baseComposer } from "../plugins/base.js";
+
+export const demoScene = new Scene("demo")
+    .extend(baseComposer)                          // types flow into onEnter + every step
+    .onEnter((ctx) => ctx.send(ctx.t("hi")))       // ctx.t typed ✅
+    .step("message", (ctx) => ctx.send(ctx.t("ok")));
+```
+
+```ts
+// plugins/index.ts — assembly: bot extends baseComposer (runtime) + scenes (routing)
+import { Bot } from "gramio";
+import { scenes } from "@gramio/scenes";
+import { baseComposer } from "./base.js";
+import { demoScene } from "../scenes/demo.js";
+
+export const bot = new Bot(process.env.TOKEN!)
+    .extend(baseComposer)                          // derive runs once per update
+    .extend(scenes([demoScene]))
+    .command("start", (ctx) => ctx.scene.enter(demoScene));
+```
+
+> [!WARNING]
+> Both the `name:` option **and** the trailing `.as("scoped")` are required:
+>
+> - Without a `name`, every `extend()` call re-runs every middleware — the derive fires twice per update, any side effects (counters, spans, DB calls) duplicate.
+> - Without `.as("scoped")`, the derive lands in a `local` isolation group (`Object.create(ctx)`). Types say `ctx.t` exists, runtime leaves it `undefined`. This is the one place in GramIO where types and runtime can diverge.
+
+#### File layout: avoid the circular import
+
+A tempting single-file layout — composer, derives, *and* `scenes([...])` all in `plugins/index.ts` — breaks the moment a scene wants to `extend` that composer:
+
+```
+scenes/demo.ts → imports composer from plugins/index.ts
+plugins/index.ts → imports demo.ts to pass into scenes([demoScene])
+// circular dep → TypeScript silently collapses the composer type to `any`
+```
+
+No error, no warning — just `ctx.t: any` inside step handlers. Split the composer off from the scene-registering assembly:
+
+```
+src/plugins/
+  ├── base.ts     ← baseComposer (derives only, no scene imports)
+  └── index.ts    ← imports baseComposer + scenes, exports the assembled bot
+src/scenes/
+  └── demo.ts     ← imports baseComposer from plugins/base.ts
+```
+
+`base.ts` doesn't know about scenes, so scenes can import from it freely. `index.ts` imports both, then assembles. No cycle.
+
 ## VS Prompt
 
 > Spoiler: We recommend using `scenes`

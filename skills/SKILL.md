@@ -169,6 +169,7 @@ Each page contains: GramIO TypeScript examples, parameter details, error table w
 | Context & Updates | derive, decorate, middleware, start/stop, type narrowing | [context](references/context.md) |
 | Triggers | command, hears, callbackQuery, inlineQuery, reaction | [triggers](references/triggers.md) |
 | Middleware Routing | handler priority, `next()`, overlapping CallbackData, centralized routing | [middleware-routing](references/middleware-routing.md) |
+| Scene ↔ Composer inheritance | share named `.as("scoped")` composer derives between bot-level handlers and Scene steps; file split to avoid circular imports | [scene-composer-inheritance](references/scene-composer-inheritance.md) |
 | Hooks | onStart, onStop, onError, preRequest, onResponse | [hooks](references/hooks.md) |
 | Updates & Lifecycle | start/stop options, graceful shutdown (SIGINT/SIGTERM) | [updates](references/updates.md) |
 
@@ -235,6 +236,7 @@ Load when the user wants to migrate an existing bot to GramIO.
 | Session | Counters, settings, Redis | [session.ts](examples/session.ts) |
 | Scenes | Registration flow with steps | [scenes.ts](examples/scenes.ts) |
 | Wizard scene | Callback-driven scene, mixed callback+message steps, global exit | [wizard-scene.ts](examples/wizard-scene.ts) |
+| Scene composer inheritance | 3-file package: named scoped composer + Scene.extend + file split for circular-import-safe layout | [scene-composer-inheritance/](examples/scene-composer-inheritance/index.ts) |
 | Callback routing | Centralized router, shared nav CallbackData across features | [callback-routing.ts](examples/callback-routing.ts) |
 | Telegram Stars | Payments, invoices, refunds | [telegram-stars.ts](examples/telegram-stars.ts) |
 | TMA | Elysia server, init-data auth, webhook | [tma.ts](examples/tma.ts) |
