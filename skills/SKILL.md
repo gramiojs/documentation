@@ -1,9 +1,9 @@
 ---
 name: gramio
-description: "GramIO — type-safe TypeScript Telegram Bot API framework for Node.js, Bun, and Deno. **Invoke proactively for ANY Telegram-bot work**: building or modifying bots, adding commands/callbacks/inline queries/reactions, inline or reply keyboards, message formatting with entities, file/media uploads, sessions, scenes or multi-step wizards/FSM/conversations, custom plugins, webhooks vs long-polling, Telegram Stars/payments, Mini Apps (TMA), broadcasting, Docker, migrations from Telegraf/puregram/grammY/node-telegram-bot-api. Activate on sight of `gramio` or `@gramio/*` imports, `new Bot()`, `bot.command`/`bot.callbackQuery`/`bot.on`, or any mention of Telegram bots. When delegating to a subagent, pass the relevant reference files (callback-data, scenes, formatting, context, middleware-routing) inline — this skill does not auto-load in subagent sessions."
+description: "Invoke for ANY Telegram bot code — `gramio`/`@gramio/*` imports, `new Bot()`, `bot.command`/`bot.callbackQuery`/`bot.on`/`bot.updates.on`, scenes/FSM, inline & reply keyboards, message entities, file uploads, sessions, plugins, webhooks vs long-polling, Telegram Stars, Mini Apps (TMA), broadcasting, Docker. Type-safe TypeScript framework (Node.js/Bun/Deno) with full Bot API coverage. Also covers migrations from Telegraf/grammY/puregram/node-telegram-bot-api. When delegating to a subagent, pass relevant reference files (callback-data, scenes, formatting, context, middleware-routing) inline — this skill does not auto-load in subagent sessions."
 metadata:
   author: GramIO
-  version: "2026.4.19"
+  version: "2026.4.21"
   source: https://github.com/gramiojs/documentation
 ---
 
