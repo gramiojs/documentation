@@ -1,6 +1,7 @@
 ---
 name: gramio
 description: "Invoke for ANY Telegram bot code — `gramio`/`@gramio/*` imports, `new Bot()`, `bot.command`/`bot.callbackQuery`/`bot.on`/`bot.updates.on`, scenes/FSM, inline & reply keyboards, message entities, file uploads, sessions, plugins, webhooks vs long-polling, Telegram Stars, Mini Apps (TMA), broadcasting, Docker. Type-safe TypeScript framework (Node.js/Bun/Deno) with full Bot API coverage. Also covers migrations from Telegraf/grammY/puregram/node-telegram-bot-api. When delegating to a subagent, pass relevant reference files (callback-data, scenes, formatting, context, middleware-routing) inline — this skill does not auto-load in subagent sessions."
+allowed-tools: Bash(node *tools/get-bot-api-method.mjs*), Bash(node *tools/get-bot-api-type.mjs*), Bash(node *tools/get-context-getter.mjs*), Bash(node *tools/get-plugin.mjs*)
 metadata:
   author: GramIO
   version: "2026.4.21"
@@ -49,6 +50,29 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
 
 bot.start();
 ```
+
+## Introspection Tools
+
+This skill ships four Node.js scripts under `tools/` that parse the **installed** `@gramio/*` and `gramio` packages on disk. Prefer these over URL-fetching or loading the telegram-api-index — each call returns one focused, version-accurate signature instead of a wall of docs.
+
+Run from the user's project root (where `node_modules/` lives). Tools print to stdout; errors and auto-correct hints go to stderr.
+
+| Tool | Use it when |
+|------|-------------|
+| `tools/get-bot-api-method.mjs <name>` | You need the signature of a Bot API method (e.g. `sendMessage`, `createChatInviteLink`) — returns JSDoc + params/return type from `@gramio/types`. `--list` shows all methods, `--search <term>` filters by name/description. |
+| `tools/get-bot-api-type.mjs <name>` | You need a Telegram type definition (e.g. `Message`, `ChatInviteLink`). Accepts short (`Message`) or full (`TelegramMessage`) names. Same `--list` / `--search` flags. |
+| `tools/get-context-getter.mjs <ClassName>` | You need to know what getters/methods a context exposes (`MessageContext`, `CallbackQueryContext`, `User`, `Chat`). Add `--deep` to pull in mixins + merged interfaces recursively. `--search <name>` finds every class that exposes a given getter/method (e.g. `firstName` lives on `User`, `Chat`, `Contact`, `SharedUser`). |
+| `tools/get-plugin.mjs <name>` | You need a plugin's entry function signature + what it derives onto context (e.g. `session`, `scenes`, `i18n`). `--list` shows every installed `@gramio/*` package. |
+
+```bash
+node tools/get-bot-api-method.mjs sendMessage
+node tools/get-bot-api-type.mjs InlineKeyboardMarkup
+node tools/get-context-getter.mjs MessageContext --deep
+node tools/get-context-getter.mjs --search chatId
+node tools/get-plugin.mjs session
+```
+
+The scripts fuzzy-match (`sendMesage` → `sendMessage`) and suggest alternatives on miss. They require the relevant package to be installed — if not, they print the exact `npm install` hint.
 
 ## Critical Concepts
 
