@@ -7,6 +7,8 @@ description: Complete keyboard builder API — Keyboard, InlineKeyboard, RemoveK
 
 Package: `@gramio/keyboards` (built into GramIO, also usable standalone).
 
+> For *when* and *why* to build particular keyboard layouts — button-first navigation, nested menus with Back/Home, toggle buttons with `✅` / `⬜` labels, destructive confirm flows, reply vs. inline tradeoffs — see [ux-patterns](./ux-patterns.md). This file is the API reference.
+
 ## Keyboard (Reply Keyboard)
 
 ```typescript

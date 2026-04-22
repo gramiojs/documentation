@@ -7,6 +7,8 @@ description: Composing reusable Telegram message screens — `@gramio/views` is 
 
 A **view** is a piece of code that produces a Telegram message — text, a keyboard, maybe media.
 
+For the UX *rationale* behind views — button-first nav, edit-in-place over new sends, breadcrumbs, toggles, destructive confirm — see [ux-patterns](../references/ux-patterns.md). This file is about *how* to compose screens with views.
+
 **For any non-trivial bot, use the [`@gramio/views`](https://gramio.dev/plugins/official/views) plugin.** It is the recommended way to compose screens in GramIO and scales from a 3-screen menu to a fully i18n'd, JSON-driven bot without structural rewrites. Reach for plain render functions only for throwaway or one-off bots with 2-3 static screens.
 
 | Situation | Use |

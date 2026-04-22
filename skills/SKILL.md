@@ -1,6 +1,6 @@
 ---
 name: gramio
-description: "Invoke for ANY Telegram bot code — `gramio`/`@gramio/*` imports, `new Bot()`, `bot.command`/`bot.callbackQuery`/`bot.on`/`bot.updates.on`, scenes/FSM, inline & reply keyboards, message entities, file uploads, sessions, plugins, webhooks vs long-polling, Telegram Stars, Mini Apps (TMA), broadcasting, Docker. Type-safe TypeScript framework (Node.js/Bun/Deno) with full Bot API coverage. Also covers migrations from Telegraf/grammY/puregram/node-telegram-bot-api. When delegating to a subagent, pass relevant reference files (callback-data, scenes, formatting, context, middleware-routing) inline — this skill does not auto-load in subagent sessions."
+description: "Invoke for ANY Telegram bot code — `gramio`/`@gramio/*` imports, `new Bot()`, `bot.command`/`bot.callbackQuery`/`bot.on`/`bot.updates.on`, scenes/FSM, inline & reply keyboards, message entities, file uploads, sessions, plugins, webhooks vs long-polling, Telegram Stars, Mini Apps (TMA), broadcasting, Docker. Type-safe TypeScript framework (Node.js/Bun/Deno) with full Bot API coverage. Also covers migrations from Telegraf/grammY/puregram/node-telegram-bot-api. When delegating to a subagent, pass relevant reference files (callback-data, scenes, formatting, context, middleware-routing, ux-patterns) inline — this skill does not auto-load in subagent sessions."
 allowed-tools: Bash(node *tools/get-bot-api-method.mjs*), Bash(node *tools/get-bot-api-type.mjs*), Bash(node *tools/get-context-getter.mjs*), Bash(node *tools/get-plugin.mjs*)
 metadata:
   author: GramIO
@@ -146,7 +146,9 @@ The scripts fuzzy-match (`sendMesage` → `sendMessage`) and suggest alternative
 
 16. **No `any` anywhere in examples** — never write `ctx: any`, `as any`, `<any>`, or implicit-any parameters in any file under `skills/` (examples, markdown code blocks, plugin docs). Skill examples are templates that AI copies verbatim into user bots; every `any` here multiplies into every downstream bot. Derive the proper type from `ContextType<typeof bot, "update_name">`, `CallbackQueryShorthandContext<typeof bot, typeof schema>`, or export a `BotContext = typeof bot['_']['context']` alias. If a value is genuinely unknown at a system boundary, use `unknown` + narrowing. No exceptions, even in "what-not-to-do" snippets — use `@ts-expect-error` on the specific line with a comment instead of a broad `any`.
 
-17. **Run `bun run check:skills` before finishing any skill edit** — any change to `skills/**/*.ts` or TypeScript code blocks in `skills/**/*.md` must typecheck cleanly against the currently installed gramio versions. The `check:skills` script runs `tsc --noEmit` over `skills/examples/*.ts` with strict mode. If it reports errors, fix them — don't ship. If a pre-existing example breaks because gramio's API evolved, update the example to match the current API (check `node_modules/gramio/dist/index.d.ts` and `node_modules/@gramio/*/dist/index.d.ts` for current signatures).
+17. **Button-first UX — users tap, they don't type.** Navigation belongs to inline keyboards, not slash commands. `/start` should be a short hero (bold title + blockquote description) with an inline keyboard of primary actions — **not** a wall of text listing `/help`, `/settings`, `/delete`. Nested menus need breadcrumbs in the title (`⚙️ Settings · home › settings`), a `◀ Back` button on every non-home screen, and `🏠 Home` anywhere deeper than two levels. Navigation clicks **edit the current message** (`ctx.editText`), never send new ones — new sends are for events (results, notifications), not navigation. Toggle buttons carry their state in the **label** (`✅ Notifications` / `⬜ Notifications`) and one handler flips the session field + rerenders. Destructive actions always go through a confirm screen with the safe default on the left. Every callback handler starts with `ctx.answer()` so the spinner stops immediately — empty is fine for navigation, short text for toast feedback, `{ show_alert: true }` only for errors the user must acknowledge. Commands exist for **discovery** (register with `setMyCommands` so they appear in Telegram's menu button), not as the primary UI. See [ux-patterns](references/ux-patterns.md) for the full playbook and [`examples/ux-menu.ts`](examples/ux-menu.ts) for a worked example covering hero `/start`, nested menu, toggles, and destructive confirm.
+
+18. **Run `bun run check:skills` before finishing any skill edit** — any change to `skills/**/*.ts` or TypeScript code blocks in `skills/**/*.md` must typecheck cleanly against the currently installed gramio versions. The `check:skills` script runs `tsc --noEmit` over `skills/examples/*.ts` with strict mode. If it reports errors, fix them — don't ship. If a pre-existing example breaks because gramio's API evolved, update the example to match the current API (check `node_modules/gramio/dist/index.d.ts` and `node_modules/@gramio/*/dist/index.d.ts` for current signatures).
 
 ## Official Plugins
 
@@ -207,6 +209,7 @@ Each page contains: GramIO TypeScript examples, parameter details, error table w
 |-------|-------------|-----------|
 | Keyboards | Keyboard, InlineKeyboard, layout helpers, styling | [keyboards](references/keyboards.md) |
 | Formatting | entity helpers, `join` (never native `.join()`!), variable composition, no `parse_mode` | [formatting](references/formatting.md) |
+| UX Patterns | button-first nav, `/start` anatomy, nested menus, toggles, destructive confirm, empty states, formatting hierarchy, command discovery, deep links | [ux-patterns](references/ux-patterns.md) |
 | Files | MediaUpload, MediaInput, download, Bun.file() | [files](references/files.md) |
 | CallbackData | Type-safe callback data schemas | [callback-data](references/callback-data.md) |
 | Storage | In-memory, Redis, Cloudflare adapters | [storage](references/storage.md) |
@@ -256,6 +259,7 @@ Load when the user wants to migrate an existing bot to GramIO.
 |---------|-------------|------|
 | Basic bot | Commands, hooks, error handling | [basic.ts](examples/basic.ts) |
 | Keyboards | Reply, inline, columns, conditional | [keyboards.ts](examples/keyboards.ts) |
+| UX menu | Hero `/start`, nested menu with breadcrumbs + Back, toggle buttons, destructive confirm step | [ux-menu.ts](examples/ux-menu.ts) |
 | CallbackData | Type-safe callback schemas | [callback-data.ts](examples/callback-data.ts) |
 | Formatting | Entity types, join helper, variable composition, parse_mode anti-pattern | [formatting.ts](examples/formatting.ts) |
 | File upload | Path, URL, buffer, media groups | [file-upload.ts](examples/file-upload.ts) |
