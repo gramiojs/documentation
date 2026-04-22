@@ -137,6 +137,8 @@ Key rule: **the two plugins must share the same `storage` instance** — otherwi
 
 ## Ask with Validation (Standard Schema / Zod)
 
+`.ask(field, schema, prompt)` is the **persistent** equivalent of `@gramio/prompt`'s `context.prompt(...)`. It sends the prompt, parses the user's reply through the schema, retries on validation error, and stores the parsed value on `context.scene.state[field]` — all while persisting step index and collected state to the configured storage, so the flow survives process restarts. Use this, not `@gramio/prompt`, for any multi-step / OAuth-connect / onboarding flow (see [Critical Concept #14 in SKILL.md](../SKILL.md)).
+
 ```typescript
 import { z } from "zod";
 

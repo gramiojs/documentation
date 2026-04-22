@@ -1,13 +1,32 @@
 ---
 name: prompt
-description: Interactive prompts with @gramio/prompt — send message and wait for response, with validation, transform, and timeout support.
+description: Interactive in-memory prompts with @gramio/prompt — send and wait for one response in-process. NOT persistent across restarts; use Scenes `.ask()` for any multi-step or connect flow that must survive deploys.
 ---
 
 # Prompt Plugin
 
 Package: `@gramio/prompt`
 
-Simpler alternative to Scenes for single-question flows.
+> **⚠️ Read this before reaching for `prompt` in a multi-step flow.**
+>
+> `@gramio/prompt` is **in-memory only**. The Promise returned by `context.prompt(...)` / `context.wait(...)` lives in the current Node.js process. The moment the process restarts — deploy, crash, container reschedule, dyno cycling, `Ctrl-C` in dev — the Promise is garbage-collected and:
+>
+> - The user's next message is **not** treated as the awaited answer.
+> - **No error** is thrown; the bot silently "forgets" the user was mid-prompt.
+> - The user sees nothing happen and usually gives up.
+>
+> **This is fatal for** OAuth-connect flows (Spotify/Last.fm/VK/Yandex/Subsonic/ListenBrainz/SoundCloud style "enter client id → validate → enter secret"), onboarding wizards, payment collection, any question-sequence that matters.
+>
+> **Use `@gramio/prompt` only for:**
+>
+> - Single-question prompts where losing the flow on restart is acceptable (throwaway confirmations, debug helpers, `/test` commands).
+> - Flows that complete in seconds inside a single handler call and the user can re-trigger trivially.
+>
+> **For everything else — especially "ask → validate → ask again" connect flows — use [Scenes](scenes.md) with `.ask("field", zodSchema, "prompt message")`.** Scenes persist step index and collected answers via the configured storage (Redis / Cloudflare / custom) and rehydrate on the next update after restart. `.ask()` kills the same `firstTime` branching and validation-retry boilerplate as `prompt`, plus it's durable.
+>
+> If a reviewer or AI suggests "replace this 7-step scene with `context.prompt(...)` to save lines" — reject it. That refactor trades correctness under restart for ~30 lines of code, and the bug it introduces is silent.
+
+Use this plugin for single-question, in-process prompts. For multi-step flows, see [scenes](scenes.md).
 
 ## Setup
 
