@@ -138,11 +138,13 @@ The scripts fuzzy-match (`sendMesage` → `sendMessage`) and suggest alternative
 
 12. **InlineQueryResult builders** — use `InlineQueryResult.article(id, title, InputMessageContent.text(...))` and similar builder methods for inline results. `bot.inlineQuery(/regex/, handler)` routes inline queries. See [triggers](references/triggers.md).
 
-13. **Subagent delegation** — skills do not auto-activate inside subagent sessions. When spawning a subagent that will write bot code, explicitly pass the relevant reference-file paths (e.g. `skills/references/callback-data.md`, `skills/plugins/scenes.md`, `skills/references/formatting.md`, `skills/references/middleware-routing.md`) in the agent prompt, or include the key rules inline.
+13. **Composing screens — prefer `@gramio/views` over inline `ctx.send` / `ctx.editText`** — for any bot with more than a couple of screens, use the [`@gramio/views`](plugins/views.md) plugin to define reusable view templates and render them with `context.render(view, params)`. It auto-detects send-vs-edit based on update type, centralises text/keyboards/media (incl. JSON-driven templates with `{{param}}` / `{{$global}}` interpolation and i18n via adapter factory), and eliminates the common failure mode of duplicating message bodies across `ctx.send(...)` and `ctx.editText(...)` call sites. The plain render-function pattern is fine for trivial menu-only bots (2-3 screens, no media, no i18n) — anything more graduates to `@gramio/views`. `@gramio/views` is marked work-in-progress (helper/adapter details may evolve), but the core shape (`initViewsBuilder`, `.render(fn)`, `context.render(...)`) is stable and is the recommended direction for view composition in GramIO. See [views](plugins/views.md).
 
-14. **No `any` anywhere in examples** — never write `ctx: any`, `as any`, `<any>`, or implicit-any parameters in any file under `skills/` (examples, markdown code blocks, plugin docs). Skill examples are templates that AI copies verbatim into user bots; every `any` here multiplies into every downstream bot. Derive the proper type from `ContextType<typeof bot, "update_name">`, `CallbackQueryShorthandContext<typeof bot, typeof schema>`, or export a `BotContext = typeof bot['_']['context']` alias. If a value is genuinely unknown at a system boundary, use `unknown` + narrowing. No exceptions, even in "what-not-to-do" snippets — use `@ts-expect-error` on the specific line with a comment instead of a broad `any`.
+14. **Subagent delegation** — skills do not auto-activate inside subagent sessions. When spawning a subagent that will write bot code, explicitly pass the relevant reference-file paths (e.g. `skills/references/callback-data.md`, `skills/plugins/scenes.md`, `skills/references/formatting.md`, `skills/references/middleware-routing.md`) in the agent prompt, or include the key rules inline.
 
-15. **Run `bun run check:skills` before finishing any skill edit** — any change to `skills/**/*.ts` or TypeScript code blocks in `skills/**/*.md` must typecheck cleanly against the currently installed gramio versions. The `check:skills` script runs `tsc --noEmit` over `skills/examples/*.ts` with strict mode. If it reports errors, fix them — don't ship. If a pre-existing example breaks because gramio's API evolved, update the example to match the current API (check `node_modules/gramio/dist/index.d.ts` and `node_modules/@gramio/*/dist/index.d.ts` for current signatures).
+15. **No `any` anywhere in examples** — never write `ctx: any`, `as any`, `<any>`, or implicit-any parameters in any file under `skills/` (examples, markdown code blocks, plugin docs). Skill examples are templates that AI copies verbatim into user bots; every `any` here multiplies into every downstream bot. Derive the proper type from `ContextType<typeof bot, "update_name">`, `CallbackQueryShorthandContext<typeof bot, typeof schema>`, or export a `BotContext = typeof bot['_']['context']` alias. If a value is genuinely unknown at a system boundary, use `unknown` + narrowing. No exceptions, even in "what-not-to-do" snippets — use `@ts-expect-error` on the specific line with a comment instead of a broad `any`.
+
+16. **Run `bun run check:skills` before finishing any skill edit** — any change to `skills/**/*.ts` or TypeScript code blocks in `skills/**/*.md` must typecheck cleanly against the currently installed gramio versions. The `check:skills` script runs `tsc --noEmit` over `skills/examples/*.ts` with strict mode. If it reports errors, fix them — don't ship. If a pre-existing example breaks because gramio's API evolved, update the example to match the current API (check `node_modules/gramio/dist/index.d.ts` and `node_modules/@gramio/*/dist/index.d.ts` for current signatures).
 
 ## Official Plugins
 
@@ -153,7 +155,7 @@ The scripts fuzzy-match (`sendMesage` → `sendMessage`) and suggest alternative
 | I18n | `@gramio/i18n` | Internationalization (TS-native or Fluent) |
 | Autoload | `@gramio/autoload` | File-based handler loading |
 | Prompt | `@gramio/prompt` | Interactive single-question prompts |
-| Views | `@gramio/views` | Reusable message templates (programmatic + JSON) |
+| Views | `@gramio/views` | **Recommended for screen composition** — reusable templates (programmatic + JSON), auto send/edit, keyboards, media, i18n |
 | JSX | `@gramio/jsx` | JSX syntax for formatting + keyboards (no React) |
 | Pagination | `@gramio/pagination` | Paginated inline-keyboard menus with fluent builder |
 | Auto Retry | `@gramio/auto-retry` | Retry on 429 rate limits |
@@ -238,7 +240,7 @@ Load when the user wants to migrate an existing bot to GramIO.
 | I18n | TS-native and Fluent internationalization | [i18n](plugins/i18n.md) |
 | Autoload | File-based handler discovery | [autoload](plugins/autoload.md) |
 | Prompt | Send + wait for response | [prompt](plugins/prompt.md) |
-| Views | Render-function pattern + `@gramio/views` plugin (templates, JSON, i18n) | [views](plugins/views.md) |
+| Views | **Recommended pattern** — `@gramio/views` plugin (templates, JSON, i18n, auto send/edit); plain render-fn fallback for trivial bots | [views](plugins/views.md) |
 | JSX | JSX syntax for formatting + keyboards (no React runtime) | [jsx](plugins/jsx.md) |
 | Pagination | Fluent paginated inline keyboards (prev/next/first/last, page info) | [pagination](plugins/pagination.md) |
 | OpenTelemetry | Distributed tracing, spans, instrumentation | [opentelemetry](plugins/opentelemetry.md) |
