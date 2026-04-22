@@ -118,6 +118,51 @@ In this example:
 -   The bot responds with an inline query result that includes a button labeled "Get Details."
 -   When the user selects this result, the bot edits the message to indicate that a selection was made.
 
+## Pair with `switchTo*` buttons — the best UX for inline mode
+
+Most users will never type `@YourBot <query>` on their own — it's friction they don't know exists. The fix is to put the inline query **behind an inline button**. The three [`switchTo*`](/keyboards/inline-keyboard#switchtochat) buttons teleport the user directly into inline mode with a pre-filled query, and your `inlineQuery` handler serves a curated picker. The user taps once, picks a result, Telegram posts it — no typing, no commands.
+
+- [`switchToCurrentChat`](/keyboards/inline-keyboard#switchtocurrentchat) — opens inline mode in *this* chat. Perfect for "pick one of these for me" inside your bot's private UI.
+- [`switchToChat`](/keyboards/inline-keyboard#switchtochat) — asks the user to pick any chat and share into it. Canonical "Send to friend" / "Share this card" flow.
+- [`switchToChosenChat`](/keyboards/inline-keyboard#switchtochosenchat) — same, but scoped to chat types (private / group / channel / bot).
+
+Share flow example — `/share` replies with a picker button; the inline handler returns a specific card by id:
+
+```ts
+bot.command("share", (ctx) =>
+    ctx.send("Share this card:", {
+        reply_markup: new InlineKeyboard().switchToChosenChat("📤 Send to…", {
+            query: "card-42",
+            allow_user_chats: true,
+            allow_group_chats: true,
+        }),
+    }),
+);
+
+bot.inlineQuery(/^card-(\d+)$/, async (ctx) => {
+    const card = await loadCard(ctx.args![1]);
+    return ctx.answer(
+        [
+            InlineQueryResult.article(
+                card.id,
+                card.title,
+                InputMessageContent.text(card.body),
+            ),
+        ],
+        { cache_time: 0, is_personal: true },
+    );
+});
+```
+
+Why the pairing is so strong:
+
+- **Zero typing.** The `query` is pre-filled — the user only picks a result.
+- **Native picker UI.** Users already know the inline-results dialog from `@gif`, `@stickers`, `@vote` — familiarity is free.
+- **Stays in flow.** `switchToCurrentChat` never leaves the chat; `switchToChat` turns sharing into a single tap.
+- **No webapp, no deep link, no backend redirect.** The whole round-trip is native Telegram.
+
+Any time a feature would otherwise be "type a command, then reply with an option" — voting, GIF/sticker pick, language or timezone select, quote/card sharing, contact picker — a `switchTo*` button + an inline handler is almost always the better UX.
+
 ## `context.answer()` options
 
 The second argument to `context.answer()` accepts all the regular [`answerInlineQuery`](/telegram/methods/answerInlineQuery) params. The four you will reach for most often:

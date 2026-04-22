@@ -116,6 +116,9 @@ new InlineKeyboard().pay("5 coins");
 > [!WARNING]
 > This type of button **must** always be the first button in the first row and can only be used in invoice messages.
 
+> [!TIP] The best UX pattern for inline mode
+> The three `switchTo*` buttons below pair with an [`inlineQuery`](/triggers/inline-query) handler to give you the nicest flow in the entire Bot API: the user taps a button, Telegram opens inline mode with a **pre-filled query**, your handler serves a curated picker, the user picks a result, Telegram posts it. Zero typing, familiar native UI, no deep link, no webapp. Use it for share flows, GIF/card/quote pickers, voting, language/timezone selection — anything that would otherwise be "type a command, then reply with an option". See the [pairing guide](/triggers/inline-query#pair-with-switchto-buttons-the-best-ux-for-inline-mode) for a worked example.
+
 ### switchToChat
 
 Pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field.
