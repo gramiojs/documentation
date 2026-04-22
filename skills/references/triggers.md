@@ -76,7 +76,10 @@ bot.inlineQuery(/find (.*)/i, async (context) => {
                 `Result for ${context.args![1]}`,
                 InputMessageContent.text(
                     format`Found: ${bold(context.args![1])}`
-                )
+                ),
+                {
+                    thumbnail_url: "https://example.com/thumb.jpg", // JPEG, ≤320×320 px, ≤200 KB
+                }
             ),
         ],
         { cache_time: 0 }
@@ -86,6 +89,32 @@ bot.inlineQuery(/find (.*)/i, async (context) => {
     onResult: (context) => context.editText("You selected this!"),
 });
 ```
+
+> **Thumbnail constraints (`thumbnail_url`)** — must be **JPEG** (PNG/WebP silently fail in some Telegram clients), ≤**320×320 px**, ≤**~200 KB**. Oversized or non-JPEG URLs cause the preview to disappear instead of falling back to a default — applies to `InlineQueryResultArticle`, `Contact`, `Document`, `Gif`, `Location`, `Mpeg4Gif`, `Photo`, `Venue`, `Video`.
+
+**Auth-required queries — use `button` to redirect the user to a private chat.** When serving results requires the user to be logged in / connected / onboarded, return an **empty** results array plus a top `button` with a deep-link `start_parameter`. Telegram shows the button above the empty results panel; tapping it opens the PM with `/start <param>`, which you handle via `ctx.args`.
+
+```typescript
+bot.inlineQuery(async (ctx) => {
+    if (!(await isAuthenticated(ctx.from!.id))) {
+        return ctx.answer([], {
+            cache_time: 0,
+            is_personal: true,
+            button: {
+                text: "Log in to continue",
+                start_parameter: "login-inline", // 1-64 chars, [A-Za-z0-9_-]
+            },
+        });
+    }
+    // ...normal results once authenticated
+});
+
+bot.command("start", (ctx) => {
+    if (ctx.args === "login-inline") return ctx.send("Let's get you logged in…");
+});
+```
+
+`InlineQueryResultsButton` is a discriminated union — provide **exactly one** of `start_parameter` (deep-link to PM) or `web_app` (launch a Mini App). Use this pattern any time inline mode needs side-effects it can't do on its own: auth, long-running setup, file uploads, etc.
 
 ## chosenInlineResult
 

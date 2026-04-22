@@ -133,6 +133,8 @@ Use GramIO's [auto-retry plugin](/plugins/official/auto-retry) to handle `429` e
 - **`button` creates a fixed button above results.** Use it for "Switch to private chat" (via `start_parameter`) or "Open Web App" (via `web_app`). Useful when inline mode requires authentication or more complex setup.
 - **`input_message_content.message_text` supports formatting.** Use GramIO's [formatting helpers](/formatting) to produce bold, italic, code, and links via entities — pass the result as `message_text` with `entities` instead of `parse_mode`.
 - **Inline results can include inline keyboards.** Add a `reply_markup` field (an `InlineKeyboardMarkup`) to any result so the sent message has buttons. See the [Keyboards guide](/keyboards/overview) for the GramIO builder API.
+- **Thumbnails must be JPEG, ≤320×320 px, ≤200 KB.** `thumbnail_url` on any `InlineQueryResult*` silently fails in some Telegram clients for PNG/WebP or oversized JPEGs — the preview just disappears instead of falling back to a default. If you see "broken" or missing previews, verify the format and dimensions first.
+- **Use `button` to redirect users who can't be served inline.** When serving results requires authentication, onboarding, or any action that inline mode can't perform, return an empty `results` array plus a `button` with `start_parameter` (opens a private chat, `/start <param>` reaches your command handler) or `web_app` (launches a Mini App). See the [inlineQuery trigger guide](/triggers/inline-query#context-answer-options) for a worked example.
 
 ## See Also
 
