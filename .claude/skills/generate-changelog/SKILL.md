@@ -50,24 +50,25 @@ Example questions to ask:
 
 ### 3. Fetch Patches
 
-Compute `<tomorrow>` first:
+Use **`ghlog ≥ 0.4.0`** (`bunx ghlog@latest`). Key behaviors to know:
 
-```bash
-date -v+1d +%Y-%m-%d   # macOS / BSD
-date -d "+1 day" +%Y-%m-%d  # Linux / GNU
-```
+- Date-only `--until YYYY-MM-DD` is treated as **inclusive end-of-day** (auto-bumped to `T23:59:59.999Z`). Default is today, also inclusive. The old `--until <tomorrow>` trick is no longer needed.
+- `--exclude-author "github-actions[bot],dependabot[bot],renovate[bot]"` filters out boilerplate bot commits from the output (post-fetch, exact author match).
+- `--no-forks` skips fork repos in the org.
+- `--time-source push` switches the time source from committer date (default) to **GitHub PushEvent timestamps** — useful when you suspect delayed pushes from another device. See caveat below.
+- `fetchWithRetry` is built in: 3 attempts with exponential backoff on 5xx and network errors, so transient blips don't kill a long run.
 
 **If `sinceMap` is present in state** (normal incremental run — preferred):
 
-Write the sinceMap to a temp file and use `--since-map` for precise SHA-based fetching. Pass `--include-new` with `--since <lastRunDate>` so repos that appeared after the last run are also included:
+Write the sinceMap to a temp file and use `--since-map` for precise SHA-based fetching. Pass `--include-new` with `--since <lastRunDate>` so repos that appeared after the last run are also included. Default to the bot-author exclusions:
 
 ```bash
 echo '<sinceMap JSON>' > /tmp/gramio-since-map.json
 
-bunx ghlog --org gramiojs \
+bunx ghlog@latest --org gramiojs \
   --since-map /tmp/gramio-since-map.json \
   --include-new --since <lastRunDate> \
-  --until <tomorrow> \
+  --exclude-author "github-actions[bot],dependabot[bot],renovate[bot]" \
   --patch --patch-dir /tmp/gramio-patches \
   --format markdown --output /tmp/gramio-ghlog.md
 ```
@@ -77,19 +78,18 @@ bunx ghlog --org gramiojs \
 **If no `sinceMap`** (first run, or migrating from old state):
 
 ```bash
-bunx ghlog --org gramiojs \
+bunx ghlog@latest --org gramiojs \
   --since <lastRunDate or user-provided date> \
-  --until <tomorrow> \
+  --exclude-author "github-actions[bot],dependabot[bot],renovate[bot]" \
   --patch --patch-dir /tmp/gramio-patches \
   --format markdown --output /tmp/gramio-ghlog.md
 ```
 
-> **`--until` is always required.** Without it, commits from the current day may be silently dropped:
+> **Caveats worth knowing about ghlog filtering**
 >
-> - `--since DATE` → includes commits **from** `DATE T00:00:00Z` (inclusive)
-> - `--until DATE` → includes commits **before** `DATE T00:00:00Z` (exclusive)
->
-> Always pass `--until <tomorrow>` to capture the full current day.
+> - **Default `--time-source=commit`**: GitHub's commits API filters by **committer date**, not push time. A commit made locally days ago and pushed later is anchored to its committer date. If that date predates the saved `--since-map` SHA's timestamp, the commit is silently outside the window.
+> - **`--time-source=push` opt-in**: switches to PushEvent timestamps via the events + Compare API. Closes the delayed-push gap, but the events feed is limited to **~90 days / 300 events per repo**, and pushes inside that window cost an extra Compare API call each. Use it when you suspect missed commits, not as the default.
+> - **Mitigation regardless of time-source**: before running `/generate-changelog`, ensure all devices have pushed (`git log --branches --not --remotes`). For force-pushed branches whose saved SHA was garbage-collected, ghlog will fail with a 404 — drop the entry from `sinceMap` and rerun.
 
 ### 4. Read the Markdown Summary
 
@@ -138,16 +138,23 @@ npm info @gramio/keyboards@2.0.0 version 2>/dev/null
 
 This check prevents documenting features that users can't install yet. Run the check for every version bump found in the patches; skip it for packages that don't have an npm registry (internal tools, private packages).
 
-#### 5b. Extract Latest Commit SHAs per Repo
+#### 5b. Extract Last-Documented Commit SHAs per Repo
 
-After reading the patches, parse `/tmp/gramio-ghlog.md` to collect the **full SHA** of the newest commit for each repo that had activity. These SHAs will be saved as the new `sinceMap` in step 13.
+After reading the patches, build the new `sinceMap` from the markdown. Each commit short-SHA in the output is wrapped in a real GitHub link, so the **full SHA is parseable** from the URL:
 
-Commit links in the ghlog markdown look like:
 ```
-https://github.com/gramiojs/<repo>/commit/<full-sha>
+- [`9f6edc3`](https://github.com/gramiojs/composer/commit/9f6edc3a7284e5a1d64b96864d14a4d7a18def7d) chore: bump to 0.4.1 ...
 ```
 
-For each repo, take the SHA of the first (most recent) commit listed. Store them in a `newSinceMap` object: `{ "gramio": "<sha>", "keyboards": "<sha>", ... }`.
+Extract the full SHA after `/commit/` for each repo's selected commit.
+
+**Which SHA to save (important for WIP):**
+
+For each repo, save the SHA of the **last commit you actually included in the changelog narrative** — not necessarily the newest commit on the branch. If you intentionally skipped trailing commits (a half-done feature pushed mid-cycle, an unfinished refactor, anything you don't want to document yet), save the SHA of the last *documented* commit. The next run will re-pick the skipped commits via `--since-map`'s timestamp resolution. Saving HEAD when you skipped trailing commits **loses them forever**.
+
+Default rule: if you documented every commit in the window for a repo, the saved SHA equals the newest commit (= first one listed in the markdown). If you skipped some, walk down the list to the last documented one.
+
+Store these in a `newSinceMap` object: `{ "gramio": "<sha>", "keyboards": "<sha>", ... }`.
 
 ### 6. Compose the Changelog Page
 
@@ -370,7 +377,7 @@ Read `public/changelog.json`. If it doesn't exist, create it with an empty `entr
 
 - `id` — `YYYY-MM-DD-<kebab-slug>` where slug is 3–5 words from the EN title (lowercase, hyphens). Must be unique.
 - `dateRange.from` — the `--since` date used for this run (= `lastRunDate` from state, or the user-provided start date)
-- `dateRange.to` — the **last actually included day** = `--until - 1 day` (= today's date). Since `--until` is exclusive, the range covers `[from, to]` inclusive when expressed in calendar days.
+- `dateRange.to` — the **last actually included day** = today's date. With `ghlog ≥ 0.4.0`, `--until` is treated as inclusive end-of-day, so `[from, to]` covers all calendar days the run looked at.
 - `summary` — array of short bullet strings, plain text only (no markdown, no links). Each item = one key change, 1 line, punchy. 12 bullets max. EN and RU versions independently written (not translated mechanically) — write like a native speaker of each language.
 - `packages` — list of affected package names extracted from patches (e.g. `"gramio"`, `"@gramio/keyboards"`)
 - `tags` — 3–6 lowercase keywords useful for bot filtering (e.g. `"breaking"`, `"keyboards"`, `"sessions"`, `"performance"`, `"new-plugin"`)
@@ -403,9 +410,9 @@ Write `.changelog-state.json` at the project root using the `newSinceMap` collec
 
 **Rules:**
 
-- `sinceMap` — merge the old `sinceMap` with `newSinceMap`. Repos that had no commits this run keep their old SHA. Repos with new commits get updated to the latest SHA from step 5b.
+- `sinceMap` — merge the old `sinceMap` with `newSinceMap`. Repos that had no commits this run keep their old SHA. Repos with new commits get updated to the SHA chosen in step 5b (last *documented* commit, which may not be HEAD if you skipped WIP).
 - `lastRunDate` — set to **today** (not tomorrow). This is the `--since` fallback for `--include-new` repos on the next run. Setting it to today means commits pushed later today will also be caught on the next run (slight overlap is harmless since changelogs are human-reviewed).
-- The next run will use `--since-map <updated-sinceMap>` for known repos and `--since <today>` for any brand-new repos.
+- The next run will use `--since-map <updated-sinceMap>` for known repos and `--since <today>` for any brand-new repos. Skipped-WIP commits will reappear because their committer date is after the saved (older) SHA's timestamp.
 
 ### 14. Clean Up
 
