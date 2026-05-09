@@ -159,6 +159,22 @@ app.trace((entry, ctx) => {
 3. Очистка вызывается после завершения middleware (без аргументов при успехе, с ошибкой при сбое)
 4. Ошибки продолжают проброс в `onError` после очистки
 
+### registeredEvents()
+
+Возвращает `Set<string>` со всеми именами событий, на которые у композера есть хэндлеры — собирает из `.on()` и event-specific `.derive()`. Композитные события (`"message|callback_query"`) разворачиваются, entity-паттерны (`"message:text"`) сохраняются как есть.
+
+```ts
+const app = new Composer()
+    .on("message", h1)
+    .on(["callback_query", "inline_query"], h2)
+    .derive("chat_member", h3);
+
+app.registeredEvents();
+// → Set { "message", "callback_query", "inline_query", "chat_member" }
+```
+
+Под капотом этого работает автогенерация `allowed_updates` в gramio 0.9 — `bot.start()` обходит все композеры через `registeredEvents()` и смотрит, какие апдейты реально используются.
+
 ## Система скоупов
 
 Скоупы контролируют как middleware распространяется при расширении одного композера другим:

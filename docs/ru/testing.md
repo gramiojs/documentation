@@ -69,8 +69,62 @@ const env = new TelegramTestEnvironment(bot);
 | `env.offApi(method?)` | Удаляет обработчик (или все обработчики, если метод не указан) |
 | `env.apiCalls` | Массив `{ method, params, response }` — лог всех API-вызовов |
 | `env.clearApiCalls()` | Очищает массив `apiCalls` (полезно между фазами теста) |
-| `env.lastApiCall(method)` | Последний записанный вызов для `method`, или `undefined` |
+| `env.lastApiCall(method)` | Последний записанный вызов для `method`, или `undefined`. Типизирован как `ApiCall<Method>` с v0.5 |
+| `env.filterApiCalls(method)` | Все записанные вызовы для `method` как типизированный `ApiCall<Method>[]` (с v0.5) |
+| `env.lastBotMessage(opts?)` | Живое зеркало `MessageObject` для последнего `sendMessage` бота (с v0.6, см. ниже) |
+| `env.botMessage(chatId, msgId)` | Поиск трекаемого сообщения бота по chat + message id |
 | `env.users` / `env.chats` | Все созданные пользователи и чаты |
+
+### `env.lastBotMessage()` — bubble, который синхронизируется с edit
+
+Зеркало `MessageObject` для последнего `sendMessage` бота, проактивно синкается с `editMessageText`/`editMessageCaption`/`editMessageReplyMarkup` прямо в proxy. Ссылки, схваченные до edit, остаются актуальными — никакого ручного refresh:
+
+```ts
+await user.command("start");
+const bubble = env.lastBotMessage();          // первый send
+await user.on(bubble).clickByText("Next →");  // бот эдитит то же сообщение
+expect(bubble.payload.text).toBe("Шаг 2 из 3");
+```
+
+`reply_markup` Builder-инстансы (вроде `InlineKeyboard` из `@gramio/keyboards`) нормализуются через `.toJSON()` перед записью в `env.apiCalls`, поэтому ассерты можно писать против plain JSON без `JSON.parse(JSON.stringify(...))`.
+
+Два фильтра сужают поиск, когда между send'ами есть «шум»:
+
+```ts
+// Пропустить статусные/confirmation-сообщения без клавиатуры
+const menu = env.lastBotMessage({ withReplyMarkup: true });
+
+// Произвольный предикат на записанный sendMessage-вызов
+const found = env.lastBotMessage({
+    where: (call) => /Agenda/.test(call.params.text ?? ""),
+});
+```
+
+Оба фильтра соединяются по AND с уже существующим `chat`-scope.
+
+### Типобезопасные ассерты на API-вызовы (с v0.5)
+
+`ApiCall<Method>` типизирует `params` и `response` через `APIMethodParams` / `APIMethodReturn`:
+
+```ts
+const call = env.lastApiCall("sendMessage");
+//    ^? ApiCall<"sendMessage"> | undefined — call.params.text это `string | FormattableString`
+
+const allMessages = env.filterApiCalls("sendMessage");
+expect(allMessages).toHaveLength(3);
+```
+
+### Telegram Payments (с v0.4)
+
+Билдеры `PreCheckoutQueryObject` и `ShippingQueryObject` плюс три high-level user-экшена симулируют полный платёжный флоу включая апрув бота через `answerPreCheckoutQuery`:
+
+```ts
+await user.sendShippingQuery({ invoice_payload: "order_42", shipping_address });
+await user.sendPreCheckoutQuery({ invoice_payload: "order_42", total_amount: 1000, currency: "USD" });
+
+// Полный happy-path: эмитит pre_checkout_query, проверяет апрув, потом эмитит successful_payment
+await user.sendSuccessfulPayment({ invoice_payload: "order_42", total_amount: 1000, currency: "USD" });
+```
 
 ## `UserObject` — главное действующее лицо
 

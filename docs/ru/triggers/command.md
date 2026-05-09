@@ -69,9 +69,49 @@ bot.command("start", async (context) => {
 
 4. **Аргументы команды:** Если после команды есть дополнительные аргументы (например, `/start arg1 arg2`), они передаются в `context.args` для дальнейшей обработки.
 
-<!-- ### Опции команды
+## Метаданные команд и `bot.syncCommands()`
 
-Вы также можете передать дополнительные опции для настройки обработки команды. Это может включать установку параметров, таких как `description`, `scope` или `language_code`, хотя эти опции опущены в этом базовом примере. -->
+Начиная с gramio v0.9, `bot.command()` принимает опциональный объект `CommandMeta` **между** именем команды и хэндлером. Метаданные собираются на этапе регистрации и одним вызовом `bot.syncCommands()` отправляются в Telegram — больше не нужно вручную дёргать `setMyCommands` или собирать меню в BotFather.
+
+```ts
+const bot = new Bot(process.env.BOT_TOKEN!)
+    .command("start", { description: "Запустить бота" }, (ctx) => ctx.send("Привет!"))
+    .command(
+        "help",
+        {
+            description: "Show help",
+            locales: { ru: "Помощь", uk: "Допомога" },
+        },
+        (ctx) => ctx.send("Помощь!"),
+    )
+    .command(
+        "admin",
+        {
+            description: "Админ-панель",
+            scopes: [{ type: "chat_administrators" }],
+        },
+        adminHandler,
+    )
+    .command("debug", { hide: true }, debugHandler);
+
+bot.onStart(() => bot.syncCommands());
+await bot.start();
+```
+
+### Поля `CommandMeta`
+
+| Поле | Тип | Описание |
+|---|---|---|
+| `description` | `string` | Что показывает Telegram в меню команд. Обязательно, чтобы команда попала в меню. |
+| `locales` | `Record<string, string>` | Описания по языкам. Ключи — `language_code` из Telegram. Удобно тащить через [`localesFor()` из `@gramio/i18n`](/ru/plugins/official/i18n) прямо из файлов переводов. |
+| `scopes` | `BotCommandScope[]` | Ограничить видимость команды конкретными контекстами — `default`, `all_private_chats`, `all_group_chats`, `all_chat_administrators`, `chat`, `chat_administrators`, `chat_member`. |
+| `hide` | `boolean` | Не выводить эту команду в меню. Полезно для debug/служебных команд, которые хочется ловить через `/`, но не показывать пользователям. |
+
+### Как работает `syncCommands()`
+
+`bot.syncCommands()` группирует команды по scope, считает хэш на каждый scope и вызывает [`setMyCommands`](/ru/telegram/methods/setMyCommands) только для тех scope, у которых хэш изменился с прошлого запуска. Поэтому дёргать его в `onStart` дёшево — неизменённые метаданные не жгут лимиты. `{ exclude: ["debug"] }` исключает отдельные команды на этапе синка.
+
+Обычная двухаргументная форма `bot.command(name, handler)` тоже работает — для команд, которые не должны попадать в меню.
 
 <!-- ## Заключение
 

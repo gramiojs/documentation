@@ -1,19 +1,26 @@
 {
     "sinceMap": {
-        "composer": "6dae6fc0fb71859d4c2f100a5617c1d27c34f684",
-        "contexts": "116aacd059d0ecf675563bd9800a2fe23dc9bdf3",
-        "create-gramio": "73ed80558e8ec84f7c178b14473bb8566477ae44",
-        "documentation": "a28836fcb312e28cd80dc2a007efd311adb8e1b4",
-        "files": "496423f1b835ddaf4b448da700aa81e42fd285df",
-        "format": "01680971ed4319c665da35ac6c8e46498d1d70b7",
-        "gramio": "d3dc668edcdfdf69114cf862de50c7af13677c7a",
-        "keyboards": "60148076b5096fcd41baf5c284c7e7e29b2a78ee",
+        "auto-answer-callback-query": "92ad7294d91051e59bba76394d14c2264536210a",
+        "composer": "9f6edc3a7284e5a1d64b96864d14a4d7a18def7d",
+        "contexts": "8f4131314ce72d8efe32bf1f1847d73f23f8cad4",
+        "create-gramio": "b5c2db5c6c99e4d5c91c92f7ca70713ca81361af",
+        "documentation": "cb80d77e7a3944ced03bc6127cc44d98c5760320",
+        "ecosystem-ci": "74aaf31a50fa6d7e898e664ae907a079391fbc76",
+        "files": "09a0cc28c0dbce8f657a666e292565f2449aae4b",
+        "format": "4947a200e13fdc0f0fd65c91cc836ef419227067",
+        "gramio": "016e84ae9ecb624ea56023426418462c9d7cdfb6",
+        "i18n": "138ca4eed4741b9a3e93dffcf442315cf0b276fc",
+        "jsx": "e737d584d5a4ea7b5524e2dce6e471e6b7ac8631",
+        "keyboards": "df703f48c490e15a1b7e3a0e1660665576186fe9",
+        "onboarding": "50834de01bc4ca4b73bb1d2255917a67a462e5be",
         "rate-limiter": "fffe4fb0638a486b9195c584ac4cb5adc834de60",
-        "scenes": "13be794f76ce599569e7130e7c7f098c2fd45fb0",
-        "test": "73d9670a115f7583a6154808b48e1e08524cee79",
-        "types": "fdd8f1ff4da66204350631fa5816590509837076",
-        "views": "62b5bf895e9984a8545b3cc8a673b92356e317b2"
+        "scenes": "be1f7f5d85f28d0634e90cdae9fa7e3e781432ee",
+        "schema-parser": "c7097099ddc35250297c5435fdc8e55e2a85758b",
+        "test": "9449776c25b9703e26b7a27667d9b0f418824b09",
+        "types": "e4a94d2ed44ec0ace9a38de88ac3629434f26015",
+        "views": "b9e678d89bb4a3c68965d8a4629992c1218df166",
+        "wrappergram": "d7e2a2945c50a2de450d35c8caa5e43c623158b1"
     },
-    "lastRunDate": "2026-03-02",
-    "lastPage": "changelogs/2026-03-02"
+    "lastRunDate": "2026-05-08",
+    "lastPage": "changelogs/2026-05-08"
 }

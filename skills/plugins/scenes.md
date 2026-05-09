@@ -67,8 +67,10 @@ bot.extend(session({ key: "session", initial: () => ({}) }))
 | `context.scene.update(data)` | Merge data into state |
 | `context.scene.enter(scene, params?)` | Enter a scene |
 | `context.scene.exit()` | Leave current scene |
-| `context.scene.reenter()` | Restart from step 0 |
+| `context.scene.reenter(params?)` | Restart from step 0. Accepts new params (v0.5+) when scene was declared with `.params<T>()` |
 | `context.scene.go(stepId)` | Jump to specific step |
+| `context.scene.enterSub(sub, params?)` | Push current scene onto parent stack, run sub-scene to completion, then auto-resume on the next step (v0.5+) |
+| `context.scene.exitSub(returnData?)` | Inside a sub-scene: return to the parent scene's next step. Typed via `.exitData<T>()` on the sub-scene |
 
 ## Step Navigation
 
@@ -246,3 +248,39 @@ import { redisStorage } from "@gramio/storage-redis";
 
 bot.extend(scenes([myScene], { storage: redisStorage(redis) }));
 ```
+
+## Sub-scenes — `enterSub` / `exitSub` (v0.5+)
+
+Scenes nest. `ctx.scene.enterSub(sub, params?)` pushes the current scene onto a parent stack, runs the sub-scene, then auto-resumes on the parent's next step. The stack is persisted, so a process restart resumes correctly. Use `.exitData<T>()` on the sub-scene to type the data it returns:
+
+```typescript
+const pickAddress = new Scene("pick-address")
+    .exitData<{ address: string }>()
+    .step("ask", (ctx) => ctx.send("Send your address"))
+    .step("save", (ctx) => ctx.scene.exitSub({ address: ctx.text! }));
+
+const checkout = new Scene("checkout")
+    .step("address", async (ctx) => {
+        await ctx.scene.enterSub(pickAddress);  // pauses checkout
+    })
+    .step("confirm", (ctx) => {
+        // pickAddress resolved — exitData merged into parent state
+        return ctx.send("Confirm order?");
+    });
+```
+
+## Passthrough — global commands during a scene (v0.6 default)
+
+`scenes()` accepts `passthrough: boolean` (default `true` since v0.6): updates that arrive while a user is in a scene but don't match the current step **fall through to outer handlers**. Global `bot.command("cancel")` / `bot.command("help")` finally fire mid-scene without the scene swallowing them; `firstTime` is preserved so the user doesn't lose their place.
+
+```typescript
+const bot = new Bot(token)
+    .extend(scenes([signupScene]))                       // passthrough: true
+    .command("cancel", (ctx) => ctx.scene?.exit())        // fires mid-scene
+    .command("help", (ctx) => ctx.send("/cancel to abort"));
+```
+
+Set `passthrough: false` to restore the legacy greedy behavior (scene consumes every update for the active user). Do this only if you want hard isolation from outer handlers.
+
+> [!WARNING]
+> Passthrough also means top-level `callbackQuery(nav, …)` sees button clicks during a scene. Combine with [Global Scene Exit](#global-scene-exit-nav-buttons--cancel) above so users don't end up stuck after a nav click.

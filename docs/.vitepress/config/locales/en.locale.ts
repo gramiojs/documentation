@@ -550,6 +550,10 @@ export function createLocaleEn(typeDocSidebar: Record<string, unknown[]> = {}) {
 						items: [
 							// new entries added here by the skill, newest first
 							{
+								text: "2026-05-08",
+								link: "/changelogs/2026-05-08",
+							},
+							{
 								text: "2026-03-02",
 								link: "/changelogs/2026-03-02",
 							},
@@ -657,6 +661,7 @@ export function createLocaleEn(typeDocSidebar: Record<string, unknown[]> = {}) {
 								collapsed: true,
 								items: [
 									{ text: "Scenes", link: "/plugins/official/scenes" },
+										{ text: "Onboarding", link: "/plugins/official/onboarding" },
 									{ text: "I18n", link: "/plugins/official/i18n" },
 									{ text: "Session", link: "/plugins/official/session" },
 									{ text: "Autoload", link: "/plugins/official/autoload" },

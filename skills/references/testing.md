@@ -184,6 +184,44 @@ expect(env.apiCalls[0].method).toBe("sendMessage");
 expect(env.apiCalls[0].params.text).toBe("Reply!");
 ```
 
+### Typed lookups (v0.5+)
+
+`env.lastApiCall(method)` and `env.filterApiCalls(method)` return `ApiCall<Method>` with `params`/`response` typed via `APIMethodParams`/`APIMethodReturn`:
+
+```typescript
+const sent = env.lastApiCall("sendMessage");
+//    ^? ApiCall<"sendMessage"> | undefined — sent.params.text is `string | FormattableString`
+
+const all = env.filterApiCalls("sendMessage");
+expect(all).toHaveLength(3);
+```
+
+### `env.lastBotMessage()` — bubble that tracks edits (v0.6+)
+
+A live `MessageObject` mirror of the bot's last `sendMessage`, kept in sync with `editMessageText` / `editMessageCaption` / `editMessageReplyMarkup` eagerly. References stay current across edits — `user.on(bubble).clickByText(...)` works through multiple edits on the same reference. `reply_markup` Builder instances are normalized via `.toJSON()` before recording, so no `JSON.parse(JSON.stringify(...))` round-trips:
+
+```typescript
+await user.command("start");
+const bubble = env.lastBotMessage();           // first send
+await user.on(bubble).clickByText("Next →");   // bot edits this same message
+expect(bubble.payload.text).toBe("Step 2 of 3");
+
+// Filters narrow the lookup when there's noise:
+env.lastBotMessage({ withReplyMarkup: true });               // skip status bubbles
+env.lastBotMessage({ where: (call) => /Agenda/.test(call.params.text ?? "") });
+```
+
+### Telegram Payments (v0.4+)
+
+```typescript
+await user.sendShippingQuery({ invoice_payload: "order_42", shipping_address });
+await user.sendPreCheckoutQuery({ invoice_payload: "order_42", total_amount: 1000, currency: "USD" });
+
+// Full happy-path: emits pre_checkout_query, verifies bot's answerPreCheckoutQuery,
+// then emits successful_payment service message.
+await user.sendSuccessfulPayment({ invoice_payload: "order_42", total_amount: 1000, currency: "USD" });
+```
+
 ## Mocking API Responses
 
 ```typescript

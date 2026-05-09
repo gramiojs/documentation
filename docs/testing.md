@@ -69,8 +69,62 @@ const env = new TelegramTestEnvironment(bot);
 | `env.offApi(method?)` | Remove a handler (or all handlers if no method given) |
 | `env.apiCalls` | Array of `{ method, params, response }` recording every API call |
 | `env.clearApiCalls()` | Empties the `apiCalls` array (useful between logical test phases) |
-| `env.lastApiCall(method)` | Returns the most recent recorded call for `method`, or `undefined` |
+| `env.lastApiCall(method)` | Returns the most recent recorded call for `method`, or `undefined`. Typed as `ApiCall<Method>` since v0.5 |
+| `env.filterApiCalls(method)` | Returns every recorded call for `method` as a typed `ApiCall<Method>[]` (since v0.5) |
+| `env.lastBotMessage(opts?)` | Live `MessageObject` mirror of the bot's last `sendMessage` (since v0.6, see below) |
+| `env.botMessage(chatId, msgId)` | Lookup a tracked bot message by chat + message id |
 | `env.users` / `env.chats` | All created users and chats |
+
+### `env.lastBotMessage()` — bubble that tracks edits
+
+A `MessageObject` mirror of the bot's last `sendMessage`, kept in sync with `editMessageText`/`editMessageCaption`/`editMessageReplyMarkup` eagerly in the proxy. References captured before an edit stay current — no manual refresh:
+
+```ts
+await user.command("start");
+const bubble = env.lastBotMessage();          // first send
+await user.on(bubble).clickByText("Next →");  // bot edits the same message
+expect(bubble.payload.text).toBe("Step 2 of 3");
+```
+
+`reply_markup` Builder instances (e.g. `InlineKeyboard` from `@gramio/keyboards`) are normalized via `.toJSON()` before being recorded into `env.apiCalls`, so you can assert against plain JSON without `JSON.parse(JSON.stringify(...))` round-trips.
+
+Two filters narrow the lookup when there's noise between sends:
+
+```ts
+// Skip status/confirmation messages without a keyboard
+const menu = env.lastBotMessage({ withReplyMarkup: true });
+
+// Arbitrary predicate over the recorded sendMessage call
+const found = env.lastBotMessage({
+    where: (call) => /Agenda/.test(call.params.text ?? ""),
+});
+```
+
+Both filters AND-combine with the existing `chat` scope.
+
+### Type-safe API call assertions (since v0.5)
+
+`ApiCall<Method>` types `params` and `response` via `APIMethodParams` / `APIMethodReturn`:
+
+```ts
+const call = env.lastApiCall("sendMessage");
+//    ^? ApiCall<"sendMessage"> | undefined — call.params.text is `string | FormattableString`
+
+const allMessages = env.filterApiCalls("sendMessage");
+expect(allMessages).toHaveLength(3);
+```
+
+### Telegram Payments (since v0.4)
+
+`PreCheckoutQueryObject` and `ShippingQueryObject` builders, plus three high-level user actions, simulate the full payment flow including the bot's `answerPreCheckoutQuery` approval:
+
+```ts
+await user.sendShippingQuery({ invoice_payload: "order_42", shipping_address });
+await user.sendPreCheckoutQuery({ invoice_payload: "order_42", total_amount: 1000, currency: "USD" });
+
+// Full happy-path: emits pre_checkout_query, verifies approval, then emits successful_payment
+await user.sendSuccessfulPayment({ invoice_payload: "order_42", total_amount: 1000, currency: "USD" });
+```
 
 ## `UserObject` — the primary actor
 

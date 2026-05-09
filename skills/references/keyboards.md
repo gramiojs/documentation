@@ -26,6 +26,7 @@ import { Keyboard } from "gramio";
 | `.requestLocation(label)` | Share location |
 | `.requestContact(label)` | Share phone contact |
 | `.webApp(label, url)` | Launch Web App |
+| `.requestManagedBot(label, requestId, options?)` | Pick a managed bot the user owns (Bot API 9.6, `@gramio/keyboards` v1.4+). Result arrives as `managed_bot_created` service message |
 
 ### Options
 

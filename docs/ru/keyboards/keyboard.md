@@ -119,6 +119,20 @@ import { Keyboard } from "@gramio/keyboards";
 new Keyboard().webApp("текст кнопки", "https://...");
 ```
 
+### requestManagedBot
+
+Кнопка запроса managed-бота (Bot API 9.6, с `@gramio/keyboards` v1.4). Нажатие открывает список ботов, которыми пользователь владеет и может управлять; идентификатор выбранного бота прилетает обратно в служебном сообщении `managed_bot_created`. Доступно только в приватных чатах. Второй параметр — знаковый 32-битный `request_id`, который возвращается в ответе, чтобы можно было сопоставить нажатие с конкретной кнопкой.
+
+```ts twoslash
+import { Keyboard } from "@gramio/keyboards";
+// ---cut---
+new Keyboard().requestManagedBot("Выбрать managed-бота", 123, {
+    user_administrator_rights: { can_manage_chat: true },
+});
+```
+
+Третий аргумент несёт опции `KeyboardButtonRequestManagedBot` (фильтр по правам администратора и пр.) — полный список см. в [референсе Bot API](https://core.telegram.org/bots/api#keyboardbuttonrequestmanagedbot).
+
 ## Стилизация кнопок
 
 Начиная с `@gramio/keyboards` **1.3.0**, каждый метод кнопки принимает необязательный параметр `options`, который позволяет настроить внешний вид кнопки.

@@ -66,3 +66,15 @@ bot.extend(
 
 > [!IMPORTANT]
 > This plugin hijack the `context.answerCallbackQuery` (`context.answer` too) method to determine if the callback query was already answered or not. Please avoid global usage of `bot.api.answerCallbackQuery` method in context because plugin can not work properly in this case.
+
+### Throw safety (since v0.0.3)
+
+Even when your handler throws, the plugin still calls `answerCallbackQuery` — so the user never ends up with a stuck spinner on the button. The middleware wraps the handler in `try/finally`, so the auto-answer runs in the `finally` branch regardless of the error:
+
+```ts
+bot.callbackQuery("test", async (context) => {
+    throw new Error("boom");
+    // The plugin still answers the callback query —
+    // the spinner clears, then the error reaches your bot.onError handler.
+});
+```

@@ -182,9 +182,9 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
 
 ## Последние обновления
 
-**[Bot API 9.5, дебют Rate Limiter, конвертер HTML в Telegram, суперсилы Composer](/ru/changelogs/2026-03-02)** — 23 февраля – 2 марта 2026
+**[Bot API 9.6, gramio 0.9 и новый плагин Onboarding](/ru/changelogs/2026-05-08)** — 2 марта – 8 мая 2026
 
-Поддержка Bot API 9.5 во всей экосистеме (теги участников, сущности `date_time`). Новый плагин `@gramio/rate-limit` с макросным троттлингом. `@gramio/format` v0.5.0 — `htmlToFormattable()`. `@gramio/composer` получает `EventContextOf`, `ContextOf`, `defineComposerMethods` и систему макросов.
+Bot API 9.6 с managed-ботами и расширенными опросами. **gramio 0.9** прокидывает `bot.syncCommands()`, шорткаты на `Plugin` и автогенерацию `allowed_updates`. Новый плагин **`@gramio/onboarding`** — декларативные туториалы с многопоточными флоу. Scenes 0.6 перестал есть глобальные команды. Views 0.2 получил ленивые globals. Wrappergram v2 — полностью переписан на middleware.
 
 [Все обновления →](/ru/changelogs/)
 

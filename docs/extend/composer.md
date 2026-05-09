@@ -159,6 +159,22 @@ The `TraceHandler` callback:
 3. Cleanup is called after middleware completes (with no args on success, with the error on failure)
 4. Errors still propagate to `onError` after cleanup
 
+### registeredEvents()
+
+Returns a `Set<string>` of every event name a composer has handlers for — collected from `.on()` and event-specific `.derive()` middleware entries. Composite events (`"message|callback_query"`) are split, and entity patterns (`"message:text"`) are kept as-is.
+
+```ts
+const app = new Composer()
+    .on("message", h1)
+    .on(["callback_query", "inline_query"], h2)
+    .derive("chat_member", h3);
+
+app.registeredEvents();
+// → Set { "message", "callback_query", "inline_query", "chat_member" }
+```
+
+This powers gramio 0.9's auto-derived `allowed_updates` — `bot.start()` runs `registeredEvents()` over the whole composer tree to figure out which Telegram update types you actually use.
+
 ## Scope System
 
 The scope system controls how middleware propagates when one composer extends another:

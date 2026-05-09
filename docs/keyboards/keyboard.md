@@ -119,6 +119,20 @@ import { Keyboard } from "@gramio/keyboards";
 new Keyboard().webApp("some button text", "https://...");
 ```
 
+### requestManagedBot
+
+Request managed bot button (Bot API 9.6, since `@gramio/keyboards` v1.4). Pressing the button opens a list of bots the user owns and can manage; the chosen bot's identifier is sent back to the bot in a `managed_bot_created` service message. Available in private chats only. The second parameter is a signed 32-bit `request_id` that's echoed back so you can match the response to a specific button.
+
+```ts twoslash
+import { Keyboard } from "@gramio/keyboards";
+// ---cut---
+new Keyboard().requestManagedBot("Pick a managed bot", 123, {
+    user_administrator_rights: { can_manage_chat: true },
+});
+```
+
+The third argument carries the `KeyboardButtonRequestManagedBot` options (administrator-rights filter etc.) — see the [Bot API reference](https://core.telegram.org/bots/api#keyboardbuttonrequestmanagedbot) for the full list.
+
 ## Button Styling
 
 Since `@gramio/keyboards` **1.3.0**, every button method accepts an optional `options` parameter that allows you to customize the visual appearance of the button.

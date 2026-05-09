@@ -156,6 +156,7 @@ The scripts fuzzy-match (`sendMesage` → `sendMessage`) and suggest alternative
 |--------|---------|---------|
 | Session | `@gramio/session` | Persistent per-user data storage |
 | Scenes | `@gramio/scenes` | Multi-step conversation flows |
+| Onboarding | `@gramio/onboarding` | **Decorate-only** — declarative tutorials / feature intros. Multi-flow concurrency, refusal ladder, scope-aware rendering. NOT a forms/wizard tool — use [Scenes](plugins/scenes.md) for that |
 | I18n | `@gramio/i18n` | Internationalization (TS-native or Fluent) |
 | Autoload | `@gramio/autoload` | File-based handler loading |
 | Prompt | `@gramio/prompt` | Single-question prompts — **in-memory only, not persistent**. Use [Scenes](plugins/scenes.md) `.ask()` for anything that must survive restarts |
@@ -242,6 +243,7 @@ Load when the user wants to migrate an existing bot to GramIO.
 |--------|-------------|-----------|
 | Session | Per-user data, Redis support | [session](plugins/session.md) |
 | Scenes | Multi-step flows, state, navigation | [scenes](plugins/scenes.md) |
+| Onboarding | Decorative tutorials with multi-flow concurrency — pair with Scenes for forms | [onboarding](plugins/onboarding.md) |
 | I18n | TS-native and Fluent internationalization | [i18n](plugins/i18n.md) |
 | Autoload | File-based handler discovery | [autoload](plugins/autoload.md) |
 | Prompt | Send + wait for response — **in-memory only**, lost on restart; use Scenes `.ask()` for persistent question sequences | [prompt](plugins/prompt.md) |

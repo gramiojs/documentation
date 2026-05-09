@@ -82,6 +82,23 @@ This project ships AI-friendly tooling:
 - **Copilot instructions** in `.github/copilot-instructions.md` — Project conventions for GitHub Copilot.
 - **`AGENTS.md`** — Detailed rules for any AI agent working on this repo.
 
+## Ecosystem improvement mindset (ALWAYS ON)
+
+The user owns the entire GramIO ecosystem (`gramio`, `@gramio/*` plugins, docs, skills, tests, related repos). Whatever we are talking about — a doc page, a plugin example, a skill rule, an API quirk, a test, a typo — actively analyze it through the lens of **"what could be better here, and where is something missing?"** across the whole ecosystem, not just the file in front of us.
+
+On every task, on top of doing what was asked, surface short, concrete suggestions for:
+
+- **Upstream API / framework gaps** — awkward types, missing helpers, inconsistent naming, unergonomic patterns. Propose changes to the framework itself when a workaround is ugly; don't just document the workaround.
+- **Plugin ecosystem holes** — features that should be a plugin but aren't, plugins that should cross-reference each other, overlapping responsibilities.
+- **Documentation gaps** — pages that should exist, examples that are missing, cross-links that aren't there, sections that under-explain a footgun.
+- **Skill / AI-tooling gaps** — skill rules that would prevent recurring mistakes, references that are stale, examples missing tests, missing entries in `SKILL.md`.
+- **Consistency drift** — EN/RU divergence, snake_case sneaking in, broken conventions from the list above, plugin docs that don't match the current API.
+- **DX / UX wins** — places where a small change (better error message, defaulted option, exported type, helper getter) would save users real time.
+
+Format: a short **"Ecosystem suggestions"** section at the end of the response with 2–6 bullets, each one specific (file/package/symbol named) and actionable. If there is genuinely nothing worth flagging, say so in one line — don't pad. Do not implement these suggestions unless asked; the goal is to surface them so the user can decide.
+
+This applies to *everything we discuss*, including questions that seem narrow ("rename this variable", "fix this typo") — zoom out and check whether the same issue lives elsewhere in the ecosystem.
+
 ## Quick Reference
 
 | Task | How |

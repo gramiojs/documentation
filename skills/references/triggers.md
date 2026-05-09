@@ -5,6 +5,22 @@ description: All GramIO trigger types — command, hears, callbackQuery, inlineQ
 
 # Triggers
 
+> [!NOTE]
+> Every trigger shorthand below — `command`, `hears`, `callbackQuery`, `inlineQuery`, `chosenInlineResult`, `reaction`, `startParameter` — is also exposed **directly on `Plugin`** instances since gramio 0.9. Same signatures, same semantics. Lets you encapsulate a feature as a `Plugin` and register handlers without routing through an internal `Composer`:
+>
+> ```typescript
+> import { Plugin } from "gramio";
+>
+> const adminPlugin = new Plugin("admin")
+>     .command("ban", banHandler)
+>     .command("unban", unbanHandler)
+>     .callbackQuery(adminAction, callbackHandler);
+>
+> bot.extend(adminPlugin);
+> ```
+>
+> `composer.extend(plugin).command(...)` chains correctly and preserves accumulated `TMethods` typings, so the Plugin-as-router pattern just works.
+
 ## command
 
 ```typescript
@@ -17,6 +33,46 @@ bot.command("start", (context) => {
 - Do NOT include `/` in the command name.
 - Automatically handles `/start@bot_username` (deep linking).
 - `context.args` contains text after the command.
+
+### CommandMeta + `bot.syncCommands()` (gramio 0.9+)
+
+`bot.command()` accepts an optional `CommandMeta` object **between** the name and the handler — `bot.command(name, meta, handler)`. A single `bot.syncCommands()` call flushes everything to Telegram with hash-based caching, so unchanged metadata doesn't burn rate-limit budget.
+
+```typescript
+const bot = new Bot(token)
+    .command("start", { description: "Start the bot" }, (ctx) => ctx.send("Hi!"))
+    .command(
+        "help",
+        {
+            description: "Show help",
+            locales: { ru: "Помощь", uk: "Допомога" },  // or i18n.localesFor("cmd.help")
+        },
+        helpHandler,
+    )
+    .command(
+        "admin",
+        { description: "Admin panel", scopes: [{ type: "chat_administrators" }] },
+        adminHandler,
+    )
+    .command("debug", { hide: true }, debugHandler);  // /debug works, but stays out of menu
+
+bot.onStart(() => bot.syncCommands());
+await bot.start();
+```
+
+`CommandMeta` fields:
+
+| Field | Type | Description |
+|---|---|---|
+| `description` | `string` | Required for the command to appear in Telegram's menu |
+| `locales` | `Record<string, string>` | Per-language descriptions (Telegram `language_code` keys) |
+| `scopes` | `BotCommandScope[]` | `default`, `all_private_chats`, `all_group_chats`, `all_chat_administrators`, `chat`, `chat_administrators`, `chat_member` |
+| `hide` | `boolean` | Skip from menu (handler still fires) |
+
+`syncCommands({ exclude: ["debug"] })` skips individual commands at sync time. The two-arg form `bot.command(name, handler)` is unchanged for commands you don't want in the menu.
+
+> [!WARNING]
+> Argument order is `name → meta → handler`. `bot.command(name, handler, meta)` is wrong and a recurring AI mistake — meta sits BETWEEN.
 
 ## hears
 

@@ -69,6 +69,72 @@ const bot = new Bot(process.env.BOT_TOKEN!)
 bot.start();
 ```
 
+### Как это работает
+
+`context.render` собирается из четырёх частей:
+
+1. **`initViewsBuilder<Data>()`** объявляет типизированную форму глобалов, которые вы передадите в `buildRender`.
+2. **`defineView().render(function (params) { ... })`** объявляет сам view. Внутри тела `this` несёт глобалы и `this.response` — билдер сообщения. Используйте `function`, не arrow — у arrow `this` теряется.
+3. **`.derive(["message", "callback_query"], ctx => ({ render: defineView.buildRender(ctx, globals) }))`** подключает `context.render` к каждому типу обновления, который должен рендерить views. Если забыть какой-то тип — `context.render` для него молча не появится.
+4. **`context.render(view, params)`** сам выбирает между отправкой и редактированием по типу контекста — `sendMessage` для `message`, `editMessageText` / `editMessageMedia` / `editMessageCaption` для `callback_query`.
+
+Один и тот же view, вызванный из обработчика команды и из `callbackQuery`, в первом случае шлёт новое сообщение, во втором — редактирует существующее:
+
+```ts
+bot
+    .command("profile",       (ctx) => ctx.render(profileView))   // sendMessage
+    .callbackQuery("refresh", (ctx) => ctx.render(profileView));  // editMessageText
+```
+
+Именно это свойство позволяет одному определению view обслуживать и «показать экран», и «перерисовать экран» без дублирующихся тел сообщений, которые со временем расходятся.
+
+### Globals и params — что куда
+
+`buildRender(context, globals)` вызывается внутри `.derive()` на каждое обновление. Второй аргумент становится `this.<key>` внутри `render` и `{{$<key>}}` внутри JSON-шаблонов — там живёт контекст обновления (текущий пользователь, локаль, dbhandle).
+
+`context.render(view, params)` тоже принимает второй аргумент. Это per-call значения — то, что меняется между двумя `ctx.render` в одном хендлере. Локаль идёт в globals (чтобы фабрика адаптеров i18n могла по ней маршрутизировать); id товара, на который кликнули, идёт в params.
+
+```ts
+// derive — контекст обновления
+.derive(["message", "callback_query"], (ctx) => ({
+    render: defineView.buildRender(ctx, {
+        user:   { id: ctx.from.id, name: ctx.from.firstName },
+        locale: ctx.from.languageCode ?? "en",
+    }),
+}));
+
+// позже в хендлере — per-call значение
+ctx.render(productView, { id: 42 });
+```
+
+### Ленивые globals (с v0.2)
+
+`buildRender` принимает обе формы `globals`:
+
+```ts
+// 1. Обычный объект — захватывается один раз при вызове .derive()
+defineView.buildRender(ctx, { user, locale });
+
+// 2. Thunk — вызывается на каждый render
+defineView.buildRender(ctx, () => ({ user, locale, snapshot: getCurrentSnapshot() }));
+```
+
+**Зачем нужен thunk?** Обычный объект захватывается в момент вызова `.derive()`. Если хэндлер мутирует стейт между `.derive()` и `ctx.render(view)` (запись в session, `update()` сцены, флип локали, эскалация роли, переход шага в онбординге) — view, захваченный один раз, видит **устаревший** snapshot. Передаёте функцию — views-рантайм вызывает её на каждый `ctx.render(view)`, и view всегда отражает актуальный стейт. Adapter-фабрика тоже пересоздаётся на каждый render с уже разрешёнными globals — то есть выбор адаптера по локали продолжает работать, даже если локаль поменялась посреди обработчика.
+
+```ts
+.derive(["message", "callback_query"], (ctx) => ({
+    render: defineView.buildRender(ctx, () => ({
+        user:    { id: ctx.from!.id, name: ctx.from!.firstName },
+        // захватывается свежим на каждый render — флип локали в middleware «просто работает»
+        locale:  ctx.from?.languageCode ?? "en",
+        // токены для @gramio/onboarding — см. /ru/plugins/official/onboarding
+        onboarding: getCurrentOnboardingTokens(),
+    })),
+}));
+```
+
+> Геттеры на свойствах обычного-объекта globals тоже резолвятся на каждый render (object spread в `createContext` читает их каждый раз). Форма с thunk нужна, когда надо пересобрать всю фигуру целиком или хочется, чтобы `ctx`-замыкания пересхватывались.
+
 ## Импорты
 
 Библиотека использует модульные импорты, чтобы не тянуть лишние зависимости:
@@ -339,3 +405,173 @@ const adapter = createJsonAdapter({ views });
 // - "user.profile.view"
 // - "user.profile.edit"
 ```
+
+## Inline-query результаты
+
+Один и тот же view может рендериться как `InlineQueryResult` — то же тело `defineView`, что отправляет сообщение в чат, формирует элемент списка inline-выдачи с полной типобезопасностью. Вместе с уже существующим авто-выбором между send и edit это даёт **четыре контекста на одно определение view**: `message`, `callback_query`, `inline_query`, `chosen_inline_result`.
+
+### `.preview()` — метаданные только для inline
+
+Inline-результаты несут preview-данные (id, title, description, thumbnail), которых нет в обычной отправке/редактировании. Их задаёт `.preview()` внутри того же тела рендера — при обычной отправке/редактировании эти поля игнорируются.
+
+```ts
+import { CallbackData, InlineKeyboard } from "gramio";
+import { initViewsBuilder } from "@gramio/views";
+
+const trackRef = new CallbackData("track").string("src").string("id");
+
+const trackView = defineView<Data>().render(function (track: Track) {
+    return this.response
+        .text(`${track.title} — ${track.artist}`)
+        .media({
+            type: "audio",
+            media: track.url,
+            performer: track.artist,
+            duration: track.durationSec,
+        })
+        .keyboard(new InlineKeyboard().text("Refresh", "refresh"))
+        .preview({
+            id: trackRef.pack({ src: track.source, id: track.id }),
+            title: track.title,
+            description: track.artist,
+            thumbnail: { url: track.albumArt, width: 200, height: 200 },
+        });
+});
+```
+
+Форма `PreviewOpts`:
+
+```ts
+type PreviewOpts = {
+    id: string;                              // обязателен, ≤ 64 байт, уникален в пределах ответа
+    title?: string;                          // обязателен для Article + Video/Audio/Voice/Document
+    description?: string;
+    thumbnail?: {
+        url: string;                         // обязателен для Photo/Gif/Mpeg4Gif/Video
+        width?: number;
+        height?: number;
+        mimeType?: "image/jpeg" | "image/gif" | "video/mp4";   // только Gif/Mpeg4Gif
+    };
+    url?: string;                            // только Article — ссылка «Visit» в UI
+};
+```
+
+### Таблица соответствий
+
+| Форма render | Маппится на | Обязательные `.preview()` | Обязательные `.media()` |
+|---|---|---|---|
+| только text | `InlineQueryResultArticle` | `id`, `title` | — |
+| text + photo | `InlineQueryResultPhoto` | `id`, `thumbnail.url` | — |
+| text + audio | `InlineQueryResultAudio` | `id`, `title` | — |
+| text + video | `InlineQueryResultVideo` | `id`, `title`, `thumbnail.url` | — |
+| text + voice | `InlineQueryResultVoice` | `id`, `title` | — |
+| text + document | `InlineQueryResultDocument` | `id`, `title` | `mimeType` (`pdf` \| `zip`) |
+| text + animation | `InlineQueryResultMpeg4Gif` | `id`, `thumbnail.url` | — |
+
+`InlineQueryResultArticle` требует чтобы у response также был установлен `.text(...)` — он формирует `InputTextMessageContent`. Трансформер бросает понятные ошибки с именем поля до сетевых вызовов, если обязательного поля нет.
+
+### Список результатов в `inline_query`
+
+Добавьте `inline_query` в `.derive()`, затем смапьте данные:
+
+```ts
+bot.derive(
+    ["message", "callback_query", "inline_query", "chosen_inline_result"],
+    (ctx) => ({ render: defineView.buildRender(ctx, globals) }),
+);
+
+bot.on("inline_query", async (ctx) => {
+    const tracks = await search(ctx.query);
+    await ctx.render.answerInline(
+        tracks.map((t) => [trackView, t]),
+        { cache_time: 0, is_personal: true },
+    );
+});
+```
+
+`ctx.render.answerInline(items, opts?)` — это сахар для `ctx.answer(items.map(toInlineResult), opts)`. Для более тонкого контроля (фильтрация результатов после рендера, обработка ошибок поэлементно) используйте чистый трансформер:
+
+```ts
+const results = await Promise.all(
+    tracks.map((t) => ctx.render.inlineResult(trackView, t)),
+);
+await ctx.answer(results, { cache_time: 0, is_personal: true });
+```
+
+`ctx.render.inlineResult(view, ...args)` — **чистая функция**, без IO, возвращает `InlineQueryResult`.
+
+### Auto-edit на `chosen_inline_result`
+
+В контексте `chosen_inline_result` `ctx.render(view, params)` направляет вызов в `editMessageText` / `editMessageMedia` / `editMessageCaption` / `editMessageReplyMarkup` с ключом `inline_message_id` — тот же auto-detect, что и для callback-query, но по другому идентификатору.
+
+```ts
+bot.chosenInlineResult(/.+/, async (ctx) => {
+    const data = trackRef.safeUnpack(ctx.resultId);
+    if (!data.success) return;
+    const fresh = await fetchTrack(data.data.src, data.data.id);
+    if (!fresh) return;
+    await ctx.render(trackView, fresh);   // → editMessage* через inline_message_id
+});
+```
+
+`chosen_inline_result` приходит только если у @BotFather включён `/setinlinefeedback` **и** результат содержал `reply_markup`. Без обоих условий апдейт не приходит; если вы вызываете `ctx.render(view, ...)` и `inline_message_id` отсутствует, плагин кинет ошибку с пояснением.
+
+### Принудительные inline-стратегии
+
+```ts
+ctx.render.inlineResult(view, params)  // чистая функция → InlineQueryResult
+ctx.render.answerInline(items, opts?)  // сахар → ctx.answer(items.map(toInlineResult), opts)
+ctx.render.editInline(view, params)    // принудительное редактирование inline-сообщения
+```
+
+`render.editInline(...)` — escape-hatch для повторного редактирования сохранённого `inline_message_id` из не-`chosen_inline_result` контекста — например, воркер очереди обновляет inline-сообщение через несколько часов.
+
+### `id` как ключ для refetch, а не как payload-кеш
+
+ID результата ограничен 64 байтами. Используйте `CallbackData` чтобы упаковать **маленький lookup-ключ** (источник + id у источника, или primary key из вашей БД) и **доставайте свежие данные при выборе**, а не храните весь payload в Redis. Свежее, без TTL-багов, без Redis в hot path:
+
+```ts
+const trackRef = new CallbackData("track").string("src").string("id");
+trackRef.pack({ src: "spotify", id: "abc123" });   // ~16 байт
+```
+
+Та же схема `CallbackData` работает и для inline `result_id`, и для callback-кнопок.
+
+### JSON-адаптер — ключ `preview`
+
+`@gramio/views/json` распознаёт ключ `preview` в определениях view. Та же интерполяция `{{key}}` и `{{$global}}`; числовые поля приводятся к числу после интерполяции.
+
+```json
+{
+    "track-result": {
+        "text": "{{title}} — {{artist}}",
+        "media": {
+            "type": "audio",
+            "media": "{{audioUrl}}",
+            "performer": "{{artist}}",
+            "duration": "{{duration}}"
+        },
+        "reply_markup": {
+            "inline_keyboard": [[{ "text": "Open", "callback_data": "open_{{packedId}}" }]]
+        },
+        "preview": {
+            "id": "{{packedId}}",
+            "title": "{{title}}",
+            "description": "{{artist}}",
+            "thumbnail": { "url": "{{albumArt}}", "width": 200, "height": 200 }
+        }
+    }
+}
+```
+
+### Что views намеренно не делают
+
+- **Нет fetcher / пагинации / дедупа / ранжирования.** Пагинация через `next_offset` per-answer — передавайте её в `ctx.answer(items, { next_offset })` сами.
+- **Нет `id ↔ payload` bridge.** Кодируйте lookup-ключи через `CallbackData` и делайте refetch; views отвечают только за визуал.
+- **Нет абстракции для `cache_time` / `is_personal` / `button`.** Это per-answer параметры, передавайте их в `ctx.answer(items, opts)`.
+
+### Отложено (пока не поддерживается)
+
+- **Cached (`file_id`) варианты результатов.** v1 поддерживает только URL-формы; cached-варианты и стикеры (которые Telegram отдаёт только cached) — в следующей версии.
+- **`InlineQueryResultLocation` / `Venue` / `Contact` / `Game` / `Invoice`.** Требуют новых форм ResponseView (lat/long, invoice prices). Phase 2.
+- **Embedded-player video** (`mime_type: "text/html"` для YouTube/Vimeo). Требует override через `input_message_content`.

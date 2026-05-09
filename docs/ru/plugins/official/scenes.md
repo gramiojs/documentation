@@ -326,6 +326,56 @@ new Scene("test")
     .step(...)
 ```
 
+## Passthrough — глобальные команды во время сцены
+
+С `@gramio/scenes` v0.6 у `scenes()` появилась опция `passthrough`, которая управляет тем, что происходит с апдейтами, прилетающими, когда пользователь в сцене, но они не подходят текущему шагу (не тот тип апдейта или ни один step-хэндлер их не забрал):
+
+| Значение | Поведение |
+|---|---|
+| `true` *(по умолчанию)* | Не подходящие апдейты летят дальше по цепочке бота — глобальные хэндлеры вроде `bot.command("cancel")` срабатывают прямо в сцене. `firstTime` сцены сохраняется, чтобы пользователь не потерял место. |
+| `false` | Старый жадный режим. Сцены съедают все апдейты для активного пользователя. Имеет смысл, только если нужна жёсткая изоляция от внешних хэндлеров. |
+
+```ts
+const bot = new Bot(token)
+    .extend(scenes([signupScene]))                        // passthrough: true по умолчанию
+    .command("cancel", (ctx) => ctx.scene?.exit())        // теперь реально срабатывает в сцене
+    .command("help", (ctx) => ctx.send("/cancel чтобы выйти, /help — это сообщение"));
+```
+
+> [!NOTE]
+> Passthrough также означает, что top-level `callbackQuery(nav, …)` будет видеть клики по кнопкам во время сцены. Сочетайте это с глобальной проверкой «выйти из сцены при навигации» — см. секцию [Scenes derives](#scenes-derives) с паттерном `withCurrentScene`, который пробрасывает `ctx.scene.exit()` везде.
+
+## Под-сцены (`enterSub` / `exitSub`)
+
+Сцены вкладываются. `ctx.scene.enterSub(otherScene, params?)` пушит текущую сцену в стек родителей, гоняет под-сцену до конца и автоматически возвращается на следующий шаг родителя. Стек родителей персистится в storage-записи — после рестарта процесс корректно подхватывает место.
+
+`.exitData<T>()` на под-сцене типизирует данные, которые она возвращает родителю — у `ctx.scene.exitSub(data)` появляется типизированный payload, а родитель получает их в свой state.
+
+```ts twoslash
+import { Bot } from "gramio";
+import { Scene, scenes } from "@gramio/scenes";
+
+const pickAddress = new Scene("pick-address")
+    .exitData<{ address: string }>()
+    .step("ask", (ctx) => ctx.send("Пришли свой адрес текстом"))
+    .step("save", async (ctx) => {
+        await ctx.scene.exitSub({ address: ctx.text! });
+    });
+
+const checkout = new Scene("checkout")
+    .step("address", async (ctx) => {
+        await ctx.scene.enterSub(pickAddress);   // паузим checkout, гоняем pickAddress
+    })
+    .step("confirm", (ctx) => {
+        // pickAddress зарезолвилась — её exitData долетела сюда через стек родителя
+        return ctx.send("Подтвердить заказ?");
+    });
+
+const bot = new Bot(process.env.BOT_TOKEN!)
+    .extend(scenes([checkout, pickAddress]))
+    .command("checkout", (ctx) => ctx.scene.enter(checkout));
+```
+
 ## Контекст сцены
 
 <!-- Контекст сцены содержит в себе все данные . -->

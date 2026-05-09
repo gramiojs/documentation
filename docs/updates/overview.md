@@ -50,6 +50,54 @@ await bot.start({
 -   Calls the [`onStart`](/hooks/on-start) hook.
 -   You can drop old updates on start.
 
+### `allowedUpdates` — control which updates Telegram sends you
+
+By default, Telegram excludes three update types from `getUpdates`/`setWebhook` unless you explicitly list them in `allowed_updates`: `chat_member`, `message_reaction`, and `message_reaction_count`. Forgetting to opt in is an evergreen footgun — handlers register fine, but the updates never arrive.
+
+GramIO 0.9 fixes this in four ways. Pick whichever fits your bot:
+
+```ts
+import { Bot, AllowedUpdatesFilter } from "gramio";
+
+const bot = new Bot(token)
+    .on("chat_member", chatMemberHandler)
+    .on("message_reaction", reactionHandler);
+
+// 1. Default — no `allowedUpdates` arg.
+//    GramIO scans your handlers and auto opt-ins to chat_member /
+//    message_reaction / message_reaction_count when registered.
+await bot.start();
+
+// 2. Strict mode — only request the update types your handlers register for.
+//    Pass the literal string "strict".
+await bot.start({ allowedUpdates: "strict" });
+
+// 3. Explicit — fluent immutable Array<AllowedUpdateName>.
+await bot.start({
+    allowedUpdates: AllowedUpdatesFilter.only("message", "callback_query"),
+});
+
+// 4. Default set with extras / exclusions.
+await bot.start({
+    allowedUpdates: AllowedUpdatesFilter.default
+        .add("chat_member")
+        .except("poll", "poll_answer"),
+});
+```
+
+**Available factories** — all return an immutable filter that extends `Array<AllowedUpdateName>`, so it can be passed wherever `allowedUpdates` is expected:
+
+| Factory / method | Description |
+|---|---|
+| `AllowedUpdatesFilter.all` | Every update type, opt-in types included |
+| `AllowedUpdatesFilter.default` | Telegram's default set (opt-in types excluded) |
+| `AllowedUpdatesFilter.only(...types)` | Exactly the listed types |
+| `.add(...types)` | Returns a new filter with these types added (deduplicated) |
+| `.except(...types)` | Returns a new filter with these types removed |
+
+> [!NOTE]
+> The auto-derivation in modes 1 and 2 only counts handlers registered via `.on(eventName, …)`, the trigger shorthands (`command`, `callbackQuery`, `hears`, `reaction`, `inlineQuery`, `chosenInlineResult`, `startParameter`), and event-specific `derive`. Filter-style `.on(filterFn, handler)` and global `.use()` middleware don't declare a specific event, so they're not detected — `.add()` the relevant types manually if you rely on those.
+
 ## Stop
 
 The `stop` method stops receiving updates and gracefully shuts down all internal bot processes. The [`onStop`](/hooks/on-stop) hook is called, and the update queue is cleared.

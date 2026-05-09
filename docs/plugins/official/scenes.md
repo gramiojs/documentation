@@ -318,6 +318,56 @@ const bot = new Bot(process.env.TOKEN as string)
 
 [Read more about storages](/storages)
 
+## Passthrough — global commands during a scene
+
+Since `@gramio/scenes` v0.6, `scenes()` accepts a `passthrough` option that controls what happens to updates that arrive while the user is inside a scene but don't match the current step (wrong update type, or no step handler claims them):
+
+| Value | Behavior |
+|---|---|
+| `true` *(default)* | Non-matching updates fall through to the outer bot chain — global handlers like `bot.command("cancel")` still fire mid-scene. The scene's `firstTime` flag is preserved so the user doesn't lose their place. |
+| `false` | Legacy greedy mode. Scenes consume every update for the active user. Useful only if you want hard isolation from outer handlers. |
+
+```ts
+const bot = new Bot(token)
+    .extend(scenes([signupScene]))                        // passthrough: true by default
+    .command("cancel", (ctx) => ctx.scene?.exit())        // now actually fires mid-scene
+    .command("help", (ctx) => ctx.send("/cancel to abort, /help for this"));
+```
+
+> [!NOTE]
+> Passthrough also means a top-level `callbackQuery(nav, …)` handler will see button clicks during a scene. Combine it with a global "exit on nav" check — see [Scenes derives](#scenes-derives) for the `withCurrentScene` pattern that exposes `ctx.scene.exit()` everywhere.
+
+## Sub-scenes (`enterSub` / `exitSub`)
+
+Scenes can nest. `ctx.scene.enterSub(otherScene, params?)` pushes the current scene onto a parent stack, runs the sub-scene to completion, then automatically returns to the caller's next step. The parent stack is persisted on the storage record, so a process restart resumes correctly.
+
+Use `.exitData<T>()` on a sub-scene to type the data it returns to the parent — `ctx.scene.exitSub(data)` then has a typed payload, and the parent receives it merged into its state.
+
+```ts twoslash
+import { Bot } from "gramio";
+import { Scene, scenes } from "@gramio/scenes";
+
+const pickAddress = new Scene("pick-address")
+    .exitData<{ address: string }>()
+    .step("ask", (ctx) => ctx.send("Send your address as text"))
+    .step("save", async (ctx) => {
+        await ctx.scene.exitSub({ address: ctx.text! });
+    });
+
+const checkout = new Scene("checkout")
+    .step("address", async (ctx) => {
+        await ctx.scene.enterSub(pickAddress);   // pauses checkout, runs pickAddress
+    })
+    .step("confirm", (ctx) => {
+        // pickAddress resolved — its exitData reached this step via the parent stack
+        return ctx.send("Confirm order?");
+    });
+
+const bot = new Bot(process.env.BOT_TOKEN!)
+    .extend(scenes([checkout, pickAddress]))
+    .command("checkout", (ctx) => ctx.scene.enter(checkout));
+```
+
 ## Scene context
 
 <!-- The scene context contains all the data that was passed to the scene on entry. -->

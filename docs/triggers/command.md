@@ -69,12 +69,46 @@ In this scenario, if a user sends `/start arg1 arg2`, the bot will respond with 
 
 4. **Command Arguments:** If there are additional arguments following the command (e.g., `/start arg1 arg2`), these are passed to `context.args` for further processing.
 
-<!-- ### Command Options
+## Command metadata & `bot.syncCommands()`
 
-You can also pass additional options to customize how the command is handled. This could include setting parameters like `description`, `scope`, or `language_code`, although these options are omitted in this basic example. -->
+Since gramio v0.9, `bot.command()` accepts an optional `CommandMeta` object **between** the command name and the handler. The metadata is collected at registration time and flushed to Telegram with a single `bot.syncCommands()` call — no need to hand-craft `setMyCommands` invocations or pre-build the menu in BotFather.
 
-<!-- ## Conclusion
+```ts
+const bot = new Bot(process.env.BOT_TOKEN!)
+    .command("start", { description: "Start the bot" }, (ctx) => ctx.send("Hi!"))
+    .command(
+        "help",
+        {
+            description: "Show help",
+            locales: { ru: "Помощь", uk: "Допомога" },
+        },
+        (ctx) => ctx.send("Help!"),
+    )
+    .command(
+        "admin",
+        {
+            description: "Admin panel",
+            scopes: [{ type: "chat_administrators" }],
+        },
+        adminHandler,
+    )
+    .command("debug", { hide: true }, debugHandler);
 
-The `command` method is a straightforward way to define how your bot should react to specific commands. Whether you’re handling basic commands like `/start` or more complex commands with arguments, `command` simplifies the process, ensuring your bot behaves as expected in response to user input.
+bot.onStart(() => bot.syncCommands());
+await bot.start();
+```
 
-This method is essential for creating interactive and command-driven bots in GramIO. -->
+### `CommandMeta` fields
+
+| Field | Type | Description |
+|---|---|---|
+| `description` | `string` | Shown in Telegram's command menu. Required to register the command in the menu. |
+| `locales` | `Record<string, string>` | Per-language descriptions. Keys are Telegram `language_code` values. Use [`@gramio/i18n`'s `localesFor()`](/plugins/official/i18n) to drive these from translation files. |
+| `scopes` | `BotCommandScope[]` | Limit the command to specific contexts — `default`, `all_private_chats`, `all_group_chats`, `all_chat_administrators`, `chat`, `chat_administrators`, `chat_member`. |
+| `hide` | `boolean` | Skip this command from the menu. Useful for debug/internal commands that you still want as `/`-typed handlers. |
+
+### How `syncCommands()` works
+
+`bot.syncCommands()` groups commands by scope, computes a hash per scope, and only calls Telegram's [`setMyCommands`](/telegram/methods/setMyCommands) for scopes whose hash has changed since the last run. So calling it on every `onStart` is cheap — unchanged metadata doesn't burn rate-limit budget. Pass `{ exclude: ["debug"] }` to skip individual commands at sync time.
+
+The plain two-argument form `bot.command(name, handler)` still works for commands you don't want listed in the menu.

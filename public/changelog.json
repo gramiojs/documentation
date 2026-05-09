@@ -2,6 +2,87 @@
     "version": 1,
     "entries": [
         {
+            "id": "2026-05-08-bot-api-9-6-gramio-0-9-onboarding-plugin",
+            "date": "2026-05-08",
+            "dateRange": {
+                "from": "2026-03-02",
+                "to": "2026-05-08"
+            },
+            "page": {
+                "en": "https://gramio.dev/changelogs/2026-05-08",
+                "ru": "https://gramio.dev/ru/changelogs/2026-05-08"
+            },
+            "en": {
+                "title": "Bot API 9.6, gramio 0.9, and the New Onboarding Plugin",
+                "summary": [
+                    "Bot API 9.6: managed bots (managed_bot update, ManagedBotCreated/Updated, getManagedBotToken)",
+                    "Bot API 9.6: polls overhauled — option add/remove updates, revoting, descriptions, persistent IDs",
+                    "gramio v0.9.0: bot.syncCommands() and CommandMeta on bot.command() — automatic Telegram menu sync with hash caching",
+                    "gramio v0.9.0: Plugin shorthand methods (.command/.callbackQuery/.hears/.reaction/.inlineQuery/etc.)",
+                    "gramio v0.9.0: AllowedUpdatesFilter auto-derives allowed_updates from registered handlers (no more silent chat_member drops)",
+                    "@gramio/onboarding v0.1.0: brand-new official plugin for declarative user tutorials with multi-flow concurrency",
+                    "@gramio/scenes v0.6.0: passthrough — non-matching updates flow to outer handlers, /cancel and /help finally fire mid-scene",
+                    "@gramio/scenes: enterSub()/exitSub() for sub-scenes, typed scene.enter() params, scene.reenter(params)",
+                    "@gramio/format v0.7.0: markdown block-separator fix (LLM-generated lists no longer glue to preceding paragraph)",
+                    "@gramio/views v0.2.0: lazy globals — buildRender accepts a thunk that runs per render for fresh state",
+                    "@gramio/test v0.7.0: env.lastBotMessage() bubble that auto-tracks edits, withReplyMarkup/where filters, Telegram Payments support",
+                    "@gramio/composer v0.4.1: registeredEvents() introspection, EventContextOf<T,E>, framework-agnostic commandsMeta",
+                    "@gramio/auto-answer-callback-query v0.0.3: now answers even when handler throws",
+                    "@gramio/i18n v1.5: localesFor() helper bridges i18n keys to syncCommands locales",
+                    "wrappergram v2: complete middleware-based rewrite — single Middleware type, suppress: true pattern, TelegramError class"
+                ]
+            },
+            "ru": {
+                "title": "Bot API 9.6, gramio 0.9 и новый плагин Onboarding",
+                "summary": [
+                    "Bot API 9.6: managed-боты (update managed_bot, ManagedBotCreated/Updated, getManagedBotToken)",
+                    "Bot API 9.6: опросы переделаны — события add/remove вариантов, переголосование, описания, persistent ID",
+                    "gramio v0.9.0: bot.syncCommands() и CommandMeta в bot.command() — автосинк меню Telegram с кэшем по хэшу",
+                    "gramio v0.9.0: шорткаты на Plugin (.command/.callbackQuery/.hears/.reaction/.inlineQuery и т.д.)",
+                    "gramio v0.9.0: AllowedUpdatesFilter сам выводит allowed_updates из зарегистрированных хэндлеров (больше никаких молчаливых потерь chat_member)",
+                    "@gramio/onboarding v0.1.0: совершенно новый официальный плагин для декларативных туториалов с многопоточными флоу",
+                    "@gramio/scenes v0.6.0: passthrough — не подходящие апдейты летят к внешним хэндлерам, /cancel и /help наконец-то срабатывают в сцене",
+                    "@gramio/scenes: enterSub()/exitSub() для под-сцен, типизированные параметры scene.enter(), scene.reenter(params)",
+                    "@gramio/format v0.7.0: фикс разделителей markdown-блоков (списки от LLM больше не склеиваются с предыдущим параграфом)",
+                    "@gramio/views v0.2.0: ленивые globals — buildRender принимает thunk, который вызывается на каждый рендер",
+                    "@gramio/test v0.7.0: env.lastBotMessage() bubble с автосинком edit, фильтры withReplyMarkup/where, поддержка Telegram Payments",
+                    "@gramio/composer v0.4.1: registeredEvents() для интроспекции, EventContextOf<T,E>, framework-agnostic commandsMeta",
+                    "@gramio/auto-answer-callback-query v0.0.3: теперь отвечает, даже если хэндлер кинул",
+                    "@gramio/i18n v1.5: хелпер localesFor() связывает i18n-ключи с локалями syncCommands",
+                    "wrappergram v2: полная переработка на middleware — единый тип Middleware, паттерн suppress: true, класс TelegramError"
+                ]
+            },
+            "packages": [
+                "gramio",
+                "@gramio/types",
+                "@gramio/contexts",
+                "@gramio/composer",
+                "@gramio/scenes",
+                "@gramio/format",
+                "@gramio/views",
+                "@gramio/test",
+                "@gramio/keyboards",
+                "@gramio/files",
+                "@gramio/onboarding",
+                "@gramio/i18n",
+                "@gramio/auto-answer-callback-query",
+                "@gramio/schema-parser",
+                "create-gramio",
+                "wrappergram"
+            ],
+            "tags": [
+                "bot-api-9-6",
+                "managed-bots",
+                "new-plugin",
+                "onboarding",
+                "scenes",
+                "breaking",
+                "command-sync",
+                "lazy-globals",
+                "middleware"
+            ]
+        },
+        {
             "id": "2026-03-02-bot-api-9-5-rate-limiter-html-composer-superpowers",
             "date": "2026-03-02",
             "dateRange": {

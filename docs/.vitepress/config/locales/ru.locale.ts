@@ -23,6 +23,10 @@ export const localeRu = {
 						items: [
 							// новые записи добавляются здесь скиллом, сначала новейшие
 							{
+								text: "2026-05-08",
+								link: "/ru/changelogs/2026-05-08",
+							},
+							{
 								text: "2026-03-02",
 								link: "/ru/changelogs/2026-03-02",
 							},
@@ -133,6 +137,7 @@ export const localeRu = {
 								collapsed: true,
 								items: [
 									{ text: "Сцены", link: "/ru/plugins/official/scenes" },
+										{ text: "Onboarding", link: "/ru/plugins/official/onboarding" },
 									{ text: "Локализация (i18n)", link: "/ru/plugins/official/i18n" },
 									{ text: "Сессии", link: "/ru/plugins/official/session" },
 									{ text: "Автозагрузка", link: "/ru/plugins/official/autoload" },

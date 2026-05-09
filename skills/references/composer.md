@@ -75,6 +75,22 @@ app.trace((entry, ctx) => {
 // Zero overhead when trace() not called
 ```
 
+## registeredEvents() — Event Introspection
+
+Returns a `Set<string>` of every event name a composer has handlers for — collected from `.on()` and event-specific `.derive()` entries. Composite events (`"message|callback_query"`) are split, entity patterns (`"message:text"`) are kept as-is.
+
+```typescript
+const app = new Composer()
+    .on("message", h1)
+    .on(["callback_query", "inline_query"], h2)
+    .derive("chat_member", h3);
+
+app.registeredEvents();
+// → Set { "message", "callback_query", "inline_query", "chat_member" }
+```
+
+Powers `bot.start()` auto-derived `allowed_updates` in gramio 0.9 — without it, `chat_member` / `message_reaction` handlers register fine but updates never arrive.
+
 ## Named Composers & Deduplication
 
 Give a Composer a `name` to enable structural deduplication. GramIO tracks extended names in a `Set` (`["~"].extended`). The key is `name:JSON.stringify(seed)`. If the key is already present, `extend()` is a no-op.

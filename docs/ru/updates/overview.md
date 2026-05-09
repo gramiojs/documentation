@@ -63,6 +63,54 @@ await bot.start({
 -   Вызывает хук [`onStart`](/ru/hooks/on-start).
 -   Можно сбросить старые обновления при запуске.
 
+### `allowedUpdates` — какие апдейты Telegram вообще будет вам слать
+
+По умолчанию Telegram не присылает в `getUpdates`/`setWebhook` три типа апдейтов, пока их явно не указали в `allowed_updates`: `chat_member`, `message_reaction` и `message_reaction_count`. Забыть про opt-in — вечный грабль: хэндлеры регистрируются, но события не прилетают.
+
+GramIO 0.9 решает это четырьмя способами. Выбирайте под свой кейс:
+
+```ts
+import { Bot, AllowedUpdatesFilter } from "gramio";
+
+const bot = new Bot(token)
+    .on("chat_member", chatMemberHandler)
+    .on("message_reaction", reactionHandler);
+
+// 1. По умолчанию — без аргумента `allowedUpdates`.
+//    GramIO сканирует хэндлеры и сам подключает chat_member /
+//    message_reaction / message_reaction_count, если они зарегистрированы.
+await bot.start();
+
+// 2. Строгий режим — запрашиваем только те типы, на которые есть хэндлеры.
+//    Передаём литерал "strict".
+await bot.start({ allowedUpdates: "strict" });
+
+// 3. Явный fluent-билдер — иммутабельный Array<AllowedUpdateName>.
+await bot.start({
+    allowedUpdates: AllowedUpdatesFilter.only("message", "callback_query"),
+});
+
+// 4. Дефолтный набор + добавки/исключения.
+await bot.start({
+    allowedUpdates: AllowedUpdatesFilter.default
+        .add("chat_member")
+        .except("poll", "poll_answer"),
+});
+```
+
+**Доступные фабрики** — все возвращают иммутабельный фильтр-наследник `Array<AllowedUpdateName>`, его можно прокидывать везде, где ждут `allowedUpdates`:
+
+| Фабрика / метод | Описание |
+|---|---|
+| `AllowedUpdatesFilter.all` | Все типы апдейтов, включая opt-in |
+| `AllowedUpdatesFilter.default` | Дефолтный набор Telegram (без opt-in типов) |
+| `AllowedUpdatesFilter.only(...types)` | Ровно перечисленные типы |
+| `.add(...types)` | Новый фильтр с добавленными типами (с дедупликацией) |
+| `.except(...types)` | Новый фильтр с убранными типами |
+
+> [!NOTE]
+> Авто-определение в режимах 1 и 2 учитывает только хэндлеры, зарегистрированные через `.on(eventName, …)`, шорткаты-триггеры (`command`, `callbackQuery`, `hears`, `reaction`, `inlineQuery`, `chosenInlineResult`, `startParameter`) и event-specific `derive`. Filter-форма `.on(filterFn, handler)` и глобальный `.use()` middleware не декларируют конкретное событие, поэтому не детектятся — добавляйте нужные типы через `.add()` руками, если на них завязаны.
+
 ## Stop
 
 Метод `stop` завершает приём обновлений и корректно останавливает все внутренние процессы бота. Вызывается хук [`onStop`](/ru/hooks/on-stop), очищается очередь обновлений.

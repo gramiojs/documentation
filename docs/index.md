@@ -182,9 +182,9 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
 
 ## Latest Updates
 
-**[Bot API 9.5, Rate Limiter Debuts, HTML-to-Telegram Converter, Composer Superpowers](/changelogs/2026-03-02)** — February 23 – March 2, 2026
+**[Bot API 9.6, gramio 0.9, and the New Onboarding Plugin](/changelogs/2026-05-08)** — March 2 – May 8, 2026
 
-Bot API 9.5 support lands across the ecosystem (member tags, `date_time` entities). New `@gramio/rate-limit` plugin throttles handlers via macros. `@gramio/format` v0.5.0 ships `htmlToFormattable()`. `@gramio/composer` gets `EventContextOf`, `ContextOf`, `defineComposerMethods`, and the macro system.
+Bot API 9.6 lands with managed bots and richer polls. **gramio 0.9** ships `bot.syncCommands()`, Plugin shorthand methods, and auto-derived `allowed_updates`. The brand-new **`@gramio/onboarding`** plugin provides declarative tutorials with multi-flow concurrency. Scenes 0.6 stops swallowing global commands. Views 0.2 gets lazy globals. Wrappergram v2 is a complete middleware-based rewrite.
 
 [All changelogs →](/changelogs/)
 
