@@ -37,7 +37,7 @@ Returns the gifts owned and hosted by a user. Returns [OwnedGifts](https://core.
 
 <ApiParam name="offset" type="String" description="Offset of the first entry to return as received from the previous request; use an empty string to get the first chunk of results" />
 
-<ApiParam name="limit" type="Integer" description="The maximum number of gifts to be returned; 1-100. Defaults to 100" :defaultValue="100" />
+<ApiParam name="limit" type="Integer" description="The maximum number of gifts to be returned; 1-100. Defaults to 100." :defaultValue="100" />
 
 ## Returns
 

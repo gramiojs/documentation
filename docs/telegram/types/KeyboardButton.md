@@ -20,7 +20,7 @@ This object represents one button of the reply keyboard. At most one of the fiel
 
 ## Fields
 
-<ApiParam name="text" type="String" required description="Text of the button. If none of the fields other than *text*, *icon\_custom\_emoji\_id*, and *style* are used, it will be sent as a message when the button is pressed" />
+<ApiParam name="text" type="String" required description="Text of the button. If none of the fields other than *text*, *icon\_custom\_emoji\_id*, and *style* are used, it will be sent as a message when the button is pressed." />
 
 <ApiParam name="icon_custom_emoji_id" type="String" description="*Optional*. Unique identifier of the custom emoji shown before the text of the button. Can only be used by bots that purchased additional usernames on [Fragment](https://fragment.com) or in the messages directly sent by the bot to private, group and supergroup chats if the owner of the bot has a Telegram Premium subscription." />
 
@@ -29,6 +29,8 @@ This object represents one button of the reply keyboard. At most one of the fiel
 <ApiParam name="request_users" type="KeyboardButtonRequestUsers" description="*Optional*. If specified, pressing the button will open a list of suitable users. Identifiers of selected users will be sent to the bot in a &quot;users\_shared&quot; service message. Available in private chats only." />
 
 <ApiParam name="request_chat" type="KeyboardButtonRequestChat" description="*Optional*. If specified, pressing the button will open a list of suitable chats. Tapping on a chat will send its identifier to the bot in a &quot;chat\_shared&quot; service message. Available in private chats only." />
+
+<ApiParam name="request_managed_bot" type="KeyboardButtonRequestManagedBot" description="*Optional*. If specified, pressing the button will ask the user to create and share a bot that will be managed by the current bot. Available for bots that enabled management of other bots in the [@BotFather](https://t.me/BotFather) Mini App. Available in private chats only." />
 
 <ApiParam name="request_contact" type="Boolean" description="*Optional*. If *True*, the user's phone number will be sent as a contact when the button is pressed. Available in private chats only." />
 

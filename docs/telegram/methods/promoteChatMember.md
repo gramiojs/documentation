@@ -21,7 +21,7 @@ Use this method to promote or demote a user in a supergroup or a channel. The bo
 
 ## Parameters
 
-<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)" />
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel in the format `@username`" />
 
 <ApiParam name="user_id" type="Integer" required description="Unique identifier of the target user" />
 
@@ -33,7 +33,7 @@ Use this method to promote or demote a user in a supergroup or a channel. The bo
 
 <ApiParam name="can_manage_video_chats" type="Boolean" description="Pass *True* if the administrator can manage video chats" />
 
-<ApiParam name="can_restrict_members" type="Boolean" description="Pass *True* if the administrator can restrict, ban or unban chat members, or access supergroup statistics. For backward compatibility, defaults to *True* for promotions of channel administrators" />
+<ApiParam name="can_restrict_members" type="Boolean" description="Pass *True* if the administrator can restrict, ban or unban chat members, or access supergroup statistics. For backward compatibility, defaults to *True* for promotions of channel administrators." />
 
 <ApiParam name="can_promote_members" type="Boolean" description="Pass *True* if the administrator can add new administrators with a subset of their own privileges or demote administrators that they have promoted, directly or indirectly (promoted by administrators that were appointed by him)" />
 

@@ -22,7 +22,7 @@ Use this method to set a new profile photo for the chat. Photos can't be changed
 
 ## Parameters
 
-<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)" />
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel in the format `@username`" />
 
 <ApiParam name="photo" type="InputFile" required description="New chat photo, uploaded using multipart/form-data" docsLink="/files/media-upload" />
 

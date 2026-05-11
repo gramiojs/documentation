@@ -25,7 +25,7 @@ Use this method to send a checklist on behalf of a connected business account. O
 
 <ApiParam name="business_connection_id" type="String" required description="Unique identifier of the business connection on behalf of which the message will be sent" />
 
-<ApiParam name="chat_id" type="Integer" required description="Unique identifier for the target chat" />
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target bot in the format `@username`" />
 
 <ApiParam name="checklist" type="InputChecklist" required description="A JSON-serialized object for the checklist to send" />
 

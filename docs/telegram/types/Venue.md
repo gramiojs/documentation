@@ -20,7 +20,7 @@ This object represents a venue.
 
 ## Fields
 
-<ApiParam name="location" type="Location" required description="Venue location. Can't be a live location" />
+<ApiParam name="location" type="Location" required description="Venue location. Can't be a live location." />
 
 <ApiParam name="title" type="String" required description="Name of the venue" />
 

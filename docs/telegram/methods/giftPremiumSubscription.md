@@ -30,9 +30,9 @@ Gifts a Telegram Premium subscription to the given user. Returns *True* on succe
 
 <ApiParam name="text" type="String" description="Text that will be shown along with the service message about the subscription; 0-128 characters" :minLen="0" :maxLen="128" semanticType="formattable" docsLink="/formatting" />
 
-<ApiParam name="text_parse_mode" type="String" description="Mode for parsing entities in the text. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details. Entities other than &quot;bold&quot;, &quot;italic&quot;, &quot;underline&quot;, &quot;strikethrough&quot;, &quot;spoiler&quot;, and &quot;custom\_emoji&quot; are ignored." />
+<ApiParam name="text_parse_mode" type="String" description="Mode for parsing entities in the text. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details. Entities other than &quot;bold&quot;, &quot;italic&quot;, &quot;underline&quot;, &quot;strikethrough&quot;, &quot;spoiler&quot;, &quot;custom\_emoji&quot;, and &quot;date\_time&quot; are ignored." />
 
-<ApiParam name="text_entities" type="MessageEntity[]" description="A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of *text\_parse\_mode*. Entities other than &quot;bold&quot;, &quot;italic&quot;, &quot;underline&quot;, &quot;strikethrough&quot;, &quot;spoiler&quot;, and &quot;custom\_emoji&quot; are ignored." />
+<ApiParam name="text_entities" type="MessageEntity[]" description="A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of *text\_parse\_mode*. Entities other than &quot;bold&quot;, &quot;italic&quot;, &quot;underline&quot;, &quot;strikethrough&quot;, &quot;spoiler&quot;, &quot;custom\_emoji&quot;, and &quot;date\_time&quot; are ignored." />
 
 ## Returns
 

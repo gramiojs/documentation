@@ -21,7 +21,7 @@ Removes verification from a chat that is currently verified [on behalf of the or
 
 ## Parameters
 
-<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)" />
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target bot or channel in the format `@username`" />
 
 ## Returns
 

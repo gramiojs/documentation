@@ -21,7 +21,7 @@ Use this method to set default chat permissions for all members. The bot must be
 
 ## Parameters
 
-<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)" />
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target supergroup in the format `@username`" />
 
 <ApiParam name="permissions" type="ChatPermissions" required description="A JSON-serialized object for new default chat permissions" />
 

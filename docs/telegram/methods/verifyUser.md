@@ -17,7 +17,7 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#verifyuser" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Verifies a user [on behalf of the organization](https://telegram.org/verify#third-party-verification) which is represented by the bot. Returns _True_ on success.
+Verifies a user [on behalf of the organization](https://telegram.org/verify#third-party-verification) which is represented by the bot. Returns *True* on success.
 
 ## Parameters
 
@@ -27,7 +27,7 @@ Verifies a user [on behalf of the organization](https://telegram.org/verify#thir
 
 ## Returns
 
-On success, _True_ is returned.
+On success, *True* is returned.
 
 <!-- GENERATED:END -->
 

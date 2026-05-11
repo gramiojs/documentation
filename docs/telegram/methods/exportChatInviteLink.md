@@ -21,7 +21,7 @@ Use this method to generate a new primary invite link for a chat; any previously
 
 ## Parameters
 
-<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)" />
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel in the format `@username`" />
 
 ## Returns
 

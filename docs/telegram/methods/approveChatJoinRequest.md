@@ -21,7 +21,7 @@ Use this method to approve a chat join request. The bot must be an administrator
 
 ## Parameters
 
-<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)" />
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel in the format `@username`" />
 
 <ApiParam name="user_id" type="Integer" required description="Unique identifier of the target user" />
 

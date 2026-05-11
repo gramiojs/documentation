@@ -23,7 +23,7 @@ Use this method to set the thumbnail of a custom emoji sticker set. Returns *Tru
 
 <ApiParam name="name" type="String" required description="Sticker set name" />
 
-<ApiParam name="custom_emoji_id" type="String" description="Custom emoji identifier of a sticker from the sticker set; pass an empty string to drop the thumbnail and use the first sticker as the thumbnail." />
+<ApiParam name="custom_emoji_id" type="String" description="Custom emoji identifier of a sticker from the sticker set; pass an empty string to drop the thumbnail and use the first sticker as the thumbnail" />
 
 ## Returns
 

@@ -21,13 +21,13 @@ Use this method to forward multiple messages of any kind. If some of the specifi
 
 ## Parameters
 
-<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)" />
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`" />
 
 <ApiParam name="message_thread_id" type="Integer" description="Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only" />
 
 <ApiParam name="direct_messages_topic_id" type="Integer" description="Identifier of the direct messages topic to which the messages will be forwarded; required if the messages are forwarded to a direct messages chat" />
 
-<ApiParam name="from_chat_id" type="Integer | String" required description="Unique identifier for the chat where the original messages were sent (or channel username in the format `@channelusername`)" />
+<ApiParam name="from_chat_id" type="Integer | String" required description="Unique identifier for the chat where the original messages were sent (or username of the target bot, supergroup or channel in the format `@username`)" />
 
 <ApiParam name="message_ids" type="Integer[]" required description="A JSON-serialized list of 1-100 identifiers of messages in the chat *from\_chat\_id* to forward. The identifiers must be specified in a strictly increasing order." />
 

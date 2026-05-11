@@ -34,6 +34,8 @@ This object contains information about a message that is being replied to, which
 
 <ApiParam name="document" type="Document" description="*Optional*. Message is a general file, information about the file" />
 
+<ApiParam name="live_photo" type="LivePhoto" description="*Optional*. Message is a live photo, information about the live photo" />
+
 <ApiParam name="paid_media" type="PaidMediaInfo" description="*Optional*. Message contains paid media; information about the paid media" />
 
 <ApiParam name="photo" type="PhotoSize[]" description="*Optional*. Message is a photo, available sizes of the photo" />

@@ -17,7 +17,7 @@ head:
 </div>
 
 This [object](https://core.telegram.org/bots/api#available-types) represents an incoming update.  
-At most **one** of the optional parameters can be present in any given update.
+At most **one** of the optional fields can be present in any given update.
 
 ## Fields
 
@@ -39,6 +39,8 @@ At most **one** of the optional parameters can be present in any given update.
 
 <ApiParam name="deleted_business_messages" type="BusinessMessagesDeleted" description="*Optional*. Messages were deleted from a connected business account" />
 
+<ApiParam name="guest_message" type="Message" description="*Optional*. New guest message. The bot can use the field *Message.guest\_query\_id* and the method [answerGuestQuery](https://core.telegram.org/bots/api#answerguestquery) to send a message in response." />
+
 <ApiParam name="message_reaction" type="MessageReactionUpdated" description="*Optional*. A reaction to a message was changed by a user. The bot must be an administrator in the chat and must explicitly specify `&quot;message_reaction&quot;` in the list of *allowed\_updates* to receive these updates. The update isn't received for reactions set by bots." />
 
 <ApiParam name="message_reaction_count" type="MessageReactionCountUpdated" description="*Optional*. Reactions to a message with anonymous reactions were changed. The bot must be an administrator in the chat and must explicitly specify `&quot;message_reaction_count&quot;` in the list of *allowed\_updates* to receive these updates. The updates are grouped and can be sent with delay up to a few minutes." />
@@ -49,13 +51,13 @@ At most **one** of the optional parameters can be present in any given update.
 
 <ApiParam name="callback_query" type="CallbackQuery" description="*Optional*. New incoming callback query" />
 
-<ApiParam name="shipping_query" type="ShippingQuery" description="*Optional*. New incoming shipping query. Only for invoices with flexible price" />
+<ApiParam name="shipping_query" type="ShippingQuery" description="*Optional*. New incoming shipping query. Only for invoices with flexible price." />
 
-<ApiParam name="pre_checkout_query" type="PreCheckoutQuery" description="*Optional*. New incoming pre-checkout query. Contains full information about checkout" />
+<ApiParam name="pre_checkout_query" type="PreCheckoutQuery" description="*Optional*. New incoming pre-checkout query. Contains full information about checkout." />
 
 <ApiParam name="purchased_paid_media" type="PaidMediaPurchased" description="*Optional*. A user purchased paid media with a non-empty payload sent by the bot in a non-channel chat" />
 
-<ApiParam name="poll" type="Poll" description="*Optional*. New poll state. Bots receive only updates about manually stopped polls and polls, which are sent by the bot" />
+<ApiParam name="poll" type="Poll" description="*Optional*. New poll state. Bots receive only updates about manually stopped polls and polls, which are sent by the bot." />
 
 <ApiParam name="poll_answer" type="PollAnswer" description="*Optional*. A user changed their answer in a non-anonymous poll. Bots receive new votes only in polls that were sent by the bot itself." />
 
@@ -68,6 +70,8 @@ At most **one** of the optional parameters can be present in any given update.
 <ApiParam name="chat_boost" type="ChatBoostUpdated" description="*Optional*. A chat boost was added or changed. The bot must be an administrator in the chat to receive these updates." />
 
 <ApiParam name="removed_chat_boost" type="ChatBoostRemoved" description="*Optional*. A boost was removed from a chat. The bot must be an administrator in the chat to receive these updates." />
+
+<ApiParam name="managed_bot" type="ManagedBotUpdated" description="*Optional*. A new bot was created to be managed by the bot, or token or owner of a managed bot was changed" />
 
 <!-- GENERATED:END -->
 

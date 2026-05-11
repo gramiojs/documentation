@@ -25,15 +25,15 @@ Use this method to set the score of the specified user in a game message. On suc
 
 <ApiParam name="score" type="Integer" required description="New score, must be non-negative" />
 
-<ApiParam name="force" type="Boolean" description="Pass *True* if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters" />
+<ApiParam name="force" type="Boolean" description="Pass *True* if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters." />
 
 <ApiParam name="disable_edit_message" type="Boolean" description="Pass *True* if the game message should not be automatically edited to include the current scoreboard" />
 
-<ApiParam name="chat_id" type="Integer" description="Required if *inline\_message\_id* is not specified. Unique identifier for the target chat" />
+<ApiParam name="chat_id" type="Integer" description="Required if *inline\_message\_id* is not specified. Unique identifier for the target chat." />
 
-<ApiParam name="message_id" type="Integer" description="Required if *inline\_message\_id* is not specified. Identifier of the sent message" />
+<ApiParam name="message_id" type="Integer" description="Required if *inline\_message\_id* is not specified. Identifier of the sent message." />
 
-<ApiParam name="inline_message_id" type="String" description="Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message" />
+<ApiParam name="inline_message_id" type="String" description="Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message." />
 
 ## Returns
 

@@ -40,15 +40,19 @@ This object represents a Telegram user or bot.
 
 <ApiParam name="can_read_all_group_messages" type="Boolean" description="*Optional*. *True*, if [privacy mode](https://core.telegram.org/bots/features#privacy-mode) is disabled for the bot. Returned only in [getMe](https://core.telegram.org/bots/api#getme)." />
 
+<ApiParam name="supports_guest_queries" type="Boolean" description="*Optional*. *True*, if the bot supports guest queries from chats it is not a member of. Returned only in [getMe](https://core.telegram.org/bots/api#getme)." />
+
 <ApiParam name="supports_inline_queries" type="Boolean" description="*Optional*. *True*, if the bot supports inline queries. Returned only in [getMe](https://core.telegram.org/bots/api#getme)." />
 
-<ApiParam name="can_connect_to_business" type="Boolean" description="*Optional*. *True*, if the bot can be connected to a Telegram Business account to receive its messages. Returned only in [getMe](https://core.telegram.org/bots/api#getme)." />
+<ApiParam name="can_connect_to_business" type="Boolean" description="*Optional*. *True*, if the bot can be connected to a user account to manage it. Returned only in [getMe](https://core.telegram.org/bots/api#getme)." />
 
 <ApiParam name="has_main_web_app" type="Boolean" description="*Optional*. *True*, if the bot has a main Web App. Returned only in [getMe](https://core.telegram.org/bots/api#getme)." />
 
 <ApiParam name="has_topics_enabled" type="Boolean" description="*Optional*. *True*, if the bot has forum topic mode enabled in private chats. Returned only in [getMe](https://core.telegram.org/bots/api#getme)." />
 
 <ApiParam name="allows_users_to_create_topics" type="Boolean" description="*Optional*. *True*, if the bot allows users to create and delete topics in private chats. Returned only in [getMe](https://core.telegram.org/bots/api#getme)." />
+
+<ApiParam name="can_manage_bots" type="Boolean" description="*Optional*. *True*, if other bots can be created to be controlled by the bot. Returned only in [getMe](https://core.telegram.org/bots/api#getme)." />
 
 <!-- GENERATED:END -->
 

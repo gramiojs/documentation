@@ -19,8 +19,9 @@ head:
 This object represents the content of a media message to be sent. It should be one of
 
 *   [InputMediaAnimation](https://core.telegram.org/bots/api#inputmediaanimation)
-*   [InputMediaDocument](https://core.telegram.org/bots/api#inputmediadocument)
 *   [InputMediaAudio](https://core.telegram.org/bots/api#inputmediaaudio)
+*   [InputMediaDocument](https://core.telegram.org/bots/api#inputmediadocument)
+*   [InputMediaLivePhoto](https://core.telegram.org/bots/api#inputmedialivephoto)
 *   [InputMediaPhoto](https://core.telegram.org/bots/api#inputmediaphoto)
 *   [InputMediaVideo](https://core.telegram.org/bots/api#inputmediavideo)
 
@@ -29,8 +30,9 @@ This object represents the content of a media message to be sent. It should be o
 This type is one of the following:
 
 - [InputMediaAnimation](/telegram/types/InputMediaAnimation)
-- [InputMediaDocument](/telegram/types/InputMediaDocument)
 - [InputMediaAudio](/telegram/types/InputMediaAudio)
+- [InputMediaDocument](/telegram/types/InputMediaDocument)
+- [InputMediaLivePhoto](/telegram/types/InputMediaLivePhoto)
 - [InputMediaPhoto](/telegram/types/InputMediaPhoto)
 - [InputMediaVideo](/telegram/types/InputMediaVideo)
 

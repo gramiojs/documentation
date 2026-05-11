@@ -24,17 +24,17 @@ Use this method to edit live location messages. A location can be edited until i
 
 <ApiParam name="business_connection_id" type="String" description="Unique identifier of the business connection on behalf of which the message to be edited was sent" />
 
-<ApiParam name="chat_id" type="Integer | String" description="Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)" />
+<ApiParam name="chat_id" type="Integer | String" description="Required if *inline\_message\_id* is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`." />
 
-<ApiParam name="message_id" type="Integer" description="Required if *inline\_message\_id* is not specified. Identifier of the message to edit" />
+<ApiParam name="message_id" type="Integer" description="Required if *inline\_message\_id* is not specified. Identifier of the message to edit." />
 
-<ApiParam name="inline_message_id" type="String" description="Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message" />
+<ApiParam name="inline_message_id" type="String" description="Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message." />
 
 <ApiParam name="latitude" type="Float" required description="Latitude of new location" />
 
 <ApiParam name="longitude" type="Float" required description="Longitude of new location" />
 
-<ApiParam name="live_period" type="Integer" description="New period in seconds during which the location can be updated, starting from the message send date. If 0x7FFFFFFF is specified, then the location can be updated forever. Otherwise, the new value must not exceed the current *live\_period* by more than a day, and the live location expiration date must remain within the next 90 days. If not specified, then *live\_period* remains unchanged" />
+<ApiParam name="live_period" type="Integer" description="New period in seconds during which the location can be updated, starting from the message send date. If 0x7FFFFFFF is specified, then the location can be updated forever. Otherwise, the new value must not exceed the current *live\_period* by more than a day, and the live location expiration date must remain within the next 90 days. If not specified, then *live\_period* remains unchanged." />
 
 <ApiParam name="horizontal_accuracy" type="Float" description="The radius of uncertainty for the location, measured in meters; 0-1500" />
 
@@ -42,7 +42,7 @@ Use this method to edit live location messages. A location can be edited until i
 
 <ApiParam name="proximity_alert_radius" type="Integer" description="The maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified." />
 
-<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="A JSON-serialized object for a new [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards)." docsLink="/keyboards/overview" />
+<ApiParam name="reply_markup" type="InlineKeyboardMarkup" description="A JSON-serialized object for a new [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards)" docsLink="/keyboards/overview" />
 
 ## Returns
 

@@ -21,13 +21,13 @@ Use this method to forward messages of any kind. Service messages and messages w
 
 ## Parameters
 
-<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)" />
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`" />
 
 <ApiParam name="message_thread_id" type="Integer" description="Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only" />
 
 <ApiParam name="direct_messages_topic_id" type="Integer" description="Identifier of the direct messages topic to which the message will be forwarded; required if the message is forwarded to a direct messages chat" />
 
-<ApiParam name="from_chat_id" type="Integer | String" required description="Unique identifier for the chat where the original message was sent (or channel username in the format `@channelusername`)" />
+<ApiParam name="from_chat_id" type="Integer | String" required description="Unique identifier for the chat where the original message was sent (or username of the target bot, supergroup or channel in the format `@username`)" />
 
 <ApiParam name="video_start_timestamp" type="Integer" description="New start timestamp for the forwarded video in the message" />
 

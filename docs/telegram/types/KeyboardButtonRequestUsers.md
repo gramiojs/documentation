@@ -20,7 +20,7 @@ This object defines the criteria used to request suitable users. Information abo
 
 ## Fields
 
-<ApiParam name="request_id" type="Integer" required description="Signed 32-bit identifier of the request that will be received back in the [UsersShared](https://core.telegram.org/bots/api#usersshared) object. Must be unique within the message" />
+<ApiParam name="request_id" type="Integer" required description="Signed 32-bit identifier of the request that will be received back in the [UsersShared](https://core.telegram.org/bots/api#usersshared) object. Must be unique within the message." />
 
 <ApiParam name="user_is_bot" type="Boolean" description="*Optional*. Pass *True* to request bots, pass *False* to request regular users. If not specified, no additional restrictions are applied." />
 

@@ -21,7 +21,7 @@ Use this method to clear the list of pinned messages in a chat. In private chats
 
 ## Parameters
 
-<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)" />
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel in the format `@username`" />
 
 ## Returns
 

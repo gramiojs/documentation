@@ -24,7 +24,7 @@ Represents a link to a photo. By default, this photo will be sent by the user wi
 
 <ApiParam name="id" type="String" required description="Unique identifier for this result, 1-64 bytes" />
 
-<ApiParam name="photo_url" type="String" required description="A valid URL of the photo. Photo must be in **JPEG** format. Photo size must not exceed 5MB" />
+<ApiParam name="photo_url" type="String" required description="A valid URL of the photo. Photo must be in **JPEG** format. Photo size must not exceed 5MB." />
 
 <ApiParam name="thumbnail_url" type="String" required description="URL of the thumbnail for the photo" />
 

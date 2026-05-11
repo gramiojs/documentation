@@ -38,7 +38,7 @@ Describes a service message about a regular gift that was sent or received.
 
 <ApiParam name="is_private" type="True" description="*Optional*. *True*, if the sender and gift text are shown only to the gift receiver; otherwise, everyone will be able to see them" />
 
-<ApiParam name="unique_gift_number" type="Integer" description="*Optional*. Unique number reserved for this gift when upgraded. See the *number* field in [UniqueGift](https://core.telegram.org/bots/api#uniquegift)" />
+<ApiParam name="unique_gift_number" type="Integer" description="*Optional*. Unique number reserved for this gift when upgraded. See the *number* field in [UniqueGift](https://core.telegram.org/bots/api#uniquegift)." />
 
 <!-- GENERATED:END -->
 

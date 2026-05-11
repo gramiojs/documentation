@@ -48,6 +48,8 @@ Represents a [chat member](https://core.telegram.org/bots/api#chatmember) that i
 
 <ApiParam name="can_add_web_page_previews" type="Boolean" required description="*True*, if the user is allowed to add web page previews to their messages" />
 
+<ApiParam name="can_react_to_messages" type="Boolean" required description="*True*, if the user is allowed to react to messages" />
+
 <ApiParam name="can_edit_tag" type="Boolean" required description="*True*, if the user is allowed to edit their own tag" />
 
 <ApiParam name="can_change_info" type="Boolean" required description="*True*, if the user is allowed to change the chat title, photo and other settings" />
@@ -58,7 +60,7 @@ Represents a [chat member](https://core.telegram.org/bots/api#chatmember) that i
 
 <ApiParam name="can_manage_topics" type="Boolean" required description="*True*, if the user is allowed to create forum topics" />
 
-<ApiParam name="until_date" type="Integer" required description="Date when restrictions will be lifted for this user; Unix time. If 0, then the user is restricted forever" />
+<ApiParam name="until_date" type="Integer" required description="Date when restrictions will be lifted for this user; Unix time. If 0, then the user is restricted forever." />
 
 <!-- GENERATED:END -->
 

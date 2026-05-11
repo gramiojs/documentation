@@ -23,7 +23,7 @@ Delete messages on behalf of a business account. Requires the *can\_delete\_sent
 
 <ApiParam name="business_connection_id" type="String" required description="Unique identifier of the business connection on behalf of which to delete the messages" />
 
-<ApiParam name="message_ids" type="Integer[]" required description="A JSON-serialized list of 1-100 identifiers of messages to delete. All messages must be from the same chat. See [deleteMessage](https://core.telegram.org/bots/api#deletemessage) for limitations on which messages can be deleted" />
+<ApiParam name="message_ids" type="Integer[]" required description="A JSON-serialized list of 1-100 identifiers of messages to delete. All messages must be from the same chat. See [deleteMessage](https://core.telegram.org/bots/api#deletemessage) for limitations on which messages can be deleted." />
 
 ## Returns
 

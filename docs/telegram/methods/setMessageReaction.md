@@ -22,7 +22,7 @@ Use this method to change the chosen reactions on a message. Service messages of
 
 ## Parameters
 
-<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)" />
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`" />
 
 <ApiParam name="message_id" type="Integer" required description="Identifier of the target message. If the message belongs to a media group, the reaction is set to the first non-deleted message in the group instead." />
 

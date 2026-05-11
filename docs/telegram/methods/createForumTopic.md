@@ -21,11 +21,11 @@ Use this method to create a topic in a forum supergroup chat or a private chat w
 
 ## Parameters
 
-<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)" />
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target supergroup in the format `@username`" />
 
 <ApiParam name="name" type="String" required description="Topic name, 1-128 characters" :minLen="1" :maxLen="128" />
 
-<ApiParam name="icon_color" type="Integer" description="Color of the topic icon in RGB format. Currently, must be one of 7322096 (0x6FB9F0), 16766590 (0xFFD67E), 13338331 (0xCB86DB), 9367192 (0x8EEE98), 16749490 (0xFF93B2), or 16478047 (0xFB6F5F)" :enumValues='[7322096,16766590,13338331,9367192,16749490,16478047]' />
+<ApiParam name="icon_color" type="Integer" description="Color of the topic icon in RGB format. Currently, must be one of 7322096 (0x6FB9F0), 16766590 (0xFFD67E), 13338331 (0xCB86DB), 9367192 (0x8EEE98), 16749490 (0xFF93B2), or 16478047 (0xFB6F5F)." :enumValues='[7322096,16766590,13338331,9367192,16749490,16478047]' />
 
 <ApiParam name="icon_custom_emoji_id" type="String" description="Unique identifier of the custom emoji shown as the topic icon. Use [getForumTopicIconStickers](https://core.telegram.org/bots/api#getforumtopiciconstickers) to get all allowed custom emoji identifiers." />
 

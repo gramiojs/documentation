@@ -24,7 +24,7 @@ If you'd like to make sure that the webhook was set by you, you can specify secr
 
 ## Parameters
 
-<ApiParam name="url" type="String" required description="HTTPS URL to send updates to. Use an empty string to remove webhook integration" />
+<ApiParam name="url" type="String" required description="HTTPS URL to send updates to. Use an empty string to remove webhook integration." />
 
 <ApiParam name="certificate" type="InputFile" description="Upload your public key certificate so that the root certificate in use can be checked. See our [self-signed guide](https://core.telegram.org/bots/self-signed) for details." docsLink="/files/media-upload" />
 

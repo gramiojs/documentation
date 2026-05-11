@@ -21,7 +21,7 @@ Use this method to get the list of boosts added to a chat by a user. Requires ad
 
 ## Parameters
 
-<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the chat or username of the channel (in the format `@channelusername`)" />
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the chat or username of the channel in the format `@username`" />
 
 <ApiParam name="user_id" type="Integer" required description="Unique identifier of the target user" />
 

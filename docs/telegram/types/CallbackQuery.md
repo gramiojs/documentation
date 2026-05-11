@@ -26,7 +26,7 @@ This object represents an incoming callback query from a callback button in an [
 
 <ApiParam name="message" type="MaybeInaccessibleMessage" description="*Optional*. Message sent by the bot with the callback button that originated the query" />
 
-<ApiParam name="inline_message_id" type="String" description="*Optional*. Identifier of the message sent via the bot in inline mode, that originated the query." />
+<ApiParam name="inline_message_id" type="String" description="*Optional*. Identifier of the message sent via the bot in inline mode, that originated the query" />
 
 <ApiParam name="chat_instance" type="String" required description="Global identifier, uniquely corresponding to the chat to which the message with the callback button was sent. Useful for high scores in [games](https://core.telegram.org/bots/api#games)." />
 

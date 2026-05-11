@@ -25,7 +25,7 @@ Use this method to send answers to callback queries sent from [inline keyboards]
 
 <ApiParam name="callback_query_id" type="String" required description="Unique identifier for the query to be answered" />
 
-<ApiParam name="text" type="String" description="Text of the notification. If not specified, nothing will be shown to the user, 0-200 characters" :minLen="0" :maxLen="200" />
+<ApiParam name="text" type="String" description="Text of the notification. If not specified, nothing will be shown to the user, 0-200 characters." :minLen="0" :maxLen="200" />
 
 <ApiParam name="show_alert" type="Boolean" description="If *True*, an alert will be shown by the client instead of a notification at the top of the chat screen. Defaults to *false*." />
 

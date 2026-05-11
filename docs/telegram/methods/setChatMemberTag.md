@@ -21,7 +21,7 @@ Use this method to set a tag for a regular member in a group or a supergroup. Th
 
 ## Parameters
 
-<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)" />
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target supergroup in the format `@username`" />
 
 <ApiParam name="user_id" type="Integer" required description="Unique identifier of the target user" />
 

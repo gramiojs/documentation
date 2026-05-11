@@ -21,7 +21,7 @@ Use this method to get up-to-date information about the chat. Returns a [ChatFul
 
 ## Parameters
 
-<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`)" />
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target supergroup or channel in the format `@username`" />
 
 ## Returns
 

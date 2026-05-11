@@ -22,7 +22,7 @@ Describes the options used for link preview generation.
 
 <ApiParam name="is_disabled" type="Boolean" description="*Optional*. *True*, if the link preview is disabled" />
 
-<ApiParam name="url" type="String" description="*Optional*. URL to use for the link preview. If empty, then the first URL found in the message text will be used" />
+<ApiParam name="url" type="String" description="*Optional*. URL to use for the link preview. If empty, then the first URL found in the message text will be used." />
 
 <ApiParam name="prefer_small_media" type="Boolean" description="*Optional*. *True*, if the media in the link preview is supposed to be shrunk; ignored if the URL isn't explicitly specified or media size change isn't supported for the preview" />
 

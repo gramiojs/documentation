@@ -21,7 +21,7 @@ Use this method to edit a non-primary invite link created by the bot. The bot mu
 
 ## Parameters
 
-<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)" />
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel in the format `@username`" />
 
 <ApiParam name="invite_link" type="String" required description="The invite link to edit" />
 
@@ -31,7 +31,7 @@ Use this method to edit a non-primary invite link created by the bot. The bot mu
 
 <ApiParam name="member_limit" type="Integer" description="The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999" />
 
-<ApiParam name="creates_join_request" type="Boolean" description="*True*, if users joining the chat via the link need to be approved by chat administrators. If *True*, *member\_limit* can't be specified" />
+<ApiParam name="creates_join_request" type="Boolean" description="*True*, if users joining the chat via the link need to be approved by chat administrators. If *True*, *member\_limit* can't be specified." />
 
 ## Returns
 

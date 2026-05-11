@@ -24,7 +24,7 @@ This object describes a unique gift that was upgraded from a regular gift.
 
 <ApiParam name="base_name" type="String" required description="Human-readable name of the regular gift from which this unique gift was upgraded" />
 
-<ApiParam name="name" type="String" required description="Unique name of the gift. This name can be used in `https://t.me/nft/...` links and story areas" />
+<ApiParam name="name" type="String" required description="Unique name of the gift. This name can be used in `https://t.me/nft/...` links and story areas." />
 
 <ApiParam name="number" type="Integer" required description="Unique number of the upgraded gift among gifts upgraded from the same regular gift" />
 

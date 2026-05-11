@@ -24,7 +24,7 @@ Describes a checklist to create.
 
 <ApiParam name="parse_mode" type="String" description="*Optional*. Mode for parsing entities in the title. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details." />
 
-<ApiParam name="title_entities" type="MessageEntity[]" description="*Optional*. List of special entities that appear in the title, which can be specified instead of parse\_mode. Currently, only *bold*, *italic*, *underline*, *strikethrough*, *spoiler*, and *custom\_emoji* entities are allowed." />
+<ApiParam name="title_entities" type="MessageEntity[]" description="*Optional*. List of special entities that appear in the title, which can be specified instead of parse\_mode. Currently, only *bold*, *italic*, *underline*, *strikethrough*, *spoiler*, *custom\_emoji*, and *date\_time* entities are allowed." />
 
 <ApiParam name="tasks" type="InputChecklistTask[]" required description="List of 1-30 tasks in the checklist" />
 

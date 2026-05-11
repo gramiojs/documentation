@@ -28,6 +28,8 @@ This object represents an answer of a user in a non-anonymous poll.
 
 <ApiParam name="option_ids" type="Integer[]" required description="0-based identifiers of chosen answer options. May be empty if the vote was retracted." />
 
+<ApiParam name="option_persistent_ids" type="String[]" required description="Persistent identifiers of the chosen answer options. May be empty if the vote was retracted." />
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

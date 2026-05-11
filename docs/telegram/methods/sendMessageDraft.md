@@ -18,7 +18,7 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#sendmessagedraft" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to stream a partial message to a user while the message is being generated. Returns *True* on success.
+Use this method to stream a partial message to a user while the message is being generated. Note that the streamed draft is ephemeral and acts as a temporary 30-second preview - once the output is finalized, you **must** call [sendMessage](https://core.telegram.org/bots/api#sendmessage) with the complete message to persist it in the user's chat. Returns *True* on success.
 
 ## Parameters
 
@@ -26,9 +26,9 @@ Use this method to stream a partial message to a user while the message is being
 
 <ApiParam name="message_thread_id" type="Integer" description="Unique identifier for the target message thread" />
 
-<ApiParam name="draft_id" type="Integer" required description="Unique identifier of the message draft; must be non-zero. Changes of drafts with the same identifier are animated" />
+<ApiParam name="draft_id" type="Integer" required description="Unique identifier of the message draft; must be non-zero. Changes of drafts with the same identifier are animated." />
 
-<ApiParam name="text" type="String" required description="Text of the message to be sent, 1-4096 characters after entities parsing" :minLen="1" :maxLen="4096" semanticType="formattable" docsLink="/formatting" />
+<ApiParam name="text" type="String" description="Text of the message to be sent, 0-4096 characters after entities parsing. Pass an empty text to show a &quot;Thinking…&quot; placeholder." :minLen="0" :maxLen="4096" semanticType="formattable" docsLink="/formatting" />
 
 <ApiParam name="parse_mode" type="String" description="Mode for parsing entities in the message text. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details." />
 

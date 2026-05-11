@@ -21,7 +21,7 @@ Use this method to create a [subscription invite link](https://telegram.org/blog
 
 ## Parameters
 
-<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target channel chat or username of the target channel (in the format `@channelusername`)" />
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target channel chat or username of the target channel in the format `@username`" />
 
 <ApiParam name="name" type="String" description="Invite link name; 0-32 characters" :minLen="0" :maxLen="32" />
 

@@ -21,7 +21,7 @@ Use this method to change the description of a group, a supergroup or a channel.
 
 ## Parameters
 
-<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)" />
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel in the format `@username`" />
 
 <ApiParam name="description" type="String" description="New chat description, 0-255 characters" :minLen="0" :maxLen="255" />
 

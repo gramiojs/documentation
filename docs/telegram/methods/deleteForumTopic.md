@@ -21,7 +21,7 @@ Use this method to delete a forum topic along with all its messages in a forum s
 
 ## Parameters
 
-<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)" />
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target supergroup in the format `@username`" />
 
 <ApiParam name="message_thread_id" type="Integer" required description="Unique identifier for the target message thread of the forum topic" />
 

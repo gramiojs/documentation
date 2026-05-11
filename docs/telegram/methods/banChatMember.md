@@ -21,7 +21,7 @@ Use this method to ban a user in a group, a supergroup or a channel. In the case
 
 ## Parameters
 
-<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target group or username of the target supergroup or channel (in the format `@channelusername`)" />
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target group or username of the target supergroup or channel in the format `@username`" />
 
 <ApiParam name="user_id" type="Integer" required description="Unique identifier of the target user" />
 

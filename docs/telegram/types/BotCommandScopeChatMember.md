@@ -22,7 +22,7 @@ Represents the [scope](https://core.telegram.org/bots/api#botcommandscope) of bo
 
 <ApiParam name="type" type="String" required description="Scope type, must be *chat\_member*" constValue="chat_member" />
 
-<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`). Channel direct messages chats and channel chats aren't supported." />
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target supergroup in the format `@username`. Channel direct messages chats and channel chats aren't supported." />
 
 <ApiParam name="user_id" type="Integer" required description="Unique identifier of the target user" />
 

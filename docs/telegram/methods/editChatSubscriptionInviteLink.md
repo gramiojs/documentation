@@ -21,7 +21,7 @@ Use this method to edit a subscription invite link created by the bot. The bot m
 
 ## Parameters
 
-<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)" />
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel in the format `@username`" />
 
 <ApiParam name="invite_link" type="String" required description="The invite link to edit" />
 

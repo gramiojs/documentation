@@ -20,9 +20,9 @@ This object defines the criteria used to request a suitable chat. Information ab
 
 ## Fields
 
-<ApiParam name="request_id" type="Integer" required description="Signed 32-bit identifier of the request, which will be received back in the [ChatShared](https://core.telegram.org/bots/api#chatshared) object. Must be unique within the message" />
+<ApiParam name="request_id" type="Integer" required description="Signed 32-bit identifier of the request, which will be received back in the [ChatShared](https://core.telegram.org/bots/api#chatshared) object. Must be unique within the message." />
 
-<ApiParam name="chat_is_channel" type="Boolean" required description="Pass *True* to request a channel chat, pass *False* to request a group or a supergroup chat." />
+<ApiParam name="chat_is_channel" type="Boolean" required description="Pass *True* to request a channel chat, pass *False* to request a group or a supergroup chat" />
 
 <ApiParam name="chat_is_forum" type="Boolean" description="*Optional*. Pass *True* to request a forum supergroup, pass *False* to request a non-forum chat. If not specified, no additional restrictions are applied." />
 

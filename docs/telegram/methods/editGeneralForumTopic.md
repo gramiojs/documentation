@@ -21,7 +21,7 @@ Use this method to edit the name of the 'General' topic in a forum supergroup ch
 
 ## Parameters
 
-<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)" />
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target supergroup in the format `@username`" />
 
 <ApiParam name="name" type="String" required description="New topic name, 1-128 characters" :minLen="1" :maxLen="128" />
 

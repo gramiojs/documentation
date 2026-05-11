@@ -21,7 +21,7 @@ Use this method to ban a channel chat in a supergroup or a channel. Until the ch
 
 ## Parameters
 
-<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)" />
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel in the format `@username`" />
 
 <ApiParam name="sender_chat_id" type="Integer" required description="Unique identifier of the target sender chat" />
 

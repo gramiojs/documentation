@@ -30,7 +30,7 @@ This object represents changes in the status of a chat member.
 
 <ApiParam name="new_chat_member" type="ChatMember" required description="New information about the chat member" />
 
-<ApiParam name="invite_link" type="ChatInviteLink" description="*Optional*. Chat invite link, which was used by the user to join the chat; for joining by invite link events only." />
+<ApiParam name="invite_link" type="ChatInviteLink" description="*Optional*. Chat invite link, which was used by the user to join the chat; for joining by invite link events only" />
 
 <ApiParam name="via_join_request" type="Boolean" description="*Optional*. *True*, if the user joined the chat after sending a direct join request without using an invite link and being approved by an administrator" />
 

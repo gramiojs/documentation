@@ -23,19 +23,19 @@ Use this method to copy messages of any kind. Service messages, paid media messa
 
 ## Parameters
 
-<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)" />
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`" />
 
 <ApiParam name="message_thread_id" type="Integer" description="Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only" />
 
 <ApiParam name="direct_messages_topic_id" type="Integer" description="Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat" />
 
-<ApiParam name="from_chat_id" type="Integer | String" required description="Unique identifier for the chat where the original message was sent (or channel username in the format `@channelusername`)" />
+<ApiParam name="from_chat_id" type="Integer | String" required description="Unique identifier for the chat where the original message was sent (or username of the target bot, supergroup or channel in the format `@username`)" />
 
 <ApiParam name="message_id" type="Integer" required description="Message identifier in the chat specified in *from\_chat\_id*" />
 
 <ApiParam name="video_start_timestamp" type="Integer" description="New start timestamp for the copied video in the message" />
 
-<ApiParam name="caption" type="String" description="New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept" :minLen="0" :maxLen="1024" semanticType="formattable" docsLink="/formatting" />
+<ApiParam name="caption" type="String" description="New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept." :minLen="0" :maxLen="1024" semanticType="formattable" docsLink="/formatting" />
 
 <ApiParam name="parse_mode" type="String" description="Mode for parsing entities in the new caption. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details." />
 
@@ -47,7 +47,7 @@ Use this method to copy messages of any kind. Service messages, paid media messa
 
 <ApiParam name="protect_content" type="Boolean" description="Protects the contents of the sent message from forwarding and saving" />
 
-<ApiParam name="allow_paid_broadcast" type="Boolean" description="Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance" />
+<ApiParam name="allow_paid_broadcast" type="Boolean" description="Pass *True* to allow up to 1000 messages per second, ignoring [broadcasting limits](https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once) for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance." />
 
 <ApiParam name="message_effect_id" type="String" description="Unique identifier of the message effect to be added to the message; only available when copying to private chats" />
 
@@ -55,7 +55,7 @@ Use this method to copy messages of any kind. Service messages, paid media messa
 
 <ApiParam name="reply_parameters" type="ReplyParameters" description="Description of the message to reply to" />
 
-<ApiParam name="reply_markup" type="InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply" description="Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user" docsLink="/keyboards/overview" />
+<ApiParam name="reply_markup" type="InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply" description="Additional interface options. A JSON-serialized object for an [inline keyboard](https://core.telegram.org/bots/features#inline-keyboards), [custom reply keyboard](https://core.telegram.org/bots/features#keyboards), instructions to remove a reply keyboard or to force a reply from the user." docsLink="/keyboards/overview" />
 
 ## Returns
 

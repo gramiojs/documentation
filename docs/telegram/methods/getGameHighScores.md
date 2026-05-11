@@ -25,11 +25,11 @@ Use this method to get data for high score tables. Will return the score of the 
 
 <ApiParam name="user_id" type="Integer" required description="Target user id" />
 
-<ApiParam name="chat_id" type="Integer" description="Required if *inline\_message\_id* is not specified. Unique identifier for the target chat" />
+<ApiParam name="chat_id" type="Integer" description="Required if *inline\_message\_id* is not specified. Unique identifier for the target chat." />
 
-<ApiParam name="message_id" type="Integer" description="Required if *inline\_message\_id* is not specified. Identifier of the sent message" />
+<ApiParam name="message_id" type="Integer" description="Required if *inline\_message\_id* is not specified. Identifier of the sent message." />
 
-<ApiParam name="inline_message_id" type="String" description="Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message" />
+<ApiParam name="inline_message_id" type="String" description="Required if *chat\_id* and *message\_id* are not specified. Identifier of the inline message." />
 
 ## Returns
 

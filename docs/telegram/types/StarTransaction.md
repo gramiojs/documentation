@@ -28,9 +28,9 @@ Describes a Telegram Star transaction. Note that if the buyer initiates a charge
 
 <ApiParam name="date" type="Integer" required description="Date the transaction was created in Unix time" />
 
-<ApiParam name="source" type="TransactionPartner" description="*Optional*. Source of an incoming transaction (e.g., a user purchasing goods or services, Fragment refunding a failed withdrawal). Only for incoming transactions" />
+<ApiParam name="source" type="TransactionPartner" description="*Optional*. Source of an incoming transaction (e.g., a user purchasing goods or services, Fragment refunding a failed withdrawal). Only for incoming transactions." />
 
-<ApiParam name="receiver" type="TransactionPartner" description="*Optional*. Receiver of an outgoing transaction (e.g., a user for a purchase refund, Fragment for a withdrawal). Only for outgoing transactions" />
+<ApiParam name="receiver" type="TransactionPartner" description="*Optional*. Receiver of an outgoing transaction (e.g., a user for a purchase refund, Fragment for a withdrawal). Only for outgoing transactions." />
 
 <!-- GENERATED:END -->
 

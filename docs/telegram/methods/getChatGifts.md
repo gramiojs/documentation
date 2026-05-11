@@ -21,7 +21,7 @@ Returns the gifts owned by a chat. Returns [OwnedGifts](https://core.telegram.or
 
 ## Parameters
 
-<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)" />
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel in the format `@username`" />
 
 <ApiParam name="exclude_unsaved" type="Boolean" description="Pass *True* to exclude gifts that aren't saved to the chat's profile page. Always *True*, unless the bot has the *can\_post\_messages* administrator right in the channel." />
 
@@ -41,7 +41,7 @@ Returns the gifts owned by a chat. Returns [OwnedGifts](https://core.telegram.or
 
 <ApiParam name="offset" type="String" description="Offset of the first entry to return as received from the previous request; use an empty string to get the first chunk of results" />
 
-<ApiParam name="limit" type="Integer" description="The maximum number of gifts to be returned; 1-100. Defaults to 100" :defaultValue="100" />
+<ApiParam name="limit" type="Integer" description="The maximum number of gifts to be returned; 1-100. Defaults to 100." :defaultValue="100" />
 
 ## Returns
 

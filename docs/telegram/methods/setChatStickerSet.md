@@ -21,7 +21,7 @@ Use this method to set a new group sticker set for a supergroup. The bot must be
 
 ## Parameters
 
-<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`)" />
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target supergroup in the format `@username`" />
 
 <ApiParam name="sticker_set_name" type="String" required description="Name of the sticker set to be set as the group sticker set" />
 

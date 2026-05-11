@@ -20,13 +20,13 @@ This object represents a message.
 
 ## Fields
 
-<ApiParam name="message_id" type="Integer" required description="Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent" />
+<ApiParam name="message_id" type="Integer" required description="Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent." />
 
 <ApiParam name="message_thread_id" type="Integer" description="*Optional*. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only" />
 
 <ApiParam name="direct_messages_topic" type="DirectMessagesTopic" description="*Optional*. Information about the direct messages chat topic that contains the message" />
 
-<ApiParam name="from" type="User" description="*Optional*. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats" />
+<ApiParam name="from" type="User" description="*Optional*. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats." />
 
 <ApiParam name="sender_chat" type="Chat" description="*Optional*. Sender of the message when sent on behalf of a chat. For example, the supergroup itself for messages sent by its anonymous administrators or a linked channel for messages automatically forwarded to the channel's discussion group. For backward compatibility, if the message was sent on behalf of a chat, the field *from* contains a fake sender user in non-channel chats." />
 
@@ -37,6 +37,8 @@ This object represents a message.
 <ApiParam name="sender_tag" type="String" description="*Optional*. Tag or custom title of the sender of the message; for supergroups only" />
 
 <ApiParam name="date" type="Integer" required description="Date the message was sent in Unix time. It is always a positive number, representing a valid date." />
+
+<ApiParam name="guest_query_id" type="String" description="*Optional*. The unique identifier for the guest query. Use this identifier with the method [answerGuestQuery](https://core.telegram.org/bots/api#answerguestquery) to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier." />
 
 <ApiParam name="business_connection_id" type="String" description="*Optional*. Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier." />
 
@@ -58,7 +60,13 @@ This object represents a message.
 
 <ApiParam name="reply_to_checklist_task_id" type="Integer" description="*Optional*. Identifier of the specific checklist task that is being replied to" />
 
+<ApiParam name="reply_to_poll_option_id" type="String" description="*Optional*. Persistent identifier of the specific poll option that is being replied to" />
+
 <ApiParam name="via_bot" type="User" description="*Optional*. Bot through which the message was sent" />
+
+<ApiParam name="guest_bot_caller_user" type="User" description="*Optional*. For a message sent by a guest bot, this is the user whose original message triggered the bot's response" />
+
+<ApiParam name="guest_bot_caller_chat" type="Chat" description="*Optional*. For a message sent by a guest bot, this is the chat whose original message triggered the bot's response" />
 
 <ApiParam name="edit_date" type="Integer" description="*Optional*. Date the message was last edited in Unix time" />
 
@@ -84,11 +92,13 @@ This object represents a message.
 
 <ApiParam name="effect_id" type="String" description="*Optional*. Unique identifier of the message effect added to the message" />
 
-<ApiParam name="animation" type="Animation" description="*Optional*. Message is an animation, information about the animation. For backward compatibility, when this field is set, the *document* field will also be set" />
+<ApiParam name="animation" type="Animation" description="*Optional*. Message is an animation, information about the animation. For backward compatibility, when this field is set, the *document* field will also be set." />
 
 <ApiParam name="audio" type="Audio" description="*Optional*. Message is an audio file, information about the file" />
 
 <ApiParam name="document" type="Document" description="*Optional*. Message is a general file, information about the file" />
+
+<ApiParam name="live_photo" type="LivePhoto" description="*Optional*. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the *photo* field will also be set." />
 
 <ApiParam name="paid_media" type="PaidMediaInfo" description="*Optional*. Message contains paid media; information about the paid media" />
 
@@ -122,7 +132,7 @@ This object represents a message.
 
 <ApiParam name="poll" type="Poll" description="*Optional*. Message is a native poll, information about the poll" />
 
-<ApiParam name="venue" type="Venue" description="*Optional*. Message is a venue, information about the venue. For backward compatibility, when this field is set, the *location* field will also be set" />
+<ApiParam name="venue" type="Venue" description="*Optional*. Message is a venue, information about the venue. For backward compatibility, when this field is set, the *location* field will also be set." />
 
 <ApiParam name="location" type="Location" description="*Optional*. Message is a shared location, information about the location" />
 
@@ -208,7 +218,13 @@ This object represents a message.
 
 <ApiParam name="giveaway_completed" type="GiveawayCompleted" description="*Optional*. Service message: a giveaway without public winners was completed" />
 
+<ApiParam name="managed_bot_created" type="ManagedBotCreated" description="*Optional*. Service message: user created a bot that will be managed by the current bot" />
+
 <ApiParam name="paid_message_price_changed" type="PaidMessagePriceChanged" description="*Optional*. Service message: the price for paid messages has changed in the chat" />
+
+<ApiParam name="poll_option_added" type="PollOptionAdded" description="*Optional*. Service message: answer option was added to a poll" />
+
+<ApiParam name="poll_option_deleted" type="PollOptionDeleted" description="*Optional*. Service message: answer option was deleted from a poll" />
 
 <ApiParam name="suggested_post_approved" type="SuggestedPostApproved" description="*Optional*. Service message: a suggested post was approved" />
 

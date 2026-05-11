@@ -48,7 +48,7 @@ Describes a regular gift owned by a user or a chat.
 
 <ApiParam name="is_upgrade_separate" type="True" description="*Optional*. *True*, if the gift's upgrade was purchased after the gift was sent; for gifts received on behalf of business accounts only" />
 
-<ApiParam name="unique_gift_number" type="Integer" description="*Optional*. Unique number reserved for this gift when upgraded. See the *number* field in [UniqueGift](https://core.telegram.org/bots/api#uniquegift)" />
+<ApiParam name="unique_gift_number" type="Integer" description="*Optional*. Unique number reserved for this gift when upgraded. See the *number* field in [UniqueGift](https://core.telegram.org/bots/api#uniquegift)." />
 
 <!-- GENERATED:END -->
 

@@ -24,7 +24,7 @@ Represents a [chat member](https://core.telegram.org/bots/api#chatmember) that w
 
 <ApiParam name="user" type="User" required description="Information about the user" />
 
-<ApiParam name="until_date" type="Integer" required description="Date when restrictions will be lifted for this user; Unix time. If 0, then the user is banned forever" />
+<ApiParam name="until_date" type="Integer" required description="Date when restrictions will be lifted for this user; Unix time. If 0, then the user is banned forever." />
 
 <!-- GENERATED:END -->
 

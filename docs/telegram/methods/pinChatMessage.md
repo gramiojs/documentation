@@ -23,7 +23,7 @@ Use this method to add a message to the list of pinned messages in a chat. In pr
 
 <ApiParam name="business_connection_id" type="String" description="Unique identifier of the business connection on behalf of which the message will be pinned" />
 
-<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)" />
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target channel in the format `@username`" />
 
 <ApiParam name="message_id" type="Integer" required description="Identifier of a message to pin" />
 

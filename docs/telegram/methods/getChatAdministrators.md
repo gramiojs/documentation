@@ -17,11 +17,13 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#getchatadministrators" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to get a list of administrators in a chat, which aren't bots. Returns an Array of [ChatMember](https://core.telegram.org/bots/api#chatmember) objects.
+Use this method to get a list of administrators in a chat. Returns an Array of [ChatMember](https://core.telegram.org/bots/api#chatmember) objects.
 
 ## Parameters
 
-<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target supergroup or channel (in the format `@channelusername`)" />
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target supergroup or channel in the format `@username`" />
+
+<ApiParam name="return_bots" type="Boolean" description="Pass *True* to additionally receive all bots that are administrators of the chat. By default, bots other than the current bot are omitted." />
 
 ## Returns
 

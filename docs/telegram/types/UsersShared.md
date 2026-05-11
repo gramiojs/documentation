@@ -22,7 +22,7 @@ This object contains information about the users whose identifiers were shared w
 
 <ApiParam name="request_id" type="Integer" required description="Identifier of the request" />
 
-<ApiParam name="users" type="SharedUser[]" required description="Information about users shared with the bot." />
+<ApiParam name="users" type="SharedUser[]" required description="Information about users shared with the bot" />
 
 <!-- GENERATED:END -->
 

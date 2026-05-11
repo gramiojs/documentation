@@ -28,7 +28,7 @@ The background is a .PNG or .TGV (gzipped subset of SVG with MIME type “applic
 
 <ApiParam name="intensity" type="Integer" required description="Intensity of the pattern when it is shown above the filled background; 0-100" />
 
-<ApiParam name="is_inverted" type="True" description="*Optional*. *True*, if the background fill must be applied only to the pattern itself. All other pixels are black in this case. For dark themes only" />
+<ApiParam name="is_inverted" type="True" description="*Optional*. *True*, if the background fill must be applied only to the pattern itself. All other pixels are black in this case. For dark themes only." />
 
 <ApiParam name="is_moving" type="True" description="*Optional*. *True*, if the background moves slightly when the device is tilted" />
 

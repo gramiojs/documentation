@@ -20,7 +20,7 @@ Represents the [content](https://core.telegram.org/bots/api#inputmessagecontent)
 
 ## Fields
 
-<ApiParam name="message_text" type="String" required description="Text of the message to be sent, 1-4096 characters" :minLen="1" :maxLen="4096" />
+<ApiParam name="message_text" type="String" required description="Text of the message to be sent, 1-4096 characters" :minLen="1" :maxLen="4096" semanticType="formattable" docsLink="/formatting" />
 
 <ApiParam name="parse_mode" type="String" description="*Optional*. Mode for parsing entities in the message text. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details." />
 

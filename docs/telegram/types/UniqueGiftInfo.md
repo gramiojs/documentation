@@ -22,7 +22,7 @@ Describes a service message about a unique gift that was sent or received.
 
 <ApiParam name="gift" type="UniqueGift" required description="Information about the gift" />
 
-<ApiParam name="origin" type="String" required description="Origin of the gift. Currently, either &quot;upgrade&quot; for gifts upgraded from regular gifts, &quot;transfer&quot; for gifts transferred from other users or channels, &quot;resale&quot; for gifts bought from other users, &quot;gifted\_upgrade&quot; for upgrades purchased after the gift was sent, or &quot;offer&quot; for gifts bought or sold through gift purchase offers" :enumValues='["upgrade","transfer","resale","gifted_upgrade","offer"]' />
+<ApiParam name="origin" type="String" required description="Origin of the gift. Currently, either &quot;upgrade&quot; for gifts upgraded from regular gifts, &quot;transfer&quot; for gifts transferred from other users or channels, &quot;resale&quot; for gifts bought from other users, &quot;gifted\_upgrade&quot; for upgrades purchased after the gift was sent, or &quot;offer&quot; for gifts bought or sold through gift purchase offers." :enumValues='["upgrade","transfer","resale","gifted_upgrade","offer"]' />
 
 <ApiParam name="last_resale_currency" type="String" description="*Optional*. For gifts bought from other users, the currency in which the payment for the gift was done. Currently, one of &quot;XTR&quot; for Telegram Stars or &quot;TON&quot; for toncoins." :enumValues='["XTR","TON"]' />
 
@@ -32,7 +32,7 @@ Describes a service message about a unique gift that was sent or received.
 
 <ApiParam name="transfer_star_count" type="Integer" description="*Optional*. Number of Telegram Stars that must be paid to transfer the gift; omitted if the bot cannot transfer the gift" />
 
-<ApiParam name="next_transfer_date" type="Integer" description="*Optional*. Point in time (Unix timestamp) when the gift can be transferred. If it is in the past, then the gift can be transferred now" />
+<ApiParam name="next_transfer_date" type="Integer" description="*Optional*. Point in time (Unix timestamp) when the gift can be transferred. If it is in the past, then the gift can be transferred now." />
 
 <!-- GENERATED:END -->
 

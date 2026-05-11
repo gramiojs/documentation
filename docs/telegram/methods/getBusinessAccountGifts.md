@@ -41,7 +41,7 @@ Returns the gifts received and owned by a managed business account. Requires the
 
 <ApiParam name="offset" type="String" description="Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results" />
 
-<ApiParam name="limit" type="Integer" description="The maximum number of gifts to be returned; 1-100. Defaults to 100" :defaultValue="100" />
+<ApiParam name="limit" type="Integer" description="The maximum number of gifts to be returned; 1-100. Defaults to 100." :defaultValue="100" />
 
 ## Returns
 

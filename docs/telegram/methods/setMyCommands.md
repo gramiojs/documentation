@@ -25,7 +25,7 @@ Use this method to change the list of the bot's commands. See [this manual](http
 
 <ApiParam name="scope" type="BotCommandScope" description="A JSON-serialized object, describing scope of users for which the commands are relevant. Defaults to [BotCommandScopeDefault](https://core.telegram.org/bots/api#botcommandscopedefault)." />
 
-<ApiParam name="language_code" type="String" description="A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands" />
+<ApiParam name="language_code" type="String" description="A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands." />
 
 ## Returns
 

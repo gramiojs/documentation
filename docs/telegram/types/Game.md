@@ -24,13 +24,13 @@ This object represents a game. Use BotFather to create and edit games, their sho
 
 <ApiParam name="description" type="String" required description="Description of the game" />
 
-<ApiParam name="photo" type="PhotoSize[]" required description="Photo that will be displayed in the game message in chats." />
+<ApiParam name="photo" type="PhotoSize[]" required description="Photo that will be displayed in the game message in chats" />
 
 <ApiParam name="text" type="String" description="*Optional*. Brief description of the game or high scores included in the game message. Can be automatically edited to include current high scores for the game when the bot calls [setGameScore](https://core.telegram.org/bots/api#setgamescore), or manually edited using [editMessageText](https://core.telegram.org/bots/api#editmessagetext). 0-4096 characters." :minLen="0" :maxLen="4096" />
 
 <ApiParam name="text_entities" type="MessageEntity[]" description="*Optional*. Special entities that appear in *text*, such as usernames, URLs, bot commands, etc." />
 
-<ApiParam name="animation" type="Animation" description="*Optional*. Animation that will be displayed in the game message in chats. Upload via [BotFather](https://t.me/botfather)" />
+<ApiParam name="animation" type="Animation" description="*Optional*. Animation that will be displayed in the game message in chats. Upload via [BotFather](https://t.me/botfather)." />
 
 <!-- GENERATED:END -->
 

@@ -27,7 +27,7 @@ We only recommend using this method when a response from the bot will take a **n
 
 <ApiParam name="business_connection_id" type="String" description="Unique identifier of the business connection on behalf of which the action will be sent" />
 
-<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target supergroup (in the format `@supergroupusername`). Channel chats and channel direct messages chats aren't supported." />
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`. Channel chats and channel direct messages chats aren't supported." />
 
 <ApiParam name="message_thread_id" type="Integer" description="Unique identifier for the target message thread or topic of a forum; for supergroups and private chats of bots with forum topic mode enabled only" />
 
