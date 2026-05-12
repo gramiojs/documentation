@@ -136,7 +136,7 @@ bot.command("quiz", (ctx) =>
       { text: "500" },
     ],
     type: "quiz",
-    correct_option_id: 2,
+    correct_option_ids: [2],
     explanation: "429 is the standard rate-limit code defined in RFC 6585.",
     is_anonymous: true,
   })

@@ -42,7 +42,7 @@ const bot = new Bot("");
 // ---cut---
 // Set the display name when a business connection is established
 bot.on("business_connection", async (ctx) => {
-  if (ctx.canEditName && ctx.isEnabled) {
+  if (ctx.isEnabled) {
     await bot.api.setBusinessAccountName({
       business_connection_id: ctx.id,
       first_name: "Acme",

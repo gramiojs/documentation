@@ -58,7 +58,7 @@ const bot = new Bot("");
 // ---cut---
 bot.on("business_message", async (ctx) => {
   const story = await bot.api.postStory({
-    business_connection_id: ctx.businessConnectionId,
+    business_connection_id: ctx.businessConnectionId!,
     content: {
       type: "photo",
       photo: await MediaUpload.url("https://example.com/photo.jpg"),

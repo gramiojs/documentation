@@ -127,11 +127,11 @@ new Keyboard().webApp("текст кнопки", "https://...");
 import { Keyboard } from "@gramio/keyboards";
 // ---cut---
 new Keyboard().requestManagedBot("Выбрать managed-бота", 123, {
-    user_administrator_rights: { can_manage_chat: true },
+    suggested_name: "Support Bot",
 });
 ```
 
-Третий аргумент несёт опции `KeyboardButtonRequestManagedBot` (фильтр по правам администратора и пр.) — полный список см. в [референсе Bot API](https://core.telegram.org/bots/api#keyboardbuttonrequestmanagedbot).
+Третий аргумент несёт опции `KeyboardButtonRequestManagedBot` (`suggested_name`, `suggested_username`) — полный список см. в [референсе Bot API](https://core.telegram.org/bots/api#keyboardbuttonrequestmanagedbot).
 
 ## Стилизация кнопок
 

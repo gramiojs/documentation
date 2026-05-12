@@ -49,7 +49,7 @@ const welcome = createOnboarding({ id: "welcome" })
     .onComplete((ctx) => ctx.send("Welcome aboard! /help is always available."))
     .build();
 
-const bot = new Bot(process.env.BOT_TOKEN!).extend(welcome);
+const bot = new Bot("").extend(welcome);
 
 bot.command("start", (ctx) => {
     ctx.onboarding.welcome.start();

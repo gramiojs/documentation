@@ -81,9 +81,9 @@ import { Bot } from "gramio";
 const bot = new Bot("");
 // ---cut---
 // Automatically reopen topics that were closed by a specific condition
-bot.on("message", async (ctx) => {
-  if (ctx.forumTopicClosed && ctx.chat.is_forum) {
-    // ctx.messageThreadId holds the thread ID of the current message
+bot.on("forum_topic_closed", async (ctx) => {
+  if (ctx.chat.isForum && ctx.threadId) {
+    // ctx.threadId holds the thread ID of the closed topic
     await ctx.reopenTopic();
   }
 });

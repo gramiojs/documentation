@@ -121,7 +121,7 @@ bot.command("mute", async (ctx) => {
     until_date: Math.floor(Date.now() / 1000) + 600, // 10 minutes
   });
 
-  return ctx.reply(`Muted ${target.first_name} for 10 minutes.`);
+  return ctx.reply(`Muted ${target.firstName} for 10 minutes.`);
 });
 ```
 

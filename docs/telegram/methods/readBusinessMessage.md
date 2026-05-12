@@ -44,7 +44,7 @@ const bot = new Bot("");
 // ---cut---
 bot.on("business_message", async (ctx) => {
   await bot.api.readBusinessMessage({
-    business_connection_id: ctx.businessConnectionId,
+    business_connection_id: ctx.businessConnectionId!,
     chat_id: ctx.chat.id,
     message_id: ctx.id,
   });
@@ -62,7 +62,7 @@ bot.on("business_message", async (ctx) => {
   // Process the message first
   if (ctx.text) {
     await bot.api.sendMessage({
-      business_connection_id: ctx.businessConnectionId,
+      business_connection_id: ctx.businessConnectionId!,
       chat_id: ctx.chat.id,
       text: `Echo: ${ctx.text}`,
     });
@@ -70,7 +70,7 @@ bot.on("business_message", async (ctx) => {
 
   // Mark as read after handling
   await bot.api.readBusinessMessage({
-    business_connection_id: ctx.businessConnectionId,
+    business_connection_id: ctx.businessConnectionId!,
     chat_id: ctx.chat.id,
     message_id: ctx.id,
   });

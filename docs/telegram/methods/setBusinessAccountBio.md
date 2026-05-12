@@ -40,7 +40,7 @@ const bot = new Bot("");
 // ---cut---
 // Set the bio when a business connection is established
 bot.on("business_connection", async (ctx) => {
-  if (ctx.canEditBio && ctx.isEnabled) {
+  if (ctx.isEnabled) {
     await bot.api.setBusinessAccountBio({
       business_connection_id: ctx.id,
       bio: "Your trusted assistant — available 24/7. Reply within minutes.",

@@ -64,7 +64,7 @@ import { Bot, MediaUpload } from "gramio";
 const bot = new Bot("");
 // ---cut---
 // Upload a chat photo from a Buffer
-async function setPhotoFromBuffer(chatId: number, imageBuffer: Buffer) {
+async function setPhotoFromBuffer(chatId: number, imageBuffer: ArrayBuffer) {
   await bot.api.setChatPhoto({
     chat_id: chatId,
     photo: MediaUpload.buffer(imageBuffer, "chat-photo.jpg"),

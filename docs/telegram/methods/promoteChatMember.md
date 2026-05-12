@@ -75,7 +75,7 @@ import { Bot } from "gramio";
 const bot = new Bot("");
 // ---cut---
 bot.command("promote", async (ctx) => {
-  const targetId = ctx.update.message?.reply_to_message?.from?.id;
+  const targetId = ctx.replyMessage?.from?.id;
   if (!targetId) return ctx.send("Reply to a message to promote its author.");
 
   await bot.api.promoteChatMember({

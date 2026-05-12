@@ -4,6 +4,7 @@
 		"target": "ES2022",
 		"module": "NodeNext",
 		"moduleDetection": "force",
+		"types": ["node"],
 
 		/* Bundler mode */
 		"moduleResolution": "NodeNext",

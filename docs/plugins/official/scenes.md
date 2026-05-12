@@ -349,21 +349,23 @@ import { Scene, scenes } from "@gramio/scenes";
 
 const pickAddress = new Scene("pick-address")
     .exitData<{ address: string }>()
-    .step("ask", (ctx) => ctx.send("Send your address as text"))
-    .step("save", async (ctx) => {
-        await ctx.scene.exitSub({ address: ctx.text! });
+    .step("message", async (ctx) => {
+        if (ctx.scene.step.firstTime) return ctx.send("Send your address as text");
+        if (!ctx.text) return ctx.send("Please send text");
+        await ctx.scene.exitSub({ address: ctx.text });
     });
 
 const checkout = new Scene("checkout")
-    .step("address", async (ctx) => {
-        await ctx.scene.enterSub(pickAddress);   // pauses checkout, runs pickAddress
-    })
-    .step("confirm", (ctx) => {
+    .step("message", async (ctx) => {
+        if (ctx.scene.step.firstTime) {
+            await ctx.scene.enterSub(pickAddress);   // pauses checkout, runs pickAddress
+            return;
+        }
         // pickAddress resolved — its exitData reached this step via the parent stack
         return ctx.send("Confirm order?");
     });
 
-const bot = new Bot(process.env.BOT_TOKEN!)
+const bot = new Bot("")
     .extend(scenes([checkout, pickAddress]))
     .command("checkout", (ctx) => ctx.scene.enter(checkout));
 ```
@@ -543,10 +545,12 @@ With `scenesDerives()` you can get it earlier and manage scene data.
 ```ts twoslash
 import { Scene } from "@gramio/scenes";
 
-const testScene = new Scene("test").state<{
-    simple: string;
-    example: number[];
-}>();
+const testScene = new Scene("test")
+    .params<{ test: boolean }>()
+    .state<{
+        simple: string;
+        example: number[];
+    }>();
 // ---cut---
 import { scenes, scenesDerives, type AnyScene } from "@gramio/scenes";
 import { Bot } from "gramio";
@@ -568,7 +572,7 @@ const bot = new Bot(process.env.TOKEN as string)
                 console.log(context.scene.current.state);
                 //                                   ^?
                 return context.scene.current.step.previous();
-            } else return context.scene.current.reenter();
+            }
         }
 
         return next();

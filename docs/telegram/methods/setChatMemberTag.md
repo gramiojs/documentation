@@ -67,12 +67,17 @@ import { Bot } from "gramio";
 const bot = new Bot("");
 // ---cut---
 bot.command("tag", async (ctx) => {
-  if (!ctx.replyToMessage) return ctx.send("Reply to a message to tag its author.");
+  const target = ctx.replyMessage?.from;
+  if (!target) return ctx.send("Reply to a message to tag its author.");
 
   const parts = ctx.text?.split(" ") ?? [];
   const tag = parts.slice(1).join(" ").trim() || undefined;
 
-  await ctx.replyToMessage.setMemberTag(tag);
+  await bot.api.setChatMemberTag({
+    chat_id: ctx.chat.id,
+    user_id: target.id,
+    tag,
+  });
 
   await ctx.send(tag ? `Tag "${tag}" set.` : "Tag removed.");
 });

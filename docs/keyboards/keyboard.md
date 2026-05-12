@@ -127,11 +127,11 @@ Request managed bot button (Bot API 9.6, since `@gramio/keyboards` v1.4). Pressi
 import { Keyboard } from "@gramio/keyboards";
 // ---cut---
 new Keyboard().requestManagedBot("Pick a managed bot", 123, {
-    user_administrator_rights: { can_manage_chat: true },
+    suggested_name: "Support Bot",
 });
 ```
 
-The third argument carries the `KeyboardButtonRequestManagedBot` options (administrator-rights filter etc.) — see the [Bot API reference](https://core.telegram.org/bots/api#keyboardbuttonrequestmanagedbot) for the full list.
+The third argument carries the `KeyboardButtonRequestManagedBot` options (`suggested_name`, `suggested_username`) — see the [Bot API reference](https://core.telegram.org/bots/api#keyboardbuttonrequestmanagedbot) for the full list.
 
 ## Button Styling
 

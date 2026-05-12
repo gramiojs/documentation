@@ -71,6 +71,7 @@ await bot.api.setMyDefaultAdministratorRights({
     can_edit_messages: true,
     can_delete_messages: true,
     can_promote_members: false,
+    can_restrict_members: false,
     can_change_info: true,
     can_invite_users: true,
     is_anonymous: false,

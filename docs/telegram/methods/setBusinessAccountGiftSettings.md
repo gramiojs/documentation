@@ -42,7 +42,7 @@ const bot = new Bot("");
 // ---cut---
 // Accept all gift types and show the gift button
 bot.on("business_connection", async (ctx) => {
-  if (ctx.canChangeGiftSettings && ctx.isEnabled) {
+  if (ctx.isEnabled) {
     await bot.api.setBusinessAccountGiftSettings({
       business_connection_id: ctx.id,
       show_gift_button: true,

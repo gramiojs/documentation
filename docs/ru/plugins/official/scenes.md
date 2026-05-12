@@ -357,21 +357,23 @@ import { Scene, scenes } from "@gramio/scenes";
 
 const pickAddress = new Scene("pick-address")
     .exitData<{ address: string }>()
-    .step("ask", (ctx) => ctx.send("Пришли свой адрес текстом"))
-    .step("save", async (ctx) => {
-        await ctx.scene.exitSub({ address: ctx.text! });
+    .step("message", async (ctx) => {
+        if (ctx.scene.step.firstTime) return ctx.send("Пришли свой адрес текстом");
+        if (!ctx.text) return ctx.send("Пришли текст");
+        await ctx.scene.exitSub({ address: ctx.text });
     });
 
 const checkout = new Scene("checkout")
-    .step("address", async (ctx) => {
-        await ctx.scene.enterSub(pickAddress);   // паузим checkout, гоняем pickAddress
-    })
-    .step("confirm", (ctx) => {
+    .step("message", async (ctx) => {
+        if (ctx.scene.step.firstTime) {
+            await ctx.scene.enterSub(pickAddress);   // паузим checkout, гоняем pickAddress
+            return;
+        }
         // pickAddress зарезолвилась — её exitData долетела сюда через стек родителя
         return ctx.send("Подтвердить заказ?");
     });
 
-const bot = new Bot(process.env.BOT_TOKEN!)
+const bot = new Bot("")
     .extend(scenes([checkout, pickAddress]))
     .command("checkout", (ctx) => ctx.scene.enter(checkout));
 ```
@@ -562,10 +564,12 @@ const testScene = new Scene("test")
 ```ts twoslash
 import { Scene } from "@gramio/scenes";
 
-const testScene = new Scene("test").state<{
-    simple: string;
-    example: number[];
-}>();
+const testScene = new Scene("test")
+    .params<{ test: boolean }>()
+    .state<{
+        simple: string;
+        example: number[];
+    }>();
 // ---cut---
 import { scenes, scenesDerives, type AnyScene } from "@gramio/scenes";
 import { Bot } from "gramio";
@@ -586,7 +590,7 @@ const bot = new Bot(process.env.TOKEN as string)
             if (context.scene.current.is(testScene)) {
                 console.log(context.scene.current.state);
                 return context.scene.current.step.previous();
-            } else return context.scene.current.reenter();
+            }
         }
 
         return next();

@@ -40,7 +40,7 @@ const bot = new Bot("");
 // ---cut---
 // Set the username when a business connection is established
 bot.on("business_connection", async (ctx) => {
-  if (ctx.canEditUsername && ctx.isEnabled) {
+  if (ctx.isEnabled) {
     await bot.api.setBusinessAccountUsername({
       business_connection_id: ctx.id,
       username: "myshop_support",

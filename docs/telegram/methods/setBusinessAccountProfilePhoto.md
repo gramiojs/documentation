@@ -43,7 +43,7 @@ const bot = new Bot("");
 // ---cut---
 // Set a static JPEG profile photo when a business connection is established
 bot.on("business_connection", async (ctx) => {
-  if (ctx.canEditProfilePhoto && ctx.isEnabled) {
+  if (ctx.isEnabled) {
     await bot.api.setBusinessAccountProfilePhoto({
       business_connection_id: ctx.id,
       photo: {
@@ -62,7 +62,7 @@ const bot = new Bot("");
 // ---cut---
 // Set an animated MPEG4 profile photo
 bot.on("business_connection", async (ctx) => {
-  if (ctx.canEditProfilePhoto && ctx.isEnabled) {
+  if (ctx.isEnabled) {
     await bot.api.setBusinessAccountProfilePhoto({
       business_connection_id: ctx.id,
       photo: {

@@ -54,7 +54,7 @@ const bot = new Bot("");
 // ---cut---
 // Set multiple reactions (requires bot to have elevated rights or pre-existing reactions)
 bot.on("message", (ctx) =>
-  ctx.setReactions(["🔥", "❤️"])
+  ctx.setReactions(["🔥", "❤"])
 );
 ```
 

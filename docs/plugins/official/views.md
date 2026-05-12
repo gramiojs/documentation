@@ -90,7 +90,7 @@ This is the property that lets a single view definition serve both "show a scree
 
 ### Globals vs params
 
-`buildRender(context, globals)` runs inside `.derive()` per update. Its second arg becomes `this.<key>` inside `render` bodies and `{{$<key>}}` inside JSON templates — that's where per-update context lives (current user, locale, db handle).
+<span v-pre>`buildRender(context, globals)` runs inside `.derive()` per update. Its second arg becomes `this.<key>` inside `render` bodies and `{{$<key>}}` inside JSON templates — that's where per-update context lives (current user, locale, db handle).</span>
 
 `context.render(view, params)` accepts a second arg too. Those are per-call values — what changes between two `ctx.render` calls in the same handler. Locale belongs in globals (so the i18n adapter factory can route on it); the item the user just clicked belongs in params.
 

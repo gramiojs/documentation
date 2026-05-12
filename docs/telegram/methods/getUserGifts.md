@@ -87,19 +87,19 @@ import { Bot } from "gramio";
 const bot = new Bot("");
 // ---cut---
 // Paginate through all gifts using cursor-based offset:
-let offset = "";
-const allGifts: Awaited<ReturnType<typeof bot.api.getUserGifts>>["gifts"] = [];
+const firstPage = await bot.api.getUserGifts({ user_id: 12345678, limit: 50 });
+const allGifts: typeof firstPage.gifts = [...firstPage.gifts];
+let offset = firstPage.next_offset ?? "";
 
-do {
+while (offset !== "") {
   const page = await bot.api.getUserGifts({
     user_id: 12345678,
     limit: 50,
     offset,
   });
-
   allGifts.push(...page.gifts);
   offset = page.next_offset ?? "";
-} while (offset !== "");
+}
 
 console.log(`Fetched ${allGifts.length} total gifts`);
 ```

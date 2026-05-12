@@ -44,11 +44,11 @@ const bot = new Bot("");
 const paymentStore = new Map<number, string>();
 
 bot.on("message", (ctx) => {
-  const payment = ctx.update.message?.successful_payment;
+  const payment = ctx.successfulPayment;
   if (!payment) return;
 
   // Save the charge ID so we can refund later if needed
-  paymentStore.set(ctx.from!.id, payment.telegram_payment_charge_id);
+  paymentStore.set(ctx.from!.id, payment.telegramPaymentChargeId);
   ctx.send("Payment received! Thank you.");
 });
 ```
@@ -93,18 +93,14 @@ bot.on("pre_checkout_query", async (ctx) => {
 
   if (!isAvailable) {
     // Decline the checkout — Telegram will not charge the user
-    await bot.api.answerPreCheckoutQuery({
-      pre_checkout_query_id: ctx.update.pre_checkout_query!.id,
+    await ctx.answer({
       ok: false,
       error_message: "Item is out of stock. Please try again later.",
     });
     return;
   }
 
-  await bot.api.answerPreCheckoutQuery({
-    pre_checkout_query_id: ctx.update.pre_checkout_query!.id,
-    ok: true,
-  });
+  await ctx.answer({ ok: true });
 });
 ```
 
@@ -120,7 +116,7 @@ bot.on("pre_checkout_query", async (ctx) => {
 
 ## Tips & Gotchas
 
-- **The `telegram_payment_charge_id` comes from `SuccessfulPayment`.** After a user completes a Stars payment, Telegram sends a message with a `successful_payment` field. Read `ctx.update.message?.successful_payment?.telegram_payment_charge_id` and store it persistently — you will need it to issue refunds later.
+- **The `telegram_payment_charge_id` comes from `SuccessfulPayment`.** After a user completes a Stars payment, Telegram sends a message with a `successful_payment` field. Read `ctx.successfulPayment?.telegramPaymentChargeId` and store it persistently — you will need it to issue refunds later.
 - **Each charge ID can only be refunded once.** Calling `refundStarPayment` a second time with the same `telegram_payment_charge_id` returns a 400 error. Check your database before issuing a refund to avoid double-refund attempts.
 - **Refunds cannot be issued from `pre_checkout_query`.** At the pre-checkout stage the user has not yet been charged, so there is nothing to refund — simply answer with `ok: false` and an error message to decline the payment before it processes.
 - **Stars refunds are immediate and unconditional.** Unlike credit-card gateways, there is no partial refund: the full amount is always returned to the user's Stars balance. There is no time limit enforced by the API, but it is good practice to refund promptly.

@@ -75,7 +75,7 @@ const gifts = await bot.api.getBusinessAccountGifts({
 });
 
 const firstGift = gifts.gifts[0];
-if (firstGift) {
+if (firstGift?.owned_gift_id) {
   await bot.api.transferGift({
     business_connection_id: "BIZCONN_abc123",
     owned_gift_id: firstGift.owned_gift_id,
