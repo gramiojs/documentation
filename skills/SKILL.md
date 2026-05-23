@@ -210,7 +210,8 @@ Each page contains: GramIO TypeScript examples, parameter details, error table w
 |-------|-------------|-----------|
 | Keyboards | Keyboard, InlineKeyboard, layout helpers, styling | [keyboards](references/keyboards.md) |
 | Formatting | entity helpers, `join` (never native `.join()`!), variable composition, no `parse_mode` | [formatting](references/formatting.md) |
-| UX Patterns | button-first nav, `/start` anatomy, nested menus, toggles, destructive confirm, empty states, formatting hierarchy, command discovery, deep links | [ux-patterns](references/ux-patterns.md) |
+| UX Patterns | button-first nav, `/start` anatomy, nested menus, toggles, destructive confirm, empty states, formatting hierarchy, command discovery | [ux-patterns](references/ux-patterns.md) |
+| Deep Links | every `t.me/<bot>?...` link family — `?start=`, `?startgroup=`, `?startchannel=`, `?startapp=`, `?startattach=`, `?game=` — with the handler / context field each one lands in, payload encoding rules, `admin=` permission tokens, footguns | [deep-links](references/deep-links.md) |
 | Files | MediaUpload, MediaInput, download, Bun.file() | [files](references/files.md) |
 | CallbackData | Type-safe callback data schemas | [callback-data](references/callback-data.md) |
 | Storage | In-memory, Redis, Cloudflare adapters | [storage](references/storage.md) |
@@ -276,3 +277,4 @@ Load when the user wants to migrate an existing bot to GramIO.
 | TMA | Elysia server, init-data auth, webhook | [tma.ts](examples/tma.ts) |
 | Docker | Graceful shutdown, webhook/polling toggle | [docker.ts](examples/docker.ts) |
 | Testing | User simulation, API mocking, error testing | [testing.ts](examples/testing.ts) |
+| Deep links | `/start` payload routing (ref / order / opaque token / inline-mode redirect) + `my_chat_member` admin-rights verification for `?startchannel`/`?startgroup` links | [deep-links.ts](examples/deep-links.ts) |

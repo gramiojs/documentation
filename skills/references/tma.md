@@ -5,6 +5,8 @@ description: Telegram Mini Apps — scaffold monorepo, HTTPS on localhost with m
 
 # Telegram Mini Apps (TMA)
 
+> **Deep-link payloads land on the frontend, not the bot.** When a user opens your Mini App via `t.me/<bot>?startapp=<payload>` or `t.me/<bot>/<appname>?startapp=<payload>`, the payload arrives as `Telegram.WebApp.initDataUnsafe.start_param` inside the Mini App — **not** as `/start <payload>` to the bot. If you need it server-side, post it from the Mini App to your backend (typically alongside the `initData` validation request). See [deep-links](./deep-links.md) for the full deep-link routing map.
+
 ## Scaffold Monorepo
 
 ```bash

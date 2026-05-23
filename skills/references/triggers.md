@@ -170,7 +170,7 @@ bot.command("start", (ctx) => {
 });
 ```
 
-`InlineQueryResultsButton` is a discriminated union — provide **exactly one** of `start_parameter` (deep-link to PM) or `web_app` (launch a Mini App). Use this pattern any time inline mode needs side-effects it can't do on its own: auth, long-running setup, file uploads, etc.
+`InlineQueryResultsButton` is a discriminated union — provide **exactly one** of `start_parameter` (deep-link to PM) or `web_app` (launch a Mini App). Use this pattern any time inline mode needs side-effects it can't do on its own: auth, long-running setup, file uploads, etc. The `start_parameter` follows the same 64-char `[A-Za-z0-9_-]` rules as every other deep-link payload — see [deep-links](./deep-links.md) for the full ruleset and the other seven link families.
 
 ## chosenInlineResult
 

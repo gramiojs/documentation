@@ -350,7 +350,7 @@ Layout:
 
 ## 14. Deep links — onboarding and cross-chat continuity
 
-`/start <param>` is how you link directly to an in-bot screen from outside Telegram — a website, an email, another bot, or an inline-query button.
+`/start <param>` is how you link directly to an in-bot screen from outside Telegram — but it's only one of eight bot-related deep-link families. `?startgroup=` lands as `my_chat_member` (not `/start`); `?startapp=` lands inside `WebAppInitData` on the Mini App frontend (also not `/start`). Confusing them is the #1 reason "the payload disappears".
 
 ```typescript
 bot.command("start", (ctx) => {
@@ -360,14 +360,7 @@ bot.command("start", (ctx) => {
 });
 ```
 
-Link format: `https://t.me/<bot_username>?start=<param>` (64 chars max, `[A-Za-z0-9_-]`).
-
-Common uses:
-
-- **Auth redirect from inline mode** — inline query returns an empty result + a `button` with `start_parameter`; the user lands in PM with `/start login-inline` and you kick off auth. See [triggers.md](./triggers.md) → inlineQuery.
-- **Referrals** — `?start=ref_12345` tracks who invited whom.
-- **Context jumps** — `?start=order_987` jumps straight to a specific order screen.
-- **OAuth callbacks** — the external service redirects to `t.me/<bot>?start=<token>` after login; the bot exchanges the token.
+For the full routing map (link pattern → handler → context field), payload encoding rules, the `admin=` permission tokens, and a worked example covering `/start` plus `my_chat_member` admin-rights verification — see [deep-links](./deep-links.md).
 
 ---
 
