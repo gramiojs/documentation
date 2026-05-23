@@ -54,7 +54,7 @@ app.use(webhookHandler(bot, "koa"));
 
 // node:http
 import { createServer } from "node:http";
-createServer(webhookHandler(bot, "node")).listen(3000);
+createServer(webhookHandler(bot, "http")).listen(3000);
 
 // Bun.serve
 Bun.serve({ fetch: webhookHandler(bot, "Bun.serve") });
