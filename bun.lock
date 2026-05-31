@@ -18,7 +18,7 @@
         "@gramio/keyboards": "^1.4.0",
         "@gramio/onboarding": "^0.2.0",
         "@gramio/prompt": "^1.2.1",
-        "@gramio/scenes": "^0.6.0",
+        "@gramio/scenes": "^0.7.1",
         "@gramio/schema-parser": "^1.1.0",
         "@gramio/session": "^0.2.0",
         "@gramio/storage": "2.0.1",
@@ -215,7 +215,7 @@
 
     "@gramio/prompt": ["@gramio/prompt@1.2.1", "", { "peerDependencies": { "gramio": ">=0.0.39 <1.0.0" } }, "sha512-5OoG1AMJp8VE9r61N+w0YySvxrZPIHQqHmkIrJp4vPoHBPJx5mNjxz9CEWRqFWQQsOxkc7NBmzcr0BVEbA01NA=="],
 
-    "@gramio/scenes": ["@gramio/scenes@0.6.0", "", { "dependencies": { "@gramio/storage": "^2.0.0" }, "peerDependencies": { "gramio": ">=0.7.0" } }, "sha512-ZScAAYaIGkRRCwBucP+DL2271jElJyf7fby127cBVbLa1Mo3PfQhbKw8hcfQxBbwouOcjYgAJPBbvwppGkKAPA=="],
+    "@gramio/scenes": ["@gramio/scenes@0.7.1", "", { "dependencies": { "@gramio/composer": "^0.4.1", "@gramio/storage": "^2.0.0" }, "peerDependencies": { "gramio": ">=0.9.0" } }, "sha512-74O/7cnOpYKlZfMWq7F6OIKLA4qtjhslit6ltQMDSZ1Pl4UJo5bja3STrV/hzng0jhBkL78Pc4mVAYO9c8kQKw=="],
 
     "@gramio/schema-parser": ["@gramio/schema-parser@1.1.0", "", { "dependencies": { "cheerio": "^1.0.0", "turndown": "^7.2.0" } }, "sha512-VmWNXGQK/rBuBokpa5dwzThqUke9ZzdswSb7ZYsq4/pp1UF99rz7DkdowI5jFGv4ioUQKPWXwShncT/w+R49MQ=="],
 

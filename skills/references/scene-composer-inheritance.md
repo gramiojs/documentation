@@ -9,6 +9,9 @@ Problem: you have a named composer (e.g. i18n, auth, database access) that every
 
 The right answer is `Scene.extend(composer)` on a **named, `.as("scoped")`** composer that the bot also extends. GramIO's registration-time dedup ensures the derive runs exactly once per update, and the types flow into every step.
 
+> [!NOTE]
+> **Requires `@gramio/scenes` >= 0.7.1.** 0.7.0 briefly ran a scene-level derive **consumed inside `onEnter`** twice on the entry update (once so `onEnter` could see it, once in the dispatch chain). [0.7.1](https://github.com/gramiojs/scenes/commit/aef47af5211bff1af573498e8f2f53f987afe9de) fixed it — the derive now runs exactly once per update again. If you're pinned to 0.7.0 and a derive has side effects (counters, spans, DB writes), either upgrade to 0.7.1 or move them to `.decorate()`.
+
 ## Canonical pattern
 
 ```typescript

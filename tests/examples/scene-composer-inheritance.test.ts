@@ -19,8 +19,11 @@ describe("examples/scene-composer-inheritance", () => {
         const doneTexts = env.filterApiCalls("sendMessage").map((c) => String(c.params.text));
         expect(doneTexts).toContain("DONE");
 
-        // Dedup: baseComposer is extended on both bot and scene; the derive
-        // must still run exactly once per update.
+        // Dedup: baseComposer is extended on both bot AND scene, yet the
+        // derive runs exactly once per update. (@gramio/scenes 0.7.0 briefly
+        // ran an onEnter-consumed derive twice on the entry update; 0.7.1 fixed
+        // it — see fix(runtime): run onEnter-consumed derives exactly once.)
+        // So /start (entry) and the follow-up "advance" message → 2 total.
         expect(stats.deriveRuns - before).toBe(2);
     });
 
