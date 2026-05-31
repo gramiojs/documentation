@@ -578,6 +578,10 @@ export function createLocaleEn(typeDocSidebar: Record<string, unknown[]> = {}) {
 						items: [
 							// new entries added here by the skill, newest first
 							{
+								text: "2026-05-31",
+								link: "/changelogs/2026-05-31",
+							},
+							{
 								text: "2026-05-08",
 								link: "/changelogs/2026-05-08",
 							},
@@ -628,7 +632,8 @@ export function createLocaleEn(typeDocSidebar: Record<string, unknown[]> = {}) {
 									{ text: "Callback Query", link: "/triggers/callback-query" },
 									{ text: "Inline Query", link: "/triggers/inline-query" },
 									{ text: "Chosen Inline Result", link: "/triggers/chosen-inline-result" },
-									{ text: "Reaction", link: "/triggers/reaction" },
+									{ text: "Guest Query", link: "/triggers/guest-query" },
+										{ text: "Reaction", link: "/triggers/reaction" },
 								],
 							},
 							{ text: "Webhook", link: "/updates/webhook" },
@@ -751,6 +756,7 @@ export function createLocaleEn(typeDocSidebar: Record<string, unknown[]> = {}) {
 								],
 							},
 							{ text: "Telegram Stars", link: "/guides/telegram-stars" },
+							{ text: "Deep Links", link: "/guides/deep-links" },
 							{ text: "Filters", link: "/guides/filters" },
 							{ text: "Composer (modules)", link: "/guides/composer" },
 							{ text: "AI Skills", link: "/guides/ai-skills" },

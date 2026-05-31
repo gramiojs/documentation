@@ -23,6 +23,10 @@ export const localeRu = {
 						items: [
 							// новые записи добавляются здесь скиллом, сначала новейшие
 							{
+								text: "2026-05-31",
+								link: "/ru/changelogs/2026-05-31",
+							},
+							{
 								text: "2026-05-08",
 								link: "/ru/changelogs/2026-05-08",
 							},
@@ -76,6 +80,7 @@ export const localeRu = {
 									{ text: "Callback Query", link: "/ru/triggers/callback-query" },
 									{ text: "Inline Query", link: "/ru/triggers/inline-query" },
 									{ text: "Chosen Inline Result", link: "/ru/triggers/chosen-inline-result" },
+									{ text: "Guest Query", link: "/ru/triggers/guest-query" },
 									{ text: "Reaction", link: "/ru/triggers/reaction" },
 								],
 							},
@@ -199,6 +204,7 @@ export const localeRu = {
 								],
 							},
 							{ text: "Telegram Stars", link: "/ru/guides/telegram-stars" },
+							{ text: "Deep-ссылки", link: "/ru/guides/deep-links" },
 							{ text: "Фильтры", link: "/ru/guides/filters" },
 							{ text: "Composer (модули)", link: "/ru/guides/composer" },
 							{ text: "AI навыки", link: "/ru/guides/ai-skills" },
