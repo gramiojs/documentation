@@ -23,7 +23,93 @@ head:
 
 API может меняться, но пользователи уже активно его используют в своих проектах.
 
-# Использование
+## Два способа описать шаги
+
+С **v0.7** `Scene` наследует `EventComposer`, так что весь DSL уровня бота (`.on`/`.derive`/`.decorate`/`.guard`/`.command`/`.callbackQuery`/`.hears`/…) доступен прямо на сцене. Есть **два равноценных способа** объявлять шаги:
+
+| Форма | Когда тянуться |
+|---|---|
+| **Builder-шаги** — `.step("name", c => c.enter(…).on(…))` | Рекомендуется для нового кода. Каждый шаг — свой саб-композер с лайфсайкл-хуками `.enter`/`.exit`/`.fallback`/`.message`, а состояние выводится автоматически из `ctx.scene.update()`. |
+| **Шаги через фильтр события** — `.step("message", handler)` | Один хендлер, привязанный к одному (или нескольким) типам апдейтов. Компактно для простых wizard-ов, и именно это использует `.ask()` под капотом. |
+
+Обе формы работают **в одной сцене** — смешивай как угодно. Ниже сначала описана builder-форма; форма через фильтр события идёт под заголовком [Обработчики шагов — форма через фильтр события](#обработчики-шагов-форма-через-фильтр-события).
+
+## Builder-шаги
+
+Передай builder-колбэк в `.step(name, c => …)`. Он получает посшаговый композер с лайфсайкл-хуками плюс полный набор событий:
+
+| Метод | Описание |
+|---|---|
+| `c.enter(handler)` | Запускается один раз, при первом входе в шаг |
+| `c.message(text \| fn)` | Сахар над `c.enter(ctx => ctx.send(text))` |
+| `c.exit(handler)` | Запускается при выходе из шага |
+| `c.fallback(handler)` | Catch-all для апдейтов, которые не подхватил ни один хендлер шага |
+| `c.on` / `c.command` / `c.callbackQuery` / `c.hears` | Хендлеры событий, ровно как в DSL уровня бота |
+| `c.events([...])` | Сузить whitelist апдейтов шага (по умолчанию: `message`, `callback_query`) |
+
+```ts
+import { Bot } from "gramio";
+import { Scene, scenes } from "@gramio/scenes";
+
+const checkout = new Scene("checkout")
+    .step("ask-name", (c) =>
+        c
+            .message("Как тебя зовут?") // отправляется один раз при входе
+            .on("message", (ctx) => ctx.scene.update({ name: ctx.text })),
+    )
+    .step("confirm", (c) =>
+        c
+            .enter((ctx) => ctx.send(`${ctx.scene.state.name}, подтверждаем? (да/нет)`))
+            .hears("да", (ctx) => ctx.scene.exit())
+            .fallback((ctx) => ctx.send("Ответь да или нет")),
+    );
+
+const bot = new Bot(process.env.TOKEN as string)
+    .extend(scenes([checkout]))
+    .command("checkout", (ctx) => ctx.scene.enter(checkout));
+```
+
+### Состояние выводится из `ctx.scene.update()`
+
+Builder-шаги прокидывают форму, которую ты передал в `ctx.scene.update({...})`, в `ctx.scene.state` для всех последующих шагов — `.state<T>()` объявлять не нужно:
+
+```ts
+new Scene("signup")
+    .step("ask", (c) =>
+        c.on("message", (ctx) => ctx.scene.update({ name: ctx.text! })),
+    )
+    .step("greet", (c) =>
+        c.enter((ctx) => {
+            ctx.scene.state.name; // ✅ выведен как string
+        }),
+    );
+```
+
+### Переиспользуемые модули шагов — `scene.extend(otherScene)`
+
+`Scene`, созданная **без имени**, — это *модуль шагов*: переиспользуемый блок шагов, который можно `.extend()`-ить в любую именованную сцену. Войти в модуль напрямую нельзя (`scenes([...])` отвергает их). Коллизии именованных шагов бросают ошибку; числовые шаги перенумеровываются автоматически:
+
+```ts
+// Переиспользуемый модуль подтверждения — войти напрямую нельзя
+const confirm = new Scene().step("confirm", (c) =>
+    c
+        .enter((ctx) => ctx.send("Уверены?"))
+        .callbackQuery("yes", (ctx) => ctx.scene.step.next())
+        .callbackQuery("no", (ctx) => ctx.scene.exit()),
+);
+
+const order = new Scene("order")
+    .step("review", (c) => c.enter((ctx) => ctx.send("Проверь заказ")))
+    .extend(confirm) // ← подтягивает шаг "confirm"
+    .step("done", (c) => c.enter((ctx) => ctx.send("Заказ оформлен!")));
+```
+
+> [!TIP]
+> `scene.extend()` также принимает плагины и композеры — см. [Шеринг контекста с плагинами и композерами](#шеринг-контекста-с-плагинами-и-композерами). Когда аргумент — другая `Scene`, её шаги мёрджатся; когда это `Plugin`/`Composer`, внутрь прокидываются только его middleware/derives.
+
+## Обработчики шагов — форма через фильтр события
+
+Форма через фильтр события привязывает один хендлер к одному или нескольким типам апдейтов. Компактна для простых wizard-ов, свободно смешивается с builder-шагами, и именно её использует `.ask()` под капотом.
 
 ```ts twoslash
 import { Bot } from "gramio";
@@ -274,6 +360,34 @@ const registrationScene = new Scene("registration")
 ```
 
 Обработчик поддерживает асинхронность и будет ожидаться (await) перед переходом к первому шагу.
+
+> [!TIP]
+> С **v0.7** результаты `.derive()` / `.decorate()` уровня сцены видны **внутри** `onEnter` — они применяются на входном апдейте до того, как сработает `onEnter`. Загружай данные и реагируй на них в одной цепочке:
+>
+> ```ts
+> const checkout = new Scene("checkout")
+>     .derive(async (ctx) => ({ user: await db.users.find(ctx.from!.id) }))
+>     .onEnter((ctx) => analytics.track("checkout_start", { user: ctx.user }))
+>     .step("review", (c) => c.message("Всё ок?").on("message", handler));
+> ```
+
+### onExit
+
+Добавлен в **v0.7**, симметрично `onEnter`. Обработчик запускается при выходе пользователя из сцены — через `ctx.scene.exit()`, `ctx.scene.exitSub()` или `ctx.scene.reenter()` — **до** того, как хранилище сцены сносится. Идеально для очистки, аналитики или сообщения «спасибо, что прошли».
+
+```ts
+const registrationScene = new Scene("registration")
+    .onEnter((context) => context.send("Давайте зарегистрируемся."))
+    .step("ask-name", (c) =>
+        c.message("Как вас зовут?").on("message", (ctx) => {
+            ctx.scene.update({ name: ctx.text });
+            return ctx.scene.exit(); // вызовет onExit ниже
+        }),
+    )
+    .onExit((context) => context.send("Готово — спасибо!"));
+```
+
+Когда сцена, подключённая через `scene.extend(otherScene)`, определяет `onExit`, побеждает собственный `onExit` host-сцены; хук подключённой сцены копируется, только если у host-сцены его нет.
 
 ### on
 

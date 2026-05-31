@@ -7,7 +7,67 @@ description: Multi-step conversation flows with @gramio/scenes — steps, state 
 
 Package: `@gramio/scenes`
 
-## Define a Scene
+> **Two step forms, both supported (v0.7+).** Since v0.7 `Scene` extends `EventComposer`, so the whole bot-level DSL (`.on`/`.derive`/`.decorate`/`.guard`/`.command`/`.callbackQuery`/`.hears`) is available directly on a scene. Steps can be declared two equally-valid ways — **builder steps** (`.step("name", c => c.enter().on())`, recommended for new code) and **event-filter steps** (`.step("message", handler)`). Mix them freely in one scene. Builder steps are documented first; event-filter steps further down.
+
+## Builder steps (v0.7+, recommended)
+
+Pass a builder callback to `.step(name, c => …)`. The per-step composer `c` exposes lifecycle hooks plus the full event surface:
+
+| Method | Description |
+|--------|-------------|
+| `c.enter(handler)` | Runs once on first entry to the step |
+| `c.message(text \| fn)` | Sugar for `c.enter(ctx => ctx.send(text))` |
+| `c.exit(handler)` | Runs when leaving the step |
+| `c.fallback(handler)` | Catch-all for updates no other step handler claimed |
+| `c.on` / `c.command` / `c.callbackQuery` / `c.hears` | Event handlers, same as the bot-level DSL |
+| `c.events([...])` | Narrow the step's update whitelist (default `message`, `callback_query`) |
+
+```typescript
+import { Scene, scenes } from "@gramio/scenes";
+
+const checkout = new Scene("checkout")
+    .step("ask-name", (c) =>
+        c
+            .message("What's your name?")           // sent once on entry
+            .on("message", (ctx) => ctx.scene.update({ name: ctx.text })),
+    )
+    .step("confirm", (c) =>
+        c
+            .enter((ctx) => ctx.send(`${ctx.scene.state.name}, confirm? (yes/no)`))
+            .hears("yes", (ctx) => ctx.scene.exit())
+            .fallback((ctx) => ctx.send("Please answer yes or no")),
+    );
+
+bot.extend(scenes([checkout])).command("checkout", (ctx) => ctx.scene.enter(checkout));
+```
+
+**State auto-inference:** the shape passed to `ctx.scene.update({...})` inside a builder step is threaded into `ctx.scene.state` for every later step — **no `.state<T>()` needed**:
+
+```typescript
+new Scene("signup")
+    .step("ask", (c) => c.on("message", (ctx) => ctx.scene.update({ name: ctx.text! })))
+    .step("greet", (c) => c.enter((ctx) => {
+        ctx.scene.state.name; // ✅ inferred as string
+    }));
+```
+
+**Reusable step modules — `scene.extend(otherScene)`:** a `Scene` created with **no name** is a step module — a reusable block of steps you `.extend()` into named scenes. Modules can't be entered directly (`scenes([...])` rejects them). Named-step collisions throw; numeric steps are renumbered.
+
+```typescript
+const confirm = new Scene().step("confirm", (c) =>      // unnamed = module
+    c
+        .enter((ctx) => ctx.send("Are you sure?"))
+        .callbackQuery("yes", (ctx) => ctx.scene.step.next())
+        .callbackQuery("no", (ctx) => ctx.scene.exit()),
+);
+
+const order = new Scene("order")
+    .step("review", (c) => c.enter((ctx) => ctx.send("Review your order")))
+    .extend(confirm)                                    // pulls in the "confirm" step
+    .step("done", (c) => c.enter((ctx) => ctx.send("Order placed!")));
+```
+
+## Define a Scene (event-filter form)
 
 ```typescript
 import { Scene, scenesDerives } from "@gramio/scenes";
@@ -179,6 +239,21 @@ const scene = new Scene("welcome")
 ```
 
 The handler is async-compatible and awaited before proceeding to the first step.
+
+> **v0.7:** scene-level `.derive()` / `.decorate()` results are now visible **inside** `onEnter` — they apply on the entry update before `onEnter` fires. So `.derive(async ctx => ({ user: await loadUser(ctx) })).onEnter(ctx => track(ctx.user))` works in one chain.
+
+## Scene .onExit() — Run Logic on Scene Exit (v0.7+)
+
+Symmetric to `onEnter`. Fires when the user leaves the scene — via `ctx.scene.exit()`, `ctx.scene.exitSub()`, or `ctx.scene.reenter()` — **before** storage is torn down. Use for cleanup, analytics, or a "thanks for completing" message.
+
+```typescript
+const scene = new Scene("survey")
+    .onEnter((ctx) => ctx.send("Let's start the survey!"))
+    .step("q1", (c) => c.message("Question 1?").on("message", handler))
+    .onExit((ctx) => ctx.send("Thanks for completing the survey!"));
+```
+
+When a scene merged via `scene.extend(otherScene)` defines `onExit`, the host scene's hook wins; the extended scene's is copied only when the host has none.
 
 ## Scene .on() — Register Handler for All Steps
 

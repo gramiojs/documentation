@@ -23,7 +23,93 @@ head:
 
 The API can be changed a little, but we already use it in production environment.
 
-# Usage
+## Two ways to define steps
+
+Since **v0.7**, `Scene` extends `EventComposer`, so the whole bot-level DSL (`.on`/`.derive`/`.decorate`/`.guard`/`.command`/`.callbackQuery`/`.hears`/…) is available directly on a scene. There are **two equally-supported ways** to declare steps:
+
+| Form | When to reach for it |
+|---|---|
+| **Builder steps** — `.step("name", c => c.enter(…).on(…))` | Recommended for new code. Each step is its own sub-composer with `.enter`/`.exit`/`.fallback`/`.message` lifecycle hooks, and state is inferred automatically from `ctx.scene.update()`. |
+| **Event-filter steps** — `.step("message", handler)` | A single handler gated to one (or several) update types. Compact for simple wizards and what `.ask()` uses under the hood. |
+
+Both forms work **in the same scene** — mix them freely. The builder form is documented first below; the event-filter form follows under [Step handlers — the event-filter form](#step-handlers-the-event-filter-form).
+
+## Builder steps
+
+Pass a builder callback to `.step(name, c => …)`. It receives a per-step composer with lifecycle hooks plus the full event surface:
+
+| Method | Description |
+|---|---|
+| `c.enter(handler)` | Runs once, on first entry to the step |
+| `c.message(text \| fn)` | Sugar for `c.enter(ctx => ctx.send(text))` |
+| `c.exit(handler)` | Runs when leaving the step |
+| `c.fallback(handler)` | Catch-all for updates no other handler in the step claimed |
+| `c.on` / `c.command` / `c.callbackQuery` / `c.hears` | Event handlers, exactly like the bot-level DSL |
+| `c.events([...])` | Narrow the step's update whitelist (default: `message`, `callback_query`) |
+
+```ts
+import { Bot } from "gramio";
+import { Scene, scenes } from "@gramio/scenes";
+
+const checkout = new Scene("checkout")
+    .step("ask-name", (c) =>
+        c
+            .message("What's your name?") // sent once on entry
+            .on("message", (ctx) => ctx.scene.update({ name: ctx.text })),
+    )
+    .step("confirm", (c) =>
+        c
+            .enter((ctx) => ctx.send(`${ctx.scene.state.name}, confirm? (yes/no)`))
+            .hears("yes", (ctx) => ctx.scene.exit())
+            .fallback((ctx) => ctx.send("Please answer yes or no")),
+    );
+
+const bot = new Bot(process.env.TOKEN as string)
+    .extend(scenes([checkout]))
+    .command("checkout", (ctx) => ctx.scene.enter(checkout));
+```
+
+### State is inferred from `ctx.scene.update()`
+
+Builder steps thread the shape you pass to `ctx.scene.update({...})` into `ctx.scene.state` for every later step — no `.state<T>()` declaration needed:
+
+```ts
+new Scene("signup")
+    .step("ask", (c) =>
+        c.on("message", (ctx) => ctx.scene.update({ name: ctx.text! })),
+    )
+    .step("greet", (c) =>
+        c.enter((ctx) => {
+            ctx.scene.state.name; // ✅ inferred as string
+        }),
+    );
+```
+
+### Reusable step modules — `scene.extend(otherScene)`
+
+A `Scene` created **without a name** is a *step module*: a reusable block of steps you can `.extend()` into any named scene. Modules can't be entered directly (`scenes([...])` rejects them). Named-step collisions throw; numeric steps are renumbered automatically:
+
+```ts
+// A reusable confirmation module — cannot be entered directly
+const confirm = new Scene().step("confirm", (c) =>
+    c
+        .enter((ctx) => ctx.send("Are you sure?"))
+        .callbackQuery("yes", (ctx) => ctx.scene.step.next())
+        .callbackQuery("no", (ctx) => ctx.scene.exit()),
+);
+
+const order = new Scene("order")
+    .step("review", (c) => c.enter((ctx) => ctx.send("Review your order")))
+    .extend(confirm) // ← pulls in the "confirm" step
+    .step("done", (c) => c.enter((ctx) => ctx.send("Order placed!")));
+```
+
+> [!TIP]
+> `scene.extend()` also accepts plugins and composers — see [Sharing context with plugins and composers](#sharing-context-with-plugins-and-composers). When the argument is another `Scene`, its steps are merged; when it's a `Plugin`/`Composer`, only its middleware/derives flow in.
+
+## Step handlers — the event-filter form
+
+The event-filter form gates a single handler to one or more update types. It's compact for simple wizards, mixes freely with builder steps, and is what `.ask()` uses under the hood.
 
 ```ts twoslash
 import { Bot } from "gramio";
@@ -246,6 +332,34 @@ const registrationScene = new Scene("registration")
 ```
 
 The handler is async-compatible and will be awaited before proceeding to the first step.
+
+> [!TIP]
+> Since **v0.7**, scene-level `.derive()` / `.decorate()` results are visible **inside** `onEnter` — they're applied on the entry update before `onEnter` fires. Load data and react to it in one chain:
+>
+> ```ts
+> const checkout = new Scene("checkout")
+>     .derive(async (ctx) => ({ user: await db.users.find(ctx.from!.id) }))
+>     .onEnter((ctx) => analytics.track("checkout_start", { user: ctx.user }))
+>     .step("review", (c) => c.message("Looks good?").on("message", handler));
+> ```
+
+## onExit
+
+Added in **v0.7**, symmetric to `onEnter`. The handler runs when a user leaves the scene — via `ctx.scene.exit()`, `ctx.scene.exitSub()`, or `ctx.scene.reenter()` — **before** the scene's storage is torn down. Perfect for cleanup, analytics, or a "thanks for completing" message.
+
+```ts
+const registrationScene = new Scene("registration")
+    .onEnter((context) => context.send("Let's get you registered."))
+    .step("ask-name", (c) =>
+        c.message("What's your name?").on("message", (ctx) => {
+            ctx.scene.update({ name: ctx.text });
+            return ctx.scene.exit(); // fires onExit below
+        }),
+    )
+    .onExit((context) => context.send("All done — thanks!"));
+```
+
+When a scene merged via `scene.extend(otherScene)` defines `onExit`, the host scene's own `onExit` wins; the extended scene's hook is only copied when the host has none.
 
 ## on
 
