@@ -172,6 +172,7 @@ Create `docs/changelogs/YYYY-MM-DD.md` (using today's date) with:
     - What changed, written in clear, enthusiastic prose — sell the feature, explain why it matters
     - Migration instructions for breaking changes with before/after code examples
     - Code examples for notable new features
+- **Show, don't just tell — write MANY code examples.** Code examples are the fastest way for a developer to understand a feature, so be generous with them. Give **every** feature, option, method, or behavior change its own runnable snippet — the ONLY things that don't need an example are super-tiny, self-evident changes (a renamed export, a one-line dep bump, a typo fix). When in doubt, add the example. Prefer several small focused snippets over one big one: a separate block for each overload, each option, each before/after, each edge case. A short `// ✅ typed as X` or `// ← this is the new part` comment on the relevant line beats a paragraph of explanation. The same rule applies to the docs and skill pages you update in step 8 — lead with examples there too.
 - Write like a developer blog post — exciting, informative, and opinionated. Highlight what's most useful to bot developers. This is NOT a raw commit log.
 
 Example structure:
