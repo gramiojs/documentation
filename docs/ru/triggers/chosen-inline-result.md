@@ -61,3 +61,33 @@ bot.chosenInlineResult(/search (.*)/i, async (context) => {
 -   **Строковый триггер**: Обработчик вызывается, если `query` точно соответствует указанной строке.
 -   **RegExp триггер**: Обработчик вызывается, если `query` соответствует регулярному выражению.
 -   **Функциональный триггер**: Обработчик вызывается на основе пользовательской функции, которая возвращает `true` или `false`.
+-   **CallbackData триггер** (gramio v0.10+): передай инстанс [`CallbackData`](/ru/triggers/callback-query), чтобы матчиться по выбранному **`result_id`** и распаковывать его в типизированный `context.queryData`.
+
+### CallbackData триггер — типизированный `result_id` (gramio v0.10+)
+
+Ровно как [`callbackQuery`](/ru/triggers/callback-query), `chosenInlineResult` теперь принимает схему `CallbackData`. Вместо матчинга по инлайн-`query` он фильтрует по **`result_id`**, который ты назначил каждому результату, и декодирует его в полностью типизированный `context.queryData`:
+
+```ts
+import { CallbackData } from "gramio";
+
+const card = new CallbackData("card").number("id");
+
+// Зашиваем схему в id каждого результата
+bot.inlineQuery(/cards/, (context) =>
+    context.answer([
+        InlineQueryResult.article(
+            card.pack({ id: 42 }), // ← result_id несёт типизированный payload
+            "Карточка #42",
+            InputMessageContent.text("Карточка #42"),
+            { reply_markup: new InlineKeyboard().text("Открыть", "open") }
+        ),
+    ])
+);
+
+// Декодируем обратно, когда пользователь выбрал этот результат
+bot.chosenInlineResult(card, (context) => {
+    context.queryData.id; // ✅ типизирован как number
+});
+```
+
+Это делает роутинг инлайн-результатов таким же типобезопасным, как роутинг callback-кнопок — без ручного парсинга строки `result_id`.

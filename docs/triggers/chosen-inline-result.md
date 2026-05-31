@@ -59,3 +59,33 @@ The `chosenInlineResult` method supports the same types of triggers as the `inli
 - **String Trigger**: The handler is triggered if the `query` exactly matches the specified string.
 - **RegExp Trigger**: The handler is triggered if the `query` matches the regular expression.
 - **Function Trigger**: The handler is triggered based on a custom function that returns `true` or `false`.
+- **CallbackData Trigger** (gramio v0.10+): pass a [`CallbackData`](/triggers/callback-query) instance to match on the chosen **`result_id`** and unpack it into a typed `context.queryData`.
+
+### CallbackData trigger — typed `result_id` (gramio v0.10+)
+
+Just like [`callbackQuery`](/triggers/callback-query), `chosenInlineResult` now accepts a `CallbackData` schema. Instead of matching against the inline `query`, it filters on the **`result_id`** you assigned to each result and decodes it into a fully typed `context.queryData`:
+
+```ts
+import { CallbackData } from "gramio";
+
+const card = new CallbackData("card").number("id");
+
+// Encode the schema into each result's id
+bot.inlineQuery(/cards/, (context) =>
+    context.answer([
+        InlineQueryResult.article(
+            card.pack({ id: 42 }), // ← result_id carries the typed payload
+            "Card #42",
+            InputMessageContent.text("Card #42"),
+            { reply_markup: new InlineKeyboard().text("Open", "open") }
+        ),
+    ])
+);
+
+// Decode it back when the user picks that result
+bot.chosenInlineResult(card, (context) => {
+    context.queryData.id; // ✅ typed as number
+});
+```
+
+This keeps inline-result routing as type-safe as your callback-button routing — no manual string parsing of `result_id`.

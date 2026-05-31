@@ -184,6 +184,36 @@ bot.chosenInlineResult(/search (.*)/i, async (context) => {
 
 Can only edit messages that contain an InlineKeyboard.
 
+**CallbackData trigger (gramio 0.10+):** pass a `CallbackData` instance — it matches on the chosen `result_id` (not the `query`) and unpacks into a typed `context.queryData`, mirroring `callbackQuery(schema, …)`:
+
+```typescript
+import { CallbackData } from "gramio";
+
+const card = new CallbackData("card").number("id");
+
+bot.inlineQuery(/cards/, (ctx) =>
+    ctx.answer([InlineQueryResult.article(card.pack({ id: 42 }), "Card #42", /* … */)]),
+);
+
+bot.chosenInlineResult(card, (ctx) => {
+    ctx.queryData.id; // typed as number
+});
+```
+
+## guestQuery (Bot API 10.0, gramio 0.10+)
+
+Handles **guest messages** — the Bot API 10.0 `guest_message` update, where a user reaches the bot without a regular chat. Same trigger shape as `inlineQuery` (string / RegExp / predicate / **no trigger** = match any), but reply with **`ctx.answerGuestQuery()`**, NOT `ctx.send`/`reply`. That different reply semantics is exactly why it's a separate trigger from `command`/`hears`/`startParameter`.
+
+```typescript
+// match any guest message
+bot.guestQuery((ctx) => ctx.answerGuestQuery());
+
+// filter on the guest query text (captures via ctx.args)
+bot.guestQuery(/^order (.+)/i, (ctx) => ctx.answerGuestQuery());
+```
+
+Guest-message context getters: `ctx.guestQueryId`, `ctx.guestBotCallerUser`, `ctx.guestBotCallerChat`, `ctx.answerGuestQuery()`. Check `User.supportsGuestQueries()` before initiating. `guest_message` is auto-added to `allowed_updates` when a `guestQuery` handler is registered.
+
 ## reaction
 
 ```typescript
