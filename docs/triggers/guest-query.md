@@ -20,34 +20,55 @@ The `guestQuery` method handles **guest messages** — a feature introduced in [
 
 ## Basic Usage
 
-The shape mirrors [`inlineQuery`](/triggers/inline-query): a trigger (string, RegExp, predicate, or none) followed by a handler. Pass **no trigger** to match any guest message:
+The shape mirrors [`inlineQuery`](/triggers/inline-query): a trigger (string, RegExp, predicate, or none) followed by a handler. Pass **no trigger** to match any guest message. Reply with `context.answerGuestQuery(result)` — `result` is a single [`InlineQueryResult`](/telegram/types/InlineQueryResult), exactly like a value you'd put in an `answerInlineQuery` results array:
 
 ```ts
+import { InlineQueryResult, InputMessageContent } from "gramio";
+
 // Match any guest message
 bot.guestQuery(async (context) => {
-    await context.answerGuestQuery();
+    await context.answerGuestQuery(
+        InlineQueryResult.article(
+            "1",
+            "Hi there!",
+            InputMessageContent.text("Hello, guest!"),
+        ),
+    );
 });
 ```
 
-Filter on the guest query text with a string, RegExp, or function — captures land on `context.args`, exactly like other text triggers:
+Filter on the guest query text with a string, RegExp, or function — captures land on `context.args` (a `RegExpMatchArray | null`), exactly like other text triggers:
 
 ```ts
 // RegExp — captures via context.args
 bot.guestQuery(/^order (.+)/i, async (context) => {
     const orderId = context.args![1];
-    await context.answerGuestQuery();
+    await context.answerGuestQuery(
+        InlineQueryResult.article(
+            orderId,
+            `Order ${orderId}`,
+            InputMessageContent.text(`Opening order ${orderId}…`),
+        ),
+    );
 });
 
 // Function matcher — return boolean
 bot.guestQuery(
     (context) => context.from?.is_premium === true,
-    (context) => context.answerGuestQuery(),
+    (context) =>
+        context.answerGuestQuery(
+            InlineQueryResult.article(
+                "premium",
+                "Premium",
+                InputMessageContent.text("Premium options"),
+            ),
+        ),
 );
 ```
 
 ## Why it's separate from `command` / `hears`
 
-Guest messages have **different reply semantics** than ordinary messages: you respond with `ctx.answerGuestQuery()`, not `ctx.send()` / `ctx.reply()`. Keeping `guestQuery` as its own trigger (rather than folding guest messages into `command` / `hears` / `startParameter`) makes that distinction explicit and keeps your guest-flow handlers in one place.
+Guest messages have **different reply semantics** than ordinary messages: you respond with `ctx.answerGuestQuery(result)`, not `ctx.send()` / `ctx.reply()`. Keeping `guestQuery` as its own trigger (rather than folding guest messages into `command` / `hears` / `startParameter`) makes that distinction explicit and keeps your guest-flow handlers in one place.
 
 ## Context helpers
 
@@ -58,7 +79,7 @@ On a guest-message context you get the new Bot API 10.0 getters:
 | `context.guestQueryId` | The id of the guest query to answer |
 | `context.guestBotCallerUser` | The user who triggered the guest message |
 | `context.guestBotCallerChat` | The chat the guest message originated from |
-| `context.answerGuestQuery()` | Reply to the guest query |
+| `context.answerGuestQuery(result, params?)` | Reply to the guest query. `result` is a single `InlineQueryResult` (e.g. `InlineQueryResult.article(…)`) |
 
 `User.supportsGuestQueries()` lets you check whether a given user can receive guest queries before initiating a flow.
 

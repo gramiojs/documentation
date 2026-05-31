@@ -202,17 +202,31 @@ bot.chosenInlineResult(card, (ctx) => {
 
 ## guestQuery (Bot API 10.0, gramio 0.10+)
 
-Handles **guest messages** — the Bot API 10.0 `guest_message` update, where a user reaches the bot without a regular chat. Same trigger shape as `inlineQuery` (string / RegExp / predicate / **no trigger** = match any), but reply with **`ctx.answerGuestQuery()`**, NOT `ctx.send`/`reply`. That different reply semantics is exactly why it's a separate trigger from `command`/`hears`/`startParameter`.
+Handles **guest messages** — the Bot API 10.0 `guest_message` update, where a user reaches the bot without a regular chat. Same trigger shape as `inlineQuery` (string / RegExp / predicate / **no trigger** = match any), but reply with **`ctx.answerGuestQuery(result)`**, NOT `ctx.send`/`reply`. The `result` arg is **required** — a single `InlineQueryResult` (the same shape you'd put in an `answerInlineQuery` results array). That different reply semantics is exactly why it's a separate trigger from `command`/`hears`/`startParameter`.
 
 ```typescript
-// match any guest message
-bot.guestQuery((ctx) => ctx.answerGuestQuery());
+import { InlineQueryResult, InputMessageContent } from "gramio";
 
-// filter on the guest query text (captures via ctx.args)
-bot.guestQuery(/^order (.+)/i, (ctx) => ctx.answerGuestQuery());
+// match any guest message
+bot.guestQuery((ctx) =>
+    ctx.answerGuestQuery(
+        InlineQueryResult.article("1", "Hi", InputMessageContent.text("Hello!")),
+    ),
+);
+
+// filter on the guest query text (captures via ctx.args: RegExpMatchArray | null)
+bot.guestQuery(/^order (.+)/i, (ctx) =>
+    ctx.answerGuestQuery(
+        InlineQueryResult.article(
+            ctx.args![1],
+            "Order",
+            InputMessageContent.text(`Order ${ctx.args![1]}`),
+        ),
+    ),
+);
 ```
 
-Guest-message context getters: `ctx.guestQueryId`, `ctx.guestBotCallerUser`, `ctx.guestBotCallerChat`, `ctx.answerGuestQuery()`. Check `User.supportsGuestQueries()` before initiating. `guest_message` is auto-added to `allowed_updates` when a `guestQuery` handler is registered.
+Guest-message context getters: `ctx.guestQueryId`, `ctx.guestBotCallerUser`, `ctx.guestBotCallerChat`, plus `ctx.answerGuestQuery(result, params?)`. Check `User.supportsGuestQueries()` before initiating. `guest_message` is auto-added to `allowed_updates` when a `guestQuery` handler is registered.
 
 ## reaction
 

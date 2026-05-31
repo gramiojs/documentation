@@ -20,34 +20,55 @@ head:
 
 ## Базовое использование
 
-Форма повторяет [`inlineQuery`](/ru/triggers/inline-query): триггер (строка, RegExp, предикат или ничего), за которым идёт хендлер. Передай **без триггера**, чтобы ловить любое гостевое сообщение:
+Форма повторяет [`inlineQuery`](/ru/triggers/inline-query): триггер (строка, RegExp, предикат или ничего), за которым идёт хендлер. Передай **без триггера**, чтобы ловить любое гостевое сообщение. Отвечай через `context.answerGuestQuery(result)` — `result` это один [`InlineQueryResult`](/telegram/types/InlineQueryResult), ровно как элемент массива результатов в `answerInlineQuery`:
 
 ```ts
+import { InlineQueryResult, InputMessageContent } from "gramio";
+
 // Ловим любое гостевое сообщение
 bot.guestQuery(async (context) => {
-    await context.answerGuestQuery();
+    await context.answerGuestQuery(
+        InlineQueryResult.article(
+            "1",
+            "Привет!",
+            InputMessageContent.text("Привет, гость!"),
+        ),
+    );
 });
 ```
 
-Фильтруй по тексту гостевого запроса строкой, RegExp или функцией — захваты попадают в `context.args`, ровно как у остальных текстовых триггеров:
+Фильтруй по тексту гостевого запроса строкой, RegExp или функцией — захваты попадают в `context.args` (`RegExpMatchArray | null`), ровно как у остальных текстовых триггеров:
 
 ```ts
 // RegExp — захваты через context.args
 bot.guestQuery(/^order (.+)/i, async (context) => {
     const orderId = context.args![1];
-    await context.answerGuestQuery();
+    await context.answerGuestQuery(
+        InlineQueryResult.article(
+            orderId,
+            `Заказ ${orderId}`,
+            InputMessageContent.text(`Открываю заказ ${orderId}…`),
+        ),
+    );
 });
 
 // Функция-матчер — возвращает boolean
 bot.guestQuery(
     (context) => context.from?.is_premium === true,
-    (context) => context.answerGuestQuery(),
+    (context) =>
+        context.answerGuestQuery(
+            InlineQueryResult.article(
+                "premium",
+                "Премиум",
+                InputMessageContent.text("Премиум-опции"),
+            ),
+        ),
 );
 ```
 
 ## Почему он отдельно от `command` / `hears`
 
-У гостевых сообщений **другая семантика ответа**, чем у обычных: отвечаешь через `ctx.answerGuestQuery()`, а не `ctx.send()` / `ctx.reply()`. Оставив `guestQuery` отдельным триггером (а не подмешав гостевые сообщения в `command` / `hears` / `startParameter`), мы делаем это различие явным и держим обработчики гостевого флоу в одном месте.
+У гостевых сообщений **другая семантика ответа**, чем у обычных: отвечаешь через `ctx.answerGuestQuery(result)`, а не `ctx.send()` / `ctx.reply()`. Оставив `guestQuery` отдельным триггером (а не подмешав гостевые сообщения в `command` / `hears` / `startParameter`), мы делаем это различие явным и держим обработчики гостевого флоу в одном месте.
 
 ## Хелперы контекста
 
@@ -58,7 +79,7 @@ bot.guestQuery(
 | `context.guestQueryId` | id гостевого запроса, на который нужно ответить |
 | `context.guestBotCallerUser` | пользователь, инициировавший гостевое сообщение |
 | `context.guestBotCallerChat` | чат, из которого пришло гостевое сообщение |
-| `context.answerGuestQuery()` | ответить на гостевой запрос |
+| `context.answerGuestQuery(result, params?)` | ответить на гостевой запрос. `result` — один `InlineQueryResult` (например, `InlineQueryResult.article(…)`) |
 
 `User.supportsGuestQueries()` позволяет проверить, может ли конкретный пользователь принимать гостевые запросы, до старта флоу.
 
