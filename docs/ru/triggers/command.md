@@ -59,6 +59,9 @@ bot.command("start", async (context) => {
 
 В этом сценарии, если пользователь отправляет `/start arg1 arg2`, бот ответит `Вы ввели команду /start с аргументами: arg1 arg2`.
 
+> [!TIP]
+> Команда `/start` — это ещё и то, как **deep-ссылки** (`https://t.me/<bot>?start=<payload>`) доезжают до бота: payload приходит в `context.args`. Но это лишь одно из восьми семейств ссылок `t.me/<bot>?…`, и большинство остальных (`?startapp=`, `?startgroup=`, …) **не** проходят через `/start`. Полная карта роутинга — в [гайде по Deep-ссылкам](/ru/guides/deep-links).
+
 ### Как работает `command`
 
 1. **Распознавание команды:** Бот проверяет сообщение на наличие команды (например, `/start`). Команды обычно обозначаются сущностью [`bot_command`](https://core.telegram.org/bots/api#messageentity) в сообщениях Telegram.

@@ -16,8 +16,9 @@ There are **eight** bot-related deep-link families, and each one lands in a **di
 | Link pattern                                         | What it does                       | Handler                                      | Where the payload lives                             |
 | ---------------------------------------------------- | ---------------------------------- | -------------------------------------------- | --------------------------------------------------- |
 | `t.me/<bot>?start=<payload>`                         | Open PM, send "Start"              | `bot.command("start", …)`                    | `ctx.args` (string \| null)                         |
-| `t.me/<bot>?startgroup=<payload>&admin=<perms>`      | Pick a group and add the bot       | `bot.on("my_chat_member", …)`                | **NO `/start`.** Read `ctx.newChatMember`           |
-| `t.me/<bot>?startchannel&admin=<perms>`              | Pick a channel and add the bot     | `bot.on("my_chat_member", …)`                | Same as above, no payload                           |
+| `t.me/<bot>?startgroup=<payload>`                    | Add bot to a group **as member**   | `bot.command("start", …)`                    | `ctx.args` — bot gets `/start@bot <payload>` (+ a `my_chat_member`) |
+| `t.me/<bot>?startgroup&admin=<perms>`                | Add bot to a group **as admin**    | `bot.on("my_chat_member", …)`                | No payload. Read `ctx.newChatMember`                |
+| `t.me/<bot>?startchannel&admin=<perms>`              | Add bot to a channel **as admin**  | `bot.on("my_chat_member", …)`                | No payload                                          |
 | `t.me/<bot>?startapp=<payload>&mode=<mode>`          | Open Main Mini App                 | Inside the Mini App (frontend)               | `Telegram.WebApp.initDataUnsafe.start_param`        |
 | `t.me/<bot>/<appname>?startapp=<payload>`            | Open Direct Mini App `<appname>`   | Inside the Mini App (frontend)               | `Telegram.WebApp.initDataUnsafe.start_param`        |
 | `t.me/<bot>?startattach=<payload>&choose=<peers>`    | Open the bot's attachment menu     | Inside the Mini App (web_app), or after pick | `start_param` on the web_app event                  |
@@ -94,15 +95,26 @@ const link = `https://t.me/${bot.info.username}?start=${encodeURIComponent(paylo
 `?startgroup=` opens a chat picker so the user can add the bot to a group; `?startchannel` does the same for channels.
 
 ```text
-https://t.me/<bot>?startgroup=<optional_payload>&admin=<permissions>
-https://t.me/<bot>?startchannel&admin=<permissions>
+https://t.me/<bot>?startgroup=<payload>                       # add as member, carries a payload
+https://t.me/<bot>?startgroup=<payload>&admin=<permissions>   # add as admin
+https://t.me/<bot>?startchannel&admin=<permissions>           # channels: admin only
 ```
 
-### Critical: the payload does NOT arrive as `/start`
+There are **two distinct flows** — plain `?startgroup=<payload>` and the `admin=` variant — and they reach the bot differently.
 
-When a user adds your bot via `?startgroup=foo`, you do **not** receive a `/start foo` message. You receive a `my_chat_member` update telling you the bot's status in that chat changed from `left` to `member` (or `administrator`).
+### Plain `?startgroup=<payload>` — DOES arrive as a `/start` message
 
-The `foo` payload travels through `messages.startBot` on the wire but is **not** surfaced on the Bot API as a separate field — you get the chat-membership update and that's it. Treat `?startgroup=<payload>` as "the user picked a group for context X", record that context **client-side before generating the link** (e.g. by embedding the chat ID in the link itself, or by storing it against the user's session), and pick it back up when the `my_chat_member` arrives.
+When a user adds the bot via `?startgroup=spaceship` (no `admin=`), the bot is added as a member and **receives a message**. Per the [Bot API](https://core.telegram.org/bots/features#deep-linking): *"the resulting update will contain text in the form: `/start@your_bot spaceship`"*. So `bot.command("start")` fires, with the payload in `ctx.args` (works in group chats too — `/start@bot spaceship`). A `my_chat_member` update (`left` → `member`) also fires; use whichever fits.
+
+```typescript
+bot.command("start", (ctx) => {
+    const payload = ctx.args; // "spaceship", even when added to a group via ?startgroup=
+});
+```
+
+### `admin=` flow — detect via `my_chat_member`, no payload
+
+When the link carries `admin=` (`?startgroup&admin=…` or `?startchannel&admin=…`), the bot is added as an **administrator** with the requested rights. There's no payload field on this flow — use `my_chat_member` to confirm the add and verify which rights you actually got (`admin=` is a request; the user can untick boxes). Encode any context **client-side when you generate the link** and pick it up when `my_chat_member` arrives.
 
 ### The `admin=` combo — what you ask for vs. what you get
 
@@ -195,6 +207,19 @@ The bot's TypeScript code never sees `start_param` unless the Mini App explicitl
 `https://t.me/${bot.info.username}?startapp=${payload}&mode=fullscreen`
 // Direct app named "checkout"
 `https://t.me/${bot.info.username}/checkout?startapp=${payload}`
+```
+
+### Opening a `t.me/…` link from inside a Mini App — `openTelegramLink`, not `openLink`
+
+When the Mini App frontend needs to *open* one of these deep links (jump to a chat, add-to-group picker, launch another Mini App), use `Telegram.WebApp.openTelegramLink(url)` — NOT `openLink(url)`:
+
+- **`openTelegramLink(url)`** — handles `https://t.me/…` links **natively inside Telegram**. Since **Bot API 7.0** the Mini App stays open (before 7.0 it was closed after the call).
+- **`openLink(url[, { try_instant_view }])`** — for **external** `http(s)` URLs only; opens an in-app/external browser, never closes the app. Feeding it a `t.me/…` URL routes a Telegram link through a browser tab that then bounces back into Telegram. `openLink` must be called in response to a user gesture.
+
+```typescript
+// frontend (inside the Mini App)
+Telegram.WebApp.openTelegramLink(`https://t.me/${botUsername}?startgroup=x&admin=post_messages`); // ✅
+Telegram.WebApp.openLink("https://example.com/docs", { try_instant_view: true });                 // external only
 ```
 
 ## 4. Attachment-menu deep links — `?startattach=`
@@ -294,7 +319,8 @@ Render these as `InlineKeyboard.url(...)` buttons or include them in formatted m
 ## Footguns
 
 - **`startapp` ≠ `/start`.** Mini App payloads arrive on the **frontend** via `initDataUnsafe.start_param`. If you wrote `bot.command("start", (ctx) => ctx.args)` and expected the Mini App's deep-link payload, you'll wait forever.
-- **`startgroup` payload is invisible to the bot.** Only the chat-membership change arrives via `my_chat_member`. Don't bother trying to route on the payload server-side — encode the context in your *link generation* and pick it up from session/state.
+- **From a Mini App, open `t.me/…` links with `Telegram.WebApp.openTelegramLink(url)`, not `openLink(url)`.** `openLink` is for external `http(s)` URLs and shoves Telegram links through a browser; `openTelegramLink` handles them natively (and, since Bot API 7.0, keeps the Mini App open instead of closing it).
+- **`startgroup` has two flows — don't conflate them.** Plain `?startgroup=<payload>` DOES reach the bot as a `/start@bot <payload>` message (payload in `ctx.args`). Only the **`admin=` variant** (`?startgroup&admin=…`, `?startchannel&admin=…`) gives no `/start` and no payload — there you detect the add via `my_chat_member` and encode context in the link itself.
 - **`admin=` is a request, not a grant.** Always verify with `ctx.newChatMember.canPostMessages?.()` etc. — users routinely untick permissions.
 - **Payload is plaintext in the URL.** Anyone who sees the URL sees the payload. Never put auth tokens, emails, or IDs you wouldn't paste into a tweet. Use opaque server-side tokens.
 - **Cold-open without payload.** On some clients, re-tapping a deep link for a bot the user already started can deliver `/start` without `ctx.args`. Make payloads idempotent; gracefully degrade when missing.

@@ -59,6 +59,9 @@ bot.command("start", async (context) => {
 
 In this scenario, if a user sends `/start arg1 arg2`, the bot will respond with `You entered the command /start with arguments: arg1 arg2`.
 
+> [!TIP]
+> The `/start` command is also how **deep links** (`https://t.me/<bot>?start=<payload>`) reach your bot — the payload arrives in `context.args`. But that's only one of eight `t.me/<bot>?…` link families, and most of the others (`?startapp=`, `?startgroup=`, …) do **not** go through `/start`. See the [Deep Links guide](/guides/deep-links) for the full routing map.
+
 ### How `command` Works
 
 1. **Command Recognition:** The bot checks the message for a command (e.g., `/start`). Commands are typically indicated by the [`bot_command` entity](https://core.telegram.org/bots/api#messageentity) in Telegram messages.

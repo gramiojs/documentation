@@ -65,9 +65,14 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
             "Welcome! Couldn't recognise that link, but you're in."
         );
     })
-    // ?startgroup= / ?startchannel= adds-to-chat flows arrive here, NOT as
-    // /start. The original `=foo` payload is not surfaced by the Bot API —
-    // encode any cross-link context in your link-generation step instead.
+    // The ADMIN add-to-chat flow (?startgroup&admin=… / ?startchannel&admin=…)
+    // arrives here, NOT as /start, and carries no payload — encode any context
+    // in your link-generation step instead.
+    //
+    // NOTE: a *plain* ?startgroup=<payload> (no admin=) is different — the bot
+    // is added as a member and DOES receive a `/start@bot <payload>` message,
+    // so it lands in the .command("start") handler above with the payload in
+    // ctx.args. https://core.telegram.org/bots/features#deep-linking
     .on("my_chat_member", (ctx) => {
         const me = ctx.newChatMember;
 
