@@ -182,9 +182,9 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
 
 ## Последние обновления
 
-**[Bot API 9.6, gramio 0.9 и новый плагин Onboarding](/ru/changelogs/2026-05-08)** — 2 марта – 8 мая 2026
+**[Bot API 10.0 раскатился по всей экосистеме, а сцены стали композерами](/ru/changelogs/2026-05-31)** — 8 – 31 мая 2026
 
-Bot API 9.6 с managed-ботами и расширенными опросами. **gramio 0.9** прокидывает `bot.syncCommands()`, шорткаты на `Plugin` и автогенерацию `allowed_updates`. Новый плагин **`@gramio/onboarding`** — декларативные туториалы с многопоточными флоу. Scenes 0.6 перестал есть глобальные команды. Views 0.2 получил ленивые globals. Wrappergram v2 — полностью переписан на middleware.
+Telegram **Bot API 10.0** раскатился по всему стеку — types v10, contexts v0.7, files v0.5, format v0.8, **gramio v0.10** — с живыми фото, гостевыми сообщениями (`bot.guestQuery()`) и медиа в опросах. **`@gramio/scenes` v0.7** приносит редизайн «сцена-как-композер»: builder-шаги, переиспользуемые модули шагов и хук `onExit`. `chosenInlineResult` теперь принимает схему `CallbackData`, а `@gramio/onboarding` v0.2 прокидывает `ctx.onboarding` через `bot.extend()` без церемоний.
 
 [Все обновления →](/ru/changelogs/)
 

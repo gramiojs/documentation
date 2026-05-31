@@ -2,6 +2,62 @@
     "version": 1,
     "entries": [
         {
+            "id": "2026-05-31-bot-api-10-scenes-composers",
+            "date": "2026-05-31",
+            "dateRange": {
+                "from": "2026-05-08",
+                "to": "2026-05-31"
+            },
+            "page": {
+                "en": "https://gramio.dev/changelogs/2026-05-31",
+                "ru": "https://gramio.dev/ru/changelogs/2026-05-31"
+            },
+            "en": {
+                "title": "Bot API 10.0 Lands Ecosystem-Wide & Scenes Become Composers",
+                "summary": [
+                    "Bot API 10.0 across the stack: @gramio/types v10, contexts v0.7, files v0.5, format v0.8, gramio v0.10",
+                    "Bot API 10.0: live photos (LivePhotoAttachment, sendLivePhoto), guest messages, poll & poll-option media",
+                    "Bot API 10.0: deleteReaction/deleteAllReactions, canReactToMessages permission, bot access settings",
+                    "gramio v0.10.0: bot.guestQuery() shorthand + ctx.answerGuestQuery() for the new guest_message update",
+                    "gramio v0.10.0: chosenInlineResult now accepts a CallbackData schema — typed ctx.queryData from result_id",
+                    "gramio v0.10.0: no-trigger bot.inlineQuery(handler) overload matches any inline query",
+                    "gramio v0.10.0 fix: no lost updates when stopping mid-batch; typed bots assignable to webhookHandler",
+                    "@gramio/scenes v0.7.0: scene-as-composer — Scene now extends EventComposer with the full bot-level DSL",
+                    "@gramio/scenes v0.7.0: builder steps .step(name, c => c.enter().on()) with per-step lifecycle + auto-state inference",
+                    "@gramio/scenes v0.7.0: reusable step modules via scene.extend(otherScene) and a new onExit lifecycle hook",
+                    "@gramio/scenes v0.7.1: fix — onEnter-consumed scene derives run exactly once per update again (0.7.0 ran them twice on entry)",
+                    "@gramio/onboarding v0.2.0: typed build() — ctx.onboarding propagates through bot.extend() with no augmentation"
+                ]
+            },
+            "ru": {
+                "title": "Bot API 10.0 раскатился по всей экосистеме, а сцены стали композерами",
+                "summary": [
+                    "Bot API 10.0 по всему стеку: @gramio/types v10, contexts v0.7, files v0.5, format v0.8, gramio v0.10",
+                    "Bot API 10.0: живые фото (LivePhotoAttachment, sendLivePhoto), гостевые сообщения, медиа в опросах и вариантах",
+                    "Bot API 10.0: deleteReaction/deleteAllReactions, право canReactToMessages, настройки доступа бота",
+                    "gramio v0.10.0: шорткат bot.guestQuery() + ctx.answerGuestQuery() для нового апдейта guest_message",
+                    "gramio v0.10.0: chosenInlineResult теперь принимает схему CallbackData — типизированный ctx.queryData из result_id",
+                    "gramio v0.10.0: перегрузка bot.inlineQuery(handler) без триггера матчит любой инлайн-запрос",
+                    "gramio v0.10.0 фиксы: апдейты не теряются при остановке посреди батча; типизированные боты лезут в webhookHandler",
+                    "@gramio/scenes v0.7.0: сцена-как-композер — Scene наследует EventComposer со всем DSL уровня бота",
+                    "@gramio/scenes v0.7.0: builder-шаги .step(name, c => c.enter().on()) с посшаговым лайфсайклом и автовыводом состояния",
+                    "@gramio/scenes v0.7.0: переиспользуемые модули шагов через scene.extend(otherScene) и новый хук onExit",
+                    "@gramio/scenes v0.7.1: фикс — derive сцены, читаемые в onEnter, снова выполняются ровно один раз за апдейт (в 0.7.0 на входе срабатывали дважды)",
+                    "@gramio/onboarding v0.2.0: типизированный build() — ctx.onboarding прокидывается через bot.extend() без augmentation"
+                ]
+            },
+            "packages": [
+                "gramio",
+                "@gramio/types",
+                "@gramio/contexts",
+                "@gramio/files",
+                "@gramio/format",
+                "@gramio/scenes",
+                "@gramio/onboarding"
+            ],
+            "tags": ["bot-api-10", "scenes", "guest-messages", "inline", "breaking", "onboarding"]
+        },
+        {
             "id": "2026-05-08-bot-api-9-6-gramio-0-9-onboarding-plugin",
             "date": "2026-05-08",
             "dateRange": {

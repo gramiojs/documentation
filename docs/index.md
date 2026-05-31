@@ -182,9 +182,9 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
 
 ## Latest Updates
 
-**[Bot API 9.6, gramio 0.9, and the New Onboarding Plugin](/changelogs/2026-05-08)** — March 2 – May 8, 2026
+**[Bot API 10.0 Lands Ecosystem-Wide & Scenes Become Composers](/changelogs/2026-05-31)** — May 8 – 31, 2026
 
-Bot API 9.6 lands with managed bots and richer polls. **gramio 0.9** ships `bot.syncCommands()`, Plugin shorthand methods, and auto-derived `allowed_updates`. The brand-new **`@gramio/onboarding`** plugin provides declarative tutorials with multi-flow concurrency. Scenes 0.6 stops swallowing global commands. Views 0.2 gets lazy globals. Wrappergram v2 is a complete middleware-based rewrite.
+Telegram **Bot API 10.0** rolls out across the whole stack — types v10, contexts v0.7, files v0.5, format v0.8, **gramio v0.10** — with live photos, guest messages (`bot.guestQuery()`), and poll media. **`@gramio/scenes` v0.7** ships the scene-as-composer redesign: builder steps, reusable step modules, and an `onExit` hook. `chosenInlineResult` now accepts a `CallbackData` schema, and `@gramio/onboarding` v0.2 makes `ctx.onboarding` flow through `bot.extend()` with zero ceremony.
 
 [All changelogs →](/changelogs/)
 
