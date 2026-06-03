@@ -1,0 +1,945 @@
+{
+    "version": 1,
+    "generated": "2026-06-03",
+    "labels": {
+        "breaking": { "en": "Breaking", "ru": "Ломающее" },
+        "deprecated": { "en": "Deprecated", "ru": "Устаревшее" },
+        "new": { "en": "New", "ru": "Новое" },
+        "fixes": { "en": "Fixes", "ru": "Исправления" },
+        "peerBumps": { "en": "Peer/dep bumps (move together)", "ru": "Бамп peer/зависимостей (двигать вместе)" }
+    },
+    "packages": {
+        "gramio": {
+            "repo": "gramiojs/gramio",
+            "layer": 3,
+            "entries": [
+                {
+                    "from": "0.9.0",
+                    "to": "0.10.0",
+                    "date": "2026-05-31",
+                    "changelog": "/changelogs/2026-05-31",
+                    "notes": [
+                        {
+                            "en": "No call-site break — the change is the Bot API 10 dependency line; bump the peers below together.",
+                            "ru": "На уровне вызовов ничего не ломается — меняется линейка зависимостей Bot API 10; бампайте peer-зависимости ниже вместе."
+                        }
+                    ],
+                    "peerBumps": ["@gramio/types ^10", "@gramio/contexts ^0.7", "@gramio/files ^0.5", "@gramio/format ^0.8", "@gramio/test ^0.7"],
+                    "new": [
+                        {
+                            "en": { "title": "bot.guestQuery(trigger?, handler)", "desc": "Handle the new Bot API 10 guest_message update. Reply with ctx.answerGuestQuery(result) (a single InlineQueryResult), not ctx.send/reply." },
+                            "ru": { "title": "bot.guestQuery(trigger?, handler)", "desc": "Обработка нового апдейта guest_message из Bot API 10. Отвечайте через ctx.answerGuestQuery(result) (один InlineQueryResult), а не ctx.send/reply." },
+                            "after": "import { InlineQueryResult, InputMessageContent } from \"gramio\";\n\nbot.guestQuery(/^help/i, (ctx) =>\n    ctx.answerGuestQuery(\n        InlineQueryResult.article(\"help\", \"Help\", InputMessageContent.text(\"How can I help?\")),\n    ),\n);"
+                        },
+                        {
+                            "en": { "title": "bot.chosenInlineResult(callbackData, handler)", "desc": "Pass a CallbackData schema to filter on result_id and get a typed ctx.queryData (mirrors callbackQuery(schema, …))." },
+                            "ru": { "title": "bot.chosenInlineResult(callbackData, handler)", "desc": "Передайте схему CallbackData, чтобы фильтровать по result_id и получить типизированный ctx.queryData (как у callbackQuery(schema, …))." },
+                            "after": "import { CallbackData } from \"gramio\";\n\nconst card = new CallbackData(\"card\").number(\"id\");\nbot.chosenInlineResult(card, (ctx) => {\n    ctx.queryData.id; // ✅ typed as number\n});"
+                        },
+                        {
+                            "en": { "title": "No-trigger bot.inlineQuery(handler) overload", "desc": "Matches any inline query — handy for the auth-redirect 'answer with empty results + login button' pattern." },
+                            "ru": { "title": "Перегрузка bot.inlineQuery(handler) без триггера", "desc": "Матчит любой инлайн-запрос — удобно для паттерна auth-redirect 'пустой ответ + кнопка логина'." }
+                        },
+                        {
+                            "en": { "title": "Plugin-author helpers re-exported from gramio", "desc": "WithDerives, WithEventDerive, WithDecorate, WithExtend, DeriveHandler are now exported from gramio directly." },
+                            "ru": { "title": "Хелперы для авторов плагинов реэкспортированы из gramio", "desc": "WithDerives, WithEventDerive, WithDecorate, WithExtend, DeriveHandler теперь экспортируются прямо из gramio." }
+                        }
+                    ],
+                    "fixes": [
+                        {
+                            "en": { "title": "No lost updates when stopping mid-batch", "desc": "bot.stop() landing mid-getUpdates no longer advances the offset on a dropped batch — Telegram re-delivers it." },
+                            "ru": { "title": "Апдейты не теряются при остановке посреди батча", "desc": "bot.stop() посреди getUpdates больше не двигает offset на отброшенном батче — Telegram переотправит его." }
+                        },
+                        {
+                            "en": { "title": "Typed bots assignable to webhookHandler", "desc": "Bots with derives/plugins/macros no longer need `as any` to pass to webhookHandler." },
+                            "ru": { "title": "Типизированные боты лезут в webhookHandler", "desc": "Ботам с derive/плагинами/макросами больше не нужен `as any`, чтобы передать их в webhookHandler." }
+                        }
+                    ]
+                },
+                {
+                    "from": "0.7.0",
+                    "to": "0.9.0",
+                    "date": "2026-05-08",
+                    "changelog": "/changelogs/2026-05-08",
+                    "notes": [
+                        {
+                            "en": "Nothing required — existing bot.command(name, handler) and all handlers keep working. The below is opt-in or backward-compatible.",
+                            "ru": "Ничего не обязательно — существующий bot.command(name, handler) и все хэндлеры работают как прежде. Ниже — опционально или обратно совместимо."
+                        }
+                    ],
+                    "peerBumps": ["@gramio/types 9.6.1", "@gramio/contexts 0.6.1", "@gramio/files 0.4.0", "@gramio/format 0.7.0", "@gramio/keyboards 1.4.0", "@gramio/composer 0.4.1", "@gramio/test 0.7.0"],
+                    "new": [
+                        {
+                            "en": { "title": "bot.command(name, meta, handler) + bot.syncCommands()", "desc": "Optional CommandMeta (description, locales, scopes, hide) between name and handler; syncCommands() flushes the Telegram menu (hash-cached, skips unchanged scopes)." },
+                            "ru": { "title": "bot.command(name, meta, handler) + bot.syncCommands()", "desc": "Опциональный CommandMeta (description, locales, scopes, hide) между именем и хэндлером; syncCommands() заливает меню Telegram (кэш по хэшу, пропускает неизменные scope)." },
+                            "after": "const bot = new Bot(process.env.BOT_TOKEN!)\n    .command(\"help\", { description: \"Show help\", locales: { ru: \"Помощь\" } }, helpHandler)\n    .command(\"debug\", { hide: true }, debugHandler);\n\nbot.onStart(() => bot.syncCommands());"
+                        },
+                        {
+                            "en": { "title": "Plugin shorthand methods", "desc": "command, callbackQuery, hears, reaction, inlineQuery, chosenInlineResult, startParameter now work directly on a Plugin; Plugin.extend(plugin) propagates middleware/hooks/decorators/errors." },
+                            "ru": { "title": "Шорткат-методы на Plugin", "desc": "command, callbackQuery, hears, reaction, inlineQuery, chosenInlineResult, startParameter теперь работают прямо на Plugin; Plugin.extend(plugin) пробрасывает middleware/хуки/декораторы/ошибки." }
+                        },
+                        {
+                            "en": { "title": "AllowedUpdatesFilter — auto allowed_updates", "desc": "allowed_updates is auto-derived from registered handlers, so chat_member / message_reaction / message_reaction_count stop getting silently dropped. Strict mode via bot.start({ allowedUpdates: \"strict\" })." },
+                            "ru": { "title": "AllowedUpdatesFilter — авто allowed_updates", "desc": "allowed_updates выводится из зарегистрированных хэндлеров, так что chat_member / message_reaction / message_reaction_count перестают молча теряться. Строгий режим — bot.start({ allowedUpdates: \"strict\" })." },
+                            "after": "await bot.start({\n    allowedUpdates: AllowedUpdatesFilter.default.add(\"chat_member\").except(\"poll\"),\n});"
+                        },
+                        {
+                            "en": { "title": "onStart / onStop receive the bot instance", "desc": "bot.onStart(({ bot, info }) => …) — call bot.api.* during startup/shutdown without a closure." },
+                            "ru": { "title": "onStart / onStop получают инстанс бота", "desc": "bot.onStart(({ bot, info }) => …) — зовите bot.api.* на старте/остановке без замыкания." }
+                        }
+                    ],
+                    "fixes": [
+                        {
+                            "en": { "title": "ctx.isPM()/isGroup()/isChannel() no longer narrow to never", "desc": "Fixed on AnyBot handlers (contexts 0.5.1, pulled in from 0.8.3+)." },
+                            "ru": { "title": "ctx.isPM()/isGroup()/isChannel() больше не сужаются к never", "desc": "Исправлено для хэндлеров на AnyBot (contexts 0.5.1, подтянуто с 0.8.3+)." }
+                        }
+                    ]
+                },
+                {
+                    "from": "0.5.0",
+                    "to": "0.7.0",
+                    "date": "2026-03-02",
+                    "changelog": "/changelogs/2026-03-02",
+                    "peerBumps": ["@gramio/types 9.5.0", "@gramio/contexts 0.5.0", "@gramio/keyboards 1.3.1"],
+                    "new": [
+                        {
+                            "en": { "title": "Bot API 9.5 support", "desc": "setChatMemberTag / ctx.setMemberTag(), member-tag fields on ChatMember, can_manage_tags admin right, date_time message entities." },
+                            "ru": { "title": "Поддержка Bot API 9.5", "desc": "setChatMemberTag / ctx.setMemberTag(), поля тегов на ChatMember, право администратора can_manage_tags, сущности date_time." }
+                        }
+                    ]
+                },
+                {
+                    "from": "0.4.x",
+                    "to": "0.5.0",
+                    "date": "2026-02-17",
+                    "changelog": "/changelogs/2026-02-17",
+                    "peerBumps": ["@gramio/types 9.4.1", "@gramio/composer 0.2.0"],
+                    "breaking": [
+                        {
+                            "en": { "title": "middleware-io engine removed (mostly internal)", "desc": "gramio now builds on @gramio/composer. If you imported internals (src/queue.ts / UpdateQueue), they're gone (UpdateQueue → EventQueue from @gramio/composer). Public Bot API is unchanged." },
+                            "ru": { "title": "Движок middleware-io удалён (в основном внутреннее)", "desc": "gramio теперь на @gramio/composer. Если вы импортировали внутренности (src/queue.ts / UpdateQueue) — их больше нет (UpdateQueue → EventQueue из @gramio/composer). Публичный Bot API не изменился." }
+                        }
+                    ],
+                    "new": [
+                        {
+                            "en": { "title": "Shorthand methods moved into Composer", "desc": "reaction, callbackQuery, chosenInlineResult, inlineQuery, hears, command, startParameter usable on plugins and standalone composers." },
+                            "ru": { "title": "Шорткат-методы переехали в Composer", "desc": "reaction, callbackQuery, chosenInlineResult, inlineQuery, hears, command, startParameter доступны в плагинах и отдельных композерах." }
+                        },
+                        {
+                            "en": { "title": "Bot.extend(composer) / Plugin.extend(composer)", "desc": "Accept EventComposer instances (promoted to scoped — shared context without duplicate middleware), plus the new decorate()/when()/inspect()/trace() surface." },
+                            "ru": { "title": "Bot.extend(composer) / Plugin.extend(composer)", "desc": "Принимают инстансы EventComposer (повышаются до scoped — общий контекст без дублирования middleware), плюс новые decorate()/when()/inspect()/trace()." }
+                        }
+                    ]
+                }
+            ]
+        },
+        "@gramio/types": {
+            "repo": "gramiojs/types",
+            "layer": 1,
+            "entries": [
+                {
+                    "from": "9.6.x",
+                    "to": "10.0.0",
+                    "date": "2026-05-31",
+                    "changelog": "/changelogs/2026-05-31",
+                    "breaking": [
+                        {
+                            "en": { "title": "Regenerated for Bot API 10.0", "desc": "Live photos, guest messages, poll/option media, react-permissions, bot access settings. correctOptionId is now correctOptionIds (array) — update any code reading the singular field." },
+                            "ru": { "title": "Перегенерировано под Bot API 10.0", "desc": "Живые фото, гостевые сообщения, медиа в опросах/вариантах, права на реакции, настройки доступа бота. correctOptionId теперь correctOptionIds (массив) — поправьте код, читавший одиночное поле." }
+                        }
+                    ],
+                    "new": [
+                        {
+                            "en": { "title": "New structures", "desc": "LivePhotoAttachment, BotAccessSettings, SentGuestMessage, poll media / explanationMedia / membersOnly / countryCodes, sendLivePhoto + per-option sendPoll media." },
+                            "ru": { "title": "Новые структуры", "desc": "LivePhotoAttachment, BotAccessSettings, SentGuestMessage, медиа опросов / explanationMedia / membersOnly / countryCodes, sendLivePhoto + per-option медиа в sendPoll." }
+                        }
+                    ]
+                },
+                {
+                    "from": "9.5.0",
+                    "to": "9.6.1",
+                    "date": "2026-05-08",
+                    "changelog": "/changelogs/2026-05-08",
+                    "upgradeStraightTo": "9.6.1",
+                    "breaking": [
+                        {
+                            "en": { "title": "Bot API 9.6", "desc": "correctOptionId → correctOptionIds (array) first appears here; managed-bot + poll structures added." },
+                            "ru": { "title": "Bot API 9.6", "desc": "correctOptionId → correctOptionIds (массив) впервые появляется здесь; добавлены структуры managed-ботов и опросов." }
+                        }
+                    ],
+                    "fixes": [
+                        {
+                            "en": { "title": "Mojibake SendDiceEmoji fixed in 9.6.1", "desc": "9.6.0 briefly shipped corrupted emoji values; 9.6.1 throws on the bad byte sequence and ships clean unicode. Pin ^9.6.1, not 9.6.0." },
+                            "ru": { "title": "Мохибейк SendDiceEmoji исправлен в 9.6.1", "desc": "9.6.0 ненадолго выпустили с битыми значениями эмодзи; 9.6.1 кидает на битой последовательности и содержит чистый юникод. Пиньте ^9.6.1, а не 9.6.0." }
+                        }
+                    ]
+                },
+                {
+                    "from": "9.4.2",
+                    "to": "9.5.0",
+                    "date": "2026-03-02",
+                    "changelog": "/changelogs/2026-03-02",
+                    "new": [
+                        {
+                            "en": { "title": "Bot API 9.5 types", "desc": "Member tags, date_time entity, can_manage_tags." },
+                            "ru": { "title": "Типы Bot API 9.5", "desc": "Теги участников, сущность date_time, can_manage_tags." }
+                        }
+                    ]
+                },
+                {
+                    "from": "9.4.1",
+                    "to": "9.4.2",
+                    "date": "2026-02-23",
+                    "changelog": "/changelogs/2026-02-23",
+                    "new": [
+                        {
+                            "en": { "title": "Migrated to @gramio/schema-parser", "desc": "Generator moved off the Rust tg-bot-api crate. Precise InputFile | string unions, semantic-typed formattable fields, a Currencies enum (incl. XTR), and the previously-missing APIResponse / APIResponseOk / APIResponseError types." },
+                            "ru": { "title": "Переезд на @gramio/schema-parser", "desc": "Генератор ушёл с Rust-крейта tg-bot-api. Точные юнионы InputFile | string, семантически типизированные formattable-поля, enum Currencies (вкл. XTR) и ранее отсутствовавшие типы APIResponse / APIResponseOk / APIResponseError." }
+                        }
+                    ]
+                },
+                {
+                    "from": "9.3.0",
+                    "to": "9.4.0",
+                    "date": "2026-02-15",
+                    "changelog": "/changelogs/2026-02-15",
+                    "new": [
+                        {
+                            "en": { "title": "Bot API 9.2–9.4 types", "desc": "VideoQuality, UserProfileAudios, ChatOwnerLeft, ChatOwnerChanged, UniqueGiftModelRarity, button-styling types, and methods getUserProfileAudios / setMyProfilePhoto / removeMyProfilePhoto." },
+                            "ru": { "title": "Типы Bot API 9.2–9.4", "desc": "VideoQuality, UserProfileAudios, ChatOwnerLeft, ChatOwnerChanged, UniqueGiftModelRarity, типы стилизации кнопок и методы getUserProfileAudios / setMyProfilePhoto / removeMyProfilePhoto." }
+                        }
+                    ]
+                }
+            ]
+        },
+        "@gramio/contexts": {
+            "repo": "gramiojs/contexts",
+            "layer": 2,
+            "entries": [
+                {
+                    "from": "0.6.1",
+                    "to": "0.7.0",
+                    "date": "2026-05-31",
+                    "changelog": "/changelogs/2026-05-31",
+                    "new": [
+                        {
+                            "en": { "title": "Bot API 10 getters & mixins", "desc": "Message.livePhoto + sendLivePhoto; guest messages (Message.guestQueryId / guestBotCallerUser / guestBotCallerChat, MessageContext.answerGuestQuery(), User.supportsGuestQueries()); deleteReaction / deleteAllReactions, canReactToMessages; managed bot access settings." },
+                            "ru": { "title": "Геттеры и миксины Bot API 10", "desc": "Message.livePhoto + sendLivePhoto; гостевые сообщения (Message.guestQueryId / guestBotCallerUser / guestBotCallerChat, MessageContext.answerGuestQuery(), User.supportsGuestQueries()); deleteReaction / deleteAllReactions, canReactToMessages; настройки доступа managed-бота." }
+                        }
+                    ]
+                },
+                {
+                    "from": "0.5.x",
+                    "to": "0.6.1",
+                    "date": "2026-05-08",
+                    "changelog": "/changelogs/2026-05-08",
+                    "new": [
+                        {
+                            "en": { "title": "Bot API 9.6 — managed bots & polls", "desc": "managed_bot / managed_bot_created contexts, ManagedBotCreated/Updated, User.canManageBots(), getManagedBotToken()/replaceManagedBotToken(); poll getters (Poll.allowsRevoting/description, PollOption.persistentId/addedByUser, PollAnswer.optionPersistentIds)." },
+                            "ru": { "title": "Bot API 9.6 — managed-боты и опросы", "desc": "контексты managed_bot / managed_bot_created, ManagedBotCreated/Updated, User.canManageBots(), getManagedBotToken()/replaceManagedBotToken(); геттеры опросов (Poll.allowsRevoting/description, PollOption.persistentId/addedByUser, PollAnswer.optionPersistentIds)." }
+                        }
+                    ],
+                    "fixes": [
+                        {
+                            "en": { "title": "0.5.1: AnyBot narrowing", "desc": "ctx.isPM()/isGroup()/isChannel() no longer collapse to never through AnyBot (contributed by @ttempaa)." },
+                            "ru": { "title": "0.5.1: сужение через AnyBot", "desc": "ctx.isPM()/isGroup()/isChannel() больше не схлопываются в never через AnyBot (контрибьютор @ttempaa)." }
+                        }
+                    ]
+                },
+                {
+                    "from": "0.4.0",
+                    "to": "0.5.0",
+                    "date": "2026-03-02",
+                    "changelog": "/changelogs/2026-03-02",
+                    "new": [
+                        {
+                            "en": { "title": "Bot API 9.5 getters", "desc": "date_time entity getters on MessageEntity (unixTime, dateTimeFormat); ctx.setMemberTag() shorthand; member-tag fields." },
+                            "ru": { "title": "Геттеры Bot API 9.5", "desc": "геттеры сущности date_time на MessageEntity (unixTime, dateTimeFormat); шорткат ctx.setMemberTag(); поля тегов участников." }
+                        }
+                    ]
+                },
+                {
+                    "from": "0.3.1",
+                    "to": "0.4.0",
+                    "date": "2026-02-15",
+                    "changelog": "/changelogs/2026-02-15",
+                    "new": [
+                        {
+                            "en": { "title": "ctx.streamMessage(chunks)", "desc": "Live-typing drafts via sendMessageDraft, auto-finalizing at 4096 chars, AbortSignal-cancellable. Accepts Iterable/AsyncIterable<MessageDraftPiece>." },
+                            "ru": { "title": "ctx.streamMessage(chunks)", "desc": "Драфты с живым набором через sendMessageDraft, авто-финализация на 4096 символах, отмена через AbortSignal. Принимает Iterable/AsyncIterable<MessageDraftPiece>." },
+                            "after": "bot.command(\"stream\", async (ctx) => {\n    await ctx.streamMessage(generateTextChunks());\n});"
+                        },
+                        {
+                            "en": { "title": "8 new contexts (Bot API 9.2–9.4)", "desc": "SuggestedPost*Context, GiftUpgradeSentContext, ChatOwnerLeftContext, ChatOwnerChangedContext, VideoAttachment.qualities, User.allowsUsersToCreateTopics()." },
+                            "ru": { "title": "8 новых контекстов (Bot API 9.2–9.4)", "desc": "SuggestedPost*Context, GiftUpgradeSentContext, ChatOwnerLeftContext, ChatOwnerChangedContext, VideoAttachment.qualities, User.allowsUsersToCreateTopics()." }
+                        }
+                    ]
+                },
+                {
+                    "from": null,
+                    "to": "0.3.1",
+                    "date": "2026-02-08",
+                    "changelog": "/changelogs/2026-02-08",
+                    "new": [
+                        {
+                            "en": { "title": "ctx.chatId on callback-query context", "desc": "No more ctx.message?.chat?.id digging. Contributed by @n08i40k." },
+                            "ru": { "title": "ctx.chatId в контексте callback-query", "desc": "Больше не нужно копать ctx.message?.chat?.id. Контрибьютор @n08i40k." }
+                        },
+                        {
+                            "en": { "title": "UniqueGiftInfo TON support", "desc": "lastResaleCurrency (\"XTR\" | \"TON\") + lastResaleAmount; lastResaleStarCount returns a value only when currency is \"XTR\"." },
+                            "ru": { "title": "Поддержка TON в UniqueGiftInfo", "desc": "lastResaleCurrency (\"XTR\" | \"TON\") + lastResaleAmount; lastResaleStarCount возвращает значение только при валюте \"XTR\"." }
+                        }
+                    ]
+                }
+            ]
+        },
+        "@gramio/composer": {
+            "repo": "gramiojs/composer",
+            "layer": 1,
+            "entries": [
+                {
+                    "from": "0.3.3",
+                    "to": "0.4.1",
+                    "date": "2026-05-08",
+                    "changelog": "/changelogs/2026-05-08",
+                    "new": [
+                        {
+                            "en": { "title": "registeredEvents() & EventContextOf<T, E>", "desc": "registeredEvents() returns the wired-up event names (powers gramio 0.9 auto allowed_updates); EventContextOf extracts global + per-event derives for custom methods." },
+                            "ru": { "title": "registeredEvents() и EventContextOf<T, E>", "desc": "registeredEvents() возвращает зарегистрированные имена событий (питает авто allowed_updates в gramio 0.9); EventContextOf извлекает глобальные + per-event derive для кастомных методов." }
+                        }
+                    ],
+                    "deprecated": [
+                        {
+                            "en": { "title": "commandsMeta is now unknown-valued", "desc": "The Telegram-specific shape moved into gramio core. Only matters if you read commandsMeta directly." },
+                            "ru": { "title": "commandsMeta теперь со значением unknown", "desc": "Telegram-специфичная форма переехала в ядро gramio. Важно, только если вы читаете commandsMeta напрямую." }
+                        }
+                    ],
+                    "fixes": [
+                        {
+                            "en": { "title": "guard() ctx no longer collapses to any", "desc": "Predicate ctx keeps its type after derive()." },
+                            "ru": { "title": "ctx в guard() больше не схлопывается в any", "desc": "ctx предиката сохраняет тип после derive()." }
+                        }
+                    ]
+                },
+                {
+                    "from": "0.2.0",
+                    "to": "0.3.3",
+                    "date": "2026-03-02",
+                    "changelog": "/changelogs/2026-03-02",
+                    "new": [
+                        {
+                            "en": { "title": "EventContextOf / ContextOf / defineComposerMethods + macro system", "desc": "Type-safe custom methods that see accumulated derives, plus an Elysia-inspired macro system for declarative per-handler options." },
+                            "ru": { "title": "EventContextOf / ContextOf / defineComposerMethods + макросы", "desc": "Типобезопасные кастомные методы, видящие накопленные derive, плюс система макросов в духе Elysia для декларативных опций хэндлеров." },
+                            "after": "bot.macro(\"adminOnly\", {\n    preHandler: async (ctx, next) =>\n        ctx.from?.id !== ADMIN_ID ? ctx.reply(\"Admins only\") : next(),\n});\nbot.command(\"ban\", banHandler, { adminOnly: true });"
+                        }
+                    ],
+                    "fixes": [
+                        {
+                            "en": { "title": "WeakMap-backed getters in isolation groups", "desc": "group()/extend() isolation switched from Object.create(ctx) to snapshot/restore, fixing lazy getters (ctx.text, ctx.from) inside isolation groups." },
+                            "ru": { "title": "WeakMap-геттеры в группах изоляции", "desc": "Изоляция group()/extend() перешла с Object.create(ctx) на snapshot/restore, починив ленивые геттеры (ctx.text, ctx.from) внутри групп изоляции." }
+                        }
+                    ]
+                },
+                {
+                    "from": "0.1.x",
+                    "to": "0.2.0",
+                    "date": "2026-02-17",
+                    "changelog": "/changelogs/2026-02-17",
+                    "new": [
+                        {
+                            "en": { "title": "decorate() / when() / inspect() / trace()", "desc": "decorate() (zero-overhead static context), when() (build-time conditional middleware — props typed Partial), inspect() (read-only metadata), trace() (opt-in instrumentation). createComposer({ methods }) injects typed shorthands. MaybeArray<T> widened to T | readonly T[]." },
+                            "ru": { "title": "decorate() / when() / inspect() / trace()", "desc": "decorate() (статический контекст без оверхеда), when() (условное middleware на этапе сборки — свойства типа Partial), inspect() (метаданные только для чтения), trace() (опциональная инструментация). createComposer({ methods }) внедряет типизированные шорткаты. MaybeArray<T> расширен до T | readonly T[]." }
+                        }
+                    ]
+                }
+            ]
+        },
+        "@gramio/scenes": {
+            "repo": "gramiojs/scenes",
+            "layer": 4,
+            "entries": [
+                {
+                    "from": "0.6.0",
+                    "to": "0.7.1",
+                    "date": "2026-05-31",
+                    "changelog": "/changelogs/2026-05-31",
+                    "upgradeStraightTo": "0.7.1",
+                    "breaking": [
+                        {
+                            "en": { "title": "Scene now extends EventComposer", "desc": "The full bot-level DSL (.use/.on/.derive/.guard/.command/.callbackQuery/.hears/…) is available on every scene. The classic event-filter step form still works alongside builder steps." },
+                            "ru": { "title": "Scene теперь наследует EventComposer", "desc": "Весь DSL уровня бота (.use/.on/.derive/.guard/.command/.callbackQuery/.hears/…) доступен на каждой сцене. Классическая форма шагов по фильтру события работает вместе с builder-шагами." }
+                        }
+                    ],
+                    "new": [
+                        {
+                            "en": { "title": "Builder steps", "desc": "Each step is its own sub-composer with .enter / .exit / .fallback / .message plus the full event surface. State auto-inferred from ctx.scene.update({...}) — no .state<T>() needed." },
+                            "ru": { "title": "Builder-шаги", "desc": "Каждый шаг — свой под-композер с .enter / .exit / .fallback / .message плюс весь набор событий. Состояние выводится из ctx.scene.update({...}) — .state<T>() не нужен." },
+                            "after": "import { Scene } from \"@gramio/scenes\";\n\nconst checkout = new Scene(\"checkout\")\n    .step(\"ask-name\", (c) =>\n        c.message(\"What's your name?\").on(\"message\", (ctx) => ctx.scene.update({ name: ctx.text })),\n    )\n    .step(\"confirm\", (c) =>\n        c.enter((ctx) => ctx.send(`${ctx.scene.state.name}, confirm? (yes/no)`)).hears(\"yes\", (ctx) => ctx.scene.exit()),\n    );"
+                        },
+                        {
+                            "en": { "title": "Reusable step modules + onExit", "desc": "scene.extend(otherScene) pulls in a nameless Scene of steps (collisions throw, numeric steps renumber). New onExit hook fires before storage teardown; scene-level .derive() is visible inside onEnter." },
+                            "ru": { "title": "Переиспользуемые модули шагов + onExit", "desc": "scene.extend(otherScene) подключает безымянную Scene из шагов (коллизии кидают, числовые шаги перенумеровываются). Новый хук onExit срабатывает до сноса хранилища; .derive() уровня сцены виден в onEnter." }
+                        }
+                    ],
+                    "fixes": [
+                        {
+                            "en": { "title": "Upgrade straight to 0.7.1", "desc": "0.7.0 could run an onEnter-consumed .derive() twice on entry. 0.7.1 restores exactly-once-per-update. If your derive has side effects (counters, spans, DB writes), do not stop at 0.7.0." },
+                            "ru": { "title": "Обновляйтесь сразу до 0.7.1", "desc": "0.7.0 мог выполнить .derive(), читаемый в onEnter, дважды на входе. 0.7.1 возвращает ровно-один-раз-за-апдейт. Если у derive есть сайд-эффекты (счётчики, спаны, запись в БД) — не останавливайтесь на 0.7.0." }
+                        }
+                    ]
+                },
+                {
+                    "from": "0.4.0",
+                    "to": "0.6.0",
+                    "date": "2026-05-08",
+                    "changelog": "/changelogs/2026-05-08",
+                    "breaking": [
+                        {
+                            "en": { "title": "Passthrough is now the default (behavior change)", "desc": "Updates that don't match the current step propagate to outer handlers, so a global /cancel or /help fires mid-scene; the scene keeps its firstTime state. Restore the old greedy behavior with passthrough: false." },
+                            "ru": { "title": "Passthrough теперь по умолчанию (изменение поведения)", "desc": "Апдейты, не подошедшие текущему шагу, летят к внешним хэндлерам, так что глобальные /cancel или /help срабатывают в сцене; сцена сохраняет состояние firstTime. Вернуть жадное поведение — passthrough: false." },
+                            "before": "// before: non-matching updates were silently swallowed inside a scene",
+                            "after": "const bot = new Bot(token)\n    .extend(scenes([signupScene])) // passthrough: true by default\n    .command(\"cancel\", (ctx) => ctx.scene?.exit()); // now actually fires"
+                        }
+                    ],
+                    "new": [
+                        {
+                            "en": { "title": "Sub-scenes & typed enter params", "desc": "ctx.scene.enterSub(other, params) / exitSub(data) with a persisted stack and typed .exitData<T>(); scene.reenter(params); scene.enter() type-checks its params tuple." },
+                            "ru": { "title": "Под-сцены и типизированные параметры входа", "desc": "ctx.scene.enterSub(other, params) / exitSub(data) с персистентным стеком и типизированным .exitData<T>(); scene.reenter(params); scene.enter() проверяет кортеж параметров." }
+                        }
+                    ]
+                },
+                {
+                    "from": null,
+                    "to": "0.4.x",
+                    "date": "2026-03-02",
+                    "changelog": "/changelogs/2026-03-02",
+                    "peerBumps": ["gramio >= 0.5.0", "@gramio/storage ^2.0.0"],
+                    "new": [
+                        {
+                            "en": { "title": "EventComposer extend + onInvalidInput", "desc": "scene.extend() accepts EventComposer instances; bot-level plugins extended before scenes aren't re-applied inside scene chains; ask() gained an onInvalidInput option." },
+                            "ru": { "title": "extend с EventComposer + onInvalidInput", "desc": "scene.extend() принимает инстансы EventComposer; плагины уровня бота, расширенные до сцен, не применяются повторно в цепочках сцен; ask() получил опцию onInvalidInput." }
+                        }
+                    ]
+                },
+                {
+                    "from": null,
+                    "to": "onEnter",
+                    "date": "2026-02-08",
+                    "changelog": "/changelogs/2026-02-08",
+                    "new": [
+                        {
+                            "en": { "title": "scene.onEnter(handler)", "desc": "Run logic once when a scene is entered (awaited before the scene proceeds)." },
+                            "ru": { "title": "scene.onEnter(handler)", "desc": "Запуск логики один раз при входе в сцену (ожидается до продолжения сцены)." }
+                        }
+                    ]
+                }
+            ]
+        },
+        "@gramio/storage": {
+            "repo": "gramiojs/storages",
+            "layer": 2,
+            "entries": [
+                {
+                    "from": "1.x",
+                    "to": "2.0.0",
+                    "date": "2026-02-08",
+                    "changelog": "/changelogs/2026-02-08",
+                    "breaking": [
+                        {
+                            "en": { "title": "Storage<Data> now constrains keys to keyof Data", "desc": "Value types are inferred from the key. storage.get<SomeType>(\"key\") no longer overrides the return type — define your key→value map as the Data type parameter on the constructor instead." },
+                            "ru": { "title": "Storage<Data> теперь ограничивает ключи keyof Data", "desc": "Типы значений выводятся из ключа. storage.get<SomeType>(\"key\") больше не переопределяет возвращаемый тип — задавайте карту ключ→значение через параметр Data конструктора." },
+                            "before": "const v = await storage.get<User>(\"user:1\");",
+                            "after": "type Data = Record<`user:${number}`, { name: string; age: number }>;\nconst storage = inMemoryStorage<Data>();\nconst user = await storage.get(\"user:1\"); // ✅ { name; age } | undefined"
+                        }
+                    ],
+                    "fixes": [
+                        {
+                            "en": { "title": "inMemoryStorage<Data>() generic flows through", "desc": "No more implicit any from a dropped generic." },
+                            "ru": { "title": "Дженерик inMemoryStorage<Data>() пробрасывается", "desc": "Больше нет неявного any из-за потерянного дженерика." }
+                        }
+                    ]
+                }
+            ]
+        },
+        "@gramio/storage-redis": {
+            "repo": "gramiojs/storages",
+            "layer": 2,
+            "entries": [
+                {
+                    "from": null,
+                    "to": "ioredis peer dependency",
+                    "date": "2026-02-08",
+                    "changelog": "/changelogs/2026-02-08",
+                    "breaking": [
+                        {
+                            "en": { "title": "ioredis is now a peer dependency (install step)", "desc": "ioredis is no longer bundled — install it yourself. Later Bun's native RedisClient is auto-selected and the ioredis peer became optional; explicit sub-paths /ioredis and /bun were added." },
+                            "ru": { "title": "ioredis теперь peer-зависимость (шаг установки)", "desc": "ioredis больше не вшит — ставьте его сами. Позже нативный RedisClient из Bun выбирается автоматически, а peer ioredis стал опциональным; добавлены явные суб-пути /ioredis и /bun." },
+                            "after": "npm install @gramio/storage-redis ioredis"
+                        }
+                    ]
+                }
+            ]
+        },
+        "@gramio/storage-sqlite": {
+            "repo": "gramiojs/storages",
+            "layer": 2,
+            "entries": [
+                {
+                    "from": null,
+                    "to": "1.0.0",
+                    "date": "2026-02-15",
+                    "changelog": "/changelogs/2026-02-15",
+                    "new": [
+                        {
+                            "en": { "title": "Node.js support (dual runtime)", "desc": "1.0.0 adds node:sqlite (DatabaseSync) alongside Bun's bun:sqlite; the right impl is auto-selected — no code change. (Adapter first landed Bun-only.)" },
+                            "ru": { "title": "Поддержка Node.js (два рантайма)", "desc": "1.0.0 добавляет node:sqlite (DatabaseSync) рядом с bun:sqlite; нужная реализация выбирается автоматически — без изменений кода. (Адаптер сперва был только под Bun.)" }
+                        }
+                    ]
+                }
+            ]
+        },
+        "@gramio/format": {
+            "repo": "gramiojs/format",
+            "layer": 2,
+            "entries": [
+                {
+                    "from": "0.7.0",
+                    "to": "0.8.0",
+                    "date": "2026-05-31",
+                    "changelog": "/changelogs/2026-05-31",
+                    "peerBumps": ["@gramio/types ^10"],
+                    "new": [
+                        {
+                            "en": { "title": "Regenerated for Bot API 10", "desc": "Mutators for sendLivePhoto, answerGuestQuery, explanation_media, and per-option poll media." },
+                            "ru": { "title": "Перегенерировано под Bot API 10", "desc": "Мутаторы для sendLivePhoto, answerGuestQuery, explanation_media и per-option медиа в опросах." }
+                        }
+                    ]
+                },
+                {
+                    "from": "0.5.0",
+                    "to": "0.7.0",
+                    "date": "2026-05-08",
+                    "changelog": "/changelogs/2026-05-08",
+                    "fixes": [
+                        {
+                            "en": { "title": "Markdown block separators preserved", "desc": "Adjacent blocks (paragraph+list, +blockquote, +code, heading+anything) no longer glue together. Important for LLM-generated content." },
+                            "ru": { "title": "Разделители markdown-блоков сохраняются", "desc": "Соседние блоки (параграф+список, +цитата, +код, заголовок+что-угодно) больше не склеиваются. Важно для контента от LLM." }
+                        }
+                    ],
+                    "new": [
+                        {
+                            "en": { "title": "formatMiddleware", "desc": "@gramio/format/middleware exports formatMiddleware for the wrappergram v2 chain (decomposes FormattableString into text+entities before each API call)." },
+                            "ru": { "title": "formatMiddleware", "desc": "@gramio/format/middleware экспортирует formatMiddleware для цепочки wrappergram v2 (раскладывает FormattableString на text+entities перед каждым вызовом API)." }
+                        }
+                    ]
+                },
+                {
+                    "from": "0.4.0",
+                    "to": "0.5.0",
+                    "date": "2026-03-02",
+                    "changelog": "/changelogs/2026-03-02",
+                    "new": [
+                        {
+                            "en": { "title": "htmlToFormattable()", "desc": "From @gramio/format/html (peer node-html-parser) — convert HTML to Telegram entities without parse_mode, degrading gracefully to plain text." },
+                            "ru": { "title": "htmlToFormattable()", "desc": "Из @gramio/format/html (peer node-html-parser) — конвертация HTML в Telegram-сущности без parse_mode, мягкая деградация в обычный текст." },
+                            "after": "import { htmlToFormattable } from \"@gramio/format/html\";\nctx.send(htmlToFormattable(\"<b>Bold</b> and <i>italic</i>\"));"
+                        },
+                        {
+                            "en": { "title": "join() array overload", "desc": "join(items, \"\\n\") instead of join(items, (x) => x, \"\\n\"). Still never use native Array.join() on Formattables (it drops entity offsets)." },
+                            "ru": { "title": "Перегрузка join() для массива", "desc": "join(items, \"\\n\") вместо join(items, (x) => x, \"\\n\"). По-прежнему никогда не используйте нативный Array.join() на Formattable (теряются offset'ы сущностей)." }
+                        }
+                    ]
+                }
+            ]
+        },
+        "@gramio/keyboards": {
+            "repo": "gramiojs/keyboards",
+            "layer": 2,
+            "entries": [
+                {
+                    "from": "1.3.x",
+                    "to": "1.4.0",
+                    "date": "2026-05-08",
+                    "changelog": "/changelogs/2026-05-08",
+                    "new": [
+                        {
+                            "en": { "title": "requestManagedBot button", "desc": "Bot API 9.6 button for picking a managed bot from a Telegram dialog." },
+                            "ru": { "title": "Кнопка requestManagedBot", "desc": "Кнопка Bot API 9.6 для выбора managed-бота из диалога Telegram." }
+                        }
+                    ]
+                },
+                {
+                    "from": null,
+                    "to": "1.3.0",
+                    "date": "2026-02-15",
+                    "changelog": "/changelogs/2026-02-15",
+                    "new": [
+                        {
+                            "en": { "title": "Button styling", "desc": "All button methods accept an options arg: style (\"danger\" | \"primary\" | \"success\") and icon_custom_emoji_id. Works on InlineKeyboard and Keyboard." },
+                            "ru": { "title": "Стилизация кнопок", "desc": "Все методы кнопок принимают options: style (\"danger\" | \"primary\" | \"success\") и icon_custom_emoji_id. Работает на InlineKeyboard и Keyboard." },
+                            "after": "new InlineKeyboard()\n    .text(\"Delete\", \"delete\", { style: \"danger\" })\n    .text(\"Confirm\", \"confirm\", { style: \"success\" });"
+                        }
+                    ]
+                }
+            ]
+        },
+        "@gramio/callback-data": {
+            "repo": "gramiojs/callback-data",
+            "layer": 2,
+            "entries": [
+                {
+                    "from": "0.0.11",
+                    "to": "0.1.0",
+                    "date": "2026-02-23",
+                    "changelog": "/changelogs/2026-02-23",
+                    "new": [
+                        {
+                            "en": { "title": "safeUnpack()", "desc": "Never throws on stale buttons; returns a typed discriminated union (SafeUnpackResult<T>). Use it only outside bot.callbackQuery(schema, …) (that path already unpacks into ctx.queryData)." },
+                            "ru": { "title": "safeUnpack()", "desc": "Никогда не падает на устаревших кнопках; возвращает типизированный дискриминированный union (SafeUnpackResult<T>). Используйте только вне bot.callbackQuery(schema, …) (там уже есть распаковка в ctx.queryData)." },
+                            "after": "const result = data.safeUnpack(ctx.data ?? \"\");\nif (!result.success) return ctx.answerCallbackQuery({ text: \"This button is outdated!\" });"
+                        },
+                        {
+                            "en": { "title": "Optional fields are backward-compatible", "desc": "Adding optional fields to the end of a schema is now a safe migration — old packed strings unpack with the new fields as undefined. Adding required fields, reordering, or renaming nameId are still breaking." },
+                            "ru": { "title": "Optional-поля обратно совместимы", "desc": "Добавление optional-полей в конец схемы теперь безопасная миграция — старые упакованные строки распаковываются с новыми полями как undefined. Добавление required-полей, перестановка и переименование nameId по-прежнему ломают." }
+                        }
+                    ]
+                }
+            ]
+        },
+        "@gramio/test": {
+            "repo": "gramiojs/test",
+            "layer": 5,
+            "entries": [
+                {
+                    "from": "0.3.0",
+                    "to": "0.7.0",
+                    "date": "2026-05-08",
+                    "changelog": "/changelogs/2026-05-08",
+                    "new": [
+                        {
+                            "en": { "title": "lastBotMessage() bubble, payments, typed ApiCall", "desc": "env.lastBotMessage() auto-tracks edits (options { withReplyMarkup }, { where }); Telegram Payments (sendPreCheckoutQuery/sendShippingQuery/sendSuccessfulPayment); type-safe ApiCall<Method>, lastApiCall(m), filterApiCalls(m)." },
+                            "ru": { "title": "Bubble lastBotMessage(), платежи, типизированный ApiCall", "desc": "env.lastBotMessage() авто-трекает edit (опции { withReplyMarkup }, { where }); Telegram Payments (sendPreCheckoutQuery/sendShippingQuery/sendSuccessfulPayment); типобезопасный ApiCall<Method>, lastApiCall(m), filterApiCalls(m)." }
+                        }
+                    ]
+                },
+                {
+                    "from": "0.1.0",
+                    "to": "0.3.0",
+                    "date": "2026-02-23",
+                    "changelog": "/changelogs/2026-02-23",
+                    "new": [
+                        {
+                            "en": { "title": "9 new methods", "desc": "user.editMessage(), forwardMessage(), sendMediaGroup(), pinMessage(), on(msg).clickByText(), sendAudio()/sendAnimation()/sendVideoNote(), ChatObject.post(), env.clearApiCalls()/lastApiCall()." },
+                            "ru": { "title": "9 новых методов", "desc": "user.editMessage(), forwardMessage(), sendMediaGroup(), pinMessage(), on(msg).clickByText(), sendAudio()/sendAnimation()/sendVideoNote(), ChatObject.post(), env.clearApiCalls()/lastApiCall()." }
+                        }
+                    ]
+                },
+                {
+                    "from": "0.0.x",
+                    "to": "0.1.0",
+                    "date": "2026-02-17",
+                    "changelog": "/changelogs/2026-02-17",
+                    "new": [
+                        {
+                            "en": { "title": "Reactions, inline mode, fluent scopes", "desc": "user.react()/ReactObject (auto old_reaction), sendInlineQuery()/chooseInlineResult(), and user.in(chat).on(msg).react(). Also env.onApi()/offApi() mocking + apiError()." },
+                            "ru": { "title": "Реакции, инлайн-режим, fluent-скоупы", "desc": "user.react()/ReactObject (авто old_reaction), sendInlineQuery()/chooseInlineResult() и user.in(chat).on(msg).react(). Также моки env.onApi()/offApi() + apiError()." }
+                        }
+                    ]
+                }
+            ]
+        },
+        "@gramio/session": {
+            "repo": "gramiojs/session",
+            "layer": 4,
+            "entries": [
+                {
+                    "from": null,
+                    "to": "0.2.0",
+                    "date": "2026-02-17",
+                    "changelog": "/changelogs/2026-02-17",
+                    "new": [
+                        {
+                            "en": { "title": "Lazy sessions", "desc": "session({ storage, lazy: true }) defers the storage get until the first ctx.session read — cuts DB reads 50–90% for handlers that don't touch session. Write-back unchanged." },
+                            "ru": { "title": "Ленивые сессии", "desc": "session({ storage, lazy: true }) откладывает get из хранилища до первого чтения ctx.session — срезает чтения из БД на 50–90% для хэндлеров, не трогающих сессию. Запись не меняется." }
+                        }
+                    ]
+                }
+            ]
+        },
+        "@gramio/views": {
+            "repo": "gramiojs/views",
+            "layer": 4,
+            "entries": [
+                {
+                    "from": "0.1.1",
+                    "to": "0.2.0",
+                    "date": "2026-05-08",
+                    "changelog": "/changelogs/2026-05-08",
+                    "new": [
+                        {
+                            "en": { "title": "Lazy globals via thunk", "desc": "buildRender accepts Globals | (() => Globals); a thunk runs per render so views see fresh session/scene/locale/onboarding state. The adapter factory re-runs per render too." },
+                            "ru": { "title": "Ленивые globals через thunk", "desc": "buildRender принимает Globals | (() => Globals); thunk вызывается на каждый рендер, чтобы view видел свежее состояние session/scene/locale/onboarding. Фабрика адаптера тоже перезапускается на рендер." }
+                        }
+                    ]
+                },
+                {
+                    "from": "0.0.x",
+                    "to": "0.1.1",
+                    "date": "2026-03-02",
+                    "changelog": "/changelogs/2026-03-02",
+                    "new": [
+                        {
+                            "en": { "title": "sticker / voice / video_note media", "desc": "Each with its own edit behavior (sticker/video_note are keyboard-only edits). Render methods return typed results instead of void." },
+                            "ru": { "title": "Медиа sticker / voice / video_note", "desc": "У каждого своё поведение при редактировании (sticker/video_note редактируются только по клавиатуре). Методы рендера возвращают типизированные результаты вместо void." }
+                        }
+                    ]
+                },
+                {
+                    "from": null,
+                    "to": "new package",
+                    "date": "2026-02-15",
+                    "changelog": "/changelogs/2026-02-15",
+                    "new": [
+                        {
+                            "en": { "title": "Reusable message-view system", "desc": "Automatic send/edit detection: programmatic adapters (defineAdapter), JSON-driven views (createJsonAdapter, {{key}} interpolation), filesystem loading (loadJsonViewsDir), and i18n support." },
+                            "ru": { "title": "Система переиспользуемых view сообщений", "desc": "Автоопределение send/edit: программные адаптеры (defineAdapter), JSON-view (createJsonAdapter, интерполяция {{key}}), загрузка с ФС (loadJsonViewsDir) и поддержка i18n." }
+                        }
+                    ]
+                }
+            ]
+        },
+        "@gramio/onboarding": {
+            "repo": "gramiojs/onboarding",
+            "layer": 4,
+            "entries": [
+                {
+                    "from": "0.1.0",
+                    "to": "0.2.0",
+                    "date": "2026-05-31",
+                    "changelog": "/changelogs/2026-05-31",
+                    "new": [
+                        {
+                            "en": { "title": "Typed build() (type-level only)", "desc": "createOnboarding({ id }).….build() threads the flow Id, so bot.extend(...) widens ctx.onboarding.<id> automatically — no augmentation or cast. No runtime change." },
+                            "ru": { "title": "Типизированный build() (только типы)", "desc": "createOnboarding({ id }).….build() пробрасывает Id флоу, так что bot.extend(...) сам расширяет ctx.onboarding.<id> — без augmentation и каста. Рантайм не меняется." },
+                            "after": "bot.command(\"start\", (ctx) => {\n    ctx.onboarding.welcome.start(); // ✅ typed, no augmentation\n    return ctx.send(\"Let's go!\");\n});"
+                        }
+                    ]
+                },
+                {
+                    "from": null,
+                    "to": "0.1.0",
+                    "date": "2026-05-08",
+                    "changelog": "/changelogs/2026-05-08",
+                    "new": [
+                        {
+                            "en": { "title": "New official plugin", "desc": "Declarative tutorials with multi-flow concurrency (queue/preempt/parallel), a refusal ladder (next → skip → exit → dismiss → disableAll), scope-aware rendering (renderIn), fire-and-forget ctx.onboarding.*, pluggable @gramio/storage, optional @gramio/views integration." },
+                            "ru": { "title": "Новый официальный плагин", "desc": "Декларативные туториалы с многопоточными флоу (queue/preempt/parallel), лесенкой отказа (next → skip → exit → dismiss → disableAll), scope-aware рендером (renderIn), fire-and-forget ctx.onboarding.*, подключаемым @gramio/storage и опциональной интеграцией с @gramio/views." }
+                        }
+                    ]
+                }
+            ]
+        },
+        "@gramio/rate-limit": {
+            "repo": "gramiojs/rate-limiter",
+            "layer": 4,
+            "entries": [
+                {
+                    "from": null,
+                    "to": "0.0.1",
+                    "date": "2026-03-02",
+                    "changelog": "/changelogs/2026-03-02",
+                    "breaking": [
+                        {
+                            "en": { "title": "Export & package renamed", "desc": "The plugin export is rateLimit (briefly rateLimitPlugin in the same release — the old name is gone). The npm package was renamed rate-limiter → rate-limit." },
+                            "ru": { "title": "Переименованы экспорт и пакет", "desc": "Экспорт плагина — rateLimit (в том же релизе ненадолго был rateLimitPlugin — старого имени больше нет). npm-пакет переименован rate-limiter → rate-limit." }
+                        }
+                    ],
+                    "new": [
+                        {
+                            "en": { "title": "Macro-based per-handler throttling", "desc": "Sliding-window rate limiting via the macro system — no imperative if (!await ctx.rateLimit()) return. In-memory by default; swap in Redis/SQLite/Cloudflare via storage." },
+                            "ru": { "title": "Троттлинг на хэндлер через макросы", "desc": "Rate limiting со скользящим окном через систему макросов — без императивного if (!await ctx.rateLimit()) return. По умолчанию in-memory; подключайте Redis/SQLite/Cloudflare через storage." },
+                            "after": "import { rateLimit } from \"@gramio/rate-limit\";\nconst bot = new Bot(token).extend(rateLimit({ onLimitExceeded: (ctx) => ctx.is(\"message\") && ctx.reply(\"Slow down!\") }));\nbot.command(\"pay\", payHandler, { rateLimit: { limit: 3, window: 60 } });"
+                        }
+                    ]
+                }
+            ]
+        },
+        "@gramio/i18n": {
+            "repo": "gramiojs/i18n",
+            "layer": 4,
+            "entries": [
+                {
+                    "from": null,
+                    "to": "1.5",
+                    "date": "2026-05-08",
+                    "changelog": "/changelogs/2026-05-08",
+                    "new": [
+                        {
+                            "en": { "title": "localesFor()", "desc": "i18n.localesFor(key) returns Record<string, string> of non-primary translations — drops straight into CommandMeta.locales for bot.syncCommands()." },
+                            "ru": { "title": "localesFor()", "desc": "i18n.localesFor(key) возвращает Record<string, string> непервичных переводов — кладётся прямо в CommandMeta.locales для bot.syncCommands()." },
+                            "after": "bot.command(\"help\", { description: i18n.t(\"en\", \"cmd.help\"), locales: i18n.localesFor(\"cmd.help\") }, helpHandler);"
+                        }
+                    ]
+                }
+            ]
+        },
+        "@gramio/jsx": {
+            "repo": "gramiojs/jsx",
+            "layer": 4,
+            "entries": [
+                {
+                    "from": null,
+                    "to": "date-time element",
+                    "date": "2026-05-08",
+                    "changelog": "/changelogs/2026-05-08",
+                    "new": [
+                        {
+                            "en": { "title": "<date-time> element", "desc": "<date-time unixTime={…} format=\"D\" /> backed by the dateTime entity (@gramio/format 0.5+). Formats: r w d D t T wDT Dt, etc." },
+                            "ru": { "title": "Элемент <date-time>", "desc": "<date-time unixTime={…} format=\"D\" /> на базе сущности dateTime (@gramio/format 0.5+). Форматы: r w d D t T wDT Dt и др." }
+                        }
+                    ]
+                }
+            ]
+        },
+        "@gramio/auto-answer-callback-query": {
+            "repo": "gramiojs/auto-answer-callback-query",
+            "layer": 4,
+            "entries": [
+                {
+                    "from": null,
+                    "to": "0.0.3",
+                    "date": "2026-05-08",
+                    "changelog": "/changelogs/2026-05-08",
+                    "fixes": [
+                        {
+                            "en": { "title": "Answers even when the handler throws", "desc": "The middleware now wraps the handler in try/finally, so answerCallbackQuery always runs — no more stuck spinner." },
+                            "ru": { "title": "Отвечает даже если хэндлер кинул", "desc": "Middleware оборачивает хэндлер в try/finally, так что answerCallbackQuery всегда вызывается — спиннер больше не зависает." }
+                        }
+                    ]
+                }
+            ]
+        },
+        "@gramio/sentry": {
+            "repo": "gramiojs/sentry",
+            "layer": 4,
+            "entries": [
+                {
+                    "from": null,
+                    "to": "new plugin",
+                    "date": "2026-02-15",
+                    "changelog": "/changelogs/2026-02-15",
+                    "new": [
+                        {
+                            "en": { "title": "Sentry plugin", "desc": "sentryPlugin({ setUser, breadcrumbs, tracing }) with ctx.sentry.captureMessage()/setTag(). Uses @sentry/core (Bun + Node). Rides on the gramio onApiCall hook." },
+                            "ru": { "title": "Плагин Sentry", "desc": "sentryPlugin({ setUser, breadcrumbs, tracing }) с ctx.sentry.captureMessage()/setTag(). Использует @sentry/core (Bun + Node). Работает на хуке onApiCall из gramio." }
+                        }
+                    ]
+                }
+            ]
+        },
+        "@gramio/opentelemetry": {
+            "repo": "gramiojs/opentelemetry",
+            "layer": 4,
+            "entries": [
+                {
+                    "from": null,
+                    "to": "new plugin",
+                    "date": "2026-02-15",
+                    "changelog": "/changelogs/2026-02-15",
+                    "new": [
+                        {
+                            "en": { "title": "OpenTelemetry plugin", "desc": "opentelemetryPlugin({ recordApiParams }); every update is a root span, every API call a child span. Utilities record(), getCurrentSpan(), setAttributes()." },
+                            "ru": { "title": "Плагин OpenTelemetry", "desc": "opentelemetryPlugin({ recordApiParams }); каждый апдейт — корневой спан, каждый вызов API — дочерний. Утилиты record(), getCurrentSpan(), setAttributes()." }
+                        }
+                    ]
+                }
+            ]
+        },
+        "@gramio/schema-parser": {
+            "repo": "gramiojs/schema-parser",
+            "layer": 1,
+            "entries": [
+                {
+                    "from": "1.0.1",
+                    "to": "1.1.0",
+                    "date": "2026-05-08",
+                    "changelog": "/changelogs/2026-05-08",
+                    "new": [
+                        {
+                            "en": { "title": "Shared-sibling FormattableString detection", "desc": "Promotes the lone unmarked string field to semanticType: \"formattable\" when an object has bare parse_mode + bare entities (e.g. InputTextMessageContent)." },
+                            "ru": { "title": "Детекция FormattableString по общим соседям", "desc": "Повышает единственное непомеченное строковое поле до semanticType: \"formattable\", когда у объекта есть голые parse_mode + entities (например, InputTextMessageContent)." }
+                        }
+                    ]
+                },
+                {
+                    "from": null,
+                    "to": "1.0.1",
+                    "date": "2026-02-23",
+                    "changelog": "/changelogs/2026-02-23",
+                    "new": [
+                        {
+                            "en": { "title": "New internal schema engine", "desc": "Native TypeScript parser of the Telegram Bot API docs that powers @gramio/types (replaces the Rust tg-bot-api crate). Semantic type markers, InputFile | string detection, synthesized Currencies enum with XTR, oneOf unions." },
+                            "ru": { "title": "Новый внутренний движок схем", "desc": "Нативный TypeScript-парсер документации Telegram Bot API, питающий @gramio/types (заменяет Rust-крейт tg-bot-api). Семантические маркеры типов, детекция InputFile | string, синтезированный enum Currencies с XTR, юнионы oneOf." }
+                        }
+                    ]
+                }
+            ]
+        },
+        "wrappergram": {
+            "repo": "gramiojs/wrappergram",
+            "layer": 1,
+            "entries": [
+                {
+                    "from": "v1",
+                    "to": "v2",
+                    "date": "2026-05-08",
+                    "changelog": "/changelogs/2026-05-08",
+                    "notes": [
+                        {
+                            "en": "Only affects you if you use wrappergram directly — gramio users get bot.api and are unaffected.",
+                            "ru": "Касается вас, только если вы используете wrappergram напрямую — пользователи gramio получают bot.api и не затронуты."
+                        }
+                    ],
+                    "breaking": [
+                        {
+                            "en": { "title": "Telegram class → Wrappergram, middleware chain", "desc": "The hardcoded pipeline is now a middleware chain. @gramio/files is no longer a hard dependency — opt in via @gramio/files/middleware (and @gramio/format/middleware)." },
+                            "ru": { "title": "Класс Telegram → Wrappergram, цепочка middleware", "desc": "Захардкоженный пайплайн теперь цепочка middleware. @gramio/files больше не жёсткая зависимость — подключайте через @gramio/files/middleware (и @gramio/format/middleware)." },
+                            "before": "import { Telegram } from \"wrappergram\";\nconst tg = new Telegram(token);",
+                            "after": "import { Wrappergram, TelegramError } from \"wrappergram\";\nimport { filesMiddleware } from \"@gramio/files/middleware\";\nconst tg = new Wrappergram({ token, middlewares: [filesMiddleware] });\n\nconst result = await tg.sendMessage({ chat_id, text }, { suppress: true });\nif (result instanceof TelegramError) console.error(result.code, result.payload);"
+                        }
+                    ],
+                    "new": [
+                        {
+                            "en": { "title": "Single Middleware type, TelegramError, suppress", "desc": "Middleware (ctx, next) => unknown, first-class TelegramError (method/code/payload + real stack), suppress: true (return TelegramError | Result instead of throwing), per-request fetch options." },
+                            "ru": { "title": "Единый тип Middleware, TelegramError, suppress", "desc": "Middleware (ctx, next) => unknown, первоклассный TelegramError (method/code/payload + настоящий стек), suppress: true (возврат TelegramError | Result вместо throw), per-request опции fetch." }
+                        }
+                    ]
+                }
+            ]
+        },
+        "create-gramio": {
+            "repo": "gramiojs/create-gramio",
+            "layer": 5,
+            "entries": [
+                {
+                    "from": null,
+                    "to": "2.x",
+                    "date": "2026-03-02",
+                    "changelog": "/changelogs/2026-03-02",
+                    "notes": [
+                        {
+                            "en": "Affects new scaffolds, not existing projects.",
+                            "ru": "Касается новых scaffold'ов, не существующих проектов."
+                        }
+                    ],
+                    "new": [
+                        {
+                            "en": { "title": "Scaffold features", "desc": "Generates CLAUDE.md; optional GramIO AI Skills install; @gramio/broadcast plugin choice; full CLI args + presets (minimal/recommended/full); scoped-composer + scene step-inheritance layout (2.2.0)." },
+                            "ru": { "title": "Возможности scaffold", "desc": "Генерирует CLAUDE.md; опциональная установка AI Skills GramIO; выбор плагина @gramio/broadcast; полные CLI-аргументы + пресеты (minimal/recommended/full); scoped-composer + наследование шагов сцен (2.2.0)." }
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

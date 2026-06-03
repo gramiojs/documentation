@@ -208,6 +208,7 @@ export const localeRu = {
 							{ text: "Фильтры", link: "/ru/guides/filters" },
 							{ text: "Composer (модули)", link: "/ru/guides/composer" },
 							{ text: "AI навыки", link: "/ru/guides/ai-skills" },
+							{ text: "Обновление версий", link: "/ru/guides/upgrading" },
 							{
 								text: "Миграция",
 								collapsed: true,

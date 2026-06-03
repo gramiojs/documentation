@@ -36,6 +36,7 @@ skills/                        # User-land AI skills (installed via `npx skills 
     references/                # 18 deep-dive API reference docs
     plugins/                   # 6 plugin guides
   gramio-pick-username/        # /gramio-pick-username — suggest and check Telegram bot usernames
+  gramio-upgrade/              # /gramio-upgrade — upgrade a project across gramio/@gramio versions; MIGRATIONS.md ledger maintained by /generate-changelog
 .claude/skills/                # Internal doc skills (metadata.internal: true)
 .cursor/rules/                 # Cursor editor rules
 .github/copilot-instructions.md  # GitHub Copilot instructions

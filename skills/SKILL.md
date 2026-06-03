@@ -238,6 +238,8 @@ Load when the user wants to migrate an existing bot to GramIO.
 | Telegraf | Symbol mapping, context typing, Scenes/WizardScene, webhook differences, checklist | [migration-from-telegraf](references/migration-from-telegraf.md) |
 | node-telegram-bot-api | Symbol mapping, middleware concepts, keyboard builders, session, checklist | [migration-from-ntba](references/migration-from-ntba.md) |
 
+> **Upgrading an existing GramIO project across `gramio`/`@gramio/*` versions** (not migrating from another framework) → use the standalone **`gramio-upgrade`** skill (`skills/gramio-upgrade/SKILL.md`). It detects installed versions, looks up the breaking changes / deprecations / new features between current and target in its version-by-version ledger (`skills/gramio-upgrade/MIGRATIONS.md`), and applies the edits.
+
 ### Plugins
 
 | Plugin | Description | Reference |

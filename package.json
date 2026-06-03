@@ -53,7 +53,8 @@
 		"gen:api:dry": "bun scripts/generate-api-docs.ts --dry-run",
 		"gen:typedoc": "bun scripts/generate-typedoc.ts",
 		"check:skills": "tsc -p tsconfig.skills.json",
-		"test:skills": "bun test --preload ./tests/setup.ts tests/examples/"
+		"test:skills": "bun test --preload ./tests/setup.ts tests/examples/",
+		"build:migrations": "node scripts/build-migrations.mjs"
 	},
 	"trustedDependencies": ["@biomejs/biome"],
 	"type": "module",

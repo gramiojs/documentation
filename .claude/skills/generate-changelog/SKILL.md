@@ -1,6 +1,6 @@
 ---
 name: generate-changelog
-description: Generate changelog pages from gramiojs org patches using ghlog CLI. Tracks last-seen commit SHAs per repo via --since-map for precise incremental updates. Also updates docs and skills to reflect changes.
+description: Generate changelog pages from gramiojs org patches using ghlog CLI. Tracks last-seen commit SHAs per repo via --since-map for precise incremental updates. Also updates docs and skills to reflect changes, and maintains the per-package GramIO upgrade data (public/migrations.json) that generates the upgrade skill, the upgrading guide, and the version picker.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep
 metadata:
     internal: true
@@ -284,11 +284,54 @@ If a notable new feature was added, create or update `skills/examples/<name>.ts`
 - `skills/plugins/` — Update plugin guides if plugin behavior changed
 - `skills/metadata.json` — Bump the version number and date
 
+#### Update the upgrade data (`public/migrations.json`) — MANDATORY
+
+The `gramio-upgrade` skill, the `docs/guides/upgrading.md` page (EN + RU), and the `<UpgradePicker />` widget are all generated from **one source of truth: `public/migrations.json`**. You author the JSON here — **reusing the migration content you already wrote for the changelog page** (do not re-derive it) — then run the generator. Never hand-edit the derived files (`skills/gramio-upgrade/MIGRATIONS.md`, the generated block in `docs/guides/upgrading.md` / `docs/ru/guides/upgrading.md`); they'll be overwritten.
+
+For **every package that had a version bump this run** (the same set you covered in steps 5–6):
+
+1. Open `public/migrations.json`. Find `packages["<name>"]` (create it if the package is new — give it `repo`, a `layer` for dependency ordering: `1` types/composer/schema-parser/wrappergram, `2` contexts/files/format/keyboards/callback-data/storage*, `3` gramio, `4` plugins, `5` tooling/create-gramio — and an empty `entries: []`).
+2. **Prepend** a new entry to that package's `entries` array (newest first):
+
+   ```json
+   {
+       "from": "<installed-before>",
+       "to": "<new-version>",
+       "date": "YYYY-MM-DD",
+       "changelog": "/changelogs/YYYY-MM-DD",
+       "pendingPublish": false,
+       "upgradeStraightTo": null,
+       "peerBumps": ["@gramio/types ^10"],
+       "notes": [{ "en": "…", "ru": "…" }],
+       "breaking": [
+           {
+               "en": { "title": "…", "desc": "…" },
+               "ru": { "title": "…", "desc": "…" },
+               "before": "old code (optional)",
+               "after": "new code (optional)"
+           }
+       ],
+       "deprecated": [],
+       "new": [],
+       "fixes": []
+   }
+   ```
+
+   Rules for the entry:
+   - **Bilingual:** every `breaking`/`deprecated`/`new`/`fixes` item and every `notes` line needs both `en` and `ru` (write natural Russian, like the RU changelog — don't translate mechanically). `before`/`after` code stays language-agnostic (write it once).
+   - Omit/empty any bucket that doesn't apply. `from: null` for a brand-new package's first release. Keep snippets short and runnable (camelCase `ctx` getters, `format\`\``, no `any`, no `ctx.payload`).
+   - **Pending publish (step 5a):** set `"pendingPublish": true` if the version is tagged but not yet on npm.
+   - **WIP rule (step 5b):** `to` must be the version whose SHA you saved, not a half-finished trailing commit.
+   - **Known-bad release:** if there's an immediate follow-up fix (like `@gramio/scenes` 0.7.0 → 0.7.1), set `"upgradeStraightTo": "0.7.1"` and add a `fixes` item saying so.
+3. Run **`bun run build:migrations`** to regenerate `skills/gramio-upgrade/MIGRATIONS.md` and the generated blocks in both `upgrading.md` pages. Then `bun run build:migrations -- --check` should report "in sync".
+
 **Checklist before moving on from this step:**
 - [ ] Every new plugin doc page has a corresponding `skills/plugins/<name>.md`
 - [ ] Every new standalone doc page has a corresponding `skills/references/<name>.md`
 - [ ] Notable new features have examples in `skills/examples/`
 - [ ] Changed plugin behavior is reflected in existing `skills/plugins/` files
+- [ ] Every package version bump this run has a bilingual entry in `public/migrations.json`
+- [ ] `bun run build:migrations` was run and `-- --check` is green (derived files in sync)
 - [ ] `skills/metadata.json` version and date are bumped
 
 For each update, keep a record of what file was changed and why for the final report.

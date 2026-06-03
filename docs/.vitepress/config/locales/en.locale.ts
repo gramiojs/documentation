@@ -760,6 +760,7 @@ export function createLocaleEn(typeDocSidebar: Record<string, unknown[]> = {}) {
 							{ text: "Filters", link: "/guides/filters" },
 							{ text: "Composer (modules)", link: "/guides/composer" },
 							{ text: "AI Skills", link: "/guides/ai-skills" },
+							{ text: "Upgrading versions", link: "/guides/upgrading" },
 							{
 								text: "Migration",
 								collapsed: true,

@@ -5,6 +5,8 @@ on:
     paths:
       - "skills/**"
       - "tests/**"
+      - "public/migrations.json"
+      - "scripts/build-migrations.mjs"
       - "tsconfig.skills.json"
       - "package.json"
       - "bun.lock"
@@ -13,6 +15,8 @@ on:
     paths:
       - "skills/**"
       - "tests/**"
+      - "public/migrations.json"
+      - "scripts/build-migrations.mjs"
       - "tsconfig.skills.json"
       - "package.json"
       - "bun.lock"
@@ -31,6 +35,9 @@ jobs:
 
       - name: Install modules
         run: bun install --frozen-lockfile
+
+      - name: Verify upgrade docs are generated from public/migrations.json
+        run: bun run build:migrations -- --check
 
       - name: Typecheck skill examples
         run: bun run check:skills

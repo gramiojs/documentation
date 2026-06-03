@@ -11,6 +11,7 @@ import PollingVsWebhook from "../components/PollingVsWebhook.vue";
 import BroadcastVisualizer from "../components/BroadcastVisualizer.vue";
 import UpdatePipelineVisualizer from "../components/UpdatePipelineVisualizer.vue";
 import ApiParam from "../components/ApiParam.vue";
+import UpgradePicker from "../components/UpgradePicker.vue";
 import { enhanceAppWithPackageManagers } from "vitepress-plugin-package-managers/client";
 import { icons } from "vitepress-plugin-package-managers/icons";
 
@@ -25,5 +26,6 @@ export default {
 		app.component("BroadcastVisualizer", BroadcastVisualizer);
 		app.component("UpdatePipelineVisualizer", UpdatePipelineVisualizer);
 		app.component("ApiParam", ApiParam);
+		app.component("UpgradePicker", UpgradePicker);
 	},
 };
