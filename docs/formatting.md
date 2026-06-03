@@ -309,9 +309,6 @@ You can convert HTML markup into Telegram entities using the `htmlToFormattable`
 
 This is useful when your content comes from a CMS, rich text editor (TipTap, ProseMirror), or an LLM that produces HTML output. The approach is the same as Markdown: parse locally into entities and send without any `parse_mode`. Invalid HTML degrades gracefully to plain text.
 
-> [!WARNING]
-> This function may change in the future.
-
 ### Installation
 
 The HTML feature requires [`node-html-parser`](https://www.npmjs.com/package/node-html-parser) as a peer dependency:
@@ -363,9 +360,6 @@ This is especially useful for:
 - **Data from databases or external sources** — when you store or receive Markdown text and need to render it in Telegram.
 
 Unlike Telegram's built-in `parse_mode` (`HTML` or `MarkdownV2`), this approach **won't break your message if the markup is invalid**. Telegram's `parse_mode` will reject the entire message on a syntax error (e.g. an unclosed tag or unescaped character). With `markdownToFormattable`, the text is parsed locally into entities — if the markdown is malformed, it gracefully degrades to plain text instead of failing.
-
-> [!WARNING]
-> This function may change in the future.
 
 ### Installation
 

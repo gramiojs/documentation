@@ -11,9 +11,6 @@
 
 A template system for reusable message views. Auto-detects whether to send a new message or edit the existing one based on context type. Supports programmatic adapters, JSON-driven views with interpolation, filesystem loading, i18n, all keyboard types, and media with URL interpolation.
 
-> [!WARNING]
-> This package is a work in progress. The API may change.
-
 ### Installation
 
 ::: pm-add @gramio/views

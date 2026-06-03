@@ -214,9 +214,6 @@ const testScene = new Scene("test")
 
 ### ask
 
-> [!WARNING]
-> This API may change in future versions.
-
 `ask` is a syntactic sugar over `step` that helps avoid boilerplate for simple validation steps.
 
 Under the hood it uses [Standard Schema](https://standardschema.dev/), so you can use any validator that implements this standard (like [Zod](https://zod.dev/)).

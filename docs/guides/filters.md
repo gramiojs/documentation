@@ -13,10 +13,6 @@ head:
 
 # Filters
 
-:::warning UNRELEASED
-The filters system is currently on the `main` branch and has not been included in a tagged release yet. The API may change before the stable release.
-:::
-
 GramIO's filter system lets you apply type-safe predicates to context — either as the third argument to `bot.on(event, filter, handler)` or as the only argument in a **filter-only** `.on(filter, handler)` call that auto-discovers compatible events.
 
 ## Filter-Only `.on()` — No Event Name Required

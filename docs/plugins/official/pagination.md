@@ -24,9 +24,6 @@ head:
 
 A fluent, chainable API for creating **paginated inline keyboard menus** in Telegram bots. Handles data fetching, keyboard generation, navigation buttons, page info, and item selection callbacks.
 
-> [!WARNING]
-> This package is in WIP stage — the API may change.
-
 ## Installation
 
 ::: pm-add @gramio/pagination

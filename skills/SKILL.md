@@ -199,7 +199,7 @@ Each page contains: GramIO TypeScript examples, parameter details, error table w
 | Bot API | Calling methods, suppress, withRetries, type helpers | [bot-api](references/bot-api.md) |
 | Context & Updates | derive, decorate, middleware, start/stop, type narrowing | [context](references/context.md) |
 | Triggers | command, hears, callbackQuery, inlineQuery, reaction | [triggers](references/triggers.md) |
-| Filters | type-safe context narrowing — filter-only `.on()`, `filters.*` predicates, `guard()` (⚠️ unreleased) | [filters](references/filters.md) |
+| Filters | type-safe context narrowing — filter-only `.on()`, `filters.*` predicates, `guard()` | [filters](references/filters.md) |
 | Middleware Routing | handler priority, `next()`, overlapping CallbackData, centralized routing | [middleware-routing](references/middleware-routing.md) |
 | Scene ↔ Composer inheritance | share named `.as("scoped")` composer derives between bot-level handlers and Scene steps; file split to avoid circular imports | [scene-composer-inheritance](references/scene-composer-inheritance.md) |
 | Hooks | onStart, onStop, onError, preRequest, onResponse | [hooks](references/hooks.md) |

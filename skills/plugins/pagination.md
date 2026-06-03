@@ -7,8 +7,6 @@ description: Paginated inline-keyboard menus — fluent `Pagination` builder han
 
 Fluent API for paginated inline keyboards. You supply a data function (`{ offset, limit } → items`) and the plugin handles the keyboard layout, prev/next/first/last buttons, page-info button, and per-item tap callbacks.
 
-> **WIP:** API may change. Pin a minor version in production.
-
 ## Install
 
 ```bash
