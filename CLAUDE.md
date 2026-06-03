@@ -49,7 +49,7 @@ CLAUDE.md                      # This file — project context for Claude
 - **Bilingual mirroring**: Every `docs/*.md` file must have a `docs/ru/*.md` counterpart. English is the source of truth. See `AGENTS.md` for full rules.
 - **Twoslash annotations**: Code blocks use `// ^?` for inline type hints — never delete these.
 - **Frontmatter**: Every doc page needs `title`, `description` (meta), and `keywords` (meta) in YAML front matter.
-- **Package manager tabs**: Installation examples use `::: code-group` with npm/yarn/pnpm/bun tabs.
+- **Package installation**: Use the custom `::: pm-add <package>` container (then `:::`) — it auto-generates the npm/yarn/pnpm/bun tabs. Do **not** hand-write a `::: code-group` with manual `npm install` / `yarn add` / … tabs for installs. Example: `::: pm-add @gramio/tdlight` then `:::`. (Used in 70+ pages, e.g. `docs/plugins/official/prompt.md`.) Reserve `::: code-group` for non-install tab groups like `docker run` vs `docker-compose.yml`.
 - **Images**: EN images go in `public/`, RU images in `public/ru/` with identical relative paths.
 - **Sidebar registration**: New pages must be added to both `en.locale.ts` and `ru.locale.ts`.
 - **Vue components**: Custom Vue components live in `docs/.vitepress/components/` and must be globally registered in `docs/.vitepress/theme/index.ts` via `app.component()` inside `enhanceApp`. They are **not** auto-registered. See [VitePress docs](https://vitepress.dev/guide/using-vue#using-components).
