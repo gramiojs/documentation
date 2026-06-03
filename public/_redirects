@@ -8,6 +8,9 @@ https://gramio.netlify.app/* https://gramio.dev/:splat 301!
 /webhook/        /updates/webhook    302!
 /webhook/index   /updates/webhook    302!
 
+/plugins/official/rate-limiter      /plugins/official/rate-limit      301!
+/ru/plugins/official/rate-limiter   /ru/plugins/official/rate-limit   301!
+
 /plugins/index         /plugins/overview         302!
 /storages/index        /storages                 302!
 /formatting/index      /formatting               302!
