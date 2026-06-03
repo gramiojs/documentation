@@ -54,3 +54,6 @@ await bot.downloadFile(chat.photo.big_file_id, "not_found_chat_photo.png");
 // get ArrayBuffer
 const buffer = await bot.downloadFile(chat.photo.big_file_id);
 ```
+
+> [!WARNING]
+> These helpers build a `…/file/bot<token>/<file_path>` URL. Against a **local Bot API server running with `--local`**, `getFile` returns an absolute disk path instead, so this URL won't resolve. See the [Local Bot API Server guide](/bot-api/local#downloading-files) for how to download files in that setup (shared volume or an nginx sidecar with token-less URLs).

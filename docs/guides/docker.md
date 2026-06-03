@@ -15,6 +15,9 @@ head:
 
 Containerizing your GramIO bot with Docker provides benefits such as environment consistency, simplified deployment, and improved scalability. This guide will help you set up Docker for your GramIO project.
 
+> [!TIP]
+> Want to run the **Telegram Bot API server** itself (for 2 GB uploads and unlimited downloads)? See the [Local Bot API Server guide](/bot-api/local) and the official `ghcr.io/gramiojs/telegram-bot-api` image.
+
 ## Basic Dockerfile Setup
 
 Create a `Dockerfile` in your project root:

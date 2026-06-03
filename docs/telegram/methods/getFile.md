@@ -54,10 +54,10 @@ const bot = new Bot("");
 // ---cut---
 // Retrieve file info inside a message handler
 bot.on("message", async (ctx) => {
-  const document = ctx.payload.document;
+  const document = ctx.document;
   if (!document) return;
 
-  const file = await bot.api.getFile({ file_id: document.file_id });
+  const file = await bot.api.getFile({ file_id: document.fileId });
   await ctx.reply(
     `File ready — ${file.file_size ?? 0} bytes\nPath: ${file.file_path}`
   );
@@ -90,14 +90,15 @@ See also [GramIO file download helpers](/files/download) for a higher-level API.
 
 ## Tips & Gotchas
 
-- **20 MB cloud limit.** The Telegram cloud API only serves files up to 20 MB. For larger files (up to 2 GB), run a [local Bot API server](https://core.telegram.org/bots/api#using-a-local-bot-api-server) — the local server returns the absolute path on disk instead of a download URL.
+- **20 MB cloud limit.** The Telegram cloud API only serves files up to 20 MB. For larger files (up to 2 GB), run a local Bot API server — the local server returns the absolute path on disk instead of a download URL. See the [Local Bot API Server guide](/bot-api/local).
 - **`file_id` vs `file_unique_id`.** Always pass `file_id` to `getFile`. The `file_unique_id` field cannot be used to download or reuse files — it only identifies the underlying file across different bots.
 - **Download URL expires after ~1 hour.** Cache the URL only for short-lived tasks. For persistent access, store the `file_id` and call `getFile` again to refresh the URL.
 - **`file_path` can be absent.** The field is optional — check before building the URL. It is absent if the file is too large or currently unavailable.
-- **Token in URL is sensitive.** The download URL contains your bot token. Never expose it to end users directly — proxy downloads through your server if needed.
+- **Token in URL is sensitive.** The download URL contains your bot token. Never hand it to end users — prefer [`bot.downloadFile()` / `context.download()`](/files/download), which fetch the bytes for you, or proxy downloads through your own server. A self-hosted [local Bot API server](/bot-api/local) lets you serve files at token-less, path-based URLs.
 
 ## See Also
 
 - [File](/telegram/types/File) — return type of `getFile`
 - [GramIO file download guide](/files/download) — higher-level download helpers
 - [GramIO file upload guide](/files/media-upload) — `MediaUpload` for sending files
+- [Local Bot API Server guide](/bot-api/local) — 2 GB files & token-less downloads

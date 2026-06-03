@@ -36,6 +36,7 @@ Focused deep-dives on specific features and integrations.
 - [Get started](/get-started) — Scaffold, run, and understand the project structure
 - [Webhooks](/guides/webhook) — Run your bot on a web server instead of long polling
 - [Docker](/guides/docker) — Containerize your bot for easy deployment
+- [Local Bot API Server](/bot-api/local) — Self-host the Telegram Bot API for 2 GB uploads and unlimited downloads
 
 ### Payments & Monetization
 

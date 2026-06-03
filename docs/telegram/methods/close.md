@@ -79,3 +79,4 @@ await migrateBotServer();
 - [`logOut`](/telegram/methods/logOut) — log out from Telegram's cloud servers before switching to a local server
 - [`deleteWebhook`](/telegram/methods/deleteWebhook) — must be called before `close` to stop incoming updates
 - [`setWebhook`](/telegram/methods/setWebhook) — register a new webhook after migration
+- [Local Bot API Server guide](/bot-api/local) — set up and connect a self-hosted server

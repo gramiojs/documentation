@@ -54,3 +54,6 @@ await bot.downloadFile(chat.photo.big_file_id, "not_found_chat_photo.png");
 // получить ArrayBuffer
 const buffer = await bot.downloadFile(chat.photo.big_file_id);
 ```
+
+> [!WARNING]
+> Эти помощники строят URL вида `…/file/bot<token>/<file_path>`. При работе с **локальным сервером Bot API в режиме `--local`** метод `getFile` возвращает абсолютный путь на диске, поэтому такой URL не сработает. См. [руководство по локальному серверу Bot API](/ru/bot-api/local#скачивание-файлов) — как скачивать файлы в этом случае (общий том или sidecar nginx с ссылками без токена).

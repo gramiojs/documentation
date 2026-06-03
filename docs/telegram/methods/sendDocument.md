@@ -148,7 +148,7 @@ Use GramIO's [auto-retry plugin](/plugins/official/auto-retry) to handle `429` e
 
 ## Tips & Gotchas
 
-- **50 MB upload limit.** Files larger than 50 MB cannot be sent via the standard Bot API. For larger files, host a [local Bot API server](https://core.telegram.org/bots/api#using-a-local-bot-api-server) which allows up to 2 GB.
+- **50 MB upload limit.** Files larger than 50 MB cannot be sent via the standard Bot API. For larger files (up to 2 GB), run a local Bot API server — see the [Local Bot API Server guide](/bot-api/local).
 - **Cache `file_id` after the first upload.** Once a document is uploaded, save the `file_id` from the returned `Message.document.file_id`. Subsequent sends using `file_id` are instant — no re-upload — and bypass the size limit. See [media-cache plugin](/plugins/official/media-cache) for automatic caching.
 - **`caption` + `parse_mode` vs `caption_entities`.** They are mutually exclusive. GramIO's `format` helper produces `caption_entities`, so never set `parse_mode` alongside it.
 - **`disable_content_type_detection` only affects new uploads.** When resending by `file_id`, this flag has no effect since the file is already stored on Telegram servers.

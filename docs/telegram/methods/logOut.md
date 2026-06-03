@@ -53,7 +53,7 @@ console.log("Note: cloud login won't be available for 10 minutes.");
 
 // Step 2: In your next session, connect to local server:
 // const localBot = new Bot(process.env.BOT_TOKEN ?? "", {
-//   api: { baseURL: "http://localhost:8081" }
+//   api: { baseURL: "http://localhost:8081/bot" } // keep the /bot suffix
 // });
 ```
 
@@ -80,7 +80,7 @@ process.on("SIGTERM", async () => {
 
 ## Tips & Gotchas
 
-- **You must log out before running a local Bot API server.** If you skip this step, Telegram may deliver updates to the cloud server instead of your local one, causing missed messages.
+- **You must log out before running a local Bot API server.** If you skip this step, Telegram may deliver updates to the cloud server instead of your local one, causing missed messages. See the [Local Bot API Server guide](/bot-api/local) for the full setup.
 - **10-minute cloud lockout after logout.** Once you call `logOut`, you cannot reconnect to `api.telegram.org` for 10 minutes. Plan migrations accordingly — do not call it in a test environment unless intentional.
 - **This is a one-way operation in the short term.** After `logOut`, connect immediately to your local Bot API server. If you need to revert, wait the full 10 minutes before using the cloud API again.
 - **No parameters needed.** Unlike most Bot API methods, `logOut` takes no arguments. Just call it and handle the result.
