@@ -63,7 +63,15 @@ export const localeRu = {
 							{ text: "Введение", link: "/ru/introduction" },
 							{ text: "Начало работы", link: "/ru/get-started" },
 							{ text: "Шпаргалка", link: "/ru/cheat-sheet" },
-							{ text: "Bot API", link: "/ru/bot-api" },
+								{ text: "Решение проблем", link: "/ru/troubleshooting" },
+							{
+								text: "Bot API",
+								link: "/ru/bot-api",
+								items: [
+									{ text: "Локальный сервер Bot API", link: "/ru/bot-api/local" },
+									{ text: "Сервер tdlight Bot API", link: "/ru/bot-api/tdlight" },
+								],
+							},
 						],
 					},
 					{
@@ -150,7 +158,7 @@ export const localeRu = {
 									{ text: "Автоответ на callback", link: "/ru/plugins/official/auto-answer-callback-query" },
 									{ text: "Кеш медиа", link: "/ru/plugins/official/media-cache" },
 									{ text: "Медиа группы", link: "/ru/plugins/official/media-group" },
-									{ text: "Rate Limiter", link: "/ru/plugins/official/rate-limiter" },
+									{ text: "Rate Limiter", link: "/ru/plugins/official/rate-limit" },
 									{ text: "Prompt", link: "/ru/plugins/official/prompt" },
 									{ text: "Views", link: "/ru/plugins/official/views" },
 									{ text: "Split", link: "/ru/plugins/official/split" },
@@ -205,6 +213,7 @@ export const localeRu = {
 							},
 							{ text: "Telegram Stars", link: "/ru/guides/telegram-stars" },
 							{ text: "Deep-ссылки", link: "/ru/guides/deep-links" },
+							{ text: "UX-паттерны", link: "/ru/guides/ux-patterns" },
 							{ text: "Фильтры", link: "/ru/guides/filters" },
 							{ text: "Composer (модули)", link: "/ru/guides/composer" },
 							{ text: "AI навыки", link: "/ru/guides/ai-skills" },

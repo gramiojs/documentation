@@ -4,7 +4,7 @@ description: "Invoke for ANY Telegram bot code — `gramio`/`@gramio/*` imports,
 allowed-tools: Bash(node *tools/get-bot-api-method.mjs*), Bash(node *tools/get-bot-api-type.mjs*), Bash(node *tools/get-context-getter.mjs*), Bash(node *tools/get-plugin.mjs*)
 metadata:
   author: GramIO
-  version: "2026.4.21"
+  version: "1.10.0"
   source: https://github.com/gramiojs/documentation
 ---
 
@@ -199,10 +199,12 @@ Each page contains: GramIO TypeScript examples, parameter details, error table w
 | Bot API | Calling methods, suppress, withRetries, type helpers | [bot-api](references/bot-api.md) |
 | Context & Updates | derive, decorate, middleware, start/stop, type narrowing | [context](references/context.md) |
 | Triggers | command, hears, callbackQuery, inlineQuery, reaction | [triggers](references/triggers.md) |
+| Filters | type-safe context narrowing — filter-only `.on()`, `filters.*` predicates, `guard()` (⚠️ unreleased) | [filters](references/filters.md) |
 | Middleware Routing | handler priority, `next()`, overlapping CallbackData, centralized routing | [middleware-routing](references/middleware-routing.md) |
 | Scene ↔ Composer inheritance | share named `.as("scoped")` composer derives between bot-level handlers and Scene steps; file split to avoid circular imports | [scene-composer-inheritance](references/scene-composer-inheritance.md) |
 | Hooks | onStart, onStop, onError, preRequest, onResponse | [hooks](references/hooks.md) |
 | Updates & Lifecycle | start/stop options, graceful shutdown (SIGINT/SIGTERM) | [updates](references/updates.md) |
+| Troubleshooting | symptom → cause → fix: 409 conflict, broken formatting, spinner hangs, missing opt-in updates, scenes-without-session, snake_case access, un-awaited MediaUpload | [troubleshooting](references/troubleshooting.md) |
 
 ### Features
 
@@ -225,6 +227,8 @@ Each page contains: GramIO TypeScript examples, parameter details, error table w
 | Webhook | Framework integration, tunneling, custom handlers | [webhook](references/webhook.md) |
 | Rate Limits | withRetries, broadcasting, queues | [rate-limits](references/rate-limits.md) |
 | Docker | Dockerfile, multi-stage build, Docker Compose | [docker](references/docker.md) |
+| Local Bot API Server | self-host telegram-bot-api, cloud→local migration (`logOut` + `api.baseURL`), 2 GB uploads, token-less file downloads | [local-bot-api](references/local-bot-api.md) |
+| tdlight (@gramio/tdlight) | userbot/user mode, extra methods (searchMessages/getChats/votePoll), scheduling, proxies, extra object fields; method-name traps; Docker | [tdlight](references/tdlight.md) |
 | TMA | Mini Apps, mkcert HTTPS, @gramio/init-data auth | [tma](references/tma.md) |
 | Testing | Event-driven bot testing, user actors, API mocking | [testing](references/testing.md) |
 
@@ -234,6 +238,7 @@ Load when the user wants to migrate an existing bot to GramIO.
 
 | From | Description | Reference |
 |------|-------------|-----------|
+| grammY | Flavor generics → derive/extend, named API params, conversations → scenes, checklist | [migration-from-grammy](references/migration-from-grammy.md) |
 | puregram | Symbol mapping, API comparisons, checklist for puregram → GramIO refactor | [migration-from-puregram](references/migration-from-puregram.md) |
 | Telegraf | Symbol mapping, context typing, Scenes/WizardScene, webhook differences, checklist | [migration-from-telegraf](references/migration-from-telegraf.md) |
 | node-telegram-bot-api | Symbol mapping, middleware concepts, keyboard builders, session, checklist | [migration-from-ntba](references/migration-from-ntba.md) |

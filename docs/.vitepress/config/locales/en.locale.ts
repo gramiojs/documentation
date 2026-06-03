@@ -615,7 +615,15 @@ export function createLocaleEn(typeDocSidebar: Record<string, unknown[]> = {}) {
 							{ text: "Introduction", link: "/introduction" },
 							{ text: "Get started", link: "/get-started" },
 							{ text: "Cheat Sheet", link: "/cheat-sheet" },
-							{ text: "Bot API", link: "/bot-api" },
+								{ text: "Troubleshooting", link: "/troubleshooting" },
+							{
+								text: "Bot API",
+								link: "/bot-api",
+								items: [
+									{ text: "Local Bot API Server", link: "/bot-api/local" },
+									{ text: "tdlight Bot API Server", link: "/bot-api/tdlight" },
+								],
+							},
 						],
 					},
 					{
@@ -702,7 +710,7 @@ export function createLocaleEn(typeDocSidebar: Record<string, unknown[]> = {}) {
 									{ text: "Auto answer callback query", link: "/plugins/official/auto-answer-callback-query" },
 									{ text: "Media cache", link: "/plugins/official/media-cache" },
 									{ text: "Media group", link: "/plugins/official/media-group" },
-									{ text: "Rate Limiter", link: "/plugins/official/rate-limiter" },
+									{ text: "Rate Limiter", link: "/plugins/official/rate-limit" },
 									{ text: "Prompt", link: "/plugins/official/prompt" },
 									{ text: "Views", link: "/plugins/official/views" },
 									{ text: "Split", link: "/plugins/official/split" },
@@ -757,6 +765,7 @@ export function createLocaleEn(typeDocSidebar: Record<string, unknown[]> = {}) {
 							},
 							{ text: "Telegram Stars", link: "/guides/telegram-stars" },
 							{ text: "Deep Links", link: "/guides/deep-links" },
+							{ text: "UX Patterns", link: "/guides/ux-patterns" },
 							{ text: "Filters", link: "/guides/filters" },
 							{ text: "Composer (modules)", link: "/guides/composer" },
 							{ text: "AI Skills", link: "/guides/ai-skills" },
