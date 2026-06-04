@@ -71,6 +71,7 @@ export function createLocaleEn(typeDocSidebar: Record<string, unknown[]> = {}) {
 					{
 						text: "Telegram API Reference",
 						link: "/telegram/",
+						collapsed: false,
 						items: [
 							{
 								text: "Methods",

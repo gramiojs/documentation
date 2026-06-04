@@ -517,6 +517,7 @@ function buildSidebarBlock(methods: string[], types: string[]): string {
 					{
 						text: "Telegram API Reference",
 						link: "/telegram/",
+						collapsed: false,
 						items: [
 							{
 								text: "Methods",
