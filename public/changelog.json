@@ -2,6 +2,77 @@
     "version": 1,
     "entries": [
         {
+            "id": "2026-08-25-rich-messages-ephemeral-bot-api",
+            "date": "2026-08-25",
+            "dateRange": {
+                "from": "2026-05-31",
+                "to": "2026-08-25"
+            },
+            "page": {
+                "en": "https://gramio.dev/changelogs/2026-08-25",
+                "ru": "https://gramio.dev/ru/changelogs/2026-08-25"
+            },
+            "en": {
+                "title": "Rich Messages Land, Ephemeral Replies Go Private, and Bot API 10.3 Spans the Stack",
+                "summary": [
+                    "Bot API 10.1–10.3 crosses the full GramIO stack: types, contexts, files, format, keyboards, core, testing, JSX, and scaffolding",
+                    "Breaking: send methods accept receiver and callback fields only inside ephemeral_message_parameters",
+                    "Rich Messages gain escaped helpers, documents, expandable credited quotes, button rows, compact tables, and a rich JSX runtime",
+                    "Recursive file extraction uploads documents and media from deeply nested rich-message blocks",
+                    "stopped_message_generation gets a typed context and is included in default allowed_updates",
+                    "Communities, join-request queries, and subscription updates become first-class framework events",
+                    "InlineKeyboard.disabled() and forceReply() land in builders and keyboard JSX",
+                    "@gramio/callback-data 0.2 adds a zero-width codec for typed reply-keyboard payloads",
+                    "@gramio/test can stop drafts and returns realistic ephemeral-message mock responses",
+                    "Wrappergram 2.0 moves to a middleware core, direct results, TelegramError, suppress, and opt-in file handling",
+                    "@gramio/views 0.2.1 restores 10.3 media compatibility without pretending a two-file live photo is one-file media",
+                    "Response-like file downloads and topic-aware callback sends also shipped during the cycle",
+                    "create-gramio 2.3 generates projects on gramio 0.14 and @gramio/test 0.8"
+                ]
+            },
+            "ru": {
+                "title": "Rich Messages приехали, эфемерные ответы стали приватными, Bot API 10.3 раскатился по всему стеку",
+                "summary": [
+                    "Bot API 10.1–10.3 проходит через весь стек GramIO: types, contexts, files, format, keyboards, core, testing, JSX и генератор проектов",
+                    "Breaking: send-методы принимают receiver и callback поля только внутри ephemeral_message_parameters",
+                    "Rich Messages получили безопасные хелперы, документы, раскрываемые цитаты с credit, ряды кнопок, компактные таблицы и rich JSX runtime",
+                    "Рекурсивный file extraction загружает документы и медиа из глубоко вложенных rich-блоков",
+                    "stopped_message_generation получил типизированный контекст и вошёл в стандартные allowed_updates",
+                    "Communities, join-request queries и апдейты подписок стали полноценными событиями фреймворка",
+                    "InlineKeyboard.disabled() и forceReply() появились в builder API и keyboard JSX",
+                    "@gramio/callback-data 0.2 добавляет zero-width codec для типизированных payload reply-клавиатур",
+                    "@gramio/test умеет останавливать draft и возвращает реалистичные моки эфемерных сообщений",
+                    "Wrappergram 2.0 перешёл на middleware-core, прямые результаты, TelegramError, suppress и opt-in обработку файлов",
+                    "@gramio/views 0.2.1 восстанавливает совместимость media с 10.3, не маскируя двухфайловый live photo под однофайловое media",
+                    "В том же цикле приехали Response-like загрузка файлов и topic-aware отправка из callback context",
+                    "create-gramio 2.3 создаёт проекты на gramio 0.14 и @gramio/test 0.8"
+                ]
+            },
+            "packages": [
+                "gramio",
+                "@gramio/types",
+                "@gramio/contexts",
+                "@gramio/files",
+                "@gramio/format",
+                "@gramio/keyboards",
+                "@gramio/callback-data",
+                "@gramio/test",
+                "@gramio/jsx",
+                "@gramio/views",
+                "wrappergram",
+                "create-gramio"
+            ],
+            "tags": [
+                "bot-api-10-3",
+                "rich-messages",
+                "ephemeral",
+                "breaking",
+                "keyboards",
+                "callback-data",
+                "testing"
+            ]
+        },
+        {
             "id": "2026-05-31-bot-api-10-scenes-composers",
             "date": "2026-05-31",
             "dateRange": {

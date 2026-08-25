@@ -30,13 +30,15 @@ Use this method to send point on the map. On success, the sent [Message](https:/
 
 <ApiParam name="direct_messages_topic_id" type="Integer" description="Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat" />
 
+<ApiParam name="ephemeral_message_parameters" type="EphemeralMessageParameters" description="A JSON-serialized object containing the parameters of the ephemeral message to send" />
+
 <ApiParam name="latitude" type="Float" required description="Latitude of the location" />
 
 <ApiParam name="longitude" type="Float" required description="Longitude of the location" />
 
 <ApiParam name="horizontal_accuracy" type="Float" description="The radius of uncertainty for the location, measured in meters; 0-1500" />
 
-<ApiParam name="live_period" type="Integer" description="Period in seconds during which the location will be updated (see [Live Locations](https://telegram.org/blog/live-locations), should be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely" />
+<ApiParam name="live_period" type="Integer" description="Period in seconds during which the location will be updated (see [Live Locations](https://telegram.org/blog/live-locations)), must be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely. Must be 0 for ephemeral messages." />
 
 <ApiParam name="heading" type="Integer" description="For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified." />
 

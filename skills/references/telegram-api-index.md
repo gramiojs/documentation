@@ -1,6 +1,6 @@
 # Telegram Bot API Methods Index
 
-> Auto-generated from Bot API v10.0. Full docs at **https://gramio.dev/telegram/**
+> Auto-generated from Bot API v10.3. Full docs at **https://gramio.dev/telegram/**
 
 When a user asks about a specific Telegram Bot API method, reference the GramIO doc page.
 Each method page has: full parameter reference with types, GramIO TypeScript examples, common errors, and tips.
@@ -10,7 +10,7 @@ To look up a **type/object** (e.g. `Message`, `User`, `InlineKeyboardMarkup`):
 → Full types index: https://gramio.dev/telegram/ (scroll to Types section)
 → Key type: [Update](/telegram/types/Update) — the root object for all incoming updates
 
-## Methods (176)
+## Methods (185)
 
 | Method | Description |
 |--------|-------------|
@@ -33,7 +33,7 @@ To look up a **type/object** (e.g. `Message`, `User`, `InlineKeyboardMarkup`):
 | [sendVideo](/telegram/methods/sendVideo) | Use this method to send video files, Telegram clients support MPEG4 videos (other formats may be sent as Document). |
 | [sendAnimation](/telegram/methods/sendAnimation) | Use this method to send animation files (GIF or H.264/MPEG-4 AVC video without sound). |
 | [sendVoice](/telegram/methods/sendVoice) | Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. |
-| [sendVideoNote](/telegram/methods/sendVideoNote) | As of v.4.0, Telegram clients support rounded square MPEG4 videos of up to 1 minute long. |
+| [sendVideoNote](/telegram/methods/sendVideoNote) | Use this method to send a rounded square MPEG4 video of up to 1 minute long. |
 | [sendPaidMedia](/telegram/methods/sendPaidMedia) | Use this method to send paid media. |
 | [sendMediaGroup](/telegram/methods/sendMediaGroup) | Use this method to send a group of photos, live photos, videos, documents or audios as an album. |
 | [sendLocation](/telegram/methods/sendLocation) | Use this method to send point on the map. |
@@ -66,6 +66,8 @@ To look up a **type/object** (e.g. `Message`, `User`, `InlineKeyboardMarkup`):
 | [revokeChatInviteLink](/telegram/methods/revokeChatInviteLink) | Use this method to revoke an invite link created by the bot. |
 | [approveChatJoinRequest](/telegram/methods/approveChatJoinRequest) | Use this method to approve a chat join request. |
 | [declineChatJoinRequest](/telegram/methods/declineChatJoinRequest) | Use this method to decline a chat join request. |
+| [answerChatJoinRequestQuery](/telegram/methods/answerChatJoinRequestQuery) | Use this method to process a received chat join request query. |
+| [sendChatJoinRequestWebApp](/telegram/methods/sendChatJoinRequestWebApp) | Use this method to process a received chat join request query by showing a Mini App to the user before deciding the outc |
 | [setChatPhoto](/telegram/methods/setChatPhoto) | Use this method to set a new profile photo for the chat. |
 | [deleteChatPhoto](/telegram/methods/deleteChatPhoto) | Use this method to delete a chat photo. |
 | [setChatTitle](/telegram/methods/setChatTitle) | Use this method to change the title of a chat. |
@@ -147,18 +149,23 @@ To look up a **type/object** (e.g. `Message`, `User`, `InlineKeyboardMarkup`):
 | [answerWebAppQuery](/telegram/methods/answerWebAppQuery) | Use this method to set the result of an interaction with a Web App and send a corresponding message on behalf of the use |
 | [savePreparedInlineMessage](/telegram/methods/savePreparedInlineMessage) | Stores a message that can be sent by a user of a Mini App. |
 | [savePreparedKeyboardButton](/telegram/methods/savePreparedKeyboardButton) | Stores a keyboard button that can be used by a user within a Mini App. |
-| [editMessageText](/telegram/methods/editMessageText) | Use this method to edit text and game messages. |
+| [editMessageText](/telegram/methods/editMessageText) | Use this method to edit text, rich and game messages. |
 | [editMessageCaption](/telegram/methods/editMessageCaption) | Use this method to edit captions of messages. |
-| [editMessageMedia](/telegram/methods/editMessageMedia) | Use this method to edit animation, audio, document, live photo, photo, or video messages, or to add media to text messag |
+| [editMessageMedia](/telegram/methods/editMessageMedia) | Use this method to edit animation, audio, document, live photo, photo, or video messages, or to replace a text or a rich |
 | [editMessageLiveLocation](/telegram/methods/editMessageLiveLocation) | Use this method to edit live location messages. |
 | [stopMessageLiveLocation](/telegram/methods/stopMessageLiveLocation) | Use this method to stop updating a live location message before *live\_period* expires. |
 | [editMessageChecklist](/telegram/methods/editMessageChecklist) | Use this method to edit a checklist on behalf of a connected business account. |
 | [editMessageReplyMarkup](/telegram/methods/editMessageReplyMarkup) | Use this method to edit only the reply markup of messages. |
 | [stopPoll](/telegram/methods/stopPoll) | Use this method to stop a poll which was sent by the bot. |
+| [editEphemeralMessageText](/telegram/methods/editEphemeralMessageText) | Use this method to edit an ephemeral text or rich message. |
+| [editEphemeralMessageMedia](/telegram/methods/editEphemeralMessageMedia) | Use this method to edit the media of an ephemeral message. |
+| [editEphemeralMessageCaption](/telegram/methods/editEphemeralMessageCaption) | Use this method to edit the caption of an ephemeral message. |
+| [editEphemeralMessageReplyMarkup](/telegram/methods/editEphemeralMessageReplyMarkup) | Use this method to edit only the reply markup of an ephemeral message. |
 | [approveSuggestedPost](/telegram/methods/approveSuggestedPost) | Use this method to approve a suggested post in a direct messages chat. |
 | [declineSuggestedPost](/telegram/methods/declineSuggestedPost) | Use this method to decline a suggested post in a direct messages chat. |
 | [deleteMessage](/telegram/methods/deleteMessage) | Use this method to delete a message, including service messages, with the following limitations: |
 | [deleteMessages](/telegram/methods/deleteMessages) | Use this method to delete multiple messages simultaneously. |
+| [deleteEphemeralMessage](/telegram/methods/deleteEphemeralMessage) | Use this method to delete an ephemeral message. |
 | [deleteMessageReaction](/telegram/methods/deleteMessageReaction) | Use this method to remove a reaction from a message in a group or a supergroup chat. |
 | [deleteAllMessageReactions](/telegram/methods/deleteAllMessageReactions) | Use this method to remove up to 10000 recent reactions in a group or a supergroup chat added by a given user or chat. |
 | [sendSticker](/telegram/methods/sendSticker) | Use this method to send static .WEBP, animated .TGS, or video .WEBM stickers. |
@@ -177,6 +184,8 @@ To look up a **type/object** (e.g. `Message`, `User`, `InlineKeyboardMarkup`):
 | [setStickerSetThumbnail](/telegram/methods/setStickerSetThumbnail) | Use this method to set the thumbnail of a regular or mask sticker set. |
 | [setCustomEmojiStickerSetThumbnail](/telegram/methods/setCustomEmojiStickerSetThumbnail) | Use this method to set the thumbnail of a custom emoji sticker set. |
 | [deleteStickerSet](/telegram/methods/deleteStickerSet) | Use this method to delete a sticker set that was created by the bot. |
+| [sendRichMessage](/telegram/methods/sendRichMessage) | Use this method to send rich messages. |
+| [sendRichMessageDraft](/telegram/methods/sendRichMessageDraft) | Use this method to stream a partial rich message to a user while the message is being generated. |
 | [answerInlineQuery](/telegram/methods/answerInlineQuery) | Use this method to send answers to an inline query. |
 | [sendInvoice](/telegram/methods/sendInvoice) | Use this method to send invoices. |
 | [createInvoiceLink](/telegram/methods/createInvoiceLink) | Use this method to create a link for an invoice. |

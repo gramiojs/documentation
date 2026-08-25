@@ -18,6 +18,24 @@ const response = await bot.api.sendMessage({
 bot.on("message", (context) => context.send("Reply to current chat"));
 ```
 
+## Ephemeral send parameters (Bot API 10.3)
+
+All send methods use the nested object. Top-level aliases are intentionally unsupported.
+
+```typescript
+await bot.api.sendMessage({
+    chat_id: chatId,
+    text: "Private result",
+    ephemeral_message_parameters: {
+        receiver_user_id: userId,
+        callback_query_id: callbackQueryId,
+        replace_callback_query_message: true,
+    },
+});
+```
+
+`bot.api.*` stays one-to-one with Telegram method names and raw parameter shapes. GramIO convenience belongs in contexts/builders/middleware, not extra raw API methods.
+
 ## Error Suppression (`suppress: true`)
 
 Returns `TelegramError` on failure instead of throwing — no try/catch needed:

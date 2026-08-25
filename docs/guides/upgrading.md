@@ -108,6 +108,55 @@ Everything below is generated from the same data the picker and the CLI use, ord
 
 ## `@gramio/types` {#pkg-gramio-types}
 
+### 10.2.2 → 10.3.1 · [changelog](/changelogs/2026-08-25) {#gramio-types-10-2-2-10-3-1}
+
+**⚠️ Breaking**
+
+- **Ephemeral send parameters are nested** — Move receiver_user_id, callback_query_id, and replace_callback_query_message into ephemeral_message_parameters. Deprecated top-level aliases are not supported.
+  ```ts
+  // Before
+  await bot.api.sendMessage({
+      chat_id,
+      text: "Private reply",
+      receiver_user_id: userId,
+      callback_query_id: callbackQueryId,
+  });
+  // After
+  await bot.api.sendMessage({
+      chat_id,
+      text: "Private reply",
+      ephemeral_message_parameters: {
+          receiver_user_id: userId,
+          callback_query_id: callbackQueryId,
+          replace_callback_query_message: true,
+      },
+  });
+  ```
+- **Administrator-right fixtures require welcome-message permission** — Constructed ChatAdministratorRights and ChatMemberAdministrator values must include can_send_welcome_messages.
+
+**✨ New**
+
+- **Complete Bot API 10.3 declaration set** — Adds stopped message generation, community chat joined, disabled buttons, force-reply markup, expanded rich-message objects, and new ephemeral-message parameters.
+
+**🐛 Fixes**
+
+- **Draft stop fields restored** — SendMessageDraftParams and SendRichMessageDraftParams both expose can_stop and keep_on_stop, guarded by generation assertions.
+
+### 10.1.0 → 10.2.0 · [changelog](https://core.telegram.org/bots/api-changelog#july-14-2026) {#gramio-types-10-1-0-10-2-0}
+
+**✨ New**
+
+- **Regenerated for Bot API 10.2** — Additive, non-breaking. Ephemeral Messages: editEphemeralMessageText/Media/Caption/ReplyMarkup + deleteEphemeralMessage, receiverUserId &amp; callbackQueryId params on 13 send methods, Message.receiverUser / ephemeralMessageId, BotCommand.isEphemeral, ReplyParameters.ephemeralMessageId.
+- **Communities &amp; subscription updates** — Community object, ChatFullInfo.community, community_chat_added / community_chat_removed service messages. New subscription update: Update.subscription + BotSubscriptionUpdated (state: canceled | active | failed) — add "subscription" to allowed_updates to receive it.
+- **Rich Messages — structured input** — InputRichBlock* write-side blocks (paragraph, list, table, collage, slideshow, details, thinking, math, media blocks, …), InputRichMessage.blocks / media, InputRichMessageMedia, and InputMediaVoiceNote — build rich messages block-by-block instead of only via markdown/html.
+
+### 10.0.0 → 10.1.0 · [changelog](https://core.telegram.org/bots/api-changelog#june-11-2026) {#gramio-types-10-0-0-10-1-0}
+
+**✨ New**
+
+- **Regenerated for Bot API 10.1** — Additive, non-breaking. Rich Messages (read side): RichText* / RichBlock* structures, Message.richMessage, InputRichMessage + InputRichMessageContent (usable as InputMessageContent in inline / guest / Web App answers), sendRichMessage, sendRichMessageDraft (ephemeral streaming preview), editMessageText.richMessage.
+- **Join Request Queries &amp; Polls** — User.supportsJoinRequestQueries, ChatFullInfo.guardBot, ChatJoinRequest.queryId, answerChatJoinRequestQuery, sendChatJoinRequestWebApp. Polls: Link + PollMedia.link, InputMediaLink usable as InputPollOptionMedia.
+
 ### 9.6.x → 10.0.0 · [changelog](/changelogs/2026-05-31) {#gramio-types-9-6-x-10-0-0}
 
 **⚠️ Breaking**
@@ -148,31 +197,46 @@ Everything below is generated from the same data the picker and the CLI use, ord
 
 ## `wrappergram` {#pkg-wrappergram}
 
-### v1 → v2 · [changelog](/changelogs/2026-05-08) {#wrappergram-v1-v2}
+### 1.3.0 → 2.0.0 · [changelog](/changelogs/2026-08-25) {#wrappergram-1-3-0-2-0-0}
 
 > Only affects you if you use wrappergram directly — gramio users get bot.api and are unaffected.
 
 **⚠️ Breaking**
 
-- **Telegram class → Wrappergram, middleware chain** — The hardcoded pipeline is now a middleware chain. @gramio/files is no longer a hard dependency — opt in via @gramio/files/middleware (and @gramio/format/middleware).
+- **Direct results, thrown errors, and opt-in middleware** — The Telegram class remains, but API calls now return the Telegram result directly and throw TelegramError by default. @gramio/files is no longer bundled — opt in via @gramio/files/middleware (and @gramio/format/middleware). requestOptions is renamed to fetchOptions.
   ```ts
   // Before
-  import { Telegram } from "wrappergram";
-  const tg = new Telegram(token);
+  const response = await telegram.api.sendMessage({ chat_id, text });
+  if (!response.ok) console.error(response.description);
+  else console.log(response.result.message_id);
   // After
-  import { Wrappergram, TelegramError } from "wrappergram";
+  import { Telegram, TelegramError } from "wrappergram";
   import { filesMiddleware } from "@gramio/files/middleware";
-  const tg = new Wrappergram({ token, middlewares: [filesMiddleware] });
   
-  const result = await tg.sendMessage({ chat_id, text }, { suppress: true });
+  const telegram = new Telegram(token, { middlewares: [filesMiddleware] });
+  const result = await telegram.api.sendMessage({ chat_id, text, suppress: true });
   if (result instanceof TelegramError) console.error(result.code, result.payload);
+  else console.log(result.message_id);
   ```
 
 **✨ New**
 
+- **Correct Bot API 10.3 raw API line** — Wrappergram exposes the @gramio/types 10.3.1 method surface, including corrected draft fields and strict nested ephemeral_message_parameters.
 - **Single Middleware type, TelegramError, suppress** — Middleware (ctx, next) =&gt; unknown, first-class TelegramError (method/code/payload + real stack), suppress: true (return TelegramError | Result instead of throwing), per-request fetch options.
 
 ## `@gramio/callback-data` {#pkg-gramio-callback-data}
+
+### 0.1.1 → 0.2.0 · [changelog](/changelogs/2026-08-25) {#gramio-callback-data-0-1-1-0-2-0}
+
+**✨ New**
+
+- **Zero-width reply-keyboard payload codec** — encode/decode convert strings to and from an invisible UTF-8 suffix; embed/extract attach typed callback payloads to visible reply-keyboard labels and recover them from message text.
+  ```ts
+  import { embed, extract } from "@gramio/callback-data";
+  const label = embed("⚙️ Settings", navigation.pack({ to: "settings" }));
+  const embedded = extract(ctx.text ?? "");
+  if (embedded) navigation.safeUnpack(embedded.data);
+  ```
 
 ### 0.0.11 → 0.1.0 · [changelog](/changelogs/2026-02-23) {#gramio-callback-data-0-0-11-0-1-0}
 
@@ -186,6 +250,18 @@ Everything below is generated from the same data the picker and the CLI use, ord
 - **Optional fields are backward-compatible** — Adding optional fields to the end of a schema is now a safe migration — old packed strings unpack with the new fields as undefined. Adding required fields, reordering, or renaming nameId are still breaking.
 
 ## `@gramio/contexts` {#pkg-gramio-contexts}
+
+### 0.10.0 → 0.11.0 · [changelog](/changelogs/2026-08-25) {#gramio-contexts-0-10-0-0-11-0}
+
+**✨ New**
+
+- **Bot API 10.3 contexts** — MessageGenerationStoppedContext exposes draftId, threadId, chat, chatId, chatType, and send helpers; CommunityChatJoinedContext is registered as a service event.
+- **New 10.3 getters** — Administrator rights expose canSendWelcomeMessages(); UniqueGiftInfo adds text, wrapped entities, and isPrivate; keyboard wrappers expose forceReply and isDisabled.
+- **Rich-message plain-text flattening** — Plain-text extraction now includes rich buttons, expandable quotations, document captions, button rows, and credits.
+
+**🔧 Peer/dep bumps (move together)**
+
+- @gramio/types ^10.3.1
 
 ### 0.6.1 → 0.7.0 · [changelog](/changelogs/2026-05-31) {#gramio-contexts-0-6-1-0-7-0}
 
@@ -228,7 +304,31 @@ Everything below is generated from the same data the picker and the CLI use, ord
 - **ctx.chatId on callback-query context** — No more ctx.message?.chat?.id digging. Contributed by @n08i40k.
 - **UniqueGiftInfo TON support** — lastResaleCurrency ("XTR" | "TON") + lastResaleAmount; lastResaleStarCount returns a value only when currency is "XTR".
 
+## `@gramio/files` {#pkg-gramio-files}
+
+### 0.7.0 → 0.8.0 · [changelog](/changelogs/2026-08-25) {#gramio-files-0-7-0-0-8-0}
+
+**✨ New**
+
+- **Recursive rich-message uploads** — File extraction traverses references, unions, arrays, and recursive rich blocks, including sendRichMessage rich_message.blocks and rich_message.media.
+- **Path descriptors without breaking Extractor** — Generated upload metadata adds wildcard path descriptors while preserving the legacy Extractor shape. InputRichBlockDocument uploads are supported; sendRichMessageDraft remains upload-free by Telegram design.
+
+**🔧 Peer/dep bumps (move together)**
+
+- @gramio/types ^10.3.1
+
 ## `@gramio/format` {#pkg-gramio-format}
+
+### 0.10.0 → 0.11.0 · [changelog](/changelogs/2026-08-25) {#gramio-format-0-10-0-0-11-0}
+
+**✨ New**
+
+- **Rich-message builders** — Adds quote(content, { expandable, credit }), document({ url, caption }), button(), buttonRow(), and compact tables.
+- **Bot API 10.3 mutator coverage** — Generated formatting mutation covers rich content in ephemeral edits plus the new document and caption paths.
+
+**🔧 Peer/dep bumps (move together)**
+
+- @gramio/types ^10.3.1
 
 ### 0.7.0 → 0.8.0 · [changelog](/changelogs/2026-05-31) {#gramio-format-0-7-0-0-8-0}
 
@@ -262,6 +362,17 @@ Everything below is generated from the same data the picker and the CLI use, ord
 - **join() array overload** — join(items, "\n") instead of join(items, (x) =&gt; x, "\n"). Still never use native Array.join() on Formattables (it drops entity offsets).
 
 ## `@gramio/keyboards` {#pkg-gramio-keyboards}
+
+### 1.4.0 → 1.5.0 · [changelog](/changelogs/2026-08-25) {#gramio-keyboards-1-4-0-1-5-0}
+
+**✨ New**
+
+- **Disabled inline buttons** — InlineKeyboard.disabled(text, options?) creates Bot API 10.3 disabled buttons.
+- **Force reply on keyboard builders** — InlineKeyboard and Keyboard now provide forceReply(enabled = true), serialized as force_reply.
+
+**🔧 Peer/dep bumps (move together)**
+
+- @gramio/types ^10.3.1
 
 ### 1.3.x → 1.4.0 · [changelog](/changelogs/2026-05-08) {#gramio-keyboards-1-3-x-1-4-0}
 
@@ -320,6 +431,17 @@ Everything below is generated from the same data the picker and the CLI use, ord
 - **Node.js support (dual runtime)** — 1.0.0 adds node:sqlite (DatabaseSync) alongside Bun's bun:sqlite; the right impl is auto-selected — no code change. (Adapter first landed Bun-only.)
 
 ## `gramio` {#pkg-gramio}
+
+### 0.13.0 → 0.14.0 · [changelog](/changelogs/2026-08-25) {#gramio-0-13-0-0-14-0}
+
+**✨ New**
+
+- **Bot API 10.3 update routing** — stopped_message_generation is included in default, all, and handler-derived allowed_updates filters; stopped-message-generation and community-chat-joined updates route to their typed contexts.
+- **Strict raw Bot API surface** — bot.api.* remains one-to-one with Telegram methods and accepts the Bot API 10.3 nested ephemeral_message_parameters shape only.
+
+**🔧 Peer/dep bumps (move together)**
+
+- @gramio/types ^10.3.1, @gramio/contexts ^0.11.0, @gramio/files ^0.8.0, @gramio/format ^0.11.0, @gramio/keyboards ^1.5.0, @gramio/test ^0.8.0
 
 ### 0.9.0 → 0.10.0 · [changelog](/changelogs/2026-05-31) {#gramio-0-9-0-0-10-0}
 
@@ -434,6 +556,17 @@ Everything below is generated from the same data the picker and the CLI use, ord
   ```
 
 ## `@gramio/jsx` {#pkg-gramio-jsx}
+
+### 0.0.1 → 0.1.0 · [changelog](/changelogs/2026-08-25) {#gramio-jsx-0-0-1-0-1-0}
+
+**✨ New**
+
+- **Rich-message JSX** — Adds rich &lt;button&gt;, &lt;button-row&gt;, and &lt;document&gt;, expandable credited &lt;blockquote&gt;, and compact &lt;table&gt; support.
+- **Bot API 10.3 keyboard JSX** — Regular keyboard JSX supports disabled inline buttons and forceReply for inline and reply keyboards.
+
+**🔧 Peer/dep bumps (move together)**
+
+- gramio ^0.14.0, @gramio/types ^10.3.1, @gramio/test ^0.8.0
 
 ### → date-time element · [changelog](/changelogs/2026-05-08) {#gramio-jsx-init-date-time-element}
 
@@ -566,6 +699,16 @@ Everything below is generated from the same data the picker and the CLI use, ord
 
 ## `@gramio/views` {#pkg-gramio-views}
 
+### 0.2.0 → 0.2.1 · [changelog](/changelogs/2026-08-25) {#gramio-views-0-2-0-0-2-1}
+
+**🐛 Fixes**
+
+- **Bot API 10.3 media compatibility** — ResponseView.media excludes the two-file InputMediaLivePhoto from its one-file abstraction, while supported media keep all media-specific fields during send and edit.
+
+**🔧 Peer/dep bumps (move together)**
+
+- gramio ^0.14.0
+
 ### 0.1.1 → 0.2.0 · [changelog](/changelogs/2026-05-08) {#gramio-views-0-1-1-0-2-0}
 
 **✨ New**
@@ -586,6 +729,17 @@ Everything below is generated from the same data the picker and the CLI use, ord
 
 ## `@gramio/test` {#pkg-gramio-test}
 
+### 0.7.0 → 0.8.0 · [changelog](/changelogs/2026-08-25) {#gramio-test-0-7-0-0-8-0}
+
+**✨ New**
+
+- **Stop-generation test actor** — user.stopMessageGeneration(draftId, { chat?, messageThreadId? }) delivers a synthetic stopped_message_generation update.
+- **Ephemeral send mock responses** — Mocked sends resolve nested ephemeral_message_parameters and populate receiver_user plus ephemeral_message_id.
+
+**🔧 Peer/dep bumps (move together)**
+
+- gramio ^0.14.0, @gramio/contexts ^0.11.0, @gramio/types ^10.3.1
+
 ### 0.3.0 → 0.7.0 · [changelog](/changelogs/2026-05-08) {#gramio-test-0-3-0-0-7-0}
 
 **✨ New**
@@ -605,6 +759,14 @@ Everything below is generated from the same data the picker and the CLI use, ord
 - **Reactions, inline mode, fluent scopes** — user.react()/ReactObject (auto old_reaction), sendInlineQuery()/chooseInlineResult(), and user.in(chat).on(msg).react(). Also env.onApi()/offApi() mocking + apiError().
 
 ## `create-gramio` {#pkg-create-gramio}
+
+### 2.2.0 → 2.3.0 · [changelog](/changelogs/2026-08-25) {#create-gramio-2-2-0-2-3-0}
+
+> Affects newly generated projects only.
+
+**✨ New**
+
+- **Bot API 10.3 project template** — New projects use gramio ^0.14.0 and @gramio/test ^0.8.0.
 
 ### → 2.x · [changelog](/changelogs/2026-03-02) {#create-gramio-init-2-x}
 

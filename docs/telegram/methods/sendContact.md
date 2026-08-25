@@ -30,6 +30,8 @@ Use this method to send phone contacts. On success, the sent [Message](https://c
 
 <ApiParam name="direct_messages_topic_id" type="Integer" description="Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat" />
 
+<ApiParam name="ephemeral_message_parameters" type="EphemeralMessageParameters" description="A JSON-serialized object containing the parameters of the ephemeral message to send" />
+
 <ApiParam name="phone_number" type="String" required description="Contact's phone number" />
 
 <ApiParam name="first_name" type="String" required description="Contact's first name" />

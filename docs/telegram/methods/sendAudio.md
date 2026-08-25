@@ -34,6 +34,8 @@ For sending voice messages, use the [sendVoice](https://core.telegram.org/bots/a
 
 <ApiParam name="direct_messages_topic_id" type="Integer" description="Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat" />
 
+<ApiParam name="ephemeral_message_parameters" type="EphemeralMessageParameters" description="A JSON-serialized object containing the parameters of the ephemeral message to send" />
+
 <ApiParam name="audio" type="InputFile | String" required description="Audio file to send. Pass a file\_id as String to send an audio file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)" docsLink="/files/media-upload" />
 
 <ApiParam name="caption" type="String" description="Audio caption, 0-1024 characters after entities parsing" :minLen="0" :maxLen="1024" semanticType="formattable" docsLink="/formatting" />

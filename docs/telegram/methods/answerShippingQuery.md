@@ -25,7 +25,7 @@ If you sent an invoice requesting a shipping address and the parameter *is\_flex
 
 <ApiParam name="ok" type="Boolean" required description="Pass *True* if delivery to the specified address is possible and *False* if there are any problems (for example, if delivery to the specified address is not possible)" />
 
-<ApiParam name="shipping_options" type="ShippingOption[]" description="Required if *ok* is *True*. A JSON-serialized array of available shipping options." />
+<ApiParam name="shipping_options" type="ShippingOption[]" description="Required if *ok* is *True*. A JSON-serialized Array of available shipping options." />
 
 <ApiParam name="error_message" type="String" description="Required if *ok* is *False*. Error message in human readable form that explains why it is impossible to complete the order (e.g. &quot;Sorry, delivery to your desired address is unavailable&quot;). Telegram will display this message to the user." />
 

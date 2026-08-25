@@ -23,7 +23,7 @@ Changes the privacy settings pertaining to incoming gifts in a managed business 
 
 <ApiParam name="business_connection_id" type="String" required description="Unique identifier of the business connection" />
 
-<ApiParam name="show_gift_button" type="Boolean" required description="Pass *True*, if a button for sending a gift to the user or by the business account must always be shown in the input field" />
+<ApiParam name="show_gift_button" type="Boolean" required description="Pass *True* if a button for sending a gift to the user or by the business account must always be shown in the input field" />
 
 <ApiParam name="accepted_gift_types" type="AcceptedGiftTypes" required description="Types of gifts accepted by the business account" />
 

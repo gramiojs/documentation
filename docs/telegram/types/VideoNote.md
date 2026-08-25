@@ -16,7 +16,7 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#videonote" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-This object represents a [video message](https://telegram.org/blog/video-messages-and-telescope) (available in Telegram apps as of [v.4.0](https://telegram.org/blog/video-messages-and-telescope)).
+This object represents a [video message](https://telegram.org/blog/video-messages-and-telescope).
 
 ## Fields
 

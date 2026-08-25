@@ -25,7 +25,7 @@ Use this if the data submitted by the user doesn't satisfy the standards your se
 
 <ApiParam name="user_id" type="Integer" required description="User identifier" />
 
-<ApiParam name="errors" type="PassportElementError[]" required description="A JSON-serialized array describing the errors" />
+<ApiParam name="errors" type="PassportElementError[]" required description="A JSON-serialized Array describing the errors" />
 
 ## Returns
 

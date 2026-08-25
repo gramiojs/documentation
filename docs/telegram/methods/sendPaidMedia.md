@@ -34,7 +34,7 @@ Use this method to send paid media. On success, the sent [Message](https://core.
 
 <ApiParam name="star_count" type="Integer" required description="The number of Telegram Stars that must be paid to buy access to the media; 1-25000" />
 
-<ApiParam name="media" type="InputPaidMedia[]" required description="A JSON-serialized array describing the media to be sent; up to 10 items" />
+<ApiParam name="media" type="InputPaidMedia[]" required description="A JSON-serialized Array describing the media to be sent; up to 10 items" />
 
 <ApiParam name="payload" type="String" description="Bot-defined paid media payload, 0-128 bytes. This will not be displayed to the user, use it for your internal processes." />
 
@@ -44,7 +44,7 @@ Use this method to send paid media. On success, the sent [Message](https://core.
 
 <ApiParam name="caption_entities" type="MessageEntity[]" description="A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*" />
 
-<ApiParam name="show_caption_above_media" type="Boolean" description="Pass *True*, if the caption must be shown above the message media" />
+<ApiParam name="show_caption_above_media" type="Boolean" description="Pass *True* if the caption must be shown above the message media" />
 
 <ApiParam name="disable_notification" type="Boolean" description="Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound." />
 

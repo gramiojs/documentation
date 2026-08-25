@@ -73,6 +73,10 @@ At most **one** of the optional fields can be present in any given update.
 
 <ApiParam name="managed_bot" type="ManagedBotUpdated" description="*Optional*. A new bot was created to be managed by the bot, or token or owner of a managed bot was changed" />
 
+<ApiParam name="subscription" type="BotSubscriptionUpdated" description="*Optional*. User payment subscription has changed" />
+
+<ApiParam name="stopped_message_generation" type="MessageGenerationStopped" description="*Optional*. A user asked the bot to stop the generation of a message" />
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

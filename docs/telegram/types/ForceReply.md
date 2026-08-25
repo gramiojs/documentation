@@ -21,7 +21,7 @@ Upon receiving a message with this object, Telegram clients will display a reply
 
 ## Fields
 
-<ApiParam name="force_reply" type="True" required description="Shows reply interface to the user, as if they manually selected the bot's message and tapped 'Reply'" />
+<ApiParam name="force_reply" type="True" required description="Shows reply interface to the user, as if they had manually selected the bot's message and tapped 'Reply'" />
 
 <ApiParam name="input_field_placeholder" type="String" description="*Optional*. The placeholder to be shown in the input field when the reply is active; 1-64 characters" :minLen="1" :maxLen="64" />
 

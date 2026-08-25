@@ -32,6 +32,8 @@ Use this method to send video files, Telegram clients support MPEG4 videos (othe
 
 <ApiParam name="direct_messages_topic_id" type="Integer" description="Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat" />
 
+<ApiParam name="ephemeral_message_parameters" type="EphemeralMessageParameters" description="A JSON-serialized object containing the parameters of the ephemeral message to send" />
+
 <ApiParam name="video" type="InputFile | String" required description="Video to send. Pass a file\_id as String to send a video that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a video from the Internet, or upload a new video using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)" docsLink="/files/media-upload" />
 
 <ApiParam name="duration" type="Integer" description="Duration of sent video in seconds" />
@@ -52,7 +54,7 @@ Use this method to send video files, Telegram clients support MPEG4 videos (othe
 
 <ApiParam name="caption_entities" type="MessageEntity[]" description="A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*" />
 
-<ApiParam name="show_caption_above_media" type="Boolean" description="Pass *True*, if the caption must be shown above the message media" />
+<ApiParam name="show_caption_above_media" type="Boolean" description="Pass *True* if the caption must be shown above the message media" />
 
 <ApiParam name="has_spoiler" type="Boolean" description="Pass *True* if the video needs to be covered with a spoiler animation" />
 

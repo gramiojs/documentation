@@ -182,9 +182,9 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
 
 ## Latest Updates
 
-**[Bot API 10.0 Lands Ecosystem-Wide & Scenes Become Composers](/changelogs/2026-05-31)** — May 8 – 31, 2026
+**[Rich Messages Land, Ephemeral Replies Go Private, and Bot API 10.3 Spans the Stack](/changelogs/2026-08-25)** — May 31 – August 25, 2026
 
-Telegram **Bot API 10.0** rolls out across the whole stack — types v10, contexts v0.7, files v0.5, format v0.8, **gramio v0.10** — with live photos, guest messages (`bot.guestQuery()`), and poll media. **`@gramio/scenes` v0.7** ships the scene-as-composer redesign: builder steps, reusable step modules, and an `onExit` hook. `chosenInlineResult` now accepts a `CallbackData` schema, and `@gramio/onboarding` v0.2 makes `ctx.onboarding` flow through `bot.extend()` with zero ceremony.
+Telegram **Bot API 10.1–10.3** now runs through the whole GramIO stack: private ephemeral replies, structured Rich Messages, recursive uploads, stoppable drafts, Community and subscription contexts, disabled buttons, force reply, rich JSX, and realistic testing utilities. The release train targets **gramio v0.14** after the corrected `@gramio/types` 10.3.1 declaration set reaches npm and JSR.
 
 [All changelogs →](/changelogs/)
 

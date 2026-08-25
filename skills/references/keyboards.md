@@ -37,6 +37,7 @@ import { Keyboard } from "gramio";
 | `.persistent(bool?)` | Always visible |
 | `.selective(bool?)` | Show only to mentioned users |
 | `.placeholder(text?)` | Input field placeholder (1-64 chars) |
+| `.forceReply(enabled?)` | Add `force_reply` to the markup (default `true`; explicit `false` is serialized) |
 
 ### Button Styling (since @gramio/keyboards 1.3.0)
 
@@ -68,8 +69,22 @@ import { InlineKeyboard } from "gramio";
 | `.switchToChosenChat(label, queryOrOptions?, options?)` | Pick chat type for inline |
 | `.switchToCurrentChat(label, query?, options?)` | Inline in current chat |
 | `.game(label, params, options?)` | Game (**must** be first in first row) |
+| `.disabled(label, options?)` | Render a disabled button that does nothing (Bot API 10.3) |
 
 Same button styling support as Keyboard.
+
+Both `InlineKeyboard` and `Keyboard` support `.forceReply(enabled = true)`. The flag is omitted until configured:
+
+```typescript
+const inline = new InlineKeyboard()
+    .text("Refresh", "refresh")
+    .disabled("Soon")
+    .forceReply();
+
+const reply = new Keyboard()
+    .text("Continue")
+    .forceReply(false); // serializes force_reply: false
+```
 
 ## Layout Helpers (both Keyboard and InlineKeyboard)
 

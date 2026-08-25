@@ -18,7 +18,7 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#sendmediagroup" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to send a group of photos, live photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of [Message](https://core.telegram.org/bots/api#message) objects that were sent is returned.
+Use this method to send a group of photos, live photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an Array of [Message](https://core.telegram.org/bots/api#message) objects that were sent is returned.
 
 ## Parameters
 
@@ -30,7 +30,7 @@ Use this method to send a group of photos, live photos, videos, documents or aud
 
 <ApiParam name="direct_messages_topic_id" type="Integer" description="Identifier of the direct messages topic to which the messages will be sent; required if the messages are sent to a direct messages chat" />
 
-<ApiParam name="media" type="InputMediaAudio | InputMediaDocument | InputMediaLivePhoto | InputMediaPhoto | InputMediaVideo[]" required description="A JSON-serialized array describing messages to be sent, must include 2-10 items" />
+<ApiParam name="media" type="InputMediaAudio | InputMediaDocument | InputMediaLivePhoto | InputMediaPhoto | InputMediaVideo[]" required description="A JSON-serialized Array describing messages to be sent, must include 2-10 items" />
 
 <ApiParam name="disable_notification" type="Boolean" description="Sends messages [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound." />
 

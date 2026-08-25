@@ -32,7 +32,7 @@ This object represents one button of an inline keyboard. Exactly one of the fiel
 
 <ApiParam name="web_app" type="WebAppInfo" description="*Optional*. Description of the [Web App](https://core.telegram.org/bots/webapps) that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method [answerWebAppQuery](https://core.telegram.org/bots/api#answerwebappquery). Available only in private chats between a user and the bot. Not supported for messages sent on behalf of a business account." />
 
-<ApiParam name="login_url" type="LoginUrl" description="*Optional*. An HTTPS URL used to automatically authorize the user. Can be used as a replacement for the [Telegram Login Widget](https://core.telegram.org/widgets/login)." />
+<ApiParam name="login_url" type="LoginUrl" description="*Optional*. An HTTPS URL used to automatically authorize the user. Can be used as a replacement for the [Telegram Login Widget](https://core.telegram.org/widgets/login). Not supported for ephemeral messages." />
 
 <ApiParam name="switch_inline_query" type="String" description="*Optional*. If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field. May be empty, in which case just the bot's username will be inserted. Not supported for messages sent in channel direct messages chats and on behalf of a business account." />
 
@@ -45,6 +45,8 @@ This object represents one button of an inline keyboard. Exactly one of the fiel
 <ApiParam name="callback_game" type="CallbackGame" description="*Optional*. Description of the game that will be launched when the user presses the button.      **NOTE:** This type of button **must** always be the first button in the first row." />
 
 <ApiParam name="pay" type="Boolean" description="*Optional*. Specify *True*, to send a [Pay button](https://core.telegram.org/bots/api#payments). Substrings &quot;![⭐](https://telegram.org/img/emoji/40/E2AD90.png)&quot; and &quot;XTR&quot; in the buttons's text will be replaced with a Telegram Star icon.      **NOTE:** This type of button **must** always be the first button in the first row and can only be used in invoice messages." />
+
+<ApiParam name="disabled" type="DisabledButton" description="*Optional*. If set, then the button is disabled and does nothing" />
 
 <!-- GENERATED:END -->
 

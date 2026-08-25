@@ -40,7 +40,9 @@ describe("Inline buttons", () => {
         await user.click("opt_a", msg);
 
         const editCall = env.lastApiCall("editMessageText");
-        expect(editCall?.params.text).toBe("You chose A!");
+        // editMessageText.text became optional in Bot API 10.2 (edit via rich_message
+        // instead), so the whole params object is now optional on the call record.
+        expect(editCall?.params?.text).toBe("You chose A!");
     });
 });
 

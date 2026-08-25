@@ -27,11 +27,11 @@ Use this method to send answers to callback queries sent from [inline keyboards]
 
 <ApiParam name="text" type="String" description="Text of the notification. If not specified, nothing will be shown to the user, 0-200 characters." :minLen="0" :maxLen="200" />
 
-<ApiParam name="show_alert" type="Boolean" description="If *True*, an alert will be shown by the client instead of a notification at the top of the chat screen. Defaults to *false*." />
+<ApiParam name="show_alert" type="Boolean" description="If *True*, an alert will be shown by the client instead of a notification at the top of the chat screen. Defaults to *False*." />
 
 <ApiParam name="url" type="String" description="URL that will be opened by the user's client. If you have created a [Game](https://core.telegram.org/bots/api#game) and accepted the conditions via [@BotFather](https://t.me/botfather), specify the URL that opens your game - note that this will only work if the query comes from a [*callback\_game*](https://core.telegram.org/bots/api#inlinekeyboardbutton) button.      Otherwise, you may use links like `t.me/your_bot?start=XXXX` that open your bot with a parameter." />
 
-<ApiParam name="cache_time" type="Integer" description="The maximum amount of time in seconds that the result of the callback query may be cached client-side. Telegram apps will support caching starting in version 3.14. Defaults to 0." :defaultValue="0" />
+<ApiParam name="cache_time" type="Integer" description="The maximum amount of time in seconds that the result of the callback query may be cached client-side. Defaults to 0." :defaultValue="0" />
 
 ## Returns
 

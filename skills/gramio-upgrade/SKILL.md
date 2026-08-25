@@ -67,7 +67,7 @@ If you can't run the script (no Node, odd layout), fall back to reading `package
 2. For each package being upgraded, select the entries strictly **between the installed version (exclusive) and the target (inclusive)** — every hop, not just the endpoints. (E.g. gramio `0.7.0 → 0.10.0` pulls the `0.7→0.9` **and** `0.9→0.10` entries.)
 3. Order the work by **dependency layer**, because peer ranges must move together:
 
-   `@gramio/types` → `@gramio/contexts` / `@gramio/files` / `@gramio/format` → `gramio` → plugins (`scenes`, `session`, `views`, `onboarding`, `rate-limit`, …) → tooling (`@gramio/test`).
+   `@gramio/types` → `@gramio/contexts` / `@gramio/files` / `@gramio/format` / `@gramio/keyboards` / `wrappergram` → `gramio` → plugins (`scenes`, `session`, `views`, `onboarding`, `rate-limit`, …) → tooling (`@gramio/test`, `@gramio/jsx`, `create-gramio`).
 
 4. Present an ordered checklist. For **each** breaking change:
    - the before/after snippet from the ledger,
@@ -114,6 +114,7 @@ The goal: the user leaves not just on the latest version, but knowing the two or
 - **Don't invent migration steps.** If `MIGRATIONS.md` doesn't cover a package/version, say so and link the relevant `/changelogs/` page. Better to under-promise than to hallucinate an API.
 - **`ctx` getters are camelCase.** When writing or editing example/handler code, use `ctx.from`, `ctx.chatId`, `ctx.messageId` — never the raw snake_case `ctx.payload`.
 - **Pin around known-bad releases.** Some entries say "upgrade straight to X" (e.g. `@gramio/scenes` 0.7.1, `@gramio/types` 9.6.1) — honor those; don't land on the bad version.
+- **Bot API 10.3 is strict.** When crossing to `@gramio/types` 10.3.1, migrate send-method `receiver_user_id` / `callback_query_id` into `ephemeral_message_parameters`; never add a compatibility cast or alias.
 
 ## See also
 

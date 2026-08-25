@@ -32,6 +32,8 @@ Use this method to send animation files (GIF or H.264/MPEG-4 AVC video without s
 
 <ApiParam name="direct_messages_topic_id" type="Integer" description="Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat" />
 
+<ApiParam name="ephemeral_message_parameters" type="EphemeralMessageParameters" description="A JSON-serialized object containing the parameters of the ephemeral message to send" />
+
 <ApiParam name="animation" type="InputFile | String" required description="Animation to send. Pass a file\_id as String to send an animation that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)" docsLink="/files/media-upload" />
 
 <ApiParam name="duration" type="Integer" description="Duration of sent animation in seconds" />
@@ -48,7 +50,7 @@ Use this method to send animation files (GIF or H.264/MPEG-4 AVC video without s
 
 <ApiParam name="caption_entities" type="MessageEntity[]" description="A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*" />
 
-<ApiParam name="show_caption_above_media" type="Boolean" description="Pass *True*, if the caption must be shown above the message media" />
+<ApiParam name="show_caption_above_media" type="Boolean" description="Pass *True* if the caption must be shown above the message media" />
 
 <ApiParam name="has_spoiler" type="Boolean" description="Pass *True* if the animation needs to be covered with a spoiler animation" />
 

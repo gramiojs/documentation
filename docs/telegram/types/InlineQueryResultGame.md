@@ -16,7 +16,7 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#inlinequeryresultgame" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Represents a [Game](https://core.telegram.org/bots/api#games).
+Represents a [Game](https://core.telegram.org/bots/api#game).
 
 ## Fields
 

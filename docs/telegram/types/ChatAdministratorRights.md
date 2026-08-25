@@ -52,7 +52,9 @@ Represents the rights of an administrator in a chat.
 
 <ApiParam name="can_manage_direct_messages" type="Boolean" description="*Optional*. *True*, if the administrator can manage direct messages of the channel and decline suggested posts; for channels only" />
 
-<ApiParam name="can_manage_tags" type="Boolean" description="*Optional*. *True*, if the administrator can edit the tags of regular members; for groups and supergroups only. If omitted defaults to the value of can\_pin\_messages." />
+<ApiParam name="can_manage_tags" type="Boolean" description="*Optional*. *True*, if the administrator can edit the tags of regular members; for groups and supergroups only" />
+
+<ApiParam name="can_send_welcome_messages" type="Boolean" required description="*True*, if the administrator can manage chat welcome messages or directly send them in the case of bots" />
 
 <!-- GENERATED:END -->
 

@@ -20,7 +20,7 @@ This object represents a message.
 
 ## Fields
 
-<ApiParam name="message_id" type="Integer" required description="Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent." />
+<ApiParam name="message_id" type="Integer" required description="Unique message identifier inside this chat; 0 for ephemeral messages. In specific instances (e.g., a message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent." />
 
 <ApiParam name="message_thread_id" type="Integer" description="*Optional*. Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only" />
 
@@ -36,6 +36,10 @@ This object represents a message.
 
 <ApiParam name="sender_tag" type="String" description="*Optional*. Tag or custom title of the sender of the message; for supergroups only" />
 
+<ApiParam name="receiver_user" type="User" description="*Optional*. For ephemeral messages, the user who received the message" />
+
+<ApiParam name="ephemeral_message_id" type="Integer" description="*Optional*. For ephemeral messages, identifier of the ephemeral message inside this chat. The identifier may be reused for another ephemeral message after the message is deleted or expires." />
+
 <ApiParam name="date" type="Integer" required description="Date the message was sent in Unix time. It is always a positive number, representing a valid date." />
 
 <ApiParam name="guest_query_id" type="String" description="*Optional*. The unique identifier for the guest query. Use this identifier with the method [answerGuestQuery](https://core.telegram.org/bots/api#answerguestquery) to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier." />
@@ -50,7 +54,7 @@ This object represents a message.
 
 <ApiParam name="is_automatic_forward" type="True" description="*Optional*. *True*, if the message is a channel post that was automatically forwarded to the connected discussion group" />
 
-<ApiParam name="reply_to_message" type="Message" description="*Optional*. For replies in the same chat and message thread, the original message. Note that the [Message](https://core.telegram.org/bots/api#message) object in this field will not contain further *reply\_to\_message* fields even if it itself is a reply." />
+<ApiParam name="reply_to_message" type="Message" description="*Optional*. For replies in the same chat and message thread, the original message. Note that the [Message](https://core.telegram.org/bots/api#message) object in this field will not contain further *reply\_to\_message* fields even if it itself is a reply. If the message is a reply to an ephemeral message, then this field may be omitted." />
 
 <ApiParam name="external_reply" type="ExternalReplyInfo" description="*Optional*. Information about the message that is being replied to, which may come from another chat or forum topic" />
 
@@ -91,6 +95,8 @@ This object represents a message.
 <ApiParam name="suggested_post_info" type="SuggestedPostInfo" description="*Optional*. Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited." />
 
 <ApiParam name="effect_id" type="String" description="*Optional*. Unique identifier of the message effect added to the message" />
+
+<ApiParam name="rich_message" type="RichMessage" description="*Optional*. Message is a rich formatted message" />
 
 <ApiParam name="animation" type="Animation" description="*Optional*. Message is an animation, information about the animation. For backward compatibility, when this field is set, the *document* field will also be set." />
 
@@ -186,7 +192,7 @@ This object represents a message.
 
 <ApiParam name="passport_data" type="PassportData" description="*Optional*. Telegram Passport data" />
 
-<ApiParam name="proximity_alert_triggered" type="ProximityAlertTriggered" description="*Optional*. Service message. A user in the chat triggered another user's proximity alert while sharing Live Location." />
+<ApiParam name="proximity_alert_triggered" type="ProximityAlertTriggered" description="*Optional*. Service message: a user in the chat triggered another user's proximity alert while sharing Live Location" />
 
 <ApiParam name="boost_added" type="ChatBoostAdded" description="*Optional*. Service message: user boosted the chat" />
 
@@ -195,6 +201,12 @@ This object represents a message.
 <ApiParam name="checklist_tasks_done" type="ChecklistTasksDone" description="*Optional*. Service message: some tasks in a checklist were marked as done or not done" />
 
 <ApiParam name="checklist_tasks_added" type="ChecklistTasksAdded" description="*Optional*. Service message: tasks were added to a checklist" />
+
+<ApiParam name="community_chat_added" type="CommunityChatAdded" description="*Optional*. Service message: chat or bot added to a [Community](https://core.telegram.org/bots/api#community)" />
+
+<ApiParam name="community_chat_joined" type="CommunityChatJoined" description="*Optional*. Service message: chat was joined by a user from a [Community](https://core.telegram.org/bots/api#community)" />
+
+<ApiParam name="community_chat_removed" type="CommunityChatRemoved" description="*Optional*. Service message: chat or bot removed from a [Community](https://core.telegram.org/bots/api#community)" />
 
 <ApiParam name="direct_message_price_changed" type="DirectMessagePriceChanged" description="*Optional*. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed" />
 

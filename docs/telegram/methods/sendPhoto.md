@@ -32,6 +32,8 @@ Use this method to send photos. On success, the sent [Message](https://core.tele
 
 <ApiParam name="direct_messages_topic_id" type="Integer" description="Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat" />
 
+<ApiParam name="ephemeral_message_parameters" type="EphemeralMessageParameters" description="A JSON-serialized object containing the parameters of the ephemeral message to send" />
+
 <ApiParam name="photo" type="InputFile | String" required description="Photo to send. Pass a file\_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height ratio must be at most 20. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)" docsLink="/files/media-upload" />
 
 <ApiParam name="caption" type="String" description="Photo caption (may also be used when resending photos by *file\_id*), 0-1024 characters after entities parsing" :minLen="0" :maxLen="1024" semanticType="formattable" docsLink="/formatting" />
@@ -40,7 +42,7 @@ Use this method to send photos. On success, the sent [Message](https://core.tele
 
 <ApiParam name="caption_entities" type="MessageEntity[]" description="A JSON-serialized list of special entities that appear in the caption, which can be specified instead of *parse\_mode*" />
 
-<ApiParam name="show_caption_above_media" type="Boolean" description="Pass *True*, if the caption must be shown above the message media" />
+<ApiParam name="show_caption_above_media" type="Boolean" description="Pass *True* if the caption must be shown above the message media" />
 
 <ApiParam name="has_spoiler" type="Boolean" description="Pass *True* if the photo needs to be covered with a spoiler animation" />
 

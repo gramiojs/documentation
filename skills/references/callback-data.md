@@ -90,6 +90,39 @@ const keyboard = new InlineKeyboard()
     .text("Buy #2", itemAction.pack({ id: 2, action: "buy" }));
 ```
 
+## Hidden Payloads in Reply-Keyboard Labels (v0.2.0+)
+
+Reply-keyboard buttons send their label back as ordinary message text and do not have a `callback_data` field. Use the zero-width codec to embed a packed schema payload without changing the visible label:
+
+```typescript
+import { embed, extract } from "@gramio/callback-data";
+import { CallbackData, Keyboard } from "gramio";
+
+const navigation = new CallbackData("reply-navigation")
+    .enum("to", ["home", "settings"]);
+
+const keyboard = new Keyboard().text(
+    embed("⚙️ Settings", navigation.pack({ to: "settings" })),
+);
+
+bot.on("message", (ctx) => {
+    const embedded = extract(ctx.text ?? "");
+    if (!embedded) return;
+
+    const action = navigation.safeUnpack(embedded.data);
+    if (!action.success) return;
+
+    return ctx.send(`Opening ${action.data.to}`);
+});
+```
+
+- `encode(data)` converts a string to an invisible UTF-8 suffix.
+- `decode(suffix)` returns the original string or `undefined` for invalid input.
+- `embed(visible, data)` appends the invisible payload to visible text.
+- `extract(text)` returns `{ visible, data }` or `undefined` when no valid suffix exists.
+
+Always validate extracted data with `safeUnpack()`. The hidden suffix is transport encoding, not authentication or tamper protection.
+
 ## Handle with Type Safety
 
 ```typescript

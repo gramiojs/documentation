@@ -23,6 +23,10 @@ export const localeRu = {
 						items: [
 							// новые записи добавляются здесь скиллом, сначала новейшие
 							{
+								text: "2026-08-25",
+								link: "/ru/changelogs/2026-08-25",
+							},
+							{
 								text: "2026-05-31",
 								link: "/ru/changelogs/2026-05-31",
 							},
@@ -212,6 +216,11 @@ export const localeRu = {
 								],
 							},
 							{ text: "Telegram Stars", link: "/ru/guides/telegram-stars" },
+							{
+								text: "Эфемерные сообщения",
+								link: "/ru/guides/ephemeral-messages",
+							},
+							{ text: "Rich Messages", link: "/ru/guides/rich-messages" },
 							{ text: "Deep-ссылки", link: "/ru/guides/deep-links" },
 							{ text: "UX-паттерны", link: "/ru/guides/ux-patterns" },
 							{ text: "Фильтры", link: "/ru/guides/filters" },

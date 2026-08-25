@@ -21,7 +21,7 @@ Use this method to change the bot's menu button in a private chat, or the defaul
 
 ## Parameters
 
-<ApiParam name="chat_id" type="Integer" description="Unique identifier for the target private chat. If not specified, default bot's menu button will be changed." />
+<ApiParam name="chat_id" type="Integer" description="Unique identifier for the target private chat. If not specified, the bot's default menu button will be changed." />
 
 <ApiParam name="menu_button" type="MenuButton" description="A JSON-serialized object for the bot's new menu button. Defaults to [MenuButtonDefault](https://core.telegram.org/bots/api#menubuttondefault)." />
 

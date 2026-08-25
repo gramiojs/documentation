@@ -24,6 +24,8 @@ This object represents a bot command.
 
 <ApiParam name="description" type="String" required description="Description of the command; 1-256 characters" :minLen="1" :maxLen="256" />
 
+<ApiParam name="is_ephemeral" type="Boolean" description="*Optional*. *True*, if the command sends an ephemeral message, which can be seen only by the sender of the message and the bot" />
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

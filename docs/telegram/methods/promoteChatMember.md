@@ -59,6 +59,8 @@ Use this method to promote or demote a user in a supergroup or a channel. The bo
 
 <ApiParam name="can_manage_tags" type="Boolean" description="Pass *True* if the administrator can edit the tags of regular members; for groups and supergroups only" />
 
+<ApiParam name="can_send_welcome_messages" type="Boolean" description="Pass *True* if the administrator can manage chat welcome messages or directly send them in the case of bots" />
+
 ## Returns
 
 On success, *True* is returned.

@@ -20,7 +20,7 @@ Describes actions that a non-administrator user is allowed to take in a chat.
 
 ## Fields
 
-<ApiParam name="can_send_messages" type="Boolean" description="*Optional*. *True*, if the user is allowed to send text messages, contacts, giveaways, giveaway winners, invoices, locations and venues" />
+<ApiParam name="can_send_messages" type="Boolean" description="*Optional*. *True*, if the user is allowed to send text messages, rich messages, contacts, giveaways, giveaway winners, invoices, locations and venues" />
 
 <ApiParam name="can_send_audios" type="Boolean" description="*Optional*. *True*, if the user is allowed to send audios" />
 
@@ -50,7 +50,7 @@ Describes actions that a non-administrator user is allowed to take in a chat.
 
 <ApiParam name="can_pin_messages" type="Boolean" description="*Optional*. *True*, if the user is allowed to pin messages. Ignored in public supergroups." />
 
-<ApiParam name="can_manage_topics" type="Boolean" description="*Optional*. *True*, if the user is allowed to create forum topics. If omitted defaults to the value of can\_pin\_messages." />
+<ApiParam name="can_manage_topics" type="Boolean" description="*Optional*. *True*, if the user is allowed to create forum topics. If omitted, defaults to the value of can\_pin\_messages." />
 
 <!-- GENERATED:END -->
 

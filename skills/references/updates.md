@@ -85,6 +85,8 @@ Available factories (all return immutable `Array<AllowedUpdateName>`):
 > [!WARNING]
 > Auto-derivation in modes 1 and 2 only sees handlers registered via `.on(eventName, …)`, the trigger shorthands (`command`, `callbackQuery`, `hears`, `reaction`, `inlineQuery`, `chosenInlineResult`, `startParameter`), and event-specific `derive`. Filter-style `.on(filterFn, handler)` and global `.use()` middleware don't declare a specific event — `.add()` the relevant types manually if you rely on those.
 
+`stopped_message_generation` (Bot API 10.3) is included in both `AllowedUpdatesFilter.all` and `.default`. It is **not** an opt-in update. In strict mode, registering `.on("stopped_message_generation", handler)` adds it to the derived list.
+
 ## bot.stop()
 
 Stops polling/webhook, waits for pending updates to finish, then fires the `onStop` hook.

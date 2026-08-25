@@ -19,7 +19,7 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#copymessage" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-Use this method to copy messages of any kind. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz [poll](https://core.telegram.org/bots/api#poll) can be copied only if the value of the field *correct\_option\_id* is known to the bot. The method is analogous to the method [forwardMessage](https://core.telegram.org/bots/api#forwardmessage), but the copied message doesn't have a link to the original message. Returns the [MessageId](https://core.telegram.org/bots/api#messageid) of the sent message on success.
+Use this method to copy messages of any kind. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz [poll](https://core.telegram.org/bots/api#poll) can be copied only if the value of the field *correct\_option\_ids* is known to the bot. The method is analogous to the method [forwardMessage](https://core.telegram.org/bots/api#forwardmessage), but the copied message doesn't have a link to the original message. Returns the [MessageId](https://core.telegram.org/bots/api#messageid) of the sent message on success.
 
 ## Parameters
 
@@ -41,7 +41,7 @@ Use this method to copy messages of any kind. Service messages, paid media messa
 
 <ApiParam name="caption_entities" type="MessageEntity[]" description="A JSON-serialized list of special entities that appear in the new caption, which can be specified instead of *parse\_mode*" />
 
-<ApiParam name="show_caption_above_media" type="Boolean" description="Pass *True*, if the caption must be shown above the message media. Ignored if a new caption isn't specified." />
+<ApiParam name="show_caption_above_media" type="Boolean" description="Pass *True* if the caption must be shown above the message media. Ignored if a new caption isn't specified." />
 
 <ApiParam name="disable_notification" type="Boolean" description="Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound." />
 

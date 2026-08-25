@@ -28,6 +28,17 @@ These are the most common GramIO mistakes — all in formatting.md.
 - **Entities vanish when reusing a `FormattableString`.** Plain template interpolation (`` `${myFormattable}` ``) strips entities; never call `.toString()` on it either. Always wrap reused formattables in an outer ``format`...` ``.
 - **Caption formatting ignored on media.** Pass the `format` value as the `caption`, not in the text — and again, no `parse_mode`.
 
+## Rich Messages
+
+- **A rich helper result is sent as plain text.** Import helpers from `gramio/rich` and pass the returned `RichString` directly to `ctx.send()`; do not call `.toString()`.
+- **A file in `sendRichMessageDraft` is not uploaded.** This is deliberate: Telegram forbids direct uploads in rich drafts. Use a pre-existing `file_id`, then finalize with `sendRichMessage`.
+- **Stop button appears but the handler never runs.** Register `bot.on("stopped_message_generation", ...)`. The update is in the default set, but an explicit custom `allowedUpdates` array must still include it.
+
+## Ephemeral sends fail after Bot API 10.3
+
+- **TypeScript rejects top-level `receiver_user_id` / `callback_query_id`.** Move them into `ephemeral_message_parameters`. There is no legacy alias.
+- **A callback result should replace the original message.** Set `ephemeral_message_parameters.replace_callback_query_message: true`; do not use it for callbacks from an already-ephemeral message.
+
 ## Callback buttons feel broken / spinner hangs
 
 - **Inline button shows a loading spinner for ~15s.** The handler never called `answerCallbackQuery`. Make `await ctx.answer()` the **first line** of every `callbackQuery` handler (empty answer is fine). Or install `@gramio/auto-answer-callback-query` so it's automatic. See ux-patterns.md §7.
@@ -62,4 +73,4 @@ These are the most common GramIO mistakes — all in formatting.md.
 - **Custom `ctx.foo` is `any` or errors.** Don't augment with `declare module`. Add it via `.derive(ctx => ({ foo }))` (per-update) or `.decorate({ foo })` (static) so the type flows automatically. See context.md / types.md.
 
 ## See also
-- formatting.md · context.md · scenes.md · prompt.md · callback-data.md · webhook.md · files.md · updates.md
+- formatting.md · rich-messages.md · context.md · scenes.md · prompt.md · callback-data.md · webhook.md · files.md · updates.md

@@ -54,6 +54,8 @@ This object represents a Telegram user or bot.
 
 <ApiParam name="can_manage_bots" type="Boolean" description="*Optional*. *True*, if other bots can be created to be controlled by the bot. Returned only in [getMe](https://core.telegram.org/bots/api#getme)." />
 
+<ApiParam name="supports_join_request_queries" type="Boolean" description="*Optional*. *True*, if the bot supports join request queries and can be assigned to process them. Returned only in [getMe](https://core.telegram.org/bots/api#getme)." />
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

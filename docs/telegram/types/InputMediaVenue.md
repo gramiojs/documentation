@@ -20,7 +20,7 @@ Represents a venue to be sent.
 
 ## Fields
 
-<ApiParam name="type" type="String" required description="Type of the result, must be *venue*" constValue="venue" />
+<ApiParam name="type" type="String" required description="Type of the media, must be *venue*" constValue="venue" />
 
 <ApiParam name="latitude" type="Float" required description="Latitude of the location" />
 

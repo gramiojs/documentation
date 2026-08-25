@@ -1,6 +1,6 @@
 {
     "version": 1,
-    "generated": "2026-06-03",
+    "generated": "2026-08-25",
     "labels": {
         "breaking": { "en": "Breaking", "ru": "Ломающее" },
         "deprecated": { "en": "Deprecated", "ru": "Устаревшее" },
@@ -13,6 +13,23 @@
             "repo": "gramiojs/gramio",
             "layer": 3,
             "entries": [
+                {
+                    "from": "0.13.0",
+                    "to": "0.14.0",
+                    "date": "2026-08-25",
+                    "changelog": "/changelogs/2026-08-25",
+                    "peerBumps": ["@gramio/types ^10.3.1", "@gramio/contexts ^0.11.0", "@gramio/files ^0.8.0", "@gramio/format ^0.11.0", "@gramio/keyboards ^1.5.0", "@gramio/test ^0.8.0"],
+                    "new": [
+                        {
+                            "en": { "title": "Bot API 10.3 update routing", "desc": "stopped_message_generation is included in default, all, and handler-derived allowed_updates filters; stopped-message-generation and community-chat-joined updates route to their typed contexts." },
+                            "ru": { "title": "Маршрутизация апдейтов Bot API 10.3", "desc": "stopped_message_generation включён в default, all и вычисляемые по хэндлерам фильтры allowed_updates; апдейты остановки генерации и входа community-чата маршрутизируются в типизированные контексты." }
+                        },
+                        {
+                            "en": { "title": "Strict raw Bot API surface", "desc": "bot.api.* remains one-to-one with Telegram methods and accepts the Bot API 10.3 nested ephemeral_message_parameters shape only." },
+                            "ru": { "title": "Строгий raw-интерфейс Bot API", "desc": "bot.api.* остаётся один-к-одному с методами Telegram и принимает только вложенную структуру ephemeral_message_parameters из Bot API 10.3." }
+                        }
+                    ]
+                },
                 {
                     "from": "0.9.0",
                     "to": "0.10.0",
@@ -138,6 +155,72 @@
             "layer": 1,
             "entries": [
                 {
+                    "from": "10.2.2",
+                    "to": "10.3.1",
+                    "date": "2026-08-25",
+                    "changelog": "/changelogs/2026-08-25",
+                    "breaking": [
+                        {
+                            "en": { "title": "Ephemeral send parameters are nested", "desc": "Move receiver_user_id, callback_query_id, and replace_callback_query_message into ephemeral_message_parameters. Deprecated top-level aliases are not supported." },
+                            "ru": { "title": "Параметры эфемерной отправки стали вложенными", "desc": "Перенесите receiver_user_id, callback_query_id и replace_callback_query_message в ephemeral_message_parameters. Устаревшие алиасы верхнего уровня не поддерживаются." },
+                            "before": "await bot.api.sendMessage({\n    chat_id,\n    text: \"Private reply\",\n    receiver_user_id: userId,\n    callback_query_id: callbackQueryId,\n});",
+                            "after": "await bot.api.sendMessage({\n    chat_id,\n    text: \"Private reply\",\n    ephemeral_message_parameters: {\n        receiver_user_id: userId,\n        callback_query_id: callbackQueryId,\n        replace_callback_query_message: true,\n    },\n});"
+                        },
+                        {
+                            "en": { "title": "Administrator-right fixtures require welcome-message permission", "desc": "Constructed ChatAdministratorRights and ChatMemberAdministrator values must include can_send_welcome_messages." },
+                            "ru": { "title": "Фикстурам прав администратора нужно право welcome-сообщений", "desc": "Создаваемые вручную значения ChatAdministratorRights и ChatMemberAdministrator должны содержать can_send_welcome_messages." }
+                        }
+                    ],
+                    "new": [
+                        {
+                            "en": { "title": "Complete Bot API 10.3 declaration set", "desc": "Adds stopped message generation, community chat joined, disabled buttons, force-reply markup, expanded rich-message objects, and new ephemeral-message parameters." },
+                            "ru": { "title": "Полный набор деклараций Bot API 10.3", "desc": "Добавлены остановка генерации сообщений, вход community-чата, отключённые кнопки, force-reply разметка, расширенные rich-message объекты и новые параметры эфемерных сообщений." }
+                        }
+                    ],
+                    "fixes": [
+                        {
+                            "en": { "title": "Draft stop fields restored", "desc": "SendMessageDraftParams and SendRichMessageDraftParams both expose can_stop and keep_on_stop, guarded by generation assertions." },
+                            "ru": { "title": "Поля остановки draft восстановлены", "desc": "SendMessageDraftParams и SendRichMessageDraftParams содержат can_stop и keep_on_stop; генерационные проверки защищают их от повторной потери." }
+                        }
+                    ]
+                },
+                {
+                    "from": "10.1.0",
+                    "to": "10.2.0",
+                    "date": "2026-07-14",
+                    "changelog": "https://core.telegram.org/bots/api-changelog#july-14-2026",
+                    "new": [
+                        {
+                            "en": { "title": "Regenerated for Bot API 10.2", "desc": "Additive, non-breaking. Ephemeral Messages: editEphemeralMessageText/Media/Caption/ReplyMarkup + deleteEphemeralMessage, receiverUserId & callbackQueryId params on 13 send methods, Message.receiverUser / ephemeralMessageId, BotCommand.isEphemeral, ReplyParameters.ephemeralMessageId." },
+                            "ru": { "title": "Перегенерировано под Bot API 10.2", "desc": "Аддитивно, без ломающих изменений. Эфемерные сообщения: editEphemeralMessageText/Media/Caption/ReplyMarkup + deleteEphemeralMessage, параметры receiverUserId и callbackQueryId у 13 методов отправки, Message.receiverUser / ephemeralMessageId, BotCommand.isEphemeral, ReplyParameters.ephemeralMessageId." }
+                        },
+                        {
+                            "en": { "title": "Communities & subscription updates", "desc": "Community object, ChatFullInfo.community, community_chat_added / community_chat_removed service messages. New subscription update: Update.subscription + BotSubscriptionUpdated (state: canceled | active | failed) — add \"subscription\" to allowed_updates to receive it." },
+                            "ru": { "title": "Сообщества и обновления подписок", "desc": "Объект Community, ChatFullInfo.community, сервисные сообщения community_chat_added / community_chat_removed. Новое обновление subscription: Update.subscription + BotSubscriptionUpdated (state: canceled | active | failed) — добавьте \"subscription\" в allowed_updates, чтобы получать его." }
+                        },
+                        {
+                            "en": { "title": "Rich Messages — structured input", "desc": "InputRichBlock* write-side blocks (paragraph, list, table, collage, slideshow, details, thinking, math, media blocks, …), InputRichMessage.blocks / media, InputRichMessageMedia, and InputMediaVoiceNote — build rich messages block-by-block instead of only via markdown/html." },
+                            "ru": { "title": "Rich Messages — структурированный ввод", "desc": "Блоки записи InputRichBlock* (paragraph, list, table, collage, slideshow, details, thinking, math, медиа-блоки, …), InputRichMessage.blocks / media, InputRichMessageMedia и InputMediaVoiceNote — сборка rich-сообщений поблочно, а не только через markdown/html." }
+                        }
+                    ]
+                },
+                {
+                    "from": "10.0.0",
+                    "to": "10.1.0",
+                    "date": "2026-06-11",
+                    "changelog": "https://core.telegram.org/bots/api-changelog#june-11-2026",
+                    "new": [
+                        {
+                            "en": { "title": "Regenerated for Bot API 10.1", "desc": "Additive, non-breaking. Rich Messages (read side): RichText* / RichBlock* structures, Message.richMessage, InputRichMessage + InputRichMessageContent (usable as InputMessageContent in inline / guest / Web App answers), sendRichMessage, sendRichMessageDraft (ephemeral streaming preview), editMessageText.richMessage." },
+                            "ru": { "title": "Перегенерировано под Bot API 10.1", "desc": "Аддитивно, без ломающих изменений. Rich Messages (чтение): структуры RichText* / RichBlock*, Message.richMessage, InputRichMessage + InputRichMessageContent (можно как InputMessageContent в ответах inline / guest / Web App), sendRichMessage, sendRichMessageDraft (эфемерный стриминговый предпросмотр), editMessageText.richMessage." }
+                        },
+                        {
+                            "en": { "title": "Join Request Queries & Polls", "desc": "User.supportsJoinRequestQueries, ChatFullInfo.guardBot, ChatJoinRequest.queryId, answerChatJoinRequestQuery, sendChatJoinRequestWebApp. Polls: Link + PollMedia.link, InputMediaLink usable as InputPollOptionMedia." },
+                            "ru": { "title": "Запросы на вступление и опросы", "desc": "User.supportsJoinRequestQueries, ChatFullInfo.guardBot, ChatJoinRequest.queryId, answerChatJoinRequestQuery, sendChatJoinRequestWebApp. Опросы: Link + PollMedia.link, InputMediaLink как InputPollOptionMedia." }
+                        }
+                    ]
+                },
+                {
                     "from": "9.6.x",
                     "to": "10.0.0",
                     "date": "2026-05-31",
@@ -216,6 +299,27 @@
             "repo": "gramiojs/contexts",
             "layer": 2,
             "entries": [
+                {
+                    "from": "0.10.0",
+                    "to": "0.11.0",
+                    "date": "2026-08-25",
+                    "changelog": "/changelogs/2026-08-25",
+                    "peerBumps": ["@gramio/types ^10.3.1"],
+                    "new": [
+                        {
+                            "en": { "title": "Bot API 10.3 contexts", "desc": "MessageGenerationStoppedContext exposes draftId, threadId, chat, chatId, chatType, and send helpers; CommunityChatJoinedContext is registered as a service event." },
+                            "ru": { "title": "Контексты Bot API 10.3", "desc": "MessageGenerationStoppedContext предоставляет draftId, threadId, chat, chatId, chatType и методы отправки; CommunityChatJoinedContext зарегистрирован как сервисное событие." }
+                        },
+                        {
+                            "en": { "title": "New 10.3 getters", "desc": "Administrator rights expose canSendWelcomeMessages(); UniqueGiftInfo adds text, wrapped entities, and isPrivate; keyboard wrappers expose forceReply and isDisabled." },
+                            "ru": { "title": "Новые геттеры 10.3", "desc": "Права администратора получили canSendWelcomeMessages(); UniqueGiftInfo — text, обёрнутые entities и isPrivate; обёртки клавиатур — forceReply и isDisabled." }
+                        },
+                        {
+                            "en": { "title": "Rich-message plain-text flattening", "desc": "Plain-text extraction now includes rich buttons, expandable quotations, document captions, button rows, and credits." },
+                            "ru": { "title": "Преобразование rich messages в простой текст", "desc": "Извлечение plain text теперь учитывает rich-кнопки, раскрываемые цитаты, подписи документов, ряды кнопок и авторство." }
+                        }
+                    ]
+                },
                 {
                     "from": "0.6.1",
                     "to": "0.7.0",
@@ -498,10 +602,50 @@
                 }
             ]
         },
+        "@gramio/files": {
+            "repo": "gramiojs/files",
+            "layer": 2,
+            "entries": [
+                {
+                    "from": "0.7.0",
+                    "to": "0.8.0",
+                    "date": "2026-08-25",
+                    "changelog": "/changelogs/2026-08-25",
+                    "peerBumps": ["@gramio/types ^10.3.1"],
+                    "new": [
+                        {
+                            "en": { "title": "Recursive rich-message uploads", "desc": "File extraction traverses references, unions, arrays, and recursive rich blocks, including sendRichMessage rich_message.blocks and rich_message.media." },
+                            "ru": { "title": "Рекурсивные загрузки в rich messages", "desc": "Извлечение файлов проходит по ссылкам, union-типам, массивам и рекурсивным rich-блокам, включая rich_message.blocks и rich_message.media метода sendRichMessage." }
+                        },
+                        {
+                            "en": { "title": "Path descriptors without breaking Extractor", "desc": "Generated upload metadata adds wildcard path descriptors while preserving the legacy Extractor shape. InputRichBlockDocument uploads are supported; sendRichMessageDraft remains upload-free by Telegram design." },
+                            "ru": { "title": "Описатели путей без поломки Extractor", "desc": "Сгенерированные метаданные загрузок получили пути с wildcard при сохранении старой формы Extractor. Загрузки InputRichBlockDocument поддерживаются; sendRichMessageDraft по правилам Telegram остаётся без прямых загрузок." }
+                        }
+                    ]
+                }
+            ]
+        },
         "@gramio/format": {
             "repo": "gramiojs/format",
             "layer": 2,
             "entries": [
+                {
+                    "from": "0.10.0",
+                    "to": "0.11.0",
+                    "date": "2026-08-25",
+                    "changelog": "/changelogs/2026-08-25",
+                    "peerBumps": ["@gramio/types ^10.3.1"],
+                    "new": [
+                        {
+                            "en": { "title": "Rich-message builders", "desc": "Adds quote(content, { expandable, credit }), document({ url, caption }), button(), buttonRow(), and compact tables." },
+                            "ru": { "title": "Конструкторы rich messages", "desc": "Добавлены quote(content, { expandable, credit }), document({ url, caption }), button(), buttonRow() и компактные таблицы." }
+                        },
+                        {
+                            "en": { "title": "Bot API 10.3 mutator coverage", "desc": "Generated formatting mutation covers rich content in ephemeral edits plus the new document and caption paths." },
+                            "ru": { "title": "Покрытие мутаций Bot API 10.3", "desc": "Сгенерированные форматирующие мутации покрывают rich-контент в эфемерных редактированиях и новые пути документов и подписей." }
+                        }
+                    ]
+                },
                 {
                     "from": "0.7.0",
                     "to": "0.8.0",
@@ -557,6 +701,23 @@
             "layer": 2,
             "entries": [
                 {
+                    "from": "1.4.0",
+                    "to": "1.5.0",
+                    "date": "2026-08-25",
+                    "changelog": "/changelogs/2026-08-25",
+                    "peerBumps": ["@gramio/types ^10.3.1"],
+                    "new": [
+                        {
+                            "en": { "title": "Disabled inline buttons", "desc": "InlineKeyboard.disabled(text, options?) creates Bot API 10.3 disabled buttons." },
+                            "ru": { "title": "Отключённые inline-кнопки", "desc": "InlineKeyboard.disabled(text, options?) создаёт отключённые кнопки Bot API 10.3." }
+                        },
+                        {
+                            "en": { "title": "Force reply on keyboard builders", "desc": "InlineKeyboard and Keyboard now provide forceReply(enabled = true), serialized as force_reply." },
+                            "ru": { "title": "Force reply в конструкторах клавиатур", "desc": "InlineKeyboard и Keyboard получили forceReply(enabled = true), сериализуемый как force_reply." }
+                        }
+                    ]
+                },
+                {
                     "from": "1.3.x",
                     "to": "1.4.0",
                     "date": "2026-05-08",
@@ -588,6 +749,19 @@
             "layer": 2,
             "entries": [
                 {
+                    "from": "0.1.1",
+                    "to": "0.2.0",
+                    "date": "2026-08-25",
+                    "changelog": "/changelogs/2026-08-25",
+                    "new": [
+                        {
+                            "en": { "title": "Zero-width reply-keyboard payload codec", "desc": "encode/decode convert strings to and from an invisible UTF-8 suffix; embed/extract attach typed callback payloads to visible reply-keyboard labels and recover them from message text." },
+                            "ru": { "title": "Zero-width codec для payload reply-клавиатур", "desc": "encode/decode преобразуют строки в невидимый UTF-8 суффикс и обратно; embed/extract добавляют типизированные callback payload к видимым label reply-кнопок и извлекают их из текста сообщения." },
+                            "after": "import { embed, extract } from \"@gramio/callback-data\";\nconst label = embed(\"⚙️ Settings\", navigation.pack({ to: \"settings\" }));\nconst embedded = extract(ctx.text ?? \"\");\nif (embedded) navigation.safeUnpack(embedded.data);"
+                        }
+                    ]
+                },
+                {
                     "from": "0.0.11",
                     "to": "0.1.0",
                     "date": "2026-02-23",
@@ -610,6 +784,23 @@
             "repo": "gramiojs/test",
             "layer": 5,
             "entries": [
+                {
+                    "from": "0.7.0",
+                    "to": "0.8.0",
+                    "date": "2026-08-25",
+                    "changelog": "/changelogs/2026-08-25",
+                    "peerBumps": ["gramio ^0.14.0", "@gramio/contexts ^0.11.0", "@gramio/types ^10.3.1"],
+                    "new": [
+                        {
+                            "en": { "title": "Stop-generation test actor", "desc": "user.stopMessageGeneration(draftId, { chat?, messageThreadId? }) delivers a synthetic stopped_message_generation update." },
+                            "ru": { "title": "Тестовый актор остановки генерации", "desc": "user.stopMessageGeneration(draftId, { chat?, messageThreadId? }) доставляет синтетический апдейт stopped_message_generation." }
+                        },
+                        {
+                            "en": { "title": "Ephemeral send mock responses", "desc": "Mocked sends resolve nested ephemeral_message_parameters and populate receiver_user plus ephemeral_message_id." },
+                            "ru": { "title": "Мок-ответы эфемерной отправки", "desc": "Моки отправки обрабатывают вложенные ephemeral_message_parameters и заполняют receiver_user вместе с ephemeral_message_id." }
+                        }
+                    ]
+                },
                 {
                     "from": "0.3.0",
                     "to": "0.7.0",
@@ -670,6 +861,19 @@
             "repo": "gramiojs/views",
             "layer": 4,
             "entries": [
+                {
+                    "from": "0.2.0",
+                    "to": "0.2.1",
+                    "date": "2026-08-25",
+                    "changelog": "/changelogs/2026-08-25",
+                    "peerBumps": ["gramio ^0.14.0"],
+                    "fixes": [
+                        {
+                            "en": { "title": "Bot API 10.3 media compatibility", "desc": "ResponseView.media excludes the two-file InputMediaLivePhoto from its one-file abstraction, while supported media keep all media-specific fields during send and edit." },
+                            "ru": { "title": "Совместимость media с Bot API 10.3", "desc": "ResponseView.media исключает двухфайловый InputMediaLivePhoto из однофайловой абстракции, а поддерживаемые медиа сохраняют все media-specific поля при отправке и редактировании." }
+                        }
+                    ]
+                },
                 {
                     "from": "0.1.1",
                     "to": "0.2.0",
@@ -788,6 +992,23 @@
             "layer": 4,
             "entries": [
                 {
+                    "from": "0.0.1",
+                    "to": "0.1.0",
+                    "date": "2026-08-25",
+                    "changelog": "/changelogs/2026-08-25",
+                    "peerBumps": ["gramio ^0.14.0", "@gramio/types ^10.3.1", "@gramio/test ^0.8.0"],
+                    "new": [
+                        {
+                            "en": { "title": "Rich-message JSX", "desc": "Adds rich <button>, <button-row>, and <document>, expandable credited <blockquote>, and compact <table> support." },
+                            "ru": { "title": "JSX для rich messages", "desc": "Добавлены rich-элементы <button>, <button-row> и <document>, раскрываемый <blockquote> с авторством и компактный <table>." }
+                        },
+                        {
+                            "en": { "title": "Bot API 10.3 keyboard JSX", "desc": "Regular keyboard JSX supports disabled inline buttons and forceReply for inline and reply keyboards." },
+                            "ru": { "title": "JSX-клавиатуры Bot API 10.3", "desc": "Обычный keyboard JSX поддерживает отключённые inline-кнопки и forceReply для inline- и reply-клавиатур." }
+                        }
+                    ]
+                },
+                {
                     "from": null,
                     "to": "date-time element",
                     "date": "2026-05-08",
@@ -890,10 +1111,10 @@
             "layer": 1,
             "entries": [
                 {
-                    "from": "v1",
-                    "to": "v2",
-                    "date": "2026-05-08",
-                    "changelog": "/changelogs/2026-05-08",
+                    "from": "1.3.0",
+                    "to": "2.0.0",
+                    "date": "2026-08-25",
+                    "changelog": "/changelogs/2026-08-25",
                     "notes": [
                         {
                             "en": "Only affects you if you use wrappergram directly — gramio users get bot.api and are unaffected.",
@@ -902,13 +1123,17 @@
                     ],
                     "breaking": [
                         {
-                            "en": { "title": "Telegram class → Wrappergram, middleware chain", "desc": "The hardcoded pipeline is now a middleware chain. @gramio/files is no longer a hard dependency — opt in via @gramio/files/middleware (and @gramio/format/middleware)." },
-                            "ru": { "title": "Класс Telegram → Wrappergram, цепочка middleware", "desc": "Захардкоженный пайплайн теперь цепочка middleware. @gramio/files больше не жёсткая зависимость — подключайте через @gramio/files/middleware (и @gramio/format/middleware)." },
-                            "before": "import { Telegram } from \"wrappergram\";\nconst tg = new Telegram(token);",
-                            "after": "import { Wrappergram, TelegramError } from \"wrappergram\";\nimport { filesMiddleware } from \"@gramio/files/middleware\";\nconst tg = new Wrappergram({ token, middlewares: [filesMiddleware] });\n\nconst result = await tg.sendMessage({ chat_id, text }, { suppress: true });\nif (result instanceof TelegramError) console.error(result.code, result.payload);"
+                            "en": { "title": "Direct results, thrown errors, and opt-in middleware", "desc": "The Telegram class remains, but API calls now return the Telegram result directly and throw TelegramError by default. @gramio/files is no longer bundled — opt in via @gramio/files/middleware (and @gramio/format/middleware). requestOptions is renamed to fetchOptions." },
+                            "ru": { "title": "Прямые результаты, исключения и opt-in middleware", "desc": "Класс Telegram остаётся, но API-вызовы теперь возвращают результат Telegram напрямую и по умолчанию бросают TelegramError. @gramio/files больше не встроен — подключайте @gramio/files/middleware (и @gramio/format/middleware). requestOptions переименован в fetchOptions." },
+                            "before": "const response = await telegram.api.sendMessage({ chat_id, text });\nif (!response.ok) console.error(response.description);\nelse console.log(response.result.message_id);",
+                            "after": "import { Telegram, TelegramError } from \"wrappergram\";\nimport { filesMiddleware } from \"@gramio/files/middleware\";\n\nconst telegram = new Telegram(token, { middlewares: [filesMiddleware] });\nconst result = await telegram.api.sendMessage({ chat_id, text, suppress: true });\nif (result instanceof TelegramError) console.error(result.code, result.payload);\nelse console.log(result.message_id);"
                         }
                     ],
                     "new": [
+                        {
+                            "en": { "title": "Correct Bot API 10.3 raw API line", "desc": "Wrappergram exposes the @gramio/types 10.3.1 method surface, including corrected draft fields and strict nested ephemeral_message_parameters." },
+                            "ru": { "title": "Исправленная raw-линейка Bot API 10.3", "desc": "Wrappergram предоставляет поверхность методов @gramio/types 10.3.1, включая исправленные поля draft и строгие вложенные ephemeral_message_parameters." }
+                        },
                         {
                             "en": { "title": "Single Middleware type, TelegramError, suppress", "desc": "Middleware (ctx, next) => unknown, first-class TelegramError (method/code/payload + real stack), suppress: true (return TelegramError | Result instead of throwing), per-request fetch options." },
                             "ru": { "title": "Единый тип Middleware, TelegramError, suppress", "desc": "Middleware (ctx, next) => unknown, первоклассный TelegramError (method/code/payload + настоящий стек), suppress: true (возврат TelegramError | Result вместо throw), per-request опции fetch." }
@@ -921,6 +1146,24 @@
             "repo": "gramiojs/create-gramio",
             "layer": 5,
             "entries": [
+                {
+                    "from": "2.2.0",
+                    "to": "2.3.0",
+                    "date": "2026-08-25",
+                    "changelog": "/changelogs/2026-08-25",
+                    "notes": [
+                        {
+                            "en": "Affects newly generated projects only.",
+                            "ru": "Касается только новых сгенерированных проектов."
+                        }
+                    ],
+                    "new": [
+                        {
+                            "en": { "title": "Bot API 10.3 project template", "desc": "New projects use gramio ^0.14.0 and @gramio/test ^0.8.0." },
+                            "ru": { "title": "Шаблон проекта Bot API 10.3", "desc": "Новые проекты используют gramio ^0.14.0 и @gramio/test ^0.8.0." }
+                        }
+                    ]
+                },
                 {
                     "from": null,
                     "to": "2.x",

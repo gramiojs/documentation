@@ -20,7 +20,7 @@ Represents an animation file (GIF or H.264/MPEG-4 AVC video without sound) to be
 
 ## Fields
 
-<ApiParam name="type" type="String" required description="Type of the result, must be *animation*" constValue="animation" />
+<ApiParam name="type" type="String" required description="Type of the media, must be *animation*" constValue="animation" />
 
 <ApiParam name="media" type="InputFile | String" required description="File to send. Pass a file\_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass &quot;attach://&lt;file\_attach\_name&gt;&quot; to upload a new one using multipart/form-data under &lt;file\_attach\_name&gt; name. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files)" docsLink="/files/media-upload" />
 
@@ -32,7 +32,7 @@ Represents an animation file (GIF or H.264/MPEG-4 AVC video without sound) to be
 
 <ApiParam name="caption_entities" type="MessageEntity[]" description="*Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*" />
 
-<ApiParam name="show_caption_above_media" type="Boolean" description="*Optional*. Pass *True*, if the caption must be shown above the message media" />
+<ApiParam name="show_caption_above_media" type="Boolean" description="*Optional*. Pass *True* if the caption must be shown above the message media" />
 
 <ApiParam name="width" type="Integer" description="*Optional*. Animation width" />
 

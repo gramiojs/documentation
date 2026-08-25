@@ -32,7 +32,7 @@ This object represents an incoming callback query from a callback button in an [
 
 <ApiParam name="data" type="String" description="*Optional*. Data associated with the callback button. Be aware that the message originated the query can contain no callback buttons with this data." />
 
-<ApiParam name="game_short_name" type="String" description="*Optional*. Short name of a [Game](https://core.telegram.org/bots/api#games) to be returned, serves as the unique identifier for the game" />
+<ApiParam name="game_short_name" type="String" description="*Optional*. Short name of a [Game](https://core.telegram.org/bots/api#game) to be returned, serves as the unique identifier for the game" />
 
 <!-- GENERATED:END -->
 

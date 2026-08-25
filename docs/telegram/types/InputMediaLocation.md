@@ -20,7 +20,7 @@ Represents a location to be sent.
 
 ## Fields
 
-<ApiParam name="type" type="String" required description="Type of the result, must be *location*" constValue="location" />
+<ApiParam name="type" type="String" required description="Type of the media, must be *location*" constValue="location" />
 
 <ApiParam name="latitude" type="Float" required description="Latitude of the location" />
 

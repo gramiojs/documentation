@@ -32,6 +32,8 @@ Represents a join request sent to a chat.
 
 <ApiParam name="invite_link" type="ChatInviteLink" description="*Optional*. Chat invite link that was used by the user to send the join request" />
 
+<ApiParam name="query_id" type="String" description="*Optional*. Identifier of the join request query; for bots assigned to process join requests only. If present, then the bot must call [sendChatJoinRequestWebApp](https://core.telegram.org/bots/api#sendchatjoinrequestwebapp) or directly call [answerChatJoinRequestQuery](https://core.telegram.org/bots/api#answerchatjoinrequestquery) within 10 seconds." />
+
 <!-- GENERATED:END -->
 
 ## GramIO Usage

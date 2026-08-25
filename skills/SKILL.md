@@ -4,7 +4,7 @@ description: "Invoke for ANY Telegram bot code — `gramio`/`@gramio/*` imports,
 allowed-tools: Bash(node *tools/get-bot-api-method.mjs*), Bash(node *tools/get-bot-api-type.mjs*), Bash(node *tools/get-context-getter.mjs*), Bash(node *tools/get-plugin.mjs*)
 metadata:
   author: GramIO
-  version: "1.10.0"
+  version: "1.11.0"
   source: https://github.com/gramiojs/documentation
 ---
 
@@ -150,6 +150,8 @@ The scripts fuzzy-match (`sendMesage` → `sendMessage`) and suggest alternative
 
 18. **Run `bun run check:skills` before finishing any skill edit** — any change to `skills/**/*.ts` or TypeScript code blocks in `skills/**/*.md` must typecheck cleanly against the currently installed gramio versions. The `check:skills` script runs `tsc --noEmit` over `skills/examples/*.ts` with strict mode. If it reports errors, fix them — don't ship. If a pre-existing example breaks because gramio's API evolved, update the example to match the current API (check `node_modules/gramio/dist/index.d.ts` and `node_modules/@gramio/*/dist/index.d.ts` for current signatures).
 
+19. **Rich Messages are a separate send surface** — use `rich` and the helpers from `gramio/rich`, or `@gramio/jsx/rich`. Rich values route to `sendRichMessage`, not `sendMessage`. Uploads work recursively in `rich_message.blocks` / `.media`, but direct uploads are forbidden in `sendRichMessageDraft`. Handle user cancellation with `bot.on("stopped_message_generation", ...)`. See [rich-messages](references/rich-messages.md).
+
 ## Official Plugins
 
 | Plugin | Package | Purpose |
@@ -212,6 +214,7 @@ Each page contains: GramIO TypeScript examples, parameter details, error table w
 |-------|-------------|-----------|
 | Keyboards | Keyboard, InlineKeyboard, layout helpers, styling | [keyboards](references/keyboards.md) |
 | Formatting | entity helpers, `join` (never native `.join()`!), variable composition, no `parse_mode` | [formatting](references/formatting.md) |
+| Rich Messages | block helpers, rich JSX, recursive uploads, drafts, stop-generation updates | [rich-messages](references/rich-messages.md) |
 | UX Patterns | button-first nav, `/start` anatomy, nested menus, toggles, destructive confirm, empty states, formatting hierarchy, command discovery | [ux-patterns](references/ux-patterns.md) |
 | Deep Links | every `t.me/<bot>?...` link family — `?start=`, `?startgroup=`, `?startchannel=`, `?startapp=`, `?startattach=`, `?game=` — with the handler / context field each one lands in, payload encoding rules, `admin=` permission tokens, footguns | [deep-links](references/deep-links.md) |
 | Files | MediaUpload, MediaInput, download, Bun.file() | [files](references/files.md) |

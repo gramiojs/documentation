@@ -26,13 +26,17 @@ Use this method to stream a partial message to a user while the message is being
 
 <ApiParam name="message_thread_id" type="Integer" description="Unique identifier for the target message thread" />
 
-<ApiParam name="draft_id" type="Integer" required description="Unique identifier of the message draft; must be non-zero. Changes of drafts with the same identifier are animated." />
+<ApiParam name="draft_id" type="Integer" required description="Unique identifier of the message draft; must be non-zero. Changes to drafts with the same identifier are animated. Otherwise, the draft is replaced without animation." />
 
 <ApiParam name="text" type="String" description="Text of the message to be sent, 0-4096 characters after entities parsing. Pass an empty text to show a &quot;Thinking…&quot; placeholder." :minLen="0" :maxLen="4096" semanticType="formattable" docsLink="/formatting" />
 
 <ApiParam name="parse_mode" type="String" description="Mode for parsing entities in the message text. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details." />
 
 <ApiParam name="entities" type="MessageEntity[]" description="A JSON-serialized list of special entities that appear in message text, which can be specified instead of *parse\_mode*" />
+
+<ApiParam name="can_stop" type="Boolean" description="Pass *True* to show the user a button to stop further drafts. The bot will receive an [Update](https://core.telegram.org/bots/api#update) &quot;stopped\_message\_generation&quot; if the user presses the button." />
+
+<ApiParam name="keep_on_stop" type="Boolean" description="Pass *True* to keep the draft in the chat when the button is pressed. The draft will still disappear after a short time or if the bot sends a message. To fully preserve the partial draft, the bot should send it as a new message." />
 
 ## Returns
 

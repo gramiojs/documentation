@@ -109,6 +109,24 @@ bot.on(["message", "callback_query"], (context) => {
 });
 ```
 
+### Bot API 10.3 updates and service events
+
+```typescript
+bot.on("stopped_message_generation", (ctx) => {
+    ctx.draftId;
+    ctx.threadId;
+    ctx.chatId;
+    ctx.chatType;
+    return ctx.send("Generation stopped.");
+});
+
+bot.on("community_chat_joined", (ctx) => {
+    ctx.community.name;
+});
+```
+
+`stopped_message_generation` has its own context and is part of default allowed updates. `community_chat_joined` is routed from a message service event. Administrator rights/member structures expose `canSendWelcomeMessages()`. `UniqueGiftInfo` exposes `text`, wrapped `entities`, and `isPrivate()`.
+
 ## Context Injection: derive
 
 Adds computed properties to context. Runs per-update.

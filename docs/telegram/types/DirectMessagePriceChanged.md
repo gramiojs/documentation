@@ -20,7 +20,7 @@ Describes a service message about a change in the price of direct messages sent 
 
 ## Fields
 
-<ApiParam name="are_direct_messages_enabled" type="Boolean" required description="*True*, if direct messages are enabled for the channel chat; false otherwise" />
+<ApiParam name="are_direct_messages_enabled" type="Boolean" required description="*True*, if direct messages are enabled for the channel chat; *False* otherwise" />
 
 <ApiParam name="direct_message_star_count" type="Integer" description="*Optional*. The new number of Telegram Stars that must be paid by users for each direct message sent to the channel. Does not apply to users who have been exempted by administrators. Defaults to 0." :defaultValue="0" />
 

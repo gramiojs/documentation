@@ -77,6 +77,26 @@ Available constructors:
 - `MediaInput.document(file, options?)`
 - `MediaInput.animation(file, options?)`
 
+## Rich-message uploads (Bot API 10.3)
+
+Uploads are discovered recursively inside `sendRichMessage.rich_message.blocks` and `.media`, including nested blocks and document `media` / `thumbnail` / `cover` fields.
+
+```typescript
+const report = await MediaUpload.path("./report.pdf");
+await bot.api.sendRichMessage({
+    chat_id: chatId,
+    rich_message: {
+        html: '<tg-document src="tg://document?id=report"></tg-document>',
+        media: [{
+            id: "report",
+            media: { type: "document", media: report },
+        }],
+    },
+});
+```
+
+`sendRichMessageDraft` is intentionally excluded: Telegram forbids direct uploads in drafts. Reuse an existing `file_id` instead.
+
 ## Download
 
 ```typescript

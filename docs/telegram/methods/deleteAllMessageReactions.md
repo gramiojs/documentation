@@ -21,7 +21,7 @@ Use this method to remove up to 10000 recent reactions in a group or a supergrou
 
 ## Parameters
 
-<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target supergroup (in the format `@username`)" />
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target supergroup in the format `@username`" />
 
 <ApiParam name="user_id" type="Integer" description="Identifier of the user whose reactions will be removed, if the reactions were added by a user" />
 

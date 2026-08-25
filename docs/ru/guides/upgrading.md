@@ -108,6 +108,55 @@ GramIO — это семейство пакетов, которые двигаю
 
 ## `@gramio/types` {#pkg-gramio-types}
 
+### 10.2.2 → 10.3.1 · [changelog](/changelogs/2026-08-25) {#gramio-types-10-2-2-10-3-1}
+
+**⚠️ Ломающее**
+
+- **Параметры эфемерной отправки стали вложенными** — Перенесите receiver_user_id, callback_query_id и replace_callback_query_message в ephemeral_message_parameters. Устаревшие алиасы верхнего уровня не поддерживаются.
+  ```ts
+  // Before
+  await bot.api.sendMessage({
+      chat_id,
+      text: "Private reply",
+      receiver_user_id: userId,
+      callback_query_id: callbackQueryId,
+  });
+  // After
+  await bot.api.sendMessage({
+      chat_id,
+      text: "Private reply",
+      ephemeral_message_parameters: {
+          receiver_user_id: userId,
+          callback_query_id: callbackQueryId,
+          replace_callback_query_message: true,
+      },
+  });
+  ```
+- **Фикстурам прав администратора нужно право welcome-сообщений** — Создаваемые вручную значения ChatAdministratorRights и ChatMemberAdministrator должны содержать can_send_welcome_messages.
+
+**✨ Новое**
+
+- **Полный набор деклараций Bot API 10.3** — Добавлены остановка генерации сообщений, вход community-чата, отключённые кнопки, force-reply разметка, расширенные rich-message объекты и новые параметры эфемерных сообщений.
+
+**🐛 Исправления**
+
+- **Поля остановки draft восстановлены** — SendMessageDraftParams и SendRichMessageDraftParams содержат can_stop и keep_on_stop; генерационные проверки защищают их от повторной потери.
+
+### 10.1.0 → 10.2.0 · [changelog](https://core.telegram.org/bots/api-changelog#july-14-2026) {#gramio-types-10-1-0-10-2-0}
+
+**✨ Новое**
+
+- **Перегенерировано под Bot API 10.2** — Аддитивно, без ломающих изменений. Эфемерные сообщения: editEphemeralMessageText/Media/Caption/ReplyMarkup + deleteEphemeralMessage, параметры receiverUserId и callbackQueryId у 13 методов отправки, Message.receiverUser / ephemeralMessageId, BotCommand.isEphemeral, ReplyParameters.ephemeralMessageId.
+- **Сообщества и обновления подписок** — Объект Community, ChatFullInfo.community, сервисные сообщения community_chat_added / community_chat_removed. Новое обновление subscription: Update.subscription + BotSubscriptionUpdated (state: canceled | active | failed) — добавьте "subscription" в allowed_updates, чтобы получать его.
+- **Rich Messages — структурированный ввод** — Блоки записи InputRichBlock* (paragraph, list, table, collage, slideshow, details, thinking, math, медиа-блоки, …), InputRichMessage.blocks / media, InputRichMessageMedia и InputMediaVoiceNote — сборка rich-сообщений поблочно, а не только через markdown/html.
+
+### 10.0.0 → 10.1.0 · [changelog](https://core.telegram.org/bots/api-changelog#june-11-2026) {#gramio-types-10-0-0-10-1-0}
+
+**✨ Новое**
+
+- **Перегенерировано под Bot API 10.1** — Аддитивно, без ломающих изменений. Rich Messages (чтение): структуры RichText* / RichBlock*, Message.richMessage, InputRichMessage + InputRichMessageContent (можно как InputMessageContent в ответах inline / guest / Web App), sendRichMessage, sendRichMessageDraft (эфемерный стриминговый предпросмотр), editMessageText.richMessage.
+- **Запросы на вступление и опросы** — User.supportsJoinRequestQueries, ChatFullInfo.guardBot, ChatJoinRequest.queryId, answerChatJoinRequestQuery, sendChatJoinRequestWebApp. Опросы: Link + PollMedia.link, InputMediaLink как InputPollOptionMedia.
+
 ### 9.6.x → 10.0.0 · [changelog](/changelogs/2026-05-31) {#gramio-types-9-6-x-10-0-0}
 
 **⚠️ Ломающее**
@@ -148,31 +197,46 @@ GramIO — это семейство пакетов, которые двигаю
 
 ## `wrappergram` {#pkg-wrappergram}
 
-### v1 → v2 · [changelog](/changelogs/2026-05-08) {#wrappergram-v1-v2}
+### 1.3.0 → 2.0.0 · [changelog](/changelogs/2026-08-25) {#wrappergram-1-3-0-2-0-0}
 
 > Касается вас, только если вы используете wrappergram напрямую — пользователи gramio получают bot.api и не затронуты.
 
 **⚠️ Ломающее**
 
-- **Класс Telegram → Wrappergram, цепочка middleware** — Захардкоженный пайплайн теперь цепочка middleware. @gramio/files больше не жёсткая зависимость — подключайте через @gramio/files/middleware (и @gramio/format/middleware).
+- **Прямые результаты, исключения и opt-in middleware** — Класс Telegram остаётся, но API-вызовы теперь возвращают результат Telegram напрямую и по умолчанию бросают TelegramError. @gramio/files больше не встроен — подключайте @gramio/files/middleware (и @gramio/format/middleware). requestOptions переименован в fetchOptions.
   ```ts
   // Before
-  import { Telegram } from "wrappergram";
-  const tg = new Telegram(token);
+  const response = await telegram.api.sendMessage({ chat_id, text });
+  if (!response.ok) console.error(response.description);
+  else console.log(response.result.message_id);
   // After
-  import { Wrappergram, TelegramError } from "wrappergram";
+  import { Telegram, TelegramError } from "wrappergram";
   import { filesMiddleware } from "@gramio/files/middleware";
-  const tg = new Wrappergram({ token, middlewares: [filesMiddleware] });
   
-  const result = await tg.sendMessage({ chat_id, text }, { suppress: true });
+  const telegram = new Telegram(token, { middlewares: [filesMiddleware] });
+  const result = await telegram.api.sendMessage({ chat_id, text, suppress: true });
   if (result instanceof TelegramError) console.error(result.code, result.payload);
+  else console.log(result.message_id);
   ```
 
 **✨ Новое**
 
+- **Исправленная raw-линейка Bot API 10.3** — Wrappergram предоставляет поверхность методов @gramio/types 10.3.1, включая исправленные поля draft и строгие вложенные ephemeral_message_parameters.
 - **Единый тип Middleware, TelegramError, suppress** — Middleware (ctx, next) =&gt; unknown, первоклассный TelegramError (method/code/payload + настоящий стек), suppress: true (возврат TelegramError | Result вместо throw), per-request опции fetch.
 
 ## `@gramio/callback-data` {#pkg-gramio-callback-data}
+
+### 0.1.1 → 0.2.0 · [changelog](/changelogs/2026-08-25) {#gramio-callback-data-0-1-1-0-2-0}
+
+**✨ Новое**
+
+- **Zero-width codec для payload reply-клавиатур** — encode/decode преобразуют строки в невидимый UTF-8 суффикс и обратно; embed/extract добавляют типизированные callback payload к видимым label reply-кнопок и извлекают их из текста сообщения.
+  ```ts
+  import { embed, extract } from "@gramio/callback-data";
+  const label = embed("⚙️ Settings", navigation.pack({ to: "settings" }));
+  const embedded = extract(ctx.text ?? "");
+  if (embedded) navigation.safeUnpack(embedded.data);
+  ```
 
 ### 0.0.11 → 0.1.0 · [changelog](/changelogs/2026-02-23) {#gramio-callback-data-0-0-11-0-1-0}
 
@@ -186,6 +250,18 @@ GramIO — это семейство пакетов, которые двигаю
 - **Optional-поля обратно совместимы** — Добавление optional-полей в конец схемы теперь безопасная миграция — старые упакованные строки распаковываются с новыми полями как undefined. Добавление required-полей, перестановка и переименование nameId по-прежнему ломают.
 
 ## `@gramio/contexts` {#pkg-gramio-contexts}
+
+### 0.10.0 → 0.11.0 · [changelog](/changelogs/2026-08-25) {#gramio-contexts-0-10-0-0-11-0}
+
+**✨ Новое**
+
+- **Контексты Bot API 10.3** — MessageGenerationStoppedContext предоставляет draftId, threadId, chat, chatId, chatType и методы отправки; CommunityChatJoinedContext зарегистрирован как сервисное событие.
+- **Новые геттеры 10.3** — Права администратора получили canSendWelcomeMessages(); UniqueGiftInfo — text, обёрнутые entities и isPrivate; обёртки клавиатур — forceReply и isDisabled.
+- **Преобразование rich messages в простой текст** — Извлечение plain text теперь учитывает rich-кнопки, раскрываемые цитаты, подписи документов, ряды кнопок и авторство.
+
+**🔧 Бамп peer/зависимостей (двигать вместе)**
+
+- @gramio/types ^10.3.1
 
 ### 0.6.1 → 0.7.0 · [changelog](/changelogs/2026-05-31) {#gramio-contexts-0-6-1-0-7-0}
 
@@ -228,7 +304,31 @@ GramIO — это семейство пакетов, которые двигаю
 - **ctx.chatId в контексте callback-query** — Больше не нужно копать ctx.message?.chat?.id. Контрибьютор @n08i40k.
 - **Поддержка TON в UniqueGiftInfo** — lastResaleCurrency ("XTR" | "TON") + lastResaleAmount; lastResaleStarCount возвращает значение только при валюте "XTR".
 
+## `@gramio/files` {#pkg-gramio-files}
+
+### 0.7.0 → 0.8.0 · [changelog](/changelogs/2026-08-25) {#gramio-files-0-7-0-0-8-0}
+
+**✨ Новое**
+
+- **Рекурсивные загрузки в rich messages** — Извлечение файлов проходит по ссылкам, union-типам, массивам и рекурсивным rich-блокам, включая rich_message.blocks и rich_message.media метода sendRichMessage.
+- **Описатели путей без поломки Extractor** — Сгенерированные метаданные загрузок получили пути с wildcard при сохранении старой формы Extractor. Загрузки InputRichBlockDocument поддерживаются; sendRichMessageDraft по правилам Telegram остаётся без прямых загрузок.
+
+**🔧 Бамп peer/зависимостей (двигать вместе)**
+
+- @gramio/types ^10.3.1
+
 ## `@gramio/format` {#pkg-gramio-format}
+
+### 0.10.0 → 0.11.0 · [changelog](/changelogs/2026-08-25) {#gramio-format-0-10-0-0-11-0}
+
+**✨ Новое**
+
+- **Конструкторы rich messages** — Добавлены quote(content, { expandable, credit }), document({ url, caption }), button(), buttonRow() и компактные таблицы.
+- **Покрытие мутаций Bot API 10.3** — Сгенерированные форматирующие мутации покрывают rich-контент в эфемерных редактированиях и новые пути документов и подписей.
+
+**🔧 Бамп peer/зависимостей (двигать вместе)**
+
+- @gramio/types ^10.3.1
 
 ### 0.7.0 → 0.8.0 · [changelog](/changelogs/2026-05-31) {#gramio-format-0-7-0-0-8-0}
 
@@ -262,6 +362,17 @@ GramIO — это семейство пакетов, которые двигаю
 - **Перегрузка join() для массива** — join(items, "\n") вместо join(items, (x) =&gt; x, "\n"). По-прежнему никогда не используйте нативный Array.join() на Formattable (теряются offset'ы сущностей).
 
 ## `@gramio/keyboards` {#pkg-gramio-keyboards}
+
+### 1.4.0 → 1.5.0 · [changelog](/changelogs/2026-08-25) {#gramio-keyboards-1-4-0-1-5-0}
+
+**✨ Новое**
+
+- **Отключённые inline-кнопки** — InlineKeyboard.disabled(text, options?) создаёт отключённые кнопки Bot API 10.3.
+- **Force reply в конструкторах клавиатур** — InlineKeyboard и Keyboard получили forceReply(enabled = true), сериализуемый как force_reply.
+
+**🔧 Бамп peer/зависимостей (двигать вместе)**
+
+- @gramio/types ^10.3.1
 
 ### 1.3.x → 1.4.0 · [changelog](/changelogs/2026-05-08) {#gramio-keyboards-1-3-x-1-4-0}
 
@@ -320,6 +431,17 @@ GramIO — это семейство пакетов, которые двигаю
 - **Поддержка Node.js (два рантайма)** — 1.0.0 добавляет node:sqlite (DatabaseSync) рядом с bun:sqlite; нужная реализация выбирается автоматически — без изменений кода. (Адаптер сперва был только под Bun.)
 
 ## `gramio` {#pkg-gramio}
+
+### 0.13.0 → 0.14.0 · [changelog](/changelogs/2026-08-25) {#gramio-0-13-0-0-14-0}
+
+**✨ Новое**
+
+- **Маршрутизация апдейтов Bot API 10.3** — stopped_message_generation включён в default, all и вычисляемые по хэндлерам фильтры allowed_updates; апдейты остановки генерации и входа community-чата маршрутизируются в типизированные контексты.
+- **Строгий raw-интерфейс Bot API** — bot.api.* остаётся один-к-одному с методами Telegram и принимает только вложенную структуру ephemeral_message_parameters из Bot API 10.3.
+
+**🔧 Бамп peer/зависимостей (двигать вместе)**
+
+- @gramio/types ^10.3.1, @gramio/contexts ^0.11.0, @gramio/files ^0.8.0, @gramio/format ^0.11.0, @gramio/keyboards ^1.5.0, @gramio/test ^0.8.0
 
 ### 0.9.0 → 0.10.0 · [changelog](/changelogs/2026-05-31) {#gramio-0-9-0-0-10-0}
 
@@ -434,6 +556,17 @@ GramIO — это семейство пакетов, которые двигаю
   ```
 
 ## `@gramio/jsx` {#pkg-gramio-jsx}
+
+### 0.0.1 → 0.1.0 · [changelog](/changelogs/2026-08-25) {#gramio-jsx-0-0-1-0-1-0}
+
+**✨ Новое**
+
+- **JSX для rich messages** — Добавлены rich-элементы &lt;button&gt;, &lt;button-row&gt; и &lt;document&gt;, раскрываемый &lt;blockquote&gt; с авторством и компактный &lt;table&gt;.
+- **JSX-клавиатуры Bot API 10.3** — Обычный keyboard JSX поддерживает отключённые inline-кнопки и forceReply для inline- и reply-клавиатур.
+
+**🔧 Бамп peer/зависимостей (двигать вместе)**
+
+- gramio ^0.14.0, @gramio/types ^10.3.1, @gramio/test ^0.8.0
 
 ### → date-time element · [changelog](/changelogs/2026-05-08) {#gramio-jsx-init-date-time-element}
 
@@ -566,6 +699,16 @@ GramIO — это семейство пакетов, которые двигаю
 
 ## `@gramio/views` {#pkg-gramio-views}
 
+### 0.2.0 → 0.2.1 · [changelog](/changelogs/2026-08-25) {#gramio-views-0-2-0-0-2-1}
+
+**🐛 Исправления**
+
+- **Совместимость media с Bot API 10.3** — ResponseView.media исключает двухфайловый InputMediaLivePhoto из однофайловой абстракции, а поддерживаемые медиа сохраняют все media-specific поля при отправке и редактировании.
+
+**🔧 Бамп peer/зависимостей (двигать вместе)**
+
+- gramio ^0.14.0
+
 ### 0.1.1 → 0.2.0 · [changelog](/changelogs/2026-05-08) {#gramio-views-0-1-1-0-2-0}
 
 **✨ Новое**
@@ -586,6 +729,17 @@ GramIO — это семейство пакетов, которые двигаю
 
 ## `@gramio/test` {#pkg-gramio-test}
 
+### 0.7.0 → 0.8.0 · [changelog](/changelogs/2026-08-25) {#gramio-test-0-7-0-0-8-0}
+
+**✨ Новое**
+
+- **Тестовый актор остановки генерации** — user.stopMessageGeneration(draftId, { chat?, messageThreadId? }) доставляет синтетический апдейт stopped_message_generation.
+- **Мок-ответы эфемерной отправки** — Моки отправки обрабатывают вложенные ephemeral_message_parameters и заполняют receiver_user вместе с ephemeral_message_id.
+
+**🔧 Бамп peer/зависимостей (двигать вместе)**
+
+- gramio ^0.14.0, @gramio/contexts ^0.11.0, @gramio/types ^10.3.1
+
 ### 0.3.0 → 0.7.0 · [changelog](/changelogs/2026-05-08) {#gramio-test-0-3-0-0-7-0}
 
 **✨ Новое**
@@ -605,6 +759,14 @@ GramIO — это семейство пакетов, которые двигаю
 - **Реакции, инлайн-режим, fluent-скоупы** — user.react()/ReactObject (авто old_reaction), sendInlineQuery()/chooseInlineResult() и user.in(chat).on(msg).react(). Также моки env.onApi()/offApi() + apiError().
 
 ## `create-gramio` {#pkg-create-gramio}
+
+### 2.2.0 → 2.3.0 · [changelog](/changelogs/2026-08-25) {#create-gramio-2-2-0-2-3-0}
+
+> Касается только новых сгенерированных проектов.
+
+**✨ Новое**
+
+- **Шаблон проекта Bot API 10.3** — Новые проекты используют gramio ^0.14.0 и @gramio/test ^0.8.0.
 
 ### → 2.x · [changelog](/changelogs/2026-03-02) {#create-gramio-init-2-x}
 

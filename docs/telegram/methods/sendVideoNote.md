@@ -19,7 +19,7 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#sendvideonote" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-As of [v.4.0](https://telegram.org/blog/video-messages-and-telescope), Telegram clients support rounded square MPEG4 videos of up to 1 minute long. Use this method to send video messages. On success, the sent [Message](https://core.telegram.org/bots/api#message) is returned.
+Use this method to send a rounded square MPEG4 video of up to 1 minute long. On success, the sent [Message](https://core.telegram.org/bots/api#message) is returned.
 
 ## Parameters
 
@@ -30,6 +30,8 @@ As of [v.4.0](https://telegram.org/blog/video-messages-and-telescope), Telegram 
 <ApiParam name="message_thread_id" type="Integer" description="Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only" />
 
 <ApiParam name="direct_messages_topic_id" type="Integer" description="Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat" />
+
+<ApiParam name="ephemeral_message_parameters" type="EphemeralMessageParameters" description="A JSON-serialized object containing the parameters of the ephemeral message to send" />
 
 <ApiParam name="video_note" type="InputFile | String" required description="Video note to send. Pass a file\_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. [More information on Sending Files »](https://core.telegram.org/bots/api#sending-files). Sending video notes by a URL is currently unsupported." docsLink="/files/media-upload" />
 

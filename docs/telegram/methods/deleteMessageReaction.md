@@ -21,7 +21,7 @@ Use this method to remove a reaction from a message in a group or a supergroup c
 
 ## Parameters
 
-<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target supergroup (in the format `@username`)" />
+<ApiParam name="chat_id" type="Integer | String" required description="Unique identifier for the target chat or username of the target supergroup in the format `@username`" />
 
 <ApiParam name="message_id" type="Integer" required description="Identifier of the target message" />
 

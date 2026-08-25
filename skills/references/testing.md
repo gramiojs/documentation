@@ -5,6 +5,21 @@ description: Event-driven test framework with @gramio/test — user actors, chat
 
 # Testing
 
+## Bot API 10.3 generation cancellation
+
+```typescript
+let stoppedDraft: number | undefined;
+bot.on("stopped_message_generation", (ctx) => {
+    stoppedDraft = ctx.draftId;
+});
+
+const env = new TelegramTestEnvironment(bot);
+const user = env.createUser();
+await user.stopMessageGeneration(77, { messageThreadId: 9 });
+```
+
+Mocked sends that contain `ephemeral_message_parameters` return `receiver_user` and `ephemeral_message_id`, so tests can follow with edit/delete calls. Legacy top-level ephemeral fields remain type errors.
+
 Package: `@gramio/test`
 
 Event-driven test framework for GramIO bots. Users are the primary actors — they send messages, join/leave chats, click inline buttons — and the framework manages in-memory state and emits correct Telegram updates. No real HTTP requests are made.

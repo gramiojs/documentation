@@ -31,6 +31,8 @@ Use this method to send text messages. On success, the sent [Message](https://co
 
 <ApiParam name="direct_messages_topic_id" type="Integer" description="Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat" />
 
+<ApiParam name="ephemeral_message_parameters" type="EphemeralMessageParameters" description="A JSON-serialized object containing the parameters of the ephemeral message to send" />
+
 <ApiParam name="text" type="String" required description="Text of the message to be sent, 1-4096 characters after entities parsing" :minLen="1" :maxLen="4096" semanticType="formattable" docsLink="/formatting" />
 
 <ApiParam name="parse_mode" type="String" description="Mode for parsing entities in the message text. See [formatting options](https://core.telegram.org/bots/api#formatting-options) for more details." />

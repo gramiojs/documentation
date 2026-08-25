@@ -40,7 +40,7 @@ Represents a link to a page containing an embedded video player or a video file.
 
 <ApiParam name="caption_entities" type="MessageEntity[]" description="*Optional*. List of special entities that appear in the caption, which can be specified instead of *parse\_mode*" />
 
-<ApiParam name="show_caption_above_media" type="Boolean" description="*Optional*. Pass *True*, if the caption must be shown above the message media" />
+<ApiParam name="show_caption_above_media" type="Boolean" description="*Optional*. Pass *True* if the caption must be shown above the message media" />
 
 <ApiParam name="video_width" type="Integer" description="*Optional*. Video width" />
 

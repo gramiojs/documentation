@@ -120,7 +120,11 @@ This object contains full information about a chat.
 
 <ApiParam name="unique_gift_colors" type="UniqueGiftColors" description="*Optional*. The color scheme based on a unique gift that must be used for the chat's name, message replies and link previews" />
 
-<ApiParam name="paid_message_star_count" type="Integer" description="*Optional*. The number of Telegram Stars a general user have to pay to send a message to the chat" />
+<ApiParam name="paid_message_star_count" type="Integer" description="*Optional*. The number of Telegram Stars a general user has to pay to send a message to the chat" />
+
+<ApiParam name="guard_bot" type="User" description="*Optional*. The bot that processes join request queries in the chat. The field is only available to chat administrators." />
+
+<ApiParam name="community" type="Community" description="*Optional*. The [Community](https://core.telegram.org/bots/api#community) to which the chat belongs" />
 
 <!-- GENERATED:END -->
 

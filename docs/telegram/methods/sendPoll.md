@@ -42,17 +42,17 @@ Use this method to send a native poll. On success, the sent [Message](https://co
 
 <ApiParam name="type" type="String" description="Poll type, &quot;quiz&quot; or &quot;regular&quot;, defaults to &quot;regular&quot;" :enumValues='["quiz","regular"]' />
 
-<ApiParam name="allows_multiple_answers" type="Boolean" description="Pass *True*, if the poll allows multiple answers, defaults to *False*" />
+<ApiParam name="allows_multiple_answers" type="Boolean" description="Pass *True* if the poll allows multiple answers, defaults to *False*" />
 
-<ApiParam name="allows_revoting" type="Boolean" description="Pass *True*, if the poll allows to change chosen answer options, defaults to *False* for quizzes and to *True* for regular polls" />
+<ApiParam name="allows_revoting" type="Boolean" description="Pass *True* if the poll allows to change chosen answer options, defaults to *False* for quizzes and to *True* for regular polls" />
 
-<ApiParam name="shuffle_options" type="Boolean" description="Pass *True*, if the poll options must be shown in random order" />
+<ApiParam name="shuffle_options" type="Boolean" description="Pass *True* if the poll options must be shown in random order" />
 
-<ApiParam name="allow_adding_options" type="Boolean" description="Pass *True*, if answer options can be added to the poll after creation; not supported for anonymous polls and quizzes" />
+<ApiParam name="allow_adding_options" type="Boolean" description="Pass *True* if answer options can be added to the poll after creation; not supported for anonymous polls and quizzes" />
 
-<ApiParam name="hide_results_until_closes" type="Boolean" description="Pass *True*, if poll results must be shown only after the poll closes" />
+<ApiParam name="hide_results_until_closes" type="Boolean" description="Pass *True* if poll results must be shown only after the poll closes" />
 
-<ApiParam name="members_only" type="Boolean" description="Pass *True*, if voting is limited to users who have been members of the chat where the poll is being sent for more than 24 hours; for channel chats only" />
+<ApiParam name="members_only" type="Boolean" description="Pass *True* if voting is limited to users who have been members of the chat where the poll is being sent for more than 24 hours; for channel chats only" />
 
 <ApiParam name="country_codes" type="String[]" description="A JSON-serialized list of 0-12 two-letter [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country codes indicating the countries from which users can vote in the poll; for channel chats only. Use &quot;FT&quot; as a country code to allow users with anonymous numbers to vote. If omitted or empty, then users from any country can participate in the poll." />
 

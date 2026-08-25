@@ -11,20 +11,20 @@
         "@fluent/bundle": "^0.19.1",
         "@gramio/auto-retry": "^0.0.3",
         "@gramio/autoload": "^1.1.0",
-        "@gramio/files": "^0.4.0",
-        "@gramio/format": "^0.7.0",
+        "@gramio/files": "^0.8.0",
+        "@gramio/format": "^0.11.0",
         "@gramio/i18n": "^1.5.0",
         "@gramio/init-data": "^0.0.5",
-        "@gramio/keyboards": "^1.4.0",
+        "@gramio/keyboards": "^1.5.0",
         "@gramio/onboarding": "^0.2.0",
         "@gramio/prompt": "^1.2.1",
         "@gramio/scenes": "^0.7.1",
-        "@gramio/schema-parser": "^1.1.0",
+        "@gramio/schema-parser": "^1.2.0",
         "@gramio/session": "^0.2.0",
         "@gramio/storage": "2.0.1",
         "@gramio/storage-redis": "^1.0.5",
-        "@gramio/test": "^0.7.0",
-        "@gramio/types": "^9.6.1",
+        "@gramio/test": "^0.8.0",
+        "@gramio/types": "^10.3.1",
         "@iconify-json/logos": "^1.2.4",
         "@iconify-json/skill-icons": "^1.2.4",
         "@shikijs/vitepress-twoslash": "^4.0.1",
@@ -32,7 +32,7 @@
         "@types/node": "^25.3.5",
         "@unocss/preset-icons": "^66.6.5",
         "elysia": "^1.4.27",
-        "gramio": "^0.9.0",
+        "gramio": "^0.14.0",
         "grammy": "^1.41.1",
         "ioredis": "^5.10.0",
         "jobify": "^0.1.6",
@@ -52,8 +52,8 @@
     "@biomejs/biome",
   ],
   "overrides": {
-    "@gramio/types": "^9.4.2",
-    "gramio": "^0.9.0",
+    "@gramio/types": "^10.3.1",
+    "gramio": "^0.14.0",
     "ioredis": "^5.9.2",
   },
   "packages": {
@@ -195,21 +195,21 @@
 
     "@gramio/autoload": ["@gramio/autoload@1.1.0", "", { "dependencies": { "@types/picomatch": "^3.0.1", "fdir": "^6.2.0", "picomatch": "^4.0.2" }, "peerDependencies": { "gramio": ">=0.0.39 < 1.0.0" } }, "sha512-dFSaoik8evLMfJqHhtFzAN6qbsCV5QdA0edZwRizqF4d74RGWGhoIUIx60POr3qxBco6rn6I3QpqzsNb+2qNiA=="],
 
-    "@gramio/callback-data": ["@gramio/callback-data@0.1.0", "", {}, "sha512-eqpR2Bod7dySDLDu8RB3xJdcrwyE3ZrhHaP+v0xOqWbgOCGY+gZp37E2E0KeXq/ko/8DLp3XeTaQD61++kiK6A=="],
+    "@gramio/callback-data": ["@gramio/callback-data@0.2.0", "", {}, "sha512-hNyFlJz0ydPEFHnul3K9p0vx0rNejGjM2KvAFCaIS6mXGayn2jfNpYPAYuLf0ycR+5FExGKd7t5MYZ5LMENGZg=="],
 
     "@gramio/composer": ["@gramio/composer@0.4.1", "", {}, "sha512-oGW1Kj0wiAD1NpORhxDSt9/WId2GANOwYmwlI3bivf4LGEEWB1kokcDW6Ji5/s3FwcK17YjTq1wWtgk0Z/uHnQ=="],
 
-    "@gramio/contexts": ["@gramio/contexts@0.6.1", "", { "peerDependencies": { "@gramio/types": "^9.6.0", "inspectable": "^3.0.1" } }, "sha512-wWzRa9YU/Wq7NIjGENC9R2gUryjaHTnZTxJhD6RAf5ueEwYiQCsa6hKjiOydivpncHlWMS1phgoYRmjm3uiWrQ=="],
+    "@gramio/contexts": ["@gramio/contexts@0.11.0", "", { "peerDependencies": { "@gramio/types": "^10.3.1", "inspectable": "^3.0.1" } }, "sha512-+y22+7qhfZimykT2VMGBIEkgQGe5VU1bVbny5U1Frit92oTrioq10VFOntg36yjvC3w0o2MyR3qL9qbmqHm1yA=="],
 
-    "@gramio/files": ["@gramio/files@0.4.0", "", { "dependencies": { "@gramio/types": ">=9.5.0" } }, "sha512-HbtlAx43ASeLHfkNG7qtNBbKv1Fyaxn7erA1u+Gmj+R2kP6x1W4Z4XGWQgDWBf5tx54GFIyqv8zG6+Yz2HNW/g=="],
+    "@gramio/files": ["@gramio/files@0.8.0", "", { "dependencies": { "@gramio/types": "^10.3.1" } }, "sha512-X4wiknligRoP/KA38cNw5lmqQ8qZSCn1ctSVB5gekNUIQvHJ/zbztB7aPyM+TU7zvRSnB26HxLpTsGNL84NeFw=="],
 
-    "@gramio/format": ["@gramio/format@0.7.0", "", { "dependencies": { "@gramio/types": "^9.6.0" }, "peerDependencies": { "marked": "^15.0.11", "node-html-parser": ">=6.0.0" }, "optionalPeers": ["marked", "node-html-parser"] }, "sha512-+qLKopeQHU3dfnwtVd7smKqyJTEYbveAj0l3hfuVwzdCfTQFdBcJvM3hhhTIcchlhUpPx7znKzw1+Vrq0GCNyg=="],
+    "@gramio/format": ["@gramio/format@0.11.0", "", { "dependencies": { "@gramio/types": "^10.3.1" }, "peerDependencies": { "marked": "^15.0.11", "node-html-parser": ">=6.0.0" }, "optionalPeers": ["marked", "node-html-parser"] }, "sha512-90w6HLypnzTu5FkGueNND++Ei8We5wAnCxMG38o9E5fBot6psNbHTijhSphNWsajLxkRwxX6VxHA1XNx26FSxg=="],
 
     "@gramio/i18n": ["@gramio/i18n@1.5.0", "", { "peerDependencies": { "@fluent/bundle": "latest", "gramio": ">=0.0.39 <1.0.0" }, "optionalPeers": ["@fluent/bundle"] }, "sha512-zsSRmo+Mp+N0duFyJC0pLzQHY73G1zCMTfHFWE935t1eUFXNyVvJd9kqnEoAFh0cMG5waurbuB0bbP8NGMbsAQ=="],
 
     "@gramio/init-data": ["@gramio/init-data@0.0.5", "", {}, "sha512-DKthW5OchJBowwPKUc8o0eo9Dc69fAjXhMwSa7xkD79XARFKT/Xd9x9HutImZ7SjPkO8gsTv+lRJ8laRpPmOmA=="],
 
-    "@gramio/keyboards": ["@gramio/keyboards@1.4.0", "", { "dependencies": { "@gramio/types": ">=9.6.0" } }, "sha512-sUjXV/LQmXIXRd2H0dwVXObeM+3OeUuxR/rt1hi2CUoyg5aaFy8wUfMjVMhx/9IXqHCQ7FK72zS9sqVXkvYCeg=="],
+    "@gramio/keyboards": ["@gramio/keyboards@1.5.0", "", { "dependencies": { "@gramio/types": ">=10.3.1" } }, "sha512-Rtqm6KX4XqJgAfLHaP379vd7/VnLSi1TeulPpV/LQolTRZOWHhVtZKZqIhJHNxbFhvIGEPjbZy6KKkiG9ywL9A=="],
 
     "@gramio/onboarding": ["@gramio/onboarding@0.2.0", "", { "dependencies": { "@gramio/storage": "^2.0.0" }, "peerDependencies": { "@gramio/views": ">=0.2.0", "gramio": ">=0.7.0" }, "optionalPeers": ["@gramio/views"] }, "sha512-2PhQZDlUPzKRmHkFVVW6tFnI8yxmx4qO2F2sy2eucRcIb4r4udfIEF1PoUsYgGQHPFO0rHnoQQvUQiiIWoM2Fg=="],
 
@@ -217,7 +217,7 @@
 
     "@gramio/scenes": ["@gramio/scenes@0.7.1", "", { "dependencies": { "@gramio/composer": "^0.4.1", "@gramio/storage": "^2.0.0" }, "peerDependencies": { "gramio": ">=0.9.0" } }, "sha512-74O/7cnOpYKlZfMWq7F6OIKLA4qtjhslit6ltQMDSZ1Pl4UJo5bja3STrV/hzng0jhBkL78Pc4mVAYO9c8kQKw=="],
 
-    "@gramio/schema-parser": ["@gramio/schema-parser@1.1.0", "", { "dependencies": { "cheerio": "^1.0.0", "turndown": "^7.2.0" } }, "sha512-VmWNXGQK/rBuBokpa5dwzThqUke9ZzdswSb7ZYsq4/pp1UF99rz7DkdowI5jFGv4ioUQKPWXwShncT/w+R49MQ=="],
+    "@gramio/schema-parser": ["@gramio/schema-parser@1.2.0", "", { "dependencies": { "cheerio": "^1.0.0", "turndown": "^7.2.0" } }, "sha512-uOyLdLw6lI6O3LoBMlW75MGA4U/qSYqJ+AUEHe/lIbcbUo7qbek6w7jZzTcVSREBolRTJq89DVs927Mgi/dP4Q=="],
 
     "@gramio/session": ["@gramio/session@0.2.0", "", { "dependencies": { "@gramio/storage": "^2.0.1" }, "peerDependencies": { "gramio": ">=0.4.14" } }, "sha512-RzoZBMKBxI6ef28JISkYSBbj4vljigOXBlQ8URBaSQmJdm/mm9SHZBKtoydJfc1N2znniSlkYhdjAa5kMibtog=="],
 
@@ -225,9 +225,9 @@
 
     "@gramio/storage-redis": ["@gramio/storage-redis@1.0.5", "", { "dependencies": { "@gramio/storage": "^2.0.1" }, "peerDependencies": { "ioredis": "^5.6.1" }, "optionalPeers": ["ioredis"] }, "sha512-U0W81WKRtnCx3CgUwIUyxmbnWSzYQBp4nuUu/d0jZscJ1pgZ0zQAUwl1np/uNhKk7to9DlbGDUzin4zGs602Qw=="],
 
-    "@gramio/test": ["@gramio/test@0.7.0", "", { "peerDependencies": { "@gramio/types": "*", "gramio": ">=0.6.0 <1.0.0" } }, "sha512-nWYcLB0bzTJOmhwie8LLElYI/Nwq56dhDbVsT+o1sFUUM0OD6ztubYkMf+AW2mDEWfRf+WJBNDCYuILTRGUpxQ=="],
+    "@gramio/test": ["@gramio/test@0.8.0", "", { "peerDependencies": { "@gramio/contexts": ">=0.11.0 <1.0.0", "@gramio/types": ">=10.3.1 <11.0.0", "gramio": ">=0.14.0 <1.0.0" } }, "sha512-jy03o1hQ3YZbOGsWVr+IhMb1PVL8NLMcTZ+Rj+WAReXhPA58KVxPi0NvCQKiVjPGxYgLj9k0YfTOqmxOUTHaJw=="],
 
-    "@gramio/types": ["@gramio/types@9.6.1", "", {}, "sha512-O/tJgU98oiCVcQHXO/yyJgEn5DpIZr/OiuRp3CxIGynRLK2doWguOR+jlRZQNMR5sx5VTVBBCAPRNRJ8qBLEKw=="],
+    "@gramio/types": ["@gramio/types@10.3.1", "", {}, "sha512-K4q9QRMSpHc+B73Vxvf/Xhcbw4VlCoWH2fCUcUWT378yGvpo1i89CqOysj1ZEr4u4LdefPKxVF6b6JDVw9TYDA=="],
 
     "@grammyjs/types": ["@grammyjs/types@3.26.0", "", {}, "sha512-jlnyfxfev/2o68HlvAGRocAXgdPPX5QabG7jZlbqC2r9DZyWBfzTlg+nu3O3Fy4EhgLWu28hZ/8wr7DsNamP9A=="],
 
@@ -655,7 +655,7 @@
 
     "get-caller-file": ["get-caller-file@2.0.5", "", {}, "sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg=="],
 
-    "gramio": ["gramio@0.9.0", "", { "dependencies": { "@gramio/callback-data": "^0.1.0", "@gramio/composer": "^0.4.1", "@gramio/contexts": "^0.6.1", "@gramio/files": "^0.4.0", "@gramio/format": "^0.7.0", "@gramio/keyboards": "^1.4.0", "@gramio/types": "^9.6.1", "debug": "^4.4.3" } }, "sha512-PQLXG693XQ9eFd9tsUu+bdPrBDjAraiFECnSoawZQl6n29xi3dmYuXJnqb3YLp0+eeL12UZ0p5DYfagQXlU8mw=="],
+    "gramio": ["gramio@0.14.0", "", { "dependencies": { "@gramio/callback-data": "^0.2.0", "@gramio/composer": "^0.5.0", "@gramio/contexts": "^0.11.0", "@gramio/files": "^0.8.0", "@gramio/format": "^0.11.0", "@gramio/keyboards": "^1.5.0", "@gramio/types": "^10.3.1", "debug": "^4.4.3" } }, "sha512-eEdThOLvAFCjSy7RtNkalld+/XCsybx1KlkbGnfYvX3xYXFcaCgrk71qozkMVGeAYv9PsK2q9/caDhh9HhtrmQ=="],
 
     "grammy": ["grammy@1.42.0", "", { "dependencies": { "@grammyjs/types": "3.26.0", "abort-controller": "^3.0.0", "debug": "^4.4.3", "node-fetch": "^2.7.0" } }, "sha512-1AdCge+AkjSdp2FwfICSFnVbl8Mq3KVHJDy+DgTI9+D6keJ0zWALPRKas5jv/8psiCzL4N2cEOcGW7O45Kn39g=="],
 
@@ -1086,6 +1086,8 @@
     "@vue/compiler-core/entities": ["entities@7.0.1", "", {}, "sha512-TWrgLOFUQTH994YUyl1yT4uyavY5nNB5muff+RtWaqNVCAK408b5ZnnbNAUEWLTCpum9w6arT70i1XdQ4UeOPA=="],
 
     "@vue/devtools-kit/perfect-debounce": ["perfect-debounce@1.0.0", "", {}, "sha512-xCy9V055GLEqoFaHoC1SoLIaLmWctgCUaBaWxDZ7/Zx4CTyX7cJQLJOok/orfjZAh9kEYpjJa4d0KcJmCbctZA=="],
+
+    "gramio/@gramio/composer": ["@gramio/composer@0.5.0", "", {}, "sha512-CP8DxNzDmVl2uO/L2VtjYycLi6jrPkZvTJoN/qVtct2Ms0oUKlKFgnNidH/i2R41HUow2fU0tlcGb1LR4NPHtg=="],
 
     "htmlparser2/entities": ["entities@7.0.1", "", {}, "sha512-TWrgLOFUQTH994YUyl1yT4uyavY5nNB5muff+RtWaqNVCAK408b5ZnnbNAUEWLTCpum9w6arT70i1XdQ4UeOPA=="],
 

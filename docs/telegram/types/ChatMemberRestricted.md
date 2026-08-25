@@ -28,7 +28,7 @@ Represents a [chat member](https://core.telegram.org/bots/api#chatmember) that i
 
 <ApiParam name="is_member" type="Boolean" required description="*True*, if the user is a member of the chat at the moment of the request" />
 
-<ApiParam name="can_send_messages" type="Boolean" required description="*True*, if the user is allowed to send text messages, contacts, giveaways, giveaway winners, invoices, locations and venues" />
+<ApiParam name="can_send_messages" type="Boolean" required description="*True*, if the user is allowed to send text messages, rich messages, contacts, giveaways, giveaway winners, invoices, locations and venues" />
 
 <ApiParam name="can_send_audios" type="Boolean" required description="*True*, if the user is allowed to send audios" />
 

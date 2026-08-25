@@ -26,6 +26,8 @@ At most **one** of the optional fields can be present in any given object.
 
 <ApiParam name="document" type="Document" description="*Optional*. Media is a general file, information about the file; currently, can't be received in a poll option" />
 
+<ApiParam name="link" type="Link" description="*Optional*. The HTTP link attached to the poll option" />
+
 <ApiParam name="live_photo" type="LivePhoto" description="*Optional*. Media is a live photo, information about the live photo" />
 
 <ApiParam name="location" type="Location" description="*Optional*. Media is a shared location, information about the location" />

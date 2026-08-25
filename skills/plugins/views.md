@@ -216,6 +216,8 @@ Also supports reply keyboards, remove keyboard, and force reply.
 
 Supported types: `photo`, `video`, `animation`, `audio`, `document`.
 
+Bot API 10.3 note: use `@gramio/views` 0.2.1 or newer with GramIO 0.14. `InputMediaLivePhoto` is intentionally excluded from `.media()` because a live photo needs separate photo and video inputs while Views models one file per media item. Call `bot.api.sendLivePhoto()` directly for that case. Other supported media preserve fields such as `thumbnail` and `supports_streaming` during send/edit.
+
 ### Globals with `{{$path}}`
 
 Access globals (from `buildRender`) directly in JSON templates:

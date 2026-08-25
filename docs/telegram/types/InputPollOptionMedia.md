@@ -19,6 +19,7 @@ head:
 This object represents the content of a poll option to be sent. It should be one of
 
 *   [InputMediaAnimation](https://core.telegram.org/bots/api#inputmediaanimation)
+*   [InputMediaLink](https://core.telegram.org/bots/api#inputmedialink)
 *   [InputMediaLivePhoto](https://core.telegram.org/bots/api#inputmedialivephoto)
 *   [InputMediaLocation](https://core.telegram.org/bots/api#inputmedialocation)
 *   [InputMediaPhoto](https://core.telegram.org/bots/api#inputmediaphoto)
@@ -31,6 +32,7 @@ This object represents the content of a poll option to be sent. It should be one
 This type is one of the following:
 
 - [InputMediaAnimation](/telegram/types/InputMediaAnimation)
+- [InputMediaLink](/telegram/types/InputMediaLink)
 - [InputMediaLivePhoto](/telegram/types/InputMediaLivePhoto)
 - [InputMediaLocation](/telegram/types/InputMediaLocation)
 - [InputMediaPhoto](/telegram/types/InputMediaPhoto)
