@@ -62,6 +62,17 @@ per-cell alignment. Native blocks cannot be interpolated into `rich` Markdown co
 `streamRichMessage()` is Markdown-chunk based; pass native blocks to `ctx.send()` or
 `ctx.sendRichMessage()` instead of appending them to a draft.
 
+The complete native DSL lives under `blocks`: `heading`/`h1`–`h6`, `paragraph`, `pre`, `footer`,
+`divider`/`hr`, `mathBlock`, `anchor`, `list`/`orderedList`/`taskList`, `blockquote`,
+`expandableBlockquote`, `pullQuote`, `collage`, `slideshow`, `details`, `map`, `table`, media
+(`animation`, `audio`, `document`, `photo`, `video`, `voiceNote`), `thinking`, and `buttonRow`.
+Inline rich-text nodes (`bold`, `italic`, `underline`, `strikethrough`, `spoiler`, `code`, `marked`,
+`subscript`, `superscript`, `dateTime`, `textMention`, `customEmoji`, links, mentions, references,
+and formulas) are available from the same namespace and can be nested in block text. Media accepts
+a URL/file id or a complete `InputMedia*` object. Serialization checks Telegram's 10.3 limits
+(32,768 UTF-8 text bytes, 500 blocks, 16 nesting levels, 50 media attachments, and 20 table
+columns); button rows are limited to 1–8 buttons.
+
 Helpers escape strings. Do not concatenate untrusted input into raw rich HTML/Markdown.
 
 ## Rich JSX

@@ -126,6 +126,59 @@ const summary = table({
 `streamRichMessage()` работает с Markdown-чанками; native-блоки отправляйте через `ctx.send()` или
 `ctx.sendRichMessage()`.
 
+### Native DSL
+
+Пространство имён `blocks` покрывает все `InputRichBlock` и все узлы `RichText` из Bot API 10.3.
+Inline-узлы можно вкладывать друг в друга и смешивать со значениями `format`; блочные хелперы
+возвращают `RichBlockNode`, который можно отправить отдельно или собрать в `blocks([...])`:
+
+```ts
+import { bold, format } from "gramio";
+import { blocks } from "gramio/rich";
+
+const report = blocks([
+	blocks.h1("Отчёт о релизе"),
+	blocks.paragraph([
+		blocks.bold("Статус: "),
+		format`${bold("готово")}`,
+		" — ",
+		blocks.url("открыть changelog", "https://gramio.dev/changelog"),
+	]),
+	blocks.orderedList([
+		blocks.listItem("Первый шаг"),
+		blocks.listItem("Второй шаг"),
+	], { start: 1, type: "1" }),
+	blocks.taskList([
+		{ content: "Опубликовать", done: true },
+		{ content: "Объявить" },
+	]),
+	blocks.details("Диагностика", [
+		blocks.pre("bun test", "sh"),
+		blocks.table([
+			["Пакет", "Версия"],
+			[blocks.cell("gramio"), blocks.cell("0.15.0")],
+		], { bordered: true, striped: true }),
+	], { open: true }),
+	blocks.photo("https://example.com/cover.jpg", {
+		caption: "Обложка",
+		credit: "Система сборки",
+	}),
+	blocks.buttonRow([
+		blocks.button("Открыть", { type: "url", url: "https://gramio.dev" }),
+		blocks.button("Обновить", { type: "callback_data", data: "refresh" }),
+	]),
+]);
+
+bot.command("native-report", (ctx) => ctx.send(report));
+```
+
+Полезные алиасы: `blocks.h1`–`blocks.h6`, `blocks.hr`, `blocks.quote`,
+`blocks.expandableQuote`, `blocks.pre`, `blocks.voice` и `blocks.link`. Медиахелперы принимают
+URL/file id или полный объект `InputMedia*`. `blocks.map()` принимает либо локацию
+`{ latitude, longitude }`, либо два числа latitude/longitude. `blocks.buttonRow()` проверяет лимит
+Telegram в 1–8 кнопок; native-сериализация также проверяет лимиты Bot API (500 блоков, 50 медиа,
+20 колонок таблицы, 16 уровней вложенности и 32 768 UTF-8 байт текста).
+
 ### Миграция с `@gramio/format` 0.11
 
 В этом релизе смысл `table()` намеренно изменён: теперь функция создаёт native-таблицу Telegram.

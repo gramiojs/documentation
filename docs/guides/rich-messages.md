@@ -125,6 +125,59 @@ const summary = table({
 `streamRichMessage()` is Markdown-chunk based; send native blocks with `ctx.send()` or
 `ctx.sendRichMessage()` instead.
 
+### Native DSL
+
+The `blocks` namespace covers every `InputRichBlock` and every `RichText` node from Bot API 10.3.
+Inline nodes can be nested and mixed with `format` values; block helpers return a `RichBlockNode`
+that can be sent directly or composed in `blocks([...])`:
+
+```ts
+import { bold, format } from "gramio";
+import { blocks } from "gramio/rich";
+
+const report = blocks([
+	blocks.h1("Release report"),
+	blocks.paragraph([
+		blocks.bold("Status: "),
+		format`${bold("ready")}`,
+		" — ",
+		blocks.url("open changelog", "https://gramio.dev/changelog"),
+	]),
+	blocks.orderedList([
+		blocks.listItem("First step"),
+		blocks.listItem("Second step"),
+	], { start: 1, type: "1" }),
+	blocks.taskList([
+		{ content: "Ship", done: true },
+		{ content: "Announce" },
+	]),
+	blocks.details("Diagnostics", [
+		blocks.pre("bun test", "sh"),
+		blocks.table([
+			["Package", "Version"],
+			[blocks.cell("gramio"), blocks.cell("0.15.0")],
+		], { bordered: true, striped: true }),
+	], { open: true }),
+	blocks.photo("https://example.com/cover.jpg", {
+		caption: "Cover",
+		credit: "Build bot",
+	}),
+	blocks.buttonRow([
+		blocks.button("Open", { type: "url", url: "https://gramio.dev" }),
+		blocks.button("Refresh", { type: "callback_data", data: "refresh" }),
+	]),
+]);
+
+bot.command("native-report", (ctx) => ctx.send(report));
+```
+
+Useful aliases include `blocks.h1`–`blocks.h6`, `blocks.hr`, `blocks.quote`,
+`blocks.expandableQuote`, `blocks.pre`, `blocks.voice`, and `blocks.link`. Media helpers accept a
+URL/file id or a complete `InputMedia*` object. `blocks.map()` accepts either a
+`{ latitude, longitude }` location or latitude/longitude numbers. `blocks.buttonRow()` checks
+Telegram's 1–8 button limit; native serialization also checks the Bot API limits (500 blocks,
+50 media attachments, 20 table columns, 16 nesting levels, and 32,768 UTF-8 text bytes).
+
 ### Migration from `@gramio/format` 0.11
 
 This release intentionally changes the meaning of `table()`: it now creates a native Telegram
