@@ -74,6 +74,8 @@ bot.command("report", (ctx) =>
 ```
 
 The helpers escape user-controlled strings. Do not concatenate raw rich Markdown/HTML around untrusted input.
+For a complete string from a trusted serializer, `rawRich()` is the explicit escape hatch; it keeps
+Markdown/HTML syntax intact and must never receive user-controlled text.
 
 ## Native structured tables
 
