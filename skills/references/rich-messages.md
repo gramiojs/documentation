@@ -5,7 +5,7 @@ description: Bot API 10.3 rich-message authoring with gramio/rich helpers, rich 
 
 # Rich Messages
 
-Rich messages are not regular `text` plus `entities`. They are sent through `sendRichMessage` as exactly one of `rich_message.markdown`, `.html`, or `.blocks`.
+Rich messages are not regular `text` plus `entities`. They are sent through `sendRichMessage` as exactly one of `rich_message.markdown`, `.html`, or `.blocks`. In `gramio/rich`, `rich` and `markdownTable` target the Markdown lane; `blocks` and `table` target native structured blocks.
 
 ## Prefer the safe helpers
 
@@ -16,10 +16,10 @@ import {
     buttonRow,
     document,
     heading,
+    markdownTable,
     paragraph,
     quote,
     rich,
-    table,
 } from "gramio/rich";
 
 const report = rich([
@@ -27,7 +27,7 @@ const report = rich([
     paragraph(format`Status: ${bold`ready`}`),
     quote("Expandable details", { expandable: true, credit: "Build bot" }),
     document({ url: "https://example.com/report.pdf", caption: "Report" }),
-    table(
+    markdownTable(
         [["Package", "Version"], ["gramio", "0.14.0"]],
         { compact: true, align: ["left", "right"] },
     ),
@@ -40,6 +40,27 @@ const report = rich([
 
 bot.command("report", (ctx) => ctx.send(report));
 ```
+
+## Native structured tables
+
+```typescript
+import { blocks, table } from "gramio/rich";
+
+const report = blocks([
+    blocks.heading(1, "Release report"),
+    table(
+        [["Package", "Version"], ["gramio", "0.14.0"]],
+        { bordered: true, striped: true, compact: true, align: ["left", "right"] },
+    ),
+]);
+
+bot.command("native-report", (ctx) => ctx.send(report));
+```
+
+The first row is a header by default. Use `blocks.cell("Total", { colSpan: 2 })` for spans and
+per-cell alignment. Native blocks cannot be interpolated into `rich` Markdown content.
+`streamRichMessage()` is Markdown-chunk based; pass native blocks to `ctx.send()` or
+`ctx.sendRichMessage()` instead of appending them to a draft.
 
 Helpers escape strings. Do not concatenate untrusted input into raw rich HTML/Markdown.
 

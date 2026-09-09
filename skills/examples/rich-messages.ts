@@ -4,10 +4,10 @@ import {
     buttonRow,
     document,
     heading,
+    markdownTable,
     paragraph,
     quote,
     rich,
-    table,
 } from "gramio/rich";
 
 export const bot = new Bot(process.env.BOT_TOKEN as string);
@@ -25,7 +25,7 @@ bot.command("report", (ctx) =>
                 url: "https://example.com/report.pdf",
                 caption: "Full report",
             }),
-            table(
+            markdownTable(
                 [["Package", "Version"], ["gramio", "0.14.0"]],
                 { compact: true, align: ["left", "right"] },
             ),
