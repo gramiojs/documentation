@@ -2,6 +2,47 @@
     "version": 1,
     "entries": [
         {
+            "id": "2026-09-10-native-rich-dsl",
+            "date": "2026-09-10",
+            "page": {
+                "en": "https://gramio.dev/changelogs/2026-09-10",
+                "ru": "https://gramio.dev/ru/changelogs/2026-09-10"
+            },
+            "en": {
+                "title": "Native Rich DSL ships in GramIO 0.15",
+                "summary": [
+                    "@gramio/format 0.12 makes table() native and keeps Markdown tables under markdownTable()",
+                    "Native blocks compose through blocks() and media helpers accept Blob/File uploads and complete InputMedia objects",
+                    "@gramio/contexts 0.12 routes native values through sendRichMessage and rejects native blocks in Markdown-only streams",
+                    "@gramio/files 0.8.1 detects uploads at every recursive Rich Messages depth, including thumbnails and covers",
+                    "gramio 0.15 exposes the complete native DSL through gramio/rich"
+                ]
+            },
+            "ru": {
+                "title": "Native Rich DSL выходит в GramIO 0.15",
+                "summary": [
+                    "@gramio/format 0.12 делает table() native, а Markdown-таблицы оставляет под именем markdownTable()",
+                    "Native-блоки собираются через blocks(), а media-хелперы принимают Blob/File и полные InputMedia",
+                    "@gramio/contexts 0.12 отправляет native-значения через sendRichMessage и отклоняет их в Markdown-only stream",
+                    "@gramio/files 0.8.1 находит загрузки на любой глубине Rich Messages, включая thumbnail и cover",
+                    "gramio 0.15 экспортирует полный native DSL через gramio/rich"
+                ]
+            },
+            "packages": [
+                "gramio",
+                "@gramio/contexts",
+                "@gramio/files",
+                "@gramio/format"
+            ],
+            "tags": [
+                "rich-messages",
+                "native-dsl",
+                "tables",
+                "uploads",
+                "breaking"
+            ]
+        },
+        {
             "id": "2026-08-25-rich-messages-ephemeral-bot-api",
             "date": "2026-08-25",
             "dateRange": {

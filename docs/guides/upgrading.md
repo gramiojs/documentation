@@ -251,6 +251,17 @@ Everything below is generated from the same data the picker and the CLI use, ord
 
 ## `@gramio/contexts` {#pkg-gramio-contexts}
 
+### 0.11.0 → 0.12.0 · [changelog](/changelogs/2026-09-10) {#gramio-contexts-0-11-0-0-12-0}
+
+**✨ New**
+
+- **Native Rich routing** — ctx.send(), ctx.reply(), and ctx.editText() accept branded native values from gramio/rich and route them through sendRichMessage/editMessageText.
+- **Explicit draft boundary** — streamRichMessage() accepts Markdown chunks only and throws for a native structured value instead of dropping its blocks.
+
+**🔧 Peer/dep bumps (move together)**
+
+- @gramio/types ^10.3.1
+
 ### 0.10.0 → 0.11.0 · [changelog](/changelogs/2026-08-25) {#gramio-contexts-0-10-0-0-11-0}
 
 **✨ New**
@@ -306,6 +317,12 @@ Everything below is generated from the same data the picker and the CLI use, ord
 
 ## `@gramio/files` {#pkg-gramio-files}
 
+### 0.8.0 → 0.8.1 · [changelog](/changelogs/2026-09-10) {#gramio-files-0-8-0-0-8-1}
+
+**🐛 Fixes**
+
+- **Recursive native rich uploads** — Multipart detection finds Blob, File, and MediaUpload values when the only upload is inside a nested blockquote, list, collage, slideshow, details block, thumbnail, or cover.
+
 ### 0.7.0 → 0.8.0 · [changelog](/changelogs/2026-08-25) {#gramio-files-0-7-0-0-8-0}
 
 **✨ New**
@@ -318,6 +335,17 @@ Everything below is generated from the same data the picker and the CLI use, ord
 - @gramio/types ^10.3.1
 
 ## `@gramio/format` {#pkg-gramio-format}
+
+### 0.11.0 → 0.12.0 · [changelog](/changelogs/2026-09-10) {#gramio-format-0-11-0-0-12-0}
+
+**⚠️ Breaking**
+
+- **table() is native** — Use markdownTable() when you need the previous Markdown/GFM string. Use blocks([...]) to compose native tables with other structured blocks.
+
+**✨ New**
+
+- **Upload-friendly media helpers** — Native media accepts URLs/file IDs, Blob/File, and complete InputMedia values, including thumbnail and cover options.
+- **Native rich composition** — Structured values route through sendRichMessage without hand-writing InputRichMessage objects.
 
 ### 0.10.0 → 0.11.0 · [changelog](/changelogs/2026-08-25) {#gramio-format-0-10-0-0-11-0}
 
@@ -431,6 +459,20 @@ Everything below is generated from the same data the picker and the CLI use, ord
 - **Node.js support (dual runtime)** — 1.0.0 adds node:sqlite (DatabaseSync) alongside Bun's bun:sqlite; the right impl is auto-selected — no code change. (Adapter first landed Bun-only.)
 
 ## `gramio` {#pkg-gramio}
+
+### 0.14.0 → 0.15.0 · [changelog](/changelogs/2026-09-10) {#gramio-0-14-0-0-15-0}
+
+**⚠️ Breaking**
+
+- **Native Rich DSL exposed from gramio/rich** — table() now creates a native table; replace Markdown calls with markdownTable().
+
+**✨ New**
+
+- **Native values route through context helpers** — ctx.send(), ctx.reply(), and ctx.editText() accept native structured rich values through the updated contexts dependency line.
+
+**🔧 Peer/dep bumps (move together)**
+
+- @gramio/contexts ^0.12.0, @gramio/files ^0.8.1, @gramio/format ^0.12.0
 
 ### 0.13.0 → 0.14.0 · [changelog](/changelogs/2026-08-25) {#gramio-0-13-0-0-14-0}
 

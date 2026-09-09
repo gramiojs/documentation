@@ -28,7 +28,7 @@ const report = rich([
     quote("Expandable details", { expandable: true, credit: "Build bot" }),
     document({ url: "https://example.com/report.pdf", caption: "Report" }),
     markdownTable(
-        [["Package", "Version"], ["gramio", "0.14.0"]],
+        [["Package", "Version"], ["gramio", "0.15.0"]],
         { compact: true, align: ["left", "right"] },
     ),
     buttonRow([
@@ -49,7 +49,7 @@ import { blocks, table } from "gramio/rich";
 const report = blocks([
     blocks.heading(1, "Release report"),
     table(
-        [["Package", "Version"], ["gramio", "0.14.0"]],
+        [["Package", "Version"], ["gramio", "0.15.0"]],
         { bordered: true, striped: true, compact: true, align: ["left", "right"] },
     ),
 ]);
@@ -69,9 +69,27 @@ The complete native DSL lives under `blocks`: `heading`/`h1`–`h6`, `paragraph`
 Inline rich-text nodes (`bold`, `italic`, `underline`, `strikethrough`, `spoiler`, `code`, `marked`,
 `subscript`, `superscript`, `dateTime`, `textMention`, `customEmoji`, links, mentions, references,
 and formulas) are available from the same namespace and can be nested in block text. Media accepts
-a URL/file id or a complete `InputMedia*` object. Serialization checks Telegram's 10.3 limits
+a URL/file id, an uploaded `Blob`/`File`, or a complete `InputMedia*` object. Upload helpers are
+async; await them before passing a file to a native media helper:
+
+```typescript
+import { MediaUpload } from "gramio";
+import { blocks } from "gramio/rich";
+
+bot.command("upload-cover", async (ctx) => {
+    const cover = await MediaUpload.path("./cover.jpg");
+    return ctx.send(blocks([blocks.photo(cover, { caption: "Cover" })]));
+});
+```
+
+Serialization checks Telegram's 10.3 limits
 (32,768 UTF-8 text bytes, 500 blocks, 16 nesting levels, 50 media attachments, and 20 table
 columns); button rows are limited to 1–8 buttons.
+
+Use a complete `InputMedia*` object when you need media options such as a thumbnail or video cover,
+for example `MediaInput.video(file, { thumbnail, cover })`. Put the visible rich-block caption in
+the helper options; Telegram ignores `caption` nested inside `InputMedia*` for native rich media
+blocks. File extraction also walks nested blockquotes, lists, collages, slideshows, and details.
 
 Helpers escape strings. Do not concatenate untrusted input into raw rich HTML/Markdown.
 
@@ -86,7 +104,7 @@ const report = (
         <document url="https://example.com/report.pdf" caption="Report" />
         <table compact align={["left", "right"]}>
             <tr><th>Package</th><th>Version</th></tr>
-            <tr><td>gramio</td><td>0.14.0</td></tr>
+            <tr><td>gramio</td><td>0.15.0</td></tr>
         </table>
         <button-row align="right">
             <button type="url" url="https://gramio.dev">Open</button>
@@ -99,6 +117,10 @@ const report = (
 ## Uploads are recursive
 
 `@gramio/files` finds `MediaUpload`, `Blob`, `File`, and promised files under `sendRichMessage.rich_message.blocks` and `.media`, including nested document media, thumbnails, and covers.
+
+Inline-result rich content (`InputRichMessageContent`) and `editMessageText` with an
+`inline_message_id` are upload-free Telegram paths: use an existing `file_id`, not a new
+`Blob`/`File` or an explicit media URL.
 
 ```typescript
 import { MediaUpload } from "gramio";

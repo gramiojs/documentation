@@ -251,6 +251,17 @@ GramIO — это семейство пакетов, которые двигаю
 
 ## `@gramio/contexts` {#pkg-gramio-contexts}
 
+### 0.11.0 → 0.12.0 · [changelog](/changelogs/2026-09-10) {#gramio-contexts-0-11-0-0-12-0}
+
+**✨ Новое**
+
+- **Native Rich-маршрутизация** — ctx.send(), ctx.reply() и ctx.editText() принимают брендированные native-значения из gramio/rich и отправляют их через sendRichMessage/editMessageText.
+- **Явная граница draft** — streamRichMessage() принимает только Markdown chunks и выбрасывает ошибку для native structured value вместо тихой потери блоков.
+
+**🔧 Бамп peer/зависимостей (двигать вместе)**
+
+- @gramio/types ^10.3.1
+
 ### 0.10.0 → 0.11.0 · [changelog](/changelogs/2026-08-25) {#gramio-contexts-0-10-0-0-11-0}
 
 **✨ Новое**
@@ -306,6 +317,12 @@ GramIO — это семейство пакетов, которые двигаю
 
 ## `@gramio/files` {#pkg-gramio-files}
 
+### 0.8.0 → 0.8.1 · [changelog](/changelogs/2026-09-10) {#gramio-files-0-8-0-0-8-1}
+
+**🐛 Исправления**
+
+- **Рекурсивные native rich-загрузки** — Multipart-детектор находит Blob, File и MediaUpload, если единственная загрузка находится во вложенном blockquote, list, collage, slideshow, details, thumbnail или cover.
+
 ### 0.7.0 → 0.8.0 · [changelog](/changelogs/2026-08-25) {#gramio-files-0-7-0-0-8-0}
 
 **✨ Новое**
@@ -318,6 +335,17 @@ GramIO — это семейство пакетов, которые двигаю
 - @gramio/types ^10.3.1
 
 ## `@gramio/format` {#pkg-gramio-format}
+
+### 0.11.0 → 0.12.0 · [changelog](/changelogs/2026-09-10) {#gramio-format-0-11-0-0-12-0}
+
+**⚠️ Ломающее**
+
+- **table() стал native** — Используйте markdownTable(), если нужна прежняя Markdown/GFM-строка. Для композиции native-таблиц с другими блоками используйте blocks([...]).
+
+**✨ Новое**
+
+- **Media-хелперы с загрузками** — Native media принимает URL/file ID, Blob/File и полный InputMedia, включая thumbnail и cover.
+- **Native rich-композиция** — Структурированные значения проходят через sendRichMessage без ручной сборки InputRichMessage.
 
 ### 0.10.0 → 0.11.0 · [changelog](/changelogs/2026-08-25) {#gramio-format-0-10-0-0-11-0}
 
@@ -431,6 +459,20 @@ GramIO — это семейство пакетов, которые двигаю
 - **Поддержка Node.js (два рантайма)** — 1.0.0 добавляет node:sqlite (DatabaseSync) рядом с bun:sqlite; нужная реализация выбирается автоматически — без изменений кода. (Адаптер сперва был только под Bun.)
 
 ## `gramio` {#pkg-gramio}
+
+### 0.14.0 → 0.15.0 · [changelog](/changelogs/2026-09-10) {#gramio-0-14-0-0-15-0}
+
+**⚠️ Ломающее**
+
+- **Native Rich DSL экспортируется из gramio/rich** — table() теперь создаёт native-таблицу; Markdown-вызовы замените на markdownTable().
+
+**✨ Новое**
+
+- **Native-значения проходят через контекстные хелперы** — ctx.send(), ctx.reply() и ctx.editText() принимают native structured rich values благодаря обновлённой линейке contexts.
+
+**🔧 Бамп peer/зависимостей (двигать вместе)**
+
+- @gramio/contexts ^0.12.0, @gramio/files ^0.8.1, @gramio/format ^0.12.0
 
 ### 0.13.0 → 0.14.0 · [changelog](/changelogs/2026-08-25) {#gramio-0-13-0-0-14-0}
 

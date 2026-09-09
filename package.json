@@ -4,8 +4,8 @@
 		"@fluent/bundle": "^0.19.1",
 		"@gramio/auto-retry": "^0.0.3",
 		"@gramio/autoload": "^1.1.0",
-		"@gramio/files": "^0.8.0",
-		"@gramio/format": "^0.11.0",
+		"@gramio/files": "^0.8.1",
+		"@gramio/format": "^0.12.0",
 		"@gramio/i18n": "^1.5.0",
 		"@gramio/init-data": "^0.0.5",
 		"@gramio/keyboards": "^1.5.0",
@@ -25,7 +25,7 @@
 		"@types/node": "^25.3.5",
 		"@unocss/preset-icons": "^66.6.5",
 		"elysia": "^1.4.27",
-		"gramio": "^0.14.0",
+		"gramio": "^0.15.0",
 		"grammy": "^1.41.1",
 		"ioredis": "^5.10.0",
 		"jobify": "^0.1.6",
@@ -42,7 +42,7 @@
 	"overrides": {
 		"ioredis": "^5.9.2",
 		"@gramio/types": "^10.3.1",
-		"gramio": "^0.14.0"
+		"gramio": "^0.15.0"
 	},
 	"private": true,
 	"scripts": {

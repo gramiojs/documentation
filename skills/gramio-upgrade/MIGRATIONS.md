@@ -211,6 +211,17 @@
 
 ## `@gramio/contexts`
 
+### 0.11.0 → 0.12.0 · [changelog](/changelogs/2026-09-10)
+
+**🔧 Peer/dep bumps (move together)**
+
+- @gramio/types ^10.3.1
+
+**✨ New** — optional — suggest the ones that fit the project
+
+- **Native Rich routing** — ctx.send(), ctx.reply(), and ctx.editText() accept branded native values from gramio/rich and route them through sendRichMessage/editMessageText.
+- **Explicit draft boundary** — streamRichMessage() accepts Markdown chunks only and throws for a native structured value instead of dropping its blocks.
+
 ### 0.10.0 → 0.11.0 · [changelog](/changelogs/2026-08-25)
 
 **🔧 Peer/dep bumps (move together)**
@@ -267,6 +278,10 @@
 
 ## `@gramio/files`
 
+### 0.8.0 → 0.8.1 · [changelog](/changelogs/2026-09-10)
+
+_Nothing to do — no required changes for this hop._
+
 ### 0.7.0 → 0.8.0 · [changelog](/changelogs/2026-08-25)
 
 **🔧 Peer/dep bumps (move together)**
@@ -279,6 +294,17 @@
 - **Path descriptors without breaking Extractor** — Generated upload metadata adds wildcard path descriptors while preserving the legacy Extractor shape. InputRichBlockDocument uploads are supported; sendRichMessageDraft remains upload-free by Telegram design.
 
 ## `@gramio/format`
+
+### 0.11.0 → 0.12.0 · [changelog](/changelogs/2026-09-10)
+
+**⚠️ Breaking**
+
+- **table() is native** — Use markdownTable() when you need the previous Markdown/GFM string. Use blocks([...]) to compose native tables with other structured blocks.
+
+**✨ New** — optional — suggest the ones that fit the project
+
+- **Upload-friendly media helpers** — Native media accepts URLs/file IDs, Blob/File, and complete InputMedia values, including thumbnail and cover options.
+- **Native rich composition** — Structured values route through sendRichMessage without hand-writing InputRichMessage objects.
 
 ### 0.10.0 → 0.11.0 · [changelog](/changelogs/2026-08-25)
 
@@ -385,6 +411,20 @@
 - **Node.js support (dual runtime)** — 1.0.0 adds node:sqlite (DatabaseSync) alongside Bun's bun:sqlite; the right impl is auto-selected — no code change. (Adapter first landed Bun-only.)
 
 ## `gramio`
+
+### 0.14.0 → 0.15.0 · [changelog](/changelogs/2026-09-10)
+
+**⚠️ Breaking**
+
+- **Native Rich DSL exposed from gramio/rich** — table() now creates a native table; replace Markdown calls with markdownTable().
+
+**🔧 Peer/dep bumps (move together)**
+
+- @gramio/contexts ^0.12.0, @gramio/files ^0.8.1, @gramio/format ^0.12.0
+
+**✨ New** — optional — suggest the ones that fit the project
+
+- **Native values route through context helpers** — ctx.send(), ctx.reply(), and ctx.editText() accept native structured rich values through the updated contexts dependency line.
 
 ### 0.13.0 → 0.14.0 · [changelog](/changelogs/2026-08-25)
 

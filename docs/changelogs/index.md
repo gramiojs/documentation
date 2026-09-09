@@ -15,6 +15,7 @@ Track the latest changes across the GramIO ecosystem. Each entry covers updates 
 
 <!-- New entries are added below this line, newest first -->
 
+- [2026-09-10 — Native Rich DSL ships in GramIO 0.15](/changelogs/2026-09-10)
 - [2026-08-25 — Rich Messages Land, Ephemeral Replies Go Private, and Bot API 10.3 Spans the Stack](/changelogs/2026-08-25)
 - [2026-05-31 — Bot API 10.0 Lands Ecosystem-Wide & Scenes Become Composers](/changelogs/2026-05-31)
 - [2026-05-08 — Bot API 9.6, gramio 0.9, and the New Onboarding Plugin](/changelogs/2026-05-08)

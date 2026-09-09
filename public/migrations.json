@@ -1,6 +1,6 @@
 {
     "version": 1,
-    "generated": "2026-08-25",
+    "generated": "2026-09-10",
     "labels": {
         "breaking": { "en": "Breaking", "ru": "Ломающее" },
         "deprecated": { "en": "Deprecated", "ru": "Устаревшее" },
@@ -13,6 +13,25 @@
             "repo": "gramiojs/gramio",
             "layer": 3,
             "entries": [
+                {
+                    "from": "0.14.0",
+                    "to": "0.15.0",
+                    "date": "2026-09-10",
+                    "changelog": "/changelogs/2026-09-10",
+                    "peerBumps": ["@gramio/contexts ^0.12.0", "@gramio/files ^0.8.1", "@gramio/format ^0.12.0"],
+                    "breaking": [
+                        {
+                            "en": { "title": "Native Rich DSL exposed from gramio/rich", "desc": "table() now creates a native table; replace Markdown calls with markdownTable()." },
+                            "ru": { "title": "Native Rich DSL экспортируется из gramio/rich", "desc": "table() теперь создаёт native-таблицу; Markdown-вызовы замените на markdownTable()." }
+                        }
+                    ],
+                    "new": [
+                        {
+                            "en": { "title": "Native values route through context helpers", "desc": "ctx.send(), ctx.reply(), and ctx.editText() accept native structured rich values through the updated contexts dependency line." },
+                            "ru": { "title": "Native-значения проходят через контекстные хелперы", "desc": "ctx.send(), ctx.reply() и ctx.editText() принимают native structured rich values благодаря обновлённой линейке contexts." }
+                        }
+                    ]
+                },
                 {
                     "from": "0.13.0",
                     "to": "0.14.0",
@@ -299,6 +318,23 @@
             "repo": "gramiojs/contexts",
             "layer": 2,
             "entries": [
+                {
+                    "from": "0.11.0",
+                    "to": "0.12.0",
+                    "date": "2026-09-10",
+                    "changelog": "/changelogs/2026-09-10",
+                    "peerBumps": ["@gramio/types ^10.3.1"],
+                    "new": [
+                        {
+                            "en": { "title": "Native Rich routing", "desc": "ctx.send(), ctx.reply(), and ctx.editText() accept branded native values from gramio/rich and route them through sendRichMessage/editMessageText." },
+                            "ru": { "title": "Native Rich-маршрутизация", "desc": "ctx.send(), ctx.reply() и ctx.editText() принимают брендированные native-значения из gramio/rich и отправляют их через sendRichMessage/editMessageText." }
+                        },
+                        {
+                            "en": { "title": "Explicit draft boundary", "desc": "streamRichMessage() accepts Markdown chunks only and throws for a native structured value instead of dropping its blocks." },
+                            "ru": { "title": "Явная граница draft", "desc": "streamRichMessage() принимает только Markdown chunks и выбрасывает ошибку для native structured value вместо тихой потери блоков." }
+                        }
+                    ]
+                },
                 {
                     "from": "0.10.0",
                     "to": "0.11.0",
@@ -607,6 +643,18 @@
             "layer": 2,
             "entries": [
                 {
+                    "from": "0.8.0",
+                    "to": "0.8.1",
+                    "date": "2026-09-10",
+                    "changelog": "/changelogs/2026-09-10",
+                    "fixes": [
+                        {
+                            "en": { "title": "Recursive native rich uploads", "desc": "Multipart detection finds Blob, File, and MediaUpload values when the only upload is inside a nested blockquote, list, collage, slideshow, details block, thumbnail, or cover." },
+                            "ru": { "title": "Рекурсивные native rich-загрузки", "desc": "Multipart-детектор находит Blob, File и MediaUpload, если единственная загрузка находится во вложенном blockquote, list, collage, slideshow, details, thumbnail или cover." }
+                        }
+                    ]
+                },
+                {
                     "from": "0.7.0",
                     "to": "0.8.0",
                     "date": "2026-08-25",
@@ -629,6 +677,28 @@
             "repo": "gramiojs/format",
             "layer": 2,
             "entries": [
+                {
+                    "from": "0.11.0",
+                    "to": "0.12.0",
+                    "date": "2026-09-10",
+                    "changelog": "/changelogs/2026-09-10",
+                    "breaking": [
+                        {
+                            "en": { "title": "table() is native", "desc": "Use markdownTable() when you need the previous Markdown/GFM string. Use blocks([...]) to compose native tables with other structured blocks." },
+                            "ru": { "title": "table() стал native", "desc": "Используйте markdownTable(), если нужна прежняя Markdown/GFM-строка. Для композиции native-таблиц с другими блоками используйте blocks([...])." }
+                        }
+                    ],
+                    "new": [
+                        {
+                            "en": { "title": "Upload-friendly media helpers", "desc": "Native media accepts URLs/file IDs, Blob/File, and complete InputMedia values, including thumbnail and cover options." },
+                            "ru": { "title": "Media-хелперы с загрузками", "desc": "Native media принимает URL/file ID, Blob/File и полный InputMedia, включая thumbnail и cover." }
+                        },
+                        {
+                            "en": { "title": "Native rich composition", "desc": "Structured values route through sendRichMessage without hand-writing InputRichMessage objects." },
+                            "ru": { "title": "Native rich-композиция", "desc": "Структурированные значения проходят через sendRichMessage без ручной сборки InputRichMessage." }
+                        }
+                    ]
+                },
                 {
                     "from": "0.10.0",
                     "to": "0.11.0",

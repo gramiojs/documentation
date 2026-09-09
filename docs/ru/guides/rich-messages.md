@@ -53,7 +53,7 @@ bot.command("report", (ctx) =>
 			markdownTable(
 				[
 					["Пакет", "Версия"],
-					["gramio", "0.14.0"],
+					["gramio", "0.15.0"],
 				],
 				{ compact: true, align: ["left", "right"] },
 			),
@@ -94,7 +94,7 @@ bot.command("native-report", (ctx) =>
 			table(
 				[
 					["Пакет", "Версия"],
-					["gramio", "0.14.0"],
+					["gramio", "0.15.0"],
 				],
 				{ bordered: true, striped: true, compact: true, align: ["left", "right"] },
 			),
@@ -174,10 +174,29 @@ bot.command("native-report", (ctx) => ctx.send(report));
 
 Полезные алиасы: `blocks.h1`–`blocks.h6`, `blocks.hr`, `blocks.quote`,
 `blocks.expandableQuote`, `blocks.pre`, `blocks.voice` и `blocks.link`. Медиахелперы принимают
-URL/file id или полный объект `InputMedia*`. `blocks.map()` принимает либо локацию
+URL/file id, загруженный `Blob`/`File` или полный объект `InputMedia*`. Функции загрузки
+асинхронные — дождитесь результата перед передачей файла в native media block:
+
+```ts
+import { MediaUpload } from "gramio";
+import { blocks } from "gramio/rich";
+
+bot.command("upload-cover", async (ctx) => {
+	const cover = await MediaUpload.path("./cover.jpg");
+	return ctx.send(blocks([blocks.photo(cover, { caption: "Обложка" })]));
+});
+```
+
+`blocks.map()` принимает либо локацию
 `{ latitude, longitude }`, либо два числа latitude/longitude. `blocks.buttonRow()` проверяет лимит
 Telegram в 1–8 кнопок; native-сериализация также проверяет лимиты Bot API (500 блоков, 50 медиа,
 20 колонок таблицы, 16 уровней вложенности и 32 768 UTF-8 байт текста).
+
+Для thumbnail и cover видео передайте полный объект `InputMedia*` (например,
+`MediaInput.video(file, { thumbnail, cover })`) первым аргументом media-хелпера. Видимый caption
+rich-блока передавайте вторым аргументом хелпера: Telegram игнорирует `caption`, вложенный в
+`InputMedia*` внутри native rich media block. Загрузки рекурсивно извлекаются из blockquote,
+list, collage, slideshow и details.
 
 ### Миграция с `@gramio/format` 0.11
 
@@ -241,6 +260,10 @@ bot.command("upload-report", async (ctx) => {
 ```
 
 Документ можно поместить и напрямую в `rich_message.blocks` как `InputRichBlockDocument`; рекурсивные загрузки там тоже поддерживаются.
+
+Rich-контент inline-результатов (`InputRichMessageContent`) и вызовы `editMessageText` с
+`inline_message_id` могут использовать только уже загруженные `file_id`. Новые `Blob`/`File` и
+явные media URL Telegram в этих API-путях не поддерживает.
 
 ## Потоковый черновик
 

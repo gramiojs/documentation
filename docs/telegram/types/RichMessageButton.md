@@ -22,7 +22,7 @@ This object represents a button in a [RichMessage](https://core.telegram.org/bot
 
 <ApiParam name="text" type="RichText" required description="Text of the button. May contain only plain text, [RichTextCustomEmoji](https://core.telegram.org/bots/api#richtextcustomemoji) and [RichTextDateTime](https://core.telegram.org/bots/api#richtextdatetime) entities." />
 
-<ApiParam name="style" type="String" description="*Optional*. Style of the button. Must be one of &quot;danger&quot; (red), &quot;success&quot; (green), &quot;primary&quot; (blue) or &quot;link&quot; (the button is shown as a regular link without borders). If omitted, then an app-specific style is used. The style &quot;link&quot; is allowed only for callback buttons." :enumValues='["danger","success","primary","link"]' />
+<ApiParam name="style" type="String" description="*Optional*. Style of the button. Must be one of &quot;danger&quot;, &quot;success&quot;, &quot;primary&quot;, or &quot;link&quot; (the button is shown as a regular link without borders). Apps may use theme-specific colors for the button background and text based on the style. The style &quot;link&quot; is allowed only for callback buttons." :enumValues='["danger","success","primary","link"]' />
 
 <ApiParam name="url" type="String" description="*Optional*. HTTP or tg:// URL to be opened when the button is pressed. Links `tg://user?id=&lt;user_id&gt;` can be used to mention a user by their identifier without using a username, if this is allowed by their privacy settings." />
 

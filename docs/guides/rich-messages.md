@@ -53,7 +53,7 @@ bot.command("report", (ctx) =>
 			markdownTable(
 				[
 					["Package", "Version"],
-					["gramio", "0.14.0"],
+					["gramio", "0.15.0"],
 				],
 				{ compact: true, align: ["left", "right"] },
 			),
@@ -94,7 +94,7 @@ bot.command("native-report", (ctx) =>
 			table(
 				[
 					["Package", "Version"],
-					["gramio", "0.14.0"],
+					["gramio", "0.15.0"],
 				],
 				{ bordered: true, striped: true, compact: true, align: ["left", "right"] },
 			),
@@ -173,10 +173,29 @@ bot.command("native-report", (ctx) => ctx.send(report));
 
 Useful aliases include `blocks.h1`–`blocks.h6`, `blocks.hr`, `blocks.quote`,
 `blocks.expandableQuote`, `blocks.pre`, `blocks.voice`, and `blocks.link`. Media helpers accept a
-URL/file id or a complete `InputMedia*` object. `blocks.map()` accepts either a
+URL/file id, an uploaded `Blob`/`File`, or a complete `InputMedia*` object. Upload helpers are
+asynchronous, so await them before passing the file to a native media block:
+
+```ts
+import { MediaUpload } from "gramio";
+import { blocks } from "gramio/rich";
+
+bot.command("upload-cover", async (ctx) => {
+	const cover = await MediaUpload.path("./cover.jpg");
+	return ctx.send(blocks([blocks.photo(cover, { caption: "Cover" })]));
+});
+```
+
+`blocks.map()` accepts either a
 `{ latitude, longitude }` location or latitude/longitude numbers. `blocks.buttonRow()` checks
 Telegram's 1–8 button limit; native serialization also checks the Bot API limits (500 blocks,
 50 media attachments, 20 table columns, 16 nesting levels, and 32,768 UTF-8 text bytes).
+
+For thumbnails and video covers, pass a complete `InputMedia*` object (for example,
+`MediaInput.video(file, { thumbnail, cover })`) as the media argument. Put the visible rich-block
+caption in the helper's second argument; Telegram ignores `caption` nested inside `InputMedia*` in
+a native rich media block. Uploads are extracted recursively from blockquotes, lists, collages,
+slideshows, and details.
 
 ### Migration from `@gramio/format` 0.11
 
@@ -240,6 +259,10 @@ bot.command("upload-report", async (ctx) => {
 ```
 
 You can also put a document directly in `rich_message.blocks` with an `InputRichBlockDocument`; recursive uploads are supported there too.
+
+Inline-result rich content (`InputRichMessageContent`) and `editMessageText` calls that target an
+`inline_message_id` can use only already uploaded `file_id` values. New `Blob`/`File` uploads and
+explicit media URLs are not supported by Telegram in those API paths.
 
 ## Stream a draft
 

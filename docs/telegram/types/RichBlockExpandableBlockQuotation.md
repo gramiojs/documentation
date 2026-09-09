@@ -16,7 +16,7 @@ head:
   <a class="api-badge official" href="https://core.telegram.org/bots/api#richblockexpandableblockquotation" target="_blank" rel="noopener">Official docs ↗</a>
 </div>
 
-A block quotation, corresponding to the HTML tag `<blockquote>` with custom attribute `"collapsed"`.
+A block quotation, corresponding to the HTML tag `<blockquote>` with custom attribute `"expandable"`.
 
 ## Fields
 

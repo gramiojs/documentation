@@ -184,7 +184,7 @@ const bot = new Bot(process.env.BOT_TOKEN as string)
 
 **[Rich Messages Land, Ephemeral Replies Go Private, and Bot API 10.3 Spans the Stack](/changelogs/2026-08-25)** — May 31 – August 25, 2026
 
-Telegram **Bot API 10.1–10.3** now runs through the whole GramIO stack: private ephemeral replies, structured Rich Messages, recursive uploads, stoppable drafts, Community and subscription contexts, disabled buttons, force reply, rich JSX, and realistic testing utilities. The release train targets **gramio v0.14** after the corrected `@gramio/types` 10.3.1 declaration set reaches npm and JSR.
+Telegram **Bot API 10.1–10.3** now runs through the whole GramIO stack: private ephemeral replies, structured Rich Messages, recursive uploads, stoppable drafts, Community and subscription contexts, disabled buttons, force reply, rich JSX, and realistic testing utilities. The latest Rich Messages train is published as **gramio v0.15**, with native table/blocks DSL, reliable media uploads, and matching contexts.
 
 [All changelogs →](/changelogs/)
 

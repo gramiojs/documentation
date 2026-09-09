@@ -11,8 +11,8 @@
         "@fluent/bundle": "^0.19.1",
         "@gramio/auto-retry": "^0.0.3",
         "@gramio/autoload": "^1.1.0",
-        "@gramio/files": "^0.8.0",
-        "@gramio/format": "^0.11.0",
+        "@gramio/files": "^0.8.1",
+        "@gramio/format": "^0.12.0",
         "@gramio/i18n": "^1.5.0",
         "@gramio/init-data": "^0.0.5",
         "@gramio/keyboards": "^1.5.0",
@@ -32,7 +32,7 @@
         "@types/node": "^25.3.5",
         "@unocss/preset-icons": "^66.6.5",
         "elysia": "^1.4.27",
-        "gramio": "^0.14.0",
+        "gramio": "^0.15.0",
         "grammy": "^1.41.1",
         "ioredis": "^5.10.0",
         "jobify": "^0.1.6",
@@ -53,7 +53,7 @@
   ],
   "overrides": {
     "@gramio/types": "^10.3.1",
-    "gramio": "^0.14.0",
+    "gramio": "^0.15.0",
     "ioredis": "^5.9.2",
   },
   "packages": {
@@ -201,9 +201,9 @@
 
     "@gramio/contexts": ["@gramio/contexts@0.11.0", "", { "peerDependencies": { "@gramio/types": "^10.3.1", "inspectable": "^3.0.1" } }, "sha512-+y22+7qhfZimykT2VMGBIEkgQGe5VU1bVbny5U1Frit92oTrioq10VFOntg36yjvC3w0o2MyR3qL9qbmqHm1yA=="],
 
-    "@gramio/files": ["@gramio/files@0.8.0", "", { "dependencies": { "@gramio/types": "^10.3.1" } }, "sha512-X4wiknligRoP/KA38cNw5lmqQ8qZSCn1ctSVB5gekNUIQvHJ/zbztB7aPyM+TU7zvRSnB26HxLpTsGNL84NeFw=="],
+    "@gramio/files": ["@gramio/files@0.8.1", "", { "dependencies": { "@gramio/types": "^10.3.1" } }, "sha512-9VMvJdP1v6mB9NZt1hlRZBvy2ZoMFQay5/RqJOZNn8SuZX9ChrqUCbXXOKPgB/bTFdZAnCsuxeQNiBBgPzJ48g=="],
 
-    "@gramio/format": ["@gramio/format@0.11.0", "", { "dependencies": { "@gramio/types": "^10.3.1" }, "peerDependencies": { "marked": "^15.0.11", "node-html-parser": ">=6.0.0" }, "optionalPeers": ["marked", "node-html-parser"] }, "sha512-90w6HLypnzTu5FkGueNND++Ei8We5wAnCxMG38o9E5fBot6psNbHTijhSphNWsajLxkRwxX6VxHA1XNx26FSxg=="],
+    "@gramio/format": ["@gramio/format@0.12.0", "", { "dependencies": { "@gramio/types": "^10.3.1" }, "peerDependencies": { "marked": "^15.0.11", "node-html-parser": ">=6.0.0" }, "optionalPeers": ["marked", "node-html-parser"] }, "sha512-qwH+UgPhB05By/gchyRkrA/+mymV+dIpXTXe4UM1L157FkPitQZv0lvLuGIC7EBQfIpLllujUjMhsSkRGhLwVw=="],
 
     "@gramio/i18n": ["@gramio/i18n@1.5.0", "", { "peerDependencies": { "@fluent/bundle": "latest", "gramio": ">=0.0.39 <1.0.0" }, "optionalPeers": ["@fluent/bundle"] }, "sha512-zsSRmo+Mp+N0duFyJC0pLzQHY73G1zCMTfHFWE935t1eUFXNyVvJd9kqnEoAFh0cMG5waurbuB0bbP8NGMbsAQ=="],
 
@@ -655,7 +655,7 @@
 
     "get-caller-file": ["get-caller-file@2.0.5", "", {}, "sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg=="],
 
-    "gramio": ["gramio@0.14.0", "", { "dependencies": { "@gramio/callback-data": "^0.2.0", "@gramio/composer": "^0.5.0", "@gramio/contexts": "^0.11.0", "@gramio/files": "^0.8.0", "@gramio/format": "^0.11.0", "@gramio/keyboards": "^1.5.0", "@gramio/types": "^10.3.1", "debug": "^4.4.3" } }, "sha512-eEdThOLvAFCjSy7RtNkalld+/XCsybx1KlkbGnfYvX3xYXFcaCgrk71qozkMVGeAYv9PsK2q9/caDhh9HhtrmQ=="],
+    "gramio": ["gramio@0.15.0", "", { "dependencies": { "@gramio/callback-data": "^0.2.0", "@gramio/composer": "^0.5.0", "@gramio/contexts": "^0.12.0", "@gramio/files": "^0.8.1", "@gramio/format": "^0.12.0", "@gramio/keyboards": "^1.5.0", "@gramio/types": "^10.3.1", "debug": "^4.4.3" } }, "sha512-e/dB7hNxGbArVYG3zkQH/+N+UGIcAgEyb4BPxP8Rhu8BTdkoIsKPMzff/t5Okb/TrjWTDKs+lLCG+kweioWKBA=="],
 
     "grammy": ["grammy@1.42.0", "", { "dependencies": { "@grammyjs/types": "3.26.0", "abort-controller": "^3.0.0", "debug": "^4.4.3", "node-fetch": "^2.7.0" } }, "sha512-1AdCge+AkjSdp2FwfICSFnVbl8Mq3KVHJDy+DgTI9+D6keJ0zWALPRKas5jv/8psiCzL4N2cEOcGW7O45Kn39g=="],
 
@@ -1088,6 +1088,8 @@
     "@vue/devtools-kit/perfect-debounce": ["perfect-debounce@1.0.0", "", {}, "sha512-xCy9V055GLEqoFaHoC1SoLIaLmWctgCUaBaWxDZ7/Zx4CTyX7cJQLJOok/orfjZAh9kEYpjJa4d0KcJmCbctZA=="],
 
     "gramio/@gramio/composer": ["@gramio/composer@0.5.0", "", {}, "sha512-CP8DxNzDmVl2uO/L2VtjYycLi6jrPkZvTJoN/qVtct2Ms0oUKlKFgnNidH/i2R41HUow2fU0tlcGb1LR4NPHtg=="],
+
+    "gramio/@gramio/contexts": ["@gramio/contexts@0.12.0", "", { "peerDependencies": { "@gramio/types": "^10.3.1", "inspectable": "^3.0.1" } }, "sha512-CKk/85sq6vMjbZ7iDILg5HkRu77CW6QZUtN4tDrKH71VgTS9Jjax5g+PWDlr/bNnOERicWTCZzLLq1t/ZxbtjQ=="],
 
     "htmlparser2/entities": ["entities@7.0.1", "", {}, "sha512-TWrgLOFUQTH994YUyl1yT4uyavY5nNB5muff+RtWaqNVCAK408b5ZnnbNAUEWLTCpum9w6arT70i1XdQ4UeOPA=="],
 
