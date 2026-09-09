@@ -13,11 +13,12 @@ head:
 
 # Rich Messages
 
-Rich Messages add block layouts beyond regular `text` plus `MessageEntity[]`: headings, lists, documents, button rows, expandable quotations, tables, media collections, and streaming drafts. GramIO supports three authoring levels:
+Rich Messages add block layouts beyond regular `text` plus `MessageEntity[]`: headings, lists, documents, button rows, expandable quotations, tables, media collections, and streaming drafts. GramIO supports two rich-formatting lanes plus JSX and raw API surfaces:
 
-1. `@gramio/format/rich` helpers for safe composition.
-2. `@gramio/jsx/rich` for rich JSX.
-3. Raw `bot.api.sendRichMessage()` structures for full Bot API control and uploads.
+1. The Markdown lane (`rich`, `markdownTable`) for the rich-markdown dialect.
+2. The native structured lane (`blocks`, `table`) for `InputRichBlock*` objects.
+3. `@gramio/jsx/rich` for rich JSX.
+4. Raw `bot.api.sendRichMessage()` structures for full Bot API control and uploads.
 
 ## Compose a rich message
 
@@ -28,10 +29,10 @@ import {
 	buttonRow,
 	document,
 	heading,
+	markdownTable,
 	paragraph,
 	quote,
 	rich,
-	table,
 } from "gramio/rich";
 
 const bot = new Bot(process.env.BOT_TOKEN as string);
@@ -49,7 +50,7 @@ bot.command("report", (ctx) =>
 				url: "https://example.com/report.pdf",
 				caption: "Full report",
 			}),
-			table(
+			markdownTable(
 				[
 					["Package", "Version"],
 					["gramio", "0.14.0"],
@@ -73,6 +74,60 @@ bot.command("report", (ctx) =>
 ```
 
 The helpers escape user-controlled strings. Do not concatenate raw rich Markdown/HTML around untrusted input.
+
+## Native structured tables
+
+Use `table()` when the message should contain Telegram's native `InputRichBlockTable`. It can be sent directly, or composed with other structured blocks through `blocks([...])`. The first row is a header by default; `align` and `valign` default to `left` and `top`, so the required Telegram cell fields are filled automatically.
+
+```ts twoslash
+import { Bot } from "gramio";
+import { blocks, table } from "gramio/rich";
+
+const bot = new Bot(process.env.BOT_TOKEN as string);
+
+bot.command("native-report", (ctx) =>
+	ctx.send(
+		blocks([
+			blocks.heading(1, "Release report"),
+			table(
+				[
+					["Package", "Version"],
+					["gramio", "0.14.0"],
+				],
+				{ bordered: true, striped: true, compact: true, align: ["left", "right"] },
+			),
+		]),
+	),
+);
+```
+
+For spans or per-cell formatting, use `cell()`. When a cell spans rows, omit the covered cells in
+the following rows; alignment is calculated against the resulting logical column:
+
+```ts
+import { blocks, table } from "gramio/rich";
+
+const summary = table({
+	rows: [
+		[
+			blocks.cell("Package", { header: true }),
+			blocks.cell("Version", { header: true, align: "right" }),
+		],
+		[blocks.cell("Total", { colSpan: 2, align: "center" })],
+	],
+	caption: "Release summary",
+});
+```
+
+`markdownTable()` remains available when Markdown output is intentional, especially when composing a legacy `rich([...])` message. Do not interpolate a native block into `rich` — Markdown and structured rich messages are separate send formats.
+`streamRichMessage()` is Markdown-chunk based; send native blocks with `ctx.send()` or
+`ctx.sendRichMessage()` instead.
+
+### Migration from `@gramio/format` 0.11
+
+This release intentionally changes the meaning of `table()`: it now creates a native Telegram
+table. Code that used the old Markdown serializer must rename the call to `markdownTable()`.
+This is a breaking release (`@gramio/format` 0.12 and `gramio` 0.15).
 
 ## Rich JSX
 

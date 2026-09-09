@@ -13,11 +13,12 @@ head:
 
 # Rich Messages
 
-Rich Messages добавляют блочную разметку поверх обычных `text` и `MessageEntity[]`: заголовки, списки, документы, ряды кнопок, раскрываемые цитаты, таблицы, медиаколлекции и потоковые черновики. GramIO предоставляет три уровня:
+Rich Messages добавляют блочную разметку поверх обычных `text` и `MessageEntity[]`: заголовки, списки, документы, ряды кнопок, раскрываемые цитаты, таблицы, медиаколлекции и потоковые черновики. В GramIO есть два rich-формата, а также поверхности JSX и raw API:
 
-1. Хелперы `@gramio/format/rich` для безопасной композиции.
-2. `@gramio/jsx/rich` для rich JSX.
-3. Сырые структуры `bot.api.sendRichMessage()` для полного контроля и загрузок.
+1. Markdown-путь (`rich`, `markdownTable`) для rich-markdown диалекта.
+2. Native structured-путь (`blocks`, `table`) для объектов `InputRichBlock*`.
+3. `@gramio/jsx/rich` для rich JSX.
+4. Сырые структуры `bot.api.sendRichMessage()` для полного контроля и загрузок.
 
 ## Сборка rich-сообщения
 
@@ -28,10 +29,10 @@ import {
 	buttonRow,
 	document,
 	heading,
+	markdownTable,
 	paragraph,
 	quote,
 	rich,
-	table,
 } from "gramio/rich";
 
 const bot = new Bot(process.env.BOT_TOKEN as string);
@@ -49,7 +50,7 @@ bot.command("report", (ctx) =>
 				url: "https://example.com/report.pdf",
 				caption: "Полный отчёт",
 			}),
-			table(
+			markdownTable(
 				[
 					["Пакет", "Версия"],
 					["gramio", "0.14.0"],
@@ -73,6 +74,61 @@ bot.command("report", (ctx) =>
 ```
 
 Хелперы экранируют пользовательские строки. Не собирайте raw rich Markdown/HTML конкатенацией вокруг недоверенных данных.
+
+## Native structured-таблицы
+
+Используйте `table()`, если сообщению нужна настоящая Telegram-таблица `InputRichBlockTable`. Её можно отправить напрямую или собрать вместе с другими structured-блоками через `blocks([...])`. Первый ряд по умолчанию считается заголовком; `align` и `valign` автоматически получают значения `left` и `top`, поэтому обязательные поля Telegram для ячеек заполняются сами.
+
+```ts twoslash
+import { Bot } from "gramio";
+import { blocks, table } from "gramio/rich";
+
+const bot = new Bot(process.env.BOT_TOKEN as string);
+
+bot.command("native-report", (ctx) =>
+	ctx.send(
+		blocks([
+			blocks.heading(1, "Отчёт о релизе"),
+			table(
+				[
+					["Пакет", "Версия"],
+					["gramio", "0.14.0"],
+				],
+				{ bordered: true, striped: true, compact: true, align: ["left", "right"] },
+			),
+		]),
+	),
+);
+```
+
+Для spans и форматирования отдельных ячеек используйте `cell()`. Если ячейка занимает несколько
+рядов, в следующих рядах пропускайте занятые ею ячейки — выравнивание рассчитывается по логической
+колонке:
+
+```ts
+import { blocks, table } from "gramio/rich";
+
+const summary = table({
+	rows: [
+		[
+			blocks.cell("Пакет", { header: true }),
+			blocks.cell("Версия", { header: true, align: "right" }),
+		],
+		[blocks.cell("Всего", { colSpan: 2, align: "center" })],
+	],
+	caption: "Сводка релиза",
+});
+```
+
+`markdownTable()` остаётся доступной, когда нужен именно Markdown, особенно при композиции старого сообщения `rich([...])`. Native block нельзя интерполировать в `rich`: это разные форматы отправки rich-сообщений.
+`streamRichMessage()` работает с Markdown-чанками; native-блоки отправляйте через `ctx.send()` или
+`ctx.sendRichMessage()`.
+
+### Миграция с `@gramio/format` 0.11
+
+В этом релизе смысл `table()` намеренно изменён: теперь функция создаёт native-таблицу Telegram.
+Код, который использовал старый Markdown-сериализатор, нужно заменить на `markdownTable()`.
+Это breaking release (`@gramio/format` 0.12 и `gramio` 0.15).
 
 ## Rich JSX
 
