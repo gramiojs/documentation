@@ -53,7 +53,7 @@ bot.command("report", (ctx) =>
 			markdownTable(
 				[
 					["Package", "Version"],
-					["gramio", "0.15.0"],
+					["gramio", "0.15.1"],
 				],
 				{ compact: true, align: ["left", "right"] },
 			),
@@ -94,7 +94,7 @@ bot.command("native-report", (ctx) =>
 			table(
 				[
 					["Package", "Version"],
-					["gramio", "0.15.0"],
+					["gramio", "0.15.1"],
 				],
 				{ bordered: true, striped: true, compact: true, align: ["left", "right"] },
 			),

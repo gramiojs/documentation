@@ -295,6 +295,10 @@ _Nothing to do — no required changes for this hop._
 
 ## `@gramio/format`
 
+### 0.12.0 → 0.12.1 · [changelog](/changelogs/2026-09-10)
+
+_Nothing to do — no required changes for this hop._
+
 ### 0.11.0 → 0.12.0 · [changelog](/changelogs/2026-09-10)
 
 **⚠️ Breaking**
@@ -411,6 +415,12 @@ _Nothing to do — no required changes for this hop._
 - **Node.js support (dual runtime)** — 1.0.0 adds node:sqlite (DatabaseSync) alongside Bun's bun:sqlite; the right impl is auto-selected — no code change. (Adapter first landed Bun-only.)
 
 ## `gramio`
+
+### 0.15.0 → 0.15.1 · [changelog](/changelogs/2026-09-10)
+
+**🔧 Peer/dep bumps (move together)**
+
+- @gramio/format ^0.12.1
 
 ### 0.14.0 → 0.15.0 · [changelog](/changelogs/2026-09-10)
 

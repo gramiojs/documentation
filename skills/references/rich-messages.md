@@ -28,7 +28,7 @@ const report = rich([
     quote("Expandable details", { expandable: true, credit: "Build bot" }),
     document({ url: "https://example.com/report.pdf", caption: "Report" }),
     markdownTable(
-        [["Package", "Version"], ["gramio", "0.15.0"]],
+        [["Package", "Version"], ["gramio", "0.15.1"]],
         { compact: true, align: ["left", "right"] },
     ),
     buttonRow([
@@ -49,7 +49,7 @@ import { blocks, table } from "gramio/rich";
 const report = blocks([
     blocks.heading(1, "Release report"),
     table(
-        [["Package", "Version"], ["gramio", "0.15.0"]],
+        [["Package", "Version"], ["gramio", "0.15.1"]],
         { bordered: true, striped: true, compact: true, align: ["left", "right"] },
     ),
 ]);
@@ -104,7 +104,7 @@ const report = (
         <document url="https://example.com/report.pdf" caption="Report" />
         <table compact align={["left", "right"]}>
             <tr><th>Package</th><th>Version</th></tr>
-            <tr><td>gramio</td><td>0.15.0</td></tr>
+            <tr><td>gramio</td><td>0.15.1</td></tr>
         </table>
         <button-row align="right">
             <button type="url" url="https://gramio.dev">Open</button>

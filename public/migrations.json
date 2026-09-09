@@ -14,6 +14,19 @@
             "layer": 3,
             "entries": [
                 {
+                    "from": "0.15.0",
+                    "to": "0.15.1",
+                    "date": "2026-09-10",
+                    "changelog": "/changelogs/2026-09-10",
+                    "peerBumps": ["@gramio/format ^0.12.1"],
+                    "fixes": [
+                        {
+                            "en": { "title": "Require the fixed native media path", "desc": "gramio now requires @gramio/format ^0.12.1 so direct Blob/File media helpers are wrapped as InputMedia objects before multipart extraction." },
+                            "ru": { "title": "Подключена исправленная native media-ветка", "desc": "gramio теперь требует @gramio/format ^0.12.1, чтобы прямые Blob/File media-хелперы превращались в InputMedia до multipart-извлечения." }
+                        }
+                    ]
+                },
+                {
                     "from": "0.14.0",
                     "to": "0.15.0",
                     "date": "2026-09-10",
@@ -677,6 +690,18 @@
             "repo": "gramiojs/format",
             "layer": 2,
             "entries": [
+                {
+                    "from": "0.12.0",
+                    "to": "0.12.1",
+                    "date": "2026-09-10",
+                    "changelog": "/changelogs/2026-09-10",
+                    "fixes": [
+                        {
+                            "en": { "title": "Wrap direct Blob/File media uploads", "desc": "Native media helpers now distinguish Blob/File MIME types from complete InputMedia objects, so direct uploads serialize correctly." },
+                            "ru": { "title": "Прямые Blob/File медиа оборачиваются правильно", "desc": "Native media-хелперы отличают MIME-поле Blob/File от полного InputMedia, поэтому прямые загрузки сериализуются корректно." }
+                        }
+                    ]
+                },
                 {
                     "from": "0.11.0",
                     "to": "0.12.0",

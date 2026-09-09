@@ -15,7 +15,7 @@
                     "Native blocks compose through blocks() and media helpers accept Blob/File uploads and complete InputMedia objects",
                     "@gramio/contexts 0.12 routes native values through sendRichMessage and rejects native blocks in Markdown-only streams",
                     "@gramio/files 0.8.1 detects uploads at every recursive Rich Messages depth, including thumbnails and covers",
-                    "gramio 0.15 exposes the complete native DSL through gramio/rich"
+                    "gramio 0.15.1 exposes the complete native DSL through gramio/rich and requires the fixed format 0.12.1 media path"
                 ]
             },
             "ru": {
@@ -25,7 +25,7 @@
                     "Native-блоки собираются через blocks(), а media-хелперы принимают Blob/File и полные InputMedia",
                     "@gramio/contexts 0.12 отправляет native-значения через sendRichMessage и отклоняет их в Markdown-only stream",
                     "@gramio/files 0.8.1 находит загрузки на любой глубине Rich Messages, включая thumbnail и cover",
-                    "gramio 0.15 экспортирует полный native DSL через gramio/rich"
+                    "gramio 0.15.1 экспортирует полный native DSL через gramio/rich и требует исправленный media path format 0.12.1"
                 ]
             },
             "packages": [

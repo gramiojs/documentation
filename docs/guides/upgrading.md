@@ -336,6 +336,12 @@ Everything below is generated from the same data the picker and the CLI use, ord
 
 ## `@gramio/format` {#pkg-gramio-format}
 
+### 0.12.0 → 0.12.1 · [changelog](/changelogs/2026-09-10) {#gramio-format-0-12-0-0-12-1}
+
+**🐛 Fixes**
+
+- **Wrap direct Blob/File media uploads** — Native media helpers now distinguish Blob/File MIME types from complete InputMedia objects, so direct uploads serialize correctly.
+
 ### 0.11.0 → 0.12.0 · [changelog](/changelogs/2026-09-10) {#gramio-format-0-11-0-0-12-0}
 
 **⚠️ Breaking**
@@ -459,6 +465,16 @@ Everything below is generated from the same data the picker and the CLI use, ord
 - **Node.js support (dual runtime)** — 1.0.0 adds node:sqlite (DatabaseSync) alongside Bun's bun:sqlite; the right impl is auto-selected — no code change. (Adapter first landed Bun-only.)
 
 ## `gramio` {#pkg-gramio}
+
+### 0.15.0 → 0.15.1 · [changelog](/changelogs/2026-09-10) {#gramio-0-15-0-0-15-1}
+
+**🐛 Fixes**
+
+- **Require the fixed native media path** — gramio now requires @gramio/format ^0.12.1 so direct Blob/File media helpers are wrapped as InputMedia objects before multipart extraction.
+
+**🔧 Peer/dep bumps (move together)**
+
+- @gramio/format ^0.12.1
 
 ### 0.14.0 → 0.15.0 · [changelog](/changelogs/2026-09-10) {#gramio-0-14-0-0-15-0}
 
