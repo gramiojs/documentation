@@ -4,7 +4,7 @@ description: "Invoke for ANY Telegram bot code — `gramio`/`@gramio/*` imports,
 allowed-tools: Bash(node *tools/get-bot-api-method.mjs*), Bash(node *tools/get-bot-api-type.mjs*), Bash(node *tools/get-context-getter.mjs*), Bash(node *tools/get-plugin.mjs*)
 metadata:
   author: GramIO
-  version: "1.12.0"
+  version: "1.12.1"
   source: https://github.com/gramiojs/documentation
 ---
 
@@ -29,6 +29,17 @@ GramIO is a modern, type-safe Telegram Bot API framework for TypeScript. It runs
 - Using standalone `@gramio/types` for custom Bot API wrappers
 - Writing and publishing custom plugins
 - Migrating bots from puregram, grammY, Telegraf, or node-telegram-bot-api to GramIO
+
+## GramIO documentation: package installation
+
+When creating or editing installation instructions on the GramIO VitePress site (`docs/` and `docs/ru/`), **always use `::: pm-add` for package installation**, for every package, including Wrappergram and optional dependencies:
+
+```md
+::: pm-add wrappergram
+:::
+```
+
+Preserve existing `pm-add` blocks. Never replace them with manual npm/yarn/pnpm/bun `code-group` blocks or individual install commands: the site's package-manager plugin generates those automatically. Apply the same convention in English and Russian. This rule is specific to the documentation site; GitHub README files, terminal commands and Dockerfiles use ordinary shell syntax.
 
 ## Quick Start
 

@@ -58,31 +58,16 @@ When adding a new `skills/examples/*.ts`, also add `tests/examples/<name>.test.t
 - **Never delete `// ^?`** — these markers generate inline type hover annotations.
 - Twoslash annotations must be preserved exactly during translation.
 
-### Package Manager Groups
+### Package Installation
 
-Installation examples must use VitePress code groups with all four package managers:
+For **all** package-installation examples on the VitePress site (`docs/` and `docs/ru/`), always use the package-manager plugin's `pm-add` container:
 
 ```md
-::: code-group
-
-\`\`\`bash [npm]
-npm install @gramio/package-name
-\`\`\`
-
-\`\`\`bash [yarn]
-yarn add @gramio/package-name
-\`\`\`
-
-\`\`\`bash [pnpm]
-pnpm add @gramio/package-name
-\`\`\`
-
-\`\`\`bash [bun]
-bun install @gramio/package-name
-\`\`\`
-
+::: pm-add wrappergram
 :::
 ```
+
+Replace `wrappergram` with the relevant package name(s). The plugin generates the package-manager commands automatically. Preserve existing `pm-add` blocks; never expand or replace them with manual `code-group` blocks or individual installation commands. Use this convention for optional dependencies too, in both languages. GitHub README files, terminal commands and Dockerfiles use ordinary shell syntax.
 
 ### Runnable Examples
 
@@ -127,7 +112,7 @@ Official plugin pages follow this structure:
 2. **H1 heading** — plugin name
 3. **Badges** — npm, JSR, JSR score in a `<div class="badges">` wrapper
 4. **Short description** paragraph
-5. **Installation** — `::: code-group` with npm/yarn/pnpm/bun
+5. **Installation** — `::: pm-add package-name` followed by `:::`
 6. **Usage** — code example with `twoslash` where appropriate
 7. **Configuration / Options** — if applicable
 8. **Additional examples** — advanced usage patterns
