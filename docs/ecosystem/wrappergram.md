@@ -1,28 +1,24 @@
 ---
-title: Wrappergram - Lightweight Telegram Bot API Wrapper for TypeScript
-
+title: Wrappergram v2 - Telegram Bot API Wrapper
 head:
     - - meta
       - name: "description"
-        content: "Wrappergram is a simple, tiny, code-generated Telegram Bot API wrapper for TypeScript. Type-safe, multi-runtime (Node.js, Bun, Deno), with file upload support."
-
+        content: "Wrappergram v2 is a type-safe Telegram Bot API wrapper with middleware, opt-in files and formatting."
     - - meta
       - name: "keywords"
-        content: "Telegram Bot API wrapper, TypeScript Telegram client, lightweight bot API, wrappergram, gramio ecosystem, type-safe Telegram API, Telegram bot Node.js, Telegram bot Bun, Telegram bot Deno, sendMessage API, file upload Telegram, getUpdates long polling"
+        content: "wrappergram v2, gramio, Telegram Bot API, TypeScript, middleware, Node.js, Bun, Deno"
 ---
 
 # Wrappergram
 
 <div class="badges">
 
-[![npm](https://img.shields.io/npm/v/wrappergram?logo=npm&style=flat&labelColor=000&color=3b82f6)](https://www.npmjs.org/package/wrappergram)
-[![npm downloads](https://img.shields.io/npm/dw/wrappergram?logo=npm&style=flat&labelColor=000&color=3b82f6)](https://www.npmjs.org/package/wrappergram)
+[![npm](https://img.shields.io/npm/v/wrappergram)](https://www.npmjs.com/package/wrappergram)
 [![JSR](https://jsr.io/badges/@gramio/wrappergram)](https://jsr.io/@gramio/wrappergram)
-[![JSR Score](https://jsr.io/badges/@gramio/wrappergram/score)](https://jsr.io/@gramio/wrappergram)
 
 </div>
 
-A simple, tiny, **code-generated** Telegram Bot API wrapper for TypeScript. Wrappergram provides a minimal, type-safe layer over the Telegram Bot API with file upload support. It is designed for lightweight use cases — browser, serverless environments, or situations where a full framework like [GramIO](/get-started) is overkill.
+Wrappergram v2 is a tiny, type-safe Telegram Bot API wrapper for Node.js, Bun and Deno. The core sends JSON requests; uploads and formatting are opt-in middleware. For a full bot framework with routing and plugins, use [GramIO](https://gramio.dev).
 
 ## Installation
 
@@ -32,166 +28,224 @@ A simple, tiny, **code-generated** Telegram Bot API wrapper for TypeScript. Wrap
 ## Quick start
 
 ```ts
-import { Telegram, getUpdates } from "wrappergram";
+import { Telegram } from "wrappergram";
 
-const telegram = new Telegram(process.env.BOT_TOKEN as string);
+const token = process.env.BOT_TOKEN;
+if (!token) throw new Error("BOT_TOKEN is required");
 
-for await (const update of getUpdates(telegram)) {
-    if (update.message?.from) {
-        await telegram.api.sendMessage({
-            chat_id: update.message.from.id,
-            text: "Hi! Thanks for the message",
-        });
-    }
+const telegram = new Telegram(token);
+const message = await telegram.api.sendMessage({
+    chat_id: "@gramio_forum",
+    text: "Hello, world!",
+});
+console.log(message.message_id);
+```
+
+Keep bot tokens on a trusted backend, never in browser bundles.
+
+## API results and errors
+
+Methods are available through `telegram.api` and return results directly, not `{ ok, result }`: `sendMessage` returns a message, `getMe` returns a user. Methods without required parameters can be called without arguments.
+
+Failed Telegram responses throw `TelegramError` by default. It exposes `method`, `code`, `message`, `params` and `payload` (Telegram response parameters, such as `retry_after`). Pass `suppress: true` to return `TelegramError | Result` instead:
+
+```ts
+import { Telegram, TelegramError } from "wrappergram";
+
+const telegram = new Telegram("BOT_TOKEN");
+const result = await telegram.api.sendMessage({
+    chat_id: "@gramio_forum",
+    text: "Hello!",
+    suppress: true,
+});
+
+if (result instanceof TelegramError) {
+    console.error(result.method, result.code, result.message);
+} else {
+    console.log(result.message_id);
 }
 ```
 
-## API
+Network failures, aborts and invalid JSON still reject the promise with `suppress: true`. Catch those at your application's boundary. Do not log tokens or complete request parameters.
 
-### `Telegram` class
-
-The main class. Every Telegram Bot API method is available through the type-safe `api` proxy.
+## Fetch options
 
 ```ts
 import { Telegram } from "wrappergram";
 
-const telegram = new Telegram("BOT_TOKEN");
-
-// Methods with no required params
-const me = await telegram.api.getMe();
-
-// Methods with required params
-const response = await telegram.api.sendMessage({
-    chat_id: "@gramio_forum",
-    text: "Hello, world!",
-});
-
-if (!response.ok) console.error("Something went wrong");
-else console.log(`Message id: ${response.result.message_id}`);
-```
-
-The `api` property returns the **raw Telegram API response**:
-
-```ts
-// On success:
-{ ok: true, result: T }
-
-// On failure:
-{ ok: false, error_code: number, description: string }
-```
-
-### Options
-
-```ts
 const telegram = new Telegram("BOT_TOKEN", {
-    // Custom API server (default: "https://api.telegram.org/bot")
-    baseURL: "https://my-custom-server.com/bot",
-
-    // Custom fetch options
-    requestOptions: {
-        headers: { "X-Custom-Header": "value" },
-        signal: AbortSignal.timeout(30000),
-    },
+    baseURL: "https://api.telegram.org/bot",
+    fetchOptions: { headers: { "X-Custom-Header": "value" } },
 });
+
+const me = await telegram.api.getMe(undefined, {
+    signal: AbortSignal.timeout(5000),
+});
+console.log(me.username);
 ```
 
-### `getUpdates` — Long polling
+`baseURL` defaults to `https://api.telegram.org/bot`; the token and method are appended automatically. `fetchOptions` sets global options; the second API-method argument overrides them per request. `method` and `body` are managed internally. Create timeout signals per request: a global signal stays aborted after its deadline.
 
-An async generator for receiving updates via long polling.
+## Middleware
+
+Middleware receives mutable `context` (`method`, `params`, optional `formData`) and `next()`. Return the result of `next()`. You can mutate parameters before the request and handle results or errors afterward.
 
 ```ts
-import { Telegram, getUpdates } from "wrappergram";
+import { Telegram, type Middleware } from "wrappergram";
 
-const telegram = new Telegram(process.env.BOT_TOKEN as string);
+const timing: Middleware = async (context, next) => {
+    const start = performance.now();
+    try {
+        return await next();
+    } finally {
+        console.log(context.method, performance.now() - start);
+    }
+};
 
-for await (const update of getUpdates(telegram)) {
-    console.log(update);
-}
+const telegram = new Telegram("BOT_TOKEN", { middlewares: [timing] });
+await telegram.api.getMe();
 ```
 
-> [!WARNING]
-> Use `getUpdates` only **once** in your code. Calling it multiple times causes duplicate `getUpdates` requests to the Telegram API.
+For `[a, b]`, execution is `a → b → fetch → b → a`. Setting `context.formData` makes the body multipart; remaining parameters go in the query string. Let fetch generate the multipart Content-Type boundary.
 
 ## File uploads
 
-Wrappergram re-exports `MediaUpload` and `MediaInput` from [`@gramio/files`](https://github.com/gramiojs/files) for file handling.
+::: pm-add @gramio/files
+:::
 
-### `MediaUpload`
+File helpers are no longer bundled or re-exported. Import them from `@gramio/files` and register `filesMiddleware`. Await asynchronous helpers such as `MediaUpload.path()` and `MediaUpload.url()`.
 
 ```ts
-import { Telegram, MediaUpload } from "wrappergram";
+import { Telegram } from "wrappergram";
+import { MediaInput, MediaUpload } from "@gramio/files";
+import { filesMiddleware } from "@gramio/files/middleware";
 
-const telegram = new Telegram("BOT_TOKEN");
+const telegram = new Telegram("BOT_TOKEN", {
+    middlewares: [filesMiddleware],
+});
 
-// From local file path
 await telegram.api.sendPhoto({
     chat_id: "@gramio_forum",
-    photo: MediaUpload.path("./cute-cat.png"),
+    photo: await MediaUpload.path("./cute-cat.png"),
 });
 
-// From URL
-await telegram.api.sendPhoto({
-    chat_id: 123456,
-    photo: MediaUpload.url("https://example.com/image.png"),
-});
-
-// From buffer
 await telegram.api.sendDocument({
-    chat_id: 123456,
-    document: MediaUpload.buffer(myBuffer, "data.bin"),
-});
-
-// From text content
-await telegram.api.sendDocument({
-    chat_id: 123456,
+    chat_id: "@gramio_forum",
     document: MediaUpload.text("Hello world", "hello.txt"),
 });
-```
-
-### `MediaInput`
-
-Use `MediaInput` for `sendMediaGroup` and similar methods:
-
-```ts
-import { Telegram, MediaInput, MediaUpload } from "wrappergram";
-
-const telegram = new Telegram("BOT_TOKEN");
 
 await telegram.api.sendMediaGroup({
-    chat_id: 123456,
+    chat_id: "@gramio_forum",
     media: [
-        MediaInput.document(
-            MediaUpload.url("https://example.com/file.pdf")
-        ),
-        MediaInput.document(MediaUpload.path("./package.json")),
+        MediaInput.document(await MediaUpload.path("./report.pdf")),
+        MediaInput.document(MediaUpload.text("Summary", "summary.txt")),
     ],
 });
 ```
 
+With the middleware you can also pass `File`, `Blob` or `Bun.file()`. Telegram file IDs and URL strings need no middleware. See [Files](https://gramio.dev/files/overview).
+
+## Formatting
+
+::: pm-add @gramio/format
+:::
+
+When using both, register `formatMiddleware` before `filesMiddleware` so captions are converted before multipart serialization:
+
+```ts
+import { Telegram } from "wrappergram";
+import { bold, format } from "@gramio/format";
+import { formatMiddleware } from "@gramio/format/middleware";
+import { filesMiddleware } from "@gramio/files/middleware";
+
+const telegram = new Telegram("BOT_TOKEN", {
+    middlewares: [formatMiddleware, filesMiddleware],
+});
+
+await telegram.api.sendMessage({
+    chat_id: "@gramio_forum",
+    text: format`Hello, ${bold("world")}!`,
+});
+```
+
+Pass formatted values directly, without `.toString()` or `parse_mode`. Omit the files import and middleware if you only need formatting. See [Formatting](https://gramio.dev/formatting).
+
 ## Keyboards
 
-For inline and reply keyboards, install [`@gramio/keyboards`](https://github.com/gramiojs/keyboards):
+::: pm-add @gramio/keyboards
+:::
 
 ```ts
 import { Telegram } from "wrappergram";
 import { InlineKeyboard } from "@gramio/keyboards";
 
 const telegram = new Telegram("BOT_TOKEN");
-
 await telegram.api.sendMessage({
     chat_id: "@gramio_forum",
-    text: "Hello!",
+    text: "Source code",
     reply_markup: new InlineKeyboard().url(
         "GitHub",
-        "https://github.com/gramiojs/wrappergram"
+        "https://github.com/gramiojs/wrappergram",
     ),
 });
 ```
 
-## Types
+Keyboard builders need no additional middleware.
 
-Wrappergram re-exports **all** Telegram Bot API types from [`@gramio/types`](https://github.com/gramiojs/types):
+## Polling
 
 ```ts
-import type { TelegramMessage, TelegramUpdate } from "wrappergram";
+import { Telegram, getUpdates } from "wrappergram";
+
+const telegram = new Telegram("BOT_TOKEN");
+
+for await (const update of getUpdates(telegram)) {
+    if (update.message?.text) {
+        await telegram.api.sendMessage({
+            chat_id: update.message.chat.id,
+            text: "Thanks for the message!",
+        });
+    }
+}
 ```
+
+Use one iterator per bot token. The helper tracks offsets in memory, skips Telegram API errors and propagates transport errors. It has no timeout, backoff or cancellation options. For controlled long polling, call `telegram.api.getUpdates({ offset, timeout: 30 }, { signal })` and manage offsets/retries yourself.
+
+## Rate-limit retries
+
+```ts
+import { Telegram, withRetries } from "wrappergram";
+
+const telegram = new Telegram("BOT_TOKEN");
+const message = await withRetries(() =>
+    telegram.api.sendMessage({ chat_id: "@gramio_forum", text: "Hello!" }),
+);
+console.log(message.message_id);
+```
+
+`withRetries` waits for `retry_after` (seconds) and retries thrown or suppressed `TelegramError` values. Other errors propagate. There is no retry limit or cancellation option. This is not a general network retry policy.
+
+## Types
+
+All Telegram Bot API types are re-exported from `@gramio/types` (`^10.3.1` in v2.0.0), alongside middleware and request-option types.
+
+```ts
+import type {
+    TelegramMessage,
+    TelegramUpdate,
+    Middleware,
+    MiddlewareContext,
+    RequestOptions,
+} from "wrappergram";
+```
+
+## Migration from v1
+
+- Use results directly: `response.result.message_id` → `message.message_id`.
+- Replace `response.ok` checks with `try/catch` or `suppress: true` + `instanceof TelegramError`.
+- Rename `requestOptions` to `fetchOptions`.
+- Import file helpers from `@gramio/files` and register `filesMiddleware`.
+- Register `formatMiddleware` for `@gramio/format` values.
+- The class remains `Telegram`: `new Telegram(token, options)`.
+
+[Migration guide](https://gramio.dev/guides/upgrading#wrappergram-1-3-0-2-0-0).
